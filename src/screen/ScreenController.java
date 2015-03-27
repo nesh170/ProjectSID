@@ -73,5 +73,11 @@ public class ScreenController implements MainMenuScreenController,
 		
 	}
 
+	@Override
+	public void loadGame(String gameFile) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
