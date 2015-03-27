@@ -29,7 +29,7 @@ public interface Sprite {
 	/**
 	 * 
 	 */
-	public void addBehavior(BehaviorExample behaviorToAdd);
+	public void addBehavior(Behavior behaviorToAdd);
 	
 	/**
 	 * gets Behavior attached to this sprite

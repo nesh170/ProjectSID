@@ -6,6 +6,6 @@ public interface MainMenuScreenController {
 	
 	void loadGame();
 	
-	void loadGameEditScreen();
+	void loadGameEditScreen(String recentGameName);
 	
 }

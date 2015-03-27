@@ -62,7 +62,7 @@ public class ScreenController implements MainMenuScreenController,
 	}
 
 	@Override
-	public void loadGameEditScreen() {
+	public void loadGameEditScreen(String recentGameName) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -72,5 +72,6 @@ public class ScreenController implements MainMenuScreenController,
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }
