@@ -1,0 +1,41 @@
+
+<Game>
+	<Level>
+		<Name>
+			Level 0
+		</Name>
+		<Sprites>
+			<Name>
+				Player
+			</Name>
+			<Properties>
+				<Location>
+					<x>40</x>
+					<y>50</y>
+				</Location>
+				<Behaviors>
+					Fireable, Collideable
+				</Behaviors>
+			</Properties>
+		</Sprites>
+	</Level>
+	<Level>
+		<Name>
+			Level 1
+		</Name>
+		<Sprites>
+			<Name>
+				Enemy
+			</Name>
+			<Properties>
+				<Location>
+					<x>60</x>
+					<y>90</y>
+				</Location>
+				<Behaviors>
+					Movable
+				</Behaviors>
+			</Properties>
+		</Sprites>
+	</Level>
+</Game>

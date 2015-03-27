@@ -1,6 +1,12 @@
 package usecases;
 
+import gameEngine.AttackBehavior;
+import gameEngine.Behavior;
+import gameEngine.JumpBehavior;
+import gameEngine.Sprite;
+import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
+import screen.mainMenu.MainMenuScreenController;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -26,8 +32,9 @@ public class ExampleCodes {
 	/*
 	 * 
 	 */
-	private void choosingAnAttackType() {
-		//TODO
+	private void choosingAnAttackType(Sprite s) {
+		Behavior ab = new AttackBehavior();
+		s.addBehavior(ab);
 	}
 	
 	/*
@@ -36,15 +43,23 @@ public class ExampleCodes {
 	private void savingAGameInTheGameAuthoringEnvironment() {
 		LevelEditScreen screen = new LevelEditScreen();
 		XStream xstream = new XStream();
-		xstream.toXML(screen.getCurrentLevel());
-		
+		xstream.toXML(screen.getCurrentLevel());	
 	}
 	
 	/*
 	 * 
 	 */
-	private void implementingAJump() {
-		//TODO
+	private void implementingAJump(Sprite s) {
+		Behavior jb = new JumpBehavior();
+		s.addBehavior(jb);
+	}
+	
+	/*
+	 * 
+	 */
+	private void userClickedRecentGame(String recentGameName) {
+		MainMenuScreenController parent = new ScreenController();
+		parent.loadGameEditScreen(recentGameName);
 	}
 
 }

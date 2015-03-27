@@ -18,11 +18,12 @@ public interface Behavior {
 	 * 
 	 * 
 	 */
-	public /*abstract*/ void initialize();
+	public abstract void initialize();
 	
 	/**
 	 * Aspects of specific behavior that
 	 * need to happen every frame
 	 */
-	public /*abstract*/ void update();
+	public abstract void update();
+	
 }
