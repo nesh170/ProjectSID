@@ -70,4 +70,10 @@ public class ScreenController implements MainMenuScreenController,
 		
 	}
 
+	@Override
+	public void loadGameEditScreen(String recentGameName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
