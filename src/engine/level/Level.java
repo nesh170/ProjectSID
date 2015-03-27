@@ -1,12 +1,16 @@
 package engine.level;
 
+import java.util.List;
+
+import engine.sprite.Sprite;
+
 /**
  * 
  * Contains all information, methods for
  * each scene/level.
  *
  */
-public class Level {
+public abstract class Level {
 	
 	private int width;
 	private int height;
@@ -19,6 +23,6 @@ public class Level {
 		
 	}
 	
-	public void update();
+	public abstract void update();
 	
 }	
