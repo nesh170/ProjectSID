@@ -1,4 +1,4 @@
-package engine.behavior;
+
 
 public class BehaviorExample implements Behavior {
 	

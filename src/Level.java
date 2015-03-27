@@ -1,4 +1,4 @@
-package engine.level;
+import java.util.List;
 
 /**
  * 
@@ -11,14 +11,16 @@ public class Level {
 	private int width;
 	private int height;
 	
-	Sprite playerSprite;
+	SpriteExample playerSprite;
 	
-	List<Sprite> allSprites;
+	List<SpriteExample> allSprites;
 	
 	public void initializeAllSprites(){
 		
 	}
 	
-	public void update();
+	public void update(){
+		
+	}
 	
 }	
