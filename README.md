@@ -3,12 +3,12 @@ README
 ###voogasalad_ScrollingDeep
 
 
-#Date started: March 20, 2015
+Date started: March 20, 2015
 
-#Hours spent: 13+
+Hours spent: 13+
 
 
-#Resources:
+Resources:
 * a
 * b
 * c
