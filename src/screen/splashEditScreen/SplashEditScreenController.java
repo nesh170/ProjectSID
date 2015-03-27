@@ -1,4 +1,4 @@
-package authoring;
+package screen.splashEditScreen;
 
 public interface SplashEditScreenController {
 	

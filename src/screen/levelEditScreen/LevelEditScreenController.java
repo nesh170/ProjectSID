@@ -1,4 +1,4 @@
-package authoring;
+package screen.levelEditScreen;
 
 public interface LevelEditScreenController {
 	

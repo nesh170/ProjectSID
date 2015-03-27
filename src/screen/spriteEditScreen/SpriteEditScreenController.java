@@ -1,4 +1,4 @@
-package authoring;
+package screen.spriteEditScreen;
 
 public interface SpriteEditScreenController {
 	

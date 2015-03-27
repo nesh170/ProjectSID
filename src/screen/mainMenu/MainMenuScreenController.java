@@ -1,4 +1,4 @@
-package authoring;
+package screen.mainMenu;
 
 public interface MainMenuScreenController {
 	

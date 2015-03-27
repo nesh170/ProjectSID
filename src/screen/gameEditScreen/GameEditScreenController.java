@@ -1,4 +1,4 @@
-package authoring;
+package screen.gameEditScreen;
 
 public interface GameEditScreenController {
 	
