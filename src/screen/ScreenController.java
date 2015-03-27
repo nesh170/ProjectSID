@@ -15,7 +15,7 @@ public class ScreenController implements MainMenuScreenController,
 										LevelEditScreenController,
 										SpriteEditScreenController {
 	
-	private Screen currentScreen;
+	private Screen screen;
 	
 
 	public ScreenController() {
