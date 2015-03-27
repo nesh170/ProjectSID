@@ -58,4 +58,10 @@ public class ScreenController implements MainMenuScreenController,
 		
 	}
 
+	@Override
+	public void returnToMainMenuScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

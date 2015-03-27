@@ -1,6 +1,6 @@
 package authoring.screens;
 
-public class MainMenuScreen {
+public class MainMenuScreen extends Screen {
 
 	public MainMenuScreen() {
 		// TODO Auto-generated constructor stub

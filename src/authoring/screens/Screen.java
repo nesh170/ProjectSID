@@ -1,8 +1,8 @@
 package authoring.screens;
 
-public class SplashEditScreen extends Screen {
+public abstract class Screen {
 
-	public SplashEditScreen() {
+	public Screen() {
 		// TODO Auto-generated constructor stub
 	}
 
