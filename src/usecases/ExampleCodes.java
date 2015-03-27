@@ -1,6 +1,12 @@
 package usecases;
 
+import gameEngine.AttackBehavior;
+import gameEngine.Behavior;
+import gameEngine.JumpBehavior;
+import gameEngine.Sprite;
+import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
+import screen.mainMenu.MainMenuScreenController;
 
 import com.thoughtworks.xstream.XStream;
 
