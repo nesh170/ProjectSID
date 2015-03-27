@@ -1,6 +1,6 @@
-package gameengine;
+package gameEngine;
 
-public class JumpBehavior implements Behavior {
+public class AttackBehavior implements Behavior {
 
 	@Override
 	public void initialize() {
@@ -13,5 +13,6 @@ public class JumpBehavior implements Behavior {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
