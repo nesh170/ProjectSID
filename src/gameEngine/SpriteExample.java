@@ -1,4 +1,4 @@
-package gameengine;
+package gameEngine;
 public class SpriteExample implements Sprite {
 	
 	

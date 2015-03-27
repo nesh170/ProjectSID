@@ -1,6 +1,6 @@
 package authoring.screens;
 
-import gameengine.Level;
+import gameEngine.Level;
 
 public class LevelEditScreen extends Screen {
 	
