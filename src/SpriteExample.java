@@ -1,7 +1,3 @@
-package engine.sprite;
-
-import engine.behavior.BehaviorExample;
-
 public class SpriteExample implements Sprite {
 	
 	
