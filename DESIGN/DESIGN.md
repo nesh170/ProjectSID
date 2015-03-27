@@ -14,9 +14,9 @@ Overview
 /* This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. As such, it should describe specific modules you intend to create, their purpose with regards to the program's functionality, and how they collaborate with each other, focusing specifically on each one's behavior. It should also include a picture of how the modules are related (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML design program). This section should be approximately 700-1000 words long and discuss specific classes, methods, and data 
 structures, but not individual lines of code. */
 
-<img src=”http://people.duke.edu/~sl290/vooga/design/ClassDiagram-VoogaSalad-overall.png”>
-<img src=”http://people.duke.edu/~sl290/vooga/design/ClassDiagram-VoogaSalad-partGamePlayer.png”>
-<img src=”http://people.duke.edu/~sl290/vooga/design/ClassDiagram-VoogaSalad-partSID.png”>
+<img src="http://people.duke.edu/~sl290/vooga/design/ClassDiagram-VoogaSalad-overall.png">
+<img src="http://people.duke.edu/~sl290/vooga/design/ClassDiagram-VoogaSalad-partGamePlayer.png">
+<img src="http://people.duke.edu/~sl290/vooga/design/ClassDiagram-VoogaSalad-partSID.png">
 
 During our team design meeting, we boiled down the regular side-scrolling platformer to it's key elements, the player(jumping and left/right), the concept of an end goal, static platforms and enemies.
 
@@ -46,10 +46,10 @@ User Interface
 
 /* This section describes how the user will interact with your program (keep it simple to start). It should describe the overall appearance of program's user interface components and how users interact with these components (especially those specific to your program, i.e., means of input other than menus or toolbars). It should also include one or more pictures of the user interface (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a dummy program that serves as a exemplar). Describe how a game is represented to the designer and what support is provided to make it easy to create a game. Finally, it should describe any erroneous situations that are reported to the user (i.e., bad input data, empty data, etc.). This section may be as long as it needs to be and go into as much detail as necessary to cover all your team wants to say. */
 
-<img src=”http://people.duke.edu/~sl290/vooga/design/1.png”>
-<img src=”http://people.duke.edu/~sl290/vooga/design/2.png”>
-<img src=”http://people.duke.edu/~sl290/vooga/design/3.png”>
-<img src=”http://people.duke.edu/~sl290/vooga/design/4.png”>
+<img src="http://people.duke.edu/~sl290/vooga/design/1.png">
+<img src="http://people.duke.edu/~sl290/vooga/design/2.png">
+<img src="http://people.duke.edu/~sl290/vooga/design/3.png">
+<img src="http://people.duke.edu/~sl290/vooga/design/4.png">
 The user, upon starting our Game Authoring Environment, is presented with our Main Menu (class is MainMenu). The catchy, 8-bit version of Adele’s “Rolling in the Deep” plays in the background as the user contemplates his/her next move. Clicking “Blank Project” loads an empty GameEditScreen. “Open Recent” loads a Game from an XML for a given String.
 
 
