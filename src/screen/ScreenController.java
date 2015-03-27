@@ -1,4 +1,4 @@
-package authoring;
+package screen;
 
 import authoring.screens.Screen;
 
