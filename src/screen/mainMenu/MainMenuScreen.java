@@ -1,4 +1,6 @@
-package authoring.screens;
+package screen.mainMenu;
+
+import screen.Screen;
 
 public class MainMenuScreen extends Screen {
 

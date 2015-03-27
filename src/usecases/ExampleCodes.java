@@ -1,10 +1,8 @@
 package usecases;
 
-import com.thoughtworks.xstream.XStream;
+import screen.levelEditScreen.LevelEditScreen;
 
-import authoring.ScreenController;
-import authoring.screens.LevelEditScreen;
-import authoring.screens.Screen;
+import com.thoughtworks.xstream.XStream;
 
 public class ExampleCodes {
 	/**

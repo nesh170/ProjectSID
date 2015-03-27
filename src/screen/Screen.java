@@ -1,4 +1,4 @@
-package authoring.screens;
+package screen;
 
 public abstract class Screen {
 

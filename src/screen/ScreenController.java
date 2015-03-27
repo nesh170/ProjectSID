@@ -1,6 +1,10 @@
 package screen;
 
-import authoring.screens.Screen;
+import screen.gameEditScreen.GameEditScreenController;
+import screen.levelEditScreen.LevelEditScreenController;
+import screen.mainMenu.MainMenuScreenController;
+import screen.splashEditScreen.SplashEditScreenController;
+import screen.spriteEditScreen.SpriteEditScreenController;
 
 public class ScreenController implements MainMenuScreenController, 
 										GameEditScreenController, 

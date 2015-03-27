@@ -1,4 +1,6 @@
-package authoring.screens;
+package screen.spriteEditScreen;
+
+import screen.Screen;
 
 public class SpriteEditScreen extends Screen {
 
