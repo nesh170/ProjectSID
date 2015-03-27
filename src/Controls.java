@@ -41,28 +41,28 @@ public class Controls {
     /**This method moves the player up.
      * 
      */
-    public void Up(){
+    public void up(){
         
     }
     
     /**
      * This method moves the player down
      */
-    public void Down(){
+    public void down(){
         
     }
     
     /**
      * This method moves the player left
      */
-    public void Left(){
+    public void left(){
         
     }
     
     /**
      * This method moves the player right
      */
-    public void Right(){
+    public void right(){
         
     }
 }
