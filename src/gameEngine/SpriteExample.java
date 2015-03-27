@@ -1,3 +1,4 @@
+package gameEngine;
 public class SpriteExample implements Sprite {
 	
 	
@@ -10,7 +11,7 @@ public class SpriteExample implements Sprite {
 	}
 	
 
-	public void addBehavior(BehaviorExample behaviorToAdd) {
+	public void addBehavior(Behavior behaviorToAdd) {
 	}
 	
 

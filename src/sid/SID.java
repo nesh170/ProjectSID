@@ -1,9 +1,9 @@
-package authoring;
+package sid;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class GameAuthoringEnvironment extends Application {
+public class SID extends Application {
 
 	@Override
 	public void start(Stage arg0) throws Exception {
@@ -14,5 +14,6 @@ public class GameAuthoringEnvironment extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 }
+

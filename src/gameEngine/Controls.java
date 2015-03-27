@@ -1,6 +1,8 @@
+package gameEngine;
 
 import java.lang.reflect.Method;
 import java.util.Map;
+
 import javafx.scene.input.KeyCode;
 /**
  * The Controls class takes in the Map<KeyCode, String> in it's contructor. This map maps the keyCode to a string which gets the appropriate
@@ -41,28 +43,28 @@ public class Controls {
     /**This method moves the player up.
      * 
      */
-    public void Up(){
+    public void up(){
         
     }
     
     /**
      * This method moves the player down
      */
-    public void Down(){
+    public void down(){
         
     }
     
     /**
      * This method moves the player left
      */
-    public void Left(){
+    public void left(){
         
     }
     
     /**
      * This method moves the player right
      */
-    public void Right(){
+    public void right(){
         
     }
 }

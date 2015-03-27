@@ -1,10 +1,22 @@
-package authoring;
+package screen;
+
+import screen.gameEditScreen.GameEditScreenController;
+import screen.levelEditScreen.LevelEditScreenController;
+import screen.mainMenu.MainMenuScreenController;
+import screen.splashEditScreen.SplashEditScreenController;
+import screen.spriteEditScreen.SpriteEditScreenController;
+import gameEngine.Game;
+import gameEngine.Level;
+import screen.Screen;
 
 public class ScreenController implements MainMenuScreenController, 
 										GameEditScreenController, 
 										SplashEditScreenController,
 										LevelEditScreenController,
 										SpriteEditScreenController {
+	
+	private Screen screen;
+	
 
 	public ScreenController() {
 		// TODO Auto-generated constructor stub
@@ -29,31 +41,38 @@ public class ScreenController implements MainMenuScreenController,
 	}
 
 	@Override
-	public void loadSplashEditScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loadLevelEditScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void createNewGame() {
 		// TODO Auto-generated method stub
 		
 	}
 
+
 	@Override
-	public void loadGame() {
+	public void returnToMainMenuScreen() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void loadGameEditScreen() {
+	public void loadLevelEditScreen(Level level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadGame(String gameFile) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadGameEditScreen(String recentGameName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadSplashEditScreen(Game game) {
 		// TODO Auto-generated method stub
 		
 	}
