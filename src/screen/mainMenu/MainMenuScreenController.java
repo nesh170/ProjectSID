@@ -7,8 +7,6 @@ public interface MainMenuScreenController {
 	 */
 	public void createNewGame();
 	
-	void loadGame();
-	
 	void loadGameEditScreen(String recentGameName);
 	
 	/*
