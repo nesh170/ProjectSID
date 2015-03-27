@@ -18,10 +18,7 @@ Hours spent: 13+
 
 
 Resources:
-* a
-* b
-* c
-* d
-* e
-* 
+* [Game Loops](http://svanimpe.be/blog/game-loops-fx.html)
+* [Frameworks](http://www.codeproject.com/Articles/5381/What-Is-A-Framework)
+* [Sample Platform Game](https://www.youtube.com/watch?v=ia8bhFoqkVE)
 ...
