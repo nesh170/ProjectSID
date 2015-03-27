@@ -22,6 +22,13 @@ public class Controls {
     }
     
     /**
+     * Detach all the keyhandlers
+     */
+    public void detachAllHandlers(){
+        
+    }
+    
+    /**
      * This method gets the appropriate method using reflection from the various classes
      * @param methodName is the string representation of the method
      * @return the method object
