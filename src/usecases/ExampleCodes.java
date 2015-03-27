@@ -1,9 +1,13 @@
 package usecases;
 
+import java.util.List;
+
 import gameEngine.AttackBehavior;
 import gameEngine.Behavior;
 import gameEngine.JumpBehavior;
+import gameEngine.Level;
 import gameEngine.Sprite;
+import gameEngine.SpriteExample;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.mainMenu.MainMenuScreenController;
@@ -26,7 +30,14 @@ public class ExampleCodes {
 	 * 
 	 */
 	private void placingAPlatform() {
-		//TODO
+		
+		Level level = new Level();
+		List<SpriteExample> boundaries = level.boundaries();
+		
+		// Once boundaries are implemented, the constructor to 
+		// Boundary (now SpriteExample) will contain the corners of the boundary
+		boundaries.add(new SpriteExample());
+		
 	}
 	
 	/*
