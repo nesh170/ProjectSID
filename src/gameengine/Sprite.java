@@ -1,3 +1,4 @@
+package gameengine;
 /**
  * Represents single object within game
  * 

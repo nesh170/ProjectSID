@@ -1,10 +1,15 @@
 package authoring;
 
+import authoring.screens.Screen;
+
 public class ScreenController implements MainMenuScreenController, 
 										GameEditScreenController, 
 										SplashEditScreenController,
 										LevelEditScreenController,
 										SpriteEditScreenController {
+	
+	private Screen currentScreen;
+	
 
 	public ScreenController() {
 		// TODO Auto-generated constructor stub

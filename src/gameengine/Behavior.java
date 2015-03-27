@@ -1,3 +1,4 @@
+package gameengine;
 
 
 /**
@@ -5,7 +6,7 @@
  * pertaining to a Sprite will be held within the 
  * sprite as a list of Behavior classes. Subclasses
  * of behavior will be made for specific
- * facets of  a sprite’s function within the game
+ * facets of  a spriteï¿½s function within the game
  *  
  */
 public interface Behavior {

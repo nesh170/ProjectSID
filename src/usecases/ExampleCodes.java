@@ -1,5 +1,11 @@
 package usecases;
 
+import com.thoughtworks.xstream.XStream;
+
+import authoring.ScreenController;
+import authoring.screens.LevelEditScreen;
+import authoring.screens.Screen;
+
 public class ExampleCodes {
 	/**
 	 * This Class contains the five example codes of five use cases
@@ -30,7 +36,10 @@ public class ExampleCodes {
 	 * 
 	 */
 	private void savingAGameInTheGameAuthoringEnvironment() {
-		//TODO
+		LevelEditScreen screen = new LevelEditScreen();
+		XStream xstream = new XStream();
+		xstream.toXML(screen.getCurrentLevel());
+		
 	}
 	
 	/*
