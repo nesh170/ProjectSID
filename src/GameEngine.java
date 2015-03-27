@@ -1,3 +1,5 @@
+import javafx.scene.Group;
+
 /**
  * The GameEngine class is the main class of the game engine. It initializes all the sprites from the XML. It also has an
  * update and render method to update the pbjects and render them on screen. The pause and play method is called when the player
@@ -16,9 +18,10 @@ public abstract class GameEngine {
     public abstract void update();
     
     /**
-     * The render method clears the group then goes through each sprite and calls the render method to add the new nodes to the group
+     * The render method creates a new group then goes through each sprite and calls the render method to add the new nodes to the group. It
+     * then returns the groups
      */
-    public abstract void render();
+    public abstract Group render();
     
     /**
      * This method pauses the game by decoupling all the bindings to the keys
