@@ -1,4 +1,4 @@
-package screens;
+package authoring.screens;
 
 public class SpriteEditScreen {
 
