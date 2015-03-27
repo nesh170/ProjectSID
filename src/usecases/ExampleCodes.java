@@ -1,11 +1,16 @@
 package usecases;
 
+import java.util.List;
+
 import gameEngine.AttackBehavior;
 import gameEngine.Behavior;
 import gameEngine.JumpBehavior;
 import gameEngine.Platform;
 import gameEngine.Sprite;
 import javafx.geometry.Point2D;
+import gameEngine.Level;
+import gameEngine.Sprite;
+import gameEngine.SpriteExample;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.mainMenu.MainMenuScreenController;
@@ -18,14 +23,14 @@ public class ExampleCodes {
 	 */
 	
 	/* 
-	 * This example code shows how to create a platform and add it to a LevelEditScreen. It 
-	 * will create a Platform, which implements Sprite. This Platform will be added to the
-	 * LevelEditScreen through the addSprite() method at the location in the Point2D location
-	 * parameter.
+	 * This example code shows how to create a platform and add it to a List of Sprites. Once 
+	 * boundaries are implemented, the constructor to Boundary (now SpriteExample) will contain 
+	 * the corners of the boundary
 	 */
-	private void placingAPlatform(LevelEditScreen les, Point2D location) {
-		Sprite platform = new Platform();
-		les.addSprite(platform, location);
+	private void placingAPlatform() {	
+		Level level = new Level();
+		List<SpriteExample> boundaries = level.boundaries();
+		boundaries.add(new SpriteExample());
 	}
 	
 	/*

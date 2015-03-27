@@ -5,6 +5,9 @@ import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreenController;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreenController;
+import gameEngine.Game;
+import gameEngine.Level;
+import screen.Screen;
 
 public class ScreenController implements MainMenuScreenController, 
 										GameEditScreenController, 
@@ -12,7 +15,7 @@ public class ScreenController implements MainMenuScreenController,
 										LevelEditScreenController,
 										SpriteEditScreenController {
 	
-	private Screen currentScreen;
+	private Screen screen;
 	
 
 	public ScreenController() {
@@ -38,25 +41,26 @@ public class ScreenController implements MainMenuScreenController,
 	}
 
 	@Override
-	public void loadSplashEditScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loadLevelEditScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void createNewGame() {
 		// TODO Auto-generated method stub
 		
 	}
 
+
 	@Override
-	public void loadGame() {
+	public void returnToMainMenuScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadLevelEditScreen(Level level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadGame(String gameFile) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -68,10 +72,9 @@ public class ScreenController implements MainMenuScreenController,
 	}
 
 	@Override
-	public void returnToMainMenuScreen() {
+	public void loadSplashEditScreen(Game game) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

@@ -1,4 +1,5 @@
 package gameEngine;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,14 +15,33 @@ public class Level {
 	
 	SpriteExample playerSprite;
 	
-	List<SpriteExample> allSprites;
+	List<SpriteExample> sprites;
+	List<SpriteExample> boundaries;
+	List<SpriteExample> projectiles;
+	
+	// Getters & Setters
+	public List<SpriteExample> boundaries() {
+		return this.boundaries;
+	}
+	
+	// Constructor & Helpers
+	public Level() {
+		
+		initializeAllSprites();
+		
+	}
 	
 	public void initializeAllSprites(){
 		
+		sprites = new ArrayList<SpriteExample>();
+		
 	}
 	
+	// All Other Instance Methods
 	public void update(){
 		
 	}
+	
+	
 	
 }	
