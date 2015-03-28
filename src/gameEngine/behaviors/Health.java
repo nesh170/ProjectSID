@@ -26,6 +26,8 @@ public class Health extends Behavior {
 	}
 	
 	//3 setters below will be used in UI when adding this behavior
+	//included defaults so that 'partially functional' health behaviors
+	//won't ever be instantiated in the authoring environment
 	public void setHP(Double startingHP){
 		myHP = startingHP;
 	}

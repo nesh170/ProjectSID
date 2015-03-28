@@ -63,21 +63,15 @@ public class Sprite {
 		for(Behavior behavior: allBehaviors){
 			
 			try {
-				
 				if(behavior.getClass() == Class.forName(behaviorClassName)){
-					
-					return behavior;
-					
+					return behavior;	
 				}
-				
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				return null;
-				
+				return null;		
 			}
 			
 		}
-		
 		return null;
 	}
 	

@@ -34,7 +34,10 @@ public class Level {
 	
 	public void initializeAllSprites(){
 		
-		sprites = new ArrayList<Sprite>();
+		Consumer<Sprite> initializeSpriteCon = spr -> spr.initializeAllBehaviors();
+		boundaries.stream().forEach(initializeSpriteCon);
+		projectiles.stream().forEach(initializeSpriteCon);
+		sprites.stream().forEach(initializeSpriteCon);
 		
 	}
 	
@@ -53,6 +56,10 @@ public class Level {
 	public Sprite[] getSpritesWithTag(String tag){
 		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.getTag() == tag).toArray();
 		return tagSprites;
+	}
+	
+	public Sprite[] getAllSprites(){
+		return (Sprite[]) sprites.toArray();
 	}
 	
 	

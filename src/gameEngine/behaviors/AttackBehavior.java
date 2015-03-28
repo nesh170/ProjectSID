@@ -1,4 +1,7 @@
-package gameEngine;
+package gameEngine.behaviors;
+
+import gameEngine.Behavior;
+import gameEngine.Sprite;
 
 public class AttackBehavior extends Behavior {
 

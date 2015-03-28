@@ -2,12 +2,12 @@ package usecases;
 
 import java.util.List;
 
-import gameEngine.AttackBehavior;
 import gameEngine.Behavior;
 import gameEngine.Sprite;
 import javafx.geometry.Point2D;
 import gameEngine.Level;
 import gameEngine.Sprite;
+import gameEngine.behaviors.AttackBehavior;
 import gameEngine.behaviors.JumpBehavior;
 import gameEngine.sprites.Platform;
 import screen.ScreenController;
