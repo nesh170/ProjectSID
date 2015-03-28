@@ -1,4 +1,7 @@
-package gameEngine;
+package gameEngine.sprites;
+
+import gameEngine.Behavior;
+import gameEngine.Sprite;
 
 public class Platform extends Sprite {
 

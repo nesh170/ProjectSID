@@ -10,17 +10,43 @@ import gameEngine.Sprite;
  */
 public class Health extends Behavior {
 	
-	private Double myHP;
+	private static final Double DEFAULT_STARTING_HP = 50.0;
+	private static final int DEFAULT_STARTING_LIVES = 5;
+	private static final boolean DEFAULT_DEATH = true;
 	
-	public Health(Sprite sprite, Double startingHP){
+	private Double myHP;
+	private int myLives;
+	private boolean hasDeath;
+	
+	public Health(Sprite sprite, boolean death){
 		super(sprite);
+		myHP = DEFAULT_STARTING_HP;
+		myLives = DEFAULT_STARTING_LIVES;
+		hasDeath = DEFAULT_DEATH;
+	}
+	
+	//3 setters below will be used in UI when adding this behavior
+	public void setHP(Double startingHP){
 		myHP = startingHP;
+	}
+	
+	public void setLives(int startingLives){
+		myLives = startingLives;
+	}
+	
+	public void setHasDeath(boolean death){
+		hasDeath = death;
 	}
 	
 	/** get health points */
 	public Double getHealth(){
 		return myHP;
 	}
+	
+	public int getLives(){
+		return myLives;
+	}
+	
 	/**	Subtract double from HP */
 	public void decrease(Double decreaseAmount){
 		myHP -= decreaseAmount;
@@ -40,6 +66,13 @@ public class Health extends Behavior {
 	public void increase(int increaseAmount){
 		myHP += increaseAmount;
 	}
+	
+	
+	public void kill(){
+		mySprite.setActive(false);
+		myLives--;
+	}
+	
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
@@ -49,6 +82,10 @@ public class Health extends Behavior {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		
+		if(mySprite.isActive() && myHP <= 0.0 && hasDeath)	{
+			kill();
+		}
 
 	}
 

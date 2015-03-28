@@ -21,7 +21,7 @@ public class Sprite {
 	 * Apply 'initialize' method of
 	 * each behavior in list of behaviors
 	 * that will be within every sprite
-	 * (once every
+	 * (at beginning of scene)
 	 */
 	public void initializeAllBehaviors(){
 		Consumer<Behavior> initializeCon = beh -> beh.initialize();
@@ -59,16 +59,25 @@ public class Sprite {
 	 * 
 	 */
 	public Behavior getBehaviorOfType(String behaviorClassName){
+		
 		for(Behavior behavior: allBehaviors){
+			
 			try {
+				
 				if(behavior.getClass() == Class.forName(behaviorClassName)){
+					
 					return behavior;
+					
 				}
+				
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				return null;
+				
 			}
+			
 		}
+		
 		return null;
 	}
 	
