@@ -9,8 +9,9 @@ package gameEngine;
  * facets of  a sprite�s function within the game
  *  
  */
-public interface Behavior {
-
+public abstract class Behavior {
+	
+	Sprite mySprite;
 	/**
 	 * Initialize aspects of specific
 	 * behavior that need to happen at the

@@ -1,6 +1,6 @@
 package gameEngine;
 
-public class AttackBehavior implements Behavior {
+public class AttackBehavior extends Behavior {
 
 	@Override
 	public void initialize() {

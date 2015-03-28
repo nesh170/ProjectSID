@@ -1,6 +1,6 @@
 package gameEngine;
 
-public class Platform implements Sprite {
+public class Platform extends Sprite {
 
 	@Override
 	public void initializeAllBehaviors() {
@@ -21,7 +21,7 @@ public class Platform implements Sprite {
 	}
 
 	@Override
-	public BehaviorExample getBehaviorOfType(Class behaviorClass) {
+	public Behavior getBehaviorOfType(String behaviorClassName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

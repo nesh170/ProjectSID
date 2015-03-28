@@ -13,14 +13,14 @@ public class Level {
 	private int width;
 	private int height;
 	
-	SpriteExample playerSprite;
+	Sprite playerSprite;
 	
-	List<SpriteExample> sprites;
-	List<SpriteExample> boundaries;
-	List<SpriteExample> projectiles;
+	List<Sprite> sprites;
+	List<Sprite> boundaries;
+	List<Sprite> projectiles;
 	
 	// Getters & Setters
-	public List<SpriteExample> boundaries() {
+	public List<Sprite> boundaries() {
 		return this.boundaries;
 	}
 	
@@ -33,7 +33,7 @@ public class Level {
 	
 	public void initializeAllSprites(){
 		
-		sprites = new ArrayList<SpriteExample>();
+		sprites = new ArrayList<Sprite>();
 		
 	}
 	
