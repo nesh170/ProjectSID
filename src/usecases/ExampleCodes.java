@@ -29,8 +29,8 @@ public class ExampleCodes {
 	 */
 	private void placingAPlatform() {	
 		Level level = new Level();
-		List<SpriteExample> boundaries = level.boundaries();
-		boundaries.add(new SpriteExample());
+		List<Sprite> boundaries = level.boundaries();
+		boundaries.add(new Sprite());
 	}
 	
 	/*
