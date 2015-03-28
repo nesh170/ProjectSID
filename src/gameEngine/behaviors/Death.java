@@ -14,7 +14,7 @@ public class Death extends Behavior {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		myHealth = (Health) mySprite.getBehaviorOfType("Health");
+		myHealth = (Health) mySprite.getBehaviorOfType("Health"); //RAW STRING - CHANGE TO VARIABLE ASAP
 
 	}
 

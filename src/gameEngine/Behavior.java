@@ -15,6 +15,7 @@ public abstract class Behavior {
 	 *  and contains a reference to its sprite
 	 */
 	protected Sprite mySprite;
+	private boolean isActive;
 	
 	/** At construction, behavior knows the
 	 * sprite it is attached to
@@ -33,9 +34,27 @@ public abstract class Behavior {
 	public abstract void initialize();
 	
 	/**
+	 * Check if behavior is active.
+	 * if so, execute update
+	 */
+	public void updateIfEnabled(){
+		if(isActive){
+			update();
+		}
+	}
+	/**
 	 * Aspects of specific behavior that
 	 * need to happen every frame
 	 */
 	public abstract void update();
+	
+	/** Set behavior to active */
+	public void setActive(boolean set){
+		isActive = set;
+	}
+	
+	public boolean isActive(){
+		return isActive;
+	}
 	
 }

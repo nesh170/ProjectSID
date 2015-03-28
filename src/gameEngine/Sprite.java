@@ -24,7 +24,7 @@ public class Sprite {
 	 * (once every
 	 */
 	public void initializeAllBehaviors(){
-		Consumer<Behavior> initializeCon = beh -> beh.update();
+		Consumer<Behavior> initializeCon = beh -> beh.initialize();
 		allBehaviors.stream().forEach(initializeCon);
 	}
 	
@@ -38,7 +38,7 @@ public class Sprite {
 	 */
 	public void updateAllBehaviors(){
 		if(isActive){
-			Consumer<Behavior> updateCon = beh -> beh.update();
+			Consumer<Behavior> updateCon = beh -> beh.updateIfEnabled();
 			allBehaviors.stream().forEach(updateCon);
 		}
 	}
