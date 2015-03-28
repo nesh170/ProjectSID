@@ -11,7 +11,18 @@ package gameEngine;
  */
 public abstract class Behavior {
 	
-	Sprite mySprite;
+	/** A behavior is attached to a single sprite,
+	 *  and contains a reference to its sprite
+	 */
+	protected Sprite mySprite;
+	
+	/** At construction, behavior knows the
+	 * sprite it is attached to
+	 * @param sprite
+	 */
+	public Behavior(Sprite sprite){
+		mySprite = sprite;
+	}
 	/**
 	 * Initialize aspects of specific
 	 * behavior that need to happen at the

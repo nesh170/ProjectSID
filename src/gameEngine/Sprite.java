@@ -14,6 +14,8 @@ import java.util.function.*;
 public class Sprite {
 	
 	private List<Behavior> allBehaviors;
+	private boolean isActive;
+	private String myTag;
 	
 	/**
 	 * Apply 'initialize' method of
@@ -35,8 +37,10 @@ public class Sprite {
 	 * (deciding what shoud happen first, etc
 	 */
 	public void updateAllBehaviors(){
-		Consumer<Behavior> updateCon = beh -> beh.update();
-		allBehaviors.stream().forEach(updateCon);
+		if(isActive){
+			Consumer<Behavior> updateCon = beh -> beh.update();
+			allBehaviors.stream().forEach(updateCon);
+		}
 	}
 	
 	/**
@@ -54,10 +58,15 @@ public class Sprite {
 	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public Behavior getBehaviorOfType(String behaviorClassName) throws ClassNotFoundException{
+	public Behavior getBehaviorOfType(String behaviorClassName){
 		for(Behavior behavior: allBehaviors){
-			if(behavior.getClass() == Class.forName(behaviorClassName)){
-				return behavior;
+			try {
+				if(behavior.getClass() == Class.forName(behaviorClassName)){
+					return behavior;
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				return null;
 			}
 		}
 		return null;
@@ -65,6 +74,21 @@ public class Sprite {
 	
 	
 
+	public void setActive(boolean set){
+		isActive = set;
+	}
+	
+	public boolean isActive(){
+		return isActive;
+	}
+	
+	public String getTag(){
+		return myTag;
+	}
+	
+	public void setTag(String tagString) {
+		myTag = tagString;
+	}
 	
 	
 	

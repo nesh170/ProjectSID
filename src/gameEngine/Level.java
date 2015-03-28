@@ -1,6 +1,7 @@
 package gameEngine;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * 
@@ -39,7 +40,19 @@ public class Level {
 	
 	// All Other Instance Methods
 	public void update(){
+		//ordering an issue here
 		
+		//sprites updating
+		Consumer<Sprite> updateSpriteCon = spr -> spr.updateAllBehaviors();
+		boundaries.stream().forEach(updateSpriteCon);
+		projectiles.stream().forEach(updateSpriteCon);
+		sprites.stream().forEach(updateSpriteCon);
+		
+	}
+	
+	public Sprite[] getSpritesWithTag(String tag){
+		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.getTag() == tag).toArray();
+		return tagSprites;
 	}
 	
 	
