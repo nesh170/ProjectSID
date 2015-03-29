@@ -131,7 +131,7 @@ public abstract class Sprite {
 	}
 	
 	public Point2D getCoordinate(){
-		return myCoordinate;
+		return myTransform.getPositionPoint();
 	}
 	public Dimension2D getDimensions(){
 		return myDimensions;
