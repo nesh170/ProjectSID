@@ -1,6 +1,5 @@
 package gameEngine.sprites;
 
-import javafx.scene.Group;
 import gameEngine.Behavior;
 import gameEngine.Sprite;
 

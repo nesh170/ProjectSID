@@ -18,6 +18,7 @@ public class Level {
 	private int height;
 	
 	Sprite playerSprite;
+	Collision myCollisionDetector;
 	
 	List<Sprite> sprites;
 	List<Sprite> boundaries;
