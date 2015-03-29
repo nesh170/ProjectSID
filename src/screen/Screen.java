@@ -2,52 +2,46 @@ package screen;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 
 /**
  * The superclass to the MainMenuScreen, GameEditScreen, LevelEditScreen, etc.
- * Contains methods to add Node, and internally contains the root Group, which
- * can be added to via add(Node node) - unnecessary to "expose Group root".
- * 
- * Access the Scene to add to your Stage via the public method:
- *  "subclass_of_Screen.scene()"
  * 
  * @author Michael
  * @author Ruslan
  *
  */
 
-public abstract class Screen {
+public abstract class Screen extends Group {
 
 	// Instance variables
+	// Sizing
+	double width, height;
 	// JavaFX
-	private Scene scene;			// readonly
-	private Group root;				// not exposed
+	
 	
 	
 	// Getters & Setters
-	public Scene scene() {
-		return this.scene;
-	}	
+	
+	
 	
 	// Constructor & Helpers
 	public Screen(double width, double height) {
 		
-		createSceneAndRoot(width, height);
+		configureWidthAndHeight(width, height);
 		
 	}
 	
-	private void createSceneAndRoot(double width, double height) {
+	private void configureWidthAndHeight(double width, double height) {
 		
-		this.root = new Group();
-		this.scene = new Scene(this.root, width, height);
+		this.width = width;
+		this.height = height;
 		
 	}
 	
 	
 	// All other instance methods
-	public void add(Node node) {
-		root.getChildren().add(node);
+	protected void add(Node node) {
+		this.getChildren().add(node);
 	}
 	
 }
