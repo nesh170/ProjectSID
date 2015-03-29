@@ -13,11 +13,16 @@ public class SID extends Application {
 	private Screen screen;
 	private Stage stage;
 
+	// Static methods
+	public static void main(String[] args) {
+        launch(args);
+    }
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
 		stage = primaryStage;
-		primaryStage.setTitle("");
+		primaryStage.setTitle("[S]crolling [I]n The [D]eep");
 		
 		configureStage(stage);
 		
@@ -55,9 +60,6 @@ public class SID extends Application {
 		
 	}
 
-	public static void main(String[] args) {
-        launch(args);
-    }
 	
 	
 }
