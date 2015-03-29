@@ -3,7 +3,15 @@ package gameEngine;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 /**
  * Represents single object within game
@@ -12,7 +20,7 @@ import javafx.geometry.Point2D;
  * functionality that is tied to each sprite
  *
  */
-public class Sprite {
+public abstract class Sprite {
 	
 	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
 	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0);
@@ -20,9 +28,12 @@ public class Sprite {
 	private List<Behavior> allBehaviors;
 	private boolean isActive;
 	private String myTag;
+
 	private Transform myTransform;
 	private Point2D startCoordinate;
-	private Point2D dimensions;
+	private Dimension2D myDimensions; //width,height 
+	private String myColorPath;
+
 	
 	public Sprite() {
 		setActive(true);
@@ -119,9 +130,17 @@ public class Sprite {
 		myTag = tagString;
 	}
 	
-	
-	
-
-	
-	
+	public Group render(){
+	    Shape spriteView = new Rectangle(myTransform.getPosX(),myTransform.getPosY(),myDimensions.getWidth(),myDimensions.getHeight());
+	    Paint spriteColor;
+	    try{
+	        spriteColor = Color.web(myColorPath);
+	    }
+	    catch(IllegalArgumentException e){
+	        //spriteColor = new ImagePattern(resourceManager.getImage(myColorPath));
+	        spriteColor = Color.BEIGE;
+	    }
+	    spriteView.setFill(spriteColor);
+	    return new Group(spriteView);
+	}
 }

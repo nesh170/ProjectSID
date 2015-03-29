@@ -9,10 +9,14 @@ import javafx.scene.input.KeyEvent;
 public class GameEngine extends GameEngineAbstract {
     
     private Map<KeyCode,Behavior> myControlsMap;
+    private Level myCurrentLevel;
     
     
-    private void initialize(){
-        //TODO loop through every behaviour to setUp key Code in method Map
+    private void initializeLevel(Level num){
+        //TODO fill up when parser is done
+//        myCurrentLevel = Parser.getLevel();
+        myControlsMap = myCurrentLevel.getControlMap();
+        
         
     }
     
@@ -24,8 +28,7 @@ public class GameEngine extends GameEngineAbstract {
 
     @Override
     public Group render () {
-        // TODO Auto-generated method stub
-        return null;
+        return myCurrentLevel.render();
     }
 
     /**

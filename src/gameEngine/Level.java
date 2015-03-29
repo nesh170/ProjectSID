@@ -1,6 +1,10 @@
 package gameEngine;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
 
 /**
  * 
@@ -14,6 +18,7 @@ public class Level {
 	private int height;
 	
 	Sprite playerSprite;
+	Collision myCollisionDetector;
 	
 	List<Sprite> sprites;
 	List<Sprite> boundaries;
@@ -33,12 +38,18 @@ public class Level {
 	
 	public void activateAllSprites(){
 		
+
 		Consumer<Sprite> initializeSpriteCon = spr -> spr.activateAllBehaviors();
-		boundaries.stream().forEach(initializeSpriteCon);
-		projectiles.stream().forEach(initializeSpriteCon);
-		sprites.stream().forEach(initializeSpriteCon);
+		doOnEachSpriteList(initializeSpriteCon);
+
 		
 	}
+
+    private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
+        boundaries.stream().forEach(spriteConsumer);
+	projectiles.stream().forEach(spriteConsumer);
+	sprites.stream().forEach(spriteConsumer);
+    }
 	
 	// All Other Instance Methods
 	public void update(){
@@ -46,9 +57,7 @@ public class Level {
 		
 		//sprites updating
 		Consumer<Sprite> updateSpriteCon = spr -> spr.updateAllBehaviors();
-		boundaries.stream().forEach(updateSpriteCon);
-		projectiles.stream().forEach(updateSpriteCon);
-		sprites.stream().forEach(updateSpriteCon);
+		doOnEachSpriteList(updateSpriteCon);
 		
 	}
 	
@@ -59,6 +68,23 @@ public class Level {
 	
 	public Sprite[] getAllSprites(){
 		return (Sprite[]) sprites.toArray();
+	}
+	
+	/**
+	 * 
+	 * @return a controlMap which might change depending on the behaviours for each level
+	 */
+	public Map<KeyCode,Behavior> getControlMap(){
+	    Map<KeyCode,Behavior> controlMap = new HashMap<>();
+	    //TODO loop through each behavior to get the controlMap 
+            return controlMap;
+	}
+	
+	public Group render(){
+	    Group levelView = new Group();
+	    Consumer<Sprite> renderSprite = spr -> levelView.getChildren().addAll(spr.render());
+	    doOnEachSpriteList(renderSprite);
+	    return levelView;
 	}
 	
 	
