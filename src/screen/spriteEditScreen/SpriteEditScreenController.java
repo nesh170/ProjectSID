@@ -1,6 +1,8 @@
 package screen.spriteEditScreen;
 
-public interface SpriteEditScreenController {
+import screen.ScreenControllerInterface;
+
+public interface SpriteEditScreenController extends ScreenControllerInterface {
 	
 	void returnToSelectedLevel();
 

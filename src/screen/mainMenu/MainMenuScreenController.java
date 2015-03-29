@@ -1,6 +1,8 @@
 package screen.mainMenu;
 
-public interface MainMenuScreenController {
+import screen.ScreenControllerInterface;
+
+public interface MainMenuScreenController extends ScreenControllerInterface {
 	
 	/*
 	 * Creates a new game and loads the game to the game editing screen
