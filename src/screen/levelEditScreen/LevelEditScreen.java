@@ -14,7 +14,7 @@ public class LevelEditScreen extends Screen {
 	}
 	
 	public Level getCurrentLevel() {
-		return null;
+		return level;
 	}
 	
 	/*
