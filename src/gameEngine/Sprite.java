@@ -20,38 +20,40 @@ import javafx.scene.shape.Shape;
  * functionality that is tied to each sprite
  *
  */
-public abstract class Sprite {
+public class Sprite {
 	
 	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
-	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0);
+	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0); 
+	private static final Dimension2D DEFAULT_DIMENSIONS = new Dimension2D(3.0, 3.0);
 	
 	private List<Behavior> allBehaviors;
 	private boolean isActive;
 	private String myTag;
 
 	private Transform myTransform;
-	private Point2D startCoordinate;
-	private Dimension2D myDimensions; //width,height 
 	private String myColorPath;
 
 	
 	public Sprite() {
 		setActive(true);
-		myTransform = new Transform(DEFAULT_POSITION, DEFAULT_ROTATION);
-		startCoordinate = DEFAULT_POSITION;
+		myTransform = new Transform(DEFAULT_POSITION, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
+		
 	}
 	
 	public Sprite(Point2D coordinate) {
 		setActive(true);
-		myTransform = new Transform(coordinate, DEFAULT_ROTATION);
-		startCoordinate = coordinate;
+		myTransform = new Transform(coordinate, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
 	}
 	
 	public Sprite(Point2D coordinate, Point2D rotate) {
 		setActive(true);
-		myTransform = new Transform(coordinate, rotate);
+		myTransform = new Transform(coordinate, rotate, DEFAULT_DIMENSIONS);
 	}
 	
+	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
+		setActive(true);
+		myTransform = new Transform(coordinate, rotate, dimension);
+	}
 	/**
 	 * Apply 'initialize' method of
 	 * each behavior in list of behaviors
@@ -134,11 +136,11 @@ public abstract class Sprite {
 		return myTransform.getPositionPoint();
 	}
 	public Dimension2D getDimensions(){
-		return myDimensions;
+		return myTransform.getDimensions();
 	}
 	
 	public Group render(){
-	    Shape spriteView = new Rectangle(myTransform.getPosX(),myTransform.getPosY(),myDimensions.getWidth(),myDimensions.getHeight());
+	    Shape spriteView = new Rectangle(myTransform.getPosX(),myTransform.getPosY(),myTransform.getWidth(),myTransform.getHeight());
 	    Paint spriteColor;
 	    try{
 	        spriteColor = Color.web(myColorPath);
