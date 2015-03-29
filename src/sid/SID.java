@@ -26,6 +26,10 @@ public class SID extends Application {
 		showStage(stage);
 		
 	}
+	
+	private void setTitle(Stage stage) {
+		stage.setTitle("[S]crolling [I]n The [D]eep");
+	}
 
 	private void configureStage(Stage primaryStage) {
 		
