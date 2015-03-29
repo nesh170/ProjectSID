@@ -105,6 +105,13 @@ public abstract class Sprite {
 		myTag = tagString;
 	}
 	
+	public Point2D getCoordinate(){
+		return myCoordinate;
+	}
+	public Dimension2D getDimensions(){
+		return myDimensions;
+	}
+	
 	public Group render(){
 	    Shape spriteView = new Rectangle(myCoordinate.getX(),myCoordinate.getY(),myDimensions.getWidth(),myDimensions.getHeight());
 	    Paint spriteColor;
