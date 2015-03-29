@@ -3,8 +3,6 @@ package gameEngine;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 
 

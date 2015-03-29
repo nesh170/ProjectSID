@@ -19,5 +19,11 @@ public class JumpBehavior extends Behavior {
 		// TODO Auto-generated method stub
 		
 	}
+	
+        @Override
+        public void execute () {
+            // TODO Auto-generated method stub
+            
+        }
 
 }
