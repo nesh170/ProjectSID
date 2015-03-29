@@ -1,6 +1,10 @@
 package gameEngine;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
 
 /**
  * 
@@ -13,35 +17,85 @@ public class Level {
 	private int width;
 	private int height;
 	
-	SpriteExample playerSprite;
+	Sprite playerSprite;
+	Collision myCollisionDetector;
 	
-	List<SpriteExample> sprites;
-	List<SpriteExample> boundaries;
-	List<SpriteExample> projectiles;
+	List<Sprite> sprites;
+	List<Sprite> boundaries;
+	List<Sprite> projectiles;
 	
 	// Getters & Setters
-	public List<SpriteExample> boundaries() {
+	public List<Sprite> boundaries() {
 		return this.boundaries;
 	}
 	
 	// Constructor & Helpers
 	public Level() {
 		
-		initializeAllSprites();
+		activateAllSprites();
 		
 	}
 	
-	public void initializeAllSprites(){
-		
-		sprites = new ArrayList<SpriteExample>();
-		
+	public void activateAllSprites(){
+		doOnEachSpriteList(sprite -> sprite.activateAllBehaviors());
 	}
+
+    private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
+        boundaries.stream().forEach(spriteConsumer);
+	projectiles.stream().forEach(spriteConsumer);
+	sprites.stream().forEach(spriteConsumer);
+    }
 	
 	// All Other Instance Methods
 	public void update(){
+		//ordering an issue here
+		
+		//sprites updating
+		sprites.stream().forEach(spr -> checkCollision(spr, playerSprite));
+		doOnEachSpriteList(sprite -> sprite.updateAllBehaviors());
 		
 	}
 	
+	public Sprite[] getSpritesWithTag(String tag){
+		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.getTag() == tag).toArray();
+		return tagSprites;
+	}
 	
+	public Sprite[] getAllSprites(){
+		return (Sprite[]) sprites.toArray();
+	}
+	
+	/**
+	 * 
+	 * @return a controlMap which might change depending on the behaviours for each level
+	 */
+	public Map<KeyCode,Behavior> getControlMap(){
+	    Map<KeyCode,Behavior> controlMap = new HashMap<>();
+	    playerSprite.getBehaviors().forEach(behavior -> behavior.setUpKey(controlMap));
+            return controlMap;
+	}
+	
+	/**
+	 * Calls the render method from each sprite and puts it within a group
+	 * @return
+	 */
+	public Group render(){
+	    Group levelView = new Group();
+	    doOnEachSpriteList(sprite -> levelView.getChildren().addAll(sprite.render()));
+	    return levelView;
+	}
+	
+	/**
+	 * Checks for collision between the sprite and if there is any intersection between the shapes, 
+	 * send it to the collision class to figure the collision happened from which side and decrement
+	 * the correct behavior
+	 * @param sprite1
+	 * @param sprite2
+	 */
+	private void checkCollision(Sprite sprite1,Sprite sprite2){
+	    if(!sprite1.equals(sprite2) && sprite1.render().getBoundsInParent().intersects(sprite2.render().getBoundsInParent())){
+	        myCollisionDetector.handleCollide(sprite1, sprite2);
+	    }
+	}
 	
 }	

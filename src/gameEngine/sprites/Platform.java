@@ -1,9 +1,12 @@
-package gameEngine;
+package gameEngine.sprites;
 
-public class Platform implements Sprite {
+import gameEngine.Behavior;
+import gameEngine.Sprite;
+
+public class Platform extends Sprite {
 
 	@Override
-	public void initializeAllBehaviors() {
+	public void activateAllBehaviors() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -21,7 +24,7 @@ public class Platform implements Sprite {
 	}
 
 	@Override
-	public BehaviorExample getBehaviorOfType(Class behaviorClass) {
+	public Behavior getBehaviorOfType(String behaviorClassName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

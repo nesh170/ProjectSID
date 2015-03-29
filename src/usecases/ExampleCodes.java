@@ -2,15 +2,14 @@ package usecases;
 
 import java.util.List;
 
-import gameEngine.AttackBehavior;
 import gameEngine.Behavior;
-import gameEngine.JumpBehavior;
-import gameEngine.Platform;
 import gameEngine.Sprite;
 import javafx.geometry.Point2D;
 import gameEngine.Level;
 import gameEngine.Sprite;
-import gameEngine.SpriteExample;
+import gameEngine.behaviors.AttackBehavior;
+import gameEngine.behaviors.JumpBehavior;
+import gameEngine.sprites.Platform;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.mainMenu.MainMenuScreenController;
@@ -29,8 +28,8 @@ public class ExampleCodes {
 	 */
 	private void placingAPlatform() {	
 		Level level = new Level();
-		List<SpriteExample> boundaries = level.boundaries();
-		boundaries.add(new SpriteExample());
+		List<Sprite> boundaries = level.boundaries();
+		boundaries.add(new Sprite());
 	}
 	
 	/*
@@ -39,7 +38,7 @@ public class ExampleCodes {
 	 * AttackBehavior would then be added to the Sprite using the addBehavior() method.
 	 */
 	private void choosingAnAttackType(Sprite s) {
-		Behavior ab = new AttackBehavior();
+		Behavior ab = new AttackBehavior(s);
 		s.addBehavior(ab);
 	}
 	
@@ -61,7 +60,7 @@ public class ExampleCodes {
 	 * JumpBehavior would then be added to the Sprite using the addBehavior() method.
 	 */
 	private void implementingAJump(Sprite s) {
-		Behavior jb = new JumpBehavior();
+		Behavior jb = new JumpBehavior(s);
 		s.addBehavior(jb);
 	}
 	

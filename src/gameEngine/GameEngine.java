@@ -1,37 +1,61 @@
 package gameEngine;
+
+import java.util.Map;
+import java.util.function.Consumer;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
-/**
- * The GameEngine class is the main class of the game engine. It initializes all the sprites from the XML. It also has an
- * update and render method to update the pbjects and render them on screen. The pause and play method is called when the player
- * pauses and plays the game respectively.
- * 
- * GameEngine takes in the location of the file where all the XML are stored and the Group() to display the objects
- * @author Sivaneshwaran
- *
- */
-public abstract class GameEngine {
+public class GameEngine extends GameEngineAbstract {
     
-    /**
-     * The update method runs through each sprite and update their position and any other values based on the state of the game.
-     * It also checks for collisions. 
-     */
-    public abstract void update();
+    private Map<KeyCode,Behavior> myControlsMap;
+    private Level myCurrentLevel;
     
-    /**
-     * The render method creates a new group then goes through each sprite and calls the render method to add the new nodes to the group. It
-     * then returns the groups
-     */
-    public abstract Group render();
     
-    /**
-     * This method pauses the game by decoupling all the bindings to the keys
-     */
-    public abstract void pause();
+    private void initializeLevel(Level num){
+        //TODO fill up when parser is done
+//        myCurrentLevel = Parser.getLevel();
+        myControlsMap = myCurrentLevel.getControlMap();
+        
+        
+    }
     
-    /**
-     * This method recouples all the bindings to the keys
-     */
-    public abstract void play();
+    @Override
+    public void update () {
+        myCurrentLevel.update();
+    }
 
+    @Override
+    public Group render () {
+        return myCurrentLevel.render();
+    }
+
+    /**
+     * This pause method is called by the controller
+     */
+    @Override
+    public void pause (Node node) {
+        node.setOnKeyPressed(null);
+    }
+
+    /**
+     * This method is called by the Game player when the game is played.
+     * This sets up the eventhandler to the node to call the handle method
+     */
+    @Override
+    public void play (Node node) {
+        node.setOnKeyPressed(keyPressed -> handle(keyPressed,behavior -> behavior.execute()));
+        node.setOnKeyReleased(keyReleased -> handle(keyReleased,behavior -> behavior.stop()));
+    }
+    
+    /**
+     * This method is a helper method for play where it takes in the keyPressed and gets a behavior from the control and executes it
+     * @param keyPressed
+     */
+    private void handle(KeyEvent key,Consumer<Behavior> consumer) {
+        if(myControlsMap.containsKey(key)){
+            consumer.accept(myControlsMap.get(key));
+        }
+    }
 }
