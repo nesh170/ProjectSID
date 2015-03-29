@@ -10,7 +10,7 @@ public class AttackBehavior extends Behavior {
     }
 
     @Override
-    public void initialize () {
+    public void activate () {
         // TODO Auto-generated method stub
 
     }
@@ -25,6 +25,12 @@ public class AttackBehavior extends Behavior {
     public void execute () {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void stop () {
+        // TODO Auto-generated method stub
+        
     }
 	
 

@@ -24,11 +24,33 @@ import javafx.scene.shape.Shape;
 public abstract class Sprite {
 	
 	private List<Behavior> myBehaviorsList;
+	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
+	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0);
 	private boolean isActive;
 	private String myTag;
-	private Point2D myCoordinate;
+
+	private Transform myTransform;
+	private Point2D startCoordinate;
 	private Dimension2D myDimensions; //width,height 
 	private String myColorPath;
+
+	
+	public Sprite() {
+		setActive(true);
+		myTransform = new Transform(DEFAULT_POSITION, DEFAULT_ROTATION);
+		startCoordinate = DEFAULT_POSITION;
+	}
+	
+	public Sprite(Point2D coordinate) {
+		setActive(true);
+		myTransform = new Transform(coordinate, DEFAULT_ROTATION);
+		startCoordinate = coordinate;
+	}
+	
+	public Sprite(Point2D coordinate, Point2D rotate) {
+		setActive(true);
+		myTransform = new Transform(coordinate, rotate);
+	}
 	
 	/**
 	 * Apply 'initialize' method of
@@ -36,9 +58,9 @@ public abstract class Sprite {
 	 * that will be within every sprite
 	 * (at beginning of scene)
 	 */
-	public void initializeAllBehaviors(){
-		Consumer<Behavior> initializeCon = beh -> beh.initialize();
-		myBehaviorsList.stream().forEach(initializeCon);
+
+	public void activateAllBehaviors(){
+		myBehaviorsList.stream().forEach(beh -> beh.activate());
 	}
 	
 	/**
@@ -88,7 +110,9 @@ public abstract class Sprite {
 		return null;
 	}
 	
-	
+	public Transform getTransform(){
+		return myTransform;
+	}
 
 	public void setActive(boolean set){
 		isActive = set;
@@ -106,8 +130,12 @@ public abstract class Sprite {
 		myTag = tagString;
 	}
 	
+	public Dimension2D getDimensions(){
+		return myDimensions;
+	}
+	
 	public Group render(){
-	    Shape spriteView = new Rectangle(myCoordinate.getX(),myCoordinate.getY(),myDimensions.getWidth(),myDimensions.getHeight());
+	    Shape spriteView = new Rectangle(myTransform.getPosX(),myTransform.getPosY(),myDimensions.getWidth(),myDimensions.getHeight());
 	    Paint spriteColor;
 	    try{
 	        spriteColor = Color.web(myColorPath);

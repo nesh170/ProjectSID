@@ -9,7 +9,7 @@ public class JumpBehavior extends Behavior {
 		super(sprite);
 	}
 	@Override
-	public void initialize() {
+	public void activate() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -22,6 +22,11 @@ public class JumpBehavior extends Behavior {
 	
         @Override
         public void execute () {
+            // TODO Auto-generated method stub
+            
+        }
+        @Override
+        public void stop () {
             // TODO Auto-generated method stub
             
         }

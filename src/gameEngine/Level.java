@@ -32,12 +32,12 @@ public class Level {
 	// Constructor & Helpers
 	public Level() {
 		
-		initializeAllSprites();
+		activateAllSprites();
 		
 	}
 	
-	public void initializeAllSprites(){
-		doOnEachSpriteList(sprite -> sprite.initializeAllBehaviors());
+	public void activateAllSprites(){
+		doOnEachSpriteList(sprite -> sprite.activateAllBehaviors());
 	}
 
     private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {

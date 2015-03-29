@@ -6,7 +6,7 @@ import gameEngine.Sprite;
 public class Platform extends Sprite {
 
 	@Override
-	public void initializeAllBehaviors() {
+	public void activateAllBehaviors() {
 		// TODO Auto-generated method stub
 		
 	}
