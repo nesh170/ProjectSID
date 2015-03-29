@@ -9,8 +9,7 @@ import javafx.stage.Stage;
 
 public class SID extends Application {
 
-	private Screen screen;
-	private Stage stage;
+	private ScreenController screenController;
 
 	// Static methods
 	public static void main(String[] args) {
