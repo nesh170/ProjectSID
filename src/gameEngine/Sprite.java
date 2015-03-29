@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
+
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -23,7 +24,8 @@ import javafx.scene.shape.Shape;
  */
 public class Sprite {
 	
-	private List<Behavior> myBehaviorsList;
+	private List<Component> myComponentsList;
+	private List<Action> myActionsList;
 	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
 	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0); 
 	private static final Dimension2D DEFAULT_DIMENSIONS = new Dimension2D(3.0, 3.0);
@@ -64,8 +66,8 @@ public class Sprite {
 	 * (at beginning of scene)
 	 */
 
-	public void activateAllBehaviors(){
-		myBehaviorsList.stream().forEach(beh -> beh.activate());
+	public void prepareAllComponents(){
+		myComponentsList.stream().forEach(com -> com.prepare());
 	}
 	
 	/**
@@ -76,18 +78,18 @@ public class Sprite {
 	 * Also contains logic for update-ordering
 	 * (deciding what shoud happen first, etc
 	 */
-	public void updateAllBehaviors(){
+	public void updateAllComponent(){
 		if(isActive){
-			Consumer<Behavior> updateCon = beh -> beh.updateIfEnabled();
-			myBehaviorsList.stream().forEach(updateCon);
+			Consumer<Component> updateCon = com -> com.updateIfEnabled();
+			myComponentsList.stream().forEach(updateCon);
 		}
 	}
 	
 	/**
 	 * 
 	 */
-	public void addBehavior(Behavior behaviorToAdd){
-		myBehaviorsList.add(behaviorToAdd);
+	public void addComponent(Component componentToAdd){
+		myComponentsList.add(componentToAdd);
 		
 	}
 	
@@ -98,9 +100,9 @@ public class Sprite {
 	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public Behavior getBehaviorOfType(String behaviorClassName){
+	public Component getBehaviorOfType(String behaviorClassName){
 		
-		for(Behavior behavior: myBehaviorsList){
+		for(Component behavior: myComponentsList){
 			
 			try {
 				if(behavior.getClass() == Class.forName(behaviorClassName)){
@@ -154,7 +156,11 @@ public class Sprite {
 	    return new Group(spriteView);
 	}
 	
-	public List<Behavior> getBehaviors(){
-	    return Collections.unmodifiableList(myBehaviorsList);
+	public List<Component> getComponents(){
+	    return Collections.unmodifiableList(myComponentsList);
+	}
+
+	public List<Action> getActions() {
+		return Collections.unmodifiableList(myActionsList);
 	}
 }

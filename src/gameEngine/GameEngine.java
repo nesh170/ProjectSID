@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 
 public class GameEngine extends GameEngineAbstract {
     
-    private Map<KeyCode,Behavior> myControlsMap;
+    private Map<KeyCode,Action> myControlsMap;
     private Level myCurrentLevel;
     
     
@@ -45,15 +45,15 @@ public class GameEngine extends GameEngineAbstract {
      */
     @Override
     public void play (Node node) {
-        node.setOnKeyPressed(keyPressed -> handle(keyPressed.getCode(),behavior -> behavior.execute()));
-        node.setOnKeyReleased(keyReleased -> handle(keyReleased.getCode(),behavior -> behavior.stop()));
+        node.setOnKeyPressed(keyPressed -> handle(keyPressed,action -> action.execute()));
+        node.setOnKeyReleased(keyReleased -> handle(keyReleased,action -> action.stop()));
     }
     
     /**
      * This method is a helper method for play where it takes in the keyPressed and gets a behavior from the control and executes it
      * @param keyPressed
      */
-    private void handle(KeyCode key,Consumer<Behavior> consumer) {
+    private void handle(KeyEvent key,Consumer<Action> consumer) {
         if(myControlsMap.containsKey(key)){
             consumer.accept(myControlsMap.get(key));
         }

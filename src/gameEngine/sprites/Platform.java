@@ -1,30 +1,30 @@
 package gameEngine.sprites;
 
-import gameEngine.Behavior;
+import gameEngine.Component;
 import gameEngine.Sprite;
 
 public class Platform extends Sprite {
 
 	@Override
-	public void activateAllBehaviors() {
+	public void prepareAllComponents() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateAllBehaviors() {
+	public void updateAllComponent() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addBehavior(Behavior behaviorToAdd) {
+	public void addComponent(Component behaviorToAdd) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Behavior getBehaviorOfType(String behaviorClassName) {
+	public Component getBehaviorOfType(String behaviorClassName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

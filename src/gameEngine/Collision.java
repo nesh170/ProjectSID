@@ -3,10 +3,14 @@ package gameEngine;
 import java.util.*;
 
 public class Collision {
+	/**
+	 * The Collision Class needs to be given a map which, for each combination of Sprites, gives
+	 * an array of four behaviors, representing what happens as a result of the first sprite colliding
+	 * with the second sprite from all four sides
+	 */
+	private Map<Class, Map<Class, Action[]>> myBehaviorTable;
 	
-	private Map<Class, Map<Class, Behavior[]>> myBehaviorTable;
-	
-	public Collision(Map<Class, Map<Class, Behavior[]>> behaviors){
+	public Collision(Map<Class, Map<Class, Action[]>> behaviors){
 		myBehaviorTable = behaviors;
 	}
 
