@@ -1,6 +1,5 @@
 package sid;
 
-import authoringEnvironment.MainMenuScene;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -48,17 +47,17 @@ public class SID extends Application {
 		stage.setWidth(width);
 		stage.setHeight(height);
 	
-		stage.setScene(createMainScene());
+//		stage.setScene(createMainScene());
 		stage.show();
 		
 	}
 	
-	private Scene createMainScene() {
-		
-		Group mainGroup = new Group();
-		return new MainMenuScene(mainGroup);
-		
-	}
+//	private Scene createMainScene() {
+//		
+//		Group mainGroup = new Group();
+//		return new MainMenuScene(mainGroup);
+//		
+//	}
 
 	
 	
