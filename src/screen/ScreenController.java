@@ -89,11 +89,18 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	
 	// Constructors & Helpers
-	public ScreenController(double width, double height) {
-
+	public ScreenController(Group root, double width, double height) {
+		
+		super(root, width, height, Color.TAN);
+		
+		configureRoot(root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 	
+	}
+	
+	private void configureRoot(Group root) {
+		this.root = root;
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
