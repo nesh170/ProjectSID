@@ -76,7 +76,7 @@ public class Health extends Behavior {
 	}
 	
 	@Override
-	public void initialize() {
+	public void activate() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -91,10 +91,10 @@ public class Health extends Behavior {
 
 	}
 
-        @Override
-        public void execute () {
-            // TODO Auto-generated method stub
-    
-        }
+    @Override
+    public void execute () {
+        // TODO Auto-generated method stub
+
+    }
 
 }

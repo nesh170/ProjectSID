@@ -26,8 +26,8 @@ public class Sprite {
 	 * that will be within every sprite
 	 * (at beginning of scene)
 	 */
-	public void initializeAllBehaviors(){
-		Consumer<Behavior> initializeCon = beh -> beh.initialize();
+	public void activateAllBehaviors(){
+		Consumer<Behavior> initializeCon = beh -> beh.activate();
 		allBehaviors.stream().forEach(initializeCon);
 	}
 	

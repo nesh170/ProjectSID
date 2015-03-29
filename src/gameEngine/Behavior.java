@@ -11,7 +11,7 @@ import javafx.scene.input.KeyCode;
  * pertaining to a Sprite will be held within the 
  * sprite as a list of Behavior classes. Subclasses
  * of behavior will be made for specific
- * facets of  a sprite�s function within the game
+ * facets of  a sprite's function within the game
  *  
  */
 public abstract class Behavior {
@@ -47,7 +47,7 @@ public abstract class Behavior {
 	 * 
 	 * 
 	 */
-	public abstract void initialize();
+	public abstract void activate();
 	
 	/**
 	 * Check if behavior is active.
@@ -62,7 +62,7 @@ public abstract class Behavior {
 	 * Aspects of specific behavior that
 	 * need to happen every frame
 	 */
-	public abstract void update();
+	protected abstract void update();
 	
 	/** Set behavior to active */
 	public void setActive(boolean set){
