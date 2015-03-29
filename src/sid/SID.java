@@ -19,12 +19,11 @@ public class SID extends Application {
 	
 	// Instance Methods
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		stage = primaryStage;
-		primaryStage.setTitle("[S]crolling [I]n The [D]eep");
-		
+	public void start(Stage stage) throws Exception {
+
+		setTitle(stage);
 		configureStage(stage);
+		showStage(stage);
 		
 	}
 
