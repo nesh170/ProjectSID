@@ -36,6 +36,7 @@ public class SID extends Application {
 	}
 	
 	private void configureStage(double width, double height) {
+		
 		stage.setX(0);
 		stage.setY(0);
 
@@ -48,13 +49,16 @@ public class SID extends Application {
 	}
 	
 	private Scene createMainScene() {
+		
 		Group mainGroup = new Group();
 		return new MainMenuScene(mainGroup);
+		
 	}
 
 	public static void main(String[] args) {
         launch(args);
     }
+	
 	
 }
 
