@@ -32,14 +32,16 @@ public class Level {
 	// Constructor & Helpers
 	public Level() {
 		
-		initializeAllSprites();
+		activateAllSprites();
 		
 	}
 	
-	public void initializeAllSprites(){
+	public void activateAllSprites(){
 		
-		Consumer<Sprite> initializeSpriteCon = spr -> spr.initializeAllBehaviors();
+
+		Consumer<Sprite> initializeSpriteCon = spr -> spr.activateAllBehaviors();
 		doOnEachSpriteList(initializeSpriteCon);
+
 		
 	}
 
