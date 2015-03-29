@@ -57,6 +57,10 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	// Sizing
 	private double width, height;
 	private double newScreenWidth, newScreenHeight;
+	
+	// JavaFX
+	private Group root;
+	
 	// Screen
 	private Collection<Screen> screens;
 	private Screen screen;
