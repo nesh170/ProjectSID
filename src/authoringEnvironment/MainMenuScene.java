@@ -1,7 +1,14 @@
 package authoringEnvironment;
 
-import javafx.scene.Parent;
+import java.io.File;
+
+import com.sun.prism.paint.Color;
+
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * The scene that contains pops up when the Authoring Environment 
@@ -14,9 +21,22 @@ import javafx.scene.Scene;
  */
 public class MainMenuScene extends Scene {
 
-	public MainMenuScene(Parent arg0) {
+	Group myRoot;
+	
+	public MainMenuScene(Group arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
+		myRoot = arg0;
+		addContents();
+	}
+	
+	private void addContents() {
+		File f = new File("/Users/Michael/Documents/workspace2/voogasalad_ScrollingDeep/DESIGN/data/MainPage.png");
+		Image i = new Image(f.toURI().toString());
+		add(new ImageView(i));
+	}
+	
+	public void add(Node node) {
+		myRoot.getChildren().add(node);
 	}
 
 }
