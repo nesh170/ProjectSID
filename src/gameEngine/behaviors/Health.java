@@ -97,4 +97,10 @@ public class Health extends Behavior {
 
     }
 
+    @Override
+    public void stop () {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

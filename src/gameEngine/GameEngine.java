@@ -1,6 +1,7 @@
 package gameEngine;
 
 import java.util.Map;
+import java.util.function.Consumer;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -22,8 +23,7 @@ public class GameEngine extends GameEngineAbstract {
     
     @Override
     public void update () {
-        // TODO Auto-generated method stub
-        
+        myCurrentLevel.update();
     }
 
     @Override
@@ -45,17 +45,17 @@ public class GameEngine extends GameEngineAbstract {
      */
     @Override
     public void play (Node node) {
-        node.setOnKeyPressed(keyPressed -> handle(keyPressed));
+        node.setOnKeyPressed(keyPressed -> handle(keyPressed,behavior -> behavior.execute()));
+        node.setOnKeyReleased(keyReleased -> handle(keyReleased,behavior -> behavior.stop()));
     }
     
     /**
      * This method is a helper method for play where it takes in the keyPressed and gets a behavior from the control and executes it
      * @param keyPressed
      */
-    private void handle(KeyEvent keyPressed) {
-        if(myControlsMap.containsKey(keyPressed)){
-            myControlsMap.get(keyPressed).execute();
+    private void handle(KeyEvent key,Consumer<Behavior> consumer) {
+        if(myControlsMap.containsKey(key)){
+            consumer.accept(myControlsMap.get(key));
         }
     }
-
 }

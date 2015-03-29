@@ -37,12 +37,7 @@ public class Level {
 	}
 	
 	public void activateAllSprites(){
-		
-
-		Consumer<Sprite> initializeSpriteCon = spr -> spr.activateAllBehaviors();
-		doOnEachSpriteList(initializeSpriteCon);
-
-		
+		doOnEachSpriteList(sprite -> sprite.activateAllBehaviors());
 	}
 
     private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
@@ -56,8 +51,8 @@ public class Level {
 		//ordering an issue here
 		
 		//sprites updating
-		Consumer<Sprite> updateSpriteCon = spr -> spr.updateAllBehaviors();
-		doOnEachSpriteList(updateSpriteCon);
+		sprites.stream().forEach(spr -> checkCollision(spr, playerSprite));
+		doOnEachSpriteList(sprite -> sprite.updateAllBehaviors());
 		
 	}
 	
@@ -76,17 +71,31 @@ public class Level {
 	 */
 	public Map<KeyCode,Behavior> getControlMap(){
 	    Map<KeyCode,Behavior> controlMap = new HashMap<>();
-	    //TODO loop through each behavior to get the controlMap 
+	    playerSprite.getBehaviors().forEach(behavior -> behavior.setUpKey(controlMap));
             return controlMap;
 	}
 	
+	/**
+	 * Calls the render method from each sprite and puts it within a group
+	 * @return
+	 */
 	public Group render(){
 	    Group levelView = new Group();
-	    Consumer<Sprite> renderSprite = spr -> levelView.getChildren().addAll(spr.render());
-	    doOnEachSpriteList(renderSprite);
+	    doOnEachSpriteList(sprite -> levelView.getChildren().addAll(sprite.render()));
 	    return levelView;
 	}
 	
-	
+	/**
+	 * Checks for collision between the sprite and if there is any intersection between the shapes, 
+	 * send it to the collision class to figure the collision happened from which side and decrement
+	 * the correct behavior
+	 * @param sprite1
+	 * @param sprite2
+	 */
+	private void checkCollision(Sprite sprite1,Sprite sprite2){
+	    if(!sprite1.equals(sprite2) && sprite1.render().getBoundsInParent().intersects(sprite2.render().getBoundsInParent())){
+	        myCollisionDetector.handleCollide(sprite1, sprite2);
+	    }
+	}
 	
 }	

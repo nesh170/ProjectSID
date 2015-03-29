@@ -1,5 +1,6 @@
 package gameEngine;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
@@ -22,11 +23,13 @@ import javafx.scene.shape.Shape;
  */
 public class Sprite {
 	
+	private List<Behavior> myBehaviorsList;
 	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
 	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0); 
 	private static final Dimension2D DEFAULT_DIMENSIONS = new Dimension2D(3.0, 3.0);
 	
-	private List<Behavior> allBehaviors;
+
+
 	private boolean isActive;
 	private String myTag;
 
@@ -60,9 +63,9 @@ public class Sprite {
 	 * that will be within every sprite
 	 * (at beginning of scene)
 	 */
+
 	public void activateAllBehaviors(){
-		Consumer<Behavior> initializeCon = beh -> beh.activate();
-		allBehaviors.stream().forEach(initializeCon);
+		myBehaviorsList.stream().forEach(beh -> beh.activate());
 	}
 	
 	/**
@@ -76,7 +79,7 @@ public class Sprite {
 	public void updateAllBehaviors(){
 		if(isActive){
 			Consumer<Behavior> updateCon = beh -> beh.updateIfEnabled();
-			allBehaviors.stream().forEach(updateCon);
+			myBehaviorsList.stream().forEach(updateCon);
 		}
 	}
 	
@@ -84,7 +87,7 @@ public class Sprite {
 	 * 
 	 */
 	public void addBehavior(Behavior behaviorToAdd){
-		allBehaviors.add(behaviorToAdd);
+		myBehaviorsList.add(behaviorToAdd);
 		
 	}
 	
@@ -97,7 +100,7 @@ public class Sprite {
 	 */
 	public Behavior getBehaviorOfType(String behaviorClassName){
 		
-		for(Behavior behavior: allBehaviors){
+		for(Behavior behavior: myBehaviorsList){
 			
 			try {
 				if(behavior.getClass() == Class.forName(behaviorClassName)){
@@ -132,9 +135,7 @@ public class Sprite {
 		myTag = tagString;
 	}
 	
-	public Point2D getCoordinate(){
-		return myTransform.getPositionPoint();
-	}
+
 	public Dimension2D getDimensions(){
 		return myTransform.getDimensions();
 	}
@@ -151,5 +152,9 @@ public class Sprite {
 	    }
 	    spriteView.setFill(spriteColor);
 	    return new Group(spriteView);
+	}
+	
+	public List<Behavior> getBehaviors(){
+	    return Collections.unmodifiableList(myBehaviorsList);
 	}
 }
