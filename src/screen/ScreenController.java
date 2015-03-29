@@ -1,5 +1,7 @@
 package screen;
 
+import java.util.Collection;
+
 import screen.gameEditScreen.GameEditScreenController;
 import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreenController;
@@ -9,17 +11,67 @@ import gameEngine.Game;
 import gameEngine.Level;
 import screen.Screen;
 
+/**
+ * 
+ * @author Ruslan
+ * @author anika
+ *
+ */
+
+/**
+ * 
+ * Notes from March 28 meeting (Michael, Anika, Leo, Yongjiao)
+ * 
+ * abstract Display extends FX object
+ * 	Collection<Display>
+ *  width
+ *  height
+ * 
+ * Stage has multiple scenes
+ * each scene has Display, Menu bar
+ * 
+ * everything opens in a new tab (use Controller class for flow)
+ * 
+ * 
+ * Note from March 29th (Ruslan)
+ * 
+ * The Display functionality would be better suited in ScreenController
+ * 
+ * 
+ */
+
 public class ScreenController implements MainMenuScreenController, 
 										GameEditScreenController, 
 										SplashEditScreenController,
 										LevelEditScreenController,
 										SpriteEditScreenController {
 	
+	// Static Variables
+	
+	
+	
+	// Instance Variables
+	// Sizing
+	private double width, height;
+	private double newScreenWidth, newScreenHeight;
+	// Screen
+	private Collection<Screen> screens;
 	private Screen screen;
 	
+	
+	// Getters & Setters (static)
+	
+	
+	
+	// Getters & Setters (instance)
+	
+	
+	
+	// Constructors & Helpers
+	public ScreenController(double width, double height) {
 
-	public ScreenController() {
-		// TODO Auto-generated constructor stub
+		
+	
 	}
 
 	@Override
