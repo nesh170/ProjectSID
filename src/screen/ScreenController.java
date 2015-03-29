@@ -64,7 +64,21 @@ public class ScreenController implements MainMenuScreenController,
 	
 	
 	// Getters & Setters (instance)
+	public double width() {
+		return this.width;
+	}
 	
+	public double height() {
+		return this.height;
+	}
+	
+	public double newScreenWidth() {
+		return this.newScreenWidth;
+	}
+	
+	public double newScreenHeight() {
+		return this.newScreenHeight;
+	}
 	
 	
 	// Constructors & Helpers
