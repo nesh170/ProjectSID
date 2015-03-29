@@ -14,11 +14,32 @@ import javafx.geometry.Point2D;
  */
 public class Sprite {
 	
+	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
+	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0);
+	
 	private List<Behavior> allBehaviors;
 	private boolean isActive;
 	private String myTag;
+	private Transform myTransform;
 	private Point2D startCoordinate;
 	private Point2D dimensions;
+	
+	public Sprite() {
+		setActive(true);
+		myTransform = new Transform(DEFAULT_POSITION, DEFAULT_ROTATION);
+		startCoordinate = DEFAULT_POSITION;
+	}
+	
+	public Sprite(Point2D coordinate) {
+		setActive(true);
+		myTransform = new Transform(coordinate, DEFAULT_ROTATION);
+		startCoordinate = coordinate;
+	}
+	
+	public Sprite(Point2D coordinate, Point2D rotate) {
+		setActive(true);
+		myTransform = new Transform(coordinate, rotate);
+	}
 	
 	/**
 	 * Apply 'initialize' method of
@@ -78,7 +99,9 @@ public class Sprite {
 		return null;
 	}
 	
-	
+	public Transform getTransform(){
+		return myTransform;
+	}
 
 	public void setActive(boolean set){
 		isActive = set;
