@@ -3,6 +3,7 @@ package gameEngine;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
+import javafx.geometry.Point2D;
 
 /**
  * Represents single object within game
@@ -16,6 +17,8 @@ public class Sprite {
 	private List<Behavior> allBehaviors;
 	private boolean isActive;
 	private String myTag;
+	private Point2D startCoordinate;
+	private Point2D dimensions;
 	
 	/**
 	 * Apply 'initialize' method of

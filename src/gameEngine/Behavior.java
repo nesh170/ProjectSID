@@ -1,13 +1,11 @@
 package gameEngine;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
+import java.util.Map;
+import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 
 /**
@@ -25,7 +23,7 @@ public abstract class Behavior {
 	 */
 	protected Sprite mySprite;
 	private boolean isActive;
-	private Set<KeyCode> myKeys = new HashSet<>();
+	private List<KeyCode> myKeyCode;
 	
 	/** At construction, behavior knows the
 	 * sprite it is attached to
@@ -41,7 +39,7 @@ public abstract class Behavior {
 	 */
 	public Behavior(Sprite sprite, KeyCode... keys){
 		this(sprite);
-		myKeys.addAll(Arrays.asList(keys));
+		myKeyCode = Arrays.asList(keys);
 	}
 	
 	/**
@@ -80,20 +78,14 @@ public abstract class Behavior {
 	/**
 	 * Executes the behavior based on a keypressed
 	 */
-	protected abstract void execute();
+	public abstract void execute();
 	
-	/** Takes in a keyCode and sets up lambda expression to call this Behavior's execute method
-	 * @param key
+	/**
+	 * puts in an Behaviour into a methodMap. This allows the method to be executed based on the press
+	 * @param methodMap
 	 */
-	public void setUpKey(Scene scene){
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent keyPressed) {
-				if(myKeys.contains(keyPressed)){
-					execute();
-				}
-			}
-		});
+	public void setUpKey(Map<KeyCode,Behavior> methodMap){
+	    myKeyCode.forEach((KeyCode key)-> methodMap.put(key, this));
 	}
 	
 }
