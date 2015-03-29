@@ -4,8 +4,10 @@ import screen.Screen;
 
 public class SpriteEditScreen extends Screen {
 
-	public SpriteEditScreen() {
-		// TODO Auto-generated constructor stub
+	public SpriteEditScreen(double width, double height) {
+		
+		super(width, height);
+		
 	}
 
 }

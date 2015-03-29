@@ -4,8 +4,10 @@ import screen.Screen;
 
 public class SplashEditScreen extends Screen {
 
-	public SplashEditScreen() {
-		// TODO Auto-generated constructor stub
+	public SplashEditScreen(double width, double height) {
+		
+		super(width, height);
+		
 	}
 
 }

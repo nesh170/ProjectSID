@@ -9,8 +9,10 @@ public class LevelEditScreen extends Screen {
 	
 	private Level level;
 
-	public LevelEditScreen() {
-		// TODO Auto-generated constructor stub
+	public LevelEditScreen(double width, double height) {
+		
+		super(width, height);
+		
 	}
 	
 	public Level getCurrentLevel() {
