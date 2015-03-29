@@ -71,7 +71,7 @@ public class ExampleCodes {
 	 * method.
 	 */
 	private void userClickedRecentGame(String recentGameName) {
-		MainMenuScreenController parent = new ScreenController();
+		MainMenuScreenController parent = new ScreenController(null, 0.0, 0.0);
 		parent.loadGameEditScreen(recentGameName);
 	}
 
