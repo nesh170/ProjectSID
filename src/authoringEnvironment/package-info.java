@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author anika
- *
- */
-package authoringEnvironment;

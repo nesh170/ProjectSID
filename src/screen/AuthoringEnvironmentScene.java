@@ -1,4 +1,4 @@
-package authoringEnvironment;
+package screen;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
