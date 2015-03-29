@@ -30,6 +30,7 @@ public abstract class Sprite {
 	private String myTag;
 
 	private Transform myTransform;
+	private Point2D startCoordinate;
 	private Dimension2D myDimensions; //width,height 
 	private String myColorPath;
 
