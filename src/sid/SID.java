@@ -31,7 +31,7 @@ public class SID extends Application {
 		stage.setTitle("[S]crolling [I]n The [D]eep");
 	}
 
-	private void configureStage(Stage primaryStage) {
+	private void configureStage(Stage stage) {
 		
 		screen = Screen.getPrimary();
 	    Rectangle2D bounds = screen.getVisualBounds();
