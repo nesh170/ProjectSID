@@ -79,6 +79,11 @@ public abstract class Behavior {
 	public abstract void execute();
 	
 	/**
+	 * Stops the execution for movements if needed.
+	 */
+	public abstract void stop();
+	
+	/**
 	 * puts in an Behaviour into a methodMap. This allows the method to be executed based on the press
 	 * @param methodMap
 	 */

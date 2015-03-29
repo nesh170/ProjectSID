@@ -1,5 +1,6 @@
 package gameEngine;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
@@ -22,7 +23,7 @@ import javafx.scene.shape.Shape;
  */
 public abstract class Sprite {
 	
-	private List<Behavior> allBehaviors;
+	private List<Behavior> myBehaviorsList;
 	private boolean isActive;
 	private String myTag;
 	private Point2D myCoordinate;
@@ -37,7 +38,7 @@ public abstract class Sprite {
 	 */
 	public void initializeAllBehaviors(){
 		Consumer<Behavior> initializeCon = beh -> beh.initialize();
-		allBehaviors.stream().forEach(initializeCon);
+		myBehaviorsList.stream().forEach(initializeCon);
 	}
 	
 	/**
@@ -51,7 +52,7 @@ public abstract class Sprite {
 	public void updateAllBehaviors(){
 		if(isActive){
 			Consumer<Behavior> updateCon = beh -> beh.updateIfEnabled();
-			allBehaviors.stream().forEach(updateCon);
+			myBehaviorsList.stream().forEach(updateCon);
 		}
 	}
 	
@@ -59,7 +60,7 @@ public abstract class Sprite {
 	 * 
 	 */
 	public void addBehavior(Behavior behaviorToAdd){
-		allBehaviors.add(behaviorToAdd);
+		myBehaviorsList.add(behaviorToAdd);
 		
 	}
 	
@@ -72,7 +73,7 @@ public abstract class Sprite {
 	 */
 	public Behavior getBehaviorOfType(String behaviorClassName){
 		
-		for(Behavior behavior: allBehaviors){
+		for(Behavior behavior: myBehaviorsList){
 			
 			try {
 				if(behavior.getClass() == Class.forName(behaviorClassName)){
@@ -117,5 +118,9 @@ public abstract class Sprite {
 	    }
 	    spriteView.setFill(spriteColor);
 	    return new Group(spriteView);
+	}
+	
+	public List<Behavior> getBehaviors(){
+	    return Collections.unmodifiableList(myBehaviorsList);
 	}
 }
