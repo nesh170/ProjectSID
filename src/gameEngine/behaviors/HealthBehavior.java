@@ -8,7 +8,7 @@ import gameEngine.Sprite;
  * and methods for increasing/decreasing
  * 
  */
-public class Health extends Behavior {
+public class HealthBehavior extends Behavior {
 	
 	private static final Double DEFAULT_STARTING_HP = 50.0;
 	private static final int DEFAULT_STARTING_LIVES = 5;
@@ -18,7 +18,7 @@ public class Health extends Behavior {
 	private int myLives;
 	private boolean hasDeath;
 	
-	public Health(Sprite sprite, boolean death){
+	public HealthBehavior(Sprite sprite, boolean death){
 		super(sprite);
 		myHP = DEFAULT_STARTING_HP;
 		myLives = DEFAULT_STARTING_LIVES;

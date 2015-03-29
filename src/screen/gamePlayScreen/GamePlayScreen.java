@@ -4,8 +4,10 @@ import screen.Screen;
 
 public class GamePlayScreen extends Screen {
 
-	public GamePlayScreen() {
-		// TODO Auto-generated constructor stub
+	public GamePlayScreen(double width, double height) {
+		
+		super(width, height);
+		
 	}
 
 }

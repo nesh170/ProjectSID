@@ -49,7 +49,7 @@ public class ExampleCodes {
 	 * method getCurrentLevel().
 	 */
 	private void savingAGameInTheGameAuthoringEnvironment() {
-		LevelEditScreen screen = new LevelEditScreen();
+		LevelEditScreen screen = new LevelEditScreen(100.0, 100.0);
 		XStream xstream = new XStream();
 		String xmlString = xstream.toXML(screen.getCurrentLevel());	
 	}

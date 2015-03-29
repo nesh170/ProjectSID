@@ -1,4 +1,4 @@
-package loader;
+package utils;
 
 public interface Loader {
 
