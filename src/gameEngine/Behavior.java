@@ -82,8 +82,8 @@ public abstract class Behavior {
 	 * puts in an Behaviour into a methodMap. This allows the method to be executed based on the press
 	 * @param methodMap
 	 */
-	public void setUpKey(Map<KeyCode,Behavior> methodMap){
-	    myKeyCode.forEach((KeyCode key)-> methodMap.put(key, this));
+	public void setUpKey(Map<KeyCode,Behavior> controlMap){
+	    myKeyCode.forEach((KeyCode key)-> controlMap.put(key, this));
 	}
 	
 }
