@@ -130,6 +130,7 @@ public abstract class Sprite {
 		myTag = tagString;
 	}
 	
+
 	public Dimension2D getDimensions(){
 		return myDimensions;
 	}

@@ -21,7 +21,7 @@ public class Collision {
     			   -  (sprite2.getTransform().getPosX() + sprite2.getDimensions().getWidth()/2);
     	//get the difference in y from center to center. positive if sprite1 is below
     	double yDif = (sprite1.getTransform().getPosY() + sprite1.getDimensions().getHeight()/2)
-    			   -  (sprite2.getTransform().getPosX() + sprite2.getDimensions().getHeight()/2);
+    			   -  (sprite2.getTransform().getPosY() + sprite2.getDimensions().getHeight()/2);
     	//TODO: Think of a better way to do this if possible
     	if(Math.abs(xDif)>Math.abs(yDif) && xDif<0) handleSprite1Left(sprite1, sprite2);
     	if(Math.abs(xDif)>Math.abs(yDif) && xDif>0) handleSprite1Right(sprite1, sprite2);
