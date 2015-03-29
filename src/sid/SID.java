@@ -33,37 +33,39 @@ public class SID extends Application {
 
 	private void configureStage(Stage stage) {
 		
-		screen = Screen.getPrimary();
+		Screen screen = Screen.getPrimary();
 	    Rectangle2D bounds = screen.getVisualBounds();
 	    
 	    double width = bounds.getWidth();
 	    double height = bounds.getHeight();
 	    
-	    configureStage(width, height);
+	    setStageWidthHeight(stage, width, height);
+	    configureScreenController(stage, width, height);
 	    
 	}
 	
-	private void configureStage(double width, double height) {
+	private void setStageWidthHeight(Stage stage, double width, double height) {
 		
 		stage.setX(0);
 		stage.setY(0);
 
 		stage.setWidth(width);
 		stage.setHeight(height);
-	
-//		stage.setScene(createMainScene());
-		stage.show();
 		
 	}
 	
-//	private Scene createMainScene() {
-//		
-//		Group mainGroup = new Group();
-//		return new MainMenuScene(mainGroup);
-//		
-//	}
-
+	private void configureScreenController(Stage stage, double width, double height) {
+		
+		Group screenControllerGroup = new Group();
+		screenController = new ScreenController(screenControllerGroup, width, height);
+		
+		stage.setScene(screenController);
+		
+	}
 	
+	private void showStage(Stage stage) {
+		stage.show();
+	}
 	
 }
 
