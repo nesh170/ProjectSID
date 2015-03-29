@@ -51,7 +51,7 @@ public class Level {
 		//ordering an issue here
 		
 		//sprites updating
-		sprites.stream().forEach(spr -> checkCollision(spr, playerSprite));
+		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
 		doOnEachSpriteList(sprite -> sprite.updateAllBehaviors());
 		
 	}
@@ -71,7 +71,7 @@ public class Level {
 	 */
 	public Map<KeyCode,Behavior> getControlMap(){
 	    Map<KeyCode,Behavior> controlMap = new HashMap<>();
-	    playerSprite.getBehaviors().forEach(behavior -> behavior.setUpKey(controlMap));
+	    playerSprite.getBehaviors().stream().forEach(behavior -> behavior.setUpKey(controlMap));
             return controlMap;
 	}
 	
