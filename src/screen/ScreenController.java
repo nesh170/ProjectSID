@@ -43,11 +43,11 @@ import screen.Screen;
  * 
  */
 
-public class ScreenController implements MainMenuScreenController, 
-										GameEditScreenController, 
-										SplashEditScreenController,
-										LevelEditScreenController,
-										SpriteEditScreenController {
+public class ScreenController extends Scene implements 	MainMenuScreenController, 
+														GameEditScreenController, 
+														SplashEditScreenController,
+														LevelEditScreenController,
+														SpriteEditScreenController {
 	
 	// Static Variables
 	
