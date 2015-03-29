@@ -84,10 +84,32 @@ public class ScreenController implements MainMenuScreenController,
 	// Constructors & Helpers
 	public ScreenController(double width, double height) {
 
-		
+		configureWidthAndHeight(width, height);
+		configureNewScreenWidthAndHeight(width, height);
 	
 	}
-
+	
+	private void configureWidthAndHeight(double width, double height) {
+		
+		this.width = width;
+		this.height = height;
+		
+	}
+	
+	private void configureNewScreenWidthAndHeight(double width, double height) {
+			
+		System.out.println("TODO: appropriately size newScreenHeight in ScreenController.java in [configureNewScreenWidthAndHeight]"
+				+": base it on total height minus the height of a tab bar and menu bar");
+		
+		double newScreenHeight = 100.0;
+		
+		this.newScreenWidth = width;
+		this.newScreenHeight = newScreenHeight;
+		
+	}
+	
+	
+	// All other instance methods
 	@Override
 	public void returnToSelectedLevel() {
 		// TODO Auto-generated method stub
