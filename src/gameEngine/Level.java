@@ -37,7 +37,7 @@ public class Level {
 	}
 	
 	public void activateAllSprites(){
-		doOnEachSpriteList(sprite -> sprite.activateAllBehaviors());
+		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
 	}
 
     private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
@@ -51,8 +51,8 @@ public class Level {
 		//ordering an issue here
 		
 		//sprites updating
-		sprites.stream().forEach(spr -> checkCollision(spr, playerSprite));
-		doOnEachSpriteList(sprite -> sprite.updateAllBehaviors());
+		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
+		doOnEachSpriteList(sprite -> sprite.updateAllComponent());
 		
 	}
 	
@@ -69,9 +69,9 @@ public class Level {
 	 * 
 	 * @return a controlMap which might change depending on the behaviours for each level
 	 */
-	public Map<KeyCode,Behavior> getControlMap(){
-	    Map<KeyCode,Behavior> controlMap = new HashMap<>();
-	    playerSprite.getBehaviors().forEach(behavior -> behavior.setUpKey(controlMap));
+	public Map<KeyCode,Action> getControlMap(){
+	    Map<KeyCode,Action> controlMap = new HashMap<>();
+	    playerSprite.getActions().forEach(action -> action.setUpKey(controlMap));
             return controlMap;
 	}
 	
