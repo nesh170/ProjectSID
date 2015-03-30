@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.*;
 
+import resources.constants.DIMENSION2D;
+import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -31,11 +33,8 @@ public class Sprite {
 	// Static Variables
 	private List<Component> myComponentsList;
 	private List<Action> myActionsList;
-	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
-	private static final Point2D DEFAULT_ROTATION = new Point2D(0.0 ,0.0); 
-	private static final Dimension2D DEFAULT_DIMENSIONS = new Dimension2D(3.0, 3.0);
 	
-
+	
 	// Instance Variables
 
 	private boolean isActive;
@@ -51,15 +50,15 @@ public class Sprite {
 	
 	// Constructor & Helpers
 	public Sprite() {
-		this(DEFAULT_POSITION, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
+		this(POINT2D.DEFAULT_POSITION, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
 	public Sprite(Point2D coordinate) {
-		this(coordinate, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
+		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
 	public Sprite(Point2D coordinate, Point2D rotate) {
-		this(coordinate, rotate, DEFAULT_DIMENSIONS);
+		this(coordinate, rotate, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
