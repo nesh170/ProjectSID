@@ -119,11 +119,8 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	}
 	
 	private void configureNewScreenWidthAndHeight(double width, double height) {
-			
-		System.out.println("TODO: appropriately size newScreenHeight in ScreenController.java in [configureNewScreenWidthAndHeight]"
-				+": base it on total height minus the height of a tab bar and menu bar");
-		
-		double newScreenHeight = 100.0;
+					
+		double newScreenHeight = height - DOUBLE.TAB_HEIGHT;
 		
 		this.newScreenWidth = width;
 		this.newScreenHeight = newScreenHeight;
