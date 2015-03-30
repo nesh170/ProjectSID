@@ -1,8 +1,8 @@
 package gameEngine.actions;
 
+import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import gameEngine.Action;
-import gameEngine.Sprite;
 import gameEngine.components.HealthComponent;
 
 public class AlterHealthAction extends Action {
