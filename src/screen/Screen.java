@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
  *
  */
 
-public abstract class Screen extends Group {
+public abstract class Screen extends Pane {
 
 	// Instance variables
 	// Sizing
