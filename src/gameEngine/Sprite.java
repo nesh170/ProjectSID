@@ -59,15 +59,20 @@ public class Sprite {
 		setActive(true);
 		myTransform = new Transform(coordinate, rotate, dimension);
 	}
+	
 	/**
 	 * Apply 'initialize' method of
-	 * each behavior in list of behaviors
+	 * each behavior in list of components, actions
 	 * that will be within every sprite
 	 * (at beginning of scene)
 	 */
 
 	public void prepareAllComponents(){
 		myComponentsList.stream().forEach(com -> com.prepare());
+	}
+	
+	public void prepareAllActions(){
+		myActionsList.stream().forEach(action -> action.prepare());
 	}
 	
 	/**
@@ -78,7 +83,7 @@ public class Sprite {
 	 * Also contains logic for update-ordering
 	 * (deciding what shoud happen first, etc
 	 */
-	public void updateAllComponent(){
+	public void updateAllComponents(){
 		if(isActive){
 			Consumer<Component> updateCon = com -> com.updateIfEnabled();
 			myComponentsList.stream().forEach(updateCon);
@@ -100,13 +105,13 @@ public class Sprite {
 	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public Component getBehaviorOfType(String behaviorClassName){
+	public Component getComponentOfType(String componentClassName){
 		
-		for(Component behavior: myComponentsList){
+		for(Component component: myComponentsList){
 			
 			try {
-				if(behavior.getClass() == Class.forName(behaviorClassName)){
-					return behavior;	
+				if(component.getClass() == Class.forName(componentClassName)){
+					return component;	
 				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -116,6 +121,25 @@ public class Sprite {
 		}
 		return null;
 	}
+	
+	public Action getActionOfType(String actionClassName) {
+		
+		for(Action action: myActionsList){
+			
+			try {
+				if(action.getClass() == Class.forName(actionClassName)){
+					return action;	
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				return null;		
+			}
+			
+		}
+		return null;
+		
+	}
+	
 	
 	public Transform getTransform(){
 		return myTransform;

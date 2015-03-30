@@ -12,7 +12,7 @@ public class Platform extends Sprite {
 	}
 
 	@Override
-	public void updateAllComponent() {
+	public void updateAllComponents() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -24,7 +24,7 @@ public class Platform extends Sprite {
 	}
 
 	@Override
-	public Component getBehaviorOfType(String behaviorClassName) {
+	public Component getComponentOfType(String behaviorClassName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -32,18 +32,19 @@ public class Level {
 	// Constructor & Helpers
 	public Level() {
 		
-		activateAllSprites();
+		prepareAllSprites();
 		
 	}
 	
-	public void activateAllSprites(){
+	public void prepareAllSprites(){
+		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
 		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
 	}
 
     private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
         boundaries.stream().forEach(spriteConsumer);
-	projectiles.stream().forEach(spriteConsumer);
-	sprites.stream().forEach(spriteConsumer);
+        projectiles.stream().forEach(spriteConsumer);
+        sprites.stream().forEach(spriteConsumer);
     }
 	
 	// All Other Instance Methods
@@ -52,7 +53,7 @@ public class Level {
 		
 		//sprites updating
 		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
-		doOnEachSpriteList(sprite -> sprite.updateAllComponent());
+		doOnEachSpriteList(sprite -> sprite.updateAllComponents());
 		
 	}
 	
