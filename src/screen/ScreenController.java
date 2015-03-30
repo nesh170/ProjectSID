@@ -101,6 +101,7 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		
 		configureTabPane();
 		
+		createInitialGameEditScreen();
 	
 	}
 	
@@ -144,6 +145,11 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		
 	}
 	
+	private void createInitialGameEditScreen() {
+		
+		
+		
+	}
 	
 	// All other instance methods
 	@Override
