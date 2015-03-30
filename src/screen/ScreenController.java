@@ -127,7 +127,37 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	private void configureTabPane() {
 		
+		instantiateTabPane();
+		setTabPaneAlignmentAndSize();
+		addTabPaneToThis();
+		
+	}
+	
+	private void instantiateTabPane() {
 		tabPane = new TabPane();
+	}
+	
+	private void setTabPaneAlignmentAndSize() {
+		
+		tabPane.sideProperty().set(Side.BOTTOM);
+		
+		tabPane.minHeightProperty().set(newScreenHeight);
+		tabPane.maxHeightProperty().set(newScreenHeight);
+		
+		tabPane.minWidthProperty().set(newScreenWidth);
+		tabPane.maxWidthProperty().set(newScreenWidth);
+		
+		tabPane.tabMinHeightProperty().set(DOUBLE.TAB_HEIGHT);
+		tabPane.tabMaxHeightProperty().set(DOUBLE.TAB_HEIGHT);
+		
+	}
+	
+	private void addTabPaneToThis() {
+		root.getChildren().add(tabPane);
+	}
+	
+	private void createInitialGameEditScreen() {
+		
 		Tab tab = new Tab();
 		tab.setText("hello");
 		tab.setContent(new Rectangle(200, 50, Color.LIGHTSTEELBLUE));
@@ -135,16 +165,8 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		Tab tab1 = new Tab();
 		tab1.setText("hi");
 		tab1.setContent(new Rectangle(300,300, Color.RED));
-		
+
 		tabPane.getTabs().addAll(tab, tab1);
-		
-		root.getChildren().add(tabPane);
-		
-	}
-	
-	private void createInitialGameEditScreen() {
-		
-		
 		
 	}
 	
