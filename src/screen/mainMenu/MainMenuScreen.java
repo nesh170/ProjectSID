@@ -30,20 +30,11 @@ public class MainMenuScreen extends Screen {
 	// Getters & Setters
 	
 	
-	
 	// Constructor & Helpers
 	public MainMenuScreen(MainMenuScreenController parent, double width, double height) {
 		
 		super(width, height);
-		addBackgroundImage();
 		
-	}
-
-	private void addBackgroundImage() {
-		
-		File f = new File("/Users/Michael/Documents/workspace2/voogasalad_ScrollingDeep/DESIGN/data/MainPage.png");
-		Image i = new Image(f.toURI().toString());
-		add(new ImageView(i));
 		this.parent = parent;
 		
 	}
