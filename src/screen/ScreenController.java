@@ -166,16 +166,10 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		MainMenuScreenController thisAsAMenuScreen = (MainMenuScreenController)this;
 		
 		tab.setContent(new MainMenuScreen(thisAsAMenuScreen, newScreenWidth, newScreenHeight));
-		
-		Tab tab1 = new Tab();
-		tab1.setText("tab demo 1");
-		tab1.setContent(new Rectangle(300,300, Color.RED));
-		
-		Tab tab2 = new Tab();
-		tab2.setText("tab demo 2");
-		tab2.setContent(new Rectangle(500,300, Color.BLUE));
 
-		tabPane.getTabs().addAll(tab, tab1, tab2);
+		
+
+		tabPane.getTabs().addAll(tab);
 		
 	}
 	
