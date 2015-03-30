@@ -26,8 +26,12 @@ public class SpriteImage {
 	
 	
 	// Instance Variables
-	List<int[][]> images;
-
+	// Stores all 2D, pixelated images
+	private List<int[][]> images;
+	// Used as counters 
+	private int framesBetweenImageUpdate;
+	private int framesSinceLastUpdate;
+	private int currentImageIndex;
 	
 	// Getters & Setters
 	// # columns = width, assumes evenly laid-out array (which it should be)
@@ -63,6 +67,13 @@ public class SpriteImage {
 		
 	}
 	
+	public void setFramesBetweenImageUpdate(int framesBetweenImageUpdate) {
+		
+		this.framesBetweenImageUpdate = framesBetweenImageUpdate;
+		this.framesSinceLastUpdate = 0;
+		
+	}
+	
 	// Constructor & Helpers
 	public SpriteImage() {
 		
@@ -70,7 +81,30 @@ public class SpriteImage {
 		
 	}
 	
-	// All other instance methods
 	
+	// All other instance methods
+	public boolean hasImages() {
+		return images.isEmpty();
+	}
+	
+	public int[][] getIntArrayToDisplay() {
+		
+		adjustCurrentImageIndex();
+		
+		int[][] intArrayToDisplay = images.get(currentImageIndex);
+		
+		
+		
+		return intArrayToDisplay;
+		
+	}
+	
+	private void adjustCurrentImageIndex() {
+		
+		if (framesSinceLastUpdate > framesBetweenImageUpdate) {
+			
+		}
+		
+	}
 	
 }
