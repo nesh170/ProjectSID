@@ -116,7 +116,6 @@ public class Sprite {
 	
 	
 	// All other instance methods
-	
 	/**
 	 * Apply 'initialize' method of
 	 * each behavior in list of components, actions
