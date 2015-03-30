@@ -49,7 +49,9 @@ public class MainMenuScreen extends Screen {
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+		
+		System.out.println("Implement addMenuItemsToMenuBar in MainMenuScreen");
+		
 	}
 	
 	// All other instance methods
