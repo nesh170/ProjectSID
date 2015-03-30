@@ -10,8 +10,8 @@ import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreenController;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreenController;
-import gameEngine.Game;
 import gameEngine.Level;
+import game.Game;
 import screen.Screen;
 
 /**

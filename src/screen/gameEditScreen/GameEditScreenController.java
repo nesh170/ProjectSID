@@ -1,8 +1,8 @@
 package screen.gameEditScreen;
 
 import screen.ScreenControllerInterface;
-import gameEngine.Game;
 import gameEngine.Level;
+import game.Game;
 
 public interface GameEditScreenController extends ScreenControllerInterface {
 	

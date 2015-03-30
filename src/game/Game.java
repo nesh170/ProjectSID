@@ -1,4 +1,4 @@
-package gameEngine;
+package game;
 
 public class Game {
 
