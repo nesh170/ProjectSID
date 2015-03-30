@@ -125,16 +125,21 @@ public class Sprite {
 	 * (deciding what shoud happen first, etc
 	 */
 	public void updateAllComponents(){
-		if(isActive){
+		
+		if(isActive) {
+			
 			Consumer<Component> updateCon = com -> com.updateIfEnabled();
 			componentList.stream().forEach(updateCon);
+			
 		}
+		
 	}
 	
 	/**
 	 * 
 	 */
 	public void addComponent(Component componentToAdd){
+		
 		componentList.add(componentToAdd);
 		
 	}
@@ -146,21 +151,24 @@ public class Sprite {
 	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public Component getComponentOfType(String componentClassName){
+	public Component getComponentOfType(String componentClassName) {
 		
-		for(Component component: myComponentsList){
+		for(Component component: componentList) {
 			
 			try {
-				if(component.getClass() == Class.forName(componentClassName)){
+				
+				if(component.getClass() == Class.forName(componentClassName)) {
 					return component;	
 				}
+				
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				return null;		
+				return null;	
 			}
 			
 		}
+		
 		return null;
+		
 	}
 	
 	public Action getActionOfType(String actionClassName) {
@@ -168,30 +176,38 @@ public class Sprite {
 		for(Action action: actionList) {
 			
 			try {
-				if(action.getClass() == Class.forName(actionClassName)){
+				if(action.getClass() == Class.forName(actionClassName)) {
 					return action;	
 				}
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				return null;		
 			}
 			
 		}
+		
 		return null;
 		
 	}
-	public Group render(){
-	    Shape spriteView = new Rectangle(myTransform.getPosX(),myTransform.getPosY(),myTransform.getWidth(),myTransform.getHeight());
+		
+	public Group render() {
+		
+	    Shape spriteView = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
 	    Paint spriteColor;
-	    try{
-	        spriteColor = Color.web(myColorPath);
+	    
+	    try {
+	        spriteColor = Color.web(colorPath);
 	    }
-	    catch(IllegalArgumentException e){
+	    
+	    catch(IllegalArgumentException e) {
+	    	
 	        //spriteColor = new ImagePattern(resourceManager.getImage(myColorPath));
 	        spriteColor = Color.BEIGE;
+	        
 	    }
+	    
 	    spriteView.setFill(spriteColor);
 	    return new Group(spriteView);
+	    
 	}
 	
 }
