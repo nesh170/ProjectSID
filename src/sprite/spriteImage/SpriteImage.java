@@ -30,28 +30,34 @@ public class SpriteImage {
 
 	
 	// Getters & Setters
+	// # columns = width, assumes evenly laid-out array (which it should be)
 	public int width() {
 		
 		if (images.get(0)  == null) {
 			return 0;
-		} else {
+		} 
+		
+		else {
 
 			int[][] firstImage = images.get(0);
 			int[] firstRow = firstImage[0];
-			return firstRow.length;					// # columns = width, assumes evenly laid-out array (which it should be)
+			return firstRow.length;					
 			
 		}
 		
 	}
 
+	// # rows = height
 	public int height() {
 		
 		if (images.get(0)  == null) {
 			return 0;
-		} else {
+		} 
+		
+		else {
 
 			int[][] firstImage = images.get(0);
-			return firstImage.length;				// # rows = height
+			return firstImage.length;				
 			
 		}
 		
