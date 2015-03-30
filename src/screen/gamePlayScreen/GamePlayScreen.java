@@ -1,5 +1,6 @@
 package screen.gamePlayScreen;
 
+import javafx.scene.control.MenuBar;
 import screen.Screen;
 
 public class GamePlayScreen extends Screen {

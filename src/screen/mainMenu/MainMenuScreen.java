@@ -2,6 +2,7 @@ package screen.mainMenu;
 
 import java.io.File;
 
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import screen.Screen;

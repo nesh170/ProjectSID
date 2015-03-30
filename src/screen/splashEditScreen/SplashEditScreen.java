@@ -1,5 +1,6 @@
 package screen.splashEditScreen;
 
+import javafx.scene.control.MenuBar;
 import screen.Screen;
 
 public class SplashEditScreen extends Screen {

@@ -1,7 +1,9 @@
 package screen;
 
+import resources.constants.DOUBLE;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.MenuBar;
 
 /**
  * The superclass to the MainMenuScreen, GameEditScreen, LevelEditScreen, etc.

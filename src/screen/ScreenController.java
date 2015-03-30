@@ -4,7 +4,10 @@ import java.util.Collection;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import level.Level;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.levelEditScreen.LevelEditScreenController;

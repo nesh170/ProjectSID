@@ -1,6 +1,7 @@
 package screen.levelEditScreen;
 
 import javafx.geometry.Point2D;
+import javafx.scene.control.MenuBar;
 import level.Level;
 import screen.Screen;
 import sprite.Sprite;
