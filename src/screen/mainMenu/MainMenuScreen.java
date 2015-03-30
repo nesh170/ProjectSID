@@ -2,6 +2,7 @@ package screen.mainMenu;
 
 import java.io.File;
 
+import media.MediaManager;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,7 +36,8 @@ public class MainMenuScreen extends Screen {
 		
 		super(width, height);
 		
-		this.parent = parent;
+		configureParent(parent);
+		configureMusic();
 		
 	}
 
@@ -45,6 +47,18 @@ public class MainMenuScreen extends Screen {
 		System.out.println("Implement addMenuItemsToMenuBar in MainMenuScreen");
 		
 	}
+	
+	private void configureParent(MainMenuScreenController parent) {
+		this.parent = parent;
+	}
+	
+	private void configureMusic() {
+		
+		MediaManager.sharedInstance().loadNewMedia("/Sounds/RollingInTheDeep.mp3");
+		MediaManager.sharedInstance().play();
+		
+	}
+	
 	
 	// All other instance methods
 	
