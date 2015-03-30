@@ -119,6 +119,13 @@ public class MainMenuScreen extends Screen {
 		this.parent = parent;
 	}
 	
+	/**
+	 * needs to be changed to a MenuItem but otherwise on point!
+	 * please see methods above:
+	 * 	0. addMenuItemsToMenuBar(MenuBar menuBar)
+	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
+	 *  2. instantiateMusicMenu()
+	 */
 	private void configureButtons() {
 		
 		makeNewGameButton();
@@ -126,6 +133,13 @@ public class MainMenuScreen extends Screen {
 		
 	}
 	
+	/**
+	 * needs to be changed to a MenuItem but otherwise on point!
+	 * please see methods above:
+	 * 	0. addMenuItemsToMenuBar(MenuBar menuBar)
+	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
+	 *  2. instantiateMusicMenu()
+	 */
 	private void makeNewGameButton() {
 		
 		Control newGameButton = new Button();
@@ -136,6 +150,13 @@ public class MainMenuScreen extends Screen {
 		
 	}
 	
+	/**
+	 * needs to be changed to a MenuItem but otherwise on point!
+	 * please see methods above:
+	 * 	0. addMenuItemsToMenuBar(MenuBar menuBar)
+	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
+	 *  2. instantiateMusicMenu()
+	 */
 	private void loadGameButton() {
 		
 		Control loadGameButton = new Button();
@@ -148,5 +169,4 @@ public class MainMenuScreen extends Screen {
 		
 	// All other instance methods
 	
-
 }
