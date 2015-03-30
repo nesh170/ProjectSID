@@ -108,8 +108,9 @@ public class Sprite {
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		
-		setIsActive(true);
-		transform = new Transform(coordinate, rotate, dimension);
+		this.isActive = true;
+		this.transform = new Transform(coordinate, rotate, dimension);
+		this.spriteImage = new SpriteImage();
 		
 	}
 	
