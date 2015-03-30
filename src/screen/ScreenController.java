@@ -165,7 +165,9 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		
 	}
 	
+	
 	// All other instance methods
+	// Public
 	@Override
 	public void returnToSelectedLevel() {
 		// TODO Auto-generated method stub
@@ -225,6 +227,8 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	public void displayError(String error) {
 		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
 	}
+	
+	// Private
 	/**
 	 * Method for adding new Tab items
 	 * 
