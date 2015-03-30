@@ -48,7 +48,6 @@ public class MainMenuScreen extends Screen {
 		super(width, height);
 		
 		configureParent(parent);
-		configureMusic();
 		configureButtons();
 		
 	}
@@ -56,19 +55,68 @@ public class MainMenuScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
-		System.out.println("Implement addMenuItemsToMenuBar in MainMenuScreen");
+		ArrayList<Menu> menusToAdd = new ArrayList<>();
+		
+		// TODO: add more menu instances below here
+		menusToAdd.add(instantiateMusicMenu());
+		System.out.println("TODO: extend addMenuItemsToMenuBar in MainMenuScreen");
+		// TODO: add more menu instances above here
+		
+		menuBar.getMenus().addAll(menusToAdd);
 		
 	}
 	
-	private void configureParent(MainMenuScreenController parent) {
-		this.parent = parent;
+	private Menu instantiateMusicMenu() {
+		
+		Menu musicMenu = new Menu(STRING.MUSIC_OPTIONS);
+		
+		MenuItem playButton = new MenuItem(STRING.PLAY);
+		MenuItem pauseButton = new MenuItem(STRING.PAUSE);
+		MenuItem stopButton = new MenuItem(STRING.STOP);
+		
+		playButton.setOnAction(e -> handlePlayPressed());
+		pauseButton.setOnAction(e -> handlePausePressed());
+		stopButton.setOnAction(e -> handleStopPressed());
+		
+		musicMenu.getItems().addAll(playButton, pauseButton, stopButton);
+		
+		return musicMenu;
+		
 	}
 	
-	private void configureMusic() {
+	/**
+	 * stub for easy copying
+	 * 
+	 * @param menuBar
+	 * @return Menu to add to Collection<Menu>
+	 */
+	private Menu instantiateAnotherMenu(MenuBar menuBar) {
+		
+		Menu anotherMenu = new Menu("Another Menu");
+		
+		// add MenuItems here
+		
+		return anotherMenu;
+		
+	}
+	
+	private void handlePlayPressed() {
 		
 		MediaManager.sharedInstance().loadNewMedia("RollingInTheDeep.mp3");
 		MediaManager.sharedInstance().play();
 		
+	}
+	
+	private void handlePausePressed() {
+		MediaManager.sharedInstance().pause();
+	}
+
+	private void handleStopPressed() {
+		MediaManager.sharedInstance().stop();
+	}
+
+	private void configureParent(MainMenuScreenController parent) {
+		this.parent = parent;
 	}
 	
 	private void configureButtons() {
