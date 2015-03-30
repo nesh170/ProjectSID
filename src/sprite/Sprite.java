@@ -51,14 +51,17 @@ public class Sprite {
 	
 	// Constructor & Helpers
 	public Sprite() {
+		
 		setActive(true);
 		myTransform = new Transform(DEFAULT_POSITION, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
 		
 	}
 	
 	public Sprite(Point2D coordinate) {
+		
 		setActive(true);
 		myTransform = new Transform(coordinate, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
+		
 	}
 	
 	public Sprite(Point2D coordinate, Point2D rotate) {
@@ -67,8 +70,10 @@ public class Sprite {
 	}
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
+		
 		setActive(true);
 		myTransform = new Transform(coordinate, rotate, dimension);
+		
 	}
 	
 	
