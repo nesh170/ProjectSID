@@ -57,7 +57,6 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	// Static Variables
 	
 	
-	
 	// Instance Variables
 	// Sizing
 	private double width, height;
@@ -71,7 +70,6 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	
 	// Getters & Setters (static)
-	
 	
 	
 	// Getters & Setters (instance)
