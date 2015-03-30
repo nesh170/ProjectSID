@@ -41,6 +41,7 @@ public abstract class Screen extends Pane {
 		
 		configureWidthAndHeight(width, height);
 		configureMenuBar();
+		configureBackgroundColor();
 		
 	}
 	
@@ -71,6 +72,10 @@ public abstract class Screen extends Pane {
 	
 	private void addMenuBarToThis() {
 		this.getChildren().add(menuBar);
+	}
+	
+	private void configureBackgroundColor() {
+		this.setStyle(STRING.FX_BACKGROUND_COLOR_PREDICATE+STRING.DEFAULT_FX_BACKGROUND_COLOR);
 	}
 	
 	// All other instance methods
