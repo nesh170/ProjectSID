@@ -60,10 +60,9 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	// Sizing
 	private double width, height;
 	private double newScreenWidth, newScreenHeight;
-	
 	// JavaFX
 	private Group root;
-	
+	private TabPane tabPane;
 	// Screen
 	private Collection<Screen> screens;
 	private Screen screen;
@@ -99,6 +98,9 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		configureRoot(root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
+		
+		configureTabPane();
+		
 	
 	}
 	
@@ -122,6 +124,23 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		
 		this.newScreenWidth = width;
 		this.newScreenHeight = newScreenHeight;
+		
+	}
+	
+	private void configureTabPane() {
+		
+		tabPane = new TabPane();
+		Tab tab = new Tab();
+		tab.setText("hello");
+		tab.setContent(new Rectangle(200, 50, Color.LIGHTSTEELBLUE));
+		
+		Tab tab1 = new Tab();
+		tab1.setText("hi");
+		tab1.setContent(new Rectangle(300,300, Color.RED));
+		
+		tabPane.getTabs().addAll(tab, tab1);
+		
+		root.getChildren().add(tabPane);
 		
 	}
 	
