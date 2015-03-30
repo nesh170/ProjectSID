@@ -46,6 +46,11 @@ public class MainMenuScreen extends Screen {
 		add(new ImageView(i));
 		
 	}
+
+	@Override
+	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
+		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+	}
 	
 	// All other instance methods
 	

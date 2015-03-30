@@ -11,4 +11,9 @@ public class GamePlayScreen extends Screen {
 		
 	}
 
+	@Override
+	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
+		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+	}
+
 }
