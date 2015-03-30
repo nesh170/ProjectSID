@@ -2,6 +2,9 @@ package screen;
 
 import java.util.Collection;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreenController;
@@ -40,11 +43,11 @@ import screen.Screen;
  * 
  */
 
-public class ScreenController implements MainMenuScreenController, 
-										GameEditScreenController, 
-										SplashEditScreenController,
-										LevelEditScreenController,
-										SpriteEditScreenController {
+public class ScreenController extends Scene implements 	MainMenuScreenController, 
+														GameEditScreenController, 
+														SplashEditScreenController,
+														LevelEditScreenController,
+														SpriteEditScreenController {
 	
 	// Static Variables
 	
@@ -54,6 +57,10 @@ public class ScreenController implements MainMenuScreenController,
 	// Sizing
 	private double width, height;
 	private double newScreenWidth, newScreenHeight;
+	
+	// JavaFX
+	private Group root;
+	
 	// Screen
 	private Collection<Screen> screens;
 	private Screen screen;
@@ -64,16 +71,59 @@ public class ScreenController implements MainMenuScreenController,
 	
 	
 	// Getters & Setters (instance)
+	public double width() {
+		return this.width;
+	}
 	
+	public double height() {
+		return this.height;
+	}
+	
+	public double newScreenWidth() {
+		return this.newScreenWidth;
+	}
+	
+	public double newScreenHeight() {
+		return this.newScreenHeight;
+	}
 	
 	
 	// Constructors & Helpers
-	public ScreenController(double width, double height) {
-
+	public ScreenController(Group root, double width, double height) {
 		
+		super(root, width, height, Color.TAN);
+		
+		configureRoot(root);
+		configureWidthAndHeight(width, height);
+		configureNewScreenWidthAndHeight(width, height);
 	
 	}
-
+	
+	private void configureRoot(Group root) {
+		this.root = root;
+	}
+	
+	private void configureWidthAndHeight(double width, double height) {
+		
+		this.width = width;
+		this.height = height;
+		
+	}
+	
+	private void configureNewScreenWidthAndHeight(double width, double height) {
+			
+		System.out.println("TODO: appropriately size newScreenHeight in ScreenController.java in [configureNewScreenWidthAndHeight]"
+				+": base it on total height minus the height of a tab bar and menu bar");
+		
+		double newScreenHeight = 100.0;
+		
+		this.newScreenWidth = width;
+		this.newScreenHeight = newScreenHeight;
+		
+	}
+	
+	
+	// All other instance methods
 	@Override
 	public void returnToSelectedLevel() {
 		// TODO Auto-generated method stub

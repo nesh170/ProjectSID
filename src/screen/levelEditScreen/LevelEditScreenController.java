@@ -1,6 +1,8 @@
 package screen.levelEditScreen;
 
-public interface LevelEditScreenController {
+import screen.ScreenControllerInterface;
+
+public interface LevelEditScreenController extends ScreenControllerInterface {
 	
 	void returnToGameEditScreen();
 	
