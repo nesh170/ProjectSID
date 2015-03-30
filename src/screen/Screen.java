@@ -82,5 +82,5 @@ public abstract class Screen extends Pane {
 	protected void add(Node node) {
 		this.getChildren().add(node);
 	}
-	
+		
 }

@@ -3,9 +3,14 @@ package screen.mainMenu;
 import java.io.File;
 
 import media.MediaManager;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import screen.Screen;
 
 /**
@@ -16,6 +21,7 @@ import screen.Screen;
  * 
  * @author Michael
  * @author Ruslan
+ * @author Leo
  *
  */
 
@@ -28,6 +34,7 @@ public class MainMenuScreen extends Screen {
 	MainMenuScreenController parent;
 	
 	
+	
 	// Getters & Setters
 	
 	
@@ -38,6 +45,7 @@ public class MainMenuScreen extends Screen {
 		
 		configureParent(parent);
 		configureMusic();
+		configureButtons();
 		
 	}
 
@@ -59,7 +67,33 @@ public class MainMenuScreen extends Screen {
 		
 	}
 	
+	private void configureButtons() {
+		
+		makeNewGameButton();
+		loadGameButton();
+		
+	}
 	
+	private void makeNewGameButton() {
+		
+		Control newGameButton = new Button();
+		newGameButton.setOnMouseClicked(e -> parent.createNewGame());
+		//TODO placing in the pane
+		//TODO style
+		this.getChildren().add(newGameButton);
+		
+	}
+	
+	private void loadGameButton() {
+		
+		Control loadGameButton = new Button();
+		ChoiceBox<String> loadGameChoice = new ChoiceBox<String>();
+		//TODO placing in the pane
+		//TODO style
+		loadGameButton.setOnMouseClicked(e -> parent.loadGame(loadGameChoice.getSelectionModel().getSelectedItem()));
+		
+	}
+		
 	// All other instance methods
 	
 
