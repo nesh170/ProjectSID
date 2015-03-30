@@ -17,7 +17,7 @@ public abstract class Screen extends Group {
 
 	// Instance variables
 	// Sizing
-	double width, height;
+	private double width, height;
 	// JavaFX
 	
 	
