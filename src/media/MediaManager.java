@@ -49,7 +49,11 @@ public class MediaManager {
 	 * 
 	 */
 	public void loadNewMedia(String fileName) {
-		this.playURL = getClass().getResource(fileName);
+		
+		if (this.playURL == null && this.pauseURL == null) {
+			this.playURL = getClass().getResource(fileName);
+		}
+		
 	}
 	
 	/**

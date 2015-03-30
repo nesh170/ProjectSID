@@ -37,8 +37,8 @@ public class ExampleCodes {
 	 * AttackBehavior would then be added to the Sprite using the addBehavior() method.
 	 */
 	private void choosingAnAttackType(Sprite s) {
-		Component ab = new AttackAction(s);
-		s.addComponent(ab);
+//		Component ab = new AttackAction(s);
+//		s.addComponent(ab);
 	}
 	
 	/*
@@ -59,8 +59,8 @@ public class ExampleCodes {
 	 * JumpBehavior would then be added to the Sprite using the addBehavior() method.
 	 */
 	private void implementingAJump(Sprite s) {
-		Component jb = new JumpAction(s);
-		s.addComponent(jb);
+//		Component jb = new JumpAction(s);
+//		s.addComponent(jb);
 	}
 	
 	/*
