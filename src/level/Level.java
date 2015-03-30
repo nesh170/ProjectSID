@@ -63,7 +63,7 @@ public class Level {
 	}
 	
 	public Sprite[] getSpritesWithTag(String tag){
-		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.getTag() == tag).toArray();
+		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.tag() == tag).toArray();
 		return tagSprites;
 	}
 	
@@ -77,7 +77,7 @@ public class Level {
 	 */
 	public Map<KeyCode,Action> getControlMap(){
 	    Map<KeyCode,Action> controlMap = new HashMap<>();
-	    playerSprite.getActions().forEach(action -> action.setUpKey(controlMap));
+	    playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
             return controlMap;
 	}
 	

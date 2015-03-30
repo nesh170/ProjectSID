@@ -71,7 +71,7 @@ public class HealthComponent extends Component {
 	
 	
 	public void kill(){
-		mySprite.setActive(false);
+		mySprite.setIsActive(false);
 		myLives--;
 	}
 	
