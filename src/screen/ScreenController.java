@@ -159,13 +159,9 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	private void createInitialMainMenuScreen() {
 		
-		Tab tab = new Tab();
-		
-		tab.setText("Main Menu");
-				
-		tab.setContent(new MainMenuScreen(this, newScreenWidth, newScreenHeight));
-
-		tabPane.getTabs().addAll(tab);
+		addTabWithScreenWithStringIdentifier(
+				new MainMenuScreen(this, newScreenWidth, newScreenHeight),
+				"Main Menu");
 		
 	}
 	
@@ -229,5 +225,21 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	public void displayError(String error) {
 		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
 	}
+	/**
+	 * Method for adding new Tab items
+	 * 
+	 * @param Screen (to add)
+	 * @param String (title)
+	 */
+	private void addTabWithScreenWithStringIdentifier(Screen screen, String string) {
 
+		Tab tab = new Tab();
+
+		tab.setText(string);
+		tab.setContent(screen);
+
+		tabPane.getTabs().addAll(tab);
+
+	}
+	
 }
