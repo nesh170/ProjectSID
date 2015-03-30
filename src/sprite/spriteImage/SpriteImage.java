@@ -40,7 +40,7 @@ public class SpriteImage {
 	// # columns = width, assumes evenly laid-out array (which it should be)
 	public int width() {
 		
-		if (images.get(0)  == null) {
+		if (!hasImages()) {
 			return 0;
 		} 
 		
@@ -57,7 +57,7 @@ public class SpriteImage {
 	// # rows = height
 	public int height() {
 		
-		if (images.get(0)  == null) {
+		if (!hasImages()) {
 			return 0;
 		} 
 		
@@ -87,14 +87,77 @@ public class SpriteImage {
 	
 	
 	// All other instance methods
+	/**
+	 * 
+	 * @return true if SpriteImage contains at least one int[][]
+	 * 
+	 */
 	public boolean hasImages() {
 		return images.isEmpty();
+	}
+	
+	/**
+	 * 
+	 * @param (int[][]) image 
+	 * @return true if success adding image, false if not
+	 * 
+	 */
+	public boolean addImage(int[][] image) {
+		
+		if (!hasImages()) {		// Go ahead
+			
+			images.add(image);
+			return true;
+			
+		}
+		
+		else {					// Already has images. Check width & height before adding
+			
+			if (checkDimensions(image)) {
+				images.add(image);
+				return true;
+			}
+			
+			else {
+				return false;
+			}
+			
+		}
+		
+	}
+	
+	private boolean checkDimensions(int[][] image) {
+		
+		int width = image[0].length;
+		int height = image.length;
+		
+		return (width == width() && height == height());
+		
+	}
+	
+	/**
+	 * 
+	 * @param indexToRemove
+	 * @return count of images remaining
+	 * 
+	 * Will always be called from SpriteEditorScreen, which will only be able to use 
+	 * "indexToRemove" after checking the length. Will never exceed our length.
+	 * --> no null check necessary
+	 * 
+	 */
+	private int removeImage(int indexToRemove) {
+		
+		images.remove(indexToRemove);
+		return images.size();
+		
 	}
 	
 	/**
 	* 
 	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
 	* SpriteImage takes care of the rest.
+	* 
+	* @return int[][] if non-empty images, null if no images
 	* 
 	*/
 	public int[][] getIntArrayToDisplay() {
