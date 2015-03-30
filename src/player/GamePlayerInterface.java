@@ -2,7 +2,7 @@ package player;
 
 import java.util.List;
 
-public interface Player {
+public interface GamePlayerInterface {
 	/**
 	 * Starts or restarts the game animation.
 	 */
