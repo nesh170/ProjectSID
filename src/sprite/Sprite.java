@@ -28,6 +28,7 @@ import javafx.scene.shape.Shape;
  */
 public class Sprite {
 	
+	// Static Variables
 	private List<Component> myComponentsList;
 	private List<Action> myActionsList;
 	private static final Point2D DEFAULT_POSITION = new Point2D(0.0, 0.0);
@@ -35,6 +36,7 @@ public class Sprite {
 	private static final Dimension2D DEFAULT_DIMENSIONS = new Dimension2D(3.0, 3.0);
 	
 
+	// Instance Variables
 
 	private boolean isActive;
 	private String myTag;
@@ -43,6 +45,11 @@ public class Sprite {
 	private String myColorPath;
 
 	
+	// Getters & Setters
+	
+	
+	
+	// Constructor & Helpers
 	public Sprite() {
 		setActive(true);
 		myTransform = new Transform(DEFAULT_POSITION, DEFAULT_ROTATION, DEFAULT_DIMENSIONS);
@@ -63,6 +70,9 @@ public class Sprite {
 		setActive(true);
 		myTransform = new Transform(coordinate, rotate, dimension);
 	}
+	
+	
+	// All other instance methods
 	
 	/**
 	 * Apply 'initialize' method of
