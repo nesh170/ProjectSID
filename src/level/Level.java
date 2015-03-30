@@ -1,4 +1,7 @@
-package gameEngine;
+package level;
+import gameEngine.Action;
+import gameEngine.Collision;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

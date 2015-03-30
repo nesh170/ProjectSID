@@ -4,7 +4,7 @@ import java.util.List;
 
 import gameEngine.Component;
 import javafx.geometry.Point2D;
-import gameEngine.Level;
+import level.Level;
 import gameEngine.actions.AttackAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.sprites.Platform;

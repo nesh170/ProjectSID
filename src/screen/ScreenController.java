@@ -5,12 +5,12 @@ import java.util.Collection;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import level.Level;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreenController;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreenController;
-import gameEngine.Level;
 import game.Game;
 import screen.Screen;
 

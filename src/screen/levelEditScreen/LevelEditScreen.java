@@ -1,7 +1,7 @@
 package screen.levelEditScreen;
 
-import gameEngine.Level;
 import javafx.geometry.Point2D;
+import level.Level;
 import screen.Screen;
 import sprite.Sprite;
 
