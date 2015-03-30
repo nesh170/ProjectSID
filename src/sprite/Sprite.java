@@ -31,12 +31,12 @@ import javafx.scene.shape.Shape;
 public class Sprite {
 	
 	// Static Variables
-	private List<Component> myComponentsList;
-	private List<Action> myActionsList;
 	
 	
 	// Instance Variables
-
+	private List<Action> actionList;
+	private List<Component> componentList;
+	
 	private boolean isActive;
 	private String myTag;
 
