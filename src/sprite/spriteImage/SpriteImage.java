@@ -3,6 +3,8 @@ package sprite.spriteImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import resources.constants.INT;
+
 /**
 * 
 * @author Ruslan
@@ -26,12 +28,13 @@ public class SpriteImage {
 	
 	
 	// Instance Variables
-	// Stores all 2D, pixelated images
-	private List<int[][]> images;
-	// Used as counters 
-	private int framesBetweenImageUpdate;
+	private List<int[][]> images;			// Stores all 2D, pixelated images
+	private int imageFrameRate;
+	
+	// Counters
 	private int framesSinceLastUpdate;
 	private int currentImageIndex;
+	
 	
 	// Getters & Setters
 	// # columns = width, assumes evenly laid-out array (which it should be)
@@ -67,9 +70,9 @@ public class SpriteImage {
 		
 	}
 	
-	public void setFramesBetweenImageUpdate(int framesBetweenImageUpdate) {
+	public void setImageFrameRate(int imageFrameRate) {
 		
-		this.framesBetweenImageUpdate = framesBetweenImageUpdate;
+		this.imageFrameRate = imageFrameRate;
 		this.framesSinceLastUpdate = 0;
 		
 	}
@@ -77,6 +80,7 @@ public class SpriteImage {
 	// Constructor & Helpers
 	public SpriteImage() {
 		
+		imageFrameRate = INT.DEFAULT_IMAGE_FRAMERATE;
 		images = new ArrayList<int[][]>();
 		
 	}
@@ -87,23 +91,34 @@ public class SpriteImage {
 		return images.isEmpty();
 	}
 	
+	/**
+	* 
+	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
+	* SpriteImage takes care of the rest.
+	* 
+	*/
 	public int[][] getIntArrayToDisplay() {
 		
-		adjustCurrentImageIndex();
+		if (hasImages()) {
+			
+			adjustCounters();
+			return images.get(currentImageIndex).clone();			// clone of the array to avoid modification
+			
+		} 
 		
-		int[][] intArrayToDisplay = images.get(currentImageIndex);
-		
-		
-		
-		return intArrayToDisplay;
+		else {
+			return null;
+		}
 		
 	}
 	
-	private void adjustCurrentImageIndex() {
+	private void adjustCounters() {
 		
-		if (framesSinceLastUpdate > framesBetweenImageUpdate) {
-			
+		if (framesSinceLastUpdate > imageFrameRate) {
+			currentImageIndex = (currentImageIndex+1) % images.size();			
 		}
+		
+		framesSinceLastUpdate++;
 		
 	}
 	
