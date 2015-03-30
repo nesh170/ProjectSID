@@ -54,7 +54,7 @@ public class MainMenuScreen extends Screen {
 	
 	private void configureMusic() {
 		
-		MediaManager.sharedInstance().loadNewMedia("/Sounds/RollingInTheDeep.mp3");
+		MediaManager.sharedInstance().loadNewMedia("RollingInTheDeep.mp3");
 		MediaManager.sharedInstance().play();
 		
 	}

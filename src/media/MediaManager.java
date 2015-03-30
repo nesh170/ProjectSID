@@ -1,5 +1,8 @@
 package media;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javafx.scene.media.Media;
@@ -42,12 +45,11 @@ public class MediaManager {
 	/**
 	 * 
 	 * Loads a new media file to play. After this call MediaManager.sharedInstance().play()
-	 * @param String fileLocation
+	 * @param String fileName
 	 * 
 	 */
-	public void loadNewMedia(String fileLocation) {
-		this.playURL = getClass().getResource(fileLocation);
-		System.out.println(playURL);
+	public void loadNewMedia(String fileName) {
+		this.playURL = getClass().getResource(fileName);
 	}
 	
 	/**
