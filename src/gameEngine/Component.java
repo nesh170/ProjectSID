@@ -9,22 +9,22 @@ import javafx.scene.input.KeyCode;
 
 
 /**
- * In general, any logic/functionality/reactions 
- * pertaining to a Sprite will be held within the 
- * sprite as a list of Behavior classes. Subclasses
- * of behavior will be made for specific
- * facets of  a sprite's function within the game
+ * In general, Components will hold some state
+ * associated with a sprite, along with various utility methods
+ * that act on that state, and finally an update() method that
+ * is called every frame by the engine (and acts on the state in this
+ * component or others on the sprite).
  *  
  */
 public abstract class Component {
 	
-	/** A behavior is attached to a single sprite,
+	/** A component is attached to a single sprite,
 	 *  and contains a reference to its sprite
 	 */
 	protected Sprite mySprite;
 	private boolean isActive;
 	
-	/** At construction, behavior knows the
+	/** At construction, component knows the
 	 * sprite it is attached to
 	 * @param sprite
 	 */
@@ -34,7 +34,7 @@ public abstract class Component {
 	
 	/**
 	 * Initialize aspects of specific
-	 * behavior that need to happen at the
+	 * component that need to happen at the
 	 * onset of the level
 	 * 
 	 * 
@@ -42,7 +42,7 @@ public abstract class Component {
 	public abstract void prepare();
 	
 	/**
-	 * Check if behavior is active.
+	 * Check if component is active.
 	 * if so, execute update
 	 */
 	public void updateIfEnabled(){
@@ -51,12 +51,12 @@ public abstract class Component {
 		}
 	}
 	/**
-	 * Aspects of specific behavior that
+	 * Aspects of specific component that
 	 * need to happen every frame
 	 */
 	protected abstract void update();
 	
-	/** Set behavior to active */
+	/** Set component to active */
 	public void setActive(boolean set){
 		isActive = set;
 	}
