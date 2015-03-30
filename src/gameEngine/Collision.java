@@ -1,5 +1,7 @@
 package gameEngine;
 
+import gameEngine.actions.CollisionAction;
+
 import java.util.*;
 
 public class Collision {
@@ -8,12 +10,17 @@ public class Collision {
 	 * an array of four behaviors, representing what happens as a result of the first sprite colliding
 	 * with the second sprite from all four sides
 	 */
-	private Map<Class, Map<Class, Action[]>> myBehaviorTable;
 	
-	public Collision(Map<Class, Map<Class, Action[]>> behaviors){
-		myBehaviorTable = behaviors;
+	
+	private Map<String, Map<String, Action[]>> collideTable;
+	
+	public Collision(Map<String, Map<String, Action[]>> actionTable){
+		collideTable = actionTable;
 	}
-
+	
+	public CollisionAction getCollisionAction(Sprite s){
+		return (CollisionAction) s.getActionOfType("CollisionAction");
+	}
     /**
      * Takes in two sprites, determines spatial relationship, and calls appropriate method to handle Collision
      * @param sprite1
@@ -34,18 +41,18 @@ public class Collision {
     }
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
-    	myBehaviorTable.get(sprite1.getClass()).get(sprite2.getClass())[0].execute();
+    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[0].execute();
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
-    	myBehaviorTable.get(sprite1.getClass()).get(sprite2.getClass())[1].execute();
+    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[1].execute();
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
-    	myBehaviorTable.get(sprite1.getClass()).get(sprite2.getClass())[2].execute();
+    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[2].execute();
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
-    	myBehaviorTable.get(sprite1.getClass()).get(sprite2.getClass())[3].execute();
+    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[3].execute();
     }
 }
