@@ -38,14 +38,44 @@ public class Sprite {
 	private List<Component> componentList;
 	
 	private boolean isActive;
-	private String myTag;
+	private String tag;
 
-	private Transform myTransform;
-	private String myColorPath;
+	private Transform transform;
+	private String colorPath;
 
 	
 	// Getters & Setters
+	public List<Action> actionList() {
+		return Collections.unmodifiableList(this.actionList);
+	}
 	
+	public List<Component> componentList() {
+	    return Collections.unmodifiableList(this.componentList);
+	}
+	
+	public boolean isActive() {
+		return this.isActive;
+	}
+	
+	public void setIsActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+	
+	public String tag() {
+		return this.tag;
+	}
+	
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	
+	public Transform transform() {
+		return this.transform;
+	}
+
+	public Dimension2D dimensions() {
+		return transform.getDimensions();
+	}
 	
 	
 	// Constructor & Helpers
@@ -63,8 +93,8 @@ public class Sprite {
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		
-		setActive(true);
-		myTransform = new Transform(coordinate, rotate, dimension);
+		setIsActive(true);
+		transform = new Transform(coordinate, rotate, dimension);
 		
 	}
 	
@@ -79,11 +109,11 @@ public class Sprite {
 	 */
 
 	public void prepareAllComponents(){
-		myComponentsList.stream().forEach(com -> com.prepare());
+		componentList.stream().forEach(com -> com.prepare());
 	}
 	
 	public void prepareAllActions(){
-		myActionsList.stream().forEach(action -> action.prepare());
+		actionList.stream().forEach(action -> action.prepare());
 	}
 	
 	/**
@@ -97,7 +127,7 @@ public class Sprite {
 	public void updateAllComponents(){
 		if(isActive){
 			Consumer<Component> updateCon = com -> com.updateIfEnabled();
-			myComponentsList.stream().forEach(updateCon);
+			componentList.stream().forEach(updateCon);
 		}
 	}
 	
@@ -105,7 +135,7 @@ public class Sprite {
 	 * 
 	 */
 	public void addComponent(Component componentToAdd){
-		myComponentsList.add(componentToAdd);
+		componentList.add(componentToAdd);
 		
 	}
 	
@@ -135,7 +165,7 @@ public class Sprite {
 	
 	public Action getActionOfType(String actionClassName) {
 		
-		for(Action action: myActionsList){
+		for(Action action: actionList) {
 			
 			try {
 				if(action.getClass() == Class.forName(actionClassName)){
@@ -150,33 +180,6 @@ public class Sprite {
 		return null;
 		
 	}
-	
-	
-	public Transform getTransform(){
-		return myTransform;
-	}
-
-	public void setActive(boolean set){
-		isActive = set;
-	}
-	
-	public boolean isActive(){
-		return isActive;
-	}
-	
-	public String getTag(){
-		return myTag;
-	}
-	
-	public void setTag(String tagString) {
-		myTag = tagString;
-	}
-	
-
-	public Dimension2D getDimensions(){
-		return myTransform.getDimensions();
-	}
-	
 	public Group render(){
 	    Shape spriteView = new Rectangle(myTransform.getPosX(),myTransform.getPosY(),myTransform.getWidth(),myTransform.getHeight());
 	    Paint spriteColor;
@@ -191,11 +194,4 @@ public class Sprite {
 	    return new Group(spriteView);
 	}
 	
-	public List<Component> getComponents(){
-	    return Collections.unmodifiableList(myComponentsList);
-	}
-
-	public List<Action> getActions() {
-		return Collections.unmodifiableList(myActionsList);
-	}
 }
