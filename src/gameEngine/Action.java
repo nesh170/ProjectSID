@@ -7,23 +7,21 @@ import javafx.scene.input.KeyCode;
 
 
 /**
- * In general, any logic/functionality/reactions 
- * pertaining to a Sprite will be held within the 
- * sprite as a list of Behavior classes. Subclasses
- * of behavior will be made for specific
- * facets of  a sprite's function within the game
- *  
+ * Action will hold a specific event (execute method) that will be triggered
+ * at various points in game. Can be attached to a key for control,
+ * added to a collision, or even called in the update() method of
+ * Components
  */
 public abstract class Action {
 	
-	/** A behavior is attached to a single sprite,
+	/** An action is attached to a single sprite,
 	 *  and contains a reference to its sprite
 	 */
 	protected Sprite mySprite;
 	private boolean isActive;
 	private List<KeyCode> myKeyCode;
 	
-	/** At construction, behavior knows the
+	/** At construction, action knows the
 	 * sprite it is attached to
 	 * @param sprite
 	 */
@@ -31,7 +29,7 @@ public abstract class Action {
 		mySprite = sprite;
 	}
 	
-	/** Constructor for Behaviors that are executed by the user pressing keys
+	/** Constructor for Actions that are executed by the user pressing keys
 	 * @param sprite
 	 * @param keys
 	 */
