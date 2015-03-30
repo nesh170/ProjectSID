@@ -24,7 +24,7 @@ public class MainMenuScreen extends Screen {
 	
 	
 	// Instance variables
-	
+	MainMenuScreenController parent;
 	
 	
 	// Getters & Setters
@@ -32,7 +32,7 @@ public class MainMenuScreen extends Screen {
 	
 	
 	// Constructor & Helpers
-	public MainMenuScreen(double width, double height) {
+	public MainMenuScreen(MainMenuScreenController parent, double width, double height) {
 		
 		super(width, height);
 		addBackgroundImage();
@@ -44,6 +44,7 @@ public class MainMenuScreen extends Screen {
 		File f = new File("/Users/Michael/Documents/workspace2/voogasalad_ScrollingDeep/DESIGN/data/MainPage.png");
 		Image i = new Image(f.toURI().toString());
 		add(new ImageView(i));
+		this.parent = parent;
 		
 	}
 
