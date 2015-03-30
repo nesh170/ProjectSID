@@ -207,4 +207,9 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		
 	}
 
+	@Override
+	public void displayError(String error) {
+		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
+	}
+
 }

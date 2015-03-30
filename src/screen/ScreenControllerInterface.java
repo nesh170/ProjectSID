@@ -16,4 +16,7 @@ public interface ScreenControllerInterface {
 	public double newScreenWidth();
 	public double newScreenHeight();
 	
+	// Display invalid commands message
+	public void displayError(String error);
+	
 }
