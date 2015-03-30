@@ -11,6 +11,7 @@ import java.util.function.*;
 
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
+import sprite.spriteImage.SpriteImage;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -34,6 +35,8 @@ public class Sprite {
 	
 	
 	// Instance Variables
+	private SpriteImage spriteImage;
+	
 	private List<Action> actionList;
 	private List<Component> componentList;
 	
@@ -45,6 +48,18 @@ public class Sprite {
 
 	
 	// Getters & Setters
+	public SpriteImage spriteImage() {
+		return this.spriteImage;
+	}
+	
+	public int width() {
+		return spriteImage.width();
+	}
+	
+	public int height() {
+		return spriteImage.height();
+	}
+	
 	public List<Action> actionList() {
 		return Collections.unmodifiableList(this.actionList);
 	}
