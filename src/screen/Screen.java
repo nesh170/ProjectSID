@@ -1,9 +1,13 @@
 package screen;
 
+import resources.constants.COLOR;
 import resources.constants.DOUBLE;
+import resources.constants.STRING;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  * The superclass to the MainMenuScreen, GameEditScreen, LevelEditScreen, etc.
