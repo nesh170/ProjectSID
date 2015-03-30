@@ -3,16 +3,15 @@ package usecases;
 import java.util.List;
 
 import gameEngine.Component;
-import gameEngine.Sprite;
 import javafx.geometry.Point2D;
 import gameEngine.Level;
-import gameEngine.Sprite;
 import gameEngine.actions.AttackAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.sprites.Platform;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.mainMenu.MainMenuScreenController;
+import sprite.Sprite;
 
 import com.thoughtworks.xstream.XStream;
 

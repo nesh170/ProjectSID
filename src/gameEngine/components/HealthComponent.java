@@ -1,7 +1,7 @@
 package gameEngine.components;
 
+import sprite.Sprite;
 import gameEngine.Component;
-import gameEngine.Sprite;
 
 /**
  * Behavior containing health state,

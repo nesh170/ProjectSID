@@ -4,6 +4,8 @@ import gameEngine.actions.CollisionAction;
 
 import java.util.*;
 
+import sprite.Sprite;
+
 public class Collision {
 	/**
 	 * The Collision Class needs to be given a map which, for each combination of Sprites, gives

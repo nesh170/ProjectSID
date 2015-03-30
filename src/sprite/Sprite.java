@@ -1,4 +1,8 @@
-package gameEngine;
+package sprite;
+
+import gameEngine.Action;
+import gameEngine.Component;
+import gameEngine.Transform;
 
 import java.util.Collections;
 import java.util.List;
