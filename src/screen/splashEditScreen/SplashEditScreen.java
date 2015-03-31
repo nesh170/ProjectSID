@@ -15,5 +15,14 @@ public class SplashEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
 	}
+	
+	//MenuBar
+	//TODO: Back
+	
+	//Buttons
+	//TODO: Add Start Button
+	//TODO: Add Image
+	//TODO: Add Text
+	//TODO: Add Animation
 
 }
