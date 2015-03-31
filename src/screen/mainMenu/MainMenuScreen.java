@@ -56,72 +56,11 @@ public class MainMenuScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
-		ArrayList<Menu> menusToAdd = new ArrayList<>();
-		
-		menusToAdd.add(instantiateFileMenu());
-		menusToAdd.add(instantiateMusicMenu());
-
-		// TODO: add more menu instances above here
-		//TODO: set background and possibly other preferences
-		
-		menuBar.getMenus().addAll(menusToAdd);
+		MainMenuScreen.MainMenuMenuBarFactory mainMenuMenuBarFactory = new MainMenuScreen.MainMenuMenuBarFactory(menuBar);
+		mainMenuMenuBarFactory.fill();
 		
 	}
-	
-	private Menu instantiateMusicMenu() {
 		
-		Menu musicMenu = new Menu(STRING.MUSIC_OPTIONS);
-		
-		MenuItem playButton = new MenuItem(STRING.PLAY);
-		MenuItem pauseButton = new MenuItem(STRING.PAUSE);
-		MenuItem stopButton = new MenuItem(STRING.STOP);
-		
-		playButton.setOnAction(e -> handlePlayPressed());
-		pauseButton.setOnAction(e -> handlePausePressed());
-		stopButton.setOnAction(e -> handleStopPressed());
-		
-		musicMenu.getItems().addAll(playButton, pauseButton, stopButton);
-		
-		return musicMenu;
-		
-	}
-	
-	/**
-	 * stub for easy copying
-	 * 
-	 * @param menuBar
-	 * @return Menu to add to Collection<Menu>
-	 */
-	private Menu instantiateAnotherMenu(MenuBar menuBar) {
-		
-		Menu anotherMenu = new Menu("Another Menu");
-		
-		// add MenuItems here
-		
-		return anotherMenu;
-		
-	}
-	
-	private Menu instantiateFileMenu() {
-		
-		Menu fileMenu = new Menu("File");
-		
-		// add MenuItems here
-		
-		MenuItem newFile = new MenuItem("New");
-		MenuItem openFile = new MenuItem("Open");
-		MenuItem closeFile = new MenuItem("Close");
-		
-		newFile.setOnAction(e -> parent.createNewGame());
-		openFile.setOnAction(e -> parent.loadGame(getGameFile()));
-		closeFile.setOnAction(e -> parent.closeApplication());
-		
-		fileMenu.getItems().addAll(newFile, openFile, closeFile);
-		
-		return fileMenu;
-		
-	}
-	
 	private String getGameFile() {
 		
 		FileChooser fileChooser = new FileChooser();
@@ -130,21 +69,6 @@ public class MainMenuScreen extends Screen {
 		
 	}
 	
-	private void handlePlayPressed() {
-		
-		MediaManager.sharedInstance().loadNewMedia("RollingInTheDeep.mp3");
-		MediaManager.sharedInstance().play();
-		
-	}
-	
-	private void handlePausePressed() {
-		MediaManager.sharedInstance().pause();
-	}
-
-	private void handleStopPressed() {
-		MediaManager.sharedInstance().stop();
-	}
-
 	private void configureParent(MainMenuScreenController parent) {
 		this.parent = parent;
 	}
@@ -199,5 +123,89 @@ public class MainMenuScreen extends Screen {
 		
 	// All other instance methods
 	
+	/**
+	 * 
+	 * @author Ruslan
+	 *
+	 * A nested class within MainMenuScreen that populates the menuBar for the mainMenu
+	 *
+	 */
+	class MainMenuMenuBarFactory {
+		
+		private MenuBar menuBar;
+		
+		private MainMenuMenuBarFactory(MenuBar menuBar) {
+			this.menuBar = menuBar;
+		}
+		
+		private void fill() {
+			
+			ArrayList<Menu> menusToAdd = new ArrayList<>();
+			
+			menusToAdd.add(instantiateFileMenu());
+			menusToAdd.add(instantiateMusicMenu());
+
+			// TODO: add more menu instances above here
+			//TODO: set background and possibly other preferences
+			
+			menuBar.getMenus().addAll(menusToAdd);
+			
+		}
+
+		private Menu instantiateMusicMenu() {
+
+			Menu musicMenu = new Menu(STRING.MUSIC_OPTIONS);
+
+			MenuItem playButton = new MenuItem(STRING.PLAY);
+			MenuItem pauseButton = new MenuItem(STRING.PAUSE);
+			MenuItem stopButton = new MenuItem(STRING.STOP);
+
+			playButton.setOnAction(e -> handlePlayPressed());
+			pauseButton.setOnAction(e -> handlePausePressed());
+			stopButton.setOnAction(e -> handleStopPressed());
+
+			musicMenu.getItems().addAll(playButton, pauseButton, stopButton);
+
+			return musicMenu;
+
+		}
+
+		private Menu instantiateFileMenu() {
+
+			Menu fileMenu = new Menu("File");
+
+			MenuItem newFile = new MenuItem("New");
+			MenuItem openFile = new MenuItem("Open");
+			MenuItem closeFile = new MenuItem("Close");
+
+			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
+			newFile.setOnAction(e -> parent.createNewGame());
+			openFile.setOnAction(e -> parent.loadGame(getGameFile()));
+			closeFile.setOnAction(e -> parent.closeApplication());
+			
+			fileMenu.getItems().addAll(newFile, openFile, closeFile);
+			
+			return fileMenu;
+			
+		}
+		
+		private void handlePlayPressed() {
+			
+			MediaManager.sharedInstance().loadNewMedia("RollingInTheDeep.mp3");
+			MediaManager.sharedInstance().play();
+			
+		}
+		
+		private void handlePausePressed() {
+			MediaManager.sharedInstance().pause();
+		}
+
+		private void handleStopPressed() {
+			MediaManager.sharedInstance().stop();
+		}
+		
+		
+		
+	}
 	
 }
