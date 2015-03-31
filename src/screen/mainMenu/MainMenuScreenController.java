@@ -14,10 +14,12 @@ public interface MainMenuScreenController extends ScreenControllerInterface {
 	void loadGameEditScreen(String recentGameName);
 	
 	/**
-	 * Takes the file path to a directory containing a game and loads it to
-	 * the game editing screen
+	 * Tells the ScreenController to load a FileChooser. If non-null, load the Game. 
+	 * Important: Done in ScreenController because access to the stage is needed.
+	 * 
+	 * This calls loadGame(URI gameLocationOnDisk) internally in ScreenController.
 	 */
-	public void loadGame(String gameFile);
+	public void loadGame();
 	
 	public void closeApplication();
 	
