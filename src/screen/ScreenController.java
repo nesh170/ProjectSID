@@ -181,122 +181,8 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	// All other instance methods
 	// Public
 	@Override
-	public void returnToSelectedLevel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loadSpriteEditScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void returnToGameEditScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createNewGame() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void returnToMainMenuScreen() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loadLevelEditScreen(Level level) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loadGame() {
-		
-		URI gameLocation;
-
-		if ((gameLocation = getGameFileURI()) != null) {
-			loadGame(gameLocation);
-		}
-
-	}
-	
-	/**
-	 * Called by loadGame() in the interface. Guaranteed that gameLocationOnDisk != null
-	 * 
-	 * @param gameLocationOnDisk
-	 */
-	private void loadGame(URI gameLocationOnDisk) {
-		
-		Game game = null;
-		
-		// TODO:
-			/*
-			 * Instantiate a DataManager or call DataManager.sharedInstance()
-			 * Read off a Game from XML
-			 */
-		
-		// Here, Game can potentiall still be null if the user selected a non-Game XML
-		if (game != null) {
-			
-			
-			// TODO
-			/*
-			 * Instantiate a GameEditScreen
-			 * Set main menu tab to unclickable and unremovable
-			 */
-		} 
-		
-		else {
-			displayError("Invalid Game file selected.");
-		}
-		
-	}
-	
-	private URI getGameFileURI() {
-		
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Choose Game File");
-		
-		fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
-		
-		File file = fileChooser.showOpenDialog(stage);
-		
-		if (file != null) {
-			return file.toURI();
-		} else {
-			return null;
-		}
-		
-	}
-
-	@Override
-	public void loadGameEditScreen(String recentGameName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void loadSplashEditScreen(Game game) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void displayError(String error) {
 		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
-	}
-	
-	@Override
-	public void closeApplication() {
-		stage.close();
 	}
 	
 	// Private
@@ -359,36 +245,162 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	// Inner class for handling MainMenuScreenController methods
 	private class MainMenuScreenManager implements MainMenuScreenController {
 
+		@Override
+		public void createNewGame() {
+			throw new IllegalStateException("unimplemented createNewGame in MainMenuScreenController");
+		}
+
+		@Override
+		public void loadGameEditScreen(String recentGameName) {
+			throw new IllegalStateException("unimplemented loadGameEditScreen in MainMenuScreenController");
+		}
+
+		@Override
+		public void loadGame() {
+			
+			URI gameLocation;
+
+			if ((gameLocation = getGameFileURI()) != null) {
+				loadGame(gameLocation);
+			}
+
+		}
+		
+		/**
+		 * @author Ruslan
+		 * 
+		 * Opens a FileChooser, select an XML that stores our Game
+		 * @return URI of exact Game XML location
+		 */
+		private URI getGameFileURI() {
+			
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Choose Game File");
+			
+			fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
+			
+			File file = fileChooser.showOpenDialog(stage);
+			
+			if (file != null) {
+				return file.toURI();
+			} else {
+				return null;
+			}
+			
+		}
+
+		/**
+		 * Called by loadGame() in the interface. Guaranteed that gameLocationOnDisk != null
+		 * 
+		 * @param gameLocationOnDisk
+		 */
+		private void loadGame(URI gameLocationOnDisk) {
+			
+			Game game = null;
+			
+			// TODO:
+				/*
+				 * Instantiate a DataManager or call DataManager.sharedInstance()
+				 * Read off a Game from XML
+				 */
+			
+			// Here, Game can potentiall still be null if the user selected a non-Game XML
+			if (game != null) {
+				
+				
+				// TODO
+				/*
+				 * Instantiate a GameEditScreen
+				 * Set main menu tab to unclickable and unremovable
+				 */
+			} 
+			
+			else {
+				displayError("Invalid Game file selected.");
+			}
+			
+		}
+		
+		@Override
+		public void closeApplication() {
+			stage.close();		
+		}
 		
 	}
 
 	// Inner class for handling GameEditScreenController methods
 	private class GameEditScreenManager implements GameEditScreenController {
 
+		@Override
+		public void returnToMainMenuScreen() {
+			throw new IllegalStateException("unimplemented returnToMainMenuScreen in GameEditScreenController");
+		}
+
+		@Override
+		public void loadSplashEditScreen(Game game) {
+			throw new IllegalStateException("unimplemented loadSplashEditScreen in GameEditScreenController");
+		}
+
+		@Override
+		public void loadLevelEditScreen(Level level) {
+			throw new IllegalStateException("unimplemented loadLevelEditScreen in GameEditScreenController");
+		}
 		
 	}
 	
 	// Inner class for handling SplashEditScreenController methods
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
+		@Override
+		public void returnToGameEditScreen() {
+			throw new IllegalStateException("unimplemented returnToGameEditScreen in SplashEditScreenController");
+		}
 		
 	}
 	
 	// Inner class for handling LevelEditScreenController methods
 	private class LevelEditScreenManager implements LevelEditScreenController {
 
+		@Override
+		public void returnToGameEditScreen() {
+			throw new IllegalStateException("unimplemented returnToGameEditScreen in LevelEditScreenController");
+		}
+
+		@Override
+		public void loadSpriteEditScreen() {
+			throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
+		}
 		
 	}
 	
 	// Inner class for handling SpriteEditScreenController methods
 	private class SpriteEditScreenManager implements SpriteEditScreenController {
 
+		@Override
+		public void returnToSelectedLevel() {
+			throw new IllegalStateException("unimplemented returnToSelectedLevel in SpriteEditScreenController");
+		}
 		
 	}
 	
 	// Inner class for handling GamePlayScreenController methods
 	private class GamePlayScreenManager implements GamePlayScreenController {
 
+		@Override
+		public void returnToMainMenuScreen() {
+			throw new IllegalStateException("unimplemented returnToMainMenuScreen in GamePlayScreenController");
+		}
+
+		@Override
+		public void loadSplashEditScreen() {
+			throw new IllegalStateException("unimplemented loadSplashEditScreen in GamePlayScreenController");
+		}
+
+		@Override
+		public void loadLevelEditScreen() {
+			throw new IllegalStateException("unimplemented loadLevelEditScreen in GamePlayScreenController");
+		}
+		
 	}
 	
 }
