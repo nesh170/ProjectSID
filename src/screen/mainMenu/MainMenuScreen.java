@@ -58,6 +58,7 @@ public class MainMenuScreen extends Screen {
 		ArrayList<Menu> menusToAdd = new ArrayList<>();
 		
 		// TODO: add more menu instances below here
+		menusToAdd.add(instantiateFileMenu());
 		menusToAdd.add(instantiateMusicMenu());
 		System.out.println("TODO: extend addMenuItemsToMenuBar in MainMenuScreen");
 		// TODO: add more menu instances above here
@@ -97,6 +98,26 @@ public class MainMenuScreen extends Screen {
 		// add MenuItems here
 		
 		return anotherMenu;
+		
+	}
+	
+	private Menu instantiateFileMenu() {
+		
+		Menu fileMenu = new Menu("File");
+		
+		// add MenuItems here
+		
+		MenuItem newFile = new MenuItem("New");
+		MenuItem openFile = new MenuItem("Open");
+		MenuItem closeFile = new MenuItem("Close");
+		
+		newFile.setOnAction(e -> makeNewGameButton());
+		openFile.setOnAction(e -> loadGameButton());
+		closeFile.setOnAction(e -> closeGame());
+		
+		fileMenu.getItems().addAll(newFile, openFile, closeFile);
+		
+		return fileMenu;
 		
 	}
 	
@@ -168,5 +189,11 @@ public class MainMenuScreen extends Screen {
 	}
 		
 	// All other instance methods
+	
+	private void closeGame() {
+		
+		//TODO close game
+		
+	}
 	
 }
