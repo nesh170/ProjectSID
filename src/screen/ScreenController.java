@@ -4,8 +4,10 @@ import java.io.File;
 import java.net.URI;
 import java.util.Collection;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
