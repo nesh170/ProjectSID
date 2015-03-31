@@ -1,8 +1,6 @@
 package screen.splashEditScreen;
 
-import screen.ScreenControllerInterface;
-
-public interface SplashEditScreenController extends ScreenControllerInterface {
+public interface SplashEditScreenController {
 	
 	/*
 	 * Goes back to the previous game editing screen  

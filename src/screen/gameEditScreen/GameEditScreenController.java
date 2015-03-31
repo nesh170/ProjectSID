@@ -1,10 +1,9 @@
 package screen.gameEditScreen;
 
 import level.Level;
-import screen.ScreenControllerInterface;
 import game.Game;
 
-public interface GameEditScreenController extends ScreenControllerInterface {
+public interface GameEditScreenController {
 	
 	void returnToMainMenuScreen();
 	

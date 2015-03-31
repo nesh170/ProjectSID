@@ -2,9 +2,7 @@ package screen.mainMenu;
 
 import java.net.URI;
 
-import screen.ScreenControllerInterface;
-
-public interface MainMenuScreenController extends ScreenControllerInterface {
+public interface MainMenuScreenController {
 	
 	/**
 	 * Creates a new game and loads the game to the game editing screen
