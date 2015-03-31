@@ -307,6 +307,8 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		Tab tab = new Tab();
 
 		tab.setText(string);
+		tab.setId(string);
+		
 		tab.setContent(screen);
 		tab.setClosable(false);
 
