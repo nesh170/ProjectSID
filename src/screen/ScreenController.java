@@ -217,6 +217,20 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	@Override
 	public void loadGame(String gameFile) {
 		// TODO Auto-generated method stub
+	private URI getGameFileURI() {
+		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose Game File");
+		
+		fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
+		
+		File file = fileChooser.showOpenDialog(stage);
+		
+		if (file != null) {
+			return file.toURI();
+		} else {
+			return null;
+		}
 		
 	}
 
