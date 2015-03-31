@@ -9,6 +9,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import level.Level;
 import resources.constants.DOUBLE;
 import screen.gameEditScreen.GameEditScreenController;
@@ -63,6 +64,7 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	private double width, height;
 	private double newScreenWidth, newScreenHeight;
 	// JavaFX
+	private Stage stage;
 	private Group root;
 	private TabPane tabPane;
 	// Screen
@@ -92,11 +94,11 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	
 	// Constructors & Helpers
-	public ScreenController(Group root, double width, double height) {
+	public ScreenController(Group root, double width, double height, Stage stage) {
 		
 		super(root, width, height, Color.TAN);
 		
-		configureRoot(root);
+		configureRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		
@@ -106,8 +108,9 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	}
 	
-	private void configureRoot(Group root) {
+	private void configureRoot(Stage stage, Group root) {
 		this.root = root;
+		this.stage = stage;
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
@@ -245,6 +248,11 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 
 		tabPane.getTabs().addAll(tab);
 
+	}
+
+	@Override
+	public void closeApplication() {
+		stage.close();
 	}
 	
 }

@@ -17,4 +17,6 @@ public interface MainMenuScreenController extends ScreenControllerInterface {
 	 */
 	public void loadGame(String gameFile);
 	
+	public void closeApplication();
+	
 }

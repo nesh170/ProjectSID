@@ -14,6 +14,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import resources.constants.STRING;
 import screen.Screen;
 
@@ -111,13 +112,21 @@ public class MainMenuScreen extends Screen {
 		MenuItem openFile = new MenuItem("Open");
 		MenuItem closeFile = new MenuItem("Close");
 		
-		newFile.setOnAction(e -> makeNewGameButton());
-		openFile.setOnAction(e -> loadGameButton());
+		newFile.setOnAction(e -> parent.createNewGame());
+		openFile.setOnAction(e -> parent.loadGame(getGameFile()));
 		closeFile.setOnAction(e -> closeGame());
 		
 		fileMenu.getItems().addAll(newFile, openFile, closeFile);
 		
 		return fileMenu;
+		
+	}
+	
+	private String getGameFile() {
+		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose Game File");
+		return fileChooser.getInitialFileName();
 		
 	}
 	
@@ -192,7 +201,7 @@ public class MainMenuScreen extends Screen {
 	
 	private void closeGame() {
 		
-		//TODO close game
+		parent.closeApplication();
 		
 	}
 	
