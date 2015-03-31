@@ -73,9 +73,6 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	private Stage stage;
 	private Group root;
 	private TabPane tabPane;
-	// Screen
-	private Collection<Screen> screens;
-	private Screen screen;
 	
 	
 	// Getters & Setters (static)
@@ -173,7 +170,7 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(this, newScreenWidth, newScreenHeight),
 				"Main Menu");
-		
+				
 	}
 	
 	
