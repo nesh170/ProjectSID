@@ -70,6 +70,13 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	private Stage stage;
 	private Group root;
 	private TabPane tabPane;
+	// ScreenController Inner Class Handlers
+	MainMenuScreenController mainMenuScreenManager = new ScreenController.MainMenuScreenManager();
+	GameEditScreenController gameEditScreenManager = new ScreenController.GameEditScreenManager();
+	SplashEditScreenController splashEditScreenManager = new ScreenController.SplashEditScreenManager();
+	LevelEditScreenController levelEditScreenManager = new ScreenController.LevelEditScreenManager();
+	SpriteEditScreenController spriteEditScreenManager = new ScreenController.SpriteEditScreenManager();
+	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
 	
 	
 	// Getters & Setters (static)
@@ -165,7 +172,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	private void createInitialMainMenuScreen() {
 		
 		addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(this, newScreenWidth, newScreenHeight),
+				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
 				
 	}
@@ -345,6 +352,43 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		tab.setClosable(true);
 		tab.setDisable(false);
 		
+	}
+	
+	
+	// Nested Classes
+	// Inner class for handling MainMenuScreenController methods
+	private class MainMenuScreenManager implements MainMenuScreenController {
+
+		
+	}
+
+	// Inner class for handling GameEditScreenController methods
+	private class GameEditScreenManager implements GameEditScreenController {
+
+		
+	}
+	
+	// Inner class for handling SplashEditScreenController methods
+	private class SplashEditScreenManager implements SplashEditScreenController {
+
+		
+	}
+	
+	// Inner class for handling LevelEditScreenController methods
+	private class LevelEditScreenManager implements LevelEditScreenController {
+
+		
+	}
+	
+	// Inner class for handling SpriteEditScreenController methods
+	private class SpriteEditScreenManager implements SpriteEditScreenController {
+
+		
+	}
+	
+	// Inner class for handling GamePlayScreenController methods
+	private class GamePlayScreenManager implements GamePlayScreenController {
+
 	}
 	
 }
