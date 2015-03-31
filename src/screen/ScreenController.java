@@ -312,9 +312,42 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		tab.setContent(screen);
 
 		tabPane.getTabs().addAll(tab);
+		
+		setCorrectTabModifiability();
 
 	}
 
+	/**
+	 * Take all tabs except the current one and make them unmodifiable. Make the current tab modifiable
+	 * 
+	 * @author Ruslan
+	 */
+	private void setCorrectTabModifiability() {
+		
+		int tabPaneListSize = tabPane.getTabs().size();
+		ObservableList<Tab> tabs = tabPane.getTabs();
+		
+		// All Tab(s) except the last one
+		for (int i=0; i < tabPaneListSize-1; i++) {
+			disableTab(tabs.get(i));
+		}
+		
+		enableTab(tabs.get(tabPaneListSize-1));
+	
+	}
+	
+	private void disableTab(Tab tab) {
+	
+		tab.setClosable(false);
+		tab.setDisable(true);
+		
+	}
+	
+	private void enableTab(Tab tab) {
+		
+		tab.setClosable(true);
+		tab.setDisable(false);
+		
 	}
 	
 }
