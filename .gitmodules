@@ -1,3 +1,4 @@
 [submodule "voogasalad"]
 	path = voogasalad
 	url = https://github.com/duke-compsci308-spring2015/voogasalad_util.git
+	branch = AsASubmodule
