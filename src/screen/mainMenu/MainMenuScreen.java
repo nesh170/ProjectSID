@@ -61,15 +61,7 @@ public class MainMenuScreen extends Screen {
 		mainMenuMenuBarFactory.fill();
 		
 	}
-		
-	private String getGameFileURI() {
-		
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Choose Game File");
-		return fileChooser.getInitialFileName();
-		
-	}
-	
+
 	private void configureParent(MainMenuScreenController parent) {
 		this.parent = parent;
 	}
@@ -118,7 +110,7 @@ public class MainMenuScreen extends Screen {
 		ChoiceBox<String> loadGameChoice = new ChoiceBox<String>();
 		//TODO placing in the pane
 		//TODO style
-		loadGameButton.setOnMouseClicked(e -> parent.loadGame(loadGameChoice.getSelectionModel().getSelectedItem()));
+		loadGameButton.setOnMouseClicked(e -> parent.loadGame());
 		
 	}
 		
@@ -181,7 +173,7 @@ public class MainMenuScreen extends Screen {
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
 			newFile.setOnAction(e -> parent.createNewGame());
-			openFile.setOnAction(e -> parent.loadGame(getGameFileURI()));
+			openFile.setOnAction(e -> parent.loadGame());
 			closeFile.setOnAction(e -> parent.closeApplication());
 			
 			fileMenu.getItems().addAll(newFile, openFile, closeFile);
