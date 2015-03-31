@@ -112,7 +112,7 @@ public class MainMenuScreen extends Screen {
 		
 		newFile.setOnAction(e -> parent.createNewGame());
 		openFile.setOnAction(e -> parent.loadGame(getGameFile()));
-		closeFile.setOnAction(e -> closeGame());
+		closeFile.setOnAction(e -> parent.closeApplication());
 		
 		fileMenu.getItems().addAll(newFile, openFile, closeFile);
 		
@@ -197,10 +197,5 @@ public class MainMenuScreen extends Screen {
 		
 	// All other instance methods
 	
-	private void closeGame() {
-		
-		parent.closeApplication();
-		
-	}
 	
 }
