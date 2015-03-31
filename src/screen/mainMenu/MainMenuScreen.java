@@ -57,10 +57,11 @@ public class MainMenuScreen extends Screen {
 		
 		ArrayList<Menu> menusToAdd = new ArrayList<>();
 		
-		// TODO: add more menu instances below here
 		menusToAdd.add(instantiateFileMenu());
 		menusToAdd.add(instantiateMusicMenu());
+
 		// TODO: add more menu instances above here
+		//TODO: set background and possibly other preferences
 		
 		menuBar.getMenus().addAll(menusToAdd);
 		
