@@ -36,8 +36,8 @@ import screen.Screen;
  */
 
 /**
- * 
- * Notes from March 28 meeting (Michael, Anika, Leo, Yongjiao)
+ * ----------------------------------------------------------------------
+ * Note from March 28 meeting (Michael, Anika, Leo, Yongjiao)
  * 
  * abstract Display extends FX object
  * 	Collection<Display>
@@ -49,10 +49,20 @@ import screen.Screen;
  * 
  * everything opens in a new tab (use Controller class for flow)
  * 
- * 
+ * ----------------------------------------------------------------------
  * Note from March 29th (Ruslan)
  * 
  * The Display functionality would be better suited in ScreenController
+ * 
+ * ----------------------------------------------------------------------
+ * Note from March 31st (Ruslan)
+ * 
+ * Significant refactor of the front end. ScreenController only implements ScreenControllerInterface,
+ * 
+ *  - instantiates its nested classes as Managers 
+ *  - that it then passes into new Screen subclass instances
+ *  - and places those in the ScreenController's tabPane
+ *  - via "addTabWithScreenWithStringIdentifier(ScreenSubClass instance, String identifier)"
  * 
  * 
  */
