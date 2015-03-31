@@ -215,8 +215,48 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	}
 
 	@Override
-	public void loadGame(String gameFile) {
-		// TODO Auto-generated method stub
+	public void loadGame() {
+		
+		URI gameLocation;
+
+		if ((gameLocation = getGameFileURI()) != null) {
+			loadGame(gameLocation);
+		}
+
+	}
+	
+	/**
+	 * Called by loadGame() in the interface. Guaranteed that gameLocationOnDisk != null
+	 * 
+	 * @param gameLocationOnDisk
+	 */
+	private void loadGame(URI gameLocationOnDisk) {
+		
+		Game game = null;
+		
+		// TODO:
+			/*
+			 * Instantiate a DataManager or call DataManager.sharedInstance()
+			 * Read off a Game from XML
+			 */
+		
+		// Here, Game can potentiall still be null if the user selected a non-Game XML
+		if (game != null) {
+			
+			
+			// TODO
+			/*
+			 * Instantiate a GameEditScreen
+			 * Set main menu tab to unclickable and unremovable
+			 */
+		} 
+		
+		else {
+			displayError("Invalid Game file selected.");
+		}
+		
+	}
+	
 	private URI getGameFileURI() {
 		
 		FileChooser fileChooser = new FileChooser();
