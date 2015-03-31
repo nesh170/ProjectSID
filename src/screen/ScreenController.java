@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import level.Level;
 import resources.constants.DOUBLE;
 import screen.gameEditScreen.GameEditScreenController;
+import screen.gamePlayScreen.GamePlayScreenController;
 import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
