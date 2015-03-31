@@ -60,8 +60,6 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	
 	// Instance Variables
-	// Window Closing Runnable
-	private Runnable windowCloser;
 	// Sizing
 	private double width, height;
 	private double newScreenWidth, newScreenHeight;
@@ -96,12 +94,11 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	
 	// Constructors & Helpers
-	public ScreenController(Runnable windowCloser, Group root, double width, double height) {
+	public ScreenController(Stage stage, Group root, double width, double height) {
 		
 		super(root, width, height, Color.TAN);
 		
-		configureRoot(stage, root);
-		configureWindowCloser(windowCloser);
+		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		
@@ -111,13 +108,11 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 	
 	}
 	
-	private void configureRoot(Stage stage, Group root) {
+	private void configureStageAndRoot(Stage stage, Group root) {
+		
 		this.root = root;
 		this.stage = stage;
-	}
-	
-	private void configureWindowCloser(Runnable windowCloser) {
-		this.windowCloser = windowCloser;
+		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
@@ -259,7 +254,7 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 
 	@Override
 	public void closeApplication() {
-		windowCloser.run();
+		stage.close();
 	}
 	
 }
