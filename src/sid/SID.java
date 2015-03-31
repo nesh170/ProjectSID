@@ -57,7 +57,9 @@ public class SID extends Application {
 	private void configureScreenController(Stage stage, double width, double height) {
 		
 		Group screenControllerGroup = new Group();
-		screenController = new ScreenController(screenControllerGroup, width, height, stage);
+		Runnable windowCloser = () -> stage.close();
+		
+		screenController = new ScreenController(windowCloser, screenControllerGroup, width, height);
 		
 		stage.setScene(screenController);
 		
