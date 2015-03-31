@@ -180,7 +180,7 @@ public class MainMenuScreen extends Screen {
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
 			newFile.setOnAction(e -> parent.createNewGame());
-			openFile.setOnAction(e -> parent.loadGame(getGameFile()));
+			openFile.setOnAction(e -> parent.loadGame(getGameFileURI()));
 			closeFile.setOnAction(e -> parent.closeApplication());
 			
 			fileMenu.getItems().addAll(newFile, openFile, closeFile);
