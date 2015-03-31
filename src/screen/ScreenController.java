@@ -290,6 +290,11 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
 	}
 	
+	@Override
+	public void closeApplication() {
+		stage.close();
+	}
+	
 	// Private
 	/**
 	 * Method for adding new Tab items
@@ -309,9 +314,6 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 
 	}
 
-	@Override
-	public void closeApplication() {
-		stage.close();
 	}
 	
 }
