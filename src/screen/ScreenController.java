@@ -1,5 +1,7 @@
 package screen;
 
+import java.io.File;
+import java.net.URI;
 import java.util.Collection;
 
 import javafx.geometry.Side;
@@ -9,6 +11,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import level.Level;
 import resources.constants.DOUBLE;

@@ -1,5 +1,7 @@
 package screen.mainMenu;
 
+import java.net.URI;
+
 import screen.ScreenControllerInterface;
 
 public interface MainMenuScreenController extends ScreenControllerInterface {
