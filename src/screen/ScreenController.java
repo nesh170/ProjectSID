@@ -310,7 +310,6 @@ public class ScreenController extends Scene implements 	MainMenuScreenController
 		tab.setId(string);
 		
 		tab.setContent(screen);
-		tab.setClosable(false);
 
 		tabPane.getTabs().addAll(tab);
 
