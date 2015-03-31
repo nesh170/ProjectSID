@@ -61,7 +61,7 @@ public class MainMenuScreen extends Screen {
 		
 	}
 		
-	private String getGameFile() {
+	private String getGameFileURI() {
 		
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choose Game File");
