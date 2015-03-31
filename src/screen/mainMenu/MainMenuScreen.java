@@ -14,7 +14,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
 import resources.constants.STRING;
 import screen.Screen;
 
@@ -61,7 +60,6 @@ public class MainMenuScreen extends Screen {
 		// TODO: add more menu instances below here
 		menusToAdd.add(instantiateFileMenu());
 		menusToAdd.add(instantiateMusicMenu());
-		System.out.println("TODO: extend addMenuItemsToMenuBar in MainMenuScreen");
 		// TODO: add more menu instances above here
 		
 		menuBar.getMenus().addAll(menusToAdd);
