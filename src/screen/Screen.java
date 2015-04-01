@@ -63,6 +63,7 @@ public abstract class Screen extends Group {
 		
 	}
 	
+	
 	protected abstract void addMenuItemsToMenuBar(MenuBar menuBar);
 	
 	private void addMenuBarToThis() {

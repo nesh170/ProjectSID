@@ -48,6 +48,16 @@ public class GamePlayer implements GamePlayerInterface{
 	private Menu buildFileMenu() {
 		Menu fileMenu = new Menu("File");
 		
+		MenuItem pauseItem = new MenuItem("Pause Game");
+		pauseItem.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
+		pauseItem.setOnAction(event -> { pause(); });
+		pauseItem.setOnAction(event -> { System.out.println("PAUSE"); });
+		
+		MenuItem playItem = new MenuItem("Resume Game");
+		playItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+		playItem.setOnAction(event -> { start(); });
+		playItem.setOnAction(event -> { System.out.println("PLAY"); });
+		
 		MenuItem newGameItem = new MenuItem("New Game");
 		newGameItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
 		newGameItem.setOnAction(event -> { System.out.println("HI"); });
@@ -60,7 +70,8 @@ public class GamePlayer implements GamePlayerInterface{
 		quitItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
 		quitItem.setOnAction(event -> { System.exit(0); });
 		
-		fileMenu.getItems().addAll(newGameItem, loadItem, quitItem);
+		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem, 
+				quitItem);
 		
 		return fileMenu;
 	}
@@ -90,6 +101,10 @@ public class GamePlayer implements GamePlayerInterface{
 		myTimeline.stop();
 	}
 
+	public boolean playerIsRunning() {
+		return myTimeline.getStatus() == Animation.Status.RUNNING;
+	}
+	
 	@Override
 	public int getHighScore() {
 		return 0;
