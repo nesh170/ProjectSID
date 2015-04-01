@@ -38,4 +38,3 @@ public interface Player {
 	 */
 	void saveGame();
 }
-
