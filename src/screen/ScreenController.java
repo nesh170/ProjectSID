@@ -67,18 +67,20 @@ import screen.Screen;
  * 
  */
 
-public class ScreenController extends Scene implements ScreenControllerInterface {
+public class ScreenController implements ScreenControllerInterface {
 	
 	// Static Variables
 	
 	
 	// Instance Variables
 	// Sizing
-	private double width, height;
+	private double myWidth, myHeight;
 	private double newScreenWidth, newScreenHeight;
+	
 	// JavaFX
 	private Stage stage;
-	private Group root;
+	private Group myRoot;
+	private Scene myScene;
 	private TabPane tabPane;
 	// ScreenController Inner Class Handlers
 	MainMenuScreenController mainMenuScreenManager = new ScreenController.MainMenuScreenManager();
@@ -94,11 +96,11 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	
 	// Getters & Setters (instance)
 	public double width() {
-		return this.width;
+		return this.myWidth;
 	}
 	
 	public double height() {
-		return this.height;
+		return this.myHeight;
 	}
 	
 	public double newScreenWidth() {
@@ -109,13 +111,17 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		return this.newScreenHeight;
 	}
 	
+	public Scene getScene() {
+		return myScene;
+	}
+	
 	
 	// Constructors & Helpers
-	public ScreenController(Stage stage, Group root, double width, double height) {
+	public ScreenController(Stage stage, double width, double height) {
 		
-		super(root, width, height, Color.TAN);
+		myRoot = new Group();
 		
-		configureStageAndRoot(stage, root);
+		configureStageAndRoot(stage, myRoot);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		
@@ -127,15 +133,15 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
-		this.root = root;
+		this.myRoot = root;
 		this.stage = stage;
 		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
 		
-		this.width = width;
-		this.height = height;
+		this.myWidth = width;
+		this.myHeight = height;
 		
 	}
 	
@@ -176,7 +182,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	}
 	
 	private void addTabPaneToThis() {
-		root.getChildren().add(tabPane);
+		myRoot.getChildren().add(tabPane);
 	}
 	
 	private void createInitialMainMenuScreen() {
