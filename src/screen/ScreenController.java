@@ -24,6 +24,7 @@ import screen.levelEditScreen.LevelEditScreen;
 import screen.levelEditScreen.LevelEditScreenController;
 import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
+import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import game.Game;
@@ -33,6 +34,7 @@ import screen.Screen;
  * 
  * @author Ruslan
  * @author anika
+ * @author Kyle
  *
  */
 
@@ -185,6 +187,11 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
+		
+		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
+//		addTabWithScreenWithStringIdentifier(
+//				new SplashEditScreen(newScreenWidth, newScreenHeight),
+//				"Main Menu");
 				
 	}
 	
@@ -365,6 +372,48 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		@Override
 		public void returnToGameEditScreen() {
 			throw new IllegalStateException("unimplemented returnToGameEditScreen in SplashEditScreenController");
+		}
+
+		@Override
+		public void addStartButton() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void addImage() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void addText() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void addAnimation() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void saveSplashScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void trashSplashScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void backSplashScreen() {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}
