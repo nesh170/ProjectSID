@@ -47,11 +47,12 @@ public class ExampleCodes {
 	 * method using the current level. The current level is obtained through the LevelEditScreen 
 	 * method getCurrentLevel().
 	 */
-	private void savingAGameInTheGameAuthoringEnvironment() {
-		LevelEditScreen screen = new LevelEditScreen(100.0, 100.0);
-		XStream xstream = new XStream();
-		String xmlString = xstream.toXML(screen.getCurrentLevel());	
-	}
+//	private void savingAGameInTheGameAuthoringEnvironment() {
+//		LevelEditScreen screen = new LevelEditScreen(100.0, 100.0);
+//		XStream xstream = new XStream();
+//		String xmlString = xstream.toXML(screen.getCurrentLevel());	
+//	}
+	//currently commented out due to errors
 	
 	 /*
 	 * This example code shows how to add a jumping behavior to a sprite. This method would
