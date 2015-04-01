@@ -60,9 +60,7 @@ public class GamePlayer implements GamePlayerInterface{
 		quitItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
 		quitItem.setOnAction(event -> { System.exit(0); });
 		
-		fileMenu.getItems().add(newGameItem);
-		fileMenu.getItems().add(loadItem);
-		fileMenu.getItems().add(quitItem);
+		fileMenu.getItems().addAll(newGameItem, loadItem, quitItem);
 		
 		return fileMenu;
 	}
