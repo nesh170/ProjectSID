@@ -6,6 +6,7 @@ import resources.constants.STRING;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -17,7 +18,7 @@ import javafx.scene.paint.Color;
  *
  */
 
-public abstract class Screen extends Pane {
+public abstract class Screen extends BorderPane {
 
 	// Instance variables
 	// Sizing
