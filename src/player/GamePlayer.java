@@ -30,19 +30,18 @@ public class GamePlayer implements GamePlayerInterface{
 	private int myFrameRate = 30;
 	private String myGameFilePath;
 	
+	//constructor for testing
 	public GamePlayer(Stage stage) {
 		myTimeline = new Timeline();
 		myBorderPane = new BorderPane();
-		MenuBar menuBar = new MenuBar();
-        Menu menuEdit = new Menu("Edit");
-        Menu menuView = new Menu("View");
-        menuBar.getMenus().add(buildFileMenu());
-        menuBar.getMenus().add(menuEdit);
-        menuBar.getMenus().add(menuView);
-        
+		MenuBar menuBar = createPlayerMenu();
         myBorderPane.setTop(menuBar);
 		myScene = new Scene(myBorderPane, 1200, 600);
         stage.setScene(myScene);
+	}
+	
+	public GamePlayer() {
+		myTimeline = new Timeline();
 	}
 	
 	private Menu buildFileMenu() {
@@ -74,6 +73,16 @@ public class GamePlayer implements GamePlayerInterface{
 				quitItem);
 		
 		return fileMenu;
+	}
+	
+	public MenuBar createPlayerMenu() {
+		MenuBar menuBar = new MenuBar();
+        Menu menuEdit = new Menu("Edit");
+        Menu menuView = new Menu("View");
+        menuBar.getMenus().add(buildFileMenu());
+        menuBar.getMenus().add(menuEdit);
+        menuBar.getMenus().add(menuView);
+        return menuBar;
 	}
 	
 	private void initialize(GameEngineAbstract engine) {
