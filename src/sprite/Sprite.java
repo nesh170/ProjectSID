@@ -68,6 +68,11 @@ public class Sprite {
 	    return Collections.unmodifiableList(this.componentList);
 	}
 	
+	/*
+	 * Sprites that are active are located within the camera view
+	 * 
+	 * TODO: is this what is meant by active sprites? thanks
+	 */
 	public boolean isActive() {
 		return this.isActive;
 	}
@@ -96,6 +101,9 @@ public class Sprite {
 	// Constructor & Helpers
 	public Sprite() {
 		this(POINT2D.DEFAULT_POSITION, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
+		// Just curious/confused: TODO: when would this be called? If we have dragging and dropping onto the level edit screen,
+		// the second or third constructors would be called.
+	
 	}
 	
 	public Sprite(Point2D coordinate) {
