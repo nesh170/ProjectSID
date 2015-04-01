@@ -1,9 +1,7 @@
 package screen.splashEditScreen;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,8 +10,6 @@ import javafx.scene.shape.Rectangle;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
-import screen.mainMenu.MainMenuScreenController;
-
 
 /**
 /* Screen to create a splash screen
@@ -82,7 +78,7 @@ public class SplashEditScreen extends Screen {
 	
 	private void configureDisplayArea() {
 		Rectangle displayArea = new Rectangle(INT.SPLASH_EDIT_SCREEN_DISPLAY_WIDTH, INT.SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT, Color.DIMGRAY); //obviously will change
-		this.setCenter(displayArea);
+		this.setLeft(displayArea);
 	}
 
 	private VBox createAddButtons(Button addStartButton, Button addImage,

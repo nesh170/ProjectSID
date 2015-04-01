@@ -1,16 +1,24 @@
 package screen;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
 
+import javax.imageio.ImageIO;
+
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
 import javafx.scene.Group;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -189,9 +197,9 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 				"Main Menu");
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-//		addTabWithScreenWithStringIdentifier(
-//				new SplashEditScreen(newScreenWidth, newScreenHeight),
-//				"Main Menu");
+		addTabWithScreenWithStringIdentifier(
+				new SplashEditScreen(newScreenWidth, newScreenHeight),
+				"Splash Edit Screen");
 				
 	}
 	
@@ -377,6 +385,25 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		@Override
 		public void addStartButton() {
 			// TODO Auto-generated method stub
+			//ImageView imageView = new ImageView();
+			Image image;
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			
+			File file = fileChooser.showOpenDialog(null);
+			
+			try {
+				BufferedImage start = ImageIO.read(file);
+				image = SwingFXUtils.toFXImage(start, null);
+				//imageView.setImage(image);
+			} catch (IOException ex) {
+				//throw some sort of exception thing
+				image = new Image (""); //DEFAULT IMAGE TO LOAD
+			}
+			
+			//scene.setCursor(new ImageCursor(image, image.getWidth() / 2, image.getHeight() / 2));
 			
 		}
 
