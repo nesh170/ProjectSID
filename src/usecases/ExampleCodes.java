@@ -14,6 +14,7 @@ import screen.mainMenu.MainMenuScreenController;
 import sprite.Sprite;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class ExampleCodes {
 	/**
@@ -49,7 +50,7 @@ public class ExampleCodes {
 	 */
 	private void savingAGameInTheGameAuthoringEnvironment() {
 		LevelEditScreen screen = new LevelEditScreen(100.0, 100.0);
-		XStream xstream = new XStream();
+		XStream xstream = new XStream(new DomDriver());
 		String xmlString = xstream.toXML(screen.getCurrentLevel());	
 	}
 	
