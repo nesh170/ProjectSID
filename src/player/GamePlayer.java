@@ -1,25 +1,33 @@
 package player;
 
 import java.util.List;
+
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import gameEngine.GameEngineAbstract;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -33,19 +41,21 @@ public class GamePlayer implements GamePlayerInterface{
 	private int myFrameRate = 30;
 	private String myGameFilePath;
 	private Group myRoot;
+	private Stage myGameChooser;
+	private StackPane myPause;
 	
 	//constructor for testing
 	public GamePlayer(Stage stage) {
 		myTimeline = new Timeline();
 		myRoot = new Group();
-		StackPane pause = makePauseMenu();
-	    myRoot.getChildren().add(pause);
+		myPause = makePauseMenu();
 	    myBorderPane = new BorderPane();
 		MenuBar menuBar = createPlayerMenu();
         myBorderPane.setTop(menuBar);
 		myBorderPane.setCenter(myRoot);
         myScene = new Scene(myBorderPane, 1200, 600);
         stage.setScene(myScene);
+        myGameChooser = buildGameChooser(stage);
 	}
 	
 	public GamePlayer() {
@@ -58,7 +68,7 @@ public class GamePlayer implements GamePlayerInterface{
 		MenuItem pauseItem = new MenuItem("Pause Game");
 		pauseItem.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
 		pauseItem.setOnAction(event -> { pause(); });
-		pauseItem.setOnAction(event -> { System.out.println("PAUSE"); });
+		pauseItem.setOnAction(event -> { myRoot.getChildren().add(myPause); });
 		
 		MenuItem playItem = new MenuItem("Resume Game");
 		playItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
@@ -67,7 +77,7 @@ public class GamePlayer implements GamePlayerInterface{
 		
 		MenuItem newGameItem = new MenuItem("New Game");
 		newGameItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
-		newGameItem.setOnAction(event -> { System.out.println("HI"); });
+		newGameItem.setOnAction(event -> { myGameChooser.show(); });
 		
 		MenuItem loadItem = new MenuItem("Load Level");
 		loadItem.setAccelerator(KeyCombination.keyCombination("Ctrl+L"));
@@ -79,6 +89,21 @@ public class GamePlayer implements GamePlayerInterface{
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem, 
 				quitItem);		
 		return fileMenu;
+	}
+	
+	//implementation still needed to connect to actual file chooser 
+	private Stage buildGameChooser(Stage s) {
+		//TextField textField = new TextField("Your Games"); 
+		Stage gameChooser = new Stage();
+        gameChooser.initModality(Modality.APPLICATION_MODAL);
+        gameChooser.initOwner(s);
+	    Button mario = new Button("Mario");
+        mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
+        VBox vbox = new VBox(50);
+        vbox.getChildren().addAll(new Text("Your Games"), mario);
+        Scene allGames = new Scene(vbox, 300, 200);
+        gameChooser.setScene(allGames);
+		return gameChooser;
 	}
 	
 	public MenuBar createPlayerMenu() {
@@ -137,7 +162,7 @@ public class GamePlayer implements GamePlayerInterface{
 	
 	@Override
 	public int getHighScore() {
-		// TODO Auto-generated method stub
+		// get high score from engine
 		return 0;
 	}
 
