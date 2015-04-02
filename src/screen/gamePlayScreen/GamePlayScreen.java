@@ -18,8 +18,7 @@ public class GamePlayScreen extends Screen {
 	//GamePlayer specific menuBar
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		menuBar = myPlayer.createPlayerMenu();
-		//throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
 	}
 
 }

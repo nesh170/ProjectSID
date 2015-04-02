@@ -5,19 +5,29 @@ import java.util.List;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import gameEngine.GameEngineAbstract;
+
 import java.util.List;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -29,14 +39,19 @@ public class GamePlayer implements GamePlayerInterface{
 	private Timeline myTimeline;
 	private int myFrameRate = 30;
 	private String myGameFilePath;
+	private Group myRoot;
 	
 	//constructor for testing
 	public GamePlayer(Stage stage) {
 		myTimeline = new Timeline();
-		myBorderPane = new BorderPane();
+		myRoot = new Group();
+		StackPane pause = makePauseMenu();
+	    myRoot.getChildren().add(pause);
+	    myBorderPane = new BorderPane();
 		MenuBar menuBar = createPlayerMenu();
         myBorderPane.setTop(menuBar);
-		myScene = new Scene(myBorderPane, 1200, 600);
+		myBorderPane.setCenter(myRoot);
+        myScene = new Scene(myBorderPane, 1200, 600);
         stage.setScene(myScene);
 	}
 	
@@ -83,6 +98,21 @@ public class GamePlayer implements GamePlayerInterface{
         menuBar.getMenus().add(menuEdit);
         menuBar.getMenus().add(menuView);
         return menuBar;
+	}
+	
+	private StackPane makePauseMenu() {
+		Button startButton = new Button("Resume");
+	    startButton.setOnAction(event -> { start(); });
+		StackPane pause = new StackPane();
+	    //StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
+	    pause.getChildren().addAll(startButton);
+	    pause.setStyle("-fx-background-color: rgba(0, 100, 100, 0.25); -fx-background-radius: 10;");
+	    pause.setPrefWidth(500);
+	    pause.setPrefHeight(500);
+	    //glass.setPadding(new Insets(25));
+//	    glass.setMaxWidth(rect.getWidth() - 40);
+//	    glass.setMaxHeight(rect.getHeight() - 40);
+	    return pause;
 	}
 	
 	private void initialize(GameEngineAbstract engine) {
