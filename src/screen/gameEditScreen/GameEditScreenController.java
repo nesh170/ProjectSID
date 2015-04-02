@@ -17,7 +17,7 @@ public interface GameEditScreenController {
 	 * load a new edit screen when users press add button;
 	 */
 	public void loadLevelEditScreen();
-	public void loadSplashEditScrren();
+	public void loadSplashEditScreen();
 	/**
 	 * allow users to test/demo while editing a game
 	 */

@@ -118,14 +118,18 @@ public class GameEditScreen extends Screen {
 	private Menu makeLevelMenu(){
 		Menu levelMenu = new Menu("Level");
 		MenuItem addLevel = new MenuItem("Add new Level");
+		addLevel.setOnAction(o -> parent.loadLevelEditScreen());
 		MenuItem editLevel = new MenuItem("Edit Level");
+//		addLevel.setOnAction(o -> parent.loadLevelEditScreen(selectedLevel));
 		levelMenu.getItems().addAll(addLevel, editLevel);
 		return levelMenu;
 	}
 	private Menu makeSplashMenu(){
 		Menu splashMenu = new Menu("Splash Screen");
 		MenuItem addSplash = new MenuItem("Add new Splash Screen");
+		addSplash.setOnAction(o -> parent.loadSplashEditScreen());
 		MenuItem editSplash = new MenuItem("Edit Splash Screen");
+		//	addSplash.setOnAction(o -> parent.loadSplashEditScreen(selectedSplash));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 	}

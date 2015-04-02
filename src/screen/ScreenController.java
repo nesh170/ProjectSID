@@ -406,7 +406,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 			
 		}
 		@Override
-		public void loadSplashEditScrren() {
+		public void loadSplashEditScreen() {
 			// TODO Auto-generated method stub
 			
 		}
