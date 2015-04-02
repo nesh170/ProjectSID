@@ -6,7 +6,9 @@ import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import level.Level;
 import screen.Screen;
@@ -61,11 +63,37 @@ public class GameEditScreen extends Screen {
 		
 		
 	}
-
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-	
+			Menu back = new Menu("Go Back");
+			//MenuItem back = new MenuItem("back");
+			//step.setOnAction(o -> loadMainMenuScreen());
+			//back.getItems().addAll(back);
+			menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
 	}	
+	
+	private Menu makeFileMenu(){
+		Menu fileMenu = new Menu("File");
+		MenuItem save = new MenuItem("Save");
+		MenuItem exit = new MenuItem("Exit");
+		exit.setOnAction(o -> System.exit(0));
+		fileMenu.getItems().addAll(save, exit);
+		return fileMenu;
+	}
+	private Menu makeLevelMenu(){
+		Menu levelMenu = new Menu("Level");
+		MenuItem addLevel = new MenuItem("Add new Level");
+		MenuItem editLevel = new MenuItem("Edit Level");
+		levelMenu.getItems().addAll(addLevel, editLevel);
+		return levelMenu;
+	}
+	private Menu makeSplashMenu(){
+		Menu splashMenu = new Menu("Splash Screen");
+		MenuItem addSplash = new MenuItem("Add new Splash Screen");
+		MenuItem editSplash = new MenuItem("Edit Splash Screen");
+		splashMenu.getItems().addAll(addSplash, editSplash);
+		return splashMenu;
+	}
 	private void configureAddLevelButton(){
 		
 	}
