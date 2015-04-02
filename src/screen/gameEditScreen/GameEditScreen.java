@@ -1,19 +1,46 @@
 package screen.gameEditScreen;
 
+import java.awt.SplashScreen;
+import java.util.ArrayList;
 import javafx.scene.control.MenuBar;
+import level.Level;
 import screen.Screen;
+/**
+ * The screen where users edit a game
+ * allows users to edit a level or edit a sprite.
+ * @author Yongjiao
+ *
+ */
 
 public class GameEditScreen extends Screen {
+	// Static variables
+		// Instance variables
+	private GameEditScreenController parent;
+	private ArrayList<Level>	myLevels;
+	private ArrayList<SplashScreen> mySplashScreen;
+	
+		// Getters & Setters
 
-	public GameEditScreen(double width, double height) {
-		
+
+		// Constructor & Helpers
+	
+	public GameEditScreen( GameEditScreenController controller, double width, double height) {
 		super(width, height);
+		configureParent(controller);
+		configureButtons();
+	}
+
+	private void configureParent(GameEditScreenController controller) {
+		this.parent = controller;	
+	}	
+	private void configureButtons() {
+		
 		
 	}
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+	
 	}
 	
 	//MenuBar

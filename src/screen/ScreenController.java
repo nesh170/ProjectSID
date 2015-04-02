@@ -27,6 +27,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import level.Level;
 import resources.constants.DOUBLE;
+import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
 import screen.levelEditScreen.LevelEditScreen;
@@ -201,7 +202,15 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		addTabWithScreenWithStringIdentifier(
 				new SplashEditScreen(newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
-				
+		
+		/*addTabWithScreenWithStringIdentifier(
+				new LevelEditScreen(new LevelEditScreenManager(), newScreenWidth, newScreenHeight),
+				"Level Edit Screen");
+	*/
+		addTabWithScreenWithStringIdentifier(
+				new GameEditScreen(new GameEditScreenManager(), newScreenWidth, newScreenHeight),
+				"Game Edit Screen");		
+	
 	}
 	
 	
@@ -354,7 +363,11 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		}
 		
 	}
-
+/**
+ * 
+ * @author Yongjiao
+ *
+ */
 	// Inner class for handling GameEditScreenController methods
 	private class GameEditScreenManager implements GameEditScreenController {
 
@@ -372,6 +385,18 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		public void loadLevelEditScreen(Level level) {
 			throw new IllegalStateException("unimplemented loadLevelEditScreen in GameEditScreenController");
 		}
+		/**
+		 * remove the level from list of levels created 
+		 */
+		public void trashLevel(Level level){
+			
+		}
+		/**
+		 * removes the splash screen from list of splash screen created
+		 */
+		//public void trashSplash(SplashScreen splash){
+			
+		//}
 		
 	}
 	
@@ -452,6 +477,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 
 		@Override
 		public void returnToGameEditScreen() {
+			//add the created level to GameEditScreen's Level
 			throw new IllegalStateException("unimplemented returnToGameEditScreen in LevelEditScreenController");
 		}
 
