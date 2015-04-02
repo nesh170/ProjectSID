@@ -122,7 +122,7 @@ public class GamePlayer implements GamePlayerInterface{
 		StackPane pause = new StackPane();
 	    //StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
 	    pause.getChildren().addAll(startButton);
-	    pause.setStyle("-fx-background-color: rgba(0, 100, 100, 0.25); -fx-background-radius: 10;");
+	    pause.setStyle("-fx-background-color: rgba(192, 192, 192, 0.25); -fx-background-radius: 10;");
 	    pause.setPrefWidth(500);
 	    pause.setPrefHeight(500);
 	    //glass.setPadding(new Insets(25));
