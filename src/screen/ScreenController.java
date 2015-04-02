@@ -242,10 +242,11 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		tab.setId(string);
 		
 		tab.setContent(screen);
-
+		tab.onClosedProperty().set(e -> setCorrectTabModifiabilityAndViewability());
+		
 		tabPane.getTabs().addAll(tab);
 		
-		setCorrectTabModifiability();
+		setCorrectTabModifiabilityAndViewability();
 
 	}
 
@@ -254,17 +255,18 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	 * 
 	 * @author Ruslan
 	 */
-	private void setCorrectTabModifiability() {
+	private void setCorrectTabModifiabilityAndViewability() {
 		
-		int tabPaneListSize = tabPane.getTabs().size();
+		int tabPaneLastIndex = tabPane.getTabs().size() - 1;
+		
 		ObservableList<Tab> tabs = tabPane.getTabs();
 		
 		// All Tab(s) except the last one
-		for (int i=0; i < tabPaneListSize-1; i++) {
+		for (int i=0; i < tabPaneLastIndex; i++) {
 			disableTab(tabs.get(i));
 		}
 		
-		enableTab(tabs.get(tabPaneListSize-1));
+		enableTab(tabs.get(tabPaneLastIndex));
 	
 	}
 	
@@ -279,6 +281,10 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		
 		tab.setClosable(true);
 		tab.setDisable(false);
+		
+		// Selects current, enabled tab
+			// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
+		singleSelectionModel.select(tab);
 		
 	}
 	
