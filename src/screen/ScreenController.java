@@ -473,9 +473,15 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 
 		@Override
 		public void returnToGameEditScreen(Tab currentGameScreen) {
-			Tab levelTab = tabPane.getSelectionModel().getSelectedItem();
+			
+			Tab levelTab = singleSelectionModel.getSelectedItem();
 			tabPane.getTabs().remove(levelTab);
-			tabPane.getSelectionModel().select(currentGameScreen);
+			
+			// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
+			setCorrectTabModifiabilityAndViewability();
+			
+			singleSelectionModel.select(currentGameScreen);
+			
 		}
 
 		@Override
