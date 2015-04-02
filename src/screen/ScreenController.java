@@ -15,6 +15,7 @@ import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -27,6 +28,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import level.Level;
 import resources.constants.DOUBLE;
+import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
 import screen.levelEditScreen.LevelEditScreen;
@@ -201,6 +203,12 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		addTabWithScreenWithStringIdentifier(
 				new SplashEditScreen(newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
+		
+		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
+		//so there will be no tab to return to, and there should be an error
+		addTabWithScreenWithStringIdentifier(
+				new LevelEditScreen(levelEditScreenManager,new Tab()
+				,newScreenWidth,newScreenHeight),"leveleditScreen");
 				
 	}
 	
@@ -451,8 +459,10 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	private class LevelEditScreenManager implements LevelEditScreenController {
 
 		@Override
-		public void returnToGameEditScreen() {
-			throw new IllegalStateException("unimplemented returnToGameEditScreen in LevelEditScreenController");
+		public void returnToGameEditScreen(Tab currentGameScreen) {
+			Tab levelTab = tabPane.getSelectionModel().getSelectedItem();
+			tabPane.getTabs().remove(levelTab);
+			tabPane.getSelectionModel().select(currentGameScreen);
 		}
 
 		@Override
