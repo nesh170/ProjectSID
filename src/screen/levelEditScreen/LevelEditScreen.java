@@ -60,10 +60,10 @@ public class LevelEditScreen extends Screen {
 	 * @param level
 	 */
 	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height, Level level) {
+		
 		super(width,height);
 		setUpLevelSceneFromLevel(level);
 		initialize(parent, gameScreen);
-		
 
 	}
 	
