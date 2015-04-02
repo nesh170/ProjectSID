@@ -19,6 +19,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -384,26 +385,27 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 
 		@Override
 		public void addStartButton() {
-			// TODO Auto-generated method stub
-			//ImageView imageView = new ImageView();
-			Image image;
-			FileChooser fileChooser = new FileChooser();
-			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-			
-			File file = fileChooser.showOpenDialog(null);
-			
-			try {
-				BufferedImage start = ImageIO.read(file);
-				image = SwingFXUtils.toFXImage(start, null);
-				//imageView.setImage(image);
-			} catch (IOException ex) {
-				//throw some sort of exception thing
-				image = new Image (""); //DEFAULT IMAGE TO LOAD
-			}
-			
-			//scene.setCursor(new ImageCursor(image, image.getWidth() / 2, image.getHeight() / 2));
+//			// TODO Auto-generated method stub
+//			//ImageView imageView = new ImageView();
+//			//Image image;
+//			FileChooser fileChooser = new FileChooser();
+//			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+//			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+//			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+//			
+//			File file = fileChooser.showOpenDialog(null);
+//			
+//			//try {
+//				Image image = new Image ("/voogasalad_ScrollingDeep/src/images/default_start_button.png"); //DEFAULT IMAGE TO LOAD
+//				//BufferedImage start = ImageIO.read(file);
+//				//image = SwingFXUtils.toFXImage(start, null);
+//				//imageView.setImage(image);
+//			//} //catch (IOException ex) {
+//				//throw some sort of exception thing
+//				
+//			//}
+//			MouseEvent
+//			setCursor(new ImageCursor(image, image.getWidth() / 2, image.getHeight() / 2));
 			
 		}
 
