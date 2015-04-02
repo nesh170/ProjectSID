@@ -68,6 +68,9 @@ public class Sprite {
 	    return Collections.unmodifiableList(this.componentList);
 	}
 	
+	/*
+	 * Sprites that are active are located within the camera view
+	 */
 	public boolean isActive() {
 		return this.isActive;
 	}

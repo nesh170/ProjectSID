@@ -1,22 +1,17 @@
 package player;
 
 import java.util.List;
-
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import gameEngine.GameEngineAbstract;
-
-import java.util.List;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -25,13 +20,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GamePlayer implements GamePlayerInterface{
+
 
 	private GameEngineAbstract myEngine;
 	private Scene myScene;
@@ -83,10 +76,8 @@ public class GamePlayer implements GamePlayerInterface{
 		MenuItem quitItem = new MenuItem("Quit");
 		quitItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
 		quitItem.setOnAction(event -> { System.exit(0); });
-		
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem, 
-				quitItem);
-		
+				quitItem);		
 		return fileMenu;
 	}
 	
@@ -146,6 +137,7 @@ public class GamePlayer implements GamePlayerInterface{
 	
 	@Override
 	public int getHighScore() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 

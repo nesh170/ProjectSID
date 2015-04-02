@@ -14,6 +14,7 @@ import screen.mainMenu.MainMenuScreenController;
 import sprite.Sprite;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class ExampleCodes {
 	/**
@@ -37,8 +38,8 @@ public class ExampleCodes {
 	 * AttackBehavior would then be added to the Sprite using the addBehavior() method.
 	 */
 	private void choosingAnAttackType(Sprite s) {
-		Component ab = new AttackAction(s);
-		s.addComponent(ab);
+//		Component ab = new AttackAction(s);
+//		s.addComponent(ab);
 	}
 	
 	/*
@@ -48,8 +49,8 @@ public class ExampleCodes {
 	 * method getCurrentLevel().
 	 */
 	private void savingAGameInTheGameAuthoringEnvironment() {
-		LevelEditScreen screen = new LevelEditScreen(100.0, 100.0);
-		XStream xstream = new XStream();
+		LevelEditScreen screen = new LevelEditScreen(null, 100.0, 100.0, null);
+		XStream xstream = new XStream(new DomDriver());
 		String xmlString = xstream.toXML(screen.getCurrentLevel());	
 	}
 	
@@ -59,8 +60,8 @@ public class ExampleCodes {
 	 * JumpBehavior would then be added to the Sprite using the addBehavior() method.
 	 */
 	private void implementingAJump(Sprite s) {
-		Component jb = new JumpAction(s);
-		s.addComponent(jb);
+//		Component jb = new JumpAction(s);
+//		s.addComponent(jb);
 	}
 	
 	/*
@@ -70,8 +71,8 @@ public class ExampleCodes {
 	 * method.
 	 */
 	private void userClickedRecentGame(String recentGameName) {
-		MainMenuScreenController parent = new ScreenController(null, 0.0, 0.0);
-		parent.loadGameEditScreen(recentGameName);
+//		MainMenuScreenController parent = new ScreenController(null, null, 0.0, 0.0);
+//		parent.loadGameEditScreen(recentGameName);
 	}
 
 }
