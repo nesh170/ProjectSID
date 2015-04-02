@@ -35,6 +35,10 @@ import sprite.Sprite;
 
 public class LevelEditScreen extends Screen {
 	
+	// Static Variables
+	
+	
+	// Instance Variables
 	private Level level;
 	private Pane levelScene;
 	private Tab currentGameScreen;
@@ -46,6 +50,26 @@ public class LevelEditScreen extends Screen {
 	private final ObservableList<Sprite> listOfPlayers = FXCollections.observableArrayList();
 
 
+	// Getters & Setters
+	public Level getCurrentLevel() {
+		return level;
+	}
+	
+	
+	// Constructor & Helpers
+	/**
+	 * 
+	 * Constructor for creating new levels.
+	 * 
+	 * @param parent
+	 * @param gameScreen
+	 * @param width
+	 * @param height
+	 */
+	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height) {
+		this(parent, gameScreen, width, height, null);
+	}
+	
 	/**
 	 * 
 	 * Sets up the Level Edit Screen when the user
@@ -67,33 +91,6 @@ public class LevelEditScreen extends Screen {
 
 	}
 	
-	/**
-	 * 
-	 * Constructor for creating new levels.
-	 * 
-	 * @param parent
-	 * @param gameScreen
-	 * @param width
-	 * @param height
-	 */
-	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height) {
-		
-		super(width, height);
-		initialize(parent, gameScreen);
-		
-	}
-	
-	public Level getCurrentLevel() {
-		return level;
-	}
-	
-	/*
-	 * add a sprite to the level edit screen
-	 */
-	public void addSprite(Sprite sprite, Point2D location) {
-		
-	}
-
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
@@ -104,22 +101,8 @@ public class LevelEditScreen extends Screen {
 		
 	}
 	
-	private void initialize(LevelEditScreenController parent, Tab gameScreen) {
-		this.parent = parent;
-		currentGameScreen = gameScreen;
-		levelScene = new Pane();
-		levelScene.setStyle("-fx-background-color: lightgrey");
-		this.setCenter(levelScene);
-		makeSpritesInLevelTab();
-		makeButtonsTab();
-	}
-	
-	private void setUpLevelSceneFromLevel(Level level) {
-		this.level = level;
-		//TODO populate the levelScene with sprite objects
-	}
-	
-	private Menu makeFileMenu() {		
+	private Menu makeFileMenu() {	
+		
 		//TODO more menu items for file
 		MenuItem exit = new MenuItem("Exit");
 		MenuItem saveAndExit = new MenuItem("Save and Exit");
@@ -132,9 +115,11 @@ public class LevelEditScreen extends Screen {
 		fileMenu.getItems().addAll(exit,saveAndExit);
 
 		return fileMenu;
+		
 	}
 	
 	private Menu makeAddSpriteButton() {
+		
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
 		spritePic.setFitHeight(this.getHeight() * DOUBLE.percentHeightMenuBar);
 		spritePic.setFitWidth(this.getHeight() * DOUBLE.percentHeightMenuBar);
@@ -145,7 +130,25 @@ public class LevelEditScreen extends Screen {
 		
 	}
 	
+	private void setUpLevelSceneFromLevel(Level level) {
+		this.level = level;
+		//TODO populate the levelScene with sprite objects
+	}
+	
+	private void initialize(LevelEditScreenController parent, Tab gameScreen) {
+		
+		this.parent = parent;
+		this.currentGameScreen = gameScreen;
+		this.levelScene = new Pane();
+		this.levelScene.setStyle("-fx-background-color: lightgrey");
+		this.setCenter(levelScene);
+		makeSpritesInLevelTab();
+		makeButtonsTab();
+		
+	}
+	
 	private void makeSpritesInLevelTab() {
+		
 		VBox paneForSprites = new VBox();
 		this.setLeft(paneForSprites);
 		
@@ -154,9 +157,18 @@ public class LevelEditScreen extends Screen {
 		TitledPane players = makeTitledPane("Players",listOfPlayers); 
 		
 		paneForSprites.getChildren().addAll(platforms,enemies,players);
+		
+	}
+
+	private TitledPane makeTitledPane(String title, ObservableList<Sprite> content) {
+
+		ListView<Sprite> platformListView = new ListView<>(content);
+		return new TitledPane(title, platformListView);
+
 	}
 	
 	private void makeButtonsTab() {
+		
 		VBox paneForButtons = new VBox();
 		
 		paneForButtons.setAlignment(Pos.BASELINE_CENTER);
@@ -169,20 +181,25 @@ public class LevelEditScreen extends Screen {
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
 		
 		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
-	}
-		
-	private TitledPane makeTitledPane(String title, ObservableList<Sprite> content) {
-		ListView<Sprite> platformListView = new ListView<>(content);
-		return new TitledPane(title, platformListView);
 
 	}
-	
+
 	private Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
+
 		Button button = new Button(text);
 		button.setOnAction(lambda);
 		VBox.setVgrow(button, Priority.NEVER);
 		return button;
+
+	}
+
+	
+	// All other instance methods
+	/**
+	 * add a sprite to the level edit screen
+	 */
+	public void addSprite(Sprite sprite, Point2D location) {
 		
 	}
-	
+		
 }
