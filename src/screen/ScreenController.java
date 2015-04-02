@@ -82,6 +82,7 @@ public class ScreenController implements ScreenControllerInterface {
 	private Group myRoot;
 	private Scene myScene;
 	private TabPane tabPane;
+	
 	// ScreenController Inner Class Handlers
 	MainMenuScreenController mainMenuScreenManager = new ScreenController.MainMenuScreenManager();
 	GameEditScreenController gameEditScreenManager = new ScreenController.GameEditScreenManager();
@@ -120,6 +121,7 @@ public class ScreenController implements ScreenControllerInterface {
 	public ScreenController(Stage stage, double width, double height) {
 		
 		myRoot = new Group();
+		myScene = new Scene(myRoot);
 		
 		configureStageAndRoot(stage, myRoot);
 		configureWidthAndHeight(width, height);
@@ -158,7 +160,7 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		instantiateTabPane();
 		setTabPaneAlignmentAndSize();
-		addTabPaneToThis();
+		addTabPane();
 		
 	}
 	
@@ -181,7 +183,7 @@ public class ScreenController implements ScreenControllerInterface {
 		
 	}
 	
-	private void addTabPaneToThis() {
+	private void addTabPane() {
 		myRoot.getChildren().add(tabPane);
 	}
 	
@@ -217,7 +219,7 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		tab.setContent(screen);
 
-		tabPane.getTabs().addAll(tab);
+		tabPane.getTabs().add(tab);
 		
 		setCorrectTabModifiability();
 
