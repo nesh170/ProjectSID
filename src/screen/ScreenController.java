@@ -383,6 +383,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		public void loadLevelEditScreen(Level level) {
 			throw new IllegalStateException("unimplemented loadLevelEditScreen in GameEditScreenController");
 		}
+		
 		/**
 		 * remove the level from list of levels created 
 		 */
@@ -392,13 +393,23 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		/**
 		 * removes the splash screen from list of splash screen created
 		 */
-		//public void trashSplash(SplashScreen splash){
-			
-		//}		
+		//public void trashSplash(SplashScreen splash){}		
 		/**
 		 * 
 		 */
-		
+		public void playGame(Game game){
+			
+		}
+		@Override
+		public void loadLevelEditScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void loadSplashEditScrren() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	// Inner class for handling SplashEditScreenController methods

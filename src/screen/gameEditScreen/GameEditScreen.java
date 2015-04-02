@@ -1,16 +1,17 @@
 package screen.gameEditScreen;
 
 import game.Game;
-
 import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import level.Level;
+import resources.constants.INT;
+import resources.constants.STRING;
 import screen.Screen;
 /**
  * The screen where users edit a game
@@ -26,16 +27,17 @@ public class GameEditScreen extends Screen {
 	private ArrayList<Level>	myLevels;  //may not need or change type
 	private ArrayList<SplashScreen> mySplashScreen; //may not need
 	
-		// Constructor & Helpers
-	
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
 	 * @param controller, width, height, game
 	 */
-	public GameEditScreen(GameEditScreenController controller, double width, double height, Game game){
+	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height){
 		super(width, height);
 		this.myGame = game;
-		//this.myGame.getLevels()
+		//this.myGame.getLevels() = game.getLevels();
+		//this.myGame.getSplash() = game.getSplash();
+		configureParent(controller);
+		//other configurations
 	}
 	/**
 	 * Creates new GameEditScreen
@@ -59,9 +61,42 @@ public class GameEditScreen extends Screen {
 	private void configureParent(GameEditScreenController controller) {
 		this.parent = controller;	
 	}	
-	private void configureButtons() {
-		
-		
+	private void configureButtons() {		
+		this.setTop(makeBackButton());		
+		this.setBottom(makePlayButton());
+		//set rest of buttons
+	}
+	private Button makeAddLevelButton(){
+		Button addSplash = new Button(STRING.ADD_SPLASH);
+		return addSplash;
+	}
+	private Button makeEditLevelButton(){
+		Button editLevel = new Button(STRING.EDIT_LEVEL);
+		return editLevel;
+	}
+	private Button makeAddSplashButton(){
+		Button addSplash = new Button(STRING.ADD_SPLASH);
+		return addSplash;
+	}
+	private Button makeEditSplashButton(){
+		Button editSplash = new Button(STRING.EDIT_SPLASH);
+		return editSplash;
+	}
+	private Button makeTrashButton(){
+		Button trash = new Button(STRING.TRASH);
+		return trash;
+	}
+	private Button makePlayButton(){
+		Button play = new Button(STRING.PLAY);
+		play.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);
+		play.setOnMouseClicked(e -> parent.playGame(myGame));
+		return play;
+	}
+	private Button makeBackButton(){
+		Button back = new Button(STRING.BACK);
+		back.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); 
+		back.setOnMouseClicked(e -> parent.returnToMainMenuScreen());		
+		return back;
 	}
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
@@ -94,20 +129,7 @@ public class GameEditScreen extends Screen {
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 	}
-	private void configureAddLevelButton(){
-		
-	}
-	
-	private void configureTrashButton(){
-		
-	}
-	private void configurePlayButton(){
-		
-	}
-	private void configureBackButton(){
-		
-	}
-	
+
 	
 	//MenuBar
 	//TODO: Back, returns to main menu

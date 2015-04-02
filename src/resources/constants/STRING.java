@@ -24,4 +24,8 @@ public class STRING {
 	public static final String ADD_TEXT = "Add Text";
 	public static final String ADD_ANIMATION = "Add Animation";
 	
+	public static final String ADD_LEVEL = "Add Level";
+	public static final String EDIT_LEVEL = "Edit Level";
+	public static final String ADD_SPLASH = "Add Splash";
+	public static final String EDIT_SPLASH = "Edit Splash";
 }
