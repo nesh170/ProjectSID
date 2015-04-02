@@ -95,6 +95,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	private Stage stage;
 	private Group root;
 	private TabPane tabPane;
+	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
 	// ScreenController Inner Class Handlers
 	MainMenuScreenController mainMenuScreenManager = new ScreenController.MainMenuScreenManager();
 	GameEditScreenController gameEditScreenManager = new ScreenController.GameEditScreenManager();
@@ -166,6 +167,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	private void configureTabPane() {
 		
 		instantiateTabPane();
+		instantiateSelectionModel();
 		setTabPaneAlignmentAndSize();
 		addTabPaneToThis();
 		
@@ -173,6 +175,10 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	
 	private void instantiateTabPane() {
 		tabPane = new TabPane();
+	}
+	
+	private void instantiateSelectionModel() {
+		singleSelectionModel = tabPane.getSelectionModel();
 	}
 	
 	private void setTabPaneAlignmentAndSize() {
