@@ -1,8 +1,13 @@
 package screen.gameEditScreen;
 
+import game.Game;
+
 import java.awt.SplashScreen;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.control.MenuBar;
+import javafx.scene.layout.Pane;
 import level.Level;
 import screen.Screen;
 /**
@@ -11,25 +16,44 @@ import screen.Screen;
  * @author Yongjiao
  *
  */
-
+//Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
-	// Static variables
-		// Instance variables
+	// Instance variables
 	private GameEditScreenController parent;
-	private ArrayList<Level>	myLevels;
-	private ArrayList<SplashScreen> mySplashScreen;
+	private Game myGame;
+	private ArrayList<Level>	myLevels;  //may not need or change type
+	private ArrayList<SplashScreen> mySplashScreen; //may not need
 	
-		// Getters & Setters
-
-
 		// Constructor & Helpers
 	
+	/**
+	 * Set up GameEdit screen from previously created game to re-edit game.
+	 * @param controller, width, height, game
+	 */
+	public GameEditScreen(GameEditScreenController controller, double width, double height, Game game){
+		super(width, height);
+		this.myGame = game;
+		//this.myGame.getLevels()
+	}
+	/**
+	 * Creates new GameEditScreen
+	 */
 	public GameEditScreen( GameEditScreenController controller, double width, double height) {
 		super(width, height);
+		myGame = new Game(); //inatilize a game 
 		configureParent(controller);
 		configureButtons();
 	}
-
+	// Getters & Setters
+	/**
+	 * add to current game level
+	 * @param level
+	 * @return
+	 */
+	public void setMyLevel(int index, Level level){
+		myLevels.add(index, level);
+	}
+	
 	private void configureParent(GameEditScreenController controller) {
 		this.parent = controller;	
 	}	
@@ -41,7 +65,21 @@ public class GameEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 	
+	}	
+	private void configureAddLevelButton(){
+		
 	}
+	
+	private void configureTrashButton(){
+		
+	}
+	private void configurePlayButton(){
+		
+	}
+	private void configureBackButton(){
+		
+	}
+	
 	
 	//MenuBar
 	//TODO: Back, returns to main menu

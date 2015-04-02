@@ -203,10 +203,10 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 				new SplashEditScreen(newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
-		/*addTabWithScreenWithStringIdentifier(
+		addTabWithScreenWithStringIdentifier(
 				new LevelEditScreen(new LevelEditScreenManager(), newScreenWidth, newScreenHeight),
 				"Level Edit Screen");
-	*/
+	
 		addTabWithScreenWithStringIdentifier(
 				new GameEditScreen(new GameEditScreenManager(), newScreenWidth, newScreenHeight),
 				"Game Edit Screen");		
@@ -239,7 +239,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 
 		tabPane.getTabs().addAll(tab);
 		
-		setCorrectTabModifiability();
+		//setCorrectTabModifiability();
 
 	}
 
@@ -375,12 +375,10 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		public void returnToMainMenuScreen() {
 			throw new IllegalStateException("unimplemented returnToMainMenuScreen in GameEditScreenController");
 		}
-
 		@Override
 		public void loadSplashEditScreen(Game game) {
 			throw new IllegalStateException("unimplemented loadSplashEditScreen in GameEditScreenController");
 		}
-
 		@Override
 		public void loadLevelEditScreen(Level level) {
 			throw new IllegalStateException("unimplemented loadLevelEditScreen in GameEditScreenController");
@@ -396,7 +394,10 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		 */
 		//public void trashSplash(SplashScreen splash){
 			
-		//}
+		//}		
+		/**
+		 * 
+		 */
 		
 	}
 	
