@@ -183,16 +183,6 @@ public class LevelEditScreen extends Screen {
 		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
 
 	}
-
-	private Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
-
-		Button button = new Button(text);
-		button.setOnAction(lambda);
-		VBox.setVgrow(button, Priority.NEVER);
-		return button;
-
-	}
-
 	
 	// All other instance methods
 	/**

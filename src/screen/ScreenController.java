@@ -38,6 +38,7 @@ import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
 import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
+import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import game.Game;
 import screen.Screen;
@@ -47,6 +48,7 @@ import screen.Screen;
  * @author Ruslan
  * @author anika
  * @author Kyle
+ * @author Leo
  *
  */
 
@@ -486,7 +488,8 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 
 		@Override
 		public void loadSpriteEditScreen() {
-			throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
+			Screen spriteEdit = new SpriteEditScreen(spriteEditScreenManager, singleSelectionModel.getSelectedItem(), width, height);
+			addTabWithScreenWithStringIdentifier(spriteEdit,"spriteEditScreen");
 		}
 		
 	}
