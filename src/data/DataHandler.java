@@ -37,5 +37,9 @@ public class DataHandler {
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
+	
+	public File[] getFilesFromDir(File folder) {
+		return folder.listFiles();
+	}
 
 }
