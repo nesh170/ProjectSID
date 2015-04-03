@@ -91,12 +91,12 @@ public class ScreenController implements ScreenControllerInterface {
 	private TabPane tabPane;
 	
 	// ScreenController Inner Class Handlers
-	MainMenuScreenController mainMenuScreenManager = new ScreenController.MainMenuScreenManager();
 	GameEditScreenController gameEditScreenManager = new ScreenController.GameEditScreenManager();
 	SplashEditScreenController splashEditScreenManager = new ScreenController.SplashEditScreenManager();
 	LevelEditScreenController levelEditScreenManager = new ScreenController.LevelEditScreenManager();
 	SpriteEditScreenController spriteEditScreenManager = new ScreenController.SpriteEditScreenManager();
 	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
+	MainMenuScreenController myMainMenuScreenManager;
 	
 	
 	// Getters & Setters (static)
@@ -197,7 +197,7 @@ public class ScreenController implements ScreenControllerInterface {
 	private void createInitialMainMenuScreen() {
 		
 		addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
+				new MainMenuScreen(myMainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
 				
 	}
@@ -265,93 +265,6 @@ public class ScreenController implements ScreenControllerInterface {
 		
 	}
 	
-	
-	// Nested Classes
-	// Inner class for handling MainMenuScreenController methods
-	private class MainMenuScreenManager implements MainMenuScreenController {
-
-		@Override
-		public void createNewGame() {
-			throw new IllegalStateException("unimplemented createNewGame in MainMenuScreenController");
-		}
-
-		@Override
-		public void loadGameEditScreen(String recentGameName) {
-			throw new IllegalStateException("unimplemented loadGameEditScreen in MainMenuScreenController");
-		}
-
-		@Override
-		public void loadGame() {
-			
-			URI gameLocation;
-
-			if ((gameLocation = getGameFileURI()) != null) {
-				loadGame(gameLocation);
-			}
-
-		}
-		
-		/**
-		 * @author Ruslan
-		 * 
-		 * Opens a FileChooser, select an XML that stores our Game
-		 * @return URI of exact Game XML location
-		 */
-		private URI getGameFileURI() {
-			
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Choose Game File");
-			
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
-			
-			File file = fileChooser.showOpenDialog(stage);
-			
-			if (file != null) {
-				return file.toURI();
-			} else {
-				return null;
-			}
-			
-		}
-
-		/**
-		 * Called by loadGame() in the interface. Guaranteed that gameLocationOnDisk != null
-		 * 
-		 * @param gameLocationOnDisk
-		 */
-		private void loadGame(URI gameLocationOnDisk) {
-			
-			Game game = null;
-			
-			// TODO:
-				/*
-				 * Instantiate a DataManager or call DataManager.sharedInstance()
-				 * Read off a Game from XML
-				 */
-			
-			// Here, Game can potentiall still be null if the user selected a non-Game XML
-			if (game != null) {
-				
-				
-				// TODO
-				/*
-				 * Instantiate a GameEditScreen
-				 * Set main menu tab to unclickable and unremovable
-				 */
-			} 
-			
-			else {
-				displayError("Invalid Game file selected.");
-			}
-			
-		}
-		
-		@Override
-		public void closeApplication() {
-			stage.close();		
-		}
-		
-	}
 
 	// Inner class for handling GameEditScreenController methods
 	private class GameEditScreenManager implements GameEditScreenController {
