@@ -93,13 +93,21 @@ public class Sprite {
 	}
 	
 	public Sprite(Point2D coordinate, String path) {
-		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
-		myImagePath=path;
+		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS, path);
 	}
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		this.isActive = true;
 		this.myTransform = new Transform(coordinate, rotate, dimension);
+	}
+	
+	public Sprite(Point2D coordinate, Point2D rotate, Dimension2D dimension, String path){
+		this(coordinate, rotate, dimension);
+		myImagePath = path;
+	}
+	
+	public Sprite (Sprite toCopy){
+		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions(), toCopy.path());
 	}
 	
 	

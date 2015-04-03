@@ -9,22 +9,20 @@ import sprite.Sprite;
  * Looks toward
  *
  */
-public class TowardPlayerMoveComponent extends MoveComponent {
+public class TowardPlayerMotionComponent extends MotionComponent {
 
 	private Sprite playerSprite;
 	private Double speedFactor;
 	
-	public TowardPlayerMoveComponent(Sprite sprite){
+	public TowardPlayerMotionComponent(Sprite sprite){
 		super(sprite);
 		speedFactor = DOUBLE.DEFAULT_TOWARD_MULTIPLIER;
 	}
-	public TowardPlayerMoveComponent(Sprite sprite, Double speedMultiply) {
-		super(sprite);
-		speedFactor = speedMultiply;
-		//GET PLAYER SPRITE (From..level??)
-		// TODO Auto-generated constructor stub
+	
+	public void setSpeedFactor(Double multiply){
+		speedFactor = multiply;
 	}
-
+	
 	@Override
 	protected void frameCalculateVelocity(){
 		//calculate vector from this sprite to the player

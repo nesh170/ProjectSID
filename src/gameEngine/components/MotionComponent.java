@@ -12,13 +12,14 @@ import gameEngine.Component;
  * behavior; variation in subclasses will lie mainly in
  * the (here unimplemented) frameCalculateVelocity()
  * method, which will contain code describing how sprite
- * determines where to head
+ * determines where to head/how fast to head there.
+ * 
  */
-public class MoveComponent extends Component{
+public class MotionComponent extends Component{
 
 	private Point2D myVelocity;
 	
-	public MoveComponent(Sprite sprite) {
+	public MotionComponent(Sprite sprite) {
 		super(sprite);
 		// TODO Auto-generated constructor stub
 	}
