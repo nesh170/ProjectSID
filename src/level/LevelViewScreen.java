@@ -1,9 +1,12 @@
 package level;
 
+import gameEngine.Transform;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import gameEngine.Transform;
+
+import sprite.Sprite;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -27,15 +30,17 @@ public class LevelViewScreen {
     
     public Group renderLevel() {
         Group levelGroup = new Group();
-        myLevel.getAllSprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite.path(), sprite.transform())));
+        myLevel.getAllSprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
         return levelGroup;
     }
     
-    private Node renderSprite(String path, Transform transform) {
+    private Group renderSprite(Sprite sprite) {
+    	Group spriteGroup = new Group();
+    	Transform transform = sprite.transform();
         Rectangle spriteNode = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
         Paint spriteColor;
         try {
-            spriteColor = Color.web(path);
+            spriteColor = Color.web(sprite.path());
         } 
         catch(IllegalArgumentException e) {
             //TODO add Ruslan's sprite image methodology
@@ -44,6 +49,9 @@ public class LevelViewScreen {
             
         }
         spriteNode.setFill(spriteColor);
-        return spriteNode;
+        spriteGroup.getChildren().add(spriteNode);
+        sprite.emissionList().stream().forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
+        
+        return spriteGroup;
     }
 }
