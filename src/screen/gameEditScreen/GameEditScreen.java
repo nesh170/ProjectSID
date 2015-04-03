@@ -27,6 +27,10 @@ public class GameEditScreen extends Screen {
 			"-fx-font: 14 georgia; -fx-text-fill: black;  "
 			+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); "
 			+ "-fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
+	
+	private int numLevels = 0;
+	private int numSplashScreens = 0;
+	
 	private String[] myScreenButtonsNames;
 	private ResourceBundle myButtonLabels;
 	private Button[] myScreenButtons;
@@ -65,14 +69,14 @@ public class GameEditScreen extends Screen {
 	
 	private int addLevel()
 	{
-		int levelNum = 0;
+		int levelNum = numLevels + 1;
 		// TODO
 		return levelNum;
 	}
 	
 	private int addSplash()
 	{
-		int splashNum = 0;
+		int splashNum = numSplashScreens + 1;
 		// TODO
 		return splashNum;
 	}
