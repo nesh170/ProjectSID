@@ -1,35 +1,24 @@
 package player;
 
+import gameEngine.GameEngineAbstract;
+
 import java.util.List;
 
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import gameEngine.GameEngineAbstract;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class GamePlayer implements GamePlayerInterface{
 
@@ -99,6 +88,7 @@ public class GamePlayer implements GamePlayerInterface{
         gameChooser.initOwner(s);
 	    Button mario = new Button("Mario");
         mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
+        mario.setOnAction(event -> { System.exit(0); });
         VBox vbox = new VBox(50);
         vbox.getChildren().addAll(new Text("Your Games"), mario);
         Scene allGames = new Scene(vbox, 300, 200);
