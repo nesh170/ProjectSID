@@ -22,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
+import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
@@ -155,7 +156,7 @@ public class ScreenController implements ScreenControllerInterface {
 	private void configureControllers(Stage stage) {
 		myMainMenuScreenManager = new MainMenuScreenManager(stage);
 		myGameEditScreenManager = new GameEditScreenManager();
-		splashEditScreenManager = new SplashEditScreenManager();
+		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
@@ -227,7 +228,7 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(newScreenWidth, newScreenHeight),
+				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
@@ -302,7 +303,7 @@ public class ScreenController implements ScreenControllerInterface {
 		tab.setDisable(false);
 		
 		// Selects current, enabled tab
-			// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
+		// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
 		singleSelectionModel.select(tab);
 		
 	}
@@ -310,8 +311,7 @@ public class ScreenController implements ScreenControllerInterface {
 	private void removeTabAndChangeSelected(Tab selectedNew) {
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
-		
-		// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
+	
 		setCorrectTabModifiabilityAndViewability();
 		
 		singleSelectionModel.select(selectedNew);

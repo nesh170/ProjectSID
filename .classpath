@@ -13,5 +13,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/kam237/Desktop/controlsfx-8.0.6_20.jar"/>
+	<classpathentry kind="lib" path="/Users/kam237/Documents/workspace308/slogo_team10/lib/controlsfx-8.0.6_20-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
