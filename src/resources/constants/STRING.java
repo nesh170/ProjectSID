@@ -2,8 +2,13 @@ package resources.constants;
 
 public class STRING {
 
+	// Colors
 	public static final String DEFAULT_FX_BACKGROUND_COLOR = "CORNFLOWERBLUE;";
 	public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
+	public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
+	
+	// Screen Controller
+	public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
 	
 	// Music Playback
 	public static final String MUSIC_OPTIONS = "Music Options";
