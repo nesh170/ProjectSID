@@ -34,11 +34,15 @@ public class Level {
 	}
 	
 	// Constructor & Helpers
+	public Level() {
+		// TODO
+	}
+	
 	public Level(List<Sprite> spriteList, Sprite playerSprite) {
 	        myPlayerSprite = playerSprite;
 		sprites = spriteList;
 		prepareAllSprites();
-        }
+	}
 
 	
 	public void prepareAllSprites(){
