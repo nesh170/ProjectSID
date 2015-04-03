@@ -1,6 +1,8 @@
 package screen;
 
 
+import gameEngine.sprites.Sprite;
+
 import javax.imageio.ImageIO;
 
 import javafx.collections.ObservableList;
@@ -34,7 +36,6 @@ import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import screen.Screen;
-import sprite.Sprite;
 
 /**
  * 

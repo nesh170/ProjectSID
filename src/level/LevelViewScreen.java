@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import gameEngine.Transform;
-import sprite.Sprite;
-import sprite.spriteImage.SpriteImage;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -16,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 public class LevelViewScreen {
     
     private Level myLevel;
-    private SpriteImage mySpriteImageManager;
+    //private SpriteImage mySpriteImageManager;
     
     public LevelViewScreen(Level level) {
         myLevel=level;

@@ -2,13 +2,13 @@ package level;
 import gameEngine.Action;
 import gameEngine.Collision;
 import java.util.ArrayList;
+import gameEngine.sprites.Sprite;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import sprite.Sprite;
-import javafx.scene.Group;
+
 import javafx.scene.input.KeyCode;
 
 /**

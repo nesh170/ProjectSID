@@ -2,8 +2,8 @@ package gameEngine.actions;
 
 import java.util.List;
 
-import sprite.Sprite;
 import gameEngine.Action;
+import gameEngine.sprites.Sprite;
 
 public class CollisionAction extends Action {
 

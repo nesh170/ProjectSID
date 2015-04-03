@@ -1,10 +1,9 @@
 package gameEngine;
 
 import gameEngine.actions.CollisionAction;
+import gameEngine.sprites.Sprite;
 
 import java.util.*;
-
-import sprite.Sprite;
 
 public class Collision {
 	/**
