@@ -1,39 +1,48 @@
 package gameEngine.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 
-public class CollisionAction extends Action {
-
-	/** Identifier used in global collisions map to choose correct reaction*/
-	private String collisionIdentifier;
+/**
+ * Action consisting of other actions grouped.
+ * Can be tied to key, or used as collision response
+ *
+ */
+public class CompoundAction extends Action{
 	
-	/** List of sub-actions to be executed (in order) during collision */
+	/** List of sub-actions to be executed (in order) as compound action */
 	private List<Action> mySubActions;
 	
-	public CollisionAction(Sprite sprite, String identifier) {
+	public CompoundAction(Sprite sprite) {
 		super(sprite);
-		collisionIdentifier = identifier;
+		mySubActions = new ArrayList<Action>();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public String getID(){
-		return collisionIdentifier;
+
+	public CompoundAction(Sprite sprite,  KeyCode... keys){
+		super(sprite, keys);
+		mySubActions = new ArrayList<Action>();
 	}
+	
+	public void addAction(Action act){
+		mySubActions.add(act);
+	}
+	
 	@Override
 	public void prepare() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		// IMPORTANT!!
 		// Using List version of .forEach() rather than
-		// stream() version because we want users to be
+		// functional stream() version because we want users to be
 		// able to establish an order. The list implementation
 		// of forEach guarantees execution in order rather than
 		// parallel
@@ -43,7 +52,7 @@ public class CollisionAction extends Action {
 	@Override
 	public void stop() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
