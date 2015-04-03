@@ -1,6 +1,6 @@
 package gameEngine.actions;
 
-import sprites.Sprite;
+import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import gameEngine.Action;
 import gameEngine.components.HealthComponent;

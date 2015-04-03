@@ -3,7 +3,8 @@ package gameEngine;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import sprites.Sprite;
+
+import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 
 

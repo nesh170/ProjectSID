@@ -1,6 +1,6 @@
 package gameEngine.sprites;
 
-import sprites.Sprite;
+import sprite.Sprite;
 import gameEngine.Component;
 
 public class Platform extends Sprite {

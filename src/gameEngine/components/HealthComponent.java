@@ -1,6 +1,6 @@
 package gameEngine.components;
 
-import sprites.Sprite;
+import sprite.Sprite;
 import gameEngine.Component;
 
 /**
