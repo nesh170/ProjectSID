@@ -17,6 +17,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -42,6 +43,7 @@ public class LevelEditScreen extends Screen {
 	private Level level;
 	private Pane levelScene;
 	private Tab currentGameScreen;
+	private Sprite spriteToAdd;
 	
 	private LevelEditScreenController parent;
 	
@@ -139,12 +141,17 @@ public class LevelEditScreen extends Screen {
 		
 		this.parent = parent;
 		this.currentGameScreen = gameScreen;
-		this.levelScene = new Pane();
 		this.levelScene.setStyle("-fx-background-color: lightgrey");
 		this.setCenter(levelScene);
+		makeLevelScene();
 		makeSpritesInLevelTab();
 		makeButtonsTab();
 		
+	}
+	
+	private void makeLevelScene() {
+		this.levelScene = new Pane();
+		this.levelScene.setOnMouseReleased(e -> addSpriteToLocation(e));
 	}
 	
 	private void makeSpritesInLevelTab() {
@@ -183,23 +190,26 @@ public class LevelEditScreen extends Screen {
 		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
 
 	}
-
-	private Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
-
-		Button button = new Button(text);
-		button.setOnAction(lambda);
-		VBox.setVgrow(button, Priority.NEVER);
-		return button;
-
+	
+	private void addSpriteToLocation(MouseEvent e) {
+		
+		if(spriteToAdd != null) {
+			double xLocation = e.getX();
+			double yLocation = e.getY();
+			//TODO add sprite to levelScene and add it to the level as well
+			spriteToAdd = null; //do this once sprite has been added
+		}
+		
 	}
-
 	
 	// All other instance methods
 	/**
 	 * add a sprite to the level edit screen
 	 */
-	public void addSprite(Sprite sprite, Point2D location) {
+	public void addSprite(Sprite sprite) {
+		
+		spriteToAdd = sprite;
 		
 	}
-		
+			
 }

@@ -1,10 +1,11 @@
 package screen.gameEditScreen;
 
+import screen.UniversalController;
 import level.Level;
 import game.Game;
 
-public interface GameEditScreenController {
-	
+public interface GameEditScreenController extends UniversalController {
+
 	void returnToMainMenuScreen();
 	
 	/*

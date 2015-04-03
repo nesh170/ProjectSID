@@ -1,19 +1,13 @@
 package screen;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.util.Collection;
 
 import javax.imageio.ImageIO;
 
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.ImageCursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
@@ -27,7 +21,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import level.Level;
 import resources.constants.DOUBLE;
 import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
@@ -39,15 +32,18 @@ import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
 import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
+import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
-import game.Game;
 import screen.Screen;
+import sprite.Sprite;
 
 /**
  * 
  * @author Ruslan
  * @author anika
  * @author Kyle
+ * @author Leo
+ * @author Michael
  *
  */
 
@@ -80,30 +76,38 @@ import screen.Screen;
  *  - and places those in the ScreenController's tabPane
  *  - via "addTabWithScreenWithStringIdentifier(ScreenSubClass instance, String identifier)"
  * 
+ * ----------------------------------------------------------------------
+ * Note from April 1st (Michael)
+ * 
+ * -Added 3 if (true) return true; (April Fools)
+ * - Removed extends Scene
+ * - Added Instance Variable Scene
  * 
  */
 
-public class ScreenController extends Scene implements ScreenControllerInterface {
+public class ScreenController implements ScreenControllerInterface {
 	
 	// Static Variables
 	
 	
 	// Instance Variables
 	// Sizing
-	private double width, height;
+	private double myWidth, myHeight;
 	private double newScreenWidth, newScreenHeight;
+	
 	// JavaFX
-	private Stage stage;
-	private Group root;
+	private Group myRoot;
+	private Scene myScene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
+
 	// ScreenController Inner Class Handlers
-	MainMenuScreenController mainMenuScreenManager = new ScreenController.MainMenuScreenManager();
-	GameEditScreenController gameEditScreenManager = new ScreenController.GameEditScreenManager();
-	SplashEditScreenController splashEditScreenManager = new ScreenController.SplashEditScreenManager();
-	LevelEditScreenController levelEditScreenManager = new ScreenController.LevelEditScreenManager();
-	SpriteEditScreenController spriteEditScreenManager = new ScreenController.SpriteEditScreenManager();
-	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
+	MainMenuScreenController myMainMenuScreenManager;
+	GameEditScreenController myGameEditScreenManager;
+	SplashEditScreenController splashEditScreenManager;
+	LevelEditScreenController levelEditScreenManager;
+	SpriteEditScreenController spriteEditScreenManager;
+	GamePlayScreenController gamePlayScreenManager;
 	
 	
 	// Getters & Setters (static)
@@ -111,11 +115,11 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	
 	// Getters & Setters (instance)
 	public double width() {
-		return this.width;
+		return this.myWidth;
 	}
 	
 	public double height() {
-		return this.height;
+		return this.myHeight;
 	}
 	
 	public double newScreenWidth() {
@@ -126,13 +130,20 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		return this.newScreenHeight;
 	}
 	
+	public Scene getScene() {
+		return myScene;
+	}
+	
 	
 	// Constructors & Helpers
-	public ScreenController(Stage stage, Group root, double width, double height) {
+	public ScreenController(Stage stage, double width, double height) {
 		
-		super(root, width, height, Color.TAN);
+		myRoot = new Group();
+		myScene = new Scene(myRoot);
 		
-		configureStageAndRoot(stage, root);
+		configureControllers(stage);
+		
+		configureStageAndRoot(stage, myRoot);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		
@@ -142,17 +153,25 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	
 	}
 	
+	private void configureControllers(Stage stage) {
+		myMainMenuScreenManager = new MainMenuScreenManager(stage);
+		myGameEditScreenManager = new GameEditScreenManager();
+		splashEditScreenManager = new SplashEditScreenManager(stage);
+		levelEditScreenManager = new LevelEditScreenManager();
+		spriteEditScreenManager = new SpriteEditScreenManager();
+		gamePlayScreenManager = new GamePlayScreenManager();
+	}
+
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
-		this.root = root;
-		this.stage = stage;
+		this.myRoot = root;
 		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
 		
-		this.width = width;
-		this.height = height;
+		this.myWidth = width;
+		this.myHeight = height;
 		
 	}
 	
@@ -170,7 +189,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		instantiateTabPane();
 		instantiateSelectionModel();
 		setTabPaneAlignmentAndSize();
-		addTabPaneToThis();
+		addTabPane();
 		
 	}
 	
@@ -197,14 +216,14 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		
 	}
 	
-	private void addTabPaneToThis() {
-		root.getChildren().add(tabPane);
+	private void addTabPane() {
+		myRoot.getChildren().add(tabPane);
 	}
 	
 	private void createInitialMainMenuScreen() {
 		
 		addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
+				new MainMenuScreen(myMainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
@@ -244,8 +263,8 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		
 		tab.setContent(screen);
 		tab.onClosedProperty().set(e -> setCorrectTabModifiabilityAndViewability());
-		
-		tabPane.getTabs().addAll(tab);
+
+		tabPane.getTabs().add(tab);
 		
 		setCorrectTabModifiabilityAndViewability();
 
@@ -284,239 +303,18 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		tab.setDisable(false);
 		
 		// Selects current, enabled tab
-			// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
+		// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
 		singleSelectionModel.select(tab);
 		
 	}
 	
+	private void removeTabAndChangeSelected(Tab selectedNew) {
+		Tab tab = singleSelectionModel.getSelectedItem();
+		tabPane.getTabs().remove(tab);
 	
-	// Nested Classes
-	// Inner class for handling MainMenuScreenController methods
-	private class MainMenuScreenManager implements MainMenuScreenController {
-
-		@Override
-		public void createNewGame() {
-			throw new IllegalStateException("unimplemented createNewGame in MainMenuScreenController");
-		}
-
-		@Override
-		public void loadGameEditScreen(String recentGameName) {
-			throw new IllegalStateException("unimplemented loadGameEditScreen in MainMenuScreenController");
-		}
-
-		@Override
-		public void loadGame() {
-			
-			URI gameLocation;
-
-			if ((gameLocation = getGameFileURI()) != null) {
-				loadGame(gameLocation);
-			}
-
-		}
+		setCorrectTabModifiabilityAndViewability();
 		
-		/**
-		 * @author Ruslan
-		 * 
-		 * Opens a FileChooser, select an XML that stores our Game
-		 * @return URI of exact Game XML location
-		 */
-		private URI getGameFileURI() {
-			
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Choose Game File");
-			
-			fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
-			
-			File file = fileChooser.showOpenDialog(stage);
-			
-			if (file != null) {
-				return file.toURI();
-			} else {
-				return null;
-			}
-			
-		}
-
-		/**
-		 * Called by loadGame() in the interface. Guaranteed that gameLocationOnDisk != null
-		 * 
-		 * @param gameLocationOnDisk
-		 */
-		private void loadGame(URI gameLocationOnDisk) {
-			
-			Game game = null;
-			
-			// TODO:
-				/*
-				 * Instantiate a DataManager or call DataManager.sharedInstance()
-				 * Read off a Game from XML
-				 */
-			
-			// Here, Game can potentially still be null if the user selected a non-Game XML
-			if (game != null) {
-				
-				
-				// TODO
-				/*
-				 * Instantiate a GameEditScreen
-				 * Set main menu tab to unclickable and unremovable
-				 */
-			} 
-			
-			else {
-				displayError("Invalid Game file selected.");
-			}
-			
-		}
-		
-		@Override
-		public void closeApplication() {
-			stage.close();		
-		}
-		
-	}
-
-	// Inner class for handling GameEditScreenController methods
-	private class GameEditScreenManager implements GameEditScreenController {
-
-		@Override
-		public void returnToMainMenuScreen() {
-			throw new IllegalStateException("unimplemented returnToMainMenuScreen in GameEditScreenController");
-		}
-
-		@Override
-		public void loadSplashEditScreen(Game game) {
-			throw new IllegalStateException("unimplemented loadSplashEditScreen in GameEditScreenController");
-		}
-
-		@Override
-		public void loadLevelEditScreen(Level level) {
-			throw new IllegalStateException("unimplemented loadLevelEditScreen in GameEditScreenController");
-		}
-		
-	}
-	
-	// Inner class for handling SplashEditScreenController methods
-	private class SplashEditScreenManager implements SplashEditScreenController {
-
-		@Override
-		public void returnToGameEditScreen() {
-			throw new IllegalStateException("unimplemented returnToGameEditScreen in SplashEditScreenController");
-		}
-		
-		@Override
-		public void addStartButton() {
-			File file = null;
-			Image image = null;
-	
-			try {
-				FileChooser fileChooser = new FileChooser();
-				FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-				FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-				fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-				
-				file = fileChooser.showOpenDialog(null);
-				image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
-				
-			} catch (Exception ex) {	
-				//LOAD STRING.DEFAULT_START_BUTTON
-			}
-			
-			ImageCursor imageCursor = new ImageCursor(image);
-			stage.getScene().setCursor(imageCursor);
-			
-		}
-
-		@Override
-		public void addImage() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void addText() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void addAnimation() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void saveSplashScreen() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void trashSplashScreen() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void backSplashScreen() {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
-	// Inner class for handling LevelEditScreenController methods
-	private class LevelEditScreenManager implements LevelEditScreenController {
-
-		@Override
-		public void returnToGameEditScreen(Tab currentGameScreen) {
-			
-			Tab levelTab = singleSelectionModel.getSelectedItem();
-			tabPane.getTabs().remove(levelTab);
-			
-			// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
-			setCorrectTabModifiabilityAndViewability();
-			
-			singleSelectionModel.select(currentGameScreen);
-			
-		}
-
-		@Override
-		public void loadSpriteEditScreen() {
-			throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
-		}
-		
-	}
-	
-	// Inner class for handling SpriteEditScreenController methods
-	private class SpriteEditScreenManager implements SpriteEditScreenController {
-
-		@Override
-		public void returnToSelectedLevel() {
-			throw new IllegalStateException("unimplemented returnToSelectedLevel in SpriteEditScreenController");
-		}
-		
-	}
-	
-	// Inner class for handling GamePlayScreenController methods
-	private class GamePlayScreenManager implements GamePlayScreenController {
-
-		@Override
-		public void returnToMainMenuScreen() {
-			throw new IllegalStateException("unimplemented returnToMainMenuScreen in GamePlayScreenController");
-		}
-
-		@Override
-		public void loadSplashEditScreen() {
-			throw new IllegalStateException("unimplemented loadSplashEditScreen in GamePlayScreenController");
-		}
-
-		@Override
-		public void loadLevelEditScreen() {
-			throw new IllegalStateException("unimplemented loadLevelEditScreen in GamePlayScreenController");
-		}
-		
+		singleSelectionModel.select(selectedNew);
 	}
 	
 }

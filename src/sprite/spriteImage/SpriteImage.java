@@ -3,6 +3,7 @@ package sprite.spriteImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.image.Image;
 import resources.constants.INT;
 
 /**
@@ -123,6 +124,13 @@ public class SpriteImage {
 			}
 			
 		}
+		
+	}
+	
+	public Image convertArrayToImage(int[][] image) {
+		
+		//TODO unimplemented
+		return null;
 		
 	}
 	

@@ -120,6 +120,7 @@ public class MainMenuScreen extends Screen {
 	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
 	 *  2. instantiateMusicMenu()
 	 */
+
 	private Button loadGameButton() {
 		Button loadGameButton = new Button(STRING.LOADGAME);
 		ChoiceBox<String> loadGameChoice = new ChoiceBox<String>();
@@ -129,6 +130,12 @@ public class MainMenuScreen extends Screen {
 		loadGameButton.setMinSize(100, 50);
 		//this.setCenter(loadGameButton);
 		loadGameButton.setOnMouseClicked(e -> parent.loadGame());
+		this.getChildren().add(loadGameButton);
+		loadGameChoice.setTranslateX(500);
+		loadGameChoice.setTranslateY(500);
+		loadGameButton.setTranslateX(500);
+		loadGameButton.setTranslateY(400);
+		this.getChildren().add(loadGameChoice);
 		
 		return loadGameButton;
 		
