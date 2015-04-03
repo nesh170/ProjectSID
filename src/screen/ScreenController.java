@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -42,6 +43,7 @@ import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import game.Game;
 import screen.Screen;
+import sprite.Sprite;
 
 /**
  * 
@@ -290,6 +292,16 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		
 	}
 	
+	private void removeTabAndChangeSelected(Tab selectedNew) {
+		Tab tab = singleSelectionModel.getSelectedItem();
+		tabPane.getTabs().remove(tab);
+		
+		// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
+		setCorrectTabModifiabilityAndViewability();
+		
+		singleSelectionModel.select(selectedNew);
+	}
+	
 	
 	// Nested Classes
 	// Inner class for handling MainMenuScreenController methods
@@ -475,15 +487,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 
 		@Override
 		public void returnToGameEditScreen(Tab currentGameScreen) {
-			
-			Tab levelTab = singleSelectionModel.getSelectedItem();
-			tabPane.getTabs().remove(levelTab);
-			
-			// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
-			setCorrectTabModifiabilityAndViewability();
-			
-			singleSelectionModel.select(currentGameScreen);
-			
+			removeTabAndChangeSelected(currentGameScreen);
 		}
 
 		@Override
@@ -498,8 +502,14 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 	private class SpriteEditScreenManager implements SpriteEditScreenController {
 
 		@Override
-		public void returnToSelectedLevel() {
-			throw new IllegalStateException("unimplemented returnToSelectedLevel in SpriteEditScreenController");
+		public void returnToSelectedLevel(Tab currentLevelScreen, Sprite selectedSprite) {
+			removeTabAndChangeSelected(currentLevelScreen);
+			
+			((LevelEditScreen) currentLevelScreen.getContent()).addSprite(selectedSprite);
+			
+			int[][] image = selectedSprite.spriteImage().getIntArrayToDisplay();
+			ImageCursor cursor = new ImageCursor(selectedSprite.spriteImage().convertArrayToImage(image));
+			stage.getScene().setCursor(cursor);
 		}
 		
 	}
