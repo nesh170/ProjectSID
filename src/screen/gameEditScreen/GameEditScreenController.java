@@ -1,19 +1,38 @@
 package screen.gameEditScreen;
 
-import screen.UniversalController;
 import level.Level;
 import game.Game;
 
-public interface GameEditScreenController extends UniversalController {
-
-	void returnToMainMenuScreen();
+public interface GameEditScreenController {
 	
-	/*
+	public void returnToMainMenuScreen();
+	
+	/**
 	 * Loads a new splash edit screen that edits the splash screen
-	 * of the game parameter
+	 * of the game parameter? 
 	 */
-	void loadSplashEditScreen(Game game);
-	
-	void loadLevelEditScreen(Level level);
+	public void loadSplashEditScreen(Game game);
+	public void loadLevelEditScreen(Level level);
+	/**
+	 * load a new edit screen when users press add button;
+	 */
+	public void loadLevelEditScreen();
+	public void loadSplashEditScreen();
+	/**
+	 * allow users to test/demo while editing a game
+	 */
+	public void playGame(Game game);
+	/**
+	 * remove the level from list of levels created 
+	 */
+	public void trashLevel(Level level);
+	/**
+	 * removes the splash screen from list of splash screen created
+	 * pass in SplashScreen or Game?
+	 */
+	//public void trashSplash(SplashScreen splash){}		
+	/**
+	 * 
+	 */
 	
 }
