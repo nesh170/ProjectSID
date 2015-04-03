@@ -102,6 +102,7 @@ public class ScreenController implements ScreenControllerInterface {
 	private Scene myScene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
+	private TextField errorMessageTextField;
 	// ScreenController Inner Class Handlers
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
