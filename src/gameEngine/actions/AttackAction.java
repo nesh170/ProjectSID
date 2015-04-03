@@ -1,6 +1,6 @@
 package gameEngine.actions;
 
-import sprites.Sprite;
+import sprite.Sprite;
 import gameEngine.Action;
 
 public class AttackAction extends Action {

@@ -2,7 +2,7 @@ package testing;
 
 import java.util.ArrayList;
 import java.util.List;
-import sprites.Sprite;
+import sprite.Sprite;
 import gameEngine.GameEngine;
 import javafx.animation.KeyFrame;
 import javafx.application.Application;

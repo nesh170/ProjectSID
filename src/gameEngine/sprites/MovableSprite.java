@@ -1,6 +1,6 @@
 package gameEngine.sprites;
 
-import sprites.Sprite;
+import sprite.Sprite;
 
 public class MovableSprite extends Sprite {
 

@@ -10,7 +10,8 @@ import gameEngine.sprites.Platform;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.mainMenu.MainMenuScreenController;
-import sprites.Sprite;
+import sprite.Sprite;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 

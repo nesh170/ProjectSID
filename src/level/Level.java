@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import sprites.Sprite;
+import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -34,11 +34,15 @@ public class Level {
 	}
 	
 	// Constructor & Helpers
+	public Level() {
+		// TODO
+	}
+	
 	public Level(List<Sprite> spriteList, Sprite playerSprite) {
 	        myPlayerSprite = playerSprite;
 		sprites = spriteList;
 		prepareAllSprites();
-        }
+	}
 
 	
 	public void prepareAllSprites(){
