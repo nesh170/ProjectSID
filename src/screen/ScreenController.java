@@ -91,12 +91,12 @@ public class ScreenController implements ScreenControllerInterface {
 	private TabPane tabPane;
 	
 	// ScreenController Inner Class Handlers
-	LevelEditScreenController levelEditScreenManager = new ScreenController.LevelEditScreenManager();
 	SpriteEditScreenController spriteEditScreenManager = new ScreenController.SpriteEditScreenManager();
 	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
 	SplashEditScreenController splashEditScreenManager;
+	LevelEditScreenController levelEditScreenManager;
 	
 	
 	// Getters & Setters (static)
@@ -143,6 +143,7 @@ public class ScreenController implements ScreenControllerInterface {
 		myMainMenuScreenManager = new MainMenuScreenManager(stage);
 		myGameEditScreenManager = new GameEditScreenManager();
 		splashEditScreenManager = new SplashEditScreenManager(stage);
+		levelEditScreenManager = new LevelEditScreenManager(stage);
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.myRoot = root;
@@ -265,31 +266,6 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		tab.setClosable(true);
 		tab.setDisable(false);
-		
-	}
-	
-	// Inner class for handling LevelEditScreenController methods
-	private class LevelEditScreenManager implements LevelEditScreenController {
-
-		@Override
-		public void returnToGameEditScreen() {
-			throw new IllegalStateException("unimplemented returnToGameEditScreen in LevelEditScreenController");
-		}
-
-		@Override
-		public void loadSpriteEditScreen() {
-			throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
-		}
-		
-	}
-	
-	// Inner class for handling SpriteEditScreenController methods
-	private class SpriteEditScreenManager implements SpriteEditScreenController {
-
-		@Override
-		public void returnToSelectedLevel() {
-			throw new IllegalStateException("unimplemented returnToSelectedLevel in SpriteEditScreenController");
-		}
 		
 	}
 	
