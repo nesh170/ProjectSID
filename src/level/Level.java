@@ -37,7 +37,8 @@ public class Level {
 	// Constructor & Helpers
 	public Level() {
 		
-		prepareAllSprites();
+		//TODO:
+		//prepareAllSprites();
 		
 	}
 	
