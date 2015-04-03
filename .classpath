@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="voogasalad"/>
 	<classpathentry kind="lib" path="lib/groovy-all-2.4.1-indy.jar" sourcepath="lib/groovy-src.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/experiment_voogasalad/lib/groovy-doc.jar!/"/>
