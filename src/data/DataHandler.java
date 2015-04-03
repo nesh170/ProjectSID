@@ -1,8 +1,11 @@
 package data;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+
+import javax.imageio.ImageIO;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -40,6 +43,26 @@ public class DataHandler {
 	
 	public File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
+	}
+	
+	public BufferedImage[] getImagesFromDir(File folder) {
+		File[] imageFiles = folder.listFiles((dir, filename) -> {
+			return filename.endsWith(".jpg")
+					|| filename.endsWith(".png")
+					|| filename.endsWith("tif");
+		});
+
+		BufferedImage[] images = new BufferedImage[imageFiles.length];
+		for (int i = 0; i < imageFiles.length; i++) {
+			try {
+				images[i] = ImageIO.read(imageFiles[i]);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return images;
+
 	}
 
 }
