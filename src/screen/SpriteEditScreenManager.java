@@ -10,7 +10,6 @@ public class SpriteEditScreenManager extends UniversalManager implements SpriteE
 	@Override
 	public void returnToSelectedLevel(Tab tab, Sprite sprite) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 }

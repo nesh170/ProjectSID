@@ -7,13 +7,13 @@ import screen.levelEditScreen.LevelEditScreenController;
 public class LevelEditScreenManager extends UniversalManager implements LevelEditScreenController {
 
 	@Override
-	public void returnToGameEditScreen(Tab tab) {
-		throw new IllegalStateException("unimplemented returnToGameEditScreen in LevelEditScreenController");
-	}
-
-	@Override
 	public void loadSpriteEditScreen() {
 		throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
 	}
 
+	@Override
+	public void returnToGameEditScreen(Tab tab) {
+		// TODO Auto-generated method stub
+		
+	}
 }
