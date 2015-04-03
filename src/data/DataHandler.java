@@ -60,7 +60,7 @@ public class DataHandler {
 				.toArray();
 	}
 
-	private BufferedImage fileToImage(File file) {
+	public BufferedImage fileToImage(File file) {
 		try {
 			return ImageIO.read(file);
 		} catch (IOException e) {
