@@ -1,6 +1,7 @@
 package level;
 import gameEngine.Action;
 import gameEngine.Collision;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +22,12 @@ public class Level {
 	private int width;
 	private int height;
 	
-	Sprite playerSprite;
+	Sprite myPlayerSprite;
 	Collision myCollisionDetector;
 	
 	List<Sprite> sprites;
-	List<Sprite> boundaries;
-	List<Sprite> projectiles;
+	List<Sprite> boundaries = new ArrayList<Sprite>();
+	List<Sprite> projectiles = new ArrayList<Sprite>();
 	
 	// Getters & Setters
 	public List<Sprite> boundaries() {
@@ -34,8 +35,9 @@ public class Level {
 	}
 	
 	// Constructor & Helpers
-	public Level() {
-		
+	public Level(List<Sprite> spriteList, Sprite playerSprite) {
+	        myPlayerSprite = playerSprite;
+		sprites = spriteList;
 		prepareAllSprites();
 		
 	}
@@ -56,7 +58,7 @@ public class Level {
 		//ordering an issue here
 		
 		//sprites updating
-		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
+		sprites.stream().forEach(spr -> checkCollision(myPlayerSprite,spr));
 		doOnEachSpriteList(sprite -> sprite.updateAllComponents());
 		
 	}
@@ -76,7 +78,7 @@ public class Level {
 	 */
 	public Map<KeyCode,Action> getControlMap(){
 	    Map<KeyCode,Action> controlMap = new HashMap<>();
-	    playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+	    myPlayerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
             return controlMap;
 	}
 	

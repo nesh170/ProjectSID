@@ -91,8 +91,10 @@ public class Sprite {
 		this(POINT2D.DEFAULT_POSITION, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
-	public Sprite(Point2D coordinate) {
+	public Sprite(Point2D coordinate,String path) {
 		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
+		//TODO look at this
+		myImagePath = path;
 	}
 	
 	public Sprite(Point2D coordinate, Point2D rotate) {
