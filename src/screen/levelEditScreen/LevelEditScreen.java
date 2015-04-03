@@ -69,7 +69,7 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 */
 	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height) {
-		this(parent, gameScreen, width, height, null);
+		this(parent, gameScreen, width, height, new Level());
 	}
 	
 	/**
@@ -135,6 +135,8 @@ public class LevelEditScreen extends Screen {
 	private void setUpLevelSceneFromLevel(Level level) {
 		this.level = level;
 		//TODO populate the levelScene with sprite objects
+		//To avoid runtime error
+		levelScene = new Pane();
 	}
 	
 	private void initialize(LevelEditScreenController parent, Tab gameScreen) {
