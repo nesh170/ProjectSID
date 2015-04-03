@@ -248,7 +248,12 @@ public class ScreenController implements ScreenControllerInterface {
 	// Public
 	@Override
 	public void displayError(String error) {
-		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
+		
+		cleanUpOldErrorMesssage();
+		instantiateErrorMessage(error);
+		configureErrorMessageOffsets();
+		addErrorMessage();
+		
 	}
 	
 	// Private
