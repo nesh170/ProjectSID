@@ -82,6 +82,7 @@ public abstract class Screen extends BorderPane {
 		
 	}
 	
+	
 	protected abstract void addMenuItemsToMenuBar(MenuBar menuBar);
 	
 	private void addMenuBarToThis(VBox wrapper) {
