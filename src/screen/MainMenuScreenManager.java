@@ -12,12 +12,11 @@ import screen.mainMenu.MainMenuScreenController;
 
 // Nested Classes
 // Inner class for handling MainMenuScreenController methods
-public class MainMenuScreenManager extends Manager implements MainMenuScreenController {
+public class MainMenuScreenManager extends UniversalManager implements MainMenuScreenController {
 
 	private Stage myStage;
 	
 	public MainMenuScreenManager(Stage stage) {
-		super(stage);
 		myStage = stage;
 	}
 	
@@ -92,7 +91,7 @@ public class MainMenuScreenManager extends Manager implements MainMenuScreenCont
 		} 
 		
 		else {
-			displayError("Invalid Game file selected.");
+			handleError("Invalid Game file selected.");
 		}
 		
 	}

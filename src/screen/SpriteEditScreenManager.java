@@ -3,11 +3,7 @@ package screen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 
 // Inner class for handling SpriteEditScreenController methods
-class SpriteEditScreenManager extends Manager implements SpriteEditScreenController {
-	
-	public SpriteEditScreenManager(Stage stage) {
-		super(stage);
-	}
+class SpriteEditScreenManager extends UniversalManager implements SpriteEditScreenController {
 	
 	@Override
 	public void returnToSelectedLevel() {

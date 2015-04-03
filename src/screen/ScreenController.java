@@ -119,6 +119,8 @@ public class ScreenController implements ScreenControllerInterface {
 		myRoot = new Group();
 		myScene = new Scene(myRoot);
 		
+		configureControllers(stage);
+		
 		configureStageAndRoot(stage, myRoot);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
@@ -129,12 +131,15 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	}
 	
+	private void configureControllers(Stage stage) {
 		myMainMenuScreenManager = new MainMenuScreenManager(stage);
 		myGameEditScreenManager = new GameEditScreenManager();
-		splashEditScreenManager = new SplashEditScreenManager(stage);
-		levelEditScreenManager = new LevelEditScreenManager(stage);
-		spriteEditScreenManager = new SpriteEditScreenManager(stage);
+		splashEditScreenManager = new SplashEditScreenManager();
+		levelEditScreenManager = new LevelEditScreenManager();
+		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
+	}
+
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.myRoot = root;
