@@ -1,9 +1,6 @@
 package gameEngine.components;
 
-import java.util.List;
-
 import sprite.Sprite;
-import gameEngine.Action;
 import gameEngine.Component;
 
 public class CollisionComponent extends Component {
