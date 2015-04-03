@@ -1,11 +1,14 @@
 package player;
 
-import gameEngine.GameEngineAbstract;
+import gameEngine.GameEngine;
 
 import java.util.List;
 
 import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,11 +22,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GamePlayer implements GamePlayerInterface{
 
 
-	private GameEngineAbstract myEngine;
+	private GameEngine myEngine;
 	private Scene myScene;
 	private BorderPane myBorderPane;
 	private Timeline myTimeline;
@@ -31,13 +35,13 @@ public class GamePlayer implements GamePlayerInterface{
 	private String myGameFilePath;
 	private Group myRoot;
 	private Stage myGameChooser;
-	private StackPane myPause;
+	//private StackPane myPause;
 	
 	//constructor for testing
 	public GamePlayer(Stage stage) {
 		myTimeline = new Timeline();
 		myRoot = new Group();
-		myPause = makePauseMenu();
+		//myPause = makePauseMenu();
 	    myBorderPane = new BorderPane();
 		MenuBar menuBar = createPlayerMenu();
         myBorderPane.setTop(menuBar);
@@ -57,7 +61,7 @@ public class GamePlayer implements GamePlayerInterface{
 		MenuItem pauseItem = new MenuItem("Pause Game");
 		pauseItem.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
 		pauseItem.setOnAction(event -> { pause(); });
-		pauseItem.setOnAction(event -> { myRoot.getChildren().add(myPause); });
+		pauseItem.setOnAction(event -> { bringupPause(); });
 		
 		MenuItem playItem = new MenuItem("Resume Game");
 		playItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
@@ -106,7 +110,7 @@ public class GamePlayer implements GamePlayerInterface{
         return menuBar;
 	}
 	
-	private StackPane makePauseMenu() {
+	private void bringupPause() {
 		Button startButton = new Button("Resume");
 	    startButton.setOnAction(event -> { start(); });
 		StackPane pause = new StackPane();
@@ -115,25 +119,35 @@ public class GamePlayer implements GamePlayerInterface{
 	    pause.setStyle("-fx-background-color: rgba(192, 192, 192, 0.25); -fx-background-radius: 10;");
 	    pause.setPrefWidth(500);
 	    pause.setPrefHeight(500);
-	    //glass.setPadding(new Insets(25));
+	    myBorderPane.setCenter(pause);
+//	    glass.setPadding(new Insets(25));
 //	    glass.setMaxWidth(rect.getWidth() - 40);
 //	    glass.setMaxHeight(rect.getHeight() - 40);
-	    return pause;
+//	    return pause;
 	}
 	
-	private void initialize(GameEngineAbstract engine) {
+	private void initialize(GameEngine engine) {
 		myEngine = engine;
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
-		//myTimeline.getKeyFrames().add(frame);
+		KeyFrame frame = makeKeyFrame(myFrameRate);
+		myTimeline.getKeyFrames().add(frame);
 	}
 	
+	 private KeyFrame makeKeyFrame(int framerate) {
+    	 Duration t1 = new Duration(framerate);
+         KeyFrame kf = new KeyFrame(t1, a -> { myTimeline.play();});
+	     return kf;
+     }
+	
 	private void setupAnimation() {
-		//new KeyFrame(Duration.millis(1000 / myFrameRate), e -> updateGrid());
+		KeyFrame kf = new KeyFrame(Duration.millis(1000 / myFrameRate),
+				e -> update());
+		
 	}
 	
 	private void update() {
-		Group group = myEngine.render();
+		myRoot = myEngine.render();
 	}
 	
 	@Override
