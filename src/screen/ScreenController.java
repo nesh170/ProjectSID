@@ -330,4 +330,24 @@ public class ScreenController implements ScreenControllerInterface {
 	 * 
 	 * @author Ruslan
 	 */
+	private void cleanUpOldErrorMesssage() {
+		
+		if (errorMessageTextField != null) {
+			myRoot.getChildren().remove(errorMessageTextField);
+		}
+		
+	}
+	
+	private void instantiateErrorMessage(String error) {
+		errorMessageTextField = ErrorMessageTextFieldFactory.configureNewErrorMessageTextField(error);
+	}
+	
+	private void configureErrorMessageOffsets() {
+		errorMessageTextField.setTranslateY(DOUBLE.percentHeightMenuBar);
+	}
+	
+	private void addErrorMessage() {
+		myRoot.getChildren().add(errorMessageTextField);
+	}
+	
 }
