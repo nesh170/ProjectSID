@@ -97,13 +97,11 @@ public class ScreenController implements ScreenControllerInterface {
 	// Sizing
 	private double myWidth, myHeight;
 	private double newScreenWidth, newScreenHeight;
-	
 	// JavaFX
 	private Group myRoot;
 	private Scene myScene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
-
 	// ScreenController Inner Class Handlers
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
