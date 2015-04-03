@@ -143,7 +143,6 @@ public class ScreenController implements ScreenControllerInterface {
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.myRoot = root;
-		this.stage = stage;
 		
 	}
 	
