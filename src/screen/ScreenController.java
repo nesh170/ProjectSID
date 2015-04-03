@@ -314,8 +314,7 @@ public class ScreenController implements ScreenControllerInterface {
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
 	
-		setCorrectTabModifiabilityAndViewability();
-		
+		setCorrectTabModifiabilityAndViewability();		
 		singleSelectionModel.select(selectedNew);
 	}
 	
