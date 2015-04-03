@@ -2,7 +2,6 @@ package screen;
 
 import java.io.File;
 
-import javafx.scene.control.Dialog;
 
 public abstract class UniversalManager {
 	

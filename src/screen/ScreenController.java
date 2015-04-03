@@ -24,7 +24,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
 import resources.constants.STRING;
-import resources.constants.Strings;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
