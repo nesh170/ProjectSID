@@ -34,38 +34,24 @@ public class Sprite {
 	// Static Variables
 	
 	
-	// Instance Variables
-	private SpriteImage spriteImage;
-	
-	private List<Action> actionList;
-	private List<Component> componentList;
+	// Instance Variables	
+	private List<Action> myActionList;
+	private List<Component> myComponentList;
 	
 	private boolean isActive;
-	private String tag;
+	private String myTag;
 
-	private Transform transform;
-	private String colorPath;
+	private Transform myTransform;
+	private String myImagePath;
 
 	
 	// Getters & Setters
-	public SpriteImage spriteImage() {
-		return this.spriteImage;
-	}
-	
-	public int width() {
-		return spriteImage.width();
-	}
-	
-	public int height() {
-		return spriteImage.height();
-	}
-	
 	public List<Action> actionList() {
-		return Collections.unmodifiableList(this.actionList);
+		return Collections.unmodifiableList(this.myActionList);
 	}
 	
 	public List<Component> componentList() {
-	    return Collections.unmodifiableList(this.componentList);
+	    return Collections.unmodifiableList(this.myComponentList);
 	}
 	
 	/*
@@ -80,19 +66,23 @@ public class Sprite {
 	}
 	
 	public String tag() {
-		return this.tag;
+		return this.myTag;
 	}
 	
 	public void setTag(String tag) {
-		this.tag = tag;
+		this.myTag = tag;
 	}
 	
 	public Transform transform() {
-		return this.transform;
+		return this.myTransform;
 	}
 
 	public Dimension2D dimensions() {
-		return transform.getDimensions();
+		return myTransform.getDimensions();
+	}
+	
+	public String path() {
+	        return myImagePath;
 	}
 	
 	
@@ -110,11 +100,8 @@ public class Sprite {
 	}
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
-		
 		this.isActive = true;
-		this.transform = new Transform(coordinate, rotate, dimension);
-		this.spriteImage = new SpriteImage();
-		
+		this.myTransform = new Transform(coordinate, rotate, dimension);
 	}
 	
 	
@@ -127,11 +114,11 @@ public class Sprite {
 	 */
 
 	public void prepareAllComponents(){
-		componentList.stream().forEach(com -> com.prepare());
+		myComponentList.stream().forEach(com -> com.prepare());
 	}
 	
 	public void prepareAllActions(){
-		actionList.stream().forEach(action -> action.prepare());
+		myActionList.stream().forEach(action -> action.prepare());
 	}
 	
 	/**
@@ -147,7 +134,7 @@ public class Sprite {
 		if(isActive) {
 			
 			Consumer<Component> updateCon = com -> com.updateIfEnabled();
-			componentList.stream().forEach(updateCon);
+			myComponentList.stream().forEach(updateCon);
 			
 		}
 		
@@ -158,7 +145,7 @@ public class Sprite {
 	 */
 	public void addComponent(Component componentToAdd){
 		
-		componentList.add(componentToAdd);
+		myComponentList.add(componentToAdd);
 		
 	}
 	
@@ -171,7 +158,7 @@ public class Sprite {
 	 */
 	public Component getComponentOfType(String componentClassName) {
 		
-		for(Component component: componentList) {
+		for(Component component: myComponentList) {
 			
 			try {
 				
@@ -191,7 +178,7 @@ public class Sprite {
 	
 	public Action getActionOfType(String actionClassName) {
 		
-		for(Action action: actionList) {
+		for(Action action: myActionList) {
 			
 			try {
 				if(action.getClass() == Class.forName(actionClassName)) {
@@ -206,26 +193,6 @@ public class Sprite {
 		return null;
 		
 	}
-		
-	public Group render() {
-		
-	    Shape spriteView = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
-	    Paint spriteColor;
-	    
-	    try {
-	        spriteColor = Color.web(colorPath);
-	    }
-	    
-	    catch(IllegalArgumentException e) {
-	    	
-	        //spriteColor = new ImagePattern(resourceManager.getImage(myColorPath));
-	        spriteColor = Color.BEIGE;
-	        
-	    }
-	    
-	    spriteView.setFill(spriteColor);
-	    return new Group(spriteView);
-	    
-	}
+	
 	
 }
