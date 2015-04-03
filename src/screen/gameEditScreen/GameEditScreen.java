@@ -47,8 +47,15 @@ public class GameEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 //		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+		//TODO: Back, returns to main menu	
 	}
+
 	
+	/**
+	 * This method initializes making buttons from the properties files labels.
+	 * Initializes event handlers for buttons on the screen
+	 * @author Anika
+	 */
 	private void createScreenButtons() {
 		// Creates buttons that are put on the screen
 		for (int i = 0; i < NUM_BUTTONS; i++){
@@ -62,11 +69,17 @@ public class GameEditScreen extends Screen {
 		myScreenButtons[REMOVE_LEVEL_BUTTON].setOnMouseClicked(e -> removeLevel());
 
 		myScreenButtons[ADD_LEVEL_BUTTON].setOnMouseClicked(e -> addLevel());
-		myScreenButtons[ADD_SPLASH_BUTTON].setOnMouseClicked(e -> addSplash());
-		
+		myScreenButtons[ADD_SPLASH_BUTTON].setOnMouseClicked(e -> addSplash());	
 		
 	}
 	
+	/**
+	 * Creates a new level. Adds a new level to the graphical level list.
+	 * Clicking on the level allows the user to edit the level, which will take
+	 * the user to the Level Edit Screen.
+	 * @author Anika
+	 * @return level id
+	 */
 	private int addLevel()
 	{
 		int levelNum = numLevels + 1;
@@ -74,6 +87,13 @@ public class GameEditScreen extends Screen {
 		return levelNum;
 	}
 	
+	/**
+	 * Creates a new splash screen. Adds a new splash screen to the graphical splash screen list.
+	 * Clicking on the splash screen allows the user to edit the splash, which will take
+	 * the user to the Splash Edit Screen.
+	 * @author Anika
+	 * @return splash screen id
+	 */
 	private int addSplash()
 	{
 		int splashNum = numSplashScreens + 1;
@@ -81,28 +101,47 @@ public class GameEditScreen extends Screen {
 		return splashNum;
 	}
 	
+	/**
+	 * Allows the user to save the current level.
+	 * @author Anika
+	 * @return true if level was successfully saved.
+	 */
 	private boolean saveLevel()
 	{
+		//TODO
 		return true;
 	}
 	
+	/**
+	 * Allows user to remove a level.
+	 * @author Anika
+	 * @return true if level was successfully removed.
+	 */
 	private boolean removeLevel()
 	{
+		//TODO
 		return true;
 	}
 	
+	/**
+	 * Allows user to remove a splash screen.
+	 * @author Anika
+	 * @return true if screen was successfully removed.
+	 */
 	private boolean trashSplashScreen()
 	{
+		//TODO
 		return true;
 	}
 	
+	/**
+	 * Allows user to play the game.
+	 * Takes user to Game Play Screen. (?)
+	 * @author Anika
+	 */
 	private void playGame()
 	{
-		
+		//TODO
 	}
 	
-	
-	//MenuBar
-	//TODO: Back, returns to main menu	
-
 }
