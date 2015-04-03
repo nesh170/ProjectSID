@@ -49,37 +49,31 @@ public class SplashEditScreenManager extends UniversalManager implements SplashE
 	@Override
 	public void addImage() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addText() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void addAnimation() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void saveSplashScreen() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void trashSplashScreen() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void backSplashScreen() {
 		// TODO Auto-generated method stub
-
 	}
-
+	
 }
