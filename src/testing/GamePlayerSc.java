@@ -2,8 +2,8 @@ package testing;
 
 import java.util.ArrayList;
 import java.util.List;
+import sprites.Sprite;
 import gameEngine.GameEngine;
-import gameEngine.sprites.Sprite;
 import javafx.animation.KeyFrame;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

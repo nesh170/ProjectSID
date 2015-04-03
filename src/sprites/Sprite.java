@@ -1,4 +1,4 @@
-package gameEngine.sprites;
+package sprites;
 
 import gameEngine.Action;
 import gameEngine.Component;

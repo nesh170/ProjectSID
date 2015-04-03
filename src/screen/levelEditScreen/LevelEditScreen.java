@@ -1,6 +1,5 @@
 package screen.levelEditScreen;
 
-import gameEngine.sprites.Sprite;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +26,7 @@ import level.Level;
 import resources.constants.DOUBLE;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;
+import sprites.Sprite;
 
 /**
  * 

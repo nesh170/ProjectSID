@@ -1,11 +1,9 @@
 package gameEngine;
 
-import gameEngine.sprites.Sprite;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
+import sprites.Sprite;
 import javafx.scene.input.KeyCode;
 
 

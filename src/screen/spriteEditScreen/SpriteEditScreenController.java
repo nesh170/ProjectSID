@@ -1,6 +1,6 @@
 package screen.spriteEditScreen;
 
-import gameEngine.sprites.Sprite;
+import sprites.Sprite;
 import javafx.scene.control.Tab;
 
 public interface SpriteEditScreenController {

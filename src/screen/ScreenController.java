@@ -1,10 +1,7 @@
 package screen;
 
 
-import gameEngine.sprites.Sprite;
-
 import javax.imageio.ImageIO;
-
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
@@ -36,6 +33,7 @@ import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import screen.Screen;
+import sprites.Sprite;
 
 /**
  * 

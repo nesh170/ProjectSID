@@ -1,7 +1,7 @@
 package gameEngine.actions;
 
+import sprites.Sprite;
 import gameEngine.Action;
-import gameEngine.sprites.Sprite;
 
 public class JumpAction extends Action {
 
