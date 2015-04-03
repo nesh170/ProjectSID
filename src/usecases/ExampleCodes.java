@@ -1,7 +1,6 @@
 package usecases;
 
 import java.util.List;
-
 import gameEngine.Component;
 import javafx.geometry.Point2D;
 import level.Level;
@@ -49,9 +48,9 @@ public class ExampleCodes {
 	 * method getCurrentLevel().
 	 */
 	private void savingAGameInTheGameAuthoringEnvironment() {
-		LevelEditScreen screen = new LevelEditScreen(null, 100.0, 100.0, null);
-		XStream xstream = new XStream(new DomDriver());
-		String xmlString = xstream.toXML(screen.getCurrentLevel());	
+//		LevelEditScreen screen = new LevelEditScreen(null, 100.0, 100.0, null);
+//		XStream xstream = new XStream(new DomDriver());
+//		String xmlString = xstream.toXML(screen.getCurrentLevel());	
 	}
 	
 	 /*

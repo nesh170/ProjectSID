@@ -1,9 +1,12 @@
 package screen.gameEditScreen;
 
 import game.Game;
+
 import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -17,7 +20,7 @@ import screen.Screen;
  * The screen where users edit a game
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
- *
+ * @author Anika
  */
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
@@ -26,7 +29,13 @@ public class GameEditScreen extends Screen {
 	private Game myGame;
 	private ArrayList<Level>	myLevels;  //may not need or change type
 	private ArrayList<SplashScreen> mySplashScreen; //may not need
+	private static final String BUTTON_STYLE = 
+			"-fx-font: 14 georgia; -fx-text-fill: black;  "
+			+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); "
+			+ "-fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
 	
+	private String[] myScreenButtonsNames;
+	private Button[] myScreenButtons;
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
 	 * @param controller, width, height, game
@@ -62,7 +71,7 @@ public class GameEditScreen extends Screen {
 		this.parent = controller;	
 	}	
 	private void configureButtons() {		
-		this.setTop(makeBackButton());		
+		this.setRight(makeBackButton());		
 		this.setBottom(makePlayButton());
 		//set rest of buttons
 	}
@@ -100,6 +109,7 @@ public class GameEditScreen extends Screen {
 	}
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
+			
 			Menu back = new Menu("Go Back");
 			//MenuItem back = new MenuItem("back");
 			//step.setOnAction(o -> loadMainMenuScreen());
@@ -107,6 +117,28 @@ public class GameEditScreen extends Screen {
 			menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
 	}	
 	
+	/**
+	 * This method initializes making buttons from the properties files labels.
+	 * Initializes event handlers for buttons on the screen
+	 * @author Anika
+	 */	
+/*	
+	private void createScreenButtons() {
+		// Creates buttons that are put on the screen
+		for (int i = 0; i < NUM_BUTTONS; i++){
+			ScreenButton myB = new ScreenButton(myButtonLabels.getString(myScreenButtonsNames[i]), BUTTON_STYLE);
+			myScreenButtons[i] = myB;
+		//	hbox.getChildren().add(myB); TODO: add to screen
+		}	
+		myScreenButtons[SAVE_BUTTON].setOnMouseClicked(e -> saveLevel());
+		myScreenButtons[PLAY_BUTTON].setOnMouseClicked(e -> playGame());
+		myScreenButtons[REMOVE_SPLASH_BUTTON].setOnMouseClicked(e -> trashSplashScreen());
+		myScreenButtons[REMOVE_LEVEL_BUTTON].setOnMouseClicked(e -> removeLevel());
+
+		myScreenButtons[ADD_LEVEL_BUTTON].setOnMouseClicked(e -> addLevel());
+		myScreenButtons[ADD_SPLASH_BUTTON].setOnMouseClicked(e -> addSplash());			
+	}
+**/
 	private Menu makeFileMenu(){
 		Menu fileMenu = new Menu("File");
 		MenuItem save = new MenuItem("Save");

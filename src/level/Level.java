@@ -1,14 +1,13 @@
 package level;
 import gameEngine.Action;
 import gameEngine.Collision;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import sprite.Sprite;
-import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -22,12 +21,12 @@ public class Level {
 	private int width;
 	private int height;
 	
-	Sprite playerSprite;
+	Sprite myPlayerSprite;
 	Collision myCollisionDetector;
 	
 	List<Sprite> sprites;
-	List<Sprite> boundaries;
-	List<Sprite> projectiles;
+	List<Sprite> boundaries = new ArrayList<Sprite>();
+	List<Sprite> projectiles = new ArrayList<Sprite>();
 	
 	// Getters & Setters
 	public List<Sprite> boundaries() {
@@ -36,10 +35,15 @@ public class Level {
 	
 	// Constructor & Helpers
 	public Level() {
-		
-		prepareAllSprites();
-		
+		// TODO
 	}
+	
+	public Level(List<Sprite> spriteList, Sprite playerSprite) {
+	        myPlayerSprite = playerSprite;
+		sprites = spriteList;
+		prepareAllSprites();
+	}
+
 	
 	public void prepareAllSprites(){
 		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
@@ -57,7 +61,7 @@ public class Level {
 		//ordering an issue here
 		
 		//sprites updating
-		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
+		sprites.stream().forEach(spr -> checkCollision(myPlayerSprite,spr));
 		doOnEachSpriteList(sprite -> sprite.updateAllComponents());
 		
 	}
@@ -67,8 +71,8 @@ public class Level {
 		return tagSprites;
 	}
 	
-	public Sprite[] getAllSprites(){
-		return (Sprite[]) sprites.toArray();
+	public List<Sprite> getAllSprites(){
+		return Collections.unmodifiableList(sprites);
 	}
 	
 	/**
@@ -77,19 +81,17 @@ public class Level {
 	 */
 	public Map<KeyCode,Action> getControlMap(){
 	    Map<KeyCode,Action> controlMap = new HashMap<>();
-	    playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+	    myPlayerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
             return controlMap;
 	}
 	
-	/**
-	 * Calls the render method from each sprite and puts it within a group
-	 * @return
-	 */
-	public Group render(){
-	    Group levelView = new Group();
-	    doOnEachSpriteList(sprite -> levelView.getChildren().addAll(sprite.render()));
-	    return levelView;
-	}
+//	/**
+//	 * Calls the render method from each sprite and puts it within a group
+//	 * @return
+//	 */
+//	public Group render(){
+//	    
+//	}
 	
 	/**
 	 * Checks for collision between the sprite and if there is any intersection between the shapes, 
@@ -99,9 +101,7 @@ public class Level {
 	 * @param sprite2
 	 */
 	private void checkCollision(Sprite sprite1,Sprite sprite2){
-	    if(!sprite1.equals(sprite2) && sprite1.render().getBoundsInParent().intersects(sprite2.render().getBoundsInParent())){
-	        myCollisionDetector.handleCollide(sprite1, sprite2);
-	    }
+	    //TODO figure out collisions
 	}
 	
 }	

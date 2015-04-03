@@ -4,6 +4,7 @@ import screen.ScreenController;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -15,7 +16,7 @@ public class SID extends Application {
 	public static void main(String[] args) {
         launch(args);
     }
-	
+	// random comment
 	
 	// Instance Methods
 	@Override
@@ -56,11 +57,8 @@ public class SID extends Application {
 	
 	private void configureScreenController(Stage stage, double width, double height) {
 		
-		Group screenControllerGroup = new Group();
-		
-		screenController = new ScreenController(stage, screenControllerGroup, width, height);
-		
-		stage.setScene(screenController);
+		screenController = new ScreenController(stage, width, height);
+		stage.setScene(screenController.getScene());
 		
 	}
 	
