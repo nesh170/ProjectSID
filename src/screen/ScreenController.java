@@ -325,4 +325,9 @@ public class ScreenController implements ScreenControllerInterface {
 		singleSelectionModel.select(selectedNew);
 	}
 	
+	/**
+	 * Methods below are helpers for Error Messages
+	 * 
+	 * @author Ruslan
+	 */
 }
