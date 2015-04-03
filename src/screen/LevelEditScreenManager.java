@@ -1,6 +1,5 @@
 package screen;
 
-import javafx.stage.Stage;
 import screen.levelEditScreen.LevelEditScreenController;
 
 // Inner class for handling LevelEditScreenController methods

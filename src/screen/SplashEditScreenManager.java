@@ -1,6 +1,5 @@
 package screen;
 
-import javafx.stage.Stage;
 import screen.splashEditScreen.SplashEditScreenController;
 
 // Inner class for handling SplashEditScreenController methods

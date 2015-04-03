@@ -1,6 +1,5 @@
 package screen;
 
-import javafx.stage.Stage;
 import screen.spriteEditScreen.SpriteEditScreenController;
 
 // Inner class for handling SpriteEditScreenController methods

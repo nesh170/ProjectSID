@@ -1,22 +1,13 @@
 package screen;
 
-import java.io.File;
-import java.net.URI;
-import java.util.Collection;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import level.Level;
 import resources.constants.DOUBLE;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
@@ -25,7 +16,6 @@ import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreenController;
-import game.Game;
 import screen.Screen;
 
 /**
@@ -85,7 +75,6 @@ public class ScreenController implements ScreenControllerInterface {
 	private double newScreenWidth, newScreenHeight;
 	
 	// JavaFX
-	private Stage stage;
 	private Group myRoot;
 	private Scene myScene;
 	private TabPane tabPane;
