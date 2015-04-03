@@ -91,12 +91,12 @@ public class ScreenController implements ScreenControllerInterface {
 	private TabPane tabPane;
 	
 	// ScreenController Inner Class Handlers
-	SpriteEditScreenController spriteEditScreenManager = new ScreenController.SpriteEditScreenManager();
 	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
 	SplashEditScreenController splashEditScreenManager;
 	LevelEditScreenController levelEditScreenManager;
+	SpriteEditScreenController spriteEditScreenManager;
 	
 	
 	// Getters & Setters (static)
@@ -144,6 +144,7 @@ public class ScreenController implements ScreenControllerInterface {
 		myGameEditScreenManager = new GameEditScreenManager();
 		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager(stage);
+		spriteEditScreenManager = new SpriteEditScreenManager(stage);
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.myRoot = root;
