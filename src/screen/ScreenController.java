@@ -36,7 +36,7 @@ import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
-import sprites.Sprite;
+import sprite.Sprite;
 
 /**
  * 

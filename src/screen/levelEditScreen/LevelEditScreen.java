@@ -26,7 +26,7 @@ import level.Level;
 import resources.constants.DOUBLE;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;
-import sprites.Sprite;
+import sprite.Sprite;
 
 /**
  * 
