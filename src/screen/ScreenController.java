@@ -91,12 +91,12 @@ public class ScreenController implements ScreenControllerInterface {
 	private TabPane tabPane;
 	
 	// ScreenController Inner Class Handlers
-	SplashEditScreenController splashEditScreenManager = new ScreenController.SplashEditScreenManager();
 	LevelEditScreenController levelEditScreenManager = new ScreenController.LevelEditScreenManager();
 	SpriteEditScreenController spriteEditScreenManager = new ScreenController.SpriteEditScreenManager();
 	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
+	SplashEditScreenController splashEditScreenManager;
 	
 	
 	// Getters & Setters (static)
@@ -142,6 +142,7 @@ public class ScreenController implements ScreenControllerInterface {
 	
 		myMainMenuScreenManager = new MainMenuScreenManager(stage);
 		myGameEditScreenManager = new GameEditScreenManager();
+		splashEditScreenManager = new SplashEditScreenManager(stage);
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.myRoot = root;
@@ -264,16 +265,6 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		tab.setClosable(true);
 		tab.setDisable(false);
-		
-	}
-	
-	// Inner class for handling SplashEditScreenController methods
-	private class SplashEditScreenManager implements SplashEditScreenController {
-
-		@Override
-		public void returnToGameEditScreen() {
-			throw new IllegalStateException("unimplemented returnToGameEditScreen in SplashEditScreenController");
-		}
 		
 	}
 	
