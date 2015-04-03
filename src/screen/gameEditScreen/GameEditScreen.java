@@ -1,5 +1,6 @@
 package screen.gameEditScreen;
 
+import java.util.ResourceBundle;
 import javafx.scene.control.MenuBar;
 import screen.Screen;
 
