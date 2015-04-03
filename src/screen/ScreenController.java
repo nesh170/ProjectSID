@@ -154,12 +154,14 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void configureControllers(Stage stage) {
+		
 		myMainMenuScreenManager = new MainMenuScreenManager(stage);
 		myGameEditScreenManager = new GameEditScreenManager();
 		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
+		
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
