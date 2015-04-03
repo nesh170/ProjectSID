@@ -9,6 +9,8 @@ import screen.Screen;
 
 /**
  * Buttons - anika
+ * refactor to put in file
+ * single method for adding another button - keep lengths / nums in one place
  * @author anika
  *
  */
