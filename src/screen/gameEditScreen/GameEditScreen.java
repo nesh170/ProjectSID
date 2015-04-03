@@ -17,10 +17,17 @@ public class GameEditScreen extends Screen {
 			"-fx-font: 14 georgia; -fx-text-fill: black;  "
 			+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); "
 			+ "-fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
+	private String[] myScreenButtonsNames;
+	private ResourceBundle myButtonLabels;
+	private Button[] myScreenButtons;
+	
 	public GameEditScreen(double width, double height) {
 		
 		super(width, height);
-		
+		myButtonLabels = ResourceBundle.getBundle("gameEditScreenButtons");		
+		myScreenButtonsNames = new String[] {"Save", "Play", "Remove Level", 
+				"Remove Splash Screen", "Add Level", "Add Splash Screen"};
+		createScreenButtons();
 	}
 
 	@Override
