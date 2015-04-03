@@ -120,7 +120,6 @@ public class MainMenuScreen extends Screen {
 	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
 	 *  2. instantiateMusicMenu()
 	 */
-
 	private Button loadGameButton() {
 		Button loadGameButton = new Button(STRING.LOADGAME);
 		ChoiceBox<String> loadGameChoice = new ChoiceBox<String>();
