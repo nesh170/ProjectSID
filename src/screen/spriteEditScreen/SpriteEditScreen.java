@@ -1,11 +1,12 @@
 package screen.spriteEditScreen;
 
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tab;
 import screen.Screen;
 
 public class SpriteEditScreen extends Screen {
 
-	public SpriteEditScreen(double width, double height) {
+	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelScreen, double width, double height) {
 		
 		super(width, height);
 		
@@ -13,7 +14,7 @@ public class SpriteEditScreen extends Screen {
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+//		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
 	}
 
 }

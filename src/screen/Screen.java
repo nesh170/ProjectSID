@@ -3,8 +3,11 @@ package screen;
 import resources.constants.COLOR;
 import resources.constants.DOUBLE;
 import resources.constants.STRING;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -93,5 +96,15 @@ public abstract class Screen extends BorderPane {
 	protected void add(Node node) {
 		this.getChildren().add(node);
 	}
+	
+	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
+
+		Button button = new Button(text);
+		button.setOnAction(lambda);
+		VBox.setVgrow(button, Priority.NEVER);
+		return button;
+
+	}
+
 		
 }

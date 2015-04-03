@@ -1,17 +1,15 @@
 package screen.splashEditScreen;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
-import screen.mainMenu.MainMenuScreenController;
-
 
 /**
 /* Screen to create a splash screen
@@ -47,6 +45,8 @@ public class SplashEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		//COMMENTED OUT TO TEST @AUTHOR KYLE
 		//throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
+		//Menu back = new Menu();
+		//menuBar.getMenus().add(back);
 	}
 	
 	//MenuBar
@@ -77,14 +77,13 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	private void configureDisplayArea() {
-		Rectangle displayArea = new Rectangle(600, 600, Color.DIMGRAY); //obviously will change
-		this.setCenter(displayArea);
+		Rectangle displayArea = new Rectangle(INT.SPLASH_EDIT_SCREEN_DISPLAY_WIDTH, INT.SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT, Color.DIMGRAY); //obviously will change
+		this.setLeft(displayArea);
 	}
 
 	private VBox createAddButtons(Button addStartButton, Button addImage,
 			Button addText, Button addAnimation) {
-		// TODO Auto-generated method stub
-		VBox allAddButtons = new VBox(60); //value will be moved somewhere else later
+		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING); //value will be moved somewhere else later
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage,
 				addText, addAnimation);
@@ -92,16 +91,14 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	private HBox createSaveAndTrashButtons(Button save, Button trash) {
-		// TODO Auto-generated method stub
-		HBox saveAndTrashButtons = new HBox(40); //value will be moved somewhere else later
+		HBox saveAndTrashButtons = new HBox(INT.SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING); //value will be moved somewhere else later
 		saveAndTrashButtons.getChildren().addAll(save, trash);
 		
 		return saveAndTrashButtons;
 	}
 
 	private Button makeAddStartButton() {
-		// TODO Auto-generated method stub
-		Button addStartButton = new Button(STRING.ADDSTARTBUTTON);
+		Button addStartButton = new Button(STRING.ADD_START_BUTTON);
 		setLargeButtonSize(addStartButton);
 		
 		addStartButton.setOnMouseClicked(e -> parent.addStartButton());
@@ -111,8 +108,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeAddImageButton() {
-		// TODO Auto-generated method stub
-		Button addImage = new Button(STRING.ADDIMAGE);
+		Button addImage = new Button(STRING.ADD_IMAGE);
 		setLargeButtonSize(addImage);
 		
 		addImage.setOnMouseClicked(e -> parent.addImage());
@@ -122,8 +118,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeAddTextButton() {
-		// TODO Auto-generated method stub
-		Button addText = new Button(STRING.ADDTEXT);
+		Button addText = new Button(STRING.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
 		addText.setOnMouseClicked(e -> parent.addText());
@@ -133,8 +128,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeAddAnimationButton() {
-		// TODO Auto-generated method stub
-		Button addAnimation = new Button(STRING.ADDANIMATION);
+		Button addAnimation = new Button(STRING.ADD_ANIMATION);
 		setLargeButtonSize(addAnimation);
 		
 		addAnimation.setOnMouseClicked(e -> parent.addAnimation());
@@ -144,7 +138,6 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeSaveButton() {
-		// TODO Auto-generated method stub
 		Button save = new Button(STRING.SAVE);
 		setSmallButtonSize(save);
 		
@@ -155,7 +148,6 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeTrashButton() {
-		// TODO Auto-generated method stub
 		Button trash = new Button(STRING.TRASH);
 		setSmallButtonSize(trash);
 		
@@ -180,11 +172,11 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	private void setLargeButtonSize(Button button) {
-		button.setMinSize(150, 100); //temporary values
+		button.setMinSize(INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //temporary values
 	}
 	
 	private void setSmallButtonSize(Button button) {
-		button.setMinSize(150, 50); //temporary values
+		button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); //temporary values
 	}
 
 }

@@ -1,8 +1,10 @@
 package screen.levelEditScreen;
 
+import javafx.scene.control.Tab;
+
 public interface LevelEditScreenController {
 	
-	void returnToGameEditScreen();
+	void returnToGameEditScreen(Tab tab);
 	
 	void loadSpriteEditScreen();
 

@@ -90,11 +90,13 @@ public class MainMenuScreen extends Screen {
 	 */
 	private void makeNewGameButton() {
 		
-		Control newGameButton = new Button();
+		Control newGameButton = new Button("New Game");
 		newGameButton.setOnMouseClicked(e -> parent.createNewGame());
 		//TODO placing in the pane
 		//TODO style
 		this.getChildren().add(newGameButton);
+		newGameButton.setTranslateX(400);
+		newGameButton.setTranslateY(400);
 		
 	}
 	
@@ -107,11 +109,17 @@ public class MainMenuScreen extends Screen {
 	 */
 	private void loadGameButton() {
 		
-		Control loadGameButton = new Button();
+		Control loadGameButton = new Button("Load Game");
 		ChoiceBox<String> loadGameChoice = new ChoiceBox<String>();
 		//TODO placing in the pane
 		//TODO style
 		loadGameButton.setOnMouseClicked(e -> parent.loadGame());
+		this.getChildren().add(loadGameButton);
+		loadGameChoice.setTranslateX(500);
+		loadGameChoice.setTranslateY(500);
+		loadGameButton.setTranslateX(500);
+		loadGameButton.setTranslateY(400);
+		this.getChildren().add(loadGameChoice);
 		
 	}
 		
@@ -166,11 +174,11 @@ public class MainMenuScreen extends Screen {
 
 		private Menu instantiateFileMenu() {
 
-			Menu fileMenu = new Menu("File");
+			Menu fileMenu = new Menu(STRING.FILE);
 
-			MenuItem newFile = new MenuItem("New");
-			MenuItem openFile = new MenuItem("Open");
-			MenuItem closeFile = new MenuItem("Close");
+			MenuItem newFile = new MenuItem(STRING.NEW);
+			MenuItem openFile = new MenuItem(STRING.OPEN);
+			MenuItem closeFile = new MenuItem(STRING.CLOSE);
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
 			newFile.setOnAction(e -> parent.createNewGame());
