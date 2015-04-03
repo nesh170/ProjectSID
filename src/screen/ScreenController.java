@@ -80,12 +80,12 @@ public class ScreenController implements ScreenControllerInterface {
 	private TabPane tabPane;
 	
 	// ScreenController Inner Class Handlers
-	GamePlayScreenController gamePlayScreenManager = new ScreenController.GamePlayScreenManager();
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
 	SplashEditScreenController splashEditScreenManager;
 	LevelEditScreenController levelEditScreenManager;
 	SpriteEditScreenController spriteEditScreenManager;
+	GamePlayScreenController gamePlayScreenManager;
 	
 	
 	// Getters & Setters (static)
@@ -134,6 +134,7 @@ public class ScreenController implements ScreenControllerInterface {
 		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager(stage);
 		spriteEditScreenManager = new SpriteEditScreenManager(stage);
+		gamePlayScreenManager = new GamePlayScreenManager();
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.myRoot = root;
@@ -256,26 +257,6 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		tab.setClosable(true);
 		tab.setDisable(false);
-		
-	}
-	
-	// Inner class for handling GamePlayScreenController methods
-	private class GamePlayScreenManager implements GamePlayScreenController {
-
-		@Override
-		public void returnToMainMenuScreen() {
-			throw new IllegalStateException("unimplemented returnToMainMenuScreen in GamePlayScreenController");
-		}
-
-		@Override
-		public void loadSplashEditScreen() {
-			throw new IllegalStateException("unimplemented loadSplashEditScreen in GamePlayScreenController");
-		}
-
-		@Override
-		public void loadLevelEditScreen() {
-			throw new IllegalStateException("unimplemented loadLevelEditScreen in GamePlayScreenController");
-		}
 		
 	}
 	
