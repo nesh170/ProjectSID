@@ -31,7 +31,7 @@ public class SplashEditScreen extends Screen {
 
 	// Constructor & Helpers
 
-	public SplashEditScreen(double width, double height) {
+	public SplashEditScreen(SplashEditScreenController parent, double width, double height) {
 
 		super(width, height);
 		
@@ -157,11 +157,7 @@ public class SplashEditScreen extends Screen {
 		
 	}
 	
-	//Should this be a button or in the MenuBar?????????
-	//I think it looks better as a button, but we originally said it would be in
-	//the MenuBar
 	private Button makeBackButton() {
-		// TODO Auto-generated method stub
 		Button back = new Button(STRING.BACK);
 		setSmallButtonSize(back);
 		

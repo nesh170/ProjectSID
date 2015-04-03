@@ -29,6 +29,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import level.Level;
 import resources.constants.DOUBLE;
+import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
@@ -208,7 +209,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(newScreenWidth, newScreenHeight),
+				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
@@ -352,7 +353,7 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 				 * Read off a Game from XML
 				 */
 			
-			// Here, Game can potentiall still be null if the user selected a non-Game XML
+			// Here, Game can potentially still be null if the user selected a non-Game XML
 			if (game != null) {
 				
 				
@@ -403,30 +404,27 @@ public class ScreenController extends Scene implements ScreenControllerInterface
 		public void returnToGameEditScreen() {
 			throw new IllegalStateException("unimplemented returnToGameEditScreen in SplashEditScreenController");
 		}
-
+		
 		@Override
 		public void addStartButton() {
-//			// TODO Auto-generated method stub
-//			//ImageView imageView = new ImageView();
-//			//Image image;
-//			FileChooser fileChooser = new FileChooser();
-//			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-//			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-//			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-//			
-//			File file = fileChooser.showOpenDialog(null);
-//			
-//			//try {
-//				Image image = new Image ("/voogasalad_ScrollingDeep/src/images/default_start_button.png"); //DEFAULT IMAGE TO LOAD
-//				//BufferedImage start = ImageIO.read(file);
-//				//image = SwingFXUtils.toFXImage(start, null);
-//				//imageView.setImage(image);
-//			//} //catch (IOException ex) {
-//				//throw some sort of exception thing
-//				
-//			//}
-//			MouseEvent
-//			setCursor(new ImageCursor(image, image.getWidth() / 2, image.getHeight() / 2));
+			File file = null;
+			Image image = null;
+	
+			try {
+				FileChooser fileChooser = new FileChooser();
+				FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+				FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+				fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+				
+				file = fileChooser.showOpenDialog(null);
+				image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
+				
+			} catch (Exception ex) {	
+				//LOAD STRING.DEFAULT_START_BUTTON
+			}
+			
+			ImageCursor imageCursor = new ImageCursor(image);
+			stage.getScene().setCursor(imageCursor);
 			
 		}
 
