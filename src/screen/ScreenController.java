@@ -32,6 +32,7 @@ import screen.Screen;
  * 
  * @author Ruslan
  * @author anika
+ * @author Michael
  *
  */
 
@@ -64,6 +65,12 @@ import screen.Screen;
  *  - and places those in the ScreenController's tabPane
  *  - via "addTabWithScreenWithStringIdentifier(ScreenSubClass instance, String identifier)"
  * 
+ * ----------------------------------------------------------------------
+ * Note from April 1st (Michael)
+ * 
+ * -Added 3 if (true) return true; (April Fools)
+ * - Removed extends Scene
+ * - Added Instance Variable Scene
  * 
  */
 
