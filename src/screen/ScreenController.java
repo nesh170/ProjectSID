@@ -12,6 +12,7 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +22,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
+import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
@@ -32,6 +34,7 @@ import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
+import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprites.Sprite;
 
@@ -92,13 +95,12 @@ public class ScreenController implements ScreenControllerInterface {
 	// Sizing
 	private double myWidth, myHeight;
 	private double newScreenWidth, newScreenHeight;
-	
 	// JavaFX
 	private Group myRoot;
 	private Scene myScene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
-
+	private TextField errorMessageTextField;
 	// ScreenController Inner Class Handlers
 	MainMenuScreenController myMainMenuScreenManager;
 	GameEditScreenController myGameEditScreenManager;
@@ -152,12 +154,14 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void configureControllers(Stage stage) {
+		
 		myMainMenuScreenManager = new MainMenuScreenManager(stage);
 		myGameEditScreenManager = new GameEditScreenManager();
-		splashEditScreenManager = new SplashEditScreenManager();
+		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
+		
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
@@ -226,7 +230,7 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(newScreenWidth, newScreenHeight),
+				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
@@ -242,7 +246,12 @@ public class ScreenController implements ScreenControllerInterface {
 	// Public
 	@Override
 	public void displayError(String error) {
-		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
+		
+		cleanUpOldErrorMesssage();
+		instantiateErrorMessage(error);
+		configureErrorMessageOffsets();
+		addErrorMessage();
+		
 	}
 	
 	// Private
@@ -301,7 +310,7 @@ public class ScreenController implements ScreenControllerInterface {
 		tab.setDisable(false);
 		
 		// Selects current, enabled tab
-			// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
+		// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
 		singleSelectionModel.select(tab);
 		
 	}
@@ -309,11 +318,34 @@ public class ScreenController implements ScreenControllerInterface {
 	private void removeTabAndChangeSelected(Tab selectedNew) {
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
-		
-		// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
-		setCorrectTabModifiabilityAndViewability();
-		
+	
+		setCorrectTabModifiabilityAndViewability();		
 		singleSelectionModel.select(selectedNew);
+	}
+	
+	/**
+	 * Methods below are helpers for Error Messages
+	 * 
+	 * @author Ruslan
+	 */
+	private void cleanUpOldErrorMesssage() {
+		
+		if (errorMessageTextField != null) {
+			myRoot.getChildren().remove(errorMessageTextField);
+		}
+		
+	}
+	
+	private void instantiateErrorMessage(String error) {
+		errorMessageTextField = ErrorMessageTextFieldFactory.configureNewErrorMessageTextField(error);
+	}
+	
+	private void configureErrorMessageOffsets() {
+		errorMessageTextField.setTranslateY(DOUBLE.percentHeightMenuBar);
+	}
+	
+	private void addErrorMessage() {
+		myRoot.getChildren().add(errorMessageTextField);
 	}
 	
 }

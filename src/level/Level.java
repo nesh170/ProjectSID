@@ -38,8 +38,8 @@ public class Level {
 	        myPlayerSprite = playerSprite;
 		sprites = spriteList;
 		prepareAllSprites();
-		
-	}
+        }
+
 	
 	public void prepareAllSprites(){
 		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
