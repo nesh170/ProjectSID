@@ -19,7 +19,7 @@ import levelPlatform.LevelPlatform;
  * each scene/level.
  *
  */
-public class Level {
+public class Level extends LevelPlatform {
 	
 	private int width;
 	private int height;
