@@ -1,14 +1,17 @@
-package level;
+package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.Collision;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
+import levelPlatform.LevelPlatform;
 
 /**
  * 
@@ -16,7 +19,7 @@ import javafx.scene.input.KeyCode;
  * each scene/level.
  *
  */
-public class Level {
+public class Level extends LevelPlatform {
 	
 	private int width;
 	private int height;
@@ -62,7 +65,7 @@ public class Level {
 		
 		//sprites updating
 		sprites.stream().forEach(spr -> checkCollision(myPlayerSprite,spr));
-		doOnEachSpriteList(sprite -> sprite.updateAllComponents());
+		doOnEachSpriteList(sprite -> sprite.updateSprite());
 		
 	}
 	

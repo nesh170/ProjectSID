@@ -232,7 +232,7 @@ public class ScreenController implements ScreenControllerInterface {
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
 				new GameEditScreen(myGameEditScreenManager, newScreenWidth, newScreenHeight),
-				"Game Edit Screen");
+				"Edit Game");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error

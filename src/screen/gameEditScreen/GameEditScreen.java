@@ -4,25 +4,35 @@ import game.Game;
 
 import java.awt.SplashScreen;
 import java.util.ArrayList;
-
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import level.Level;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import levelPlatform.level.Level;
 /**
  * The screen where users edit a game
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
  * @author Anika
+ * 
+ * TODO ANIKA: loop creation of buttons - static array in resources of string names
  */
 //always working on the stuff in parent's parent: work on BoarderPane directly (ex: setLeft, setRight)
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
@@ -30,10 +40,9 @@ public class GameEditScreen extends Screen {
 	// Instance variables
 	private GameEditScreenController parent;
 	private Game myGame;
-	
-	//may not need or change to Observable	
-	private ArrayList<Level>	myLevels;  
-	private ArrayList<SplashScreen> mySplashScreen; 
+
+	private ObservableList<Level>	myLevels;  	
+	private ObservableList<SplashScreen> mySplashScreen; 
 	
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
@@ -69,16 +78,39 @@ public class GameEditScreen extends Screen {
 		this.parent = controller;	
 	}	
 	private void configureButtons() {		
-		//this.setRight(makeBackButton());		
-		//this.setBottom(makePlayButton());
-		 Rectangle rect = new Rectangle(200, 200, Color.RED);
-		 ScrollPane s1 = new ScrollPane();
-		 s1.setPrefSize(120, 120);
-		 s1.setContent(rect);
-		 this.setCenter(s1);
+		this.setRight(makeBackButton());		
+		this.setBottom(makePlayButton());
+		this.setCenter(makeLevelsDisplay(myLevels));		
 		//this.setLeft() for splash
 		//this.setRight() for level
+		this.setLeft(makeSplashScreen(mySplashScreen));
 		//set rest of buttons
+	}
+	
+	private ScrollPane makeLevelsDisplay(List<Level> levels){ 
+		//get ListView: List<LevelView>: a group
+		//TableView<ObservableList> levelTable = new TableView();	
+		//code for testing scrollPane
+		ScrollPane s1 = new ScrollPane();
+		HBox levelView = new HBox(INT.SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING);
+		ImageView level1 = new ImageView(new Image("images/level1_tmp.PNG"));
+		level1.setFitHeight(500);
+		level1.setFitWidth(500);
+		ImageView level2 = new ImageView(new Image("images/level2_tmp.PNG"));
+		level2.setFitHeight(500);
+		level2.setFitWidth(500);
+		ImageView level3 = new ImageView(new Image("images/sprite.jpg"));
+		levelView.getChildren().addAll(level1, level2, level3);
+		s1.setPrefSize(120, 120);
+		s1.setContent(levelView);
+		s1.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		return s1;
+	}
+	private ListView makeSplashScreen(List<SplashScreen> screen){
+		ObservableList<String> mySplash = FXCollections.observableArrayList(
+		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
+		 ListView<String> splashList = new ListView<String>(mySplash);
+		 return splashList;
 	}
 	private Button makeAddLevelButton(){
 		Button addSplash = new Button(STRING.ADD_SPLASH);

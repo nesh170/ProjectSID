@@ -51,6 +51,10 @@ public class Transform {
 		return Math.atan(getRotY() / getRotX());
 	}
 	
+	public Point2D getRot(){
+		return myRotation;
+	}
+	
 	public Double getWidth(){
 		return myDimensions.getWidth();
 	}

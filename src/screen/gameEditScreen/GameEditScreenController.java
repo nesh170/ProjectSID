@@ -1,6 +1,6 @@
 package screen.gameEditScreen;
 
-import level.Level;
+import levelPlatform.level.Level;
 import game.Game;
 
 public interface GameEditScreenController {

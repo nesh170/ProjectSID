@@ -2,6 +2,7 @@ package sprite;
 
 import gameEngine.Action;
 import gameEngine.Component;
+import gameEngine.Physics;
 import gameEngine.Transform;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,8 @@ public class Sprite {
 	// Instance Variables	
 	private List<Action> myActionList;
 	private List<Component> myComponentList;
+	private Physics myPhysics;
+	private List<Sprite> myEmissionList;
 	
 	private boolean isActive;
 	private String myTag;
@@ -49,6 +52,10 @@ public class Sprite {
 	
 	public List<Component> componentList() {
 	    return Collections.unmodifiableList(this.myComponentList);
+	}
+	
+	public List<Sprite> emissionList() {
+		return Collections.unmodifiableList(this.myEmissionList); 
 	}
 	
 	/*
@@ -82,6 +89,11 @@ public class Sprite {
 	        return myImagePath;
 	}
 	
+	public Physics physics(){
+	    //TODO when there is a collision with platform, setPhysicsreaction value to deal with normal
+	    return myPhysics;
+	}
+	
 	
 	// Constructor & Helpers
 	public Sprite() {
@@ -93,13 +105,21 @@ public class Sprite {
 	}
 	
 	public Sprite(Point2D coordinate, String path) {
-		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
-		myImagePath=path;
+		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS, path);
 	}
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		this.isActive = true;
 		this.myTransform = new Transform(coordinate, rotate, dimension);
+	}
+	
+	public Sprite(Point2D coordinate, Point2D rotate, Dimension2D dimension, String path){
+		this(coordinate, rotate, dimension);
+		myImagePath = path;
+	}
+	
+	public Sprite (Sprite toCopy){
+		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions(), toCopy.path());
 	}
 	
 	
@@ -121,20 +141,18 @@ public class Sprite {
 	
 	/**
 	 * Apply 'update' method of each behavior
-	 * in list of behaviors
+	 * in list of physics and components
 	 * every frame
 	 * 
 	 * Also contains logic for update-ordering
-	 * (deciding what shoud happen first, etc
+	 * (deciding what should happen first, etc
 	 */
-	public void updateAllComponents(){
+	public void updateSprite(){
 		
 		if(isActive) {
-			
-			Consumer<Component> updateCon = com -> com.updateIfEnabled();
-			myComponentList.stream().forEach(updateCon);
-			
+			myComponentList.stream().forEach(com -> com.updateIfEnabled());	
 		}
+		myPhysics.updateByPhysics();
 		
 	}
 	
