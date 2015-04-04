@@ -17,31 +17,34 @@ import javafx.scene.shape.Rectangle;
  */
 public class LevelView {
     
-    private Level myLevel;
-    private Collision myCollisionHandler;
-    private SpriteImage mySpriteImageManager;
 	// Static Variables
 	
 	
 	// Instance Variables
+    private Level level;
+    private Collision collisionHandler;
     
-    public LevelView(Level level) {
-    	
-        myLevel=level;
-        
     
     // Getters & Setters
+    public Level level() {
+    	return this.level;
     }
     
-    public void setLevel(Level levelToSet) {
+    public void setLevel(Level level) {
+    	this.level = level;
+    }
+    
     
     // Constructor & Helpers
+    public LevelView(Level level) {
     	
-        myLevel=levelToSet;
-        //TODO clear the rest of the instance
+        setLevel(level);
+        renderLevel();
         
     }
     
+    
+    // All other instance variables
     /**
      * Loops through all the avaliable sprite in the level to render each one.
      * @return
@@ -49,7 +52,7 @@ public class LevelView {
     public Group renderLevel() {
     	
         Group levelGroup = new Group();
-        myLevel.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
+        level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
         return levelGroup;
         
     }
@@ -86,8 +89,8 @@ public class LevelView {
      */
     public void updateCollisions(){
     	
-        for(Sprite sprite:myLevel.sprites()){
-        	myLevel.sprites().stream().forEach(sprite2 -> handleCollisions(sprite,sprite2));
+        for(Sprite sprite:level.sprites()){
+        	level.sprites().stream().forEach(sprite2 -> handleCollisions(sprite,sprite2));
         }
         
     }
@@ -109,11 +112,11 @@ public class LevelView {
         
         if(boundsSprite1.intersects(boundsSprite2)) {
         	
-            myCollisionHandler.handleCollide(sprite1, sprite2);
+            collisionHandler.handleCollide(sprite1, sprite2);
             //TODO should we just act on sprite 1 or both sprite1 and sprite 2
             
         }
         
     }
-    
+	
 }
