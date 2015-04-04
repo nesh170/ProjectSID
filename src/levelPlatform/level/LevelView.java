@@ -3,8 +3,10 @@ package levelPlatform.level;
 import gameEngine.Collision;
 import gameEngine.Transform;
 import sprite.Sprite;
+import utils.IntArray2DToImageConverter;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -15,7 +17,7 @@ import javafx.scene.shape.Rectangle;
 public class LevelView {
     
 	// Static Variables
-	
+	private static final int LENGTH_PIXELS=10;
 	
 	// Instance Variables
     private Level level;
@@ -54,19 +56,19 @@ public class LevelView {
         
     }
     
+    /**
+     * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
+     * @param sprite
+     * @return
+     */
     private Group renderSprite(Sprite sprite) {
-    	
     	Group spriteGroup = new Group();
     	Transform transform = sprite.transform();
         Rectangle spriteNode = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
-        //TODO fill this up when Ruslan's util is done to convert array to image
-        //Paint spriteColor = new ImagePattern(sprite)
-        //spriteNode.setFill(spriteColor);
+        spriteNode.setFill(new ImagePattern(IntArray2DToImageConverter.convert2DIntArrayToImage(sprite.currentImageArray(), LENGTH_PIXELS)));
         spriteGroup.getChildren().add(spriteNode);
         sprite.emissionList().stream().forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-        
         return spriteGroup;
-        
     }
     
     /**
