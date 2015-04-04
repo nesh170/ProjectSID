@@ -1,5 +1,6 @@
 package screen.gamePlayScreen;
 
+import gameEngine.GameEngine;
 import player.GamePlayer;
 import javafx.scene.control.MenuBar;
 import screen.Screen;

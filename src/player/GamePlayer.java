@@ -40,11 +40,14 @@ public class GamePlayer implements GamePlayerInterface{
 	private Stage myGameChooser;
 	private MenuBar myMenuBar;
 	private StackPane myPause;
+	private int currentSize = 4;
 	
 	//constructor for testing
 	public GamePlayer(Stage stage) {
 		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myRoot = new Group();
+		setupAnimation();
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
@@ -56,8 +59,16 @@ public class GamePlayer implements GamePlayerInterface{
         myGameChooser = buildGameChooser(stage);
 	}
 	
+	//currently using borderpane
+	//will change to scrollpane when basic engine finished
 	public GamePlayer(double width, double height) {
-		myTimeline = new Timeline();
+		//initialize(engine);
+		myPause = makePauseScreen();
+		myBorderPane = new BorderPane();
+		myMenuBar = createPlayerMenu();
+        myBorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
+		myBorderPane.setTop(myMenuBar);
+		myBorderPane.setCenter(myRoot);
 	}
 	
 	private Menu buildFileMenu() {
@@ -89,7 +100,6 @@ public class GamePlayer implements GamePlayerInterface{
 	
 	//implementation still needed to connect to actual file chooser 
 	private Stage buildGameChooser(Stage s) {
-		//TextField textField = new TextField("Your Games"); 
 		Stage gameChooser = new Stage();
         gameChooser.initModality(Modality.APPLICATION_MODAL);
         gameChooser.initOwner(s);
@@ -146,7 +156,7 @@ public class GamePlayer implements GamePlayerInterface{
 	}
 	
 	private void update() {
-		myRoot = myEngine.render();
+		//myRoot = myEngine.render();
 	}
 	
 	@Override
