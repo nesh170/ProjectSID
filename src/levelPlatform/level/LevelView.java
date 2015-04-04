@@ -20,14 +20,22 @@ public class LevelView {
     private Level myLevel;
     private Collision myCollisionHandler;
     private SpriteImage mySpriteImageManager;
+	// Static Variables
+	
+	
+	// Instance Variables
     
     public LevelView(Level level) {
     	
         myLevel=level;
         
+    
+    // Getters & Setters
     }
     
     public void setLevel(Level levelToSet) {
+    
+    // Constructor & Helpers
     	
         myLevel=levelToSet;
         //TODO clear the rest of the instance
