@@ -69,7 +69,7 @@ public class LevelView {
      */
     public void updateCollisions(){
         for(Sprite sprite:myLevel.sprites){
-        myLevel.sprites.stream().forEach(sprite2 -> handleCollisions(sprite,sprite2));
+        	myLevel.sprites().stream().forEach(sprite2 -> handleCollisions(sprite,sprite2));
         }
     }
     
