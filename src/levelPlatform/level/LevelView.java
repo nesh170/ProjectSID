@@ -22,12 +22,16 @@ public class LevelView {
     private SpriteImage mySpriteImageManager;
     
     public LevelView(Level level) {
+    	
         myLevel=level;
+        
     }
     
     public void setLevel(Level levelToSet) {
+    	
         myLevel=levelToSet;
         //TODO clear the rest of the instance
+        
     }
     
     /**
@@ -36,7 +40,7 @@ public class LevelView {
      */
     public Group renderLevel() {
         Group levelGroup = new Group();
-        myLevel.getAllSprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
+        myLevel.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
         return levelGroup;
     }
     
