@@ -6,6 +6,17 @@ import java.util.function.Consumer;
 
 import sprite.Sprite;
 
+/**
+ * Superclass of Level and SplashScreen, which contains functionality such as:
+ * 	- width
+ * 	- height
+ * 	- Sprites
+ * 	- boundaries
+ * 	- projecticles
+ * 
+ * @author Ruslan
+ *
+ */
 public class LevelPlatform {
 
 	// Static Variables 
