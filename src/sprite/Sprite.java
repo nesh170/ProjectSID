@@ -40,6 +40,7 @@ public class Sprite {
 	
 	private boolean isActive;
 	private String tag;
+	private String collisionTag;
 
 	private Transform transform;
 	private SpriteImage image;
@@ -58,6 +59,7 @@ public class Sprite {
 		return Collections.unmodifiableList(this.emissionList); 
 	}
 	
+	
 	/*
 	 * Sprites that are active are located within the camera view
 	 */
@@ -73,8 +75,16 @@ public class Sprite {
 		return this.tag;
 	}
 	
+	public String collisonTag(){
+		return this.collisionTag;
+	}
+	
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	
+	public void setCollisionTag(String collisionTag){
+		this.collisionTag = collisionTag;
 	}
 	
 	public Transform transform() {
