@@ -12,7 +12,7 @@ public class Platform extends Sprite {
 	}
 
 	@Override
-	public void updateAllComponents() {
+	public void updateSprite() {
 		// TODO Auto-generated method stub
 		
 	}
