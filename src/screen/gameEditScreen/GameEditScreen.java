@@ -92,13 +92,13 @@ public class GameEditScreen extends Screen {
 		//TableView<ObservableList> levelTable = new TableView();	
 		//code for testing scrollPane
 		ScrollPane s1 = new ScrollPane();
-		HBox levelView = new HBox(INT.SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING);
+		HBox levelView = new HBox(300);
 		ImageView level1 = new ImageView(new Image("images/level1_tmp.PNG"));
-		level1.setFitHeight(500);
-		level1.setFitWidth(500);
+		level1.setFitHeight(400);
+		level1.setFitWidth(400);
 		ImageView level2 = new ImageView(new Image("images/level2_tmp.PNG"));
-		level2.setFitHeight(500);
-		level2.setFitWidth(500);
+		level2.setFitHeight(400);
+		level2.setFitWidth(400);
 		ImageView level3 = new ImageView(new Image("images/sprite.jpg"));
 		levelView.getChildren().addAll(level1, level2, level3);
 		s1.setPrefSize(120, 120);
