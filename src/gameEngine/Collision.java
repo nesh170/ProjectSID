@@ -1,6 +1,6 @@
 package gameEngine;
 
-import gameEngine.actions.CollisionAction;
+import gameEngine.components.CollisionComponent;
 
 import java.util.*;
 
@@ -20,8 +20,8 @@ public class Collision {
 		collideTable = actionTable;
 	}
 	
-	public CollisionAction getCollisionAction(Sprite s){
-		return (CollisionAction) s.getActionOfType("CollisionAction");
+	public CollisionComponent getCollisionComponent(Sprite s){
+		return (CollisionComponent) s.getComponentOfType("CollisionComponent"); //string literal (replace)
 	}
     /**
      * Takes in two sprites, determines spatial relationship, and calls appropriate method to handle Collision
@@ -43,18 +43,18 @@ public class Collision {
     }
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
-    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[0].execute();
+    	collideTable.get(getCollisionComponent(sprite1).getID()).get(getCollisionComponent(sprite2).getID())[0].execute();
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
-    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[1].execute();
+    	collideTable.get(getCollisionComponent(sprite1).getID()).get(getCollisionComponent(sprite2).getID())[1].execute();
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
-    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[2].execute();
+    	collideTable.get(getCollisionComponent(sprite1).getID()).get(getCollisionComponent(sprite2).getID())[2].execute();
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
-    	collideTable.get(getCollisionAction(sprite1).getID()).get(getCollisionAction(sprite2).getID())[3].execute();
+    	collideTable.get(getCollisionComponent(sprite1).getID()).get(getCollisionComponent(sprite2).getID())[3].execute();
     }
 }
