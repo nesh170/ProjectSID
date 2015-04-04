@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import platform.level.Level;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
-import level.Level;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;

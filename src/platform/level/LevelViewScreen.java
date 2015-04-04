@@ -1,4 +1,4 @@
-package level;
+package platform.level;
 
 import gameEngine.Collision;
 import gameEngine.Transform;

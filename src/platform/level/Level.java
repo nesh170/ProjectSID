@@ -1,4 +1,4 @@
-package level;
+package platform.level;
 import gameEngine.Action;
 import gameEngine.Collision;
 import java.util.ArrayList;

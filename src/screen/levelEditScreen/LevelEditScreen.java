@@ -1,5 +1,6 @@
 package screen.levelEditScreen;
 
+import platform.level.Level;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +23,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import level.Level;
 import resources.constants.DOUBLE;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;

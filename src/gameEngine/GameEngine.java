@@ -3,12 +3,13 @@ package gameEngine;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import platform.level.Level;
+import platform.level.LevelViewScreen;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import level.Level;
-import level.LevelViewScreen;
 
 public class GameEngine extends GameEngineAbstract {
     
