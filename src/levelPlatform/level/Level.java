@@ -32,9 +32,12 @@ import levelPlatform.LevelPlatform;
  */
 public class Level extends LevelPlatform {
 	
+	// Static Variables
 	
 	Sprite playerSprite;
 	Collision collisionDetector;
+	
+	// Instance Variables
 	
 	
 	// Getters & Setters
@@ -42,7 +45,6 @@ public class Level extends LevelPlatform {
 		return this.boundaries;
 	}
 	
-	// Constructor & Helpers
 	public Level() {
 		// TODO
 	}

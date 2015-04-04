@@ -16,6 +16,7 @@ public class LevelPlatform {
 	private List<Sprite> projectiles;
 	
 	
+	// Getters & Setters
 	public int width() {
 		return this.width;
 	}
@@ -56,6 +57,12 @@ public class LevelPlatform {
 		return this.projectiles;
 	}
 	
+	
+	// Constructor & Helpers
+	// All other instance methods
+	// Public
+	
+	// Private
 	
 	
 }
