@@ -33,29 +33,29 @@ public class Sprite {
 	
 	
 	// Instance Variables	
-	private List<Action> myActionList;
-	private List<Component> myComponentList;
-	private Physics myPhysics;
-	private List<Sprite> myEmissionList;
+	private List<Action> actionList;
+	private List<Component> componentList;
+	private Physics physics;
+	private List<Sprite> emissionList;
 	
 	private boolean isActive;
-	private String myTag;
+	private String tag;
 
-	private Transform myTransform;
-	private String myImagePath;
+	private Transform transform;
+	private String imagePath;
 
 	
 	// Getters & Setters
 	public List<Action> actionList() {
-		return Collections.unmodifiableList(this.myActionList);
+		return Collections.unmodifiableList(this.actionList);
 	}
 	
 	public List<Component> componentList() {
-	    return Collections.unmodifiableList(this.myComponentList);
+	    return Collections.unmodifiableList(this.componentList);
 	}
 	
 	public List<Sprite> emissionList() {
-		return Collections.unmodifiableList(this.myEmissionList); 
+		return Collections.unmodifiableList(this.emissionList); 
 	}
 	
 	/*
@@ -70,28 +70,28 @@ public class Sprite {
 	}
 	
 	public String tag() {
-		return this.myTag;
+		return this.tag;
 	}
 	
 	public void setTag(String tag) {
-		this.myTag = tag;
+		this.tag = tag;
 	}
 	
 	public Transform transform() {
-		return this.myTransform;
+		return this.transform;
 	}
 
 	public Dimension2D dimensions() {
-		return myTransform.getDimensions();
+		return transform.getDimensions();
 	}
 	
 	public String path() {
-	        return myImagePath;
+	        return imagePath;
 	}
 	
 	public Physics physics(){
 	    //TODO when there is a collision with platform, setPhysicsreaction value to deal with normal
-	    return myPhysics;
+	    return physics;
 	}
 	
 	
@@ -110,12 +110,12 @@ public class Sprite {
 	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		this.isActive = true;
-		this.myTransform = new Transform(coordinate, rotate, dimension);
+		this.transform = new Transform(coordinate, rotate, dimension);
 	}
 	
 	public Sprite(Point2D coordinate, Point2D rotate, Dimension2D dimension, String path){
 		this(coordinate, rotate, dimension);
-		myImagePath = path;
+		imagePath = path;
 	}
 	
 	public Sprite (Sprite toCopy){
@@ -132,11 +132,11 @@ public class Sprite {
 	 */
 
 	public void prepareAllComponents(){
-		myComponentList.stream().forEach(com -> com.prepare());
+		componentList.stream().forEach(com -> com.prepare());
 	}
 	
 	public void prepareAllActions(){
-		myActionList.stream().forEach(action -> action.prepare());
+		actionList.stream().forEach(action -> action.prepare());
 	}
 	
 	/**
@@ -150,9 +150,9 @@ public class Sprite {
 	public void updateSprite(){
 		
 		if(isActive) {
-			myComponentList.stream().forEach(com -> com.updateIfEnabled());	
+			componentList.stream().forEach(com -> com.updateIfEnabled());	
 		}
-		myPhysics.updateByPhysics();
+		physics.updateByPhysics();
 		
 	}
 	
@@ -161,7 +161,7 @@ public class Sprite {
 	 */
 	public void addComponent(Component componentToAdd){
 		
-		myComponentList.add(componentToAdd);
+		componentList.add(componentToAdd);
 		
 	}
 	
@@ -174,7 +174,7 @@ public class Sprite {
 	 */
 	public Component getComponentOfType(String componentClassName) {
 		
-		for(Component component: myComponentList) {
+		for(Component component: componentList) {
 			
 			try {
 				
@@ -194,7 +194,7 @@ public class Sprite {
 	
 	public Action getActionOfType(String actionClassName) {
 		
-		for(Action action: myActionList) {
+		for(Action action: actionList) {
 			
 			try {
 				if(action.getClass() == Class.forName(actionClassName)) {
