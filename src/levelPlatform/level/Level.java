@@ -52,13 +52,10 @@ public class Level extends LevelPlatform {
 	
 	// Constructor & Helpers
 	public Level(int width, int height) {
-		
 		this(width, height, null);
-		
 	}
 	
 	public Level(int width, int height, Sprite playerSprite) {
-		
 		super(width, height);
 		
 		if (playerSprite != null) {
@@ -69,17 +66,6 @@ public class Level extends LevelPlatform {
 			prepareAllSprites();
 			
 		}
-		
-	}
-	
-	
-	// All Other Instance Methods
-	/**
-	 * Update all the sprites
-	 */
-	@Override
-	public void update(){
-		super.update();	
 		
 	}
 	

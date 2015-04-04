@@ -22,10 +22,11 @@ public class GameEngine extends GameEngineAbstract {
         myLevelList = levelList;
     }
     
-    private void initializeLevel(int index){
+    public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
         myControlsMap = myCurrentLevel.controlMap();
-        myLevelRenderer.setLevel(myCurrentLevel);    
+        myLevelRenderer.setLevel(myCurrentLevel);
+        myCurrentLevel.prepareAllSprites();
     }
     
     @Override
