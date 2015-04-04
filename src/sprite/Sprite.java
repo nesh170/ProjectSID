@@ -42,7 +42,7 @@ public class Sprite {
 	private String tag;
 
 	private Transform transform;
-	private String imagePath;
+	private SpriteImage image;
 
 	
 	// Getters & Setters
@@ -85,8 +85,8 @@ public class Sprite {
 		return transform.getDimensions();
 	}
 	
-	public String path() {
-	        return imagePath;
+	public int[][] currentImageArray() {
+	        return image.getIntArrayToDisplay();
 	}
 	
 	public Physics physics(){
@@ -104,22 +104,14 @@ public class Sprite {
 		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
-	public Sprite(Point2D coordinate, String path) {
-		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS, path);
-	}
-	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
 	}
 	
-	public Sprite(Point2D coordinate, Point2D rotate, Dimension2D dimension, String path){
-		this(coordinate, rotate, dimension);
-		imagePath = path;
-	}
 	
 	public Sprite (Sprite toCopy){
-		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions(), toCopy.path());
+		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 	}
 	
 	
