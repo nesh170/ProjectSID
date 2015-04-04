@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import platform.level.Level;
-import platform.level.LevelViewScreen;
+import platform.level.LevelView;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -16,7 +16,7 @@ public class GameEngine extends GameEngineAbstract {
     private Map<KeyCode,Action> myControlsMap;
     private List<Level> myLevelList;
     private Level myCurrentLevel;
-    private LevelViewScreen myLevelRenderer;
+    private LevelView myLevelRenderer;
     
     public GameEngine(List<Level> levelList) {
         myLevelList = levelList;

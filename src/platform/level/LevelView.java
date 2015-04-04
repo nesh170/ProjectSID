@@ -14,13 +14,13 @@ import javafx.scene.shape.Rectangle;
  * This class represents the frontend of the levels. It also Handles the collisions
  *
  */
-public class LevelViewScreen {
+public class LevelView {
     
     private Level myLevel;
     private Collision myCollisionHandler;
     private SpriteImage mySpriteImageManager;
     
-    public LevelViewScreen(Level level) {
+    public LevelView(Level level) {
         myLevel=level;
     }
     
