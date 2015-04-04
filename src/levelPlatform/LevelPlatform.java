@@ -65,6 +65,19 @@ public class LevelPlatform {
 	// Constructor & Helpers
 	// All other instance methods
 	// Public
+	public void prepareAllSprites() {
+		
+		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
+		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
+		
+	}
+	
+	public void update(){
+		
+		//sprites updating
+		doOnEachSpriteList(sprite -> sprite.updateSprite());
+		
+	}
 	
 	// Private
 	
