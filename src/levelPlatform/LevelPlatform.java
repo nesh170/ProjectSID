@@ -1,5 +1,7 @@
-package platform;
+package levelPlatform;
 
-public class Platform {
+public class LevelPlatform {
 
+	
+	
 }
