@@ -1,6 +1,6 @@
 package screen;
 
-import platform.level.Level;
+import levelPlatform.level.Level;
 import game.Game;
 import screen.gameEditScreen.GameEditScreenController;
 /**

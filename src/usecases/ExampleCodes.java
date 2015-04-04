@@ -2,9 +2,9 @@ package usecases;
 
 import java.util.List;
 
-import platform.level.Level;
 import gameEngine.Component;
 import javafx.geometry.Point2D;
+import levelPlatform.level.Level;
 import gameEngine.actions.AttackAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.sprites.Platform;
