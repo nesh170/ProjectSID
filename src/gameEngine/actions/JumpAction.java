@@ -2,27 +2,27 @@ package gameEngine.actions;
 
 import sprite.Sprite;
 import gameEngine.Action;
+import gameEngine.components.MotionComponent;
 
 public class JumpAction extends Action {
-
-	public JumpAction(Sprite sprite){
+	
+	private Double initialVelocity;
+	
+	public JumpAction(Sprite sprite, Double initVelocity){
 		super(sprite);
+		initialVelocity = initVelocity;
 	}
 	@Override
-	public void prepare() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void prepare() {}
 	
-        @Override
-        public void execute () {
-            // TODO Auto-generated method stub
+    @Override
+    public void execute () {
+        MotionComponent mc = (MotionComponent) mySprite.getComponentOfType("MotionComponent");
+        mc.setVelocityY(initialVelocity);
+        
             
-        }
-        @Override
-        public void stop () {
-            // TODO Auto-generated method stub
-            
-        }
+    }
+    @Override
+    public void stop () {}
 
 }

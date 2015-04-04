@@ -11,6 +11,7 @@ import sprite.Sprite;
  */
 public class TowardPlayerMotionComponent extends MotionComponent {
 
+	// TODO instantiate playerSprite
 	private Sprite playerSprite;
 	private Double speedFactor;
 	

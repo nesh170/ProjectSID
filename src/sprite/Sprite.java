@@ -34,6 +34,7 @@ public class Sprite {
 	// Instance Variables	
 	private List<Action> myActionList;
 	private List<Component> myComponentList;
+	private List<Sprite> myEmissionList;
 	
 	private boolean isActive;
 	private String myTag;
@@ -49,6 +50,10 @@ public class Sprite {
 	
 	public List<Component> componentList() {
 	    return Collections.unmodifiableList(this.myComponentList);
+	}
+	
+	public List<Sprite> emissionList() {
+		return Collections.unmodifiableList(this.myEmissionList); 
 	}
 	
 	/*
@@ -133,7 +138,7 @@ public class Sprite {
 	 * every frame
 	 * 
 	 * Also contains logic for update-ordering
-	 * (deciding what shoud happen first, etc
+	 * (deciding what should happen first, etc
 	 */
 	public void updateAllComponents(){
 		
