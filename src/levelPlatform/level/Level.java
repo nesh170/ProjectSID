@@ -32,8 +32,6 @@ import levelPlatform.LevelPlatform;
  */
 public class Level extends LevelPlatform {
 	
-	private int width;
-	private int height;
 	
 	Sprite playerSprite;
 	Collision collisionDetector;

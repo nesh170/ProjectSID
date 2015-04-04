@@ -8,6 +8,16 @@ import sprite.Sprite;
 
 public class LevelPlatform {
 
+	private int width;
+	private int height;
+	
+	public int width() {
+		return this.width;
+	}
+	
+	public int height() {
+		return this.height;
+	}
 	
 	
 }
