@@ -85,8 +85,9 @@ public class LevelView {
     }
     
     /**
-     * handles the collision initially using JavaFX implementation and if there is a collision, pass it to the collision handler 
-     * to deal with the outcome of the collision.
+     * Checks for collision between the sprite and if there is any intersection between the shapes, 
+     * send it to the collision class to figure the collision happened from which side and decrement
+     * the correct behavior
      * @param sprite1
      * @param sprite2
      */
