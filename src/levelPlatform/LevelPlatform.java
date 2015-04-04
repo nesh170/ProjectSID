@@ -8,6 +8,10 @@ import sprite.Sprite;
 
 public class LevelPlatform {
 
+	// Static Variables 
+	
+	
+	// Instance variables
 	private int width;
 	private int height;
 	
