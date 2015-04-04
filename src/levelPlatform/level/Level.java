@@ -37,7 +37,6 @@ public class Level extends LevelPlatform {
 	
 	// Instance Variables
 	private Sprite playerSprite;
-	private Collision collisionDetector;
 	
 	
 	// Getters & Setters
@@ -78,40 +77,7 @@ public class Level extends LevelPlatform {
 	
 	// All Other Instance Methods
 	/**
-	 * Checks for collision, then calls super's update.
-	 * 
-	 * Needs revision(?)
+	 *  TODO: Render, collision, etc. in LevelView(?)
 	 */
-	@Override
-	public void update(){
-		
-		//ordering an issue here
-		
-		//sprites updating
-		sprites().stream().forEach(spr -> checkCollision(playerSprite,spr));
-		
-		// super{ doOnEachSpriteList(sprite -> sprite.updateSprite()); }
-		super.update();	
-		
-	}
-	
-//	/**
-//	 * Calls the render method from each sprite and puts it within a group
-//	 * @return
-//	 */
-//	public Group render(){
-//	    
-//	}
-	
-	/**
-	 * Checks for collision between the sprite and if there is any intersection between the shapes, 
-	 * send it to the collision class to figure the collision happened from which side and decrement
-	 * the correct behavior
-	 * @param sprite1
-	 * @param sprite2
-	 */
-	private void checkCollision(Sprite sprite1,Sprite sprite2){
-	    //TODO figure out collisions
-	}
 	
 }	
