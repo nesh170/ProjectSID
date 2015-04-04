@@ -157,8 +157,12 @@ public class Sprite {
 		
 	}
 	
+	public void addAction(Action actionToAdd){
+		actionList.add(actionToAdd);
+	}
+	
 	/**
-	 * gets Behavior attached to this sprite
+	 * gets Component attached to this sprite
 	 * of a specific type (there should be one
 	 * behavior of each type for each sprite)
 	 * @throws ClassNotFoundException 
