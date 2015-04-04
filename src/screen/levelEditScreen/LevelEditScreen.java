@@ -24,6 +24,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import levelPlatform.level.Level;
 import resources.constants.DOUBLE;
+import resources.constants.INT;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;
 import sprite.Sprite;
