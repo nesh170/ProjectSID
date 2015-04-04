@@ -21,6 +21,8 @@ import screen.Screen;
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
  * @author Anika
+ * 
+ * TODO ANIKA: loop creation of buttons - static array in resources of string names
  */
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
