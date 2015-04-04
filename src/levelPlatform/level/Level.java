@@ -36,9 +36,6 @@ public class Level extends LevelPlatform {
 	Sprite playerSprite;
 	Collision collisionDetector;
 	
-	List<Sprite> sprites;
-	List<Sprite> boundaries = new ArrayList<Sprite>();
-	List<Sprite> projectiles = new ArrayList<Sprite>();
 	
 	// Getters & Setters
 	public List<Sprite> boundaries() {
