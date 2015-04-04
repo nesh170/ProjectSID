@@ -1,11 +1,14 @@
 package data;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -48,8 +51,8 @@ public class DataHandler {
 		return folder.listFiles();
 	}
 
-	public BufferedImage[] getImagesFromDir(File folder) throws IOException {
-		return (BufferedImage[]) Arrays
+	public List<Image> getImagesFromDir(File folder) throws IOException {
+		return Arrays
 				.asList(folder.listFiles())
 				.stream()
 				.filter(file -> file.toString().endsWith(".jpg")
@@ -57,7 +60,7 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff"))
 				.map(file -> fileToImage(file))
-				.toArray();
+				.collect(Collectors.toList());
 	}
 
 	public BufferedImage fileToImage(File file) {

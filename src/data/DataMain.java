@@ -1,5 +1,6 @@
 package data;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class DataMain extends Application{
 			System.out.println(file.toString());
 		}
 		
+		List<Image> images = data.getImagesFromDir(f);
+		System.out.println(images.get(0));
 	}
 	
 }
