@@ -34,44 +34,32 @@ public class Level extends LevelPlatform {
 	
 	// Static Variables
 	
-	Sprite playerSprite;
-	Collision collisionDetector;
 	
 	// Instance Variables
+	private Sprite playerSprite;
+	private Collision collisionDetector;
 	
 	
 	// Getters & Setters
-	public List<Sprite> boundaries() {
-		return this.boundaries;
+	/**
+	 * @return a controlMap which might change depending on the behaviours for each level
+	 */
+	public Map<KeyCode,Action> controlMap(){
+		
+		Map<KeyCode,Action> controlMap = new HashMap<>();
+		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+		return controlMap;
+            
 	}
 	
-	public Level() {
-		// TODO
+	
+		
+		
 	}
 	
-	public Level(List<Sprite> spriteList, Sprite playerSprite) {
 		
-		this.playerSprite = playerSprite;
-		sprites = spriteList;
-		prepareAllSprites();
 		
 	}
-
-	
-	public void prepareAllSprites() {
-		
-		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
-		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
-		
-	}
-
-    private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
-    	
-        boundaries.stream().forEach(spriteConsumer);
-        projectiles.stream().forEach(spriteConsumer);
-        sprites.stream().forEach(spriteConsumer);
-        
-    }
 	
 	// All Other Instance Methods
 	public void update(){
@@ -79,32 +67,8 @@ public class Level extends LevelPlatform {
 		//ordering an issue here
 		
 		//sprites updating
-		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
-		doOnEachSpriteList(sprite -> sprite.updateSprite());
 		
-	}
-	
-	public Sprite[] getSpritesWithTag(String tag){
 		
-		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.tag() == tag).toArray();
-		return tagSprites;
-		
-	}
-	
-	public List<Sprite> getAllSprites(){
-		return Collections.unmodifiableList(sprites);
-	}
-	
-	/**
-	 * 
-	 * @return a controlMap which might change depending on the behaviours for each level
-	 */
-	public Map<KeyCode,Action> getControlMap(){
-		
-		Map<KeyCode,Action> controlMap = new HashMap<>();
-		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
-		return controlMap;
-            
 	}
 	
 //	/**
