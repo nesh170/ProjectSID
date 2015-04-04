@@ -32,7 +32,6 @@ public class Level extends LevelPlatform {
 	
 	// Instance Variables
 	private Sprite playerSprite;
-	private Collision collisionDetector;
 	
 	
 	// Getters & Setters
@@ -73,7 +72,7 @@ public class Level extends LevelPlatform {
 	
 	// All Other Instance Methods
 	/**
-	 * 
+	 * Update all the sprites
 	 */
 	@Override
 	public void update(){

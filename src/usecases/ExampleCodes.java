@@ -27,7 +27,7 @@ public class ExampleCodes {
 	 * the corners of the boundary
 	 */
 	private void placingAPlatform() {	
-		Level level = new Level();
+		Level level = new Level(0, 0);
 		List<Sprite> boundaries = level.boundaries();
 		boundaries.add(new Sprite());
 	}

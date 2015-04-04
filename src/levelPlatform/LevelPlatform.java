@@ -121,8 +121,6 @@ public class LevelPlatform {
 		doOnEachSpriteList(sprite -> sprite.updateSprite());
 		
 	}
-	
-	// Private
-	
+
 	
 }
