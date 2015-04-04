@@ -18,6 +18,17 @@ import levelPlatform.LevelPlatform;
  * Contains all information, methods for
  * each scene/level.
  *
+ * Subclass of LevelPlatform, which contains functionality such as:
+ * 	- width
+ * 	- height
+ * 	- Sprites
+ * 	- boundaries
+ * 	- projecticles
+ * 
+ * 	Level adds functionality on top such as
+ * 	- A "Player" Sprite
+ * 	- Controls
+ * 
  */
 public class Level extends LevelPlatform {
 	
