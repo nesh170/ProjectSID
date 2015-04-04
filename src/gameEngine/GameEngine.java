@@ -30,6 +30,7 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void update () {
         myCurrentLevel.update();
+        myLevelRenderer.updateCollisions();
     }
 
     @Override

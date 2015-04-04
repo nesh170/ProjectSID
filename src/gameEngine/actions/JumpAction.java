@@ -18,10 +18,11 @@ public class JumpAction extends Action {
 	
     @Override
     public void execute () {
+        mySprite.physics().setReactionValue(0); //Nothing is in contact with the object during jump so reaction should be 0
         MotionComponent mc = (MotionComponent) mySprite.getComponentOfType("MotionComponent");
         mc.setVelocityY(initialVelocity);
-            
     }
+    
     @Override
     public void stop () {}
 

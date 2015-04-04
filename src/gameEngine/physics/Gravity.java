@@ -7,18 +7,28 @@ import gameEngine.components.MotionComponent;
 
 public class Gravity extends Physics {
 
-	private double gravityValue;
+	private double myReactionValue=0.0;
 	
 	public Gravity(Sprite sprite, double gravValue) {
-		super(sprite);
-		gravityValue = EngineMathFunctions.gravityValueFrame(gravValue);
+		super(sprite, EngineMathFunctions.accelerationValueFrame(gravValue));
 	}
 
 	@Override
 	public void updateByPhysics() {
 		MotionComponent motionComp = (MotionComponent) mySprite.getComponentOfType("MotionComponent");
-		motionComp.accelerate(0.0, gravityValue);
-
+		motionComp.accelerate(0.0, myValue + myReactionValue);
 	}
+
+        @Override
+        public double getValue () {
+            return myValue;
+        }
+
+        @Override
+        public void setReactionValue (double reaction) {
+            myReactionValue=reaction;
+        }
+
+
 
 }

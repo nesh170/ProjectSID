@@ -2,6 +2,7 @@ package sprite;
 
 import gameEngine.Action;
 import gameEngine.Component;
+import gameEngine.Physics;
 import gameEngine.Transform;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,7 @@ public class Sprite {
 	// Instance Variables	
 	private List<Action> myActionList;
 	private List<Component> myComponentList;
+	private Physics myPhysics;
 	private List<Sprite> myEmissionList;
 	
 	private boolean isActive;
@@ -87,6 +89,11 @@ public class Sprite {
 	        return myImagePath;
 	}
 	
+	public Physics physics(){
+	    //TODO when there is a collision with platform, setPhysicsreaction value to deal with normal
+	    return myPhysics;
+	}
+	
 	
 	// Constructor & Helpers
 	public Sprite() {
@@ -134,20 +141,18 @@ public class Sprite {
 	
 	/**
 	 * Apply 'update' method of each behavior
-	 * in list of behaviors
+	 * in list of physics and components
 	 * every frame
 	 * 
 	 * Also contains logic for update-ordering
 	 * (deciding what should happen first, etc
 	 */
-	public void updateAllComponents(){
+	public void updateSprite(){
 		
 		if(isActive) {
-			
-			Consumer<Component> updateCon = com -> com.updateIfEnabled();
-			myComponentList.stream().forEach(updateCon);
-			
+			myComponentList.stream().forEach(com -> com.updateIfEnabled());	
 		}
+		myPhysics.updateByPhysics();
 		
 	}
 	

@@ -62,7 +62,7 @@ public class Level {
 		
 		//sprites updating
 		sprites.stream().forEach(spr -> checkCollision(myPlayerSprite,spr));
-		doOnEachSpriteList(sprite -> sprite.updateAllComponents());
+		doOnEachSpriteList(sprite -> sprite.updateSprite());
 		
 	}
 	
