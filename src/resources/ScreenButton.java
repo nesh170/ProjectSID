@@ -1,5 +1,6 @@
 package resources;
 
+import resources.constants.STRING;
 import javafx.scene.control.Button;
 
 /**
