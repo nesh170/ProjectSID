@@ -16,9 +16,16 @@ public class ExampleCodes {
 	 * the corners of the boundary
 	 */
 	private void placingAPlatform() {	
+		
 		Level level = new Level(0, 0);
-		List<Sprite> sprites = level.sprites();
-		sprites.add(new Sprite());
+		List<Sprite> boundaries = level.sprites();
+		
+		class Boundary extends Sprite {
+			
+		}
+		
+		boundaries.add(new Boundary());
+		
 	}
 	
 	/*
