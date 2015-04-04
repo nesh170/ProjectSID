@@ -46,6 +46,14 @@ public class MotionComponent extends Component{
 		myVelocity = Point2D.ZERO.add(x, y);
 	}
 	
+	public void setVelocityX(Double x) {
+		myVelocity.add(x, 0);
+	}
+	
+	public void setVelocityY(Double y) {
+		myVelocity.add(0, y);
+	}
+	
 	public void setVelocity(Point2D vel) {
 		myVelocity = vel;
 	}
