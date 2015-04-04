@@ -4,6 +4,7 @@ import gameEngine.Collision;
 import gameEngine.Transform;
 import sprite.Sprite;
 import sprite.SpriteImage;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
