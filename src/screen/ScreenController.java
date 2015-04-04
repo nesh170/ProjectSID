@@ -1,6 +1,4 @@
 package screen;
-
-
 import javax.imageio.ImageIO;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -37,7 +35,6 @@ import screen.spriteEditScreen.SpriteEditScreenController;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
-
 /**
  * 
  * @author Ruslan
@@ -337,8 +334,7 @@ public class ScreenController implements ScreenControllerInterface {
 		
 		if (errorMessageTextField != null) {
 			myRoot.getChildren().remove(errorMessageTextField);
-		}
-		
+		}		
 	}
 	
 	private void instantiateErrorMessage(String error) {

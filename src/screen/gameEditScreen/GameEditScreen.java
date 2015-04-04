@@ -4,38 +4,37 @@ import game.Game;
 
 import java.awt.SplashScreen;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import level.Level;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 /**
  * The screen where users edit a game
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
  * @author Anika
  */
+//always working on the stuff in parent's parent: work on BoarderPane directly (ex: setLeft, setRight)
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
 	// Instance variables
 	private GameEditScreenController parent;
 	private Game myGame;
-	private ArrayList<Level>	myLevels;  //may not need or change type
-	private ArrayList<SplashScreen> mySplashScreen; //may not need
-	private static final String BUTTON_STYLE = 
-			"-fx-font: 14 georgia; -fx-text-fill: black;  "
-			+ "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); "
-			+ "-fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
 	
-	private String[] myScreenButtonsNames;
-	private Button[] myScreenButtons;
+	//may not need or change to Observable	
+	private ArrayList<Level>	myLevels;  
+	private ArrayList<SplashScreen> mySplashScreen; 
+	
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
 	 * @param controller, width, height, game
@@ -53,7 +52,7 @@ public class GameEditScreen extends Screen {
 	 */
 	public GameEditScreen( GameEditScreenController controller, double width, double height) {
 		super(width, height);
-		myGame = new Game(); //inatilize a game 
+		myGame = new Game(); //initialize a game 
 		configureParent(controller);
 		configureButtons();
 	}
@@ -65,14 +64,20 @@ public class GameEditScreen extends Screen {
 	 */
 	public void setMyLevel(int index, Level level){
 		myLevels.add(index, level);
-	}
-	
+	}	
 	private void configureParent(GameEditScreenController controller) {
 		this.parent = controller;	
 	}	
 	private void configureButtons() {		
-		this.setRight(makeBackButton());		
-		this.setBottom(makePlayButton());
+		//this.setRight(makeBackButton());		
+		//this.setBottom(makePlayButton());
+		 Rectangle rect = new Rectangle(200, 200, Color.RED);
+		 ScrollPane s1 = new ScrollPane();
+		 s1.setPrefSize(120, 120);
+		 s1.setContent(rect);
+		 this.setCenter(s1);
+		//this.setLeft() for splash
+		//this.setRight() for level
 		//set rest of buttons
 	}
 	private Button makeAddLevelButton(){
@@ -108,21 +113,17 @@ public class GameEditScreen extends Screen {
 		return back;
 	}
 	@Override
-	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-			
+	protected void addMenuItemsToMenuBar(MenuBar menuBar) {			
 			Menu back = new Menu("Go Back");
 			//MenuItem back = new MenuItem("back");
 			//step.setOnAction(o -> loadMainMenuScreen());
 			//back.getItems().addAll(back);
 			menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
-	}	
-	
-	/**
+	}		
+	/*
 	 * This method initializes making buttons from the properties files labels.
 	 * Initializes event handlers for buttons on the screen
 	 * @author Anika
-	 */	
-/*	
 	private void createScreenButtons() {
 		// Creates buttons that are put on the screen
 		for (int i = 0; i < NUM_BUTTONS; i++){
