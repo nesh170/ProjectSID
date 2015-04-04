@@ -53,21 +53,45 @@ public class Level extends LevelPlatform {
 	}
 	
 	
+	// Constructor & Helpers
+	public Level(int width, int height) {
 		
+		this(width, height, null);
 		
 	}
 	
+	public Level(int width, int height, Sprite playerSprite) {
 		
+		super(width, height);
+		
+		if (playerSprite != null) {
+			
+			this.playerSprite = playerSprite;
+			
+			// Call this in Level in addition to its super -- prepare playerSprite as well
+			prepareAllSprites();
+			
+		}
 		
 	}
+	
 	
 	// All Other Instance Methods
+	/**
+	 * Checks for collision, then calls super's update.
+	 * 
+	 * Needs revision(?)
+	 */
+	@Override
 	public void update(){
 		
 		//ordering an issue here
 		
 		//sprites updating
+		sprites().stream().forEach(spr -> checkCollision(playerSprite,spr));
 		
+		// super{ doOnEachSpriteList(sprite -> sprite.updateSprite()); }
+		super.update();	
 		
 	}
 	
