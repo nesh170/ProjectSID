@@ -2,19 +2,8 @@ package usecases;
 
 import java.util.List;
 
-import gameEngine.Component;
-import javafx.geometry.Point2D;
 import levelPlatform.level.Level;
-import gameEngine.actions.AttackAction;
-import gameEngine.actions.JumpAction;
-import gameEngine.sprites.Platform;
-import screen.ScreenController;
-import screen.levelEditScreen.LevelEditScreen;
-import screen.mainMenu.MainMenuScreenController;
 import sprite.Sprite;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class ExampleCodes {
 	/**

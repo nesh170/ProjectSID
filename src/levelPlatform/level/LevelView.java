@@ -62,21 +62,9 @@ public class LevelView {
     	Group spriteGroup = new Group();
     	Transform transform = sprite.transform();
         Rectangle spriteNode = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
-        Paint spriteColor;
-        
-        try {
-            spriteColor = Color.web(sprite.path());
-        } 
-        
-        catch(IllegalArgumentException e) {
-        	
-            //TODO add Ruslan's sprite image methodology
-            //spriteColor = new ImagePattern(resourceManager.getImage(myColorPath));
-            spriteColor = Color.BEIGE;
-            
-        }
-        
-        spriteNode.setFill(spriteColor);
+        //TODO fill this up when Ruslan's util is done to convert array to image
+        //Paint spriteColor = new ImagePattern(sprite)
+        //spriteNode.setFill(spriteColor);
         spriteGroup.getChildren().add(spriteNode);
         sprite.emissionList().stream().forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
@@ -88,11 +76,9 @@ public class LevelView {
      * Checks for collision with each node
      */
     public void updateCollisions(){
-    	
         for(Sprite sprite:level.sprites()){
         	level.sprites().stream().forEach(sprite2 -> handleCollisions(sprite,sprite2));
         }
-        
     }
     
     /**
@@ -112,10 +98,8 @@ public class LevelView {
         Bounds boundsSprite2 = (renderSprite(sprite2).getChildren().get(0).getBoundsInParent());
         
         if(boundsSprite1.intersects(boundsSprite2)) {
-        	
             collisionHandler.handleCollide(sprite1, sprite2);
             //TODO should we just act on sprite 1 or both sprite1 and sprite 2
-            
         }
         
     }

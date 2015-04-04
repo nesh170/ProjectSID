@@ -51,10 +51,8 @@ public class LevelPlatform {
 	 * @return Sprite[] of Sprite(s) that match tag
 	 */
 	public Sprite[] getSpritesWithTag(String tag){
-		
 		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.tag() == tag).toArray();
 		return tagSprites;
-		
 	}
 	
 	
@@ -101,7 +99,6 @@ public class LevelPlatform {
 	
 	public void update(){
 	        doOnEachSpriteList(sprite -> sprite.updateSprite());
-		
 	}
 
 	
