@@ -25,7 +25,7 @@ public class Level extends LevelPlatform {
 	private int height;
 	
 	Sprite playerSprite;
-	Collision myCollisionDetector;
+	Collision collisionDetector;
 	
 	List<Sprite> sprites;
 	List<Sprite> boundaries = new ArrayList<Sprite>();
