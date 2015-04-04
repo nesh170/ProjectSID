@@ -68,7 +68,6 @@ public class LevelPlatform {
 	public LevelPlatform(int width, int height) {
 		configureWidthAndHeight(width, height);
 		instantiateLists();
-		prepareAllSprites();
 	}
 	
 	private void configureWidthAndHeight(int width, int height) {
@@ -86,13 +85,13 @@ public class LevelPlatform {
 	private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
 	        projectiles.stream().forEach(spriteConsumer);
                 sprites.stream().forEach(spriteConsumer);
-        
         }
 	
 	
 	// All other instance methods
 	// Public
 	public void prepareAllSprites() {
+	        
 		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
 		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
 	}

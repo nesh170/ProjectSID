@@ -28,6 +28,7 @@ public class ShootAction extends Action{
 	public void execute() {
 		// TODO Auto-generated method stub
 		Sprite newProjectile = generateClone();
+		mySprite.emissionList().add(newProjectile);
 	}
 	
 	private Sprite generateClone(){

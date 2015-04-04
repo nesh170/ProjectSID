@@ -1,9 +1,9 @@
 package levelPlatform.level;
 import gameEngine.Action;
-import gameEngine.Collision;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import resources.constants.STRING;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -17,7 +17,6 @@ import levelPlatform.LevelPlatform;
  * 	- width
  * 	- height
  * 	- Sprites
- * 	- boundaries
  * 	- projecticles
  * 
  * 	Level adds functionality on top such as
@@ -44,6 +43,10 @@ public class Level extends LevelPlatform {
 		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
 		return controlMap;
             
+	}
+	
+	public void setPlayerSprite(Sprite player) {
+	    playerSprite = player;
 	}
 	
 	
