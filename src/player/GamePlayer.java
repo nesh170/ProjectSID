@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +20,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -26,32 +29,34 @@ import javafx.util.Duration;
 
 public class GamePlayer implements GamePlayerInterface{
 
+	private final static double FRAME_RATE = 60;
 
 	private GameEngine myEngine;
 	private Scene myScene;
 	private BorderPane myBorderPane;
 	private Timeline myTimeline;
-	private int myFrameRate = 30;
 	private String myGameFilePath;
 	private Group myRoot;
 	private Stage myGameChooser;
-	//private StackPane myPause;
+	private MenuBar myMenuBar;
+	private StackPane myPause;
 	
 	//constructor for testing
 	public GamePlayer(Stage stage) {
 		myTimeline = new Timeline();
 		myRoot = new Group();
-		//myPause = makePauseMenu();
-	    myBorderPane = new BorderPane();
-		MenuBar menuBar = createPlayerMenu();
-        myBorderPane.setTop(menuBar);
+		myPause = makePauseScreen();
+		myBorderPane = new BorderPane();
+		myMenuBar = createPlayerMenu();
+        myBorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
+		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
         myScene = new Scene(myBorderPane, 1200, 600);
         stage.setScene(myScene);
         myGameChooser = buildGameChooser(stage);
 	}
 	
-	public GamePlayer() {
+	public GamePlayer(double width, double height) {
 		myTimeline = new Timeline();
 	}
 	
@@ -61,12 +66,10 @@ public class GamePlayer implements GamePlayerInterface{
 		MenuItem pauseItem = new MenuItem("Pause Game");
 		pauseItem.setAccelerator(KeyCombination.keyCombination("Ctrl+P"));
 		pauseItem.setOnAction(event -> { pause(); });
-		pauseItem.setOnAction(event -> { bringupPause(); });
 		
 		MenuItem playItem = new MenuItem("Resume Game");
 		playItem.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 		playItem.setOnAction(event -> { start(); });
-		playItem.setOnAction(event -> { System.out.println("PLAY"); });
 		
 		MenuItem newGameItem = new MenuItem("New Game");
 		newGameItem.setAccelerator(KeyCombination.keyCombination("Ctrl+N"));
@@ -74,7 +77,7 @@ public class GamePlayer implements GamePlayerInterface{
 		
 		MenuItem loadItem = new MenuItem("Load Level");
 		loadItem.setAccelerator(KeyCombination.keyCombination("Ctrl+L"));
-		loadItem.setOnAction(event -> { System.out.println("LOAD"); });
+		loadItem.setOnAction(event -> { loadNewGame(); });
 		
 		MenuItem quitItem = new MenuItem("Quit");
 		quitItem.setAccelerator(KeyCombination.keyCombination("Ctrl+Q"));
@@ -110,40 +113,36 @@ public class GamePlayer implements GamePlayerInterface{
         return menuBar;
 	}
 	
-	private void bringupPause() {
+	private StackPane makePauseScreen() {
+		StackPane pause = new StackPane();
 		Button startButton = new Button("Resume");
 	    startButton.setOnAction(event -> { start(); });
-		StackPane pause = new StackPane();
-	    //StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
-	    pause.getChildren().addAll(startButton);
-	    pause.setStyle("-fx-background-color: rgba(192, 192, 192, 0.25); -fx-background-radius: 10;");
-	    pause.setPrefWidth(500);
+	    pause.getChildren().add(startButton);
+	    pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
+	    pause.setPrefWidth(800);
 	    pause.setPrefHeight(500);
-	    myBorderPane.setCenter(pause);
-//	    glass.setPadding(new Insets(25));
-//	    glass.setMaxWidth(rect.getWidth() - 40);
-//	    glass.setMaxHeight(rect.getHeight() - 40);
-//	    return pause;
+		return pause;
+	}
+	
+	private void bringupPause() {
+	    myRoot.getChildren().add(myPause);
+	}
+	
+	private void removePause() {
+		myRoot.getChildren().remove(myPause);
 	}
 	
 	private void initialize(GameEngine engine) {
 		myEngine = engine;
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
-		KeyFrame frame = makeKeyFrame(myFrameRate);
-		myTimeline.getKeyFrames().add(frame);
+		setupAnimation();
 	}
 	
-	 private KeyFrame makeKeyFrame(int framerate) {
-    	 Duration t1 = new Duration(framerate);
-         KeyFrame kf = new KeyFrame(t1, a -> { myTimeline.play();});
-	     return kf;
-     }
-	
 	private void setupAnimation() {
-		KeyFrame kf = new KeyFrame(Duration.millis(1000 / myFrameRate),
+		KeyFrame kf = new KeyFrame(Duration.millis(1000 / FRAME_RATE),
 				e -> update());
-		
+		myTimeline.getKeyFrames().add(kf);
 	}
 	
 	private void update() {
@@ -152,12 +151,14 @@ public class GamePlayer implements GamePlayerInterface{
 	
 	@Override
 	public void start() {
+		removePause();
 		myTimeline.play();
 	}
 
 	@Override
 	public void pause() {
 		myTimeline.stop();
+		bringupPause();
 	}
 
 	public boolean playerIsRunning() {
@@ -172,8 +173,7 @@ public class GamePlayer implements GamePlayerInterface{
 
 	@Override
 	public void loadNewGame() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("LOAD");		
 	}
 
 	@Override
