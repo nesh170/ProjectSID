@@ -1,9 +1,8 @@
 package gameEngine;
 
+
 import gameEngine.components.CollisionComponent;
-
 import java.util.*;
-
 import sprite.Sprite;
 
 public class Collision {
@@ -17,6 +16,7 @@ public class Collision {
         private static final int RIGHT=2;
         private static final int UP=3;
         private static final int DOWN=4;
+        private static final String COLLISION_COMPONENT = "CollisionComponent";
 	
 	private Map<String, Map<String, Action[]>> collideTable;
 	
@@ -25,9 +25,9 @@ public class Collision {
 	}
 	
 	public CollisionComponent getCollisionComponent(Sprite s){
-		return (CollisionComponent) s.getComponentOfType("CollisionComponent"); //string literal (replace)
+		return (CollisionComponent) s.getComponentOfType(COLLISION_COMPONENT); //string literal (replace)
 	}
-	
+
     /**
      * Takes in two sprites, determines spatial relationship, and calls appropriate method to handle Collision
      * @param sprite1
