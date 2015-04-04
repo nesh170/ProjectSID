@@ -63,6 +63,38 @@ public class LevelPlatform {
 	
 	
 	// Constructor & Helpers
+	public LevelPlatform(int width, int height) {
+		
+		configureWidthAndHeight(width, height);
+		instantiateLists();
+		prepareAllSprites();
+		
+	}
+	
+	private void configureWidthAndHeight(int width, int height) {
+		
+		this.width = width;
+		this.height = height;
+		
+	}
+	
+	private void instantiateLists() {
+		
+		this.sprites = new ArrayList<Sprite>();
+		this.boundaries = new ArrayList<Sprite>();
+		this.projectiles = new ArrayList<Sprite>();
+		
+	}
+	
+	private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
+
+		boundaries.stream().forEach(spriteConsumer);
+        projectiles.stream().forEach(spriteConsumer);
+        sprites.stream().forEach(spriteConsumer);
+        
+    }
+	
+	
 	// All other instance methods
 	// Public
 	public void prepareAllSprites() {
