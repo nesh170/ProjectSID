@@ -24,7 +24,7 @@ public class Level extends LevelPlatform {
 	private int width;
 	private int height;
 	
-	Sprite myPlayerSprite;
+	Sprite playerSprite;
 	Collision myCollisionDetector;
 	
 	List<Sprite> sprites;
@@ -42,7 +42,7 @@ public class Level extends LevelPlatform {
 	}
 	
 	public Level(List<Sprite> spriteList, Sprite playerSprite) {
-	        myPlayerSprite = playerSprite;
+	        this.playerSprite = playerSprite;
 		sprites = spriteList;
 		prepareAllSprites();
 	}
@@ -64,7 +64,7 @@ public class Level extends LevelPlatform {
 		//ordering an issue here
 		
 		//sprites updating
-		sprites.stream().forEach(spr -> checkCollision(myPlayerSprite,spr));
+		sprites.stream().forEach(spr -> checkCollision(playerSprite,spr));
 		doOnEachSpriteList(sprite -> sprite.updateSprite());
 		
 	}
@@ -84,7 +84,7 @@ public class Level extends LevelPlatform {
 	 */
 	public Map<KeyCode,Action> getControlMap(){
 	    Map<KeyCode,Action> controlMap = new HashMap<>();
-	    myPlayerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+	    playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
             return controlMap;
 	}
 	
