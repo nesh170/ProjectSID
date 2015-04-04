@@ -7,7 +7,7 @@ public class PlayerMain extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		stage.setTitle("Creating Menus with JavaFX 2.0");
+		stage.setTitle("Game Player");
 		GamePlayer myGamePlayer = new GamePlayer(stage);
 		stage.show();
 	}

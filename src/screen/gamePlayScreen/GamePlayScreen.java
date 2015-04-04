@@ -1,5 +1,6 @@
 package screen.gamePlayScreen;
 
+import gameEngine.GameEngine;
 import player.GamePlayer;
 import javafx.scene.control.MenuBar;
 import screen.Screen;
@@ -12,7 +13,7 @@ public class GamePlayScreen extends Screen {
 		super(width, height);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
 		//also every GamePlayer must be containted within a gamePlayer screen
-		myPlayer = new GamePlayer();		
+		myPlayer = new GamePlayer(width, height);		
 	}
 
 	//GamePlayer specific menuBar
