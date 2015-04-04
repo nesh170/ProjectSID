@@ -42,25 +42,32 @@ public class Level extends LevelPlatform {
 	}
 	
 	public Level(List<Sprite> spriteList, Sprite playerSprite) {
-	        this.playerSprite = playerSprite;
+		
+		this.playerSprite = playerSprite;
 		sprites = spriteList;
 		prepareAllSprites();
+		
 	}
 
 	
-	public void prepareAllSprites(){
+	public void prepareAllSprites() {
+		
 		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
 		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
+		
 	}
 
     private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
+    	
         boundaries.stream().forEach(spriteConsumer);
         projectiles.stream().forEach(spriteConsumer);
         sprites.stream().forEach(spriteConsumer);
+        
     }
 	
 	// All Other Instance Methods
 	public void update(){
+		
 		//ordering an issue here
 		
 		//sprites updating
@@ -70,8 +77,10 @@ public class Level extends LevelPlatform {
 	}
 	
 	public Sprite[] getSpritesWithTag(String tag){
+		
 		Sprite[] tagSprites = (Sprite[]) sprites.stream().filter(sprite -> sprite.tag() == tag).toArray();
 		return tagSprites;
+		
 	}
 	
 	public List<Sprite> getAllSprites(){
@@ -83,9 +92,11 @@ public class Level extends LevelPlatform {
 	 * @return a controlMap which might change depending on the behaviours for each level
 	 */
 	public Map<KeyCode,Action> getControlMap(){
-	    Map<KeyCode,Action> controlMap = new HashMap<>();
-	    playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
-            return controlMap;
+		
+		Map<KeyCode,Action> controlMap = new HashMap<>();
+		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+		return controlMap;
+            
 	}
 	
 //	/**
