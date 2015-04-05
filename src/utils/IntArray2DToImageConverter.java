@@ -1,6 +1,7 @@
 package utils;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 
 /**
  * A util designed to take in:
