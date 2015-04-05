@@ -30,6 +30,7 @@ import javafx.util.Duration;
 public class GamePlayer implements GamePlayerInterface{
 
 	private final static double FRAME_RATE = 60;
+	private final static double UPDATE_RATE = 120;
 
 	private GameEngine myEngine;
 	private Scene myScene;
@@ -51,7 +52,7 @@ public class GamePlayer implements GamePlayerInterface{
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
-        myBorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
+        BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
         myScene = new Scene(myBorderPane, 1200, 600);
@@ -66,7 +67,7 @@ public class GamePlayer implements GamePlayerInterface{
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
-        myBorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
+        BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
 	}
@@ -150,13 +151,18 @@ public class GamePlayer implements GamePlayerInterface{
 	}
 	
 	private void setupAnimation() {
-		KeyFrame kf = new KeyFrame(Duration.millis(1000 / FRAME_RATE),
-				e -> update());
-		myTimeline.getKeyFrames().add(kf);
+		KeyFrame updateFrame = new KeyFrame(Duration.millis(1000 / UPDATE_RATE), e -> update());
+		KeyFrame displayFrame = new KeyFrame(Duration.millis(1000 / FRAME_RATE), e -> display());
+		myTimeline.getKeyFrames().add(updateFrame);
+		myTimeline.getKeyFrames().add(displayFrame);
 	}
 	
 	private void update() {
-		//myRoot = myEngine.render();
+		myEngine.update();
+	}
+	
+	private void display() {
+		myRoot = myEngine.render();
 	}
 	
 	@Override
@@ -168,6 +174,7 @@ public class GamePlayer implements GamePlayerInterface{
 	@Override
 	public void pause() {
 		myTimeline.stop();
+		myEngine.pause(myBorderPane);
 		bringupPause();
 	}
 
