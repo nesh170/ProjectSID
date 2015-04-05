@@ -14,6 +14,6 @@ public class INT {
 	public static final int SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT = 100;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH = 150;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT = 50;
-
+	public static final int GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE = 300;
 	
 }

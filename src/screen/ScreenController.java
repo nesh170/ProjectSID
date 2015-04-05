@@ -221,6 +221,11 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	private void createInitialMainMenuScreen() {
 		
+		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
+		addTabWithScreenWithStringIdentifier(
+				new GameEditScreen(myGameEditScreenManager, newScreenWidth, newScreenHeight),
+				"Edit Game");
+		
 		addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(myMainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
@@ -229,10 +234,6 @@ public class ScreenController implements ScreenControllerInterface {
 		addTabWithScreenWithStringIdentifier(
 				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
-		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		addTabWithScreenWithStringIdentifier(
-				new GameEditScreen(myGameEditScreenManager, newScreenWidth, newScreenHeight),
-				"Edit Game");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
