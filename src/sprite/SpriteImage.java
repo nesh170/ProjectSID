@@ -79,9 +79,9 @@ public class SpriteImage {
 	
 	// All other instance methods
 	/**
+	 * No need for if(images == null), "images" is always instantiated in the constructor. 
 	 * 
 	 * @return true if SpriteImage contains at least one int[][]
-	 * 
 	 */
 	public boolean hasImages() {
 		return images.isEmpty();
