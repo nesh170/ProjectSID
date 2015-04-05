@@ -22,14 +22,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import levelPlatform.level.Level;
 /**
@@ -91,25 +95,31 @@ public class GameEditScreen extends Screen {
 		this.setLeft(makeSplashDisplay());
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
+		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
 	}
-	
 	private VBox makeSplashDisplay(){
 		VBox displaySplash  = new VBox();
 		displaySplash.setAlignment(Pos.CENTER);
-		Text text = new Text(this.getWidth()/5, this.getHeight()/5, "JavaFX 2.0");
-		displaySplash.setStyle("-fx-background-color: lightgrey");
-		Rectangle screen = new Rectangle(this.getWidth()/3, this.getHeight()/3, Color.WHITE);
-		displaySplash.getChildren().add(screen);
+		StackPane sp = new StackPane();
+
+		Text text = new Text("Splash Screen");
+		Reflection r = new Reflection();
+		r.setFraction(0.7f);		 
+		text.setEffect(r);
+		text.setFont(Font.font(null, FontWeight.BOLD, 30));
+		text.setTranslateY(-280);  //?? uncertain of how offset works but this works for now
+		displaySplash.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
+		Rectangle screen = new Rectangle(500, 400, Color.TRANSPARENT);
+		screen.setStroke(Color.GRAY);
+		
+		ImageView addsign = new ImageView(new Image("images/addsplash3.png"));
+		addsign.setFitHeight(this.getHeight()*0.16);
+		addsign.setFitWidth(this.getHeight()*0.16);
+
+		sp.getChildren().addAll(text, screen, addsign);
+		displaySplash.getChildren().add(sp);
 		return displaySplash;
 	}
-	private ListView makeSplashScreen(List<SplashScreen> screen){
-		ObservableList<String> mySplash = FXCollections.observableArrayList(
-		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
-		 ListView<String> splashList = new ListView<String>(mySplash);
-		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
-		 return splashList;
-	}
-	
 	/**
 	 * display list of levels that are represented by images in parallel 
 	 * @param ObservableList<Level>
