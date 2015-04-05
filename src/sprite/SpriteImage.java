@@ -83,9 +83,13 @@ public class SpriteImage {
 	// Constructor & Helpers
 	public SpriteImage() {
 		
-		imageFrameRate = INT.DEFAULT_IMAGE_FRAMERATE;
-		images = new ArrayList<int[][]>();
+		setImageFrameRate(INT.DEFAULT_IMAGE_FRAMERATE);
+		instantiateImagesList();
 		
+	}
+	
+	private void instantiateImagesList() {
+		this.images = new SilentFailArrayList<int[][]>();
 	}
 	
 	
