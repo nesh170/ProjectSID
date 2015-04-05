@@ -75,10 +75,12 @@ public class LevelView {
     /**
      * Checks for collision with each node
      */
-    public void updateCollisions(){
-        for(Sprite sprite:level.sprites()){
-        	level.sprites().stream().forEach(sprite2 -> handleCollisions(sprite,sprite2));
+    public void updateCollisions() {
+    	
+        for(Sprite sprite : level.sprites()) {
+        	level.sprites().stream().forEach(sprite2 -> handleCollisions(sprite, sprite2));
         }
+        
     }
     
     /**

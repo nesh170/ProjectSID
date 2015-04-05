@@ -50,8 +50,7 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	//MenuBar
-	//TODO: Back
-	
+	//TODO: Back	
 	//Buttons
 	//TODO: Add Start Button
 	//TODO: Add Image
