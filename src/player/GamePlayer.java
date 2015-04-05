@@ -2,8 +2,10 @@ package player;
 
 import gameEngine.GameEngine;
 
+import java.io.File;
 import java.util.List;
 
+import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -29,11 +31,15 @@ import javafx.util.Duration;
 
 public class GamePlayer implements GamePlayerInterface{
 
-	private final static double FRAME_RATE = 60;
-	private final static double UPDATE_RATE = 120;
+	public final static double FRAME_RATE = 60;
+	public final static double UPDATE_RATE = 120;
 
+	private GamePlayerView myView;
 	private GameEngine myEngine;
 	private Scene myScene;
+	
+	private File myGameFolder;
+	
 	private BorderPane myBorderPane;
 	private Timeline myTimeline;
 	private String myGameFilePath;
@@ -45,12 +51,13 @@ public class GamePlayer implements GamePlayerInterface{
 	
 	//constructor for testing
 	public GamePlayer(Stage stage) {
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Animation.INDEFINITE);
-		myRoot = new Group();
-		setupAnimation();
-		myPause = makePauseScreen();
+		
+		//TODO: transfer to GamePlayerView.java
+		myView = new GamePlayerView();
+		
 		myBorderPane = new BorderPane();
+		myRoot = new Group();
+		myPause = makePauseScreen();
 		myMenuBar = createPlayerMenu();
         BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
@@ -106,7 +113,8 @@ public class GamePlayer implements GamePlayerInterface{
         gameChooser.initOwner(s);
 	    Button mario = new Button("Mario");
         mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
-        mario.setOnAction(event -> { System.exit(0); });
+        mario.setOnAction(event -> chooseGame(gameChooser));
+        
         VBox vbox = new VBox(50);
         vbox.getChildren().addAll(new Text("Your Games"), mario);
         Scene allGames = new Scene(vbox, 300, 200);
@@ -155,6 +163,11 @@ public class GamePlayer implements GamePlayerInterface{
 		KeyFrame displayFrame = new KeyFrame(Duration.millis(1000 / FRAME_RATE), e -> display());
 		myTimeline.getKeyFrames().add(updateFrame);
 		myTimeline.getKeyFrames().add(displayFrame);
+	}
+	
+	private void chooseGame(Stage gameChooser) {
+		myGameFolder = DataHandler.chooseDir(gameChooser);
+		File[] levels = DataHandler.getFilesFromDir(myGameFolder);
 	}
 	
 	private void update() {
