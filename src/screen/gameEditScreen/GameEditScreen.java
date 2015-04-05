@@ -211,15 +211,4 @@ public class GameEditScreen extends Screen {
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 	}
-
-	
-	//MenuBar
-	//TODO: Back, returns to main menu
-	//TODO: Add, adds a level
-	//TODO: Remove, removes a level
-	//TODO: Play, starts the game
-	//TODO: Add Splash Screen
-	//TODO: Save, saves level and possible splash screen
-	//TODO: Trash, trashes the level and possible splash screen
-
 }

@@ -2,19 +2,8 @@ package usecases;
 
 import java.util.List;
 
-import gameEngine.Component;
-import javafx.geometry.Point2D;
 import levelPlatform.level.Level;
-import gameEngine.actions.AttackAction;
-import gameEngine.actions.JumpAction;
-import gameEngine.sprites.Platform;
-import screen.ScreenController;
-import screen.levelEditScreen.LevelEditScreen;
-import screen.mainMenu.MainMenuScreenController;
 import sprite.Sprite;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class ExampleCodes {
 	/**
@@ -27,9 +16,16 @@ public class ExampleCodes {
 	 * the corners of the boundary
 	 */
 	private void placingAPlatform() {	
-		Level level = new Level();
-		List<Sprite> boundaries = level.boundaries();
-		boundaries.add(new Sprite());
+		
+		Level level = new Level(0, 0);
+		List<Sprite> boundaries = level.sprites();
+		
+		class Boundary extends Sprite {
+			
+		}
+		
+		boundaries.add(new Boundary());
+		
 	}
 	
 	/*

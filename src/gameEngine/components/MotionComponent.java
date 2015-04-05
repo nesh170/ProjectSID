@@ -21,7 +21,6 @@ public class MotionComponent extends Component{
 	
 	public MotionComponent(Sprite sprite) {
 		super(sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

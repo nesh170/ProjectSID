@@ -24,7 +24,7 @@ public class GameEngine extends GameEngineAbstract {
     
     private void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-        myControlsMap = myCurrentLevel.getControlMap();
+        myControlsMap = myCurrentLevel.controlMap();
         myLevelRenderer.setLevel(myCurrentLevel);    
     }
     

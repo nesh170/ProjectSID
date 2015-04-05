@@ -24,6 +24,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import levelPlatform.level.Level;
 import resources.constants.DOUBLE;
+import resources.constants.INT;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;
 import sprite.Sprite;
@@ -69,7 +70,9 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 */
 	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height) {
-		this(parent, gameScreen, width, height, new Level());
+		
+		this(parent, gameScreen, width, height, new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT));
+		
 	}
 	
 	/**
