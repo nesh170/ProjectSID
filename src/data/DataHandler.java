@@ -17,6 +17,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import levelPlatform.level.Level;
 
 public class DataHandler {
 
@@ -56,6 +57,16 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff"))
 				.map(file -> fileToImage(file))
+				.collect(Collectors.toList());
+	}
+	
+	public static List<Level> getLevelsFromDir(File folder) throws IOException {
+		return Arrays
+				.asList(folder.listFiles())
+				.stream()
+				.filter(file -> file.toString().endsWith(".xml"))
+				.map(file -> fromXMLFile(file))
+				.map(obj -> (Level) obj)
 				.collect(Collectors.toList());
 	}
 
