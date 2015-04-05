@@ -156,15 +156,18 @@ public class SpriteImage {
 	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
 	* SpriteImage takes care of the rest.
 	* 
-	* @return int[][] if non-empty images, null if no images
+	* @param (double) length of a side of each real java pixel
+	* @return Image if non-empty images, null if no images
 	* 
 	*/
-	public int[][] getIntArrayToDisplay() {
+	public Image getImageToDisplay(double lengthSidePixel) {
 		
 		if (hasImages()) {
 			
 			adjustCounters();
-			return images.get(currentImageIndex).clone();			// clone of the array to avoid modification
+			
+			int[][] sourceArray = images.get(currentImageIndex);
+			return IntArray2DToImageConverter.convert2DIntArrayToImage(sourceArray, lengthSidePixel); 
 			
 		} 
 		
