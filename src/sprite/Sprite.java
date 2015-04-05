@@ -43,7 +43,7 @@ public class Sprite {
 	private String collisionTag;
 
 	private Transform transform;
-	private SpriteImage image;
+	private SpriteImage spriteImage;
 
 	
 	// Getters & Setters
@@ -91,12 +91,12 @@ public class Sprite {
 		return this.transform;
 	}
 
-	public Dimension2D dimensions() {
-		return transform.getDimensions();
+	public SpriteImage spriteImage() {
+		return this.spriteImage;
 	}
 	
-	public int[][] currentImageArray() {
-	        return image.getIntArrayToDisplay();
+	public Dimension2D dimensions() {
+		return transform.getDimensions();
 	}
 	
 	public Physics physics(){
