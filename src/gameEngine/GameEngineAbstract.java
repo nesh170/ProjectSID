@@ -14,14 +14,19 @@ import javafx.scene.Node;
 public abstract class GameEngineAbstract {
     
     /**
+     * This method sets up the new level.
+     * @param index new level number
+     */
+    public abstract void initializeLevel(int index);
+    
+    /**
      * The update method runs through each sprite and update their position and any other values based on the state of the game.
      * It also checks for collisions. 
      */
     public abstract void update();
     
     /**
-     * The render method creates a new group then goes through each sprite and calls the render method to add the new nodes to the group. It
-     * then returns the groups
+     * The render method creates a new group then calls on the LevelViewScreen
      */
     public abstract Group render();
     

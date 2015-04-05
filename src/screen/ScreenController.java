@@ -1,8 +1,5 @@
 package screen;
-
-
 import javax.imageio.ImageIO;
-
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
@@ -13,6 +10,7 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +20,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
+import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreenController;
@@ -33,9 +32,9 @@ import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
+import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
-
 /**
  * 
  * @author Ruslan
@@ -78,7 +77,7 @@ import sprite.Sprite;
  * ----------------------------------------------------------------------
  * Note from April 1st (Michael)
  * 
- * -Added 3 if (true) return true; (April Fools)
+ * - Added 3 if (true) return true; (April Fools)
  * - Removed extends Scene
  * - Added Instance Variable Scene
  * 
@@ -91,18 +90,17 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	// Instance Variables
 	// Sizing
-	private double myWidth, myHeight;
+	private double width, height;
 	private double newScreenWidth, newScreenHeight;
-	
 	// JavaFX
-	private Group myRoot;
-	private Scene myScene;
+	private Group root;
+	private Scene scene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
-
+	private TextField errorMessageTextField;
 	// ScreenController Inner Class Handlers
-	MainMenuScreenController myMainMenuScreenManager;
-	GameEditScreenController myGameEditScreenManager;
+	MainMenuScreenController mainMenuScreenManager;
+	GameEditScreenController gameEditScreenManager;
 	SplashEditScreenController splashEditScreenManager;
 	LevelEditScreenController levelEditScreenManager;
 	SpriteEditScreenController spriteEditScreenManager;
@@ -114,11 +112,11 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	// Getters & Setters (instance)
 	public double width() {
-		return this.myWidth;
+		return this.width;
 	}
 	
 	public double height() {
-		return this.myHeight;
+		return this.height;
 	}
 	
 	public double newScreenWidth() {
@@ -129,20 +127,20 @@ public class ScreenController implements ScreenControllerInterface {
 		return this.newScreenHeight;
 	}
 	
-	public Scene getScene() {
-		return myScene;
+	public Scene scene() {
+		return scene;
 	}
 	
 	
 	// Constructors & Helpers
 	public ScreenController(Stage stage, double width, double height) {
 		
-		myRoot = new Group();
-		myScene = new Scene(myRoot);
+		this.root = new Group();
+		this.scene = new Scene(root);
 		
 		configureControllers(stage);
 		
-		configureStageAndRoot(stage, myRoot);
+		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		
@@ -153,24 +151,26 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void configureControllers(Stage stage) {
-		myMainMenuScreenManager = new MainMenuScreenManager(stage);
-		myGameEditScreenManager = new GameEditScreenManager();
-		splashEditScreenManager = new SplashEditScreenManager();
+		
+		mainMenuScreenManager = new MainMenuScreenManager(stage);
+		gameEditScreenManager = new GameEditScreenManager();
+		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
+		
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
-		this.myRoot = root;
+		this.root = root;
 		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
 		
-		this.myWidth = width;
-		this.myHeight = height;
+		this.width = width;
+		this.height = height;
 		
 	}
 	
@@ -216,18 +216,23 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void addTabPane() {
-		myRoot.getChildren().add(tabPane);
+		root.getChildren().add(tabPane);
 	}
 	
 	private void createInitialMainMenuScreen() {
 		
 		addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(myMainMenuScreenManager, newScreenWidth, newScreenHeight),
+				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
+		
+		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
+		addTabWithScreenWithStringIdentifier(
+				new GameEditScreen(gameEditScreenManager, newScreenWidth, newScreenHeight),
+				"Edit Game");
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(newScreenWidth, newScreenHeight),
+				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
@@ -243,8 +248,14 @@ public class ScreenController implements ScreenControllerInterface {
 	// Public
 	@Override
 	public void displayError(String error) {
-		throw new IllegalStateException("unimplemented displayError in ScreenControllerInterface");
+		
+		cleanUpOldErrorMesssage();
+		instantiateErrorMessage(error);
+		configureErrorMessageOffsets();
+		addErrorMessage();
+		
 	}
+	
 	
 	// Private
 	/**
@@ -302,19 +313,44 @@ public class ScreenController implements ScreenControllerInterface {
 		tab.setDisable(false);
 		
 		// Selects current, enabled tab
-			// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
+		// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
 		singleSelectionModel.select(tab);
 		
 	}
 	
 	private void removeTabAndChangeSelected(Tab selectedNew) {
+		
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
-		
-		// Thanks to these nested classes we can call this ScreenController method from L.E.S.Manager
-		setCorrectTabModifiabilityAndViewability();
-		
+	
+		setCorrectTabModifiabilityAndViewability();		
 		singleSelectionModel.select(selectedNew);
+		
+	}
+	
+	/**
+	 * Methods below are helpers for Error Messages
+	 * 
+	 * @author Ruslan
+	 */
+	private void cleanUpOldErrorMesssage() {
+		
+		if (errorMessageTextField != null) {
+			root.getChildren().remove(errorMessageTextField);
+		}		
+		
+	}
+	
+	private void instantiateErrorMessage(String error) {
+		errorMessageTextField = ErrorMessageTextFieldFactory.configureNewErrorMessageTextField(error);
+	}
+	
+	private void configureErrorMessageOffsets() {
+		errorMessageTextField.setTranslateY(DOUBLE.percentHeightMenuBar);
+	}
+	
+	private void addErrorMessage() {
+		root.getChildren().add(errorMessageTextField);
 	}
 	
 }

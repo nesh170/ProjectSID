@@ -2,16 +2,14 @@ package sprite;
 
 import gameEngine.Action;
 import gameEngine.Component;
+import gameEngine.Physics;
 import gameEngine.Transform;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
-
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
-import sprite.spriteImage.SpriteImage;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -34,32 +32,21 @@ public class Sprite {
 	// Static Variables
 	
 	
-	// Instance Variables
-	private SpriteImage spriteImage;
-	
+	// Instance Variables	
 	private List<Action> actionList;
 	private List<Component> componentList;
+	private Physics physics;
+	private List<Sprite> emissionList;
 	
 	private boolean isActive;
 	private String tag;
+	private String collisionTag;
 
 	private Transform transform;
-	private String colorPath;
+	private SpriteImage spriteImage;
 
 	
 	// Getters & Setters
-	public SpriteImage spriteImage() {
-		return this.spriteImage;
-	}
-	
-	public int width() {
-		return spriteImage.width();
-	}
-	
-	public int height() {
-		return spriteImage.height();
-	}
-	
 	public List<Action> actionList() {
 		return Collections.unmodifiableList(this.actionList);
 	}
@@ -67,6 +54,11 @@ public class Sprite {
 	public List<Component> componentList() {
 	    return Collections.unmodifiableList(this.componentList);
 	}
+	
+	public List<Sprite> emissionList() {
+		return Collections.unmodifiableList(this.emissionList); 
+	}
+	
 	
 	/*
 	 * Sprites that are active are located within the camera view
@@ -83,16 +75,33 @@ public class Sprite {
 		return this.tag;
 	}
 	
+	public String collisonTag(){
+		return this.collisionTag;
+	}
+	
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	
+	public void setCollisionTag(String collisionTag){
+		this.collisionTag = collisionTag;
 	}
 	
 	public Transform transform() {
 		return this.transform;
 	}
 
+	public SpriteImage spriteImage() {
+		return this.spriteImage;
+	}
+	
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
+	}
+	
+	public Physics physics(){
+	    //TODO when there is a collision with platform, setPhysicsreaction value to deal with normal
+	    return physics;
 	}
 	
 	
@@ -105,16 +114,14 @@ public class Sprite {
 		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
-	public Sprite(Point2D coordinate, Point2D rotate) {
-		this(coordinate, rotate, DIMENSION2D.DEFAULT_DIMENSIONS);
-	}
-	
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
-		
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
-		this.spriteImage = new SpriteImage();
-		
+	}
+	
+	
+	public Sprite (Sprite toCopy){
+		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 	}
 	
 	
@@ -136,20 +143,18 @@ public class Sprite {
 	
 	/**
 	 * Apply 'update' method of each behavior
-	 * in list of behaviors
+	 * in list of physics and components
 	 * every frame
 	 * 
 	 * Also contains logic for update-ordering
-	 * (deciding what shoud happen first, etc
+	 * (deciding what should happen first, etc
 	 */
-	public void updateAllComponents(){
+	public void updateSprite(){
 		
 		if(isActive) {
-			
-			Consumer<Component> updateCon = com -> com.updateIfEnabled();
-			componentList.stream().forEach(updateCon);
-			
+			componentList.stream().forEach(com -> com.updateIfEnabled());	
 		}
+		physics.updateByPhysics();
 		
 	}
 	
@@ -162,8 +167,12 @@ public class Sprite {
 		
 	}
 	
+	public void addAction(Action actionToAdd){
+		actionList.add(actionToAdd);
+	}
+	
 	/**
-	 * gets Behavior attached to this sprite
+	 * gets Component attached to this sprite
 	 * of a specific type (there should be one
 	 * behavior of each type for each sprite)
 	 * @throws ClassNotFoundException 
@@ -206,26 +215,6 @@ public class Sprite {
 		return null;
 		
 	}
-		
-	public Group render() {
-		
-	    Shape spriteView = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
-	    Paint spriteColor;
-	    
-	    try {
-	        spriteColor = Color.web(colorPath);
-	    }
-	    
-	    catch(IllegalArgumentException e) {
-	    	
-	        //spriteColor = new ImagePattern(resourceManager.getImage(myColorPath));
-	        spriteColor = Color.BEIGE;
-	        
-	    }
-	    
-	    spriteView.setFill(spriteColor);
-	    return new Group(spriteView);
-	    
-	}
+	
 	
 }

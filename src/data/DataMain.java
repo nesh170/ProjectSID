@@ -36,7 +36,7 @@ public class DataMain extends Application{
 			data.toXMLFile(dummyHolder, "level.xml", f.toString());
 		} catch (IOException e) {}
 		
-		File[] files = f.listFiles();
+		File[] files = data.getFilesFromDir(f);
 		
 		for (File file : files) {
 			System.out.println(file.toString());
