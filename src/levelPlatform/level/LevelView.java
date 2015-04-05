@@ -2,10 +2,13 @@ package levelPlatform.level;
 
 import gameEngine.Collision;
 import gameEngine.Transform;
+import resources.constants.DOUBLE;
 import sprite.Sprite;
 import utils.IntArray2DToImageConverter;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
