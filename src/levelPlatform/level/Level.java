@@ -1,9 +1,9 @@
 package levelPlatform.level;
 import gameEngine.Action;
-import gameEngine.Collision;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import resources.constants.STRING;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -17,7 +17,6 @@ import levelPlatform.LevelPlatform;
  * 	- width
  * 	- height
  * 	- Sprites
- * 	- boundaries
  * 	- projecticles
  * 
  * 	Level adds functionality on top such as
@@ -46,16 +45,17 @@ public class Level extends LevelPlatform {
             
 	}
 	
+	public void setPlayerSprite(Sprite player) {
+	    playerSprite = player;
+	}
+	
 	
 	// Constructor & Helpers
 	public Level(int width, int height) {
-		
 		this(width, height, null);
-		
 	}
 	
 	public Level(int width, int height, Sprite playerSprite) {
-		
 		super(width, height);
 		
 		if (playerSprite != null) {
@@ -66,17 +66,6 @@ public class Level extends LevelPlatform {
 			prepareAllSprites();
 			
 		}
-		
-	}
-	
-	
-	// All Other Instance Methods
-	/**
-	 * Update all the sprites
-	 */
-	@Override
-	public void update(){
-		super.update();	
 		
 	}
 	

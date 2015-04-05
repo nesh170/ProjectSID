@@ -11,8 +11,6 @@ import sprite.Sprite;
  * 	- width
  * 	- height
  * 	- Sprites
- * 	- boundaries
- * 	- projecticles
  * 
  * @author Ruslan
  *
@@ -27,7 +25,6 @@ public class LevelPlatform {
 	private int height;
 	
 	private List<Sprite> sprites;
-	private List<Sprite> projectiles;
 	
 	
 	// Getters & Setters
@@ -56,19 +53,10 @@ public class LevelPlatform {
 	}
 	
 	
-	/**
-	 * @return a *modifiable* list (on purpose for being able to edit)
-	 */
-	public List<Sprite> projectiles() {
-		return this.projectiles;
-	}
-	
-	
 	// Constructor & Helpers
 	public LevelPlatform(int width, int height) {
 		configureWidthAndHeight(width, height);
 		instantiateLists();
-		prepareAllSprites();
 	}
 	
 	private void configureWidthAndHeight(int width, int height) {
@@ -80,25 +68,19 @@ public class LevelPlatform {
 	
 	private void instantiateLists() {
 		this.sprites = new ArrayList<Sprite>();
-		this.projectiles = new ArrayList<Sprite>();
 	}
 	
-	private void doOnEachSpriteList (Consumer<Sprite> spriteConsumer) {
-	        projectiles.stream().forEach(spriteConsumer);
-                sprites.stream().forEach(spriteConsumer);
-        
-        }
 	
-	
-	// All other instance methods
-	// Public
+	/**
+	 * Calls the prepare method in each sprite.
+	 */
 	public void prepareAllSprites() {
-		doOnEachSpriteList(sprite -> sprite.prepareAllActions());
-		doOnEachSpriteList(sprite -> sprite.prepareAllComponents());
+	        sprites.stream().forEach(sprite -> sprite.prepareAllActions());
+	        sprites.stream().forEach(sprite -> sprite.prepareAllComponents());
 	}
 	
 	public void update(){
-	        doOnEachSpriteList(sprite -> sprite.updateSprite());
+	        sprites.stream().forEach(sprite -> sprite.updateSprite());
 	}
 
 	
