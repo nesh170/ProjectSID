@@ -99,30 +99,16 @@ public class LevelEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
-		Menu fileMenu = makeFileMenu();
+		Menu fileMenu = makeFileMenu(e -> save(),
+									e -> parent.returnToGameEditScreen(currentGameScreen),
+									e -> parent.returnToGameEditScreen(currentGameScreen));
+		//TODO for file menu = save and exit (third parameter) might need a different lambda
 		Menu addNewSpriteButton = makeAddSpriteButton();
 		
 		menuBar.getMenus().addAll(fileMenu,addNewSpriteButton);
 		
 	}
-	
-	private Menu makeFileMenu() {	
-		
-		//TODO more menu items for file
-		MenuItem exit = new MenuItem("Exit");
-		MenuItem saveAndExit = new MenuItem("Save and Exit");
-		
-		//TODO possibly change the listeners below
-		exit.setOnAction(e -> parent.returnToGameEditScreen(currentGameScreen));
-		saveAndExit.setOnAction(e -> parent.returnToGameEditScreen(currentGameScreen));
-		
-		Menu fileMenu = new Menu("File");
-		fileMenu.getItems().addAll(exit,saveAndExit);
-
-		return fileMenu;
-		
-	}
-	
+			
 	private Menu makeAddSpriteButton() {
 		
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
@@ -205,6 +191,10 @@ public class LevelEditScreen extends Screen {
 			spriteToAdd = null; //do this once sprite has been added
 		}
 		
+	}
+	
+	private void save() {
+		//TODO save this level to XML (and update game edit screen)?
 	}
 	
 	// All other instance methods
