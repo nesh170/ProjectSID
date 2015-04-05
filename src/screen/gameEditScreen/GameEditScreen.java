@@ -126,13 +126,14 @@ public class GameEditScreen extends Screen {
 		 return splashList;
 	}
 	private Button makeAddLevelButton(){
-		Button addSplash = new Button(STRING.ADD_SPLASH);
-		return addSplash;
+		Button addLevel = new Button(STRING.ADD_SPLASH);
+		return addLevel;
 	}
 	private Button makeEditLevelButton(){
 		Button editLevel = new Button(STRING.EDIT_LEVEL);
 		return editLevel;
 	}
+	//make dynamically change between addSplash and editSplash
 	private Button makeAddSplashButton(){
 		Button addSplash = new Button(STRING.ADD_SPLASH);
 		return addSplash;
@@ -163,7 +164,7 @@ public class GameEditScreen extends Screen {
 			//MenuItem back = new MenuItem("back");
 			//step.setOnAction(o -> loadMainMenuScreen());
 			//back.getItems().addAll(back);
-			menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
+			menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back, makeTrashMenu());				
 	}		
 	/*
 	 * This method initializes making buttons from the properties files labels.
@@ -210,5 +211,12 @@ public class GameEditScreen extends Screen {
 		//	addSplash.setOnAction(o -> parent.loadSplashEditScreen(selectedSplash));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
+	}
+	private Menu makeTrashMenu(){
+		ImageView trashImage = new ImageView(new Image("images/trashicon.png"));
+		trashImage.setFitHeight(this.getHeight() *  DOUBLE.percentHeightMenuBar);
+		trashImage.setFitWidth(this.getHeight() *  DOUBLE.percentHeightMenuBar);
+		Menu trashButton = new Menu("", trashImage);
+		return trashButton;
 	}
 }
