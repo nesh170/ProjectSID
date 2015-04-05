@@ -18,9 +18,10 @@ public class IntArray2DToImageConverter {
 
 	/**
 	 *  RGB Breakdown Of Each Int:
-	 *  	- 0->7 R
-	 *  	- 8->15 G
-	 *  	- 16->23 B
+	 *  	- 0->7 A
+	 *  	- 8->15 R
+	 *  	- 16->23 G
+	 *  	- 24->31 B
 	 * 
 	 * The int[][] is expected to be row-major
 	 * 
@@ -33,7 +34,12 @@ public class IntArray2DToImageConverter {
 	 * @return Image (JavaFX)
 	 */
 	public static Image convert2DIntArrayToImage(int[][] sourceArray, double lengthSidePixel) {
-		return null;
+		
+		/**
+		 * Makes use of util "Int2DArraySizes", spaced out for readability
+		 * 
+		 * @author Ruslan
+		 */
 	}
 	
 }
