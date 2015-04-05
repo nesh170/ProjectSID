@@ -20,38 +20,34 @@ import javafx.stage.Stage;
 
 public class DataHandler {
 
-	private XStream myXStream;
+	private static final XStream XSTREAM = new XStream(new DomDriver());
 
-	public DataHandler() {
-		myXStream = new XStream(new DomDriver());
-	}
-
-	public void toXMLFile(Object obj, String filename, String filePath)
+	public static void toXMLFile(Object obj, String filename, String filePath)
 			throws IOException {
 		Writer fWriter = new FileWriter(new File(filePath, filename));
-		myXStream.toXML(obj, fWriter);
+		XSTREAM.toXML(obj, fWriter);
 		fWriter.close();
 	}
 
-	public Object fromXMLString(String xml) {
-		return myXStream.fromXML(xml);
+	public static Object fromXMLString(String xml) {
+		return XSTREAM.fromXML(xml);
 	}
 
-	public Object fromXMLFile(File xml) {
-		return myXStream.fromXML(xml);
+	public static Object fromXMLFile(File xml) {
+		return XSTREAM.fromXML(xml);
 	}
 
-	public File chooseDir(Stage stage) {
+	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
 
-	public File[] getFilesFromDir(File folder) {
+	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
 
-	public List<Image> getImagesFromDir(File folder) throws IOException {
+	public static List<Image> getImagesFromDir(File folder) throws IOException {
 		return Arrays
 				.asList(folder.listFiles())
 				.stream()
@@ -63,7 +59,7 @@ public class DataHandler {
 				.collect(Collectors.toList());
 	}
 
-	public BufferedImage fileToImage(File file) {
+	public static BufferedImage fileToImage(File file) {
 		try {
 			return ImageIO.read(file);
 		} catch (IOException e) {
