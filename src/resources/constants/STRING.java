@@ -1,5 +1,8 @@
 package resources.constants;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class STRING {
 
 	// Colors
@@ -33,10 +36,20 @@ public class STRING {
 	public static final String ADD_TEXT = "Add Text";
 	public static final String ADD_ANIMATION = "Add Animation";
 	
-	public static final String ADD_LEVEL = "Add Level";
-	public static final String EDIT_LEVEL = "Edit Level";
-	public static final String ADD_SPLASH = "Add Splash";
-	public static final String EDIT_SPLASH = "Edit Splash";
+	
+			//new String[]{"Add Level", "Edit Level", "Add Splash", "Edit Splash", "Remove Level"};
+	public static final Map<String, String> LEVELS_SPLASH_MAP;
+    static
+    {
+    	LEVELS_SPLASH_MAP = new HashMap<String, String>();
+    	LEVELS_SPLASH_MAP.put("ADD_LEVEL", "Add Level");
+    	LEVELS_SPLASH_MAP.put("EDIT_LEVEL", "Edit Level");
+    	LEVELS_SPLASH_MAP.put("ADD_SPLASH", "Add Splash");
+    	LEVELS_SPLASH_MAP.put("EDIT_SPLASH", "Edit Splash");
+    	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
+    }
+	
+
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
