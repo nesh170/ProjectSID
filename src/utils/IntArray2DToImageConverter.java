@@ -1,6 +1,7 @@
 package utils;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
 /**
