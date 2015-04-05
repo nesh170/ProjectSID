@@ -15,7 +15,7 @@ public class Gravity extends Physics {
 
 	@Override
 	public void updateByPhysics() {
-		VelocityComponent motionComp = (VelocityComponent) mySprite.getComponentOfType("MotionComponent");
+		VelocityComponent motionComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 		motionComp.accelerate(0.0, myValue + myReactionValue);
 	}
 
