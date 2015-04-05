@@ -6,6 +6,11 @@ import java.util.*;
 import sprite.Sprite;
 
 public class Collision {
+    
+    private static final int LEFT=0;
+    private static final int RIGHT=1;
+    private static final int UP=2;
+    private static final int DOWN=3;
         /**
          * The Collision Class needs to be given a map which, for each combination of Sprites, gives
          * an array of four behaviors, representing what happens as a result of the first sprite colliding
@@ -39,18 +44,18 @@ public class Collision {
     }
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[0].execute();
+        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[LEFT].execute();
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[1].execute();
+        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[RIGHT].execute();
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[2].execute();
+        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[UP].execute();
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[3].execute();
+        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[DOWN].execute();
     }
 }
