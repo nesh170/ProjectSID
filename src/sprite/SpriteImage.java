@@ -143,7 +143,7 @@ public class SpriteImage {
 	 * --> no null check necessary
 	 * 
 	 */
-	private int removeImage(int indexToRemove) {
+	public int removeImage(int indexToRemove) {
 		
 		images.remove(indexToRemove);
 		return images.size();
