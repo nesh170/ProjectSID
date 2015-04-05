@@ -20,11 +20,12 @@ import javafx.scene.shape.Rectangle;
 public class LevelView {
     
 	// Static Variables
-	private static final int LENGTH_PIXELS=10;
+
 	
 	// Instance Variables
     private Level level;
     private Collision collisionHandler;
+    private double lengthSidePixel;
     
     
     // Getters & Setters
@@ -36,13 +37,34 @@ public class LevelView {
     	this.level = level;
     }
     
+    public void setLengthSidePixel(double lengthSidePixel) {
+    	this.lengthSidePixel = lengthSidePixel;
+    }
+    
     
     // Constructor & Helpers
+    /**
+     * Infers lengthSidePixel from Default in DOUBLE
+     * 
+     * @param level
+     */
     public LevelView(Level level) {
     	
-        setLevel(level);
-        renderLevel();
+    	this(level, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
+    }
+    
+    /**
+     * 
+     * @param (Level) level
+     * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
+     */
+    public LevelView(Level level, double lengthSidePixel) {
+    	
+    	setLengthSidePixel(lengthSidePixel);
+    	setLevel(level);
+        renderLevel();
+    	
     }
     
     
