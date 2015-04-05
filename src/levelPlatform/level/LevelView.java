@@ -87,13 +87,17 @@ public class LevelView {
      * @return
      */
     private Group renderSprite(Sprite sprite) {
+    	
     	Group spriteGroup = new Group();
-    	Transform transform = sprite.transform();
-        Rectangle spriteNode = new Rectangle(transform.getPosX(),transform.getPosY(),transform.getWidth(),transform.getHeight());
-        spriteNode.setFill(new ImagePattern(IntArray2DToImageConverter.convert2DIntArrayToImage(sprite.currentImageArray(), LENGTH_PIXELS)));
-        spriteGroup.getChildren().add(spriteNode);
+    	
+    	Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+    	ImageView spriteImageView = new ImageView(spriteImage);
+        
+        spriteGroup.getChildren().add(spriteImageView);
         sprite.emissionList().stream().forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
+        
         return spriteGroup;
+        
     }
     
     /**
