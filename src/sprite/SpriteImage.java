@@ -41,36 +41,20 @@ public class SpriteImage {
 	
 	// Getters & Setters
 	// # columns = width, assumes evenly laid-out array (which it should be)
+	/**
+	 * @author Ruslan
+	 * 
+	 * One of the design decisions here was to either surround these in "if (hasImages()) return, else return 0"
+	 * or to subclass a List and have it silently fail. We write a util that handles a null int[][] being passed in,
+	 * and avoid duplicated code. :) Same spiel for height()
+	 */
 	public int width() {
-		
-		if (!hasImages()) {
-			return 0;
-		} 
-		
-		else {
-
-			int[][] firstImage = images.get(0);
-			int[] firstRow = firstImage[0];
-			return firstRow.length;					
-			
-		}
-		
+		return Int2DArraySizes.width2DIntArray(images.get(0));
 	}
 
 	// # rows = height
 	public int height() {
-		
-		if (!hasImages()) {
-			return 0;
-		} 
-		
-		else {
-
-			int[][] firstImage = images.get(0);
-			return firstImage.length;				
-			
-		}
-		
+		return Int2DArraySizes.height2DIntArray(images.get(0));
 	}
 	
 	public void setImageFrameRate(int imageFrameRate) {
