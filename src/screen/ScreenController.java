@@ -90,17 +90,17 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	// Instance Variables
 	// Sizing
-	private double myWidth, myHeight;
+	private double width, height;
 	private double newScreenWidth, newScreenHeight;
 	// JavaFX
-	private Group myRoot;
-	private Scene myScene;
+	private Group root;
+	private Scene scene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
 	private TextField errorMessageTextField;
 	// ScreenController Inner Class Handlers
-	MainMenuScreenController myMainMenuScreenManager;
-	GameEditScreenController myGameEditScreenManager;
+	MainMenuScreenController mainMenuScreenManager;
+	GameEditScreenController gameEditScreenManager;
 	SplashEditScreenController splashEditScreenManager;
 	LevelEditScreenController levelEditScreenManager;
 	SpriteEditScreenController spriteEditScreenManager;
@@ -112,11 +112,11 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	// Getters & Setters (instance)
 	public double width() {
-		return this.myWidth;
+		return this.width;
 	}
 	
 	public double height() {
-		return this.myHeight;
+		return this.height;
 	}
 	
 	public double newScreenWidth() {
@@ -127,20 +127,20 @@ public class ScreenController implements ScreenControllerInterface {
 		return this.newScreenHeight;
 	}
 	
-	public Scene getScene() {
-		return myScene;
+	public Scene scene() {
+		return scene;
 	}
 	
 	
 	// Constructors & Helpers
 	public ScreenController(Stage stage, double width, double height) {
 		
-		myRoot = new Group();
-		myScene = new Scene(myRoot);
+		this.root = new Group();
+		this.scene = new Scene(root);
 		
 		configureControllers(stage);
 		
-		configureStageAndRoot(stage, myRoot);
+		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		
@@ -152,8 +152,8 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	private void configureControllers(Stage stage) {
 		
-		myMainMenuScreenManager = new MainMenuScreenManager(stage);
-		myGameEditScreenManager = new GameEditScreenManager();
+		mainMenuScreenManager = new MainMenuScreenManager(stage);
+		gameEditScreenManager = new GameEditScreenManager();
 		splashEditScreenManager = new SplashEditScreenManager(stage);
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
@@ -163,14 +163,14 @@ public class ScreenController implements ScreenControllerInterface {
 
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
-		this.myRoot = root;
+		this.root = root;
 		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
 		
-		this.myWidth = width;
-		this.myHeight = height;
+		this.width = width;
+		this.height = height;
 		
 	}
 	
@@ -216,18 +216,18 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void addTabPane() {
-		myRoot.getChildren().add(tabPane);
+		root.getChildren().add(tabPane);
 	}
 	
 	private void createInitialMainMenuScreen() {
 		
 		addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(myMainMenuScreenManager, newScreenWidth, newScreenHeight),
+				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
 		
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
 		addTabWithScreenWithStringIdentifier(
-				new GameEditScreen(myGameEditScreenManager, newScreenWidth, newScreenHeight),
+				new GameEditScreen(gameEditScreenManager, newScreenWidth, newScreenHeight),
 				"Edit Game");
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
@@ -336,7 +336,7 @@ public class ScreenController implements ScreenControllerInterface {
 	private void cleanUpOldErrorMesssage() {
 		
 		if (errorMessageTextField != null) {
-			myRoot.getChildren().remove(errorMessageTextField);
+			root.getChildren().remove(errorMessageTextField);
 		}		
 		
 	}
@@ -350,7 +350,7 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void addErrorMessage() {
-		myRoot.getChildren().add(errorMessageTextField);
+		root.getChildren().add(errorMessageTextField);
 	}
 	
 }
