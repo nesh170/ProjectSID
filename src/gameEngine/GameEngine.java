@@ -3,33 +3,36 @@ package gameEngine;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import level.Level;
-import level.LevelViewScreen;
+import levelPlatform.level.Level;
+import levelPlatform.level.LevelView;
 
 public class GameEngine extends GameEngineAbstract {
     
     private Map<KeyCode,Action> myControlsMap;
     private List<Level> myLevelList;
     private Level myCurrentLevel;
-    private LevelViewScreen myLevelRenderer;
+    private LevelView myLevelRenderer;
     
     public GameEngine(List<Level> levelList) {
         myLevelList = levelList;
     }
     
-    private void initializeLevel(int index){
+    public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-        myControlsMap = myCurrentLevel.getControlMap();
-        myLevelRenderer.setLevel(myCurrentLevel);    
+        myControlsMap = myCurrentLevel.controlMap();
+        myLevelRenderer.setLevel(myCurrentLevel);
+        myCurrentLevel.prepareAllSprites();
     }
     
     @Override
     public void update () {
         myCurrentLevel.update();
+        myLevelRenderer.updateCollisions();
     }
 
     @Override

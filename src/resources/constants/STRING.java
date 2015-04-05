@@ -33,7 +33,17 @@ public class STRING {
 	public static final String ADD_TEXT = "Add Text";
 	public static final String ADD_ANIMATION = "Add Animation";
 	
+	public static final String ADD_LEVEL = "Add Level";
+	public static final String EDIT_LEVEL = "Edit Level";
+	public static final String ADD_SPLASH = "Add Splash";
+	public static final String EDIT_SPLASH = "Edit Splash";
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
+	// Buttons
+	public static final String PRESSED_BUTTON_CSS = "-fx-font: 14 georgia; -fx-text-fill: #CC0000;  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) ,.5, 0.0 , 0 , 1 ); -fx-border-width: 2 2 2 2; -fx-border-color: white; -fx-background-color: black;";
+	public static final String RELEASED_BUTTON_CSS = "-fx-font: 14 georgia; -fx-text-fill: black;  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
+	
+	//Game Engine Constants
+	public static final String PLAYER_SPRITE = "playersprite";
 }
