@@ -77,7 +77,7 @@ import sprite.Sprite;
  * ----------------------------------------------------------------------
  * Note from April 1st (Michael)
  * 
- * -Added 3 if (true) return true; (April Fools)
+ * - Added 3 if (true) return true; (April Fools)
  * - Removed extends Scene
  * - Added Instance Variable Scene
  * 
@@ -319,11 +319,13 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void removeTabAndChangeSelected(Tab selectedNew) {
+		
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
 	
 		setCorrectTabModifiabilityAndViewability();		
 		singleSelectionModel.select(selectedNew);
+		
 	}
 	
 	/**
@@ -336,6 +338,7 @@ public class ScreenController implements ScreenControllerInterface {
 		if (errorMessageTextField != null) {
 			myRoot.getChildren().remove(errorMessageTextField);
 		}		
+		
 	}
 	
 	private void instantiateErrorMessage(String error) {
