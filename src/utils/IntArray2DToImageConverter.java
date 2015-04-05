@@ -40,6 +40,48 @@ public class IntArray2DToImageConverter {
 		 * 
 		 * @author Ruslan
 		 */
+		int width = roundDownToIntAfterMultiplying(
+				lengthSidePixel, 
+				Int2DArraySizes.width2DIntArray(sourceArray)
+				);
+		
+		int height = roundDownToIntAfterMultiplying(
+				lengthSidePixel, 
+				Int2DArraySizes.height2DIntArray(sourceArray)
+				);
+		
+		WritableImage returnImage = new WritableImage(width, height);
+		
+		drawARGBValuesFromArrayIntoImage(sourceArray, returnImage);
+		
+		return returnImage;
+		
+	}
+	
+	private static void drawARGBValuesFromArrayIntoImage(int[][] sourceArray, WritableImage destinationImage) {
+		
+		PixelWriter pixelWriter = destinationImage.getPixelWriter();
+		
+		for (int x=0; x < destinationImage.getWidth(); x++) {
+			
+			for (int y=0; y < destinationImage.getHeight(); y++) {
+				
+				pixelWriter.setArgb(x, y, getIntARGBToDraw(sourceArray, x, y));
+				
+			}
+			
+		}
+		
+	}
+
+	private static int getIntARGBToDraw(int[][] sourceArray, int x, int y) {
+		
+		throw new IllegalStateException("unimplemented getIntARGBToDraw in IntArray2DToImageConverter");
+		
+	}
+
+	private static int roundDownToIntAfterMultiplying(double a, double b) {
+		return (int)Math.floor(a * b);
 	}
 	
 }
