@@ -1,17 +1,13 @@
 package levelPlatform.level;
 
 import gameEngine.Collision;
-import gameEngine.Transform;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
-import utils.IntArray2DToImageConverter;
 import utils.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 
 /**
  * 
@@ -132,7 +128,6 @@ public class LevelView {
         
         if(boundsSprite1.intersects(boundsSprite2)) {
             collisionHandler.handleCollide(sprite1, sprite2);
-            //TODO should we just act on sprite 1 or both sprite1 and sprite 2
         }
         
     }
