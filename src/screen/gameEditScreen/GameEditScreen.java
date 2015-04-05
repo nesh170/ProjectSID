@@ -6,6 +6,7 @@ import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -18,8 +19,10 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -27,6 +30,7 @@ import screen.Screen;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import levelPlatform.level.Level;
 /**
  * The screen where users edit a game
@@ -84,10 +88,28 @@ public class GameEditScreen extends Screen {
 		//this.setRight(makeBackButton());		
 		//this.setBottom(makePlayButton());
 		this.setCenter(makeLevelsDisplay(myLevels));		
-		this.setLeft(makeSplashScreen(mySplashScreen));
+		this.setLeft(makeSplashDisplay());
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
 	}
+	
+	private VBox makeSplashDisplay(){
+		VBox displaySplash  = new VBox();
+		displaySplash.setAlignment(Pos.CENTER);
+		Text text = new Text(this.getWidth()/5, this.getHeight()/5, "JavaFX 2.0");
+		displaySplash.setStyle("-fx-background-color: lightgrey");
+		Rectangle screen = new Rectangle(this.getWidth()/3, this.getHeight()/3, Color.WHITE);
+		displaySplash.getChildren().add(screen);
+		return displaySplash;
+	}
+	private ListView makeSplashScreen(List<SplashScreen> screen){
+		ObservableList<String> mySplash = FXCollections.observableArrayList(
+		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
+		 ListView<String> splashList = new ListView<String>(mySplash);
+		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
+		 return splashList;
+	}
+	
 	/**
 	 * display list of levels that are represented by images in parallel 
 	 * @param ObservableList<Level>
@@ -104,6 +126,7 @@ public class GameEditScreen extends Screen {
 		return s1;
 	}
 	private HBox displayLevelsInParallel(){
+		//can't add ObservableList to a HBox directly
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
 		ImageView level1 = makeTempLeveDisplayImage("images/level1_tmp.PNG");
@@ -118,12 +141,6 @@ public class GameEditScreen extends Screen {
 		level1.setFitHeight(400);
 		level1.setFitWidth(500);
 		return level1;
-	}
-	private ListView makeSplashScreen(List<SplashScreen> screen){
-		ObservableList<String> mySplash = FXCollections.observableArrayList(
-		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
-		 ListView<String> splashList = new ListView<String>(mySplash);
-		 return splashList;
 	}
 	private Button makeAddLevelButton(){
 		Button addLevel = new Button(STRING.ADD_SPLASH);
