@@ -3,7 +3,7 @@ package gameEngine.physics;
 import sprite.Sprite;
 import gameEngine.EngineMathFunctions;
 import gameEngine.Physics;
-import gameEngine.components.MotionComponent;
+import gameEngine.components.VelocityComponent;
 
 public class Gravity extends Physics {
 
@@ -15,7 +15,7 @@ public class Gravity extends Physics {
 
 	@Override
 	public void updateByPhysics() {
-		MotionComponent motionComp = (MotionComponent) mySprite.getComponentOfType("MotionComponent");
+		VelocityComponent motionComp = (VelocityComponent) mySprite.getComponentOfType("MotionComponent");
 		motionComp.accelerate(0.0, myValue + myReactionValue);
 	}
 

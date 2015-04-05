@@ -5,6 +5,7 @@ import gameEngine.Transform;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
 import utils.IntArray2DToImageConverter;
+import utils.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -89,13 +90,15 @@ public class LevelView {
     private Group renderSprite(Sprite sprite) {
     	
     	Group spriteGroup = new Group();
-    	
-    	Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-    	ImageView spriteImageView = new ImageView(spriteImage);
-        
-        spriteGroup.getChildren().add(spriteImageView);
-        sprite.emissionList().stream().forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-        
+        if (sprite.isActive()) {
+            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            ImageView spriteImageView = new ImageView(spriteImage);
+            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
+                    .transform().getPosY());
+            spriteGroup.getChildren().add(spriteImageView);
+            sprite.emissionList().stream()
+                    .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
+        }
         return spriteGroup;
         
     }
