@@ -54,6 +54,18 @@ public class STRING {
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
+	//Level Edit Screen Buttons, Menus, miscellaneous strings
+	public static final String ADD_SPRITE = "Add New Sprite";
+	public static final String PLATFORMS = "Platforms";
+	public static final String ENEMIES = "Enemies";
+	public static final String PLAYERS = "Players";
+	public static final String LEVEL_EDIT = "Level Edit Screen";
+	
+	//Sprite Edit Strings
+	public static final String SPRITE_EDIT = "Sprite Edit Screen";
+	
+	
+	
 	// Buttons
 	public static final String BUTTON_STYLE = 
 			"-fx-font: 14 georgia; -fx-text-fill: black;  "

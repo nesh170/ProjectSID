@@ -1,6 +1,7 @@
 package screen;
 
 import javafx.scene.control.Tab;
+import resources.constants.STRING;
 import screen.levelEditScreen.LevelEditScreenController;
 import screen.spriteEditScreen.SpriteEditScreen;
 import sprite.Sprite;
@@ -21,7 +22,7 @@ public class LevelEditScreenManager extends UniversalManager implements LevelEdi
 			 									parent.getTabSelectionModel().getSelectedItem(),
 			 									parent.newScreenWidth(),
 			 									parent.newScreenHeight()),
-				"Sprite Edit Screen");
+				STRING.SPRITE_EDIT);
 	}
 
 	@Override
