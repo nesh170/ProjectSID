@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,16 +25,23 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import resources.ScreenButton;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import levelPlatform.level.Level;
 /**
  * The screen where users edit a game
@@ -91,9 +99,33 @@ public class GameEditScreen extends Screen {
 		//this.setRight(makeBackButton());		
 		//this.setBottom(makePlayButton());
 		this.setCenter(makeLevelsDisplay(myLevels));		
-		this.setLeft(makeSplashScreen(mySplashScreen));
+		this.setLeft(makeSplashDisplay());
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
+		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
+	}
+	private VBox makeSplashDisplay(){
+		VBox displaySplash  = new VBox();
+		displaySplash.setAlignment(Pos.CENTER);
+		StackPane sp = new StackPane();
+
+		Text text = new Text("Splash Screen");
+		Reflection r = new Reflection();
+		r.setFraction(0.7f);		 
+		text.setEffect(r);
+		text.setFont(Font.font(null, FontWeight.BOLD, 30));
+		text.setTranslateY(-280);  //?? uncertain of how offset works but this works for now
+		displaySplash.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
+		Rectangle screen = new Rectangle(500, 400, Color.TRANSPARENT);
+		screen.setStroke(Color.GRAY);
+		
+		ImageView addsign = new ImageView(new Image("images/addsplash.png"));
+		addsign.setFitHeight(this.getHeight()*0.16);
+		addsign.setFitWidth(this.getHeight()*0.16);
+
+		sp.getChildren().addAll(text, screen, addsign);
+		displaySplash.getChildren().add(sp);
+		return displaySplash;
 	}
 	/**
 	 * display list of levels that are represented by images in parallel 
@@ -111,6 +143,7 @@ public class GameEditScreen extends Screen {
 		return s1;
 	}
 	private HBox displayLevelsInParallel(){
+		//can't add ObservableList to a HBox directly
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
 		ImageView level1 = makeTempLeveDisplayImage("images/level1_tmp.PNG");
@@ -126,6 +159,7 @@ public class GameEditScreen extends Screen {
 		level1.setFitWidth(500);
 		return level1;
 	}
+
 	private ListView makeSplashScreen(List<SplashScreen> screen){
 		ObservableList<String> mySplash = FXCollections.observableArrayList(
 		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
@@ -163,6 +197,11 @@ public class GameEditScreen extends Screen {
 		return new ArrayList(myButtons.values());
 	}
 	
+	private Button makeAddLevelButton(){
+		Button addLevel = new Button(STRING.ADD_SPLASH);
+		return addLevel;
+	}
+	
 	
 	private Object removeLevel() {
 		return null;
@@ -175,9 +214,16 @@ public class GameEditScreen extends Screen {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	private Object addSplash() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	//make dynamically change between addSplash and editSplash
+	private Button makeAddSplashButton(){
+		Button addSplash = new Button(STRING.ADD_SPLASH);
+		return addSplash;
 	}
 	private Object addLevel() {
 		// TODO Auto-generated method stub
@@ -199,20 +245,23 @@ public class GameEditScreen extends Screen {
 		back.setOnMouseClicked(e -> parent.returnToMainMenuScreen());		
 		return back;
 	}
+	
+	/**
+	 * Consider using makeFileMenu(EventHandler<ActionEvent>... fileMenuActions)
+	 * located in the abstract class screen in order to reduce duplicated code
+	 * in different screens (all screens have a file menu)
+	 * 
+	 * -Leo
+	 */
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {			
+		
 		Menu back = new Menu("Go Back");
 		//MenuItem back = new MenuItem("back");
 		//step.setOnAction(o -> loadMainMenuScreen());
 		//back.getItems().addAll(back);
-		/**
-		 * Consider using makeFileMenu(EventHandler<ActionEvent>... fileMenuActions)
-		 * located in the abstract class screen in order to reduce duplicated code
-		 * in different screens (all screens have a file menu)
-		 * 
-		 * -Leo
-		 */
-		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
+		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back, makeTrashMenu());	
+
 	}		
 
 	private Menu makeFileMenu(){
@@ -240,5 +289,12 @@ public class GameEditScreen extends Screen {
 		//	addSplash.setOnAction(o -> parent.loadSplashEditScreen(selectedSplash));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
+	}
+	private Menu makeTrashMenu(){
+		ImageView trashImage = new ImageView(new Image("images/trashicon.png"));
+		trashImage.setFitHeight(this.getHeight() *  DOUBLE.percentHeightMenuBar);
+		trashImage.setFitWidth(this.getHeight() *  DOUBLE.percentHeightMenuBar);
+		Menu trashButton = new Menu("", trashImage);
+		return trashButton;
 	}
 }

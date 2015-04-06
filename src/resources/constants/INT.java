@@ -17,7 +17,7 @@ public class INT {
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT = 50;
 	
 	//GameEdit
-	public static final int GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE = 300;
+	public static final int GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE = 160;
 
 	// Level
 	public static final int DEFAULT_LEVEL_WIDTH = 400;
