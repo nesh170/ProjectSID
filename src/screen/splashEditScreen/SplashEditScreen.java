@@ -80,30 +80,38 @@ public class SplashEditScreen extends Screen {
 		this.setRight(createAddButtons(addStartButton, addImage, addText, addAnimation));
 		this.setBottom(createSaveAndTrashButtons(save,trash));
 		this.setTop(back);
+		
 	}
 	
 	private void configureDisplayArea() {
+		
 		Rectangle displayArea = new Rectangle(INT.SPLASH_EDIT_SCREEN_DISPLAY_WIDTH, INT.SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT, Color.DIMGRAY); //obviously will change
 		this.setLeft(displayArea);
+		
 	}
 
-	private VBox createAddButtons(Button addStartButton, Button addImage,
-			Button addText, Button addAnimation) {
+	private VBox createAddButtons(Button addStartButton, Button addImage, Button addText, Button addAnimation) {
+		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING); //value will be moved somewhere else later
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage,
 				addText, addAnimation);
+		
 		return allAddButtons;
+		
 	}
 	
 	private HBox createSaveAndTrashButtons(Button save, Button trash) {
+		
 		HBox saveAndTrashButtons = new HBox(INT.SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING); //value will be moved somewhere else later
 		saveAndTrashButtons.getChildren().addAll(save, trash);
 		
 		return saveAndTrashButtons;
+		
 	}
 
 	private Button makeAddStartButton() {
+		
 		Button addStartButton = new Button(STRING.ADD_START_BUTTON);
 		setLargeButtonSize(addStartButton);
 		
@@ -114,6 +122,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeAddImageButton() {
+		
 		Button addImage = new Button(STRING.ADD_IMAGE);
 		setLargeButtonSize(addImage);
 		
@@ -124,6 +133,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeAddTextButton() {
+		
 		Button addText = new Button(STRING.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
@@ -134,6 +144,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeAddAnimationButton() {
+		
 		Button addAnimation = new Button(STRING.ADD_ANIMATION);
 		setLargeButtonSize(addAnimation);
 		
@@ -144,6 +155,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeSaveButton() {
+		
 		Button save = new Button(STRING.SAVE);
 		setSmallButtonSize(save);
 		
@@ -154,6 +166,7 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private Button makeTrashButton() {
+		
 		Button trash = new Button(STRING.TRASH);
 		setSmallButtonSize(trash);
 		
@@ -164,6 +177,7 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	private Button makeBackButton() {
+		
 		Button back = new Button(STRING.BACK);
 		setSmallButtonSize(back);
 		
