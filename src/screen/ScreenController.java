@@ -242,7 +242,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
 		createGameEditScreen(null);
-
+		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		createSplashEditScreen(null);
 		
