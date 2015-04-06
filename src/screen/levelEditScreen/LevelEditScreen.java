@@ -124,8 +124,9 @@ public class LevelEditScreen extends Screen {
 	private Menu makeAddSpriteButton() {
 		
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
-		spritePic.setFitHeight(this.getHeight() * DOUBLE.MENU_BAR_HEIGHT);
-		spritePic.setFitWidth(this.getHeight() * DOUBLE.MENU_BAR_HEIGHT);
+		
+		super.sizeMenuImageView(spritePic, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
+		
 		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
 		
 		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));

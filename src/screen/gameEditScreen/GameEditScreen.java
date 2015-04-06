@@ -314,10 +314,12 @@ public class GameEditScreen extends Screen {
 	private Menu makeTrashMenu() {
 		
 		ImageView trashImage = new ImageView(new Image(STRING.TRASH_ICON));
-		trashImage.setFitHeight(this.getHeight() *  DOUBLE.MENU_BAR_HEIGHT);
-		trashImage.setFitWidth(this.getHeight() *  DOUBLE.MENU_BAR_HEIGHT);
+		
+		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
+		
 		Menu trashButton = new Menu("", trashImage);
 		return trashButton;
 		
 	}
+	
 }
