@@ -21,9 +21,12 @@ public class SpriteEditScreen extends Screen {
 	
 	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelScreen, double width, double height) {
+	@Override
+	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
 		super(width, height);
 		initialize(parent, levelScreen);
+		Menu fileMenu = makeFileMenu();
 		
 	}
 	
@@ -34,11 +37,6 @@ public class SpriteEditScreen extends Screen {
 	
 	private void drawSpriteOnScreen(Sprite sprite) {
 		//TODO implement
-	}
-
-	@Override
-	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		Menu fileMenu = makeFileMenu();
 	}
 
 }
