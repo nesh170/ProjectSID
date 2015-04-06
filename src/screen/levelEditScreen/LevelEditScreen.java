@@ -198,25 +198,36 @@ public class LevelEditScreen extends Screen {
 			double xLocation = e.getX();
 			double yLocation = e.getY();
 			
-			SpriteImage spriteImage = spriteToAdd.spriteImage();
+			Image spriteImage = spriteToAdd.spriteImage().getImageToDisplay(levelView.getLengthSidePixel());
 			
-			if(spriteImage.hasImages()) {
-				Image image = spriteImage.convertArrayToImage();
-				ImageView imageView = new ImageView(image);
-				imageView.setOnMouseClicked(ee -> checkForDeletion(ee));
-				
-				imageView.setX(xLocation);
-				imageView.setY(yLocation);
-				
-				levelScene.getChildren().add(imageView);
-				representationMap.put(imageView, spriteToAdd);
-			}
+			ImageView imageView = new ImageView(spriteImage);
+			imageView.setOnMouseClicked(ee -> checkForDeletion(ee));
+			imageView.setOnMouseEntered(ee -> createDisplayEditOverlay());
+			imageView.setOnMouseExited(ee -> destroyDisplayEditOverlay());
+
+			imageView.setX(xLocation);
+			imageView.setY(yLocation);
+
+			levelScene.getChildren().add(imageView);
+			representationMap.put(imageView, spriteToAdd);
+			
+			level.sprites().add(spriteToAdd);
 			
 			spriteToAdd = null; //do this once sprite has been added
 		}
 		
 	}
 	
+	private void createDisplayEditOverlay() {
+		// TODO Auto-generated method stub
+	}
+
+
+	private void destroyDisplayEditOverlay() {
+		// TODO Auto-generated method stub
+	}
+
+
 	private void checkForDeletion(MouseEvent e) {
 		
 		if(deleteOnClick) {
