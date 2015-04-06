@@ -4,7 +4,11 @@ import game.Game;
 
 import java.awt.SplashScreen;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import resources.ScreenButton;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -127,21 +132,56 @@ public class GameEditScreen extends Screen {
 		 ListView<String> splashList = new ListView<String>(mySplash);
 		 return splashList;
 	}
-	private Button makeAddLevelButton(){
-		Button addSplash = new Button(STRING.ADD_SPLASH);
-		return addSplash;
+	
+	/**
+	 * This method initializes making buttons from STRING constants class for adding and editing
+	 * levels and splash screens.
+	 * Initializes event handlers for buttons on the screen.
+	 * @author Anika
+	 */
+	private List<ScreenButton> createSplashAndLevelButtons() {
+
+		System.out.println("in method");
+		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
+		String[] buttonNames = (String[]) buttonMap.values().toArray();
+		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();
+		
+		for (int i = 0; i < buttonNames.length; i++){
+			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
+			System.out.println(buttonNames[i]);
+			myButtons.put(buttonNames[i], myB);
+		}	
+		
+		if (myButtons.containsKey("ADD_LEVEL")) {System.out.println("hi");}
+		
+		myButtons.get("ADD_LEVEL").setOnMouseClicked(e -> addLevel());
+		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> addSplash());	
+		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> editLevel());
+		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> editSplash());
+		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> removeLevel());
+		
+		return new ArrayList(myButtons.values());
 	}
-	private Button makeEditLevelButton(){
-		Button editLevel = new Button(STRING.EDIT_LEVEL);
-		return editLevel;
+	
+	
+	private Object removeLevel() {
+		return null;
 	}
-	private Button makeAddSplashButton(){
-		Button addSplash = new Button(STRING.ADD_SPLASH);
-		return addSplash;
+	private Object editSplash() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	private Button makeEditSplashButton(){
-		Button editSplash = new Button(STRING.EDIT_SPLASH);
-		return editSplash;
+	private Object editLevel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	private Object addSplash() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	private Object addLevel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	private Button makeTrashButton(){
 		Button trash = new Button(STRING.TRASH);
@@ -174,26 +214,7 @@ public class GameEditScreen extends Screen {
 		 */
 		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
 	}		
-	/*
-	 * This method initializes making buttons from the properties files labels.
-	 * Initializes event handlers for buttons on the screen
-	 * @author Anika
-	private void createScreenButtons() {
-		// Creates buttons that are put on the screen
-		for (int i = 0; i < NUM_BUTTONS; i++){
-			ScreenButton myB = new ScreenButton(myButtonLabels.getString(myScreenButtonsNames[i]), BUTTON_STYLE);
-			myScreenButtons[i] = myB;
-		//	hbox.getChildren().add(myB); TODO: add to screen
-		}	
-		myScreenButtons[SAVE_BUTTON].setOnMouseClicked(e -> saveLevel());
-		myScreenButtons[PLAY_BUTTON].setOnMouseClicked(e -> playGame());
-		myScreenButtons[REMOVE_SPLASH_BUTTON].setOnMouseClicked(e -> trashSplashScreen());
-		myScreenButtons[REMOVE_LEVEL_BUTTON].setOnMouseClicked(e -> removeLevel());
 
-		myScreenButtons[ADD_LEVEL_BUTTON].setOnMouseClicked(e -> addLevel());
-		myScreenButtons[ADD_SPLASH_BUTTON].setOnMouseClicked(e -> addSplash());			
-	}
-**/
 	private Menu makeFileMenu(){
 		Menu fileMenu = new Menu("File");
 		MenuItem save = new MenuItem("Save");
