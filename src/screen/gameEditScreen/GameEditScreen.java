@@ -25,6 +25,8 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -147,8 +149,7 @@ public class GameEditScreen extends Screen {
 		
 	}
 	
-	private Rectangle makeRectangularShape() {
-		
+	private Rectangle makeRectangularShape() {		
 		Rectangle screen = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT, Color.TRANSPARENT);
 		screen.setStroke(Color.GRAY);
 		return screen;
@@ -158,10 +159,10 @@ public class GameEditScreen extends Screen {
 	private  ImageView makeAddSign() {
 		
 		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
-		addsign.setFitHeight(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
-		addsign.setFitWidth(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
-		return addsign;
-		
+		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
+		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
+		addsign.setOnMouseClicked(e -> controller.loadSplashEditScreen());
+		return addsign;		
 	}
 	
 	/**
@@ -177,7 +178,6 @@ public class GameEditScreen extends Screen {
 		s1.setPannable(true);
 		HBox levelView = displayLevelsInParallel();
 		s1.setContent(levelView);
-		System.out.println("The bounds of the box is" + s1.getViewportBounds());
 		return s1;
 		
 	}
@@ -188,11 +188,26 @@ public class GameEditScreen extends Screen {
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
 		ImageView level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //temp string path
+		level1.setOnMouseClicked(handleDouleClick());
 		ImageView level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
+		level2.setOnMouseClicked(handleDouleClick());
 		ImageView level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
 		levelView.getChildren().addAll(level1, level2, level3);
-		return levelView;
-		
+		level3.setOnMouseClicked(handleDouleClick());
+		return levelView;		
+	}
+	
+	EventHandler<MouseEvent> handleDouleClick(){
+		EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() { //double Click to edit a screen
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		            	throw new IllegalStateException("unimplemented loadEditLevelScreen");
+		            }
+		        }
+		    }
+		};
+		return handler;
 	}
 	
 	//temporary methods to display level Image
@@ -231,9 +246,10 @@ public class GameEditScreen extends Screen {
 		
 	}
 
-	private Button makeTrashButton(){
-		
+	private Button makeTrashButton(){		
 		Button trash = new Button(STRING.TRASH);
+		ImageView trashButton = new ImageView(new Image(STRING.TRASH_BUTTON)); 
+		//trashButton.seton
 		return trash;
 		
 	}
