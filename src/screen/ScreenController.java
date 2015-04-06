@@ -247,27 +247,29 @@ public class ScreenController implements ScreenDisplayingInterface {
 	}
 	
 	private void createInitialMainMenuScreen() {
-		addTabWithScreenWithStringIdentifier(
+		
+		addTabWithScreenWithStringIndentifier(
 				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
 		
-		addTabWithScreenWithStringIdentifier(
+		addTabWithScreenWithStringIndentifier(
 				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
-		addTabWithScreenWithStringIdentifier(
+		addTabWithScreenWithStringIndentifier(
 				new GameEditScreen(gameEditScreenManager, newScreenWidth, newScreenHeight),
 				"Edit Game");
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		addTabWithScreenWithStringIdentifier(
+		addTabWithScreenWithStringIndentifier(
 				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
-		addTabWithScreenWithStringIdentifier(
-				new LevelEditScreen(levelEditScreenManager,new Tab()
-				,newScreenWidth,newScreenHeight),"leveleditScreen");
+		addTabWithScreenWithStringIndentifier(
+				new LevelEditScreen(levelEditScreenManager, new Tab(), newScreenWidth, newScreenHeight),
+				"leveleditScreen"
+				);
 				
 	}
 	
@@ -297,7 +299,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	 * @param Screen (to add)
 	 * @param String (title)
 	 */
-	public void addTabWithScreenWithStringIdentifier(Screen screen, String string) {
+	public void addTabWithScreenWithStringIndentifier(Screen screen, String string) {
 
 		Tab tab = new Tab();
 
@@ -400,5 +402,4 @@ public class ScreenController implements ScreenDisplayingInterface {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
 
-	
 }
