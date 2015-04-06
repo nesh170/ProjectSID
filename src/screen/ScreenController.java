@@ -251,31 +251,20 @@ public class ScreenController implements ScreenDisplayingInterface {
 		root.getChildren().add(tabPane);
 	}
 	
-	private void createInitialMainMenuScreen() {
+	private void createInitialScreens() {
 		
-		addTabWithScreenWithStringIndentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
-				"Main Menu");
-		
-		addTabWithScreenWithStringIndentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
-				"Main Menu");
+		createMainMenuScreen();
+
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
-		addTabWithScreenWithStringIndentifier(
-				new GameEditScreen(gameEditScreenManager, newScreenWidth, newScreenHeight),
-				"Edit Game");
+		createGameEditScreen(null);
+
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		addTabWithScreenWithStringIndentifier(
-				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
-				"Splash Edit Screen");
+		createSplashEditScreen(null);
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
-		addTabWithScreenWithStringIndentifier(
-				new LevelEditScreen(levelEditScreenManager, new Tab(), newScreenWidth, newScreenHeight),
-				"leveleditScreen"
-				);
-				
+		createLevelEditScreen(null);
+
 	}
 	
 	
