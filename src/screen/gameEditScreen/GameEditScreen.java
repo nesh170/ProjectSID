@@ -112,7 +112,7 @@ public class GameEditScreen extends Screen {
 		Rectangle screen = new Rectangle(500, 400, Color.TRANSPARENT);
 		screen.setStroke(Color.GRAY);
 		
-		ImageView addsign = new ImageView(new Image("images/addsplash3.png"));
+		ImageView addsign = new ImageView(new Image("images/addsplash.png"));
 		addsign.setFitHeight(this.getHeight()*0.16);
 		addsign.setFitWidth(this.getHeight()*0.16);
 
