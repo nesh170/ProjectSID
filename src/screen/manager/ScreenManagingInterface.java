@@ -1,4 +1,4 @@
-package screen;
+package screen.manager;
 
 import java.io.File;
 import javafx.stage.Stage;
