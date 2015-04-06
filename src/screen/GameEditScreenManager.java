@@ -11,11 +11,25 @@ import screen.gameEditScreen.GameEditScreenController;
 // Inner class for handling GameEditScreenController methods
 public class GameEditScreenManager extends UniversalManager implements GameEditScreenController {
 
-	private ScreenController parent;
+	// Static Variables
 	
-	public GameEditScreenManager(ScreenController screenController) {
-		this.parent = screenController;
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public GameEditScreenManager(ScreenController parent) {
+		
+		super(parent);
+		
 	}
+	
 	@Override
 	public void returnToMainMenuScreen() {
 		throw new IllegalStateException("unimplemented returnToMainMenuScreen in GameEditScreenController");
