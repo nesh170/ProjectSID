@@ -434,7 +434,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 
 		return addTabWithScreenWithStringIdentifier(
 				new LevelEditScreen(levelEditScreenManager, newScreenWidth(), newScreenHeight(), level),
-				STRING.GAME_EDIT
+				STRING.LEVEL_EDIT
 				);
 	
 	}
@@ -454,7 +454,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 		return addTabWithScreenWithStringIdentifier(
 				new GamePlayScreen(gamePlayScreenManager, newScreenWidth(), newScreenHeight(), level),
-				STRING.GAME_EDIT
+				STRING.GAME_PLAY
 				);
 		
 	}

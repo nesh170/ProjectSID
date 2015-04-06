@@ -62,7 +62,6 @@ public class STRING {
 	public static final String SPRITE_EDIT = "Sprite Edit Screen";
 	
 	
-	
 	// Buttons
 	public static final String BUTTON_STYLE = 
 			"-fx-font: 14 georgia; -fx-text-fill: black;  "
@@ -84,6 +83,11 @@ public class STRING {
     	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
     }
 	
+    
+    // GamePlayScren
+    public static final String GAME_PLAY = "Game Play";
+    
+    
 	//Game Engine Constants
 	public static final String PLAYER_SPRITE = "playersprite";
 }
