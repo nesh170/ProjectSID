@@ -30,8 +30,7 @@ public class LevelView extends ScrollPane {
     // Layouts
     private double lengthSidePixel;
     // Playing
-    private Collision collisionHandler;
-    
+    private Collision collisionHandler;    
     
     
     // Getters & Setters
@@ -98,7 +97,7 @@ public class LevelView extends ScrollPane {
         return levelGroup;
         
     }
-    
+        
     /**
      * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
      * @param sprite
@@ -135,7 +134,6 @@ public class LevelView extends ScrollPane {
 
     private void configureMouseHandlersOnSpriteImageView(ImageView spriteImageView) {
 
-    	spriteImageView.setOnMouseClicked(ee -> checkForDeletion(ee));
     	spriteImageView.setOnMouseEntered(ee -> createDisplayEditOverlay());
     	spriteImageView.setOnMouseExited(ee -> destroyDisplayEditOverlay());
 
@@ -151,21 +149,6 @@ public class LevelView extends ScrollPane {
     }
 
 
-    /**
-     * TODO: Display an overlay box that has an Edit button and a Delete button
-     */
-    private void checkForDeletion(MouseEvent e) {
-
-//    	if (deleteOnClick) {
-//
-//			ImageView imageToDelete = (ImageView) e.getSource();
-//			levelScene.getChildren().remove(imageToDelete);
-//			Sprite spriteToDelete = representationMap.get(imageToDelete);
-//			level.sprites().remove(spriteToDelete);
-//			
-//		}
-		
-	}
     
     /**
      * Checks for collision with each node
