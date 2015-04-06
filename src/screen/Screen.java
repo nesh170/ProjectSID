@@ -57,7 +57,7 @@ public abstract class Screen extends BorderPane {
 	public Screen(double width, double height) {
 		
 		configureWidthAndHeight(width, height);
-		configureMenuBar();
+		configureMenuBar(width);
 		configureBackgroundColor();
 		configureViewableArea(width, height);
 		
@@ -65,15 +65,29 @@ public abstract class Screen extends BorderPane {
 	
 	private void configureWidthAndHeight(double width, double height) {
 		
-		this.setWidth(width);
-		this.setHeight(height);
+		setMinMaxWidthOnNode(this, width);
+		setMinMaxHeightOnNode(this, height);
+		
+	}
+	
+	private void setMinMaxWidthOnNode(Node node, double width) {
+		
+		this.setMinWidth(width);
+		this.setMaxWidth(width);
+		
+	}
+	
+	private void setMinMaxHeightOnNode(Node node, double height) {
+		
+		this.setMinHeight(height);
+		this.setMaxHeight(height);
 		
 	}
 	
 	/**
 	 * passes MenuBar to abstract subclass method
 	 */
-	private void configureMenuBar() {
+	private void configureMenuBar(double width) {
 		
 		VBox menuBarWrapper = instantiateMenuBar();
 		addMenuItemsToMenuBar(menuBar);				// passes MenuBar to abstract method, never exposes MenuBar instance variable
