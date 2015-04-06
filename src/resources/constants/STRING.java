@@ -37,20 +37,14 @@ public class STRING {
 	public static final String ADD_TEXT = "Add Text";
 	public static final String ADD_ANIMATION = "Add Animation";
 	
+	//GameEdit Screen
+	public static final String ADD_SIGN ="images/addsplash.png";
+	public static final String TRASH_ICON = "images/trashicon.png";
+	public static final String LEVEL1IMAGE = "images/level2_tmp.PNG";
+	public static final String LEVEL2IMAGE = "images/level2_tmp.PNG";
+	public static final String SPRITEIMAGE = "images/sprite.jpg";
+	public static final String SPLASH_SCREEN = "Splash Screen";
 	
-			//new String[]{"Add Level", "Edit Level", "Add Splash", "Edit Splash", "Remove Level"};
-	public static final Map<String, String> LEVELS_SPLASH_MAP;
-    static
-    {
-    	LEVELS_SPLASH_MAP = new HashMap<String, String>();
-    	LEVELS_SPLASH_MAP.put("ADD_LEVEL", "Add Level");
-    	LEVELS_SPLASH_MAP.put("EDIT_LEVEL", "Edit Level");
-    	LEVELS_SPLASH_MAP.put("ADD_SPLASH", "Add Splash");
-    	LEVELS_SPLASH_MAP.put("EDIT_SPLASH", "Edit Splash");
-    	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
-    }
-	
-
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
@@ -60,6 +54,7 @@ public class STRING {
 	public static final String ENEMIES = "Enemies";
 	public static final String PLAYERS = "Players";
 	public static final String LEVEL_EDIT = "Level Edit Screen";
+	
 	
 	//Sprite Edit Strings
 	public static final String SPRITE_EDIT = "Sprite Edit Screen";
@@ -73,6 +68,19 @@ public class STRING {
 			+ "-fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
 	public static final String PRESSED_BUTTON_CSS = "-fx-font: 14 georgia; -fx-text-fill: #CC0000;  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) ,.5, 0.0 , 0 , 1 ); -fx-border-width: 2 2 2 2; -fx-border-color: white; -fx-background-color: black;";
 	public static final String RELEASED_BUTTON_CSS = "-fx-font: 14 georgia; -fx-text-fill: black;  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
+	
+	
+	//new String[]{"Add Level", "Edit Level", "Add Splash", "Edit Splash", "Remove Level"};
+	public static final Map<String, String> LEVELS_SPLASH_MAP;
+    static
+    {
+    	LEVELS_SPLASH_MAP = new HashMap<String, String>();
+    	LEVELS_SPLASH_MAP.put("ADD_LEVEL", "Add Level");
+    	LEVELS_SPLASH_MAP.put("EDIT_LEVEL", "Edit Level");
+    	LEVELS_SPLASH_MAP.put("ADD_SPLASH", "Add Splash");
+    	LEVELS_SPLASH_MAP.put("EDIT_SPLASH", "Edit Splash");
+    	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
+    }
 	
 	//Game Engine Constants
 	public static final String PLAYER_SPRITE = "playersprite";

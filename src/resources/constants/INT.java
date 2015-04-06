@@ -18,9 +18,12 @@ public class INT {
 	
 	//GameEdit
 	public static final int GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE = 160;
-
+	public static final int DEFAULT_LEVEL_DISPLAY_WIDTH = 500;
+	public static final int DEFAULT_LEVEL_DISPLAY_HEIGHT = 400;		
+	
 	// Level
 	public static final int DEFAULT_LEVEL_WIDTH = 400;
 	public static final int DEFAULT_LEVEL_HEIGHT = 150;
+	
 	
 }
