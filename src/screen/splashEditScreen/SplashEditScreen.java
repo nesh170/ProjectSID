@@ -24,7 +24,8 @@ public class SplashEditScreen extends Screen {
 
 
 	// Instance variables
-	SplashEditScreenController parent;
+	private SplashEditScreenController parent;
+	private SplashScreen splashScreen;
 
 
 	// Getters & Setters
@@ -32,11 +33,12 @@ public class SplashEditScreen extends Screen {
 
 	// Constructor & Helpers
 
-	public SplashEditScreen(SplashEditScreenController parent, double width, double height) {
+	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
 
 		super(width, height);
 		
 		configureParent(parent);
+		configureSplashScreen(splashScreen);
 		configureButtons();
 		configureDisplayArea();
 		
@@ -60,6 +62,10 @@ public class SplashEditScreen extends Screen {
 	
 	private void configureParent(SplashEditScreenController parent) {
 		this.parent = parent;
+	}
+	
+	private void configureSplashScreen(SplashScreen splashScreen) {
+		this.splashScreen = splashScreen;
 	}
 	
 	private void configureButtons() {
