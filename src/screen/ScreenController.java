@@ -154,6 +154,9 @@ public class ScreenController implements ScreenDisplayingInterface {
 		return scene;
 	}
 	
+	public void setCursor(ImageCursor imageCursor) {
+		stage.getScene().setCursor(imageCursor);
+	}
 	
 	// Constructors & Helpers
 	public ScreenController(Stage stage, double width, double height) {
