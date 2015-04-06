@@ -9,7 +9,7 @@ import screen.gameEditScreen.GameEditScreenController;
  *
  */
 // Inner class for handling GameEditScreenController methods
-class GameEditScreenManager implements GameEditScreenController {
+public class GameEditScreenManager extends UniversalManager implements GameEditScreenController {
 
 	private ScreenController parent;
 	
