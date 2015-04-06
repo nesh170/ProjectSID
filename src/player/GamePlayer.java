@@ -13,6 +13,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -35,7 +37,8 @@ public class GamePlayer implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
-
+	//private final static File MARIO_PATH 
+	
 	private GamePlayerView myView;
 	private GameEngine myEngine;
 	private Scene myScene;
@@ -119,6 +122,19 @@ public class GamePlayer implements GamePlayerInterface {
 		return fileMenu;
 	}
 
+	private Menu buildGamesMenu() {
+		Menu gamesMenu = new Menu("Games");
+		MenuItem marioItem = new MenuItem("Mario");
+		marioItem.setOnAction(event -> {
+			Text prompt = new Text("Are you sure you want to load a new Game? "
+					+ "Save progress before proceeding.");
+			Stage choose = chooserConfirmationDialog(prompt);
+			choose.show();
+		});
+		gamesMenu.getItems().addAll(marioItem);
+		return gamesMenu;
+	}
+	
 	// implementation still needed to connect to actual file chooser
 	private Stage buildGameChooser(Stage s) {
 		Stage gameChooser = new Stage();
@@ -135,12 +151,29 @@ public class GamePlayer implements GamePlayerInterface {
 		return gameChooser;
 	}
 
+	private Stage chooserConfirmationDialog(Text text) {
+		Stage dialogStage = new Stage();
+		dialogStage.initModality(Modality.APPLICATION_MODAL);
+		VBox vbox = new VBox(25);
+		vbox.setAlignment(Pos.TOP_CENTER);
+		HBox buttonBox = new HBox(25);
+		Button yes = new Button("Yes");
+		yes.setOnAction(event -> loadNewGame());
+		Button no = new Button("No");
+		no.setOnAction(event -> dialogStage.close());
+		buttonBox.getChildren().addAll(yes, no);
+		buttonBox.setAlignment(Pos.BOTTOM_CENTER);
+		vbox.getChildren().addAll(text, buttonBox);
+		Scene dialogScene = new Scene(vbox, 500, 100);
+		dialogStage.setScene(dialogScene);
+		return dialogStage;
+	}
+	
 	public MenuBar createPlayerMenu() {
 		MenuBar menuBar = new MenuBar();
-		Menu menuEdit = new Menu("Edit");
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().add(buildFileMenu());
-		menuBar.getMenus().add(menuEdit);
+		menuBar.getMenus().add(buildGamesMenu());
 		menuBar.getMenus().add(menuView);
 		return menuBar;
 	}
@@ -220,6 +253,8 @@ public class GamePlayer implements GamePlayerInterface {
 		return myTimeline.getStatus() == Animation.Status.RUNNING;
 	}
 
+	
+	
 	@Override
 	public int getHighScore() {
 		// get high score from engine
