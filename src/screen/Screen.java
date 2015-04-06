@@ -30,15 +30,22 @@ import javafx.scene.paint.Color;
 public abstract class Screen extends BorderPane {
 
 	// Instance variables
-	// Sizing
-//	private double width, height;
-	// JavaFX
+	// JavaFX (External)
+	private Tab parentTab;
+	// JavaFX (Internal)
 	private MenuBar menuBar;
 	
 	
 	// Getters & Setters
-	
-	
+	/**
+	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
+	 * If you'd like your Screen subclass to support closing itself, this is where to go
+	 * 
+	 * @param parentTab
+	 */
+	public void setParentTab(Tab parentTab) {
+		this.parentTab = parentTab;
+	}
 	
 	// Constructor & Helpers
 	/**
