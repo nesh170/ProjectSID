@@ -235,8 +235,10 @@ public class ScreenController implements ScreenControllerInterface {
 				new SplashEditScreen(splashEditScreenManager, newScreenWidth, newScreenHeight),
 				"Splash Edit Screen");
 		
-		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
-		//so there will be no tab to return to, and there should be an error
+		/*addTabWithScreenWithStringIdentifier(
+				new LevelEditScreen(new LevelEditScreenManager(), newScreenWidth, newScreenHeight),
+				"Level Edit Screen");
+	*/
 		addTabWithScreenWithStringIdentifier(
 				new LevelEditScreen(levelEditScreenManager,new Tab()
 				,newScreenWidth,newScreenHeight),"leveleditScreen");

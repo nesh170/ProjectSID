@@ -37,7 +37,6 @@ import levelPlatform.level.Level;
  * 
  * TODO by ANIKA: loop creation of buttons - static array in resources of string names
  */
-//always working on the "stuff" in parent's parent: work on BoarderPane directly (ex: setLeft, setRight)
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
 	// Instance variables
@@ -59,12 +58,13 @@ public class GameEditScreen extends Screen {
 		configureParent(controller);
 		//other configurations
 	}
+	
 	/**
 	 * Creates new GameEditScreen
 	 */
 	public GameEditScreen( GameEditScreenController controller, double width, double height) {
 		super(width, height);
-		myGame = new Game(); //initialize a game 
+		myGame = new Game(); //inatilize a game 
 		configureParent(controller);
 		configureButtons();
 	}
@@ -76,7 +76,8 @@ public class GameEditScreen extends Screen {
 	 */
 	public void setMyLevel(int index, Level level){
 		myLevels.add(index, level);
-	}	
+	}
+	
 	private void configureParent(GameEditScreenController controller) {
 		this.parent = controller;	
 	}	
@@ -88,6 +89,7 @@ public class GameEditScreen extends Screen {
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
 	}
+	
 	/**
 	 * display list of levels that are represented by images in parallel 
 	 * @param ObservableList<Level>
@@ -180,7 +182,6 @@ public class GameEditScreen extends Screen {
 		myScreenButtons[PLAY_BUTTON].setOnMouseClicked(e -> playGame());
 		myScreenButtons[REMOVE_SPLASH_BUTTON].setOnMouseClicked(e -> trashSplashScreen());
 		myScreenButtons[REMOVE_LEVEL_BUTTON].setOnMouseClicked(e -> removeLevel());
-
 		myScreenButtons[ADD_LEVEL_BUTTON].setOnMouseClicked(e -> addLevel());
 		myScreenButtons[ADD_SPLASH_BUTTON].setOnMouseClicked(e -> addSplash());			
 	}
