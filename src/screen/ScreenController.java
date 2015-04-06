@@ -274,6 +274,13 @@ public class ScreenController implements ScreenDisplayingInterface {
 	
 	// All other instance methods
 	// Public
+	/**
+	 * Closes the Application.
+	 */
+	public void closeApplication() {
+		stage.close();
+	}
+	
 	@Override
 	public void displayError(String error) {
 		
@@ -387,5 +394,11 @@ public class ScreenController implements ScreenDisplayingInterface {
 	private void addErrorMessage() {
 		root.getChildren().add(errorMessageTextField);
 	}
+
+	
+	public File getFileUsingFileChooser(FileChooser fileChooser) {
+		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
+	}
+
 	
 }
