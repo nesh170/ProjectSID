@@ -4,7 +4,7 @@ import java.io.File;
 import javafx.stage.Stage;
 
 
-public interface UniversalController {
+public interface ScreenManagingInterface {
 	
 	public void handleError(String message);
 	
