@@ -178,9 +178,9 @@ public class ScreenController implements ScreenDisplayingInterface {
 	
 	private void configureControllers(Stage stage) {
 		
-		mainMenuScreenManager = new MainMenuScreenManager(this, stage);
+		mainMenuScreenManager = new MainMenuScreenManager(this);
 		gameEditScreenManager = new GameEditScreenManager(this);
-		splashEditScreenManager = new SplashEditScreenManager(this, stage);
+		splashEditScreenManager = new SplashEditScreenManager(this);
 		levelEditScreenManager = new LevelEditScreenManager(this);
 		spriteEditScreenManager = new SpriteEditScreenManager(this);
 		gamePlayScreenManager = new GamePlayScreenManager(this);
