@@ -3,6 +3,7 @@ package screen.gamePlayScreen;
 import gameEngine.GameEngine;
 import player.GamePlayer;
 import javafx.scene.control.MenuBar;
+import levelPlatform.level.Level;
 import screen.Screen;
 
 public class GamePlayScreen extends Screen {

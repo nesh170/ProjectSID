@@ -1,4 +1,6 @@
 package screen;
+import game.Game;
+
 import java.io.File;
 
 import javax.imageio.ImageIO;
@@ -23,10 +25,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import levelPlatform.level.Level;
+import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
 import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
+import screen.gamePlayScreen.GamePlayScreen;
 import screen.gamePlayScreen.GamePlayScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.levelEditScreen.LevelEditScreenController;

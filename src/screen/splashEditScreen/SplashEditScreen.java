@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;

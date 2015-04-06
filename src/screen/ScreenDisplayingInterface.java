@@ -1,9 +1,14 @@
 package screen;
 
+import game.Game;
 import screen.manager.ScreenManager;
+import sprite.Sprite;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
 import javafx.stage.Stage;
+import levelPlatform.level.Level;
+import levelPlatform.splashScreen.SplashScreen;
 
 /**
  * 
