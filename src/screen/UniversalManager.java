@@ -51,6 +51,11 @@ public abstract class UniversalManager implements UniversalController {
 		throw new IllegalStateException("Unimplemented handleSound method");
 		
 	}
+
+	@Override
+	public void closeApplication(Stage stage) {
+		stage.close();
+	}
 	
 	// Private
 	
