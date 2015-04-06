@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenController;
 
 /**
  * The scene that contains pops up when the Authoring Environment 

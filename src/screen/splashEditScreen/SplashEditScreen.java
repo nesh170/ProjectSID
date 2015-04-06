@@ -11,6 +11,7 @@ import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenController;
 
 /**
 /* Screen to create a splash screen

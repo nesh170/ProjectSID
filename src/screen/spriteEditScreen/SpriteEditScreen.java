@@ -4,6 +4,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import screen.Screen;
+import screen.ScreenController;
 import sprite.Sprite;
 
 public class SpriteEditScreen extends Screen {

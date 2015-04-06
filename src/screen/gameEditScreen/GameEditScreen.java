@@ -35,6 +35,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;

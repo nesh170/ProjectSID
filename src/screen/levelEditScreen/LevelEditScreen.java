@@ -33,6 +33,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenController;
 import screen.gameEditScreen.GameEditScreen;
 import sprite.Sprite;
 import sprite.SpriteImage;
