@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
  * This class represents the frontend of the levels. It also Handles the collisions
  *
  */
-public class LevelView {
+public class LevelView extends ScrollPane {
     
 	// Static Variables
 
