@@ -34,7 +34,7 @@ public abstract class Screen extends BorderPane {
 	private Tab parentTab;
 	// JavaFX (Internal)
 	private MenuBar menuBar;
-	
+	private BorderPane viewableArea;
 	
 	// Getters & Setters
 	/**
@@ -59,6 +59,7 @@ public abstract class Screen extends BorderPane {
 		configureWidthAndHeight(width, height);
 		configureMenuBar();
 		configureBackgroundColor();
+		configureViewableArea(width, height);
 		
 	}
 	
@@ -123,9 +124,17 @@ public abstract class Screen extends BorderPane {
 		this.setStyle(STRING.FX_BACKGROUND_COLOR_PREDICATE+STRING.DEFAULT_FX_BACKGROUND_COLOR);
 	}
 	
+	private void configureViewableArea(double width, double height) {
+		
+		this.viewableArea = new BorderPane();
+		this.viewableArea.setPrefSize(width, height - DOUBLE.MENU_BAR_HEIGHT);
+		this.setCenter(viewableArea);
+		
+	}
+	
 	// All other instance methods
 	protected void add(Node node) {
-		this.getChildren().add(node);
+		this.viewableArea.getChildren().add(node);
 	}
 	
 	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
