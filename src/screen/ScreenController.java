@@ -177,7 +177,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 		configureTabPane();
 		
-		createInitialMainMenuScreen();
+		createInitialScreens();
 	
 	}
 	
