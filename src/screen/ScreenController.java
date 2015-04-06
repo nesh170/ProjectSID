@@ -292,21 +292,24 @@ public class ScreenController implements ScreenDisplayingInterface {
 	 * 
 	 * @param Screen (to add)
 	 * @param String (title)
+	 * @return Tab (if you'd like your screen to support going to another Tab)
 	 */
-	public void addTabWithScreenWithStringIndentifier(Screen screen, String string) {
+	public Tab addTabWithScreenWithStringIdentifier(Screen screen, String string) {
 
-		Tab tab = new Tab();
+		Tab returnTab = new Tab();
 
-		tab.setText(string);
-		tab.setId(string);
+		returnTab.setText(string);
+		returnTab.setId(string);
 		
-		tab.setContent(screen);
-		tab.onClosedProperty().set(e -> setCorrectTabModifiabilityAndViewability());
+		returnTab.setContent(screen);
+		returnTab.onClosedProperty().set(e -> setCorrectTabModifiabilityAndViewability());
 
-		tabPane.getTabs().add(tab);
+		tabPane.getTabs().add(returnTab);
 		
 		setCorrectTabModifiabilityAndViewability();
 
+		return returnTab;
+		
 	}
 	
 	public SingleSelectionModel<Tab> getTabSelectionModel() {
