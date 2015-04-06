@@ -8,12 +8,21 @@ import screen.Screen;
 public class GamePlayScreen extends Screen {
 
 	private GamePlayer myPlayer;
+	private GamePlayScreenController gamePlayScreenController;
 	
 	public GamePlayScreen(double width, double height) {
 		super(width, height);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
 		//also every GamePlayer must be containted within a gamePlayer screen
 		myPlayer = new GamePlayer(width, height);		
+	}
+	
+	public GamePlayScreen(GamePlayScreenController gamePlayScreenController, double width, double height) {
+		super(width, height);
+		//maybe change? adding creating GamePlayer here so screen can get MenuBar
+		//also every GamePlayer must be containted within a gamePlayer screen
+		myPlayer = new GamePlayer(width, height);	
+		this.gamePlayScreenController = gamePlayScreenController;
 	}
 
 	//GamePlayer specific menuBar
