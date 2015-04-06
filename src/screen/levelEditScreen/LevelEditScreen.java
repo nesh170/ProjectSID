@@ -81,9 +81,9 @@ public class LevelEditScreen extends Screen {
 	 * @param width
 	 * @param height
 	 */
-	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height) {
+	public LevelEditScreen(LevelEditScreenController parent, double width, double height) {
 		
-		this(parent, gameScreen, width, height, new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT));
+		this(parent, width, height, new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT));
 		
 	}
 	
@@ -100,11 +100,13 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 * @param level
 	 */
-	public LevelEditScreen(LevelEditScreenController parent, Tab gameScreen, double width, double height, Level level) {
+	public LevelEditScreen(LevelEditScreenController parent, double width, double height, Level level) {
 		
 		super(width,height);
+		configureParent(parent);
+		configureStyle();
+		configureLevelScene();
 		setUpLevelSceneFromLevel(level);
-		initialize(parent, gameScreen);
 
 	}
 	
@@ -124,8 +126,8 @@ public class LevelEditScreen extends Screen {
 	private Menu makeAddSpriteButton() {
 		
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
-		spritePic.setFitHeight(this.getHeight() * DOUBLE.percentHeightMenuBar);
-		spritePic.setFitWidth(this.getHeight() * DOUBLE.percentHeightMenuBar);
+		spritePic.setFitHeight(this.getHeight() * DOUBLE.MENU_BAR_HEIGHT);
+		spritePic.setFitWidth(this.getHeight() * DOUBLE.MENU_BAR_HEIGHT);
 		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
 		
 		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));
@@ -143,17 +145,22 @@ public class LevelEditScreen extends Screen {
 		representationMap = new HashMap<>();
 	}
 	
-	private void initialize(LevelEditScreenController parent, Tab gameScreen) {
+	private void configureParent(LevelEditScreenController parent) {
 		
 		this.parent = parent;
-		this.currentGameScreen = gameScreen;
-		this.levelScene.setStyle("-fx-background-color: lightgrey");
-		this.setCenter(levelScene);
+		
 		makeSpritesInLevelTab();
 		makeButtonsTab();
 		
 	}
 	
+	private void configureStyle() {
+		this.levelScene.setStyle("-fx-background-color: lightgrey");
+	}
+	
+	private void configureLevelScene() {
+		this.setCenter(levelScene);
+	}
 	
 	private void makeSpritesInLevelTab() {
 		
