@@ -51,7 +51,6 @@ public class LevelEditScreen extends Screen {
 	// Instance Variables
 	private Level level;
 	private LevelView levelView;
-	private Group levelScene;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
 	
@@ -105,9 +104,7 @@ public class LevelEditScreen extends Screen {
 		
 		super(width,height);
 		configureParent(parent);
-		configureStyle();
-		configureLevelScene();
-		setUpLevelSceneFromLevel(level);
+		setUpLevelViewFromLevel(level);
 
 	}
 	
@@ -136,16 +133,6 @@ public class LevelEditScreen extends Screen {
 		
 	}
 	
-	private void setUpLevelSceneFromLevel(Level level) {
-		this.level = level;
-		this.levelView = new LevelView(level);
-		
-		levelScene = levelView.renderLevel();
-		
-		this.levelScene.setOnMouseReleased(e -> addSpriteToLocation(e));
-		representationMap = new HashMap<>();
-	}
-	
 	private void configureParent(LevelEditScreenController parent) {
 		
 		this.parent = parent;
@@ -155,12 +142,17 @@ public class LevelEditScreen extends Screen {
 		
 	}
 	
-	private void configureStyle() {
-		this.levelScene.setStyle("-fx-background-color: lightgrey");
-	}
-	
-	private void configureLevelScene() {
-		this.setCenter(levelScene);
+	private void setUpLevelViewFromLevel(Level level) {
+		
+		Level levelToUse = level;
+		
+		if (levelToUse == null) {
+			levelToUse = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+		}
+		
+		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
+		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
+		
 	}
 	
 	private void makeSpritesInLevelTab() {
