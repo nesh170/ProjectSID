@@ -98,40 +98,53 @@ public class GameEditScreen extends Screen {
 	private void configureButtons() {		
 		//this.setRight(makeBackButton());		
 		//this.setBottom(makePlayButton());
-		this.setCenter(makeLevelsDisplay(myLevels));		
-		this.setLeft(makeSplashDisplay());
+		this.setCenter(DisplayLevels(myLevels));		
+		this.setLeft(DisplaySplash());
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
 		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
 	}
-	private VBox makeSplashDisplay(){
+	/**
+	 * Displays a splash 
+	 * @return
+	 */
+	private VBox DisplaySplash(){
 		VBox displaySplash  = new VBox();
 		displaySplash.setAlignment(Pos.CENTER);
-		StackPane sp = new StackPane();
-
-		Text text = new Text("Splash Screen");
-		Reflection r = new Reflection();
-		r.setFraction(0.7f);		 
-		text.setEffect(r);
-		text.setFont(Font.font(null, FontWeight.BOLD, 30));
-		text.setTranslateY(-280);  //?? uncertain of how offset works but this works for now
 		displaySplash.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
-		Rectangle screen = new Rectangle(500, 400, Color.TRANSPARENT);
-		screen.setStroke(Color.GRAY);
 		
-		ImageView addsign = new ImageView(new Image("images/addsplash.png"));
-		addsign.setFitHeight(this.getHeight()*0.16);
-		addsign.setFitWidth(this.getHeight()*0.16);
-
-		sp.getChildren().addAll(text, screen, addsign);
+		StackPane sp = new StackPane();		
+		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeRectangularShape(), makeAddSign());
+			
 		displaySplash.getChildren().add(sp);
 		return displaySplash;
+	}
+	
+	private Text makeText(String s){
+		Text text = new Text(s);
+		Reflection r = new Reflection();
+		r.setFraction(0.6f);		 
+		text.setEffect(r);
+		text.setFont(Font.font("SERIF", FontWeight.BOLD, 30));
+		text.setTranslateY(-300);  //?? uncertain of how offset works but this works for now
+		return text;
+	}
+	private Rectangle makeRectangularShape(){
+		Rectangle screen = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT, Color.TRANSPARENT);
+		screen.setStroke(Color.GRAY);
+		return screen;
+	}
+	private  ImageView makeAddSign(){
+		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
+		addsign.setFitHeight(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
+		addsign.setFitWidth(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
+		return addsign;
 	}
 	/**
 	 * display list of levels that are represented by images in parallel 
 	 * @param ObservableList<Level>
 	 */
-	private ScrollPane makeLevelsDisplay(List<Level> levels){ 
+	private ScrollPane DisplayLevels(List<Level> levels){ 
 		//TODO: get ListView: List<LevelView>: a group to represent each level, in replace of ImageView below
 		//TableView<ObservableList> levelTable = new TableView();	
 		ScrollPane s1 = new ScrollPane();
@@ -146,17 +159,17 @@ public class GameEditScreen extends Screen {
 		//can't add ObservableList to a HBox directly
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
-		ImageView level1 = makeTempLeveDisplayImage("images/level1_tmp.PNG");
-		ImageView level2 = makeTempLeveDisplayImage("images/level2_tmp.PNG");
-		ImageView level3 = makeTempLeveDisplayImage("images/sprite.jpg");
+		ImageView level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //temp string path
+		ImageView level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
+		ImageView level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
 		levelView.getChildren().addAll(level1, level2, level3);
 		return levelView;
 	}
 	//temporary methods to display level Image
 	private ImageView makeTempLeveDisplayImage(String path){
 		ImageView level1 = new ImageView(new Image(path));
-		level1.setFitHeight(400);
-		level1.setFitWidth(500);
+		level1.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+		level1.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 		return level1;
 	}
 	
@@ -167,7 +180,7 @@ public class GameEditScreen extends Screen {
 	 * @author Anika modified by Yongjiao
 	 */
 	private List<ScreenButton> createSplashAndLevelButtons() {
-
+		
 		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
 		String[] buttonNames = (String[]) buttonMap.values().toArray();
 		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();		
@@ -176,7 +189,7 @@ public class GameEditScreen extends Screen {
 			System.out.println(buttonNames[i]);
 			myButtons.put(buttonNames[i], myB);
 		}	
-//modifications made here by Yongjiao: changed the below methods to those in manager class. Those are already there.
+//modifications made here by Yongjiao: changed to use methods in manager class.
 		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> parent.loadLevelEditScreen()); 
 		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen());	
 //		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
@@ -247,7 +260,7 @@ public class GameEditScreen extends Screen {
 		return splashMenu;
 	}
 	private Menu makeTrashMenu(){
-		ImageView trashImage = new ImageView(new Image("images/trashicon.png"));
+		ImageView trashImage = new ImageView(new Image(STRING.TRASH_ICON));
 		trashImage.setFitHeight(this.getHeight() *  DOUBLE.percentHeightMenuBar);
 		trashImage.setFitWidth(this.getHeight() *  DOUBLE.percentHeightMenuBar);
 		Menu trashButton = new Menu("", trashImage);
