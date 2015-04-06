@@ -70,6 +70,9 @@ public abstract class Screen extends BorderPane {
 		
 	}
 	
+	/**
+	 * passes MenuBar to abstract subclass method
+	 */
 	private void configureMenuBar() {
 		
 		VBox menuBarWrapper = instantiateMenuBar();
@@ -87,12 +90,11 @@ public abstract class Screen extends BorderPane {
 		menuBarWrapper.getChildren().add(menuBar);
 		
 		menuBar.setPrefWidth(this.getWidth());
-		menuBar.setPrefHeight(this.getHeight() * DOUBLE.percentHeightMenuBar);
+		menuBar.setPrefHeight(DOUBLE.MENU_BAR_HEIGHT);
 		
 		return menuBarWrapper;
 		
 	}
-	
 	
 	protected abstract void addMenuItemsToMenuBar(MenuBar menuBar);
 	
