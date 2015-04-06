@@ -6,11 +6,11 @@ import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import screen.manager.Manager;
+import screen.manager.ScreenManager;
 import screen.splashEditScreen.SplashEditScreenController;
 
 // Inner class for handling SplashEditScreenController methods
-public class SplashEditScreenManager extends Manager implements SplashEditScreenController {
+public class SplashEditScreenManager extends ScreenManager implements SplashEditScreenController {
 	
 	// Static Variables
 	

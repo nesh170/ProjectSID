@@ -1,6 +1,6 @@
 package screen;
 
-import screen.manager.Manager;
+import screen.manager.ScreenManager;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

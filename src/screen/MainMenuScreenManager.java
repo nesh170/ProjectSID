@@ -9,11 +9,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import screen.mainMenu.MainMenuScreenController;
-import screen.manager.Manager;
+import screen.manager.ScreenManager;
 
 // Nested Classes
 // Inner class for handling MainMenuScreenController methods
-public class MainMenuScreenManager extends Manager implements MainMenuScreenController {
+public class MainMenuScreenManager extends ScreenManager implements MainMenuScreenController {
 	
 	// Static Variables
 	

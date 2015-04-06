@@ -3,12 +3,12 @@ package screen;
 import javafx.scene.control.Tab;
 import resources.constants.STRING;
 import screen.levelEditScreen.LevelEditScreenController;
-import screen.manager.Manager;
+import screen.manager.ScreenManager;
 import screen.spriteEditScreen.SpriteEditScreen;
 import sprite.Sprite;
 
 // Inner class for handling LevelEditScreenController methods
-public class LevelEditScreenManager extends Manager implements LevelEditScreenController {
+public class LevelEditScreenManager extends ScreenManager implements LevelEditScreenController {
 
 	// Static Variables
 	

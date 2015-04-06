@@ -3,14 +3,14 @@ package screen;
 import levelPlatform.level.Level;
 import game.Game;
 import screen.gameEditScreen.GameEditScreenController;
-import screen.manager.Manager;
+import screen.manager.ScreenManager;
 /**
  * 
  * @author Yongjiao
  *
  */
 // Inner class for handling GameEditScreenController methods
-public class GameEditScreenManager extends Manager implements GameEditScreenController {
+public class GameEditScreenManager extends ScreenManager implements GameEditScreenController {
 
 	// Static Variables
 	
