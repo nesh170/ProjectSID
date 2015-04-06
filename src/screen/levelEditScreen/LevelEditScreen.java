@@ -56,6 +56,7 @@ public class LevelEditScreen extends Screen {
 	private LevelView levelView;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
+	private Sprite selectedSprite;
 				
 	private final ObservableList<Sprite> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfEnemies = FXCollections.observableArrayList();
@@ -168,6 +169,25 @@ public class LevelEditScreen extends Screen {
 	private TitledPane makeTitledPane(String title, ObservableList<Sprite> content) {
 
 		ListView<Sprite> platformListView = new ListView<>(content);
+		/*
+		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
+		 */
+		platformListView.setOnMouseReleased(e -> {
+			try {
+				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
+					levelView.getImageForSprite(selectedSprite).setOpacity(1);
+				}
+				/*
+				 * this next line could throw an exception possibly if
+				 * the selection model is empty, catch statement is precautionary
+				 */				
+				selectedSprite = platformListView.getSelectionModel().getSelectedItem(); 																		
+				levelView.getImageForSprite(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+			}
+			catch (IndexOutOfBoundsException | NullPointerException ee) {
+				//do not select any sprites, since no sprites are in the selection model
+			}
+		});
 		return new TitledPane(title, platformListView);
 
 	}
