@@ -56,13 +56,9 @@ public class LevelEditScreen extends Screen {
 	private LevelView levelView;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
-	
-	private boolean deleteOnClick;
-	
+		
 	private LevelEditScreenController parent;
-	
-	private Map<ImageView, Sprite> representationMap;
-	
+		
 	private final ObservableList<Sprite> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfEnemies = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfPlayers = FXCollections.observableArrayList();
@@ -153,6 +149,7 @@ public class LevelEditScreen extends Screen {
 		}
 		
 		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
+		this.setCenter(levelView);
 		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
 	}
@@ -202,6 +199,7 @@ public class LevelEditScreen extends Screen {
 			configureSpriteXYFromClick(e, spriteToAdd);
 			
 			level.sprites().add(spriteToAdd);
+			setUpLevelViewFromLevel(level);
 			levelView.renderLevel();
 
 			//do this once sprite has been added
@@ -222,14 +220,9 @@ public class LevelEditScreen extends Screen {
 		
 		sprite.setX(xLocation);
 		sprite.setY(yLocation);
+				
+	}
 		
-	}
-	
-
-	private void trash() {
-		this.deleteOnClick = true;
-	}
-	
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
 	}
