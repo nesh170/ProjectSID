@@ -7,7 +7,7 @@ import screen.spriteEditScreen.SpriteEditScreen;
 import sprite.Sprite;
 
 // Inner class for handling LevelEditScreenController methods
-public class LevelEditScreenManager extends UniversalManager implements LevelEditScreenController {
+public class LevelEditScreenManager extends Manager implements LevelEditScreenController {
 
 	private ScreenController parent;
 	

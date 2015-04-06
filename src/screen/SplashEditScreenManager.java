@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import screen.splashEditScreen.SplashEditScreenController;
 
 // Inner class for handling SplashEditScreenController methods
-public class SplashEditScreenManager extends UniversalManager implements SplashEditScreenController {
+public class SplashEditScreenManager extends Manager implements SplashEditScreenController {
 	
 	// Static Variables
 	

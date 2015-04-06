@@ -5,7 +5,7 @@ import screen.spriteEditScreen.SpriteEditScreenController;
 import sprite.Sprite;
 
 // Inner class for handling SpriteEditScreenController methods
-public class SpriteEditScreenManager extends UniversalManager implements SpriteEditScreenController {
+public class SpriteEditScreenManager extends Manager implements SpriteEditScreenController {
 	
 	// Static Variables
 	

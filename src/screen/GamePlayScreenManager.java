@@ -1,10 +1,11 @@
 package screen;
 
 import screen.gamePlayScreen.GamePlayScreenController;
+import screen.manager.Manager;
 
 
 // Inner class for handling GamePlayScreenController methods
-class GamePlayScreenManager extends UniversalManager implements GamePlayScreenController {
+class GamePlayScreenManager extends Manager implements GamePlayScreenController {
 	
 	// Static Variables
 	
