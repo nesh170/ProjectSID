@@ -8,7 +8,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -84,6 +87,26 @@ public abstract class Screen extends BorderPane {
 	
 	
 	protected abstract void addMenuItemsToMenuBar(MenuBar menuBar);
+	
+	@SafeVarargs
+	protected final Menu makeFileMenu(EventHandler<ActionEvent>... fileMenuActions) {	
+		
+		//TODO more menu items for file
+		MenuItem save = new MenuItem("Save");
+		MenuItem exit = new MenuItem("Exit");
+		MenuItem saveAndExit = new MenuItem("Save and Exit");
+		
+		save.setOnAction(fileMenuActions[0]);
+		exit.setOnAction(fileMenuActions[1]);
+		saveAndExit.setOnAction(fileMenuActions[2]);
+		
+		Menu fileMenu = new Menu("File");
+		fileMenu.getItems().addAll(exit,saveAndExit);
+
+		return fileMenu;
+		
+	}
+
 	
 	private void addMenuBarToThis(VBox wrapper) {
 		this.setTop(wrapper);

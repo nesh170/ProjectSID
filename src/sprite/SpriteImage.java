@@ -118,7 +118,7 @@ public class SpriteImage {
 		
 	}
 	
-	public Image convertArrayToImage(int[][] image) {
+	public Image convertArrayToImage() {
 		
 		//TODO unimplemented
 		return null;

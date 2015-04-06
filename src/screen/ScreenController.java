@@ -152,12 +152,12 @@ public class ScreenController implements ScreenControllerInterface {
 	
 	private void configureControllers(Stage stage) {
 		
-		mainMenuScreenManager = new MainMenuScreenManager(stage);
-		gameEditScreenManager = new GameEditScreenManager();
-		splashEditScreenManager = new SplashEditScreenManager(stage);
-		levelEditScreenManager = new LevelEditScreenManager();
-		spriteEditScreenManager = new SpriteEditScreenManager();
-		gamePlayScreenManager = new GamePlayScreenManager();
+		mainMenuScreenManager = new MainMenuScreenManager(this, stage);
+		gameEditScreenManager = new GameEditScreenManager(this);
+		splashEditScreenManager = new SplashEditScreenManager(this, stage);
+		levelEditScreenManager = new LevelEditScreenManager(this);
+		spriteEditScreenManager = new SpriteEditScreenManager(this);
+		gamePlayScreenManager = new GamePlayScreenManager(this);
 		
 	}
 
@@ -220,7 +220,6 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void createInitialMainMenuScreen() {
-		
 		addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
 				"Main Menu");
@@ -228,7 +227,7 @@ public class ScreenController implements ScreenControllerInterface {
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
 		addTabWithScreenWithStringIdentifier(
 				new GameEditScreen(gameEditScreenManager, newScreenWidth, newScreenHeight),
-				"Edit Game");
+				"Edit Game");		
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
@@ -256,15 +255,13 @@ public class ScreenController implements ScreenControllerInterface {
 		
 	}
 	
-	
-	// Private
 	/**
 	 * Method for adding new Tab items
 	 * 
 	 * @param Screen (to add)
 	 * @param String (title)
 	 */
-	private void addTabWithScreenWithStringIdentifier(Screen screen, String string) {
+	public void addTabWithScreenWithStringIdentifier(Screen screen, String string) {
 
 		Tab tab = new Tab();
 
@@ -279,7 +276,8 @@ public class ScreenController implements ScreenControllerInterface {
 		setCorrectTabModifiabilityAndViewability();
 
 	}
-
+	
+	// Private
 	/**
 	 * Take all tabs except the current one and make them unmodifiable. Make the current tab modifiable
 	 * 
