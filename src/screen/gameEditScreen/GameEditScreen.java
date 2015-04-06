@@ -68,20 +68,14 @@ public class GameEditScreen extends Screen {
 	 */
 	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height){
 		super(width, height);
-		this.myGame = game;
-		//this.myGame.getLevels() = game.getLevels();
-		//this.myGame.getSplash() = game.getSplash();
-		configureParent(controller);
-		//other configurations
+		myGame = game;
+		initialize(controller);
 	}
 	/**
 	 * Creates new GameEditScreen
 	 */
 	public GameEditScreen( GameEditScreenController controller, double width, double height) {
-		super(width, height);
-		myGame = new Game(); //initialize a game 
-		configureParent(controller);
-		configureButtons();
+			this(new Game() ,controller, width, height);
 	}
 	// Getters & Setters
 	/**
@@ -103,6 +97,14 @@ public class GameEditScreen extends Screen {
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
 		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
+	}
+	/**
+	 * 
+	 * @param controller
+	 */
+	private void initialize(GameEditScreenController controller){
+		configureParent(controller);
+		configureButtons();
 	}
 	/**
 	 * Displays a splash 
