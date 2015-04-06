@@ -111,12 +111,13 @@ public class ScreenController implements ScreenDisplayingInterface {
 	private double width, height;
 	private double newScreenWidth, newScreenHeight;
 	// JavaFX
+	private Stage stage;
 	private Group root;
 	private Scene scene;
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
 	private TextField errorMessageTextField;
-	// ScreenController Inner Class Handlers
+	// Screen Managers
 	MainMenuScreenController mainMenuScreenManager;
 	GameEditScreenController gameEditScreenManager;
 	SplashEditScreenController splashEditScreenManager;
@@ -143,6 +144,10 @@ public class ScreenController implements ScreenDisplayingInterface {
 	
 	public double newScreenHeight() {
 		return this.newScreenHeight;
+	}
+	
+	public Stage stage() {
+		return this.stage;
 	}
 	
 	public Scene scene() {
@@ -181,6 +186,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
+		this.stage = stage;
 		this.root = root;
 		
 	}
