@@ -159,76 +159,32 @@ public class GameEditScreen extends Screen {
 		level1.setFitWidth(500);
 		return level1;
 	}
-
-	private ListView makeSplashScreen(List<SplashScreen> screen){
-		ObservableList<String> mySplash = FXCollections.observableArrayList(
-		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
-		 ListView<String> splashList = new ListView<String>(mySplash);
-		 return splashList;
-	}
 	
 	/**
 	 * This method initializes making buttons from STRING constants class for adding and editing
 	 * levels and splash screens.
 	 * Initializes event handlers for buttons on the screen.
-	 * @author Anika
+	 * @author Anika modified by Yongjiao
 	 */
 	private List<ScreenButton> createSplashAndLevelButtons() {
 
-		System.out.println("in method");
 		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
 		String[] buttonNames = (String[]) buttonMap.values().toArray();
-		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();
-		
+		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();		
 		for (int i = 0; i < buttonNames.length; i++){
 			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
 			System.out.println(buttonNames[i]);
 			myButtons.put(buttonNames[i], myB);
 		}	
-		
-		if (myButtons.containsKey("ADD_LEVEL")) {System.out.println("hi");}
-		
-		myButtons.get("ADD_LEVEL").setOnMouseClicked(e -> addLevel());
-		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> addSplash());	
-		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> editLevel());
-		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> editSplash());
-		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> removeLevel());
-		
+//modifications made here by Yongjiao: changed the below methods to those in manager class. Those are already there.
+		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> parent.loadLevelEditScreen()); 
+		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen());	
+//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
+//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
+//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
 		return new ArrayList(myButtons.values());
 	}
-	
-	private Button makeAddLevelButton(){
-		Button addLevel = new Button(STRING.ADD_SPLASH);
-		return addLevel;
-	}
-	
-	
-	private Object removeLevel() {
-		return null;
-	}
-	private Object editSplash() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	private Object editLevel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	private Object addSplash() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	//make dynamically change between addSplash and editSplash
-	private Button makeAddSplashButton(){
-		Button addSplash = new Button(STRING.ADD_SPLASH);
-		return addSplash;
-	}
-	private Object addLevel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	private Button makeTrashButton(){
 		Button trash = new Button(STRING.TRASH);
 		return trash;

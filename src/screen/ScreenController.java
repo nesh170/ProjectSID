@@ -220,6 +220,9 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void createInitialMainMenuScreen() {
+		addTabWithScreenWithStringIdentifier(
+				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
+				"Main Menu");
 		
 		addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
