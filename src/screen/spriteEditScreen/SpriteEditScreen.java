@@ -35,10 +35,25 @@ public class SpriteEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
-		Menu fileMenu = makeFileMenu();
+		Menu fileMenu = makeFileMenu(e -> saveSprite(),
+									e -> exit(),
+									e -> saveAndExit()
+									);
 		
 	}
 	
+	private void saveSprite() {
+		//TODO
+	}
+	
+	private void exit() {
+		//TODO
+	}
+	
+	private void saveAndExit() {
+		saveSprite();
+		exit();
+	}
 
 	// All other instance methods
 	private void drawSpriteOnScreen(Sprite sprite) {
