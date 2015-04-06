@@ -10,26 +10,42 @@ import sprite.Sprite;
 // Inner class for handling LevelEditScreenController methods
 public class LevelEditScreenManager extends Manager implements LevelEditScreenController {
 
-	private ScreenController parent;
+	// Static Variables
 	
-	public LevelEditScreenManager(ScreenController screenController) {
-		this.parent = screenController;
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public LevelEditScreenManager(ScreenController parent) {
+		
+		super(parent);
+		
 	}
 
+	
+	// All other instance methods
 	@Override
 	public void loadSpriteEditScreen(Sprite sprite) {
-		parent.addTabWithScreenWithStringIdentifier(new SpriteEditScreen(parent.spriteEditScreenManager,
+		parent().addTabWithScreenWithStringIdentifier(new SpriteEditScreen(parent().spriteEditScreenManager,
 			 									sprite,
-			 									parent.getTabSelectionModel().getSelectedItem(),
-			 									parent.newScreenWidth(),
-			 									parent.newScreenHeight()),
+			 									parent().getTabSelectionModel().getSelectedItem(),
+			 									parent().newScreenWidth(),
+			 									parent().newScreenHeight()),
 				STRING.SPRITE_EDIT);
 	}
 
 	@Override
 	public void returnToGameEditScreen(Tab tab) {
-		Tab levelEditTab = parent.getTabSelectionModel().getSelectedItem();
-		parent.getTabSelectionModel().select(tab);
-		parent.removeTab(levelEditTab);
+		Tab levelEditTab = parent().getTabSelectionModel().getSelectedItem();
+		parent().getTabSelectionModel().select(tab);
+		parent().removeTab(levelEditTab);
 	}
+	
 }
