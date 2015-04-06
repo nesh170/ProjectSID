@@ -37,6 +37,9 @@ public abstract class Screen extends BorderPane {
 	private BorderPane viewableArea;
 	
 	// Getters & Setters
+	protected BorderPane viewableArea() {
+		return this.viewableArea;
+	}
 	/**
 	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
 	 * If you'd like your Screen subclass to support closing itself, this is where to go
