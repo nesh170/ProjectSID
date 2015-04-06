@@ -12,6 +12,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -30,14 +31,27 @@ import javafx.scene.paint.Color;
 public abstract class Screen extends BorderPane {
 
 	// Instance variables
-	// Sizing
-//	private double width, height;
-	// JavaFX
+	// JavaFX (External)
+	private Tab parentTab;
+	// JavaFX (Internal)
 	private MenuBar menuBar;
+	private BorderPane viewableArea;
 	
 	
 	// Getters & Setters
+	protected BorderPane viewableArea() {
+		return this.viewableArea;
+	}
 	
+	/**
+	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
+	 * If you'd like your Screen subclass to support closing itself, this is where to go
+	 * 
+	 * @param parentTab
+	 */
+	public void setParentTab(Tab parentTab) {
+		this.parentTab = parentTab;
+	}
 	
 	
 	// Constructor & Helpers
@@ -47,22 +61,49 @@ public abstract class Screen extends BorderPane {
 	 * @param height of total height minus the tab pane
 	 * 
 	 */
-	public Screen(double width, double height) {
+	public Screen(ScreenController parent, double width, double height) {
 		
 		configureWidthAndHeight(width, height);
-		configureMenuBar();
+		configureMenuBar(width);
 		configureBackgroundColor();
+		configureViewableArea(width, height);
+		
+		createAppropriateControllerForParent(parent);
 		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
 		
-		this.setWidth(width);
-		this.setHeight(height);
+		setMinMaxWidthOnNode(this, width);
+		setMinMaxHeightOnNode(this, height);
 		
 	}
 	
-	private void configureMenuBar() {
+	private void setMinMaxWidthOnNode(Node node, double width) {
+		
+		this.setMinWidth(width);
+		this.setMaxWidth(width);
+		
+	}
+	
+	private void setMinMaxHeightOnNode(Node node, double height) {
+		
+		this.setMinHeight(height);
+		this.setMaxHeight(height);
+		
+	}
+	
+	/**
+	 * Create an appropriate "MainMenuScreenController" or "GameEditScreenController" or... etc
+	 * 
+	 * @param parent
+	 */
+	protected abstract void createAppropriateControllerForParent(ScreenController parent);
+	
+	/**
+	 * passes MenuBar to abstract subclass method
+	 */
+	private void configureMenuBar(double width) {
 		
 		VBox menuBarWrapper = instantiateMenuBar();
 		addMenuItemsToMenuBar(menuBar);				// passes MenuBar to abstract method, never exposes MenuBar instance variable
@@ -79,12 +120,11 @@ public abstract class Screen extends BorderPane {
 		menuBarWrapper.getChildren().add(menuBar);
 		
 		menuBar.setPrefWidth(this.getWidth());
-		menuBar.setPrefHeight(this.getHeight() * DOUBLE.percentHeightMenuBar);
+		menuBar.setPrefHeight(DOUBLE.MENU_BAR_HEIGHT);
 		
 		return menuBarWrapper;
 		
 	}
-	
 	
 	protected abstract void addMenuItemsToMenuBar(MenuBar menuBar);
 	
@@ -107,7 +147,6 @@ public abstract class Screen extends BorderPane {
 		
 	}
 
-	
 	private void addMenuBarToThis(VBox wrapper) {
 		this.setTop(wrapper);
 	}
@@ -116,9 +155,24 @@ public abstract class Screen extends BorderPane {
 		this.setStyle(STRING.FX_BACKGROUND_COLOR_PREDICATE+STRING.DEFAULT_FX_BACKGROUND_COLOR);
 	}
 	
+	private void configureViewableArea(double width, double height) {
+		
+		this.viewableArea = new BorderPane();
+		this.viewableArea.setPrefSize(width, height - DOUBLE.MENU_BAR_HEIGHT);
+		this.setCenter(viewableArea);
+		
+	}
+	
 	// All other instance methods
+	protected void sizeMenuImageView(ImageView imageView, double width, double height) {
+		
+		imageView.setFitWidth(width);
+		imageView.setFitHeight(height);
+		
+	}
+
 	protected void add(Node node) {
-		this.getChildren().add(node);
+		this.viewableArea.getChildren().add(node);
 	}
 	
 	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
@@ -130,5 +184,4 @@ public abstract class Screen extends BorderPane {
 
 	}
 
-		
 }

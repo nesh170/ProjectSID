@@ -21,6 +21,7 @@ public class STRING {
 	public static final String STOP = "Stop";
 	
 	// Main Menu Screen
+	public static final String MAIN_MENU = "Main Menu";
 	public static final String FILE = "File";
 	public static final String NEW = "New";
 	public static final String OPEN = "Open";
@@ -38,6 +39,7 @@ public class STRING {
 	public static final String ADD_ANIMATION = "Add Animation";
 	
 	//GameEdit Screen
+	public static final String GAME_EDIT = "Game Edit";
 	public static final String ADD_SIGN ="images/addsplash.png";
 	public static final String TRASH_ICON = "images/trashicon.png";
 	public static final String LEVEL1IMAGE = "images/level2_tmp.PNG";
@@ -58,7 +60,6 @@ public class STRING {
 	
 	//Sprite Edit Strings
 	public static final String SPRITE_EDIT = "Sprite Edit Screen";
-	
 	
 	
 	// Buttons
@@ -82,6 +83,11 @@ public class STRING {
     	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
     }
 	
+    
+    // GamePlayScren
+    public static final String GAME_PLAY = "Game Play";
+    
+    
 	//Game Engine Constants
 	public static final String PLAYER_SPRITE = "playersprite";
 }

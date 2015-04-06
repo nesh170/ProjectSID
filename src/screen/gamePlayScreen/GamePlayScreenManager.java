@@ -1,17 +1,34 @@
-package screen;
+package screen.gamePlayScreen;
 
-import screen.gamePlayScreen.GamePlayScreenController;
+import screen.ScreenController;
+import screen.manager.ScreenManager;
 
 
 // Inner class for handling GamePlayScreenController methods
-class GamePlayScreenManager extends UniversalManager implements GamePlayScreenController {
+public class GamePlayScreenManager extends ScreenManager implements GamePlayScreenController {
 	
-	private ScreenController parent;
+	// Static Variables
 	
-	public GamePlayScreenManager(ScreenController screenController) {
-		this.parent = screenController;
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public GamePlayScreenManager(ScreenController parent) {
+		
+		super(parent);
+		
 	}
 
+	
+	// All other instance methods
+	// Public
 	@Override
 	public void returnToMainMenuScreen() {
 		throw new IllegalStateException("unimplemented returnToMainMenuScreen in GamePlayScreenController");
@@ -26,5 +43,8 @@ class GamePlayScreenManager extends UniversalManager implements GamePlayScreenCo
 	public void loadLevelEditScreen() {
 		throw new IllegalStateException("unimplemented loadLevelEditScreen in GamePlayScreenController");
 	}
+	
+	
+	// Private
 	
 }

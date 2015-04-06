@@ -1,4 +1,4 @@
-package screen;
+package screen.splashEditScreen;
 
 import java.io.File;
 
@@ -6,17 +6,29 @@ import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import screen.splashEditScreen.SplashEditScreenController;
+import screen.ScreenController;
+import screen.manager.ScreenManager;
 
 // Inner class for handling SplashEditScreenController methods
-public class SplashEditScreenManager extends UniversalManager implements SplashEditScreenController {
+public class SplashEditScreenManager extends ScreenManager implements SplashEditScreenController {
 	
-	private ScreenController parent;
-	private Stage stage;
+	// Static Variables
+	
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public SplashEditScreenManager(ScreenController parent) {
+		
+		super(parent);
 
-	public SplashEditScreenManager(ScreenController parent, Stage stage) {
-		this.stage = stage;
-		this.parent = parent;
 	}
 
 	@Override
@@ -43,7 +55,7 @@ public class SplashEditScreenManager extends UniversalManager implements SplashE
 		}
 
 		ImageCursor imageCursor = new ImageCursor(image);
-		stage.getScene().setCursor(imageCursor);
+		parent().setCursor(imageCursor);
 
 	}
 
