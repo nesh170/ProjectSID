@@ -41,6 +41,10 @@ public class LevelView {
     	this.lengthSidePixel = lengthSidePixel;
     }
     
+    public double getLengthSidePixel() {
+    	return this.lengthSidePixel;
+    }
+    
     
     // Constructor & Helpers
     /**
