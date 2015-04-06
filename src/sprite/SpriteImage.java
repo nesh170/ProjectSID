@@ -5,9 +5,9 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import resources.constants.INT;
-import utils.Int2DArraySizes;
-import utils.IntArray2DToImageConverter;
-import utils.SilentFailArrayList;
+import util.Int2DArraySizes;
+import util.IntArray2DToImageConverter;
+import util.SilentFailArrayList;
 
 /**
 * 
