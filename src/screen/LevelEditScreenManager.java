@@ -6,6 +6,12 @@ import screen.levelEditScreen.LevelEditScreenController;
 // Inner class for handling LevelEditScreenController methods
 public class LevelEditScreenManager extends UniversalManager implements LevelEditScreenController {
 
+	private ScreenController parent;
+	
+	public LevelEditScreenManager(ScreenController screenController) {
+		this.parent = screenController;
+	}
+
 	@Override
 	public void loadSpriteEditScreen() {
 		throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
