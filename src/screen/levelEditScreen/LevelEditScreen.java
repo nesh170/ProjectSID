@@ -186,9 +186,8 @@ public class LevelEditScreen extends Screen {
 				
 		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen(new Sprite()));
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
-		Button deleteSprite = makeButtonForPane("Delete", e -> trash());
 		
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, deleteSprite);
+		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
 
 	}
 	
