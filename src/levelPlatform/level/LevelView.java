@@ -20,12 +20,18 @@ import javafx.scene.input.MouseEvent;
 public class LevelView extends ScrollPane {
     
 	// Static Variables
-
+	
 	
 	// Instance Variables
+	// Edit
+	private EditMode editMode;
+	// Level
     private Level level;
-    private Collision collisionHandler;
+    // Layouts
     private double lengthSidePixel;
+    // Playing
+    private Collision collisionHandler;
+    
     
     
     // Getters & Setters
@@ -35,6 +41,10 @@ public class LevelView extends ScrollPane {
     
     public void setLevel(Level level) {
     	this.level = level;
+    }
+    
+    public void setEditMode(EditMode editMode) {
+    	this.editMode = editMode;
     }
     
     public void setLengthSidePixel(double lengthSidePixel) {
@@ -52,9 +62,9 @@ public class LevelView extends ScrollPane {
      * 
      * @param level
      */
-    public LevelView(Level level) {
+    public LevelView(Level level, EditMode editMode) {
     	
-    	this(level, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
+    	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
     }
     
@@ -63,11 +73,15 @@ public class LevelView extends ScrollPane {
      * @param (Level) level
      * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
      */
-    public LevelView(Level level, double lengthSidePixel) {
+    public LevelView(Level level, EditMode editMode, double lengthSidePixel) {
     	
     	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
-        renderLevel();
+    	setEditMode(editMode);
+    	
+    	if (level != null) {
+    		renderLevel();
+    	}
     	
     }
     
