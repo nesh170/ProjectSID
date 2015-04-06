@@ -3,11 +3,14 @@ package levelPlatform.level;
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
+import sprite.SpriteImage;
 import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * 

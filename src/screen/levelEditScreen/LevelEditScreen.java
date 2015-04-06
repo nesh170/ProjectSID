@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 import resources.constants.DOUBLE;
