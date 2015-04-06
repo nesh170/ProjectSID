@@ -3,11 +3,11 @@ package screen.manager;
 import java.io.File;
 
 import screen.ScreenController;
-import screen.UniversalController;
+import screen.ScreenManagingInterface;
 import javafx.stage.Stage;
 
 
-public abstract class Manager implements UniversalController {
+public abstract class Manager implements ScreenManagingInterface {
 	
 	// Static Variables
 	
