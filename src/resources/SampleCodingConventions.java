@@ -12,16 +12,37 @@ public class SampleCodingConventions {
 
 
 	// Instance Variables
-
+	private Object object;		// named a lowercase version of the class if possible
 
 	// Getters & Setters
-
+	public Object object() {
+		return this.object;		// named after the variable if possible
+	}
 
 	// Static Methods
 
 
 	// Constructor & Helpers
-
+	public SampleCodingConventions() {
+		
+		this(null);			// constructors ALWAYS get extra spacing. even one-liners!
+		
+	}
+	
+	public SampleCodingConventions(Object object) {
+		
+		// even though we can do this.object = object, we will write a configureMethod for self-reading code
+		configureObject(object);
+		
+	}
+	
+	private void configureObject(Object object) {			// private constructor helpers! woohoo!
+		
+		this.object = object;
+		// Other logic associated with setup here.
+		
+	}
+	
 
 	// All other instance methods
 	// Public
