@@ -56,9 +56,7 @@ public class LevelEditScreen extends Screen {
 	private LevelView levelView;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
-		
-	private LevelEditScreenController parent;
-		
+				
 	private final ObservableList<Sprite> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfEnemies = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfPlayers = FXCollections.observableArrayList();
@@ -118,8 +116,8 @@ public class LevelEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
 		Menu fileMenu = makeFileMenu(e -> save(),
-									e -> parent.returnToGameEditScreen(currentGameScreen),
-									e -> parent.returnToGameEditScreen(currentGameScreen));
+									e -> controller.returnToGameEditScreen(currentGameScreen),
+									e -> controller.returnToGameEditScreen(currentGameScreen));
 		//TODO for file menu = save and exit (third parameter) might need a different lambda
 		Menu addNewSpriteButton = makeAddSpriteButton();
 		
@@ -135,7 +133,7 @@ public class LevelEditScreen extends Screen {
 		
 		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
 		
-		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));
+		spriteButton.setOnAction(e -> controller.loadSpriteEditScreen(new Sprite()));
 		return spriteButton;
 		
 	}
@@ -184,8 +182,8 @@ public class LevelEditScreen extends Screen {
 		
 		this.setRight(paneForButtons);
 				
-		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen(new Sprite()));
-		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
+		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> controller.loadSpriteEditScreen(new Sprite()));
+		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen(currentGameScreen));
 		
 		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
 
