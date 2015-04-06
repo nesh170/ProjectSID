@@ -20,7 +20,7 @@ public interface ScreenDisplayingInterface {
 	// For instantiating new Screen instances
 	public double newScreenWidth();
 	public double newScreenHeight();
-	public double addTabWithScreenWithControllerWithIndentifier(Screen screen, Manager manager, String identifier);
+	public void addTabWithScreenWithStringIndentifier(Screen screen, String identifier);
 	
 	// JavaFX
 	public Stage stage();
