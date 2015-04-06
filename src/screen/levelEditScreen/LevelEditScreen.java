@@ -1,11 +1,15 @@
 package screen.levelEditScreen;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
@@ -23,11 +27,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import levelPlatform.level.Level;
+import levelPlatform.level.LevelView;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;
 import sprite.Sprite;
+import sprite.SpriteImage;
 
 /**
  * 
@@ -42,11 +48,16 @@ public class LevelEditScreen extends Screen {
 	
 	// Instance Variables
 	private Level level;
-	private Pane levelScene;
+	private LevelView levelView;
+	private Group levelScene;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
 	
+	private boolean deleteOnClick;
+	
 	private LevelEditScreenController parent;
+	
+	private Map<ImageView, Sprite> representationMap;
 	
 	private final ObservableList<Sprite> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfEnemies = FXCollections.observableArrayList();
@@ -123,9 +134,12 @@ public class LevelEditScreen extends Screen {
 	
 	private void setUpLevelSceneFromLevel(Level level) {
 		this.level = level;
-		//TODO populate the levelScene with sprite objects
-		//To avoid runtime error
-		levelScene = new Pane();
+		this.levelView = new LevelView(level);
+		
+		levelScene = levelView.renderLevel();
+		
+		this.levelScene.setOnMouseReleased(e -> addSpriteToLocation(e));
+		representationMap = new HashMap<>();
 	}
 	
 	private void initialize(LevelEditScreenController parent, Tab gameScreen) {
@@ -134,16 +148,11 @@ public class LevelEditScreen extends Screen {
 		this.currentGameScreen = gameScreen;
 		this.levelScene.setStyle("-fx-background-color: lightgrey");
 		this.setCenter(levelScene);
-		makeLevelScene();
 		makeSpritesInLevelTab();
 		makeButtonsTab();
 		
 	}
 	
-	private void makeLevelScene() {
-		this.levelScene = new Pane();
-		this.levelScene.setOnMouseReleased(e -> addSpriteToLocation(e));
-	}
 	
 	private void makeSpritesInLevelTab() {
 		
@@ -177,8 +186,9 @@ public class LevelEditScreen extends Screen {
 				
 		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen());
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
+		Button deleteSprite = makeButtonForPane("Delete", e -> trash());
 		
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
+		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, deleteSprite);
 
 	}
 	
@@ -187,9 +197,59 @@ public class LevelEditScreen extends Screen {
 		if(spriteToAdd != null) {
 			double xLocation = e.getX();
 			double yLocation = e.getY();
-			//TODO add sprite to levelScene and add it to the level as well
+			
+			Image spriteImage = spriteToAdd.spriteImage().getImageToDisplay(levelView.getLengthSidePixel());
+			
+			ImageView imageView = new ImageView(spriteImage);
+			imageView.setOnMouseClicked(ee -> checkForDeletion(ee));
+			imageView.setOnMouseEntered(ee -> createDisplayEditOverlay());
+			imageView.setOnMouseExited(ee -> destroyDisplayEditOverlay());
+
+			imageView.setX(xLocation);
+			imageView.setY(yLocation);
+
+			levelScene.getChildren().add(imageView);
+			representationMap.put(imageView, spriteToAdd);
+			
+			level.sprites().add(spriteToAdd);
+			
 			spriteToAdd = null; //do this once sprite has been added
 		}
+		
+	}
+	
+	private void createDisplayEditOverlay() {
+		// TODO Auto-generated method stub
+	}
+
+
+	private void destroyDisplayEditOverlay() {
+		// TODO Auto-generated method stub
+	}
+
+
+	private void checkForDeletion(MouseEvent e) {
+		
+		if(deleteOnClick) {
+			
+			ImageView imageToDelete = (ImageView) e.getSource();
+			levelScene.getChildren().remove(imageToDelete);
+			Sprite spriteToDelete = representationMap.get(imageToDelete);
+			level.sprites().remove(spriteToDelete);
+			
+			
+			
+			
+			deleteOnClick = false;
+			
+		}
+		
+	}
+
+
+	private void trash() {
+		
+		deleteOnClick = true;
 		
 	}
 	

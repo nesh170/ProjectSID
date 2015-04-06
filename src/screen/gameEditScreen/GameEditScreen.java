@@ -159,13 +159,6 @@ public class GameEditScreen extends Screen {
 		level1.setFitWidth(500);
 		return level1;
 	}
-
-	private ListView makeSplashScreen(List<SplashScreen> screen){
-		ObservableList<String> mySplash = FXCollections.observableArrayList(
-		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
-		 ListView<String> splashList = new ListView<String>(mySplash);
-		 return splashList;
-	}
 	
 	/**
 	 * This method initializes making buttons from STRING constants class for adding and editing
@@ -191,7 +184,7 @@ public class GameEditScreen extends Screen {
 //		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
 		return new ArrayList(myButtons.values());
 	}
-	
+
 	private Button makeTrashButton(){
 		Button trash = new Button(STRING.TRASH);
 		return trash;
