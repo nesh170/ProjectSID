@@ -9,18 +9,30 @@ public abstract class UniversalManager {
 	
 	
 	// Instance Variables
+	private ScreenController parent;
 	
 	
 	// Getters & Setters
+	protected ScreenController parent() {
+		return this.parent;
+	}
 	
 	
 	
 	// Constructor & Helpers
+	public UniversalManager(ScreenController parent) {
+		
+		configureParent(parent);
+		
+	}
 	
 	/**
 	 * Yes, this is a setter. It's only supposed to be used once, however.
 	 * @param parent
 	 */
+	private void configureParent(ScreenController parent) {
+		this.parent = parent;
+	}
 	
 	
 	// All other instance methods
