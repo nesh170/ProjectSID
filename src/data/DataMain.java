@@ -1,5 +1,6 @@
 package data;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ public class DataMain extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		DataHandler data = new DataHandler();
 		
 		Dummy d1 = new Dummy("one", new Circle(5));
 		Dummy d2 = new Dummy("two", new Circle(10));
@@ -30,18 +30,20 @@ public class DataMain extends Application{
 		
 		DummyHolder dummyHolder = new DummyHolder("THELIST", dList);
 		
-		File f = data.chooseDir(stage);
+		File f = DataHandler.chooseDir(stage);
 		
 		try {
-			data.toXMLFile(dummyHolder, "level.xml", f.toString());
+			DataHandler.toXMLFile(dummyHolder, "level.xml", f.toString());
 		} catch (IOException e) {}
 		
-		File[] files = f.listFiles();
+		File[] files = DataHandler.getFilesFromDir(f);
 		
 		for (File file : files) {
 			System.out.println(file.toString());
 		}
 		
+		List<Image> images = DataHandler.getImagesFromDir(f);
+		System.out.println(images.get(0));
 	}
 	
 }

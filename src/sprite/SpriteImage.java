@@ -1,10 +1,13 @@
-package sprite.spriteImage;
+package sprite;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
 import resources.constants.INT;
+import util.Int2DArraySizes;
+import util.IntArray2DToImageConverter;
+import util.SilentFailArrayList;
 
 /**
 * 
@@ -39,36 +42,20 @@ public class SpriteImage {
 	
 	// Getters & Setters
 	// # columns = width, assumes evenly laid-out array (which it should be)
+	/**
+	 * @author Ruslan
+	 * 
+	 * One of the design decisions here was to either surround these in "if (hasImages()) return, else return 0"
+	 * or to subclass a List and have it silently fail. We write a util that handles a null int[][] being passed in,
+	 * and avoid duplicated code. :) Same spiel for height()
+	 */
 	public int width() {
-		
-		if (!hasImages()) {
-			return 0;
-		} 
-		
-		else {
-
-			int[][] firstImage = images.get(0);
-			int[] firstRow = firstImage[0];
-			return firstRow.length;					
-			
-		}
-		
+		return Int2DArraySizes.width2DIntArray(images.get(0));
 	}
 
 	// # rows = height
 	public int height() {
-		
-		if (!hasImages()) {
-			return 0;
-		} 
-		
-		else {
-
-			int[][] firstImage = images.get(0);
-			return firstImage.length;				
-			
-		}
-		
+		return Int2DArraySizes.height2DIntArray(images.get(0));
 	}
 	
 	public void setImageFrameRate(int imageFrameRate) {
@@ -81,17 +68,21 @@ public class SpriteImage {
 	// Constructor & Helpers
 	public SpriteImage() {
 		
-		imageFrameRate = INT.DEFAULT_IMAGE_FRAMERATE;
-		images = new ArrayList<int[][]>();
+		setImageFrameRate(INT.DEFAULT_IMAGE_FRAMERATE);
+		instantiateImagesList();
 		
+	}
+	
+	private void instantiateImagesList() {
+		this.images = new SilentFailArrayList<int[][]>();
 	}
 	
 	
 	// All other instance methods
 	/**
+	 * No need for if(images == null), "images" is always instantiated in the constructor. 
 	 * 
 	 * @return true if SpriteImage contains at least one int[][]
-	 * 
 	 */
 	public boolean hasImages() {
 		return images.isEmpty();
@@ -127,7 +118,7 @@ public class SpriteImage {
 		
 	}
 	
-	public Image convertArrayToImage(int[][] image) {
+	public Image convertArrayToImage() {
 		
 		//TODO unimplemented
 		return null;
@@ -153,7 +144,7 @@ public class SpriteImage {
 	 * --> no null check necessary
 	 * 
 	 */
-	private int removeImage(int indexToRemove) {
+	public int removeImage(int indexToRemove) {
 		
 		images.remove(indexToRemove);
 		return images.size();
@@ -165,15 +156,18 @@ public class SpriteImage {
 	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
 	* SpriteImage takes care of the rest.
 	* 
-	* @return int[][] if non-empty images, null if no images
+	* @param (double) length of a side of each real java pixel
+	* @return Image if non-empty images, null if no images
 	* 
 	*/
-	public int[][] getIntArrayToDisplay() {
+	public Image getImageToDisplay(double lengthSidePixel) {
 		
 		if (hasImages()) {
 			
 			adjustCounters();
-			return images.get(currentImageIndex).clone();			// clone of the array to avoid modification
+			
+			int[][] sourceArray = images.get(currentImageIndex);
+			return IntArray2DToImageConverter.convert2DIntArrayToImage(sourceArray, lengthSidePixel); 
 			
 		} 
 		

@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenController;
 
 /**
  * The scene that contains pops up when the Authoring Environment 
@@ -40,21 +41,24 @@ public class MainMenuScreen extends Screen {
 	
 	
 	// Instance variables
-	MainMenuScreenController parent;
-	
+	MainMenuScreenController controller;
 	
 	
 	// Getters & Setters
 	
 	
 	// Constructor & Helpers
-	public MainMenuScreen(MainMenuScreenController parent, double width, double height) {
+	public MainMenuScreen(ScreenController parent, double width, double height) {
 		
-		super(width, height);
+		super(parent, width, height);
 		
-		configureParent(parent);
 		configureButtons(width, height);
 		
+	}
+	
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new MainMenuScreenManager(parent);
 	}
 
 	@Override
@@ -63,10 +67,6 @@ public class MainMenuScreen extends Screen {
 		MainMenuScreen.MainMenuMenuBarFactory mainMenuMenuBarFactory = new MainMenuScreen.MainMenuMenuBarFactory(menuBar);
 		mainMenuMenuBarFactory.fill();
 		
-	}
-
-	private void configureParent(MainMenuScreenController parent) {
-		this.parent = parent;
 	}
 	
 	/**
@@ -77,6 +77,7 @@ public class MainMenuScreen extends Screen {
 	 *  2. instantiateMusicMenu()
 	 */
 	private void configureButtons(double width, double height) {
+		
 		//System.out.println(width);
 		//System.out.println(height);
 		
@@ -101,13 +102,13 @@ public class MainMenuScreen extends Screen {
 	private Button makeNewGameButton() {
 		
 		Button newGameButton = new Button(STRING.NEWGAME);
-		newGameButton.setOnMouseClicked(e -> parent.createNewGame());
+		newGameButton.setOnMouseClicked(e -> controller.createNewGame());
 		//TODO placing in the pane
 		//TODO style
 		//this.getChildren().add(newGameButton);
 		newGameButton.setMinSize(100, 50);
 		//this.setCenter(newGameButton);
-		newGameButton.setOnMouseClicked(e -> parent.createNewGame());
+		newGameButton.setOnMouseClicked(e -> controller.createNewGame());
 		
 		return newGameButton;
 		
@@ -128,7 +129,7 @@ public class MainMenuScreen extends Screen {
 		//this.getChildren().add(loadGameButton);
 		loadGameButton.setMinSize(100, 50);
 		//this.setCenter(loadGameButton);
-		loadGameButton.setOnMouseClicked(e -> parent.loadGame());
+		loadGameButton.setOnMouseClicked(e -> controller.loadGame());
 		this.getChildren().add(loadGameButton);
 		loadGameChoice.setTranslateX(500);
 		loadGameChoice.setTranslateY(500);
@@ -198,9 +199,9 @@ public class MainMenuScreen extends Screen {
 			MenuItem closeFile = new MenuItem(STRING.CLOSE);
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
-			newFile.setOnAction(e -> parent.createNewGame());
-			openFile.setOnAction(e -> parent.loadGame());
-			closeFile.setOnAction(e -> parent.closeApplication());
+			newFile.setOnAction(e -> controller.createNewGame());
+			openFile.setOnAction(e -> controller.loadGame());
+			closeFile.setOnAction(e -> controller.closeApplication());
 			
 			fileMenu.getItems().addAll(newFile, openFile, closeFile);
 			
@@ -223,8 +224,6 @@ public class MainMenuScreen extends Screen {
 			MediaManager.sharedInstance().stop();
 		}
 		
-		
-		
 	}
-	
+
 }
