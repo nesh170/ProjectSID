@@ -25,7 +25,22 @@ public interface ScreenDisplayingInterface {
 	// For instantiating new Screen instances
 	public double newScreenWidth();
 	public double newScreenHeight();
-	public void addTabWithScreenWithStringIndentifier(Screen screen, String identifier);
+	public Tab addTabWithScreenWithStringIdentifier(Screen screen, String identifier);
+	
+	// New Screen
+	/**
+	 * Check inside the Screen constructors if their special objects are null, 
+	 * NOT in ScreenController or in these methods
+	 * 
+	 * @return (optional) Tab to which the ScreenController added them to
+	 */
+	public Tab createMainMenuScreen();
+	public Tab createGameEditScreen(Game game);
+	public Tab createSplashEditScreen(SplashScreen splashScreen);
+	public Tab createLevelEditScreen(Level level);
+	public Tab createSpriteEditScreen(Sprite sprite);
+	public Tab createGamePlayScreen(Level level);
+	
 	
 	// JavaFX
 	public Stage stage();
