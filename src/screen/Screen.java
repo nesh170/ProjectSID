@@ -37,10 +37,12 @@ public abstract class Screen extends BorderPane {
 	private MenuBar menuBar;
 	private BorderPane viewableArea;
 	
+	
 	// Getters & Setters
 	protected BorderPane viewableArea() {
 		return this.viewableArea;
 	}
+	
 	/**
 	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
 	 * If you'd like your Screen subclass to support closing itself, this is where to go
@@ -51,6 +53,7 @@ public abstract class Screen extends BorderPane {
 		this.parentTab = parentTab;
 	}
 	
+	
 	// Constructor & Helpers
 	/**
 	 * 
@@ -58,12 +61,14 @@ public abstract class Screen extends BorderPane {
 	 * @param height of total height minus the tab pane
 	 * 
 	 */
-	public Screen(double width, double height) {
+	public Screen(ScreenController parent, double width, double height) {
 		
 		configureWidthAndHeight(width, height);
 		configureMenuBar(width);
 		configureBackgroundColor();
 		configureViewableArea(width, height);
+		
+		createAppropriateControllerForParent(parent);
 		
 	}
 	
@@ -87,6 +92,13 @@ public abstract class Screen extends BorderPane {
 		this.setMaxHeight(height);
 		
 	}
+	
+	/**
+	 * Create an appropriate "MainMenuScreenController" or "GameEditScreenController" or... etc
+	 * 
+	 * @param parent
+	 */
+	protected abstract void createAppropriateControllerForParent(ScreenController parent);
 	
 	/**
 	 * passes MenuBar to abstract subclass method
