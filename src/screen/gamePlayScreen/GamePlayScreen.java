@@ -10,15 +10,16 @@ import screen.ScreenController;
 public class GamePlayScreen extends Screen {
 
 	// Instance Variables
-	private GamePlayScreenController parent;
+	private GamePlayScreenController controller;
 	private Level level;
 	private GamePlayer myPlayer;
 	
-	public GamePlayScreen(GamePlayScreenController parent, double width, double height, Level level) {
+	
+	// Constructor & Helpers
+	public GamePlayScreen(ScreenController parent, double width, double height, Level level) {
 		
-		super(width, height);
+		super(parent, width, height);
 		
-		configureParent(parent);
 		configureLevel(level);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
 		//also every GamePlayer must be containted within a gamePlayer screen
@@ -26,8 +27,9 @@ public class GamePlayScreen extends Screen {
 		
 	}
 	
-	private void configureParent(GamePlayScreenController parent) {
-		this.parent = parent;
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new GamePlayScreenManager(parent);
 	}
 	
 	private void configureLevel(Level level) {
@@ -39,5 +41,8 @@ public class GamePlayScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
 	}
+	
+	
+	// All other instance methods
 
 }

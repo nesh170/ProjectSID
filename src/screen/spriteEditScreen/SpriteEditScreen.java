@@ -9,24 +9,27 @@ import sprite.Sprite;
 
 public class SpriteEditScreen extends Screen {
 	
-	private SpriteEditScreenController parent;
+	private SpriteEditScreenController controller;
 
-	public SpriteEditScreen(SpriteEditScreenController parent, double width, double height) {
+	public SpriteEditScreen(ScreenController parent, double width, double height) {
 
 		this(parent, width, height, null);
 
 	}
 
-	public SpriteEditScreen(SpriteEditScreenController parent, double width, double height, Sprite spriteToEdit) {
+	public SpriteEditScreen(ScreenController parent, double width, double height, Sprite spriteToEdit) {
 
-		super(width, height);
+		super(parent, width, height);
 
-		configureParentScreenController(parent);
-		
 		if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
 		}
 		
+	}
+	
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new SpriteEditScreenManager(parent);
 	}
 	
 	@Override
@@ -36,10 +39,7 @@ public class SpriteEditScreen extends Screen {
 		
 	}
 	
-	private void configureParentScreenController(SpriteEditScreenController parent) {
-		this.parent = parent;
-	}
-	
+
 	// All other instance methods
 	private void drawSpriteOnScreen(Sprite sprite) {
 		//TODO implement

@@ -25,7 +25,7 @@ public class SplashEditScreen extends Screen {
 
 
 	// Instance variables
-	private SplashEditScreenController parent;
+	private SplashEditScreenController controller;
 	private SplashScreen splashScreen;
 
 
@@ -34,15 +34,19 @@ public class SplashEditScreen extends Screen {
 
 	// Constructor & Helpers
 
-	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
+	public SplashEditScreen(ScreenController parent, double width, double height, SplashScreen splashScreen) {
 
-		super(width, height);
+		super(parent, width, height);
 		
-		configureParent(parent);
 		configureSplashScreen(splashScreen);
 		configureButtons();
 		configureDisplayArea();
 		
+	}
+	
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new SplashEditScreenManager(parent);
 	}
 
 	@Override
@@ -60,10 +64,8 @@ public class SplashEditScreen extends Screen {
 	//TODO: Add Image
 	//TODO: Add Text
 	//TODO: Add Animation
+
 	
-	private void configureParent(SplashEditScreenController parent) {
-		this.parent = parent;
-	}
 	
 	private void configureSplashScreen(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
@@ -116,7 +118,7 @@ public class SplashEditScreen extends Screen {
 		Button addStartButton = new Button(STRING.ADD_START_BUTTON);
 		setLargeButtonSize(addStartButton);
 		
-		addStartButton.setOnMouseClicked(e -> parent.addStartButton());
+		addStartButton.setOnMouseClicked(e -> controller.addStartButton());
 		
 		return addStartButton;
 		
@@ -127,7 +129,7 @@ public class SplashEditScreen extends Screen {
 		Button addImage = new Button(STRING.ADD_IMAGE);
 		setLargeButtonSize(addImage);
 		
-		addImage.setOnMouseClicked(e -> parent.addImage());
+		addImage.setOnMouseClicked(e -> controller.addImage());
 		
 		return addImage;
 		
@@ -138,7 +140,7 @@ public class SplashEditScreen extends Screen {
 		Button addText = new Button(STRING.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
-		addText.setOnMouseClicked(e -> parent.addText());
+		addText.setOnMouseClicked(e -> controller.addText());
 		
 		return addText;
 		
@@ -149,7 +151,7 @@ public class SplashEditScreen extends Screen {
 		Button addAnimation = new Button(STRING.ADD_ANIMATION);
 		setLargeButtonSize(addAnimation);
 		
-		addAnimation.setOnMouseClicked(e -> parent.addAnimation());
+		addAnimation.setOnMouseClicked(e -> controller.addAnimation());
 		
 		return addAnimation;
 		
@@ -160,7 +162,7 @@ public class SplashEditScreen extends Screen {
 		Button save = new Button(STRING.SAVE);
 		setSmallButtonSize(save);
 		
-		save.setOnMouseClicked(e -> parent.saveSplashScreen());
+		save.setOnMouseClicked(e -> controller.saveSplashScreen());
 		
 		return save;
 		
@@ -171,7 +173,7 @@ public class SplashEditScreen extends Screen {
 		Button trash = new Button(STRING.TRASH);
 		setSmallButtonSize(trash);
 		
-		trash.setOnMouseClicked(e -> parent.trashSplashScreen());
+		trash.setOnMouseClicked(e -> controller.trashSplashScreen());
 		
 		return trash;
 		
@@ -182,7 +184,7 @@ public class SplashEditScreen extends Screen {
 		Button back = new Button(STRING.BACK);
 		setSmallButtonSize(back);
 		
-		back.setOnMouseClicked(e -> parent.backSplashScreen());
+		back.setOnMouseClicked(e -> controller.backSplashScreen());
 		
 		return back;
 		

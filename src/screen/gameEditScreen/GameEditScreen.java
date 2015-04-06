@@ -59,7 +59,7 @@ import levelPlatform.level.Level;
 public class GameEditScreen extends Screen {
 	
 	// Instance variables
-	private GameEditScreenController parent;
+	private GameEditScreenController controller;
 	private Game myGame;
 
 	private ObservableList<Level>	myLevels;  	
@@ -69,28 +69,20 @@ public class GameEditScreen extends Screen {
 	 * Set up GameEdit screen from previously created game to re-edit game.
 	 * @param controller, width, height, game
 	 */
-	public GameEditScreen(GameEditScreenController controller, double width, double height, Game game) {
+	public GameEditScreen(ScreenController parent, double width, double height, Game game) {
 		
-		super(width, height);
+		super(parent, width, height);
+		
 		this.myGame = game;
 		//this.myGame.getLevels() = game.getLevels();
 		//this.myGame.getSplash() = game.getSplash();
-		configureParent(controller);
 		//other configurations
 		
 	}
 	
-	/**
-	 * Creates new GameEditScreen
-	 */
-	public GameEditScreen( GameEditScreenController controller, double width, double height) {
-		
-		super(width, height);
-		
-		myGame = new Game(); //initialize a game 
-		configureParent(controller);
-		configureButtons();
-		
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new GameEditScreenManager(parent);
 	}
 	
 	
@@ -102,10 +94,6 @@ public class GameEditScreen extends Screen {
 	 */
 	public void setMyLevel(int index, Level level){
 		myLevels.add(index, level);
-	}	
-	
-	private void configureParent(GameEditScreenController controller) {
-		this.parent = controller;	
 	}	
 	
 	private void configureButtons() {	
@@ -225,8 +213,8 @@ public class GameEditScreen extends Screen {
 			myButtons.put(buttonNames[i], myB);
 		}	
 //modifications made here by Yongjiao: changed to use methods in manager class.
-		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> parent.loadLevelEditScreen()); 
-		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen());	
+		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
+		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
 //		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
 //		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
 //		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
@@ -245,7 +233,7 @@ public class GameEditScreen extends Screen {
 		
 		Button play = new Button(STRING.PLAY);
 		play.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);
-		play.setOnMouseClicked(e -> parent.playGame(myGame));
+		play.setOnMouseClicked(e -> controller.playGame(myGame));
 		return play;
 		
 	}
@@ -254,7 +242,7 @@ public class GameEditScreen extends Screen {
 		
 		Button back = new Button(STRING.BACK);
 		back.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); 
-		back.setOnMouseClicked(e -> parent.returnToMainMenuScreen());		
+		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());		
 		return back;
 		
 	}
@@ -292,7 +280,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu levelMenu = new Menu("Level");
 		MenuItem addLevel = new MenuItem("Add new Level");
-		addLevel.setOnAction(o -> parent.loadLevelEditScreen());
+		addLevel.setOnAction(o -> controller.loadLevelEditScreen());
 		MenuItem editLevel = new MenuItem("Edit Level");
 //		addLevel.setOnAction(o -> parent.loadLevelEditScreen(selectedLevel));
 		levelMenu.getItems().addAll(addLevel, editLevel);
@@ -304,7 +292,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu splashMenu = new Menu("Splash Screen");
 		MenuItem addSplash = new MenuItem("Add new Splash Screen");
-		addSplash.setOnAction(o -> parent.loadSplashEditScreen());
+		addSplash.setOnAction(o -> controller.loadSplashEditScreen());
 		MenuItem editSplash = new MenuItem("Edit Splash Screen");
 		//	addSplash.setOnAction(o -> parent.loadSplashEditScreen(selectedSplash));
 		splashMenu.getItems().addAll(addSplash, editSplash);
@@ -322,5 +310,5 @@ public class GameEditScreen extends Screen {
 		return trashButton;
 		
 	}
-	
+
 }

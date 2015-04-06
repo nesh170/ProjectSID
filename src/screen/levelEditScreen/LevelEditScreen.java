@@ -50,6 +50,8 @@ public class LevelEditScreen extends Screen {
 	
 	
 	// Instance Variables
+	private LevelEditScreenController controller;
+	
 	private Level level;
 	private LevelView levelView;
 	private Tab currentGameScreen;
@@ -82,7 +84,7 @@ public class LevelEditScreen extends Screen {
 	 * @param width
 	 * @param height
 	 */
-	public LevelEditScreen(LevelEditScreenController parent, double width, double height) {
+	public LevelEditScreen(ScreenController parent, double width, double height) {
 		
 		this(parent, width, height, new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT));
 		
@@ -101,12 +103,19 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 * @param level
 	 */
-	public LevelEditScreen(LevelEditScreenController parent, double width, double height, Level level) {
+	public LevelEditScreen(ScreenController parent, double width, double height, Level level) {
 		
-		super(width,height);
-		configureParent(parent);
+		super(parent, width,height);
+		
 		setUpLevelViewFromLevel(level);
+		makeSpritesInLevelTab();
+		makeButtonsTab();
 
+	}
+	
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new LevelEditScreenManager(parent);
 	}
 	
 	@Override
@@ -132,15 +141,6 @@ public class LevelEditScreen extends Screen {
 		
 		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));
 		return spriteButton;
-		
-	}
-	
-	private void configureParent(LevelEditScreenController parent) {
-		
-		this.parent = parent;
-		
-		makeSpritesInLevelTab();
-		makeButtonsTab();
 		
 	}
 	
