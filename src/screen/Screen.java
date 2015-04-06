@@ -12,6 +12,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -134,7 +135,6 @@ public abstract class Screen extends BorderPane {
 		
 	}
 
-	
 	private void addMenuBarToThis(VBox wrapper) {
 		this.setTop(wrapper);
 	}
@@ -152,6 +152,13 @@ public abstract class Screen extends BorderPane {
 	}
 	
 	// All other instance methods
+	protected void sizeMenuImageView(ImageView imageView, double width, double height) {
+		
+		imageView.setFitWidth(width);
+		imageView.setFitHeight(height);
+		
+	}
+
 	protected void add(Node node) {
 		this.viewableArea.getChildren().add(node);
 	}
@@ -165,5 +172,4 @@ public abstract class Screen extends BorderPane {
 
 	}
 
-		
 }
