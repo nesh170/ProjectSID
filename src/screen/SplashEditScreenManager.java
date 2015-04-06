@@ -11,12 +11,23 @@ import screen.splashEditScreen.SplashEditScreenController;
 // Inner class for handling SplashEditScreenController methods
 public class SplashEditScreenManager extends UniversalManager implements SplashEditScreenController {
 	
-	private ScreenController parent;
-	private Stage stage;
+	// Static Variables
+	
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public SplashEditScreenManager(ScreenController parent) {
+		
+		super(parent);
 
-	public SplashEditScreenManager(ScreenController parent, Stage stage) {
-		this.stage = stage;
-		this.parent = parent;
 	}
 
 	@Override

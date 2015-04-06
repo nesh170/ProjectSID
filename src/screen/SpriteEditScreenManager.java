@@ -7,10 +7,21 @@ import sprite.Sprite;
 // Inner class for handling SpriteEditScreenController methods
 public class SpriteEditScreenManager extends UniversalManager implements SpriteEditScreenController {
 	
-	private ScreenController parent;
+	// Static Variables
 	
-	public SpriteEditScreenManager(ScreenController screenController) {
-		this.parent = screenController;
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public SpriteEditScreenManager(ScreenController parent) {
+		super(parent);
 	}
 
 	@Override
