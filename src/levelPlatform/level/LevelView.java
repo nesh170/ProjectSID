@@ -107,18 +107,65 @@ public class LevelView extends ScrollPane {
     private Group renderSprite(Sprite sprite) {
     	
     	Group spriteGroup = new Group();
+    	Image spriteImage;
+    	ImageView spriteImageView;
+    	
         if (sprite.isActive()) {
-            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-            ImageView spriteImageView = new ImageView(spriteImage);
+        	
+            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            spriteImageView = new ImageView(spriteImage);
+            
             SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
                     .transform().getPosY());
             spriteGroup.getChildren().add(spriteImageView);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-        }
-        return spriteGroup;
         
+            if (editMode == EditMode.EDIT_MODE_ON) {
+            	
+            	configureMouseHandlersOnSpriteImageView(spriteImageView);
+            	
+            }
+            
+        }
+        
+        return spriteGroup;
+
     }
+
+    private void configureMouseHandlersOnSpriteImageView(ImageView spriteImageView) {
+
+    	spriteImageView.setOnMouseClicked(ee -> checkForDeletion(ee));
+    	spriteImageView.setOnMouseEntered(ee -> createDisplayEditOverlay());
+    	spriteImageView.setOnMouseExited(ee -> destroyDisplayEditOverlay());
+
+    }
+
+    private void createDisplayEditOverlay() {
+    	// TODO Auto-generated method stub
+    }
+
+
+    private void destroyDisplayEditOverlay() {
+    	// TODO Auto-generated method stub
+    }
+
+
+    /**
+     * TODO: Display an overlay box that has an Edit button and a Delete button
+     */
+    private void checkForDeletion(MouseEvent e) {
+
+//    	if (deleteOnClick) {
+//
+//			ImageView imageToDelete = (ImageView) e.getSource();
+//			levelScene.getChildren().remove(imageToDelete);
+//			Sprite spriteToDelete = representationMap.get(imageToDelete);
+//			level.sprites().remove(spriteToDelete);
+//			
+//		}
+		
+	}
     
     /**
      * Checks for collision with each node
