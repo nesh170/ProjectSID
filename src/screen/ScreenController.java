@@ -220,15 +220,14 @@ public class ScreenController implements ScreenControllerInterface {
 	}
 	
 	private void createInitialMainMenuScreen() {
+		addTabWithScreenWithStringIdentifier(
+				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
+				"Main Menu");
 		
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
 		addTabWithScreenWithStringIdentifier(
 				new GameEditScreen(gameEditScreenManager, newScreenWidth, newScreenHeight),
-				"Edit Game");
-		
-		addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth, newScreenHeight),
-				"Main Menu");
+				"Edit Game");		
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		addTabWithScreenWithStringIdentifier(
@@ -274,7 +273,7 @@ public class ScreenController implements ScreenControllerInterface {
 
 		tabPane.getTabs().add(tab);
 		
-		//setCorrectTabModifiabilityAndViewability();
+		setCorrectTabModifiabilityAndViewability();
 
 	}
 	
