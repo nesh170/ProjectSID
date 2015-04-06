@@ -1,16 +1,13 @@
 package levelPlatform.level;
 
 import gameEngine.Collision;
-import gameEngine.Transform;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
-import utils.IntArray2DToImageConverter;
+import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 
 /**
  * 
@@ -93,13 +90,15 @@ public class LevelView {
     private Group renderSprite(Sprite sprite) {
     	
     	Group spriteGroup = new Group();
-    	
-    	Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-    	ImageView spriteImageView = new ImageView(spriteImage);
-        
-        spriteGroup.getChildren().add(spriteImageView);
-        sprite.emissionList().stream().forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-        
+        if (sprite.isActive()) {
+            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            ImageView spriteImageView = new ImageView(spriteImage);
+            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
+                    .transform().getPosY());
+            spriteGroup.getChildren().add(spriteImageView);
+            sprite.emissionList().stream()
+                    .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
+        }
         return spriteGroup;
         
     }
@@ -133,7 +132,6 @@ public class LevelView {
         
         if(boundsSprite1.intersects(boundsSprite2)) {
             collisionHandler.handleCollide(sprite1, sprite2);
-            //TODO should we just act on sprite 1 or both sprite1 and sprite 2
         }
         
     }
