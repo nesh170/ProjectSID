@@ -256,15 +256,13 @@ public class ScreenController implements ScreenControllerInterface {
 		
 	}
 	
-	
-	// Private
 	/**
 	 * Method for adding new Tab items
 	 * 
 	 * @param Screen (to add)
 	 * @param String (title)
 	 */
-	private void addTabWithScreenWithStringIdentifier(Screen screen, String string) {
+	public void addTabWithScreenWithStringIdentifier(Screen screen, String string) {
 
 		Tab tab = new Tab();
 
@@ -279,7 +277,8 @@ public class ScreenController implements ScreenControllerInterface {
 		setCorrectTabModifiabilityAndViewability();
 
 	}
-
+	
+	// Private
 	/**
 	 * Take all tabs except the current one and make them unmodifiable. Make the current tab modifiable
 	 * 
