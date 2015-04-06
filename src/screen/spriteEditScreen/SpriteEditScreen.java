@@ -8,33 +8,38 @@ import sprite.Sprite;
 
 public class SpriteEditScreen extends Screen {
 	
-	private Tab currentLevelScreen;
-	
 	private SpriteEditScreenController parent;
 
-	
-	public SpriteEditScreen(SpriteEditScreenController parent, Sprite spriteToEdit, Tab levelScreen, double width, double height) {
+	public SpriteEditScreen(SpriteEditScreenController parent, double width, double height) {
+
+		this(parent, width, height, null);
+
+	}
+
+	public SpriteEditScreen(SpriteEditScreenController parent, double width, double height, Sprite spriteToEdit) {
+
 		super(width, height);
-		drawSpriteOnScreen(spriteToEdit);
-		initialize(parent, levelScreen);
+
+		configureParentScreenController(parent);
+		
+		if (spriteToEdit != null) {
+			drawSpriteOnScreen(spriteToEdit);
+		}
+		
 	}
 	
-	
-	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelScreen, double width, double height) {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
-		super(width, height);
-		initialize(parent, levelScreen);
 		Menu fileMenu = makeFileMenu();
 		
 	}
 	
-	private void initialize(SpriteEditScreenController parent, Tab levelScreen) {
+	private void configureParentScreenController(SpriteEditScreenController parent) {
 		this.parent = parent;
-		this.currentLevelScreen = levelScreen;
 	}
 	
+	// All other instance methods
 	private void drawSpriteOnScreen(Sprite sprite) {
 		//TODO implement
 	}
