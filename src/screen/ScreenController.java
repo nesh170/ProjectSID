@@ -396,4 +396,64 @@ public class ScreenController implements ScreenDisplayingInterface {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
 
+	@Override
+	public Tab createMainMenuScreen() {
+		
+		return addTabWithScreenWithStringIdentifier(
+				new MainMenuScreen(mainMenuScreenManager, newScreenWidth(), newScreenHeight()),
+				STRING.MAIN_MENU
+				);
+		
+	}
+
+	@Override
+	public Tab createGameEditScreen(Game game) {
+		
+		return addTabWithScreenWithStringIdentifier(
+				new GameEditScreen(gameEditScreenManager, newScreenWidth(), newScreenHeight(), game),
+				STRING.GAME_EDIT
+				);
+		
+	}
+
+	@Override
+	public Tab createSplashEditScreen(SplashScreen splashScreen) {
+
+		return addTabWithScreenWithStringIdentifier(
+				new SplashEditScreen(splashEditScreenManager, newScreenWidth(), newScreenHeight(), splashScreen),
+				STRING.SPLASH_SCREEN
+				);
+		
+	}
+
+	@Override
+	public Tab createLevelEditScreen(Level level) {
+
+		return addTabWithScreenWithStringIdentifier(
+				new LevelEditScreen(levelEditScreenManager, newScreenWidth(), newScreenHeight(), level),
+				STRING.GAME_EDIT
+				);
+	
+	}
+
+	@Override
+	public Tab createSpriteEditScreen(Sprite sprite) {
+		
+		return addTabWithScreenWithStringIdentifier(
+					new SpriteEditScreen(spriteEditScreenManager, newScreenWidth(), newScreenHeight(), sprite),
+					STRING.SPRITE_EDIT
+					);
+		
+	}
+
+	@Override
+	public Tab createGamePlayScreen(Level level) {
+		
+		return addTabWithScreenWithStringIdentifier(
+				new GamePlayScreen(gamePlayScreenManager, newScreenWidth(), newScreenHeight(), level),
+				STRING.GAME_EDIT
+				);
+		
+	}
+
 }
