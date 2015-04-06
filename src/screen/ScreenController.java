@@ -387,7 +387,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	}
 	
 	private void configureErrorMessageOffsets() {
-		errorMessageTextField.setTranslateY(DOUBLE.percentHeightMenuBar);
+		errorMessageTextField.setTranslateY(DOUBLE.MENU_BAR_HEIGHT);
 	}
 	
 	private void addErrorMessage() {
