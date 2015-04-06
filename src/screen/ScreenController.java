@@ -101,7 +101,7 @@ import sprite.Sprite;
  * 
  */
 
-public class ScreenController implements ScreenControllerInterface {
+public class ScreenController implements ScreenDisplayingInterface {
 	
 	// Static Variables
 	
