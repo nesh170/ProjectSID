@@ -39,6 +39,8 @@ import screen.spriteEditScreen.SpriteEditScreenController;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
+
+
 /**
  * 
  * @author Ruslan
@@ -49,6 +51,18 @@ import sprite.Sprite;
  *
  */
 
+
+// Description
+/**
+ * Responsibilities of the ScreenController:
+ * 	- Width, Height of itself, and new Screen(s)
+ * 	- JavaFX Stage, Group, Scene
+ * 	- TabPane, changing between Screen
+ * 		- ALL "getFile, closeApplication()" belong in the parent of all ScreenManagers, "Manager"
+ * 		- Instantiate the "Manager" with a ScreenController and use (ScreenController)parent.stage() if you need the Stage
+ */
+
+// Meeting Notes
 /**
  * ----------------------------------------------------------------------
  * Note from March 28 meeting (Michael, Anika, Leo, Yongjiao)
