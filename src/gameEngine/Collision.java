@@ -44,18 +44,22 @@ public class Collision {
     }
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
+        System.out.println("Collision Left");
         collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[LEFT].execute();
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
+        System.out.println("Collision Right");
         collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[RIGHT].execute();
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
+        System.out.println("Collision Up");
         collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[UP].execute();
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
+        System.out.println("Collision Down");
         collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[DOWN].execute();
     }
 }

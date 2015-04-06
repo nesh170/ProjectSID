@@ -1,9 +1,7 @@
 package levelPlatform.level;
 import gameEngine.Action;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import resources.constants.STRING;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -11,13 +9,12 @@ import levelPlatform.LevelPlatform;
 /**
  * 
  * Contains all information, methods for
- * each scene/level.
+ * each scene/level
  *
  * Subclass of LevelPlatform, which contains functionality such as:
  * 	- width
  * 	- height
  * 	- Sprites
- * 	- projecticles
  * 
  * 	Level adds functionality on top such as
  * 	- A "Player" Sprite
