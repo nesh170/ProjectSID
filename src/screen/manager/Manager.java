@@ -1,11 +1,13 @@
-package screen;
+package screen.manager;
 
 import java.io.File;
 
+import screen.ScreenController;
+import screen.UniversalController;
 import javafx.stage.Stage;
 
 
-public abstract class UniversalManager implements UniversalController {
+public abstract class Manager implements UniversalController {
 	
 	// Static Variables
 	
@@ -22,7 +24,7 @@ public abstract class UniversalManager implements UniversalController {
 	
 	
 	// Constructor & Helpers
-	public UniversalManager(ScreenController parent) {
+	public Manager(ScreenController parent) {
 		
 		configureParent(parent);
 		
