@@ -2,8 +2,10 @@ package screen;
 
 import java.io.File;
 
+import javafx.stage.Stage;
 
-public abstract class UniversalManager {
+
+public abstract class UniversalManager implements UniversalController {
 	
 	// Static Variables
 	
