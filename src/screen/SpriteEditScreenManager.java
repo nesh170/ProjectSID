@@ -1,6 +1,7 @@
 package screen;
 
 import javafx.scene.control.Tab;
+import screen.manager.Manager;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import sprite.Sprite;
 
