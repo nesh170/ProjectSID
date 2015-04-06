@@ -278,6 +278,14 @@ public class ScreenController implements ScreenControllerInterface {
 
 	}
 	
+	public SingleSelectionModel<Tab> getTabSelectionModel() {
+		return singleSelectionModel;
+	}
+	
+	public void removeTab(Tab tab) {
+		tabPane.getTabs().remove(tab);
+	}
+	
 	// Private
 	/**
 	 * Take all tabs except the current one and make them unmodifiable. Make the current tab modifiable

@@ -127,7 +127,7 @@ public class LevelEditScreen extends Screen {
 		spritePic.setFitWidth(this.getHeight() * DOUBLE.percentHeightMenuBar);
 		Menu spriteButton = new Menu("Add New Sprite",spritePic);
 		
-		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen());
+		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));
 		return spriteButton;
 		
 	}
@@ -184,7 +184,7 @@ public class LevelEditScreen extends Screen {
 		
 		this.setRight(paneForButtons);
 				
-		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen());
+		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen(new Sprite()));
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
 		Button deleteSprite = makeButtonForPane("Delete", e -> trash());
 		
