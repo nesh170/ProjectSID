@@ -15,12 +15,23 @@ import screen.manager.Manager;
 // Inner class for handling MainMenuScreenController methods
 public class MainMenuScreenManager extends Manager implements MainMenuScreenController {
 	
-	private ScreenController parent;
-	private Stage myStage;
+	// Static Variables
 	
-	public MainMenuScreenManager(ScreenController parent, Stage stage) {
-		myStage = stage;
-		this.parent = parent;
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public MainMenuScreenManager(ScreenController parent) {
+		
+		super(parent);
+		
 	}
 	
 	@Override
@@ -57,8 +68,8 @@ public class MainMenuScreenManager extends Manager implements MainMenuScreenCont
 		
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
 		
-		File file = fileChooser.showOpenDialog(myStage);
-		
+		File file = parent().getFileUsingFileChooser(fileChooser);
+				
 		if (file != null) {
 			return file.toURI();
 		} else {
@@ -101,7 +112,7 @@ public class MainMenuScreenManager extends Manager implements MainMenuScreenCont
 	
 	@Override
 	public void closeApplication() {
-		myStage.close();		
+		parent().closeApplication();
 	}
 	
 }

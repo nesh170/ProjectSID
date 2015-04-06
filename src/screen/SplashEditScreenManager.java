@@ -55,7 +55,7 @@ public class SplashEditScreenManager extends Manager implements SplashEditScreen
 		}
 
 		ImageCursor imageCursor = new ImageCursor(image);
-		stage.getScene().setCursor(imageCursor);
+		parent().setCursor(imageCursor);
 
 	}
 
