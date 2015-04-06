@@ -196,62 +196,36 @@ public class LevelEditScreen extends Screen {
 	private void addSpriteToLocation(MouseEvent e) {
 		
 		if(spriteToAdd != null) {
-			double xLocation = e.getX();
-			double yLocation = e.getY();
 			
-			Image spriteImage = spriteToAdd.spriteImage().getImageToDisplay(levelView.getLengthSidePixel());
-			
-			ImageView imageView = new ImageView(spriteImage);
-			imageView.setOnMouseClicked(ee -> checkForDeletion(ee));
-			imageView.setOnMouseEntered(ee -> createDisplayEditOverlay());
-			imageView.setOnMouseExited(ee -> destroyDisplayEditOverlay());
-
-			imageView.setX(xLocation);
-			imageView.setY(yLocation);
-
-			levelScene.getChildren().add(imageView);
-			representationMap.put(imageView, spriteToAdd);
+			configureSpriteXYFromClick(e, spriteToAdd);
 			
 			level.sprites().add(spriteToAdd);
+			levelView.renderLevel();
+
+			//do this once sprite has been added
+			spriteToAdd = null; 
 			
-			spriteToAdd = null; //do this once sprite has been added
 		}
 		
 	}
 	
-	private void createDisplayEditOverlay() {
-		// TODO Auto-generated method stub
-	}
-
-
-	private void destroyDisplayEditOverlay() {
-		// TODO Auto-generated method stub
-	}
-
-
-	private void checkForDeletion(MouseEvent e) {
+	// TODO
+	private void configureSpriteXYFromClick(MouseEvent e, Sprite sprite) {
 		
-		if(deleteOnClick) {
-			
-			ImageView imageToDelete = (ImageView) e.getSource();
-			levelScene.getChildren().remove(imageToDelete);
-			Sprite spriteToDelete = representationMap.get(imageToDelete);
-			level.sprites().remove(spriteToDelete);
-			
-			
-			
-			
-			deleteOnClick = false;
-			
-		}
+//		System.out.println("LevelEditScreen uses e.getX and Y. those are JavaFX. use the"
+//		+ " future util to first convert those to SID pixels");
+		
+		double xLocation = e.getX();
+		double yLocation = e.getY();
+		
+		sprite.setX(xLocation);
+		sprite.setY(yLocation);
 		
 	}
-
+	
 
 	private void trash() {
-		
-		deleteOnClick = true;
-		
+		this.deleteOnClick = true;
 	}
 	
 	private void save() {
