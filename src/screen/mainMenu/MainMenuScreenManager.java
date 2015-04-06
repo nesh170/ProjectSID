@@ -1,4 +1,4 @@
-package screen;
+package screen.mainMenu;
 
 import game.Game;
 
@@ -8,7 +8,7 @@ import java.net.URI;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import screen.mainMenu.MainMenuScreenController;
+import screen.ScreenController;
 import screen.manager.ScreenManager;
 
 // Nested Classes

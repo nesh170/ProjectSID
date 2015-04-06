@@ -1,8 +1,8 @@
-package screen;
+package screen.gameEditScreen;
 
 import levelPlatform.level.Level;
 import game.Game;
-import screen.gameEditScreen.GameEditScreenController;
+import screen.ScreenController;
 import screen.manager.ScreenManager;
 /**
  * 

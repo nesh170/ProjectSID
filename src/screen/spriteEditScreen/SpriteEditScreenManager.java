@@ -1,8 +1,8 @@
-package screen;
+package screen.spriteEditScreen;
 
 import javafx.scene.control.Tab;
+import screen.ScreenController;
 import screen.manager.ScreenManager;
-import screen.spriteEditScreen.SpriteEditScreenController;
 import sprite.Sprite;
 
 // Inner class for handling SpriteEditScreenController methods
