@@ -30,6 +30,7 @@ import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
+import resources.constants.STRING;
 import screen.Screen;
 import screen.gameEditScreen.GameEditScreen;
 import sprite.Sprite;
@@ -125,9 +126,9 @@ public class LevelEditScreen extends Screen {
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
 		spritePic.setFitHeight(this.getHeight() * DOUBLE.percentHeightMenuBar);
 		spritePic.setFitWidth(this.getHeight() * DOUBLE.percentHeightMenuBar);
-		Menu spriteButton = new Menu("Add New Sprite",spritePic);
+		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
 		
-		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen());
+		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));
 		return spriteButton;
 		
 	}
@@ -159,9 +160,9 @@ public class LevelEditScreen extends Screen {
 		VBox paneForSprites = new VBox();
 		this.setLeft(paneForSprites);
 		
-		TitledPane platforms = makeTitledPane("Platforms",listOfPlatforms);
-		TitledPane enemies = makeTitledPane("Enemies",listOfEnemies);
-		TitledPane players = makeTitledPane("Players",listOfPlayers); 
+		TitledPane platforms = makeTitledPane(STRING.PLATFORMS,listOfPlatforms);
+		TitledPane enemies = makeTitledPane(STRING.ENEMIES,listOfEnemies);
+		TitledPane players = makeTitledPane(STRING.PLAYERS,listOfPlayers); 
 		
 		paneForSprites.getChildren().addAll(platforms,enemies,players);
 		
@@ -184,7 +185,7 @@ public class LevelEditScreen extends Screen {
 		
 		this.setRight(paneForButtons);
 				
-		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen());
+		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen(new Sprite()));
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
 		Button deleteSprite = makeButtonForPane("Delete", e -> trash());
 		

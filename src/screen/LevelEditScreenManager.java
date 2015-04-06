@@ -1,7 +1,10 @@
 package screen;
 
 import javafx.scene.control.Tab;
+import resources.constants.STRING;
 import screen.levelEditScreen.LevelEditScreenController;
+import screen.spriteEditScreen.SpriteEditScreen;
+import sprite.Sprite;
 
 // Inner class for handling LevelEditScreenController methods
 public class LevelEditScreenManager extends UniversalManager implements LevelEditScreenController {
@@ -13,13 +16,19 @@ public class LevelEditScreenManager extends UniversalManager implements LevelEdi
 	}
 
 	@Override
-	public void loadSpriteEditScreen() {
-		throw new IllegalStateException("unimplemented loadSpriteEditScreen in LevelEditScreenController");
+	public void loadSpriteEditScreen(Sprite sprite) {
+		parent.addTabWithScreenWithStringIdentifier(new SpriteEditScreen(parent.spriteEditScreenManager,
+			 									sprite,
+			 									parent.getTabSelectionModel().getSelectedItem(),
+			 									parent.newScreenWidth(),
+			 									parent.newScreenHeight()),
+				STRING.SPRITE_EDIT);
 	}
 
 	@Override
 	public void returnToGameEditScreen(Tab tab) {
-		// TODO Auto-generated method stub
-		
+		Tab levelEditTab = parent.getTabSelectionModel().getSelectedItem();
+		parent.getTabSelectionModel().select(tab);
+		parent.removeTab(levelEditTab);
 	}
 }
