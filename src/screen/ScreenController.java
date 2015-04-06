@@ -128,15 +128,6 @@ public class ScreenController implements ScreenDisplayingInterface {
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
 	private TextField errorMessageTextField;
-	// Screen Managers
-	MainMenuScreenController mainMenuScreenManager;
-	GameEditScreenController gameEditScreenManager;
-	SplashEditScreenController splashEditScreenManager;
-	LevelEditScreenController levelEditScreenManager;
-	SpriteEditScreenController spriteEditScreenManager;
-	GamePlayScreenController gamePlayScreenManager;
-	
-	
 	// Getters & Setters (static)
 	
 	
@@ -175,8 +166,6 @@ public class ScreenController implements ScreenDisplayingInterface {
 		this.root = new Group();
 		this.scene = new Scene(root);
 		
-		configureControllers(stage);
-		
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
@@ -187,17 +176,6 @@ public class ScreenController implements ScreenDisplayingInterface {
 	
 	}
 	
-	private void configureControllers(Stage stage) {
-		
-		mainMenuScreenManager = new MainMenuScreenManager(this);
-		gameEditScreenManager = new GameEditScreenManager(this);
-		splashEditScreenManager = new SplashEditScreenManager(this);
-		levelEditScreenManager = new LevelEditScreenManager(this);
-		spriteEditScreenManager = new SpriteEditScreenManager(this);
-		gamePlayScreenManager = new GamePlayScreenManager(this);
-		
-	}
-
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.stage = stage;
@@ -409,7 +387,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createMainMenuScreen() {
 		
 		return addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth(), newScreenHeight()),
+				new MainMenuScreen(this, newScreenWidth(), newScreenHeight()),
 				STRING.MAIN_MENU
 				);
 		
@@ -419,7 +397,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createGameEditScreen(Game game) {
 		
 		return addTabWithScreenWithStringIdentifier(
-				new GameEditScreen(gameEditScreenManager, newScreenWidth(), newScreenHeight(), game),
+				new GameEditScreen(this, newScreenWidth(), newScreenHeight(), game),
 				STRING.GAME_EDIT
 				);
 		
@@ -429,7 +407,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createSplashEditScreen(SplashScreen splashScreen) {
 
 		return addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(splashEditScreenManager, newScreenWidth(), newScreenHeight(), splashScreen),
+				new SplashEditScreen(this, newScreenWidth(), newScreenHeight(), splashScreen),
 				STRING.SPLASH_SCREEN
 				);
 		
@@ -439,7 +417,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createLevelEditScreen(Level level) {
 
 		return addTabWithScreenWithStringIdentifier(
-				new LevelEditScreen(levelEditScreenManager, newScreenWidth(), newScreenHeight(), level),
+				new LevelEditScreen(this, newScreenWidth(), newScreenHeight(), level),
 				STRING.LEVEL_EDIT
 				);
 	
@@ -449,7 +427,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createSpriteEditScreen(Sprite sprite) {
 		
 		return addTabWithScreenWithStringIdentifier(
-					new SpriteEditScreen(spriteEditScreenManager, newScreenWidth(), newScreenHeight(), sprite),
+					new SpriteEditScreen(this, newScreenWidth(), newScreenHeight(), sprite),
 					STRING.SPRITE_EDIT
 					);
 		
@@ -459,7 +437,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createGamePlayScreen(Level level) {
 		
 		return addTabWithScreenWithStringIdentifier(
-				new GamePlayScreen(gamePlayScreenManager, newScreenWidth(), newScreenHeight(), level),
+				new GamePlayScreen(this, newScreenWidth(), newScreenHeight(), level),
 				STRING.GAME_PLAY
 				);
 		
