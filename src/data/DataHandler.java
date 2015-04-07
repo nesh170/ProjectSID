@@ -1,11 +1,14 @@
 package data;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -14,42 +17,39 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import levelPlatform.level.Level;
 
 public class DataHandler {
 
-	private XStream myXStream;
+	private static final XStream XSTREAM = new XStream(new DomDriver());
 
-	public DataHandler() {
-		myXStream = new XStream(new DomDriver());
-	}
-
-	public void toXMLFile(Object obj, String filename, String filePath)
+	public static void toXMLFile(Object obj, String filename, String filePath)
 			throws IOException {
 		Writer fWriter = new FileWriter(new File(filePath, filename));
-		myXStream.toXML(obj, fWriter);
+		XSTREAM.toXML(obj, fWriter);
 		fWriter.close();
 	}
 
-	public Object fromXMLString(String xml) {
-		return myXStream.fromXML(xml);
+	public static Object fromXMLString(String xml) {
+		return XSTREAM.fromXML(xml);
 	}
 
-	public Object fromXMLFile(File xml) {
-		return myXStream.fromXML(xml);
+	public static Object fromXMLFile(File xml) {
+		return XSTREAM.fromXML(xml);
 	}
 
-	public File chooseDir(Stage stage) {
+	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
 
-	public File[] getFilesFromDir(File folder) {
+	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
 
-	public BufferedImage[] getImagesFromDir(File folder) throws IOException {
-		return (BufferedImage[]) Arrays
+	public static List<Image> getImagesFromDir(File folder) throws IOException {
+		return Arrays
 				.asList(folder.listFiles())
 				.stream()
 				.filter(file -> file.toString().endsWith(".jpg")
@@ -57,10 +57,20 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff"))
 				.map(file -> fileToImage(file))
-				.toArray();
+				.collect(Collectors.toList());
+	}
+	
+	public static List<Level> getLevelsFromDir(File folder) throws IOException {
+		return Arrays
+				.asList(folder.listFiles())
+				.stream()
+				.filter(file -> file.toString().endsWith(".xml"))
+				.map(file -> fromXMLFile(file))
+				.map(obj -> (Level) obj)
+				.collect(Collectors.toList());
 	}
 
-	public BufferedImage fileToImage(File file) {
+	public static BufferedImage fileToImage(File file) {
 		try {
 			return ImageIO.read(file);
 		} catch (IOException e) {

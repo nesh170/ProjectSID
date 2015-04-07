@@ -33,6 +33,8 @@ public class Sprite {
 	
 	
 	// Instance Variables	
+	private double x, y;
+	
 	private List<Action> actionList;
 	private List<Component> componentList;
 	private Physics physics;
@@ -47,6 +49,20 @@ public class Sprite {
 
 	
 	// Getters & Setters
+	/**
+	 * Use SID pixels here
+	 */
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	/**
+	 * Use SID pixels here
+	 */
+	public void setY(double y) {
+		this.y = y;
+	}
+	
 	public List<Action> actionList() {
 		return Collections.unmodifiableList(this.actionList);
 	}
@@ -92,6 +108,7 @@ public class Sprite {
 	}
 
 	public SpriteImage spriteImage() {
+	    //TODO talk to Ruslan about death
 		return this.spriteImage;
 	}
 	

@@ -15,11 +15,11 @@ import gameEngine.Component;
  * determines where to head/how fast to head there.
  * 
  */
-public class MotionComponent extends Component{
+public class VelocityComponent extends Component{
 
 	private Point2D myVelocity;
 	
-	public MotionComponent(Sprite sprite) {
+	public VelocityComponent(Sprite sprite) {
 		super(sprite);
 	}
 

@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
@@ -8,6 +8,8 @@ import javafx.scene.image.WritableImage;
  * A util designed to take in:
  *  	- an int[][]
  *  	- size per "pixel" (double)
+ *  
+ *  Assumes a rectangular 2D int array
  *  
  *  Returns:
  * 		- a pixelated JavaFX Image using the rgb values in the int

@@ -1,4 +1,4 @@
-package screen;
+package screen.mainMenu;
 
 import game.Game;
 
@@ -8,16 +8,30 @@ import java.net.URI;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import screen.mainMenu.MainMenuScreenController;
+import screen.ScreenController;
+import screen.manager.ScreenManager;
 
 // Nested Classes
 // Inner class for handling MainMenuScreenController methods
-public class MainMenuScreenManager extends UniversalManager implements MainMenuScreenController {
-
-	private Stage myStage;
+public class MainMenuScreenManager extends ScreenManager implements MainMenuScreenController {
 	
-	public MainMenuScreenManager(Stage stage) {
-		myStage = stage;
+	// Static Variables
+	
+	
+	// Instance Variables
+	
+	
+	// Getters & Setters
+	
+	
+	// Static Methods
+	
+	
+	// Constructor & Helpers
+	public MainMenuScreenManager(ScreenController parent) {
+		
+		super(parent);
+		
 	}
 	
 	@Override
@@ -54,8 +68,8 @@ public class MainMenuScreenManager extends UniversalManager implements MainMenuS
 		
 		fileChooser.getExtensionFilters().add(new ExtensionFilter("Game File", "*.xml*"));
 		
-		File file = fileChooser.showOpenDialog(myStage);
-		
+		File file = parent().getFileUsingFileChooser(fileChooser);
+				
 		if (file != null) {
 			return file.toURI();
 		} else {
@@ -98,7 +112,7 @@ public class MainMenuScreenManager extends UniversalManager implements MainMenuS
 	
 	@Override
 	public void closeApplication() {
-		myStage.close();		
+		parent().closeApplication();
 	}
 	
 }
