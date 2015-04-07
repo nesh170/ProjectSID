@@ -2,6 +2,8 @@ package player;
 
 import java.util.List;
 
+import javafx.stage.Stage;
+
 public interface GamePlayerInterface {
 	/**
 	 * Starts or restarts the game animation.
@@ -14,7 +16,17 @@ public interface GamePlayerInterface {
 	void pause();
 	
 	/**
-	 * Allows engine to get highscore. 
+	 * Get lives from engine
+	 */
+	int getLives();
+	
+	/**
+	 * Get health from engine
+	 */
+	int getHealth();
+	
+	/**
+	 * Loads high score.
 	 */
 	int getHighScore();
 	
