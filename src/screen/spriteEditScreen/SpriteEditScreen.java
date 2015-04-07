@@ -3,23 +3,32 @@ package screen.spriteEditScreen;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import screen.Screen;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import sprite.Sprite;
 
+/**
+ * 
+ * @author Leo
+ *
+ */
+
+
 public class SpriteEditScreen extends Screen {
 	
 	private SpriteEditScreenController controller;
-	private LevelEditScreen levelEditScreen;
+	private Tab levelEditScreen;
 
-	public SpriteEditScreen(SpriteEditScreenController parent, LevelEditScreen levelEditScreen, double width, double height) {
+	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
 		this(parent, levelEditScreen, width, height, null);
 
 	}
 
-	public SpriteEditScreen(SpriteEditScreenController parent, LevelEditScreen levelEditScreen, double width, double height, Sprite spriteToEdit) {
+	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height, Sprite spriteToEdit) {
 
 		super(width, height);
 		
