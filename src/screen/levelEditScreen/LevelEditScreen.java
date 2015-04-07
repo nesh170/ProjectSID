@@ -56,13 +56,8 @@ public class LevelEditScreen extends Screen {
 	private LevelView levelView;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
-	
-	private boolean deleteOnClick;
-	
-	private LevelEditScreenController parent;
-	
-	private Map<ImageView, Sprite> representationMap;
-	
+	private Sprite selectedSprite;
+				
 	private final ObservableList<Sprite> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfEnemies = FXCollections.observableArrayList();
 	private final ObservableList<Sprite> listOfPlayers = FXCollections.observableArrayList();
@@ -122,8 +117,8 @@ public class LevelEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
 		Menu fileMenu = makeFileMenu(e -> save(),
-									e -> parent.returnToGameEditScreen(currentGameScreen),
-									e -> parent.returnToGameEditScreen(currentGameScreen));
+									e -> controller.returnToGameEditScreen(currentGameScreen),
+									e -> controller.returnToGameEditScreen(currentGameScreen));
 		//TODO for file menu = save and exit (third parameter) might need a different lambda
 		Menu addNewSpriteButton = makeAddSpriteButton();
 		
@@ -139,7 +134,7 @@ public class LevelEditScreen extends Screen {
 		
 		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
 		
-		spriteButton.setOnAction(e -> parent.loadSpriteEditScreen(new Sprite()));
+		spriteButton.setOnAction(e -> controller.loadSpriteEditScreen(new Sprite()));
 		return spriteButton;
 		
 	}
@@ -153,6 +148,7 @@ public class LevelEditScreen extends Screen {
 		}
 		
 		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
+		this.setCenter(levelView);
 		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
 	}
@@ -173,6 +169,25 @@ public class LevelEditScreen extends Screen {
 	private TitledPane makeTitledPane(String title, ObservableList<Sprite> content) {
 
 		ListView<Sprite> platformListView = new ListView<>(content);
+		/*
+		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
+		 */
+		platformListView.setOnMouseReleased(e -> {
+			try {
+				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
+					levelView.getImageForSprite(selectedSprite).setOpacity(1);
+				}
+				/*
+				 * this next line could throw an exception possibly if
+				 * the selection model is empty, catch statement is precautionary
+				 */				
+				selectedSprite = platformListView.getSelectionModel().getSelectedItem(); 																		
+				levelView.getImageForSprite(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+			}
+			catch (IndexOutOfBoundsException | NullPointerException ee) {
+				//do not select any sprites, since no sprites are in the selection model
+			}
+		});
 		return new TitledPane(title, platformListView);
 
 	}
@@ -187,11 +202,10 @@ public class LevelEditScreen extends Screen {
 		
 		this.setRight(paneForButtons);
 				
-		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> parent.loadSpriteEditScreen(new Sprite()));
-		Button returnToGameEditButton = makeButtonForPane("Back", e -> parent.returnToGameEditScreen(currentGameScreen));
-		Button deleteSprite = makeButtonForPane("Delete", e -> trash());
+		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> controller.loadSpriteEditScreen(new Sprite()));
+		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen(currentGameScreen));
 		
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, deleteSprite);
+		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
 
 	}
 	
@@ -202,6 +216,7 @@ public class LevelEditScreen extends Screen {
 			configureSpriteXYFromClick(e, spriteToAdd);
 			
 			level.sprites().add(spriteToAdd);
+			setUpLevelViewFromLevel(level);
 			levelView.renderLevel();
 
 			//do this once sprite has been added
@@ -222,14 +237,9 @@ public class LevelEditScreen extends Screen {
 		
 		sprite.setX(xLocation);
 		sprite.setY(yLocation);
+				
+	}
 		
-	}
-	
-
-	private void trash() {
-		this.deleteOnClick = true;
-	}
-	
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
 	}

@@ -235,13 +235,14 @@ public class ScreenController implements ScreenDisplayingInterface {
 		root.getChildren().add(tabPane);
 	}
 	
+
 	private void createInitialScreens() {
 		
 		createMainMenuScreen();
 
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
 		createGameEditScreen(null);
-
+		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		createSplashEditScreen(null);
 		
@@ -397,7 +398,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 	public Tab createGameEditScreen(Game game) {
 		
 		return addTabWithScreenWithStringIdentifier(
-				new GameEditScreen(this, newScreenWidth(), newScreenHeight(), game),
+				new GameEditScreen(game, this, newScreenWidth(), newScreenHeight()),
 				STRING.GAME_EDIT
 				);
 		
@@ -424,10 +425,10 @@ public class ScreenController implements ScreenDisplayingInterface {
 	}
 
 	@Override
-	public Tab createSpriteEditScreen(Sprite sprite) {
+	public Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 		
 		return addTabWithScreenWithStringIdentifier(
-					new SpriteEditScreen(this, newScreenWidth(), newScreenHeight(), sprite),
+					new SpriteEditScreen(this, levelEditScreen, newScreenWidth(), newScreenHeight(), sprite),
 					STRING.SPRITE_EDIT
 					);
 		

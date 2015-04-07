@@ -11,7 +11,6 @@ public class DOUBLE {
 	
 	
 	//GameEdit Screen
-	public static final double PERCENT_HEIGHT_ADD_SIGN = 0.16;
 	
 	
 	// ScreenController

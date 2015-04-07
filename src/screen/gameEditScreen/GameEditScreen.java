@@ -16,7 +16,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -25,6 +28,8 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -65,26 +70,6 @@ public class GameEditScreen extends Screen {
 	private ObservableList<Level>	myLevels;  	
 	private ObservableList<SplashScreen> mySplashScreen; 
 	
-	/**
-	 * Set up GameEdit screen from previously created game to re-edit game.
-	 * @param controller, width, height, game
-	 */
-	public GameEditScreen(ScreenController parent, double width, double height, Game game) {
-		
-		super(parent, width, height);
-		
-		this.myGame = game;
-		//this.myGame.getLevels() = game.getLevels();
-		//this.myGame.getSplash() = game.getSplash();
-		//other configurations
-		
-	}
-	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new GameEditScreenManager(parent);
-	}
-	
 	
 	// Getters & Setters
 	/**
@@ -95,6 +80,27 @@ public class GameEditScreen extends Screen {
 	public void setMyLevel(int index, Level level){
 		myLevels.add(index, level);
 	}	
+	
+	/**
+	 * Set up GameEdit screen from previously created game to re-edit game.
+	 * @param controller, width, height, game
+	 */
+	public GameEditScreen(Game game, ScreenController controller, double width, double height){
+		super(null, width, height);
+		myGame = game;
+		initialize(controller);
+	}
+	/**
+	 * Creates new GameEditScreen
+	 */
+	public GameEditScreen( ScreenController controller, double width, double height) {
+			this(new Game() ,controller, width, height);
+	}
+	
+	@Override
+	protected void createAppropriateControllerForParent(ScreenController parent) {
+		this.controller = new GameEditScreenManager(parent);
+	}
 	
 	private void configureButtons() {	
 		
@@ -108,6 +114,14 @@ public class GameEditScreen extends Screen {
 		 
 	}
 	
+	/**
+	 * 
+	 * @param controller
+	 */
+	private void initialize(ScreenController controller){
+		createAppropriateControllerForParent(controller);
+		configureButtons();
+	}
 	/**
 	 * Displays a splash 
 	 * @return
@@ -138,8 +152,7 @@ public class GameEditScreen extends Screen {
 		
 	}
 	
-	private Rectangle makeRectangularShape() {
-		
+	private Rectangle makeRectangularShape() {		
 		Rectangle screen = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT, Color.TRANSPARENT);
 		screen.setStroke(Color.GRAY);
 		return screen;
@@ -149,10 +162,10 @@ public class GameEditScreen extends Screen {
 	private  ImageView makeAddSign() {
 		
 		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
-		addsign.setFitHeight(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
-		addsign.setFitWidth(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
-		return addsign;
-		
+		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
+		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
+		addsign.setOnMouseClicked(e -> controller.loadSplashEditScreen());
+		return addsign;		
 	}
 	
 	/**
@@ -168,7 +181,6 @@ public class GameEditScreen extends Screen {
 		s1.setPannable(true);
 		HBox levelView = displayLevelsInParallel();
 		s1.setContent(levelView);
-		System.out.println("The bounds of the box is" + s1.getViewportBounds());
 		return s1;
 		
 	}
@@ -179,13 +191,41 @@ public class GameEditScreen extends Screen {
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
 		ImageView level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //temp string path
+		level1.setOnMouseClicked(handleDouleRightClick(level1));		
 		ImageView level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
+		level2.setOnMouseClicked(handleDouleRightClick(level2));
 		ImageView level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
 		levelView.getChildren().addAll(level1, level2, level3);
-		return levelView;
-		
+		level3.setOnMouseClicked(handleDouleRightClick(level3));
+		return levelView;		
 	}
 	
+	private EventHandler<MouseEvent> handleDouleRightClick(Node node){
+		return new EventHandler<MouseEvent>() { //double Click to edit a screen
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		            	System.out.println("Double Clicked");
+		            	//throw new IllegalStateException("unimplemented loadEditLevelScreen: need to pass in a level");
+		            }
+		        }
+		        else if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
+		        	makeEditAndRemoveMenu().show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());		        	
+		        }
+		    }
+		};
+
+	}
+	
+	private ContextMenu makeEditAndRemoveMenu(){ //pass in Level
+		final ContextMenu rMenu = new ContextMenu();
+		MenuItem edit = new MenuItem("Edit");
+		//edit.setOnAction(controller.loadLevelEditScreen(level);
+		MenuItem remove = new MenuItem("remove");
+		//remove.setOnAction(controller.trashLevel(level);
+		rMenu.getItems().addAll(edit, remove);
+		return rMenu;
+	}
 	//temporary methods to display level Image
 	private ImageView makeTempLeveDisplayImage(String path) {
 		
@@ -202,8 +242,7 @@ public class GameEditScreen extends Screen {
 	 * Initializes event handlers for buttons on the screen.
 	 * @author Anika modified by Yongjiao
 	 */
-	private List<ScreenButton> createSplashAndLevelButtons() {
-		
+	private List<ScreenButton> createSplashAndLevelButtons() {		
 		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
 		String[] buttonNames = (String[]) buttonMap.values().toArray();
 		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();		
@@ -212,7 +251,7 @@ public class GameEditScreen extends Screen {
 			System.out.println(buttonNames[i]);
 			myButtons.put(buttonNames[i], myB);
 		}	
-//modifications made here by Yongjiao: changed to use methods in manager class.
+//modified by Yongjiao: changed to use methods in manager class.
 		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
 		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
 //		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
@@ -222,15 +261,13 @@ public class GameEditScreen extends Screen {
 		
 	}
 
-	private Button makeTrashButton(){
-		
+	private Button makeTrashButton(){		
 		Button trash = new Button(STRING.TRASH);
-		return trash;
-		
+		ImageView trashButton = new ImageView(new Image(STRING.TRASH_BUTTON)); 
+		return trash;		
 	}
 	
-	private Button makePlayButton() {
-		
+	private Button makePlayButton() {	
 		Button play = new Button(STRING.PLAY);
 		play.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);
 		play.setOnMouseClicked(e -> controller.playGame(myGame));
@@ -238,8 +275,7 @@ public class GameEditScreen extends Screen {
 		
 	}
 	
-	private Button makeBackButton() {
-		
+	private Button makeBackButton() {		
 		Button back = new Button(STRING.BACK);
 		back.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); 
 		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());		
@@ -255,12 +291,9 @@ public class GameEditScreen extends Screen {
 	 * -Leo
 	 */
 	@Override
-	protected void addMenuItemsToMenuBar(MenuBar menuBar) {			
-		
+	protected void addMenuItemsToMenuBar(MenuBar menuBar) {					
 		Menu back = new Menu("Go Back");
-		//MenuItem back = new MenuItem("back");
-		//step.setOnAction(o -> loadMainMenuScreen());
-		//back.getItems().addAll(back);
+		back.setOnAction(o -> controller.returnToMainMenuScreen());
 		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back, makeTrashMenu());	
 
 	}		

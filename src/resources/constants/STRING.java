@@ -42,11 +42,11 @@ public class STRING {
 	public static final String GAME_EDIT = "Game Edit";
 	public static final String ADD_SIGN ="images/addsplash.png";
 	public static final String TRASH_ICON = "images/trashicon.png";
-	public static final String LEVEL1IMAGE = "images/level2_tmp.PNG";
+	public static final String LEVEL1IMAGE = "images/level1_tmp.PNG";
 	public static final String LEVEL2IMAGE = "images/level2_tmp.PNG";
 	public static final String SPRITEIMAGE = "images/sprite.jpg";
 	public static final String SPLASH_SCREEN = "Splash Screen";
-	
+	public static final String TRASH_BUTTON = "images/edit.png";
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
