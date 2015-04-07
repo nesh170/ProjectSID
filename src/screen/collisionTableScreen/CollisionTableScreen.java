@@ -72,6 +72,8 @@ import screen.Screen;
  *
  */
 public class CollisionTableScreen extends Screen{
+	
+	private CollisionTableScreenController myController;
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
