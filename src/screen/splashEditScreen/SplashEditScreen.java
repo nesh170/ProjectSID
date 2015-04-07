@@ -1,5 +1,10 @@
 package screen.splashEditScreen;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
@@ -12,6 +17,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
+import sprite.Sprite;
 
 /**
 /* Screen to create a splash screen
@@ -30,6 +36,9 @@ public class SplashEditScreen extends Screen {
 	private double width;
 	private double height;
 
+	private final Sprite startButton = new Sprite();
+	private final List<Sprite> images = new ArrayList();
+	private final List<Sprite> texts = new ArrayList();
 
 	// Getters & Setters
 
@@ -91,6 +100,7 @@ public class SplashEditScreen extends Screen {
 		
 		Rectangle displayArea = new Rectangle(width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //obviously will change
 		this.setLeft(displayArea);
+		//this.setOnMouseClicked(e -> controller.);
 		
 	}
 
