@@ -17,9 +17,11 @@ public class GamePlayScreen extends Screen {
 	
 	
 	// Constructor & Helpers
-	public GamePlayScreen(ScreenController parent, double width, double height, Level level) {
+	public GamePlayScreen(GamePlayScreenController parent, double width, double height, Level level) {
 		
-		super(parent, width, height);
+		super(width, height);
+		
+		this.controller = parent;
 		
 		configureLevel(level);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
@@ -27,12 +29,7 @@ public class GamePlayScreen extends Screen {
 		myPlayer = new GamePlayer(width, height);		
 		
 	}
-	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new GamePlayScreenManager(parent);
-	}
-	
+		
 	private void configureLevel(Level level) {
 		this.level = level;
 	}

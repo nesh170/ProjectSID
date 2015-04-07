@@ -82,22 +82,18 @@ public class GameEditScreen extends Screen {
 	 * Set up GameEdit screen from previously created game to re-edit game.
 	 * @param controller, width, height, game
 	 */
-	public GameEditScreen(Game game, ScreenController controller, double width, double height){
-		super(null, width, height);
+	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height){
+		super(width, height);
 		myGame = game;
 		initialize(controller);
 	}
 	/**
 	 * Creates new GameEditScreen
 	 */
-	public GameEditScreen(ScreenController controller, double width, double height) {
+	public GameEditScreen(GameEditScreenController controller, double width, double height) {
 			this(new Game() ,controller, width, height);
 	}
 	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new GameEditScreenManager(parent);
-	}
 	
 	private void configureButtons() {	
 		
@@ -115,8 +111,8 @@ public class GameEditScreen extends Screen {
 	 * 
 	 * @param controller
 	 */
-	private void initialize(ScreenController controller){
-		createAppropriateControllerForParent(controller);
+	private void initialize(GameEditScreenController controller){
+		this.controller = controller;
 		configureButtons();
 	}
 	/**
