@@ -13,11 +13,13 @@ import screen.mainMenu.MainMenuScreenController;
 // Nested Classes
 // Inner class for handling MainMenuScreenController methods
 public class MainMenuScreenManager extends UniversalManager implements MainMenuScreenController {
-
+	
+	private ScreenController parent;
 	private Stage myStage;
 	
-	public MainMenuScreenManager(Stage stage) {
+	public MainMenuScreenManager(ScreenController parent, Stage stage) {
 		myStage = stage;
+		this.parent = parent;
 	}
 	
 	@Override

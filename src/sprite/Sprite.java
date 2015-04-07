@@ -4,10 +4,13 @@ import gameEngine.Action;
 import gameEngine.Component;
 import gameEngine.Physics;
 import gameEngine.Transform;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
+
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
@@ -33,8 +36,8 @@ public class Sprite {
 	
 	
 	// Instance Variables	
-	private List<Action> actionList;
-	private List<Component> componentList;
+	private List<Action> actionList = new ArrayList<Action>();
+	private List<Component> componentList = new ArrayList<Component>();;
 	private Physics physics;
 	private List<Sprite> emissionList;
 	

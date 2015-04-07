@@ -3,11 +3,13 @@ package levelPlatform.level;
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
-import utils.SIDPixelsToFXpixels;
+import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * 
@@ -36,6 +38,10 @@ public class LevelView {
     
     public void setLengthSidePixel(double lengthSidePixel) {
     	this.lengthSidePixel = lengthSidePixel;
+    }
+    
+    public double getLengthSidePixel() {
+    	return this.lengthSidePixel;
     }
     
     
@@ -87,11 +93,14 @@ public class LevelView {
     	
     	Group spriteGroup = new Group();
         if (sprite.isActive()) {
-            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-            ImageView spriteImageView = new ImageView(spriteImage);
-            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                    .transform().getPosY());
-            spriteGroup.getChildren().add(spriteImageView);
+//            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+//            ImageView spriteImageView = new ImageView(spriteImage);
+//            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
+//                    .transform().getPosY());
+//            spriteGroup.getChildren().add(spriteImageView);
+            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
+            player.setFill(Color.BLUE);
+            spriteGroup.getChildren().add(player);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         }
