@@ -1,0 +1,70 @@
+<levelPlatform.level.Level>
+  <width>500</width>
+  <height>500</height>
+  <sprites>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.LeftMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <velocity>1.2598425196849998</velocity>
+        </gameEngine.actions.LeftMotionAction>
+        <gameEngine.actions.RightMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <velocity>1.2598425196849998</velocity>
+        </gameEngine.actions.RightMotionAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.HealthComponent>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myHP>50.0</myHP>
+          <myLives>5</myLives>
+          <hasDeath>true</hasDeath>
+        </gameEngine.components.HealthComponent>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myVelocity>
+            <x>0.0</x>
+            <y>0.0</y>
+            <hash>0</hash>
+          </myVelocity>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <isActive>true</isActive>
+      <transform>
+        <myPosition>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myRotation>
+        <myDimensions>
+          <width>3.0</width>
+          <height>3.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+  </sprites>
+  <playerSprite reference="../sprites/sprite.Sprite"/>
+</levelPlatform.level.Level>
