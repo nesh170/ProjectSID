@@ -61,15 +61,13 @@ public abstract class Screen extends BorderPane {
 	 * @param height of total height minus the tab pane
 	 * 
 	 */
-	public Screen(ScreenController parent, double width, double height) {
+	public Screen(double width, double height) {
 		
 		configureWidthAndHeight(width, height);
 		configureMenuBar(width);
 		configureBackgroundColor();
 		configureViewableArea(width, height);
-		
-		createAppropriateControllerForParent(parent);
-		
+				
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
@@ -93,12 +91,6 @@ public abstract class Screen extends BorderPane {
 		
 	}
 	
-	/**
-	 * Create an appropriate "MainMenuScreenController" or "GameEditScreenController" or... etc
-	 * 
-	 * @param parent
-	 */
-	protected abstract void createAppropriateControllerForParent(ScreenController parent);
 	
 	/**
 	 * passes MenuBar to abstract subclass method
