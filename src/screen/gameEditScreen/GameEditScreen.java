@@ -53,10 +53,7 @@ import levelPlatform.level.Level;
  * The screen where users edit a game
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
- * @author Anika
- * TODO by Yongjiao: add the rest of buttons to its appropriate place
- * 
- * TODO by ANIKA: loop creation of buttons - static array in resources of string names
+ * @author Anika 
  */
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
