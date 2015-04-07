@@ -64,18 +64,25 @@ public class GamePlayer implements GamePlayerInterface {
 	public GamePlayer(Stage stage) {
 
 		// TODO: transfer to GamePlayerView.java
-		myView = new GamePlayerView();
+		//myView = new GamePlayerView();
 
-		myBorderPane = new BorderPane();
+		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myRoot = new Group();
-		setupAnimation();
+		//setupAnimation();
+		Stage chooserStage = new Stage();
+		chooserStage.initModality(Modality.APPLICATION_MODAL);
+		chooserStage.initOwner(stage);
+		chooseGame(chooserStage);
+		//chooserStage.show();
 		myPause = makePauseScreen();
+		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
-		BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
+        myBorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
-		myScene = new Scene(myBorderPane, 1200, 600);
-		stage.setScene(myScene);
+        myScene = new Scene(myBorderPane, 1200, 600);
+        stage.setScene(myScene);
 	}
 
 	// currently using borderpane
@@ -91,6 +98,7 @@ public class GamePlayer implements GamePlayerInterface {
 		BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
+		setupAnimation();
 	}
 
 	private Menu buildFileMenu() {
@@ -273,7 +281,7 @@ public class GamePlayer implements GamePlayerInterface {
 	@Override
 	public void pause() {
 		myTimeline.stop();
-		myEngine.pause(myBorderPane);
+		//myEngine.pause(myBorderPane);
 		bringupPause();
 	}
 
