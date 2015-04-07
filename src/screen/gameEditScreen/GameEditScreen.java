@@ -53,10 +53,7 @@ import levelPlatform.level.Level;
  * The screen where users edit a game
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
- * @author Anika
- * TODO by Yongjiao: add the rest of buttons to its appropriate place
- * 
- * TODO by ANIKA: loop creation of buttons - static array in resources of string names
+ * @author Anika 
  */
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
@@ -236,24 +233,35 @@ public class GameEditScreen extends Screen {
 	 * @author Anika modified by Yongjiao
 	 */
 	private List<ScreenButton> createSplashAndLevelButtons() {		
+		// get <String buttonID, String buttonName> map for buttons from STRING constants class
 		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
+		// get values of map and put into an array -> buttonNames = array of button names
 		String[] buttonNames = (String[]) buttonMap.values().toArray();
-		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();		
+		// create a map of <String buttonID, ScreenButton button>
+		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();	
+		// for each name in buttonNames, create a new ScreenButton and put it in the map
 		for (int i = 0; i < buttonNames.length; i++){
 			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
-			System.out.println(buttonNames[i]);
+			System.out.println(buttonNames[i]); // testing
 			myButtons.put(buttonNames[i], myB);
 		}	
-//modified by Yongjiao: changed to use methods in manager class.
+		/*
+		 * initialize event handlers for buttons
+		 * modified by Yongjiao: changed to use methods in manager class.
+		 * modified by Anika: changed to use methods in controller class
+		 */
 		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
 		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
-//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
-//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
-//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
+//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> controller.loadLevelEditScreen(level));
+//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen(game));
+//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> controller.trashLevel(level));		
+		
+		// return list of values of the myButtons map -> return list of ScreenButtons created
 		return new ArrayList(myButtons.values());
 		
 	}
 
+	
 	private Button makeTrashButton(){		
 		Button trash = new Button(STRING.TRASH);
 		ImageView trashButton = new ImageView(new Image(STRING.TRASH_BUTTON)); 
