@@ -27,6 +27,8 @@ public class SplashEditScreen extends Screen {
 	// Instance variables
 	private SplashEditScreenController controller;
 	private SplashScreen splashScreen;
+	private double width;
+	private double height;
 
 
 	// Getters & Setters
@@ -38,7 +40,7 @@ public class SplashEditScreen extends Screen {
 
 		super(parent, width, height);
 		
-		configureSplashScreen(splashScreen);
+		configureSplashScreen(splashScreen, width, height);
 		configureButtons();
 		configureDisplayArea();
 		
@@ -67,8 +69,10 @@ public class SplashEditScreen extends Screen {
 
 	
 	
-	private void configureSplashScreen(SplashScreen splashScreen) {
+	private void configureSplashScreen(SplashScreen splashScreen, double width, double height) {
 		this.splashScreen = splashScreen;
+		this.width = width;
+		this.height = height;
 	}
 	
 	private void configureButtons() {
@@ -88,7 +92,7 @@ public class SplashEditScreen extends Screen {
 	
 	private void configureDisplayArea() {
 		
-		Rectangle displayArea = new Rectangle(INT.SPLASH_EDIT_SCREEN_DISPLAY_WIDTH, INT.SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT, Color.DIMGRAY); //obviously will change
+		Rectangle displayArea = new Rectangle(width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //obviously will change
 		this.setLeft(displayArea);
 		
 	}
