@@ -1,6 +1,7 @@
 package screen;
 
 import game.Game;
+import screen.levelEditScreen.LevelEditScreen;
 import screen.manager.ScreenManager;
 import sprite.Sprite;
 import javafx.scene.ImageCursor;
@@ -38,7 +39,7 @@ public interface ScreenDisplayingInterface {
 	public Tab createGameEditScreen(Game game);
 	public Tab createSplashEditScreen(SplashScreen splashScreen);
 	public Tab createLevelEditScreen(Level level);
-	public Tab createSpriteEditScreen(Sprite sprite);
+	public Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite);
 	public Tab createGamePlayScreen(Level level);
 	
 	

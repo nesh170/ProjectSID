@@ -33,7 +33,8 @@ public class LevelEditScreenManager extends ScreenManager implements LevelEditSc
 	// All other instance methods
 	@Override
 	public void loadSpriteEditScreen(Sprite sprite) {
-		parent().createSpriteEditScreen(sprite);
+		Tab levelEditTab = parent().getTabSelectionModel().getSelectedItem();
+		parent().createSpriteEditScreen((LevelEditScreen) levelEditTab.getContent(), sprite);
 	}
 
 	@Override

@@ -425,10 +425,10 @@ public class ScreenController implements ScreenDisplayingInterface {
 	}
 
 	@Override
-	public Tab createSpriteEditScreen(Sprite sprite) {
+	public Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 		
 		return addTabWithScreenWithStringIdentifier(
-					new SpriteEditScreen(this, newScreenWidth(), newScreenHeight(), sprite),
+					new SpriteEditScreen(this, levelEditScreen, newScreenWidth(), newScreenHeight(), sprite),
 					STRING.SPRITE_EDIT
 					);
 		
