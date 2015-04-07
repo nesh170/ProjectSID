@@ -129,7 +129,7 @@ public class SplashEditScreen extends Screen {
 		Button addStartButton = new Button(STRING.ADD_START_BUTTON);
 		setLargeButtonSize(addStartButton);
 		
-		addStartButton.setOnMouseClicked(e -> controller.addStartButton());
+		addStartButton.setOnMouseClicked(e -> addStartButton());
 		
 		return addStartButton;
 		
@@ -140,7 +140,7 @@ public class SplashEditScreen extends Screen {
 		Button addImage = new Button(STRING.ADD_IMAGE);
 		setLargeButtonSize(addImage);
 		
-		addImage.setOnMouseClicked(e -> controller.addImage());
+		addImage.setOnMouseClicked(e -> addImage());
 		
 		return addImage;
 		
@@ -151,7 +151,7 @@ public class SplashEditScreen extends Screen {
 		Button addText = new Button(STRING.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
-		addText.setOnMouseClicked(e -> controller.addText());
+		addText.setOnMouseClicked(e -> addText());
 		
 		return addText;
 		
@@ -162,7 +162,7 @@ public class SplashEditScreen extends Screen {
 		Button addAnimation = new Button(STRING.ADD_ANIMATION);
 		setLargeButtonSize(addAnimation);
 		
-		addAnimation.setOnMouseClicked(e -> controller.addAnimation());
+		addAnimation.setOnMouseClicked(e -> addAnimation());
 		
 		return addAnimation;
 		
@@ -173,7 +173,7 @@ public class SplashEditScreen extends Screen {
 		Button save = new Button(STRING.SAVE);
 		setSmallButtonSize(save);
 		
-		save.setOnMouseClicked(e -> controller.saveSplashScreen());
+		save.setOnMouseClicked(e -> saveSplashScreen());
 		
 		return save;
 		
@@ -184,7 +184,7 @@ public class SplashEditScreen extends Screen {
 		Button trash = new Button(STRING.TRASH);
 		setSmallButtonSize(trash);
 		
-		trash.setOnMouseClicked(e -> controller.trashSplashScreen());
+		trash.setOnMouseClicked(e -> trashSplashScreen());
 		
 		return trash;
 		
@@ -195,9 +195,44 @@ public class SplashEditScreen extends Screen {
 		Button back = new Button(STRING.BACK);
 		setSmallButtonSize(back);
 		
-		back.setOnMouseClicked(e -> controller.backSplashScreen());
+		back.setOnMouseClicked(e -> backSplashScreen());
 		
 		return back;
+		
+	}
+	
+	public void addStartButton() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addImage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addText() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addAnimation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void trashSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void backSplashScreen() {
+		// TODO Auto-generated method stub
 		
 	}
 	
