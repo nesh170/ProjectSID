@@ -31,22 +31,16 @@ import resources.constants.DOUBLE;
 import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
-import screen.gameEditScreen.GameEditScreenManager;
 import screen.gamePlayScreen.GamePlayScreen;
 import screen.gamePlayScreen.GamePlayScreenController;
-import screen.gamePlayScreen.GamePlayScreenManager;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.levelEditScreen.LevelEditScreenController;
-import screen.levelEditScreen.LevelEditScreenManager;
 import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
-import screen.mainMenu.MainMenuScreenManager;
 import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
-import screen.splashEditScreen.SplashEditScreenManager;
 import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
-import screen.spriteEditScreen.SpriteEditScreenManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
@@ -112,7 +106,12 @@ import sprite.Sprite;
  * 
  */
 
-public class ScreenController implements ScreenDisplayingInterface {
+public class ScreenController implements MainMenuScreenController,
+										GameEditScreenController, 
+										SplashEditScreenController,
+										LevelEditScreenController,
+										SpriteEditScreenController,
+										GamePlayScreenController {
 	
 	// Static Variables
 	
@@ -262,7 +261,6 @@ public class ScreenController implements ScreenDisplayingInterface {
 		stage.close();
 	}
 	
-	@Override
 	public void displayError(String error) {
 		
 		cleanUpOldErrorMesssage();
@@ -384,8 +382,8 @@ public class ScreenController implements ScreenDisplayingInterface {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
 
-	@Override
-	public Tab createMainMenuScreen() {
+
+	private Tab createMainMenuScreen() {
 		
 		return addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(this, newScreenWidth(), newScreenHeight()),
@@ -394,8 +392,8 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 	}
 
-	@Override
-	public Tab createGameEditScreen(Game game) {
+	
+	private Tab createGameEditScreen(Game game) {
 		
 		return addTabWithScreenWithStringIdentifier(
 				new GameEditScreen(game, this, newScreenWidth(), newScreenHeight()),
@@ -404,8 +402,8 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 	}
 
-	@Override
-	public Tab createSplashEditScreen(SplashScreen splashScreen) {
+	
+	private Tab createSplashEditScreen(SplashScreen splashScreen) {
 
 		return addTabWithScreenWithStringIdentifier(
 				new SplashEditScreen(this, newScreenWidth(), newScreenHeight(), splashScreen),
@@ -414,8 +412,8 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 	}
 
-	@Override
-	public Tab createLevelEditScreen(Level level) {
+	
+	private Tab createLevelEditScreen(Level level) {
 
 		return addTabWithScreenWithStringIdentifier(
 				new LevelEditScreen(this, newScreenWidth(), newScreenHeight(), level),
@@ -424,8 +422,8 @@ public class ScreenController implements ScreenDisplayingInterface {
 	
 	}
 
-	@Override
-	public Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
+	
+	private Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 		
 		return addTabWithScreenWithStringIdentifier(
 					new SpriteEditScreen(this, levelEditScreen, newScreenWidth(), newScreenHeight(), sprite),
@@ -434,13 +432,138 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 	}
 
-	@Override
-	public Tab createGamePlayScreen(Level level) {
+	
+	private Tab createGamePlayScreen(Level level) {
 		
 		return addTabWithScreenWithStringIdentifier(
 				new GamePlayScreen(this, newScreenWidth(), newScreenHeight(), level),
 				STRING.GAME_PLAY
 				);
+		
+	}
+
+	@Override
+	public void returnToSelectedLevel(Tab tab, Sprite sprite) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void returnToGameEditScreen(Tab tab) {
+		Tab levelEditTab = getTabSelectionModel().getSelectedItem();
+		getTabSelectionModel().select(tab);
+		removeTab(levelEditTab);				
+	}
+
+	@Override
+	public void loadSpriteEditScreen(Sprite sprite) {
+		Tab levelEditTab = getTabSelectionModel().getSelectedItem();
+		createSpriteEditScreen((LevelEditScreen) levelEditTab.getContent(), sprite);		
+	}
+
+	@Override
+	public void returnToGameEditScreen() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void addStartButton() {
+		
+	}
+
+	@Override
+	public void addImage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addText() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAnimation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void trashSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void backSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void returnToMainMenuScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadSplashEditScreen(Game game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadLevelEditScreen(Level level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadLevelEditScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadSplashEditScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void playGame(Game game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void trashLevel(Level level) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createNewGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadGameEditScreen(String recentGameName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void loadGame() {
+		// TODO Auto-generated method stub
 		
 	}
 

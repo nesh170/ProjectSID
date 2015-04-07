@@ -13,17 +13,18 @@ public class SpriteEditScreen extends Screen {
 	private SpriteEditScreenController controller;
 	private LevelEditScreen levelEditScreen;
 
-	public SpriteEditScreen(ScreenController parent, LevelEditScreen levelEditScreen, double width, double height) {
+	public SpriteEditScreen(SpriteEditScreenController parent, LevelEditScreen levelEditScreen, double width, double height) {
 
 		this(parent, levelEditScreen, width, height, null);
 
 	}
 
-	public SpriteEditScreen(ScreenController parent, LevelEditScreen levelEditScreen, double width, double height, Sprite spriteToEdit) {
+	public SpriteEditScreen(SpriteEditScreenController parent, LevelEditScreen levelEditScreen, double width, double height, Sprite spriteToEdit) {
 
-		super(parent, width, height);
+		super(width, height);
 		
 		this.levelEditScreen = levelEditScreen;
+		this.controller = parent;
 
 		if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
@@ -31,10 +32,6 @@ public class SpriteEditScreen extends Screen {
 		
 	}
 		
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new SpriteEditScreenManager(parent);
-	}
 	
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {

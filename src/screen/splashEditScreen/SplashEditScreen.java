@@ -34,9 +34,11 @@ public class SplashEditScreen extends Screen {
 
 	// Constructor & Helpers
 
-	public SplashEditScreen(ScreenController parent, double width, double height, SplashScreen splashScreen) {
+	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
 
-		super(parent, width, height);
+		super(width, height);
+		
+		this.controller = parent;
 		
 		configureSplashScreen(splashScreen);
 		configureButtons();
@@ -44,11 +46,6 @@ public class SplashEditScreen extends Screen {
 		
 	}
 	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new SplashEditScreenManager(parent);
-	}
-
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		//COMMENTED OUT TO TEST @AUTHOR KYLE
