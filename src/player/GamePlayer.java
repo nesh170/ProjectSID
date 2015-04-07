@@ -76,8 +76,6 @@ public class GamePlayer implements GamePlayerInterface {
 		myBorderPane.setCenter(myRoot);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);
-		//myGameChooser = buildGameChooser();
-		//myGameChooser.show();
 	}
 
 	// currently using borderpane
@@ -86,14 +84,13 @@ public class GamePlayer implements GamePlayerInterface {
 		// initialize(engine);
 		myWidth = width;
 		myHeight = height;
+		setupAnimation();
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
 		BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
-		//myGameChooser = buildGameChooser();
-		//myGameChooser.show();
 	}
 
 	private Menu buildFileMenu() {
@@ -147,6 +144,7 @@ public class GamePlayer implements GamePlayerInterface {
 	}
 	
 	// implementation still needed to connect to actual file chooser
+	// add this once we have everything else working
 	private Stage buildGameChooser() {
 		Stage gameChooser = new Stage();
 		gameChooser.initModality(Modality.APPLICATION_MODAL);
