@@ -13,6 +13,7 @@ public class GamePlayScreen extends Screen {
 	private GamePlayScreenController controller;
 	private Level level;
 	private GamePlayer myPlayer;
+	private GamePlayScreenController gamePlayScreenController;
 	
 	
 	// Constructor & Helpers

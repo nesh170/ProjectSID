@@ -1,7 +1,6 @@
 package screen.gameEditScreen;
 
 import game.Game;
-
 import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,7 +58,6 @@ import levelPlatform.level.Level;
  * 
  * TODO by ANIKA: loop creation of buttons - static array in resources of string names
  */
-//always working on the "stuff" in parent's parent: work on BoarderPane directly (ex: setLeft, setRight)
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
 	
@@ -69,7 +67,6 @@ public class GameEditScreen extends Screen {
 
 	private ObservableList<Level>	myLevels;  	
 	private ObservableList<SplashScreen> mySplashScreen; 
-	
 	
 	// Getters & Setters
 	/**
