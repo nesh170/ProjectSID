@@ -130,6 +130,9 @@ public class ScreenController {
 	private LevelEditScreenManager levelEditScreenManager;
 	private SpriteEditScreenManager spriteEditScreenManager;
 	private GamePlayScreenManager gamePlayScreenManager;
+	
+	//Factories
+	private ScreenFactory screenFactory;
 	// Getters & Setters (static)
 	
 	
@@ -171,6 +174,7 @@ public class ScreenController {
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
+		configureFactories(width, height);
 		configureScreenManagers();
 		
 		configureTabPane();
@@ -209,6 +213,10 @@ public class ScreenController {
 		this.newScreenWidth = width;
 		this.newScreenHeight = newScreenHeight;
 		
+	}
+	
+	private void configureFactories(double width, double height) {
+		this.screenFactory = new ScreenFactory(width, height);
 	}
 	
 	private void configureTabPane() {
@@ -313,7 +321,7 @@ public class ScreenController {
 	private Tab createMainMenuScreen() {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(mainMenuScreenManager, newScreenWidth(), newScreenHeight()),
+				screenFactory.createMainMenuScreen(mainMenuScreenManager),
 				STRING.MAIN_MENU
 				);
 		
@@ -323,7 +331,7 @@ public class ScreenController {
 	private Tab createGameEditScreen(Game game) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				new GameEditScreen(game, gameEditScreenManager, newScreenWidth(), newScreenHeight()),
+				screenFactory.createGameEditScreen(game, gameEditScreenManager),
 				STRING.GAME_EDIT
 				);
 		
@@ -333,7 +341,7 @@ public class ScreenController {
 	private Tab createSplashEditScreen(SplashScreen splashScreen) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(splashEditScreenManager, newScreenWidth(), newScreenHeight(), splashScreen),
+				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
 				STRING.SPLASH_SCREEN
 				);
 		
@@ -343,7 +351,7 @@ public class ScreenController {
 	private Tab createLevelEditScreen(Level level) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				new LevelEditScreen(levelEditScreenManager, newScreenWidth(), newScreenHeight(), level),
+				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
 				STRING.LEVEL_EDIT
 				);
 	
@@ -353,7 +361,7 @@ public class ScreenController {
 	private Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					new SpriteEditScreen(spriteEditScreenManager, levelEditScreen, newScreenWidth(), newScreenHeight(), sprite),
+					screenFactory.createSpriteEditScreen(levelEditScreen, sprite, spriteEditScreenManager),
 					STRING.SPRITE_EDIT
 					);
 		
@@ -363,7 +371,7 @@ public class ScreenController {
 	private Tab createGamePlayScreen(Level level) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				new GamePlayScreen(gamePlayScreenManager, newScreenWidth(), newScreenHeight(), level),
+				screenFactory.createGamePlayScreen(level, gamePlayScreenManager),
 				STRING.GAME_PLAY
 				);
 		
