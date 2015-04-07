@@ -16,8 +16,8 @@ public class SplashEditScreenFactory {
 		this.height = height;
 	}
 	
-	public SplashEditScreen createGameEditScreen(SplashEditScreenController splashEditScreenController) {
-		return new SplashEditScreen(splashEditScreenController, width, height);
-	}
+//	public SplashEditScreen createGameEditScreen(SplashEditScreenController splashEditScreenController) {
+//		return new SplashEditScreen(splashEditScreenController, width, height);
+//	}
 	
 }

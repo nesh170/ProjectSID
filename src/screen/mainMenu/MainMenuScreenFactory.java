@@ -16,9 +16,9 @@ public class MainMenuScreenFactory {
 		this.height = height;
 	}
 
-	public MainMenuScreen createNewGameEditScreen(
-			MainMenuScreenController mainMenuScreenController) {
-		return new MainMenuScreen(mainMenuScreenController, width, height);
-	}
+//	public MainMenuScreen createNewGameEditScreen(
+//			MainMenuScreenController mainMenuScreenController) {
+//		return new MainMenuScreen(mainMenuScreenController, width, height);
+//	}
 	
 }

@@ -18,8 +18,8 @@ public class SpriteEditScreenFactory {
 		this.height = height;
 	}
 	
-	public SpriteEditScreen createGameEditScreen(SpriteEditScreenController spriteEditScreenController, Tab tab) {
-		return new SpriteEditScreen(spriteEditScreenController, tab, width, height);
-	}
+//	public SpriteEditScreen createGameEditScreen(SpriteEditScreenController spriteEditScreenController, Tab tab) {
+//		return new SpriteEditScreen(spriteEditScreenController, tab, width, height);
+//	}
 	
 }

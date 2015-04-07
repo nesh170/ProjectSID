@@ -19,9 +19,9 @@ public class LevelEditScreenFactory {
 	}
 
 	
-	public LevelEditScreen createNewGameEditScreen(
-			LevelEditScreenController LevelEditScreenController,Tab tab) {
-		return new LevelEditScreen(LevelEditScreenController, tab, width, height);
-	}
+//	public LevelEditScreen createNewGameEditScreen(
+//			LevelEditScreenController LevelEditScreenController,Tab tab) {
+//		return new LevelEditScreen(LevelEditScreenController, tab, width, height);
+//	}
 	
 }

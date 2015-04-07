@@ -18,12 +18,12 @@ public class GamePlayScreenFactory {
 		this.height = height;
 	}
 	
-	public GamePlayScreen createGameEditScreen() {
-		return new GamePlayScreen(width, height);
-	}
-	
-	public GamePlayScreen createNewGameEditScreen(GamePlayScreenController gameEditScreenController) {
-		return new GamePlayScreen(gameEditScreenController, width, height);
-	}
-	
+//	public GamePlayScreen createGameEditScreen() {
+//		return new GamePlayScreen(width, height);
+//	}
+//	
+//	public GamePlayScreen createNewGameEditScreen(GamePlayScreenController gameEditScreenController) {
+//		return new GamePlayScreen(gameEditScreenController, width, height);
+//	}
+//	
 }
