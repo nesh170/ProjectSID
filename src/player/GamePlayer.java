@@ -27,6 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -53,8 +54,12 @@ public class GamePlayer implements GamePlayerInterface {
 	private Stage myGameChooser;
 	private MenuBar myMenuBar;
 	private StackPane myPause;
-	private int currentSize = 4;
-
+	private double myWidth;
+	private double myHeight;
+	private int myLives;
+	private int myHealth;
+	private int myScore;
+	
 	// constructor for testing
 	public GamePlayer(Stage stage) {
 
@@ -63,6 +68,7 @@ public class GamePlayer implements GamePlayerInterface {
 
 		myBorderPane = new BorderPane();
 		myRoot = new Group();
+		setupAnimation();
 		myPause = makePauseScreen();
 		myMenuBar = createPlayerMenu();
 		BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
@@ -70,19 +76,24 @@ public class GamePlayer implements GamePlayerInterface {
 		myBorderPane.setCenter(myRoot);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);
-		myGameChooser = buildGameChooser(stage);
+		//myGameChooser = buildGameChooser();
+		//myGameChooser.show();
 	}
 
 	// currently using borderpane
 	// will change to scrollpane when basic engine finished
 	public GamePlayer(double width, double height) {
 		// initialize(engine);
+		myWidth = width;
+		myHeight = height;
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
 		BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
 		myBorderPane.setCenter(myRoot);
+		//myGameChooser = buildGameChooser();
+		//myGameChooser.show();
 	}
 
 	private Menu buildFileMenu() {
@@ -136,15 +147,15 @@ public class GamePlayer implements GamePlayerInterface {
 	}
 	
 	// implementation still needed to connect to actual file chooser
-	private Stage buildGameChooser(Stage s) {
+	private Stage buildGameChooser() {
 		Stage gameChooser = new Stage();
 		gameChooser.initModality(Modality.APPLICATION_MODAL);
-		gameChooser.initOwner(s);
 		Button mario = new Button("Mario");
 		mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
 		mario.setOnAction(event -> chooseGame(gameChooser));
 
 		VBox vbox = new VBox(50);
+		vbox.setAlignment(Pos.TOP_CENTER);
 		vbox.getChildren().addAll(new Text("Your Games"), mario);
 		Scene allGames = new Scene(vbox, 300, 200);
 		gameChooser.setScene(allGames);
@@ -186,8 +197,8 @@ public class GamePlayer implements GamePlayerInterface {
 		});
 		pause.getChildren().add(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(800);
-		pause.setPrefHeight(500);
+		pause.setPrefWidth(myWidth);
+		pause.setPrefHeight(myHeight);
 		return pause;
 	}
 
@@ -217,6 +228,8 @@ public class GamePlayer implements GamePlayerInterface {
 	}
 
 	private void chooseGame(Stage gameChooser) {
+		//find a way to set up a map so we can just have file paths
+		//for games already established so no directory needs to be opened here
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		try {
 			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
@@ -228,12 +241,29 @@ public class GamePlayer implements GamePlayerInterface {
 		setupAnimation();
 	}
 
+	public HBox createHUD() {
+		HBox HUDbox = new HBox(myWidth);
+		Text LivesText = new Text("Health:" + myHealth);
+		LivesText.setFont(Font.font ("Arial Black", 20));
+		LivesText.setFill(Color.WHITE);
+		Text HealthText = new Text("Lives:" + myLives);
+		HealthText.setFont(Font.font ("Arial Black", 20));
+		HealthText.setFill(Color.WHITE);
+		Text ScoreText = new Text("Score" + myScore);
+		ScoreText.setFont(Font.font ("Arial Black", 20));
+		ScoreText.setFill(Color.WHITE);
+		HUDbox.getChildren().addAll(LivesText, HealthText, ScoreText);
+		HUDbox.setAlignment(Pos.BOTTOM_CENTER);
+		return HUDbox;
+	}
+	
 	private void update() {
 		myEngine.update();
 	}
 
 	private void display() {
 		myRoot = myEngine.render();
+		myRoot.getChildren().add(createHUD());
 	}
 
 	@Override
@@ -253,14 +283,31 @@ public class GamePlayer implements GamePlayerInterface {
 		return myTimeline.getStatus() == Animation.Status.RUNNING;
 	}
 
+	public MenuBar getBar() {
+		return myMenuBar;
+	}
 	
+	public int getLives() {
+		//return myEngine.getLives();
+		return 0;
+	}
+	
+	public int getHealth() {
+		//return myEngine.getHealth();
+		return 0;
+	}
+	
+	public int getScore() {
+		//return myEngine.getScore();
+		return 0;
+	}
 	
 	@Override
 	public int getHighScore() {
-		// get high score from engine
+		// load in high score?
 		return 0;
 	}
-
+	
 	@Override
 	public void loadNewGame() {
 		System.out.println("LOAD");
