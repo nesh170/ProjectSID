@@ -123,6 +123,8 @@ public class Sprite {
 	
 	public Sprite (Sprite toCopy){
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
+		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		
 	}
 	
 	
@@ -185,7 +187,7 @@ public class Sprite {
 			
 			try {
 				
-				if(component.getClass() == Class.forName(componentClassName)) {
+				if(Class.forName(componentClassName).isInstance(component)) {
 					return component;	
 				}
 				
@@ -204,7 +206,7 @@ public class Sprite {
 		for(Action action: actionList) {
 			
 			try {
-				if(action.getClass() == Class.forName(actionClassName)) {
+				if(Class.forName(actionClassName).isInstance(action)) {
 					return action;	
 				}
 			} catch (ClassNotFoundException e) {
