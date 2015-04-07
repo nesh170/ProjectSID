@@ -523,9 +523,10 @@ public class ScreenController {
 	private class SpriteEditScreenManager implements SpriteEditScreenController {
 
 		@Override
-		public void returnToSelectedLevel(Tab tab, Sprite sprite) {
-			// TODO Auto-generated method stub
-			
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen,
+				Tab switchTo, Sprite sprite) {
+			tabManager.removeTabAndChangeSelected(switchTo);
+			levelEditScreen.addSprite(sprite);
 		}
 		
 	}

@@ -92,7 +92,7 @@ public class TabManager {
 		
 	}
 	
-	private void removeTabAndChangeSelected(Tab selectedNew) {
+	public void removeTabAndChangeSelected(Tab selectedNew) {
 		
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
