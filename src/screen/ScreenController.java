@@ -462,11 +462,6 @@ public class ScreenController implements MainMenuScreenController,
 	}
 
 	@Override
-	public void returnToGameEditScreen() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void addStartButton() {
 		
 	}
