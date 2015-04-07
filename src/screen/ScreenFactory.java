@@ -62,10 +62,10 @@ public class ScreenFactory {
 	
 	}
 	
-	public Screen createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite,
+	public Screen createSpriteEditScreen(Tab levelEditTab, Sprite sprite,
 			SpriteEditScreenController spriteEditScreenController) {
 		
-		return new SpriteEditScreen(spriteEditScreenController, levelEditScreen,
+		return new SpriteEditScreen(spriteEditScreenController,levelEditTab,
 				width, height, sprite);
 		
 	}

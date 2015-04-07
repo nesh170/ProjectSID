@@ -358,10 +358,10 @@ public class ScreenController {
 	}
 
 	
-	private Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
+	private Tab createSpriteEditScreen(Tab levelEditTab, Sprite sprite) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createSpriteEditScreen(levelEditScreen, sprite, spriteEditScreenManager),
+					screenFactory.createSpriteEditScreen(levelEditTab, sprite, spriteEditScreenManager),
 					STRING.SPRITE_EDIT
 					);
 		
@@ -515,7 +515,7 @@ public class ScreenController {
 		@Override
 		public void loadSpriteEditScreen(Sprite sprite) {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen((LevelEditScreen) levelEditTab.getContent(), sprite);					
+			createSpriteEditScreen(levelEditTab, sprite);					
 		}
 		
 	}
