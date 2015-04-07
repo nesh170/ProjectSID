@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 /**
  * Util for determining array width and height. Assumes a rectangular array. Performs null checks.

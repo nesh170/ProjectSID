@@ -3,7 +3,7 @@ package levelPlatform.level;
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
-import utils.SIDPixelsToFXpixels;
+import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -36,6 +36,10 @@ public class LevelView {
     
     public void setLengthSidePixel(double lengthSidePixel) {
     	this.lengthSidePixel = lengthSidePixel;
+    }
+    
+    public double getLengthSidePixel() {
+    	return this.lengthSidePixel;
     }
     
     

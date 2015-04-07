@@ -5,6 +5,12 @@ import screen.gamePlayScreen.GamePlayScreenController;
 
 // Inner class for handling GamePlayScreenController methods
 class GamePlayScreenManager extends UniversalManager implements GamePlayScreenController {
+	
+	private ScreenController parent;
+	
+	public GamePlayScreenManager(ScreenController screenController) {
+		this.parent = screenController;
+	}
 
 	@Override
 	public void returnToMainMenuScreen() {
