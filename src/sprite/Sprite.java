@@ -193,7 +193,7 @@ public class Sprite {
 		for(Component component: componentList) {
 			
 			try {
-				if(component.getClass() == Class.forName("gameEngine.components." + componentClassName)) {
+				if(Class.forName("gameEngine.components." + componentClassName).isInstance(component)) {
 					return component;	
 				}
 				
@@ -212,7 +212,7 @@ public class Sprite {
 		for(Action action: actionList) {
 			
 			try {
-				if(action.getClass() == Class.forName("gameEngine.actions." + actionClassName)) {
+				if(Class.forName("gameEngine.actions." + actionClassName).isInstance(action)) {
 					return action;	
 				}
 			} catch (ClassNotFoundException e) {
