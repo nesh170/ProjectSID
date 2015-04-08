@@ -2,8 +2,9 @@ package gameEngine;
 
 public class EngineMathFunctions {
 
+    //TODO update the update rate to get it from the game player class
     public static final double UPDATE_RATE =  60;
-    public static final double METER_TO_PIXELS = 3779.527559055;
+    public static final double METER_TO_PIXELS = 3779.527559055*Math.pow(10, -2);
     
     /**
      * Takes in the user defined acceleration in m/s^2 and returns the acceleration in our units

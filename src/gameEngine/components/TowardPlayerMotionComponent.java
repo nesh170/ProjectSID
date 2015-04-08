@@ -9,7 +9,7 @@ import sprite.Sprite;
  * Looks toward
  *
  */
-public class TowardPlayerMotionComponent extends MotionComponent {
+public class TowardPlayerMotionComponent extends VelocityComponent {
 
 	// TODO instantiate playerSprite
 	private Sprite playerSprite;

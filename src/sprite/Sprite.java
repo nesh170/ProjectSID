@@ -92,6 +92,7 @@ public class Sprite {
 	}
 
 	public SpriteImage spriteImage() {
+	    //TODO talk to Ruslan about death
 		return this.spriteImage;
 	}
 	

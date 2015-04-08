@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
@@ -8,6 +8,8 @@ import javafx.scene.image.WritableImage;
  * A util designed to take in:
  *  	- an int[][]
  *  	- size per "pixel" (double)
+ *  
+ *  Assumes a rectangular 2D int array
  *  
  *  Returns:
  * 		- a pixelated JavaFX Image using the rgb values in the int
@@ -52,13 +54,20 @@ public class IntArray2DToImageConverter {
 		
 		WritableImage returnImage = new WritableImage(width, height);
 		
-		drawARGBValuesFromArrayIntoImage(sourceArray, returnImage);
+		drawARGBValuesFromArrayIntoImageUsingPixelSideLength(sourceArray, returnImage, lengthSidePixel);
 		
 		return returnImage;
 		
 	}
 	
-	private static void drawARGBValuesFromArrayIntoImage(int[][] sourceArray, WritableImage destinationImage) {
+	/**
+	 * Possible slight rounding with ints to doubles and back. Images will be marginally imperfect due to JavaFX's WriteableImage using integer pixels
+	 * 
+	 * @param sourceArray
+	 * @param destinationImage
+	 * @param lengthSidePixel
+	 */
+	private static void drawARGBValuesFromArrayIntoImageUsingPixelSideLength(int[][] sourceArray, WritableImage destinationImage, double lengthSidePixel) {
 		
 		PixelWriter pixelWriter = destinationImage.getPixelWriter();
 		
@@ -66,7 +75,7 @@ public class IntArray2DToImageConverter {
 			
 			for (int y=0; y < destinationImage.getHeight(); y++) {
 				
-				pixelWriter.setArgb(x, y, getIntARGBToDraw(sourceArray, x, y));
+				pixelWriter.setArgb(x, y, getIntARGBToDrawWithArrayWithImageXWithImageYWithLengthSidePixel(sourceArray, x, y, lengthSidePixel));
 				
 			}
 			
@@ -74,14 +83,21 @@ public class IntArray2DToImageConverter {
 		
 	}
 
-	private static int getIntARGBToDraw(int[][] sourceArray, int x, int y) {
+	private static int getIntARGBToDrawWithArrayWithImageXWithImageYWithLengthSidePixel(int[][] sourceArray, int x, int y, double lengthSidePixel) {
 		
-		throw new IllegalStateException("unimplemented getIntARGBToDraw in IntArray2DToImageConverter");
+		int currentXIndexToUse = roundDownToIntAfterDividingAByB(x, lengthSidePixel);
+		int currentYIndexToUse = roundDownToIntAfterDividingAByB(y, lengthSidePixel);
+		
+		return sourceArray[currentXIndexToUse][currentYIndexToUse];
 		
 	}
 
 	private static int roundDownToIntAfterMultiplying(double a, double b) {
 		return (int)Math.floor(a * b);
+	}
+	
+	private static int roundDownToIntAfterDividingAByB(double a, double b) {
+		return (int)Math.floor(a / b);
 	}
 	
 }

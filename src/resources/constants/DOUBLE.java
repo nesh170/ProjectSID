@@ -11,6 +11,8 @@ public class DOUBLE {
 	public static final double percentHeightDisplay = 1 - DOUBLE.percentHeightMenuBar;
 	public static final double BUTTON_SPACING = 20;
 	
+	//GameEdit Screen
+	public static final double PERCENT_HEIGHT_ADD_SIGN = 0.16;
 	
 	// ScreenController
 	// Tabs

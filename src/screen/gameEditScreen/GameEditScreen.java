@@ -4,10 +4,17 @@ import game.Game;
 
 import java.awt.SplashScreen;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -18,15 +25,23 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import resources.ScreenButton;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import levelPlatform.level.Level;
 /**
  * The screen where users edit a game
@@ -83,16 +98,53 @@ public class GameEditScreen extends Screen {
 	private void configureButtons() {		
 		//this.setRight(makeBackButton());		
 		//this.setBottom(makePlayButton());
-		this.setCenter(makeLevelsDisplay(myLevels));		
-		this.setLeft(makeSplashScreen(mySplashScreen));
+		this.setCenter(DisplayLevels(myLevels));		
+		this.setLeft(DisplaySplash());
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
+		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
+	}
+	/**
+	 * Displays a splash 
+	 * @return
+	 */
+	private VBox DisplaySplash(){
+		VBox displaySplash  = new VBox();
+		displaySplash.setAlignment(Pos.CENTER);
+		displaySplash.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
+		
+		StackPane sp = new StackPane();		
+		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeRectangularShape(), makeAddSign());
+			
+		displaySplash.getChildren().add(sp);
+		return displaySplash;
+	}
+	
+	private Text makeText(String s){
+		Text text = new Text(s);
+		Reflection r = new Reflection();
+		r.setFraction(0.6f);		 
+		text.setEffect(r);
+		text.setFont(Font.font("SERIF", FontWeight.BOLD, 30));
+		text.setTranslateY(-300);  //?? uncertain of how offset works but this works for now
+		return text;
+	}
+	private Rectangle makeRectangularShape(){
+		Rectangle screen = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT, Color.TRANSPARENT);
+		screen.setStroke(Color.GRAY);
+		return screen;
+	}
+	private  ImageView makeAddSign(){
+		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
+		addsign.setFitHeight(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
+		addsign.setFitWidth(this.getHeight()* DOUBLE.PERCENT_HEIGHT_ADD_SIGN);
+		return addsign;
 	}
 	/**
 	 * display list of levels that are represented by images in parallel 
 	 * @param ObservableList<Level>
 	 */
-	private ScrollPane makeLevelsDisplay(List<Level> levels){ 
+	private ScrollPane DisplayLevels(List<Level> levels){ 
 		//TODO: get ListView: List<LevelView>: a group to represent each level, in replace of ImageView below
 		//TableView<ObservableList> levelTable = new TableView();	
 		ScrollPane s1 = new ScrollPane();
@@ -104,43 +156,48 @@ public class GameEditScreen extends Screen {
 		return s1;
 	}
 	private HBox displayLevelsInParallel(){
+		//can't add ObservableList to a HBox directly
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
-		ImageView level1 = makeTempLeveDisplayImage("images/level1_tmp.PNG");
-		ImageView level2 = makeTempLeveDisplayImage("images/level2_tmp.PNG");
-		ImageView level3 = makeTempLeveDisplayImage("images/sprite.jpg");
+		ImageView level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //temp string path
+		ImageView level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
+		ImageView level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
 		levelView.getChildren().addAll(level1, level2, level3);
 		return levelView;
 	}
 	//temporary methods to display level Image
 	private ImageView makeTempLeveDisplayImage(String path){
 		ImageView level1 = new ImageView(new Image(path));
-		level1.setFitHeight(400);
-		level1.setFitWidth(500);
+		level1.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+		level1.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 		return level1;
 	}
-	private ListView makeSplashScreen(List<SplashScreen> screen){
-		ObservableList<String> mySplash = FXCollections.observableArrayList(
-		          "Splash Screen1", "Splash Screen 2", "Splash Screen 3", "Splash Screen 4"); //change to track game splash
-		 ListView<String> splashList = new ListView<String>(mySplash);
-		 return splashList;
+	
+	/**
+	 * This method initializes making buttons from STRING constants class for adding and editing
+	 * levels and splash screens.
+	 * Initializes event handlers for buttons on the screen.
+	 * @author Anika modified by Yongjiao
+	 */
+	private List<ScreenButton> createSplashAndLevelButtons() {
+		
+		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
+		String[] buttonNames = (String[]) buttonMap.values().toArray();
+		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();		
+		for (int i = 0; i < buttonNames.length; i++){
+			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
+			System.out.println(buttonNames[i]);
+			myButtons.put(buttonNames[i], myB);
+		}	
+//modifications made here by Yongjiao: changed to use methods in manager class.
+		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> parent.loadLevelEditScreen()); 
+		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen());	
+//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
+//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
+//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
+		return new ArrayList(myButtons.values());
 	}
-	private Button makeAddLevelButton(){
-		Button addSplash = new Button(STRING.ADD_SPLASH);
-		return addSplash;
-	}
-	private Button makeEditLevelButton(){
-		Button editLevel = new Button(STRING.EDIT_LEVEL);
-		return editLevel;
-	}
-	private Button makeAddSplashButton(){
-		Button addSplash = new Button(STRING.ADD_SPLASH);
-		return addSplash;
-	}
-	private Button makeEditSplashButton(){
-		Button editSplash = new Button(STRING.EDIT_SPLASH);
-		return editSplash;
-	}
+
 	private Button makeTrashButton(){
 		Button trash = new Button(STRING.TRASH);
 		return trash;
@@ -157,34 +214,25 @@ public class GameEditScreen extends Screen {
 		back.setOnMouseClicked(e -> parent.returnToMainMenuScreen());		
 		return back;
 	}
+	
+	/**
+	 * Consider using makeFileMenu(EventHandler<ActionEvent>... fileMenuActions)
+	 * located in the abstract class screen in order to reduce duplicated code
+	 * in different screens (all screens have a file menu)
+	 * 
+	 * -Leo
+	 */
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {			
-			Menu back = new Menu("Go Back");
-			//MenuItem back = new MenuItem("back");
-			//step.setOnAction(o -> loadMainMenuScreen());
-			//back.getItems().addAll(back);
-			menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back);				
-	}		
-	/*
-	 * This method initializes making buttons from the properties files labels.
-	 * Initializes event handlers for buttons on the screen
-	 * @author Anika
-	private void createScreenButtons() {
-		// Creates buttons that are put on the screen
-		for (int i = 0; i < NUM_BUTTONS; i++){
-			ScreenButton myB = new ScreenButton(myButtonLabels.getString(myScreenButtonsNames[i]), BUTTON_STYLE);
-			myScreenButtons[i] = myB;
-		//	hbox.getChildren().add(myB); TODO: add to screen
-		}	
-		myScreenButtons[SAVE_BUTTON].setOnMouseClicked(e -> saveLevel());
-		myScreenButtons[PLAY_BUTTON].setOnMouseClicked(e -> playGame());
-		myScreenButtons[REMOVE_SPLASH_BUTTON].setOnMouseClicked(e -> trashSplashScreen());
-		myScreenButtons[REMOVE_LEVEL_BUTTON].setOnMouseClicked(e -> removeLevel());
+		
+		Menu back = new Menu("Go Back");
+		//MenuItem back = new MenuItem("back");
+		//step.setOnAction(o -> loadMainMenuScreen());
+		//back.getItems().addAll(back);
+		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back, makeTrashMenu());	
 
-		myScreenButtons[ADD_LEVEL_BUTTON].setOnMouseClicked(e -> addLevel());
-		myScreenButtons[ADD_SPLASH_BUTTON].setOnMouseClicked(e -> addSplash());			
-	}
-**/
+	}		
+
 	private Menu makeFileMenu(){
 		Menu fileMenu = new Menu("File");
 		MenuItem save = new MenuItem("Save");
@@ -210,5 +258,12 @@ public class GameEditScreen extends Screen {
 		//	addSplash.setOnAction(o -> parent.loadSplashEditScreen(selectedSplash));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
+	}
+	private Menu makeTrashMenu(){
+		ImageView trashImage = new ImageView(new Image(STRING.TRASH_ICON));
+		trashImage.setFitHeight(this.getHeight() *  DOUBLE.percentHeightMenuBar);
+		trashImage.setFitWidth(this.getHeight() *  DOUBLE.percentHeightMenuBar);
+		Menu trashButton = new Menu("", trashImage);
+		return trashButton;
 	}
 }
