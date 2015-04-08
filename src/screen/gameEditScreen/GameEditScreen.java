@@ -1,6 +1,7 @@
 package screen.gameEditScreen;
 
 import game.Game;
+
 import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,6 +20,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
@@ -140,10 +142,11 @@ public class GameEditScreen extends Screen {
 		
 	}
 	private  Button makeAddSign() {
-		Button b = new Button();
 		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
+		Button b = new Button("Add New Splash Screen", addsign);
+		b.setContentDisplay(ContentDisplay.TOP);
 		b.setOnMouseClicked(e -> controller.loadSplashEditScreen()); //？change to doubleclicked
 		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT); 
 		b.setGraphic(addsign);			
