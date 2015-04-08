@@ -21,6 +21,7 @@ public class VelocityComponent extends Component{
 	
 	public VelocityComponent(Sprite sprite) {
 		super(sprite);
+		myVelocity = Point2D.ZERO;
 	}
 
 	@Override

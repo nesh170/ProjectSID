@@ -30,6 +30,7 @@ public abstract class Component {
 	 */
 	public Component(Sprite sprite){
 		mySprite = sprite;
+		isActive=true;
 	}
 	
 	/**

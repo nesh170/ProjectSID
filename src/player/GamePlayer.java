@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -40,7 +41,11 @@ public class GamePlayer implements GamePlayerInterface {
 	public final static double UPDATE_RATE = 120;
 	//private final static File MARIO_PATH 
 	
-	//private GamePlayerUtilities myUtils;
+
+	private ScrollPane myGameRoot;
+	private Group myGameGroup;
+	
+	private GamePlayerUtilities myUtils;
 	private GameEngine myEngine;
 	private Scene myScene;
 
@@ -50,7 +55,6 @@ public class GamePlayer implements GamePlayerInterface {
 	private BorderPane myBorderPane;
 	private Timeline myTimeline;
 	private String myGameFilePath;
-	private Group myRoot;
 	private Stage myGameChooser;
 	private MenuBar myMenuBar;
 	private StackPane myPause;
@@ -67,15 +71,20 @@ public class GamePlayer implements GamePlayerInterface {
 		//myUtils = new GamePlayerUtilities();
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
-		myRoot = new Group();
-		setupAnimation();
-//		loadNewChooser();
+		//setupAnimation();
+		Stage chooserStage = new Stage();
+		chooserStage.initModality(Modality.APPLICATION_MODAL);
+		chooserStage.initOwner(stage);
+		chooseGame(chooserStage);
+		//chooserStage.show();
+		myGameRoot = new ScrollPane();
+		myGameGroup = new Group();
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
         myBorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
-		myBorderPane.setCenter(myRoot);
+		myBorderPane.setCenter(myGameRoot);
         myScene = new Scene(myBorderPane, 1200, 600);
         stage.setScene(myScene);
 	}
@@ -87,12 +96,14 @@ public class GamePlayer implements GamePlayerInterface {
 		myWidth = width;
 		myHeight = height;
 		setupAnimation();
+		myGameRoot = new ScrollPane();
+		myGameGroup = new Group();
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
 		BorderPane.setMargin(myPause, new Insets(25, 25, 25, 25));
 		myBorderPane.setTop(myMenuBar);
-		myBorderPane.setCenter(myRoot);
+		myBorderPane.setCenter(myGameRoot);
 		setupAnimation();
 	}
 
@@ -204,11 +215,16 @@ public class GamePlayer implements GamePlayerInterface {
 	}
 
 	private void bringupPause() {
-		myRoot.getChildren().add(myPause);
+		myGameRoot.setContent(myPause);
 	}
 
 	private void removePause() {
-		myRoot.getChildren().remove(myPause);
+		myGameRoot.setContent(myGameGroup);
+	}
+
+	private void initialize(GameEngine engine) {
+		myEngine = engine;
+		setupAnimation();
 	}
 
 	private void setupAnimation() {
@@ -262,14 +278,16 @@ public class GamePlayer implements GamePlayerInterface {
 	}
 
 	private void display() {
-		myRoot = myEngine.render();		
-		myBorderPane.setCenter(myRoot);
-		//myRoot.getChildren().add(createHUD());
+
+		myGameGroup = myEngine.render();
+		myGameGroup.getChildren().add(createHUD());
+		myGameRoot.setContent(myGameGroup);
 	}
 
 	@Override
 	public void start() {
 		removePause();
+		myEngine.play(myScene);
 		myTimeline.play();
 	}
 
