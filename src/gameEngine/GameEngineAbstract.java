@@ -1,6 +1,7 @@
 package gameEngine;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 
 /**
  * The GameEngine class is the main class of the game engine. It initializes all the sprites from the XML. It also has an
@@ -33,11 +34,11 @@ public abstract class GameEngineAbstract {
     /**
      * This method pauses the game by decoupling all the bindings to the keys
      */
-    public abstract void pause(Node node);
+    public abstract void pause(Scene scene);
     
     /**
      * This method recouples all the bindings to the keys
      */
-    public abstract void play(Node node);
+    public abstract void play(Scene Scene);
 
 }

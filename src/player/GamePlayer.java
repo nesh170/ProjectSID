@@ -66,8 +66,6 @@ public class GamePlayer implements GamePlayerInterface {
 		// TODO: transfer to GamePlayerView.java
 		//myView = new GamePlayerView();
 
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myRoot = new Group();
 		//setupAnimation();
 		Stage chooserStage = new Stage();
@@ -218,13 +216,12 @@ public class GamePlayer implements GamePlayerInterface {
 
 	private void initialize(GameEngine engine) {
 		myEngine = engine;
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Animation.INDEFINITE);
 		setupAnimation();
 	}
 
 	private void setupAnimation() {
 		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
 		KeyFrame updateFrame = new KeyFrame(
 				Duration.millis(1000 / UPDATE_RATE), e -> update());
 		KeyFrame displayFrame = new KeyFrame(
@@ -269,12 +266,14 @@ public class GamePlayer implements GamePlayerInterface {
 
 	private void display() {
 		myRoot = myEngine.render();
-		myRoot.getChildren().add(createHUD());
+		myBorderPane.setCenter(myRoot);
+		//myRoot.getChildren().add(createHUD());
 	}
 
 	@Override
 	public void start() {
 		removePause();
+		myEngine.play(myScene);
 		myTimeline.play();
 	}
 

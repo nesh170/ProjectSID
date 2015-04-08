@@ -48,6 +48,7 @@ public class VelocityComponent extends Component{
 	
 	public void setVelocityX(Double x) {
 		myVelocity = Point2D.ZERO.add(x, myVelocity.getY());
+		System.out.println(myVelocity.getX());
 	}
 	
 	public void setVelocityY(Double y) {
