@@ -98,12 +98,7 @@ public class LevelView {
 //            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
 //                    .transform().getPosY());
 //            spriteGroup.getChildren().add(spriteImageView);
-            if(sprite.transform().getPosX()!=2.0){
-            System.out.println(sprite.transform().getPosX());
-            }
             Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
-            int lol = sprite.transform().getPosX().intValue();
-            player.setFill(Color.rgb(lol,lol,lol));
             spriteGroup.getChildren().add(player);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));

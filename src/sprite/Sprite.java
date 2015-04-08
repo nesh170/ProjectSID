@@ -127,6 +127,8 @@ public class Sprite {
 	
 	public Sprite (Sprite toCopy){
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
+		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		
 	}
 	
 	
@@ -187,7 +189,6 @@ public class Sprite {
 		for(Component component: componentList) {
 			
 			try {
-				
 				if(component.getClass() == Class.forName("gameEngine.components." + componentClassName)) {
 					return component;	
 				}
