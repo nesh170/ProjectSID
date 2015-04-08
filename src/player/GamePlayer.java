@@ -40,7 +40,7 @@ public class GamePlayer implements GamePlayerInterface {
 	public final static double UPDATE_RATE = 120;
 	//private final static File MARIO_PATH 
 	
-	private GamePlayerView myView;
+	//private GamePlayerUtilities myUtils;
 	private GameEngine myEngine;
 	private Scene myScene;
 
@@ -64,17 +64,12 @@ public class GamePlayer implements GamePlayerInterface {
 	public GamePlayer(Stage stage) {
 
 		// TODO: transfer to GamePlayerView.java
-		//myView = new GamePlayerView();
-
+		//myUtils = new GamePlayerUtilities();
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		myRoot = new Group();
-		//setupAnimation();
-		Stage chooserStage = new Stage();
-		chooserStage.initModality(Modality.APPLICATION_MODAL);
-		chooserStage.initOwner(stage);
-		chooseGame(chooserStage);
-		//chooserStage.show();
+		setupAnimation();
+//		loadNewChooser();
 		myPause = makePauseScreen();
 		myBorderPane = new BorderPane();
 		myMenuBar = createPlayerMenu();
@@ -203,8 +198,8 @@ public class GamePlayer implements GamePlayerInterface {
 		});
 		pause.getChildren().add(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(myWidth);
-		pause.setPrefHeight(myHeight);
+		pause.setPrefWidth(500);
+		pause.setPrefHeight(500);
 		return pause;
 	}
 
@@ -216,15 +211,9 @@ public class GamePlayer implements GamePlayerInterface {
 		myRoot.getChildren().remove(myPause);
 	}
 
-	private void initialize(GameEngine engine) {
-		myEngine = engine;
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Animation.INDEFINITE);
-		setupAnimation();
-	}
-
 	private void setupAnimation() {
 		myTimeline = new Timeline();
+		myTimeline.setCycleCount(Animation.INDEFINITE);
 		KeyFrame updateFrame = new KeyFrame(
 				Duration.millis(1000 / UPDATE_RATE), e -> update());
 		KeyFrame displayFrame = new KeyFrame(
@@ -233,6 +222,11 @@ public class GamePlayer implements GamePlayerInterface {
 		myTimeline.getKeyFrames().add(displayFrame);
 	}
 
+	private void loadNewChooser() {
+		Stage gameChooser = new Stage();
+		chooseGame(gameChooser);
+	}
+	
 	private void chooseGame(Stage gameChooser) {
 		//find a way to set up a map so we can just have file paths
 		//for games already established so no directory needs to be opened here
@@ -264,12 +258,13 @@ public class GamePlayer implements GamePlayerInterface {
 	}
 	
 	private void update() {
-		myEngine.update();
+		//myEngine.update();
 	}
 
 	private void display() {
-		myRoot = myEngine.render();
-		myRoot.getChildren().add(createHUD());
+		myRoot = myEngine.render();		
+		myBorderPane.setCenter(myRoot);
+		//myRoot.getChildren().add(createHUD());
 	}
 
 	@Override
