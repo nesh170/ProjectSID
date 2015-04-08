@@ -36,7 +36,7 @@ public class PlayerViewController {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
-	
+
 	private Timeline myTimeline;
 	private Stage myGameChooser;
 	private StackPane myPause;
@@ -49,11 +49,12 @@ public class PlayerViewController {
 	private File myGameFolder;
 	private List<Level> myGameLevels;
 	private ScrollPane myGameRoot;
-	private Group myGameGroup;	
+	private Group myGameGroup;
 	private GameEngine myEngine;
 
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
+		myScene = new Scene(pane, 1200, 600);
 		loadNewChooser();
 		myPause = makePauseScreen();
 	}
@@ -61,11 +62,11 @@ public class PlayerViewController {
 	public PlayerViewController(double width, double height) {
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
-		//setupAnimation();
+		// setupAnimation();
 		Stage chooserStage = new Stage();
 		chooserStage.initModality(Modality.APPLICATION_MODAL);
 		chooseGame(chooserStage);
-		//chooserStage.show();
+		// chooserStage.show();
 		myGameRoot = new ScrollPane();
 		myGameGroup = new Group();
 		myPause = makePauseScreen();
@@ -79,7 +80,7 @@ public class PlayerViewController {
 
 	public void stopView() {
 		myTimeline.stop();
-		//myEngine.pause(myBorderPane);
+		// myEngine.pause(myBorderPane);
 		bringupPause();
 	}
 
@@ -93,7 +94,7 @@ public class PlayerViewController {
 		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
 	}
-	
+
 	private StackPane makePauseScreen() {
 		StackPane pause = new StackPane();
 		Button startButton = new Button("Resume");
@@ -125,7 +126,7 @@ public class PlayerViewController {
 		myTimeline.getKeyFrames().add(updateFrame);
 		myTimeline.getKeyFrames().add(displayFrame);
 	}
-	
+
 	public Stage chooserConfirmationDialog(Text text) {
 		Stage dialogStage = new Stage();
 		dialogStage.initModality(Modality.APPLICATION_MODAL);
@@ -143,16 +144,16 @@ public class PlayerViewController {
 		dialogStage.setScene(dialogScene);
 		return dialogStage;
 	}
-	
+
 	public void loadNewChooser() {
 		Stage chooserStage = new Stage();
 		chooserStage.initModality(Modality.APPLICATION_MODAL);
 		chooseGame(chooserStage);
 	}
-	
+
 	private void chooseGame(Stage gameChooser) {
-		//find a way to set up a map so we can just have file paths
-		//for games already established so no directory needs to be opened here
+		// find a way to set up a map so we can just have file paths
+		// for games already established so no directory needs to be opened here
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		try {
 			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
@@ -163,32 +164,34 @@ public class PlayerViewController {
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
 	}
-	
+
 	public HBox createHUD() {
 		HBox HUDbox = new HBox(myWidth);
 		Text LivesText = new Text("Health:" + myHealth);
-		LivesText.setFont(Font.font ("Arial Black", 20));
+		LivesText.setFont(Font.font("Arial Black", 20));
 		LivesText.setFill(Color.WHITE);
 		Text HealthText = new Text("Lives:" + myLives);
-		HealthText.setFont(Font.font ("Arial Black", 20));
+		HealthText.setFont(Font.font("Arial Black", 20));
 		HealthText.setFill(Color.WHITE);
 		Text ScoreText = new Text("Score" + myScore);
-		ScoreText.setFont(Font.font ("Arial Black", 20));
+		ScoreText.setFont(Font.font("Arial Black", 20));
 		ScoreText.setFill(Color.WHITE);
 		HUDbox.getChildren().addAll(LivesText, HealthText, ScoreText);
 		HUDbox.setAlignment(Pos.BOTTOM_CENTER);
 		return HUDbox;
 	}
-	
+
 	public void save() {
-		String[] names = new String[]{"mario1.xml", "mario2.xml", "mario3.xml"};
+		String[] names = new String[] { "mario1.xml", "mario2.xml",
+				"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
-				DataHandler.toXMLFile(myGameLevels.get(i), names[i], myGameFolder.toString());
+				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
+						myGameFolder.toString());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}		
+		}
 	}
 }

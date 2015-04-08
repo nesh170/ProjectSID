@@ -19,12 +19,12 @@ public class PlayerMenu {
 
 	private MenuBar myMenuBar;
 	private PlayerViewController myView;
-	
+
 	public PlayerMenu(ScrollPane pane) {
 		myMenuBar = createPlayerMenu();
 		myView = new PlayerViewController(pane);
 	}
-	
+
 	public MenuBar createPlayerMenu() {
 		MenuBar menuBar = new MenuBar();
 		Menu menuView = new Menu("View");
@@ -33,7 +33,14 @@ public class PlayerMenu {
 		menuBar.getMenus().add(menuView);
 		return menuBar;
 	}
-	
+
+	private MenuItem makeMenuItem(String name) {
+		MenuItem item = new MenuItem(name);
+		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
+				+ name.substring(0, 1)));
+		return item;
+	}
+
 	private Menu buildFileMenu() {
 		Menu fileMenu = new Menu("File");
 
@@ -66,12 +73,6 @@ public class PlayerMenu {
 		return fileMenu;
 	}
 
-	private MenuItem makeMenuItem(String name) {
-		MenuItem item = new MenuItem(name);
-		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"+name.substring(0, 1)));
-		return item;
-	}
-	
 	private Menu buildGamesMenu() {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
@@ -84,7 +85,7 @@ public class PlayerMenu {
 		gamesMenu.getItems().addAll(marioItem);
 		return gamesMenu;
 	}
-	
+
 	private Stage buildGameChooser() {
 		Stage gameChooser = new Stage();
 		gameChooser.initModality(Modality.APPLICATION_MODAL);
@@ -97,7 +98,7 @@ public class PlayerMenu {
 		gameChooser.setScene(allGames);
 		return gameChooser;
 	}
-	
+
 	public void startGame() {
 		myView.startView();
 	}
@@ -105,18 +106,18 @@ public class PlayerMenu {
 	public void pauseGame() {
 		myView.stopView();
 	}
-	
+
 	public void loadNewGame() {
 		Stage chooserStage = new Stage();
 		chooserStage.initModality(Modality.APPLICATION_MODAL);
 		myView.loadNewChooser();
 	}
-	
+
 	public MenuBar getBar() {
 		return myMenuBar;
 	}
-	
+
 	public void saveGame() {
 		myView.save();
-	}	
+	}
 }
