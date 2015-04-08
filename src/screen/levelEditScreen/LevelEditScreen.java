@@ -146,7 +146,7 @@ public class LevelEditScreen extends Screen {
 		}
 		
 		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
-		this.setCenter(levelView);
+		this.viewableArea().setCenter(levelView);
 		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
 	}
@@ -154,7 +154,7 @@ public class LevelEditScreen extends Screen {
 	private void makeSpritesInLevelTab() {
 		
 		VBox paneForSprites = new VBox();
-		this.setLeft(paneForSprites);
+		this.viewableArea().setLeft(paneForSprites);
 		
 		TitledPane platforms = makeTitledPane(STRING.PLATFORMS,listOfPlatforms);
 		TitledPane enemies = makeTitledPane(STRING.ENEMIES,listOfEnemies);
@@ -198,7 +198,7 @@ public class LevelEditScreen extends Screen {
 		paneForButtons.setFillWidth(false);
 		paneForButtons.setSpacing(DOUBLE.BUTTON_SPACING);
 		
-		this.setRight(paneForButtons);
+		this.viewableArea().setRight(paneForButtons);
 				
 		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> controller.loadSpriteEditScreen(new Sprite()));
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen(currentGameScreen));
