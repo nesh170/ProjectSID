@@ -171,12 +171,14 @@ public class GameEditScreen extends Screen {
 	
 	private StackPane DisplayLevelRegion(){
 		StackPane levelRegion = new StackPane();	//, DisplayLevels(myLevels)
-		Button add = makeAddButton();
+		
+		ImageView add = makeAddButton();
 		levelRegion.setAlignment(add, Pos.TOP_RIGHT);		
 		ImageView play = makePlayButton();
 		levelRegion.setAlignment(play, Pos.TOP_CENTER);
 		ImageView trash = makeTrashButton();
-		levelRegion.getChildren().addAll(DisplayLevels(myLevels), add, play);
+		levelRegion.setAlignment(trash, Pos.BOTTOM_RIGHT);
+		levelRegion.getChildren().addAll(DisplayLevels(myLevels), add, play, trash);
 		
 		
 		return levelRegion;
@@ -207,13 +209,13 @@ public class GameEditScreen extends Screen {
 		            }
 		        }
 		        else if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-		        	makeEditAndRemoveMenu().show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());		        	
+		        	makeRightClickeMenu().show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());		        	
 		        }
 		    }
 		};
 	}
 	
-	private ContextMenu makeEditAndRemoveMenu(){ //pass in Level
+	private ContextMenu makeRightClickeMenu(){ //pass in Level
 		final ContextMenu rMenu = new ContextMenu();
 		MenuItem edit = new MenuItem("Edit");
 		//edit.setOnAction(controller.loadLevelEditScreen(level);
@@ -270,21 +272,19 @@ public class GameEditScreen extends Screen {
 		trashButton.setFitWidth(80);
 		return trashButton;		
 	}
-	private Button makeAddButton(){
+	private ImageView makeAddButton(){
 		ImageView img = new ImageView(new Image("/images/plus_sign.png"));
 		img.setFitHeight(80);
 		img.setFitWidth(80);
-		Button add =  new Button();
-		add.setGraphic(img);
-		return add;
+		return img;
 	}
 	
 	private ImageView makePlayButton() {	
-		ImageView playButton = new ImageView(new Image("/images/play.png"));
-		playButton.setFitHeight(80);
-		playButton.setFitWidth(80);
-		playButton.setOnMouseClicked(e -> controller.playGame(myGame));
-		return playButton;
+		ImageView img = new ImageView(new Image("/images/play.png"));
+		img.setFitHeight(80);
+		img.setFitWidth(80);
+		img.setOnMouseClicked(e -> controller.playGame(myGame));
+		return img;
 	}
 	
 	private Button makeBackButton() {		
