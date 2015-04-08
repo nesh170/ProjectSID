@@ -46,7 +46,7 @@ public class STRING {
 	public static final String LEVEL2IMAGE = "images/level2_tmp.PNG";
 	public static final String SPRITEIMAGE = "images/sprite.jpg";
 	public static final String SPLASH_SCREEN = "Splash Screen";
-	public static final String TRASH_BUTTON = "images/edit.png";
+	public static final String TRASH_BUTTON = "images/trash_sign.png";
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	

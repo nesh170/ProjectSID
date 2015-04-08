@@ -238,17 +238,17 @@ public class ScreenController implements ScreenDisplayingInterface {
 
 	private void createInitialScreens() {
 		
-		createMainMenuScreen();
+		//createMainMenuScreen();
 
 		//USED TO TEST GAMEEDITSCREEN //DO NOT REMOVE //@AUTHOR YONGJIAO
 		createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		createSplashEditScreen(null);
+		//createSplashEditScreen(null);
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
-		createLevelEditScreen(null);
+		//createLevelEditScreen(null);
 
 	}
 	
@@ -390,8 +390,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 		return addTabWithScreenWithStringIdentifier(
 				new MainMenuScreen(this, newScreenWidth(), newScreenHeight()),
 				STRING.MAIN_MENU
-				);
-		
+				);		
 	}
 
 	@Override

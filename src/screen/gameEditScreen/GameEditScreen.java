@@ -14,6 +14,7 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -66,10 +67,8 @@ public class GameEditScreen extends Screen {
 	// Instance variables
 	private GameEditScreenController controller;
 	private Game myGame;
-
 	private ObservableList<Level>	myLevels;  	
-	private ObservableList<SplashScreen> mySplashScreen; 
-	
+	private ObservableList<SplashScreen> mySplashScreen; 	
 	
 	// Getters & Setters
 	/**
@@ -89,12 +88,13 @@ public class GameEditScreen extends Screen {
 		super(null, width, height);
 		myGame = game;
 		initialize(controller);
+		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
 	}
 	/**
 	 * Creates new GameEditScreen
 	 */
 	public GameEditScreen( ScreenController controller, double width, double height) {
-			this(new Game() ,controller, width, height);
+			this(new Game(), controller, width, height);
 	}
 	
 	@Override
@@ -106,16 +106,15 @@ public class GameEditScreen extends Screen {
 		
 		//this.setRight(makeBackButton());		
 		//this.setBottom(makePlayButton());
-		this.setCenter(DisplayLevels(myLevels));		
+		this.setCenter(DisplayLevelRegion());		
 		this.setLeft(DisplaySplash());
 		//this.setBottom(makeAddLevelButton());
 		//set rest of buttons
-		 System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
+		System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
 		 
 	}
 	
 	/**
-	 * 
 	 * @param controller
 	 */
 	private void initialize(ScreenController controller){
@@ -130,10 +129,9 @@ public class GameEditScreen extends Screen {
 		
 		VBox displaySplash  = new VBox();
 		displaySplash.setAlignment(Pos.CENTER);
-		displaySplash.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
 		
 		StackPane sp = new StackPane();		
-		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeRectangularShape(), makeAddSign());
+		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeAddSign());
 			
 		displaySplash.getChildren().add(sp);
 		return displaySplash;
@@ -151,29 +149,22 @@ public class GameEditScreen extends Screen {
 		return text;
 		
 	}
-	
-	private Rectangle makeRectangularShape() {		
-		Rectangle screen = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT, Color.TRANSPARENT);
-		screen.setStroke(Color.GRAY);
-		return screen;
-		
-	}
-	
-	private  ImageView makeAddSign() {
-		
+	private  Button makeAddSign() {
+		Button b = new Button();
 		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
-		addsign.setOnMouseClicked(e -> controller.loadSplashEditScreen());
-		return addsign;		
+		b.setOnMouseClicked(e -> controller.loadSplashEditScreen()); //？change to doubleclicked
+		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT); 
+		b.setGraphic(addsign);			
+		return b;		
 	}
 	
 	/**
 	 * display list of levels that are represented by images in parallel 
 	 * @param ObservableList<Level>
 	 */
-	private ScrollPane DisplayLevels(List<Level> levels) { 
-		
+	private ScrollPane DisplayLevels(List<Level> levels) { 		
 		//TODO: get ListView: List<LevelView>: a group to represent each level, in replace of ImageView below
 		//TableView<ObservableList> levelTable = new TableView();	
 		ScrollPane s1 = new ScrollPane();
@@ -185,16 +176,29 @@ public class GameEditScreen extends Screen {
 		
 	}
 	
-	private HBox displayLevelsInParallel() {
+	private StackPane DisplayLevelRegion(){
+		StackPane levelRegion = new StackPane();	//, DisplayLevels(myLevels)
+		Button add = makeAddButton();
+		levelRegion.setAlignment(add, Pos.TOP_RIGHT);		
+		ImageView play = makePlayButton();
+		levelRegion.setAlignment(play, Pos.TOP_CENTER);
+		ImageView trash = makeTrashButton();
+		levelRegion.getChildren().addAll(DisplayLevels(myLevels), add, play);
 		
+		
+		return levelRegion;
+	}
+	
+	private HBox displayLevelsInParallel() {
+	
 		//can't add ObservableList to a HBox directly
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
-		ImageView level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //temp string path
+		Button level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //tmp string path
 		level1.setOnMouseClicked(handleDouleRightClick(level1));		
-		ImageView level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
+		Button level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
 		level2.setOnMouseClicked(handleDouleRightClick(level2));
-		ImageView level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
+		Button level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
 		levelView.getChildren().addAll(level1, level2, level3);
 		level3.setOnMouseClicked(handleDouleRightClick(level3));
 		return levelView;		
@@ -214,7 +218,6 @@ public class GameEditScreen extends Screen {
 		        }
 		    }
 		};
-
 	}
 	
 	private ContextMenu makeEditAndRemoveMenu(){ //pass in Level
@@ -227,13 +230,13 @@ public class GameEditScreen extends Screen {
 		return rMenu;
 	}
 	//temporary methods to display level Image
-	private ImageView makeTempLeveDisplayImage(String path) {
-		
+	private Button makeTempLeveDisplayImage(String path) {
+		Button b = new Button();
 		ImageView level1 = new ImageView(new Image(path));
 		level1.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		level1.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
-		return level1;
-		
+		b.setGraphic(level1);
+		return b;		
 	}
 	
 	/**
@@ -257,22 +260,30 @@ public class GameEditScreen extends Screen {
 //		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
 //		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
 //		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
-		return new ArrayList(myButtons.values());
-		
+		return new ArrayList(myButtons.values());	
 	}
 
-	private Button makeTrashButton(){		
-		Button trash = new Button(STRING.TRASH);
-		ImageView trashButton = new ImageView(new Image(STRING.TRASH_BUTTON)); 
-		return trash;		
+	private ImageView makeTrashButton(){		
+		ImageView trashButton = new ImageView(new Image("/images/trash_sign.png")); 
+		trashButton.setFitHeight(80);
+		trashButton.setFitWidth(80);
+		return trashButton;		
+	}
+	private Button makeAddButton(){
+		ImageView img = new ImageView(new Image("/images/plus_sign.png"));
+		img.setFitHeight(80);
+		img.setFitWidth(80);
+		Button add =  new Button();
+		add.setGraphic(img);
+		return add;
 	}
 	
-	private Button makePlayButton() {	
-		Button play = new Button(STRING.PLAY);
-		play.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);
-		play.setOnMouseClicked(e -> controller.playGame(myGame));
-		return play;
-		
+	private ImageView makePlayButton() {	
+		ImageView playButton = new ImageView(new Image("/images/play.png"));
+		playButton.setFitHeight(80);
+		playButton.setFitWidth(80);
+		playButton.setOnMouseClicked(e -> controller.playGame(myGame));
+		return playButton;
 	}
 	
 	private Button makeBackButton() {		
