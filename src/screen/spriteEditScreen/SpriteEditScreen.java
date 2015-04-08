@@ -39,6 +39,10 @@ public class SpriteEditScreen extends Screen {
 			drawSpriteOnScreen(spriteToEdit);
 		}
 		
+		createLeftPane();
+		createRightPane();
+		createCenterPane();
+		
 	}
 		
 	
@@ -52,6 +56,39 @@ public class SpriteEditScreen extends Screen {
 		
 	}
 	
+	private void createLeftPane() {
+		VBox nameAndTagPane = createNameAndTagPane();
+		Pane imagePane = createAddImagePane();
+		
+		VBox leftPane = new VBox();
+		leftPane.getChildren().addAll(nameAndTagPane, imagePane);
+		
+		this.viewableArea().setLeft(leftPane);
+	}
+	
+	private void createRightPane() {
+		
+		VBox rightPane = new VBox();
+		
+		this.viewableArea().setRight(rightPane);
+
+	}
+	
+	private void createCenterPane() {
+		
+	}
+	
+	private VBox createNameAndTagPane() {
+		return null;
+	}
+	
+	private Pane createAddImagePane() {
+		return null;
+	}
+	
+	private VBox createActionAndComponentPane() {
+		return null;
+	}
 	
 	private void saveSprite() {
 		//TODO
