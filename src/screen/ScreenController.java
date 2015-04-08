@@ -31,22 +31,17 @@ import resources.constants.DOUBLE;
 import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
-import screen.gameEditScreen.GameEditScreenManager;
 import screen.gamePlayScreen.GamePlayScreen;
 import screen.gamePlayScreen.GamePlayScreenController;
-import screen.gamePlayScreen.GamePlayScreenManager;
 import screen.levelEditScreen.LevelEditScreen;
 import screen.levelEditScreen.LevelEditScreenController;
-import screen.levelEditScreen.LevelEditScreenManager;
 import screen.mainMenu.MainMenuScreen;
 import screen.mainMenu.MainMenuScreenController;
-import screen.mainMenu.MainMenuScreenManager;
 import screen.splashEditScreen.SplashEditScreen;
 import screen.splashEditScreen.SplashEditScreenController;
-import screen.splashEditScreen.SplashEditScreenManager;
 import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
-import screen.spriteEditScreen.SpriteEditScreenManager;
+import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
@@ -112,7 +107,7 @@ import sprite.Sprite;
  * 
  */
 
-public class ScreenController implements ScreenDisplayingInterface {
+public class ScreenController {
 	
 	// Static Variables
 	
@@ -125,9 +120,19 @@ public class ScreenController implements ScreenDisplayingInterface {
 	private Stage stage;
 	private Group root;
 	private Scene scene;
-	private TabPane tabPane;
-	private SingleSelectionModel<Tab> singleSelectionModel;			// Assists in selecting the correct tab after opening / closing tabs
+	private TabManager tabManager;
+	// Assists in selecting the correct tab after opening / closing tabs
 	private TextField errorMessageTextField;
+	// Screen Managers
+	private MainMenuScreenManager mainMenuScreenManager;
+	private GameEditScreenManager gameEditScreenManager;
+	private SplashEditScreenManager splashEditScreenManager;
+	private LevelEditScreenManager levelEditScreenManager;
+	private SpriteEditScreenManager spriteEditScreenManager;
+	private GamePlayScreenManager gamePlayScreenManager;
+	
+	//Factories
+	private ScreenFactory screenFactory;
 	// Getters & Setters (static)
 	
 	
@@ -169,6 +174,8 @@ public class ScreenController implements ScreenDisplayingInterface {
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
+		configureFactories(width, height);
+		configureScreenManagers();
 		
 		configureTabPane();
 		
@@ -176,6 +183,15 @@ public class ScreenController implements ScreenDisplayingInterface {
 	
 	}
 	
+	private void configureScreenManagers() {
+		mainMenuScreenManager = new MainMenuScreenManager();
+		gameEditScreenManager = new GameEditScreenManager();
+		splashEditScreenManager = new SplashEditScreenManager();
+		levelEditScreenManager = new LevelEditScreenManager();
+		spriteEditScreenManager = new SpriteEditScreenManager();
+		gamePlayScreenManager = new GamePlayScreenManager();
+	}
+
 	private void configureStageAndRoot(Stage stage, Group root) {
 		
 		this.stage = stage;
@@ -199,24 +215,24 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 	}
 	
+	private void configureFactories(double width, double height) {
+		this.screenFactory = new ScreenFactory(width, height);
+	}
+	
 	private void configureTabPane() {
 		
-		instantiateTabPane();
-		instantiateSelectionModel();
-		setTabPaneAlignmentAndSize();
-		addTabPane();
+		TabPane tabPane = new TabPane();
+		createTabManager(tabPane);
+		setTabPaneAlignmentAndSize(tabPane);
+		addTabPane(tabPane);
 		
 	}
 	
-	private void instantiateTabPane() {
-		tabPane = new TabPane();
+	private void createTabManager(TabPane tabPane) {
+		tabManager = new TabManager(tabPane);
 	}
-	
-	private void instantiateSelectionModel() {
-		singleSelectionModel = tabPane.getSelectionModel();
-	}
-	
-	private void setTabPaneAlignmentAndSize() {
+
+	private void setTabPaneAlignmentAndSize(TabPane tabPane) {
 		
 		tabPane.sideProperty().set(Side.BOTTOM);
 		
@@ -231,7 +247,7 @@ public class ScreenController implements ScreenDisplayingInterface {
 		
 	}
 	
-	private void addTabPane() {
+	private void addTabPane(TabPane tabPane) {
 		root.getChildren().add(tabPane);
 	}
 	
@@ -262,95 +278,12 @@ public class ScreenController implements ScreenDisplayingInterface {
 		stage.close();
 	}
 	
-	@Override
 	public void displayError(String error) {
 		
 		cleanUpOldErrorMesssage();
 		instantiateErrorMessage(error);
 		configureErrorMessageOffsets();
 		addErrorMessage();
-		
-	}
-	
-	/**
-	 * Method for adding new Tab items
-	 * 
-	 * @param Screen (to add)
-	 * @param String (title)
-	 * @return Tab (if you'd like your screen to support going to another Tab)
-	 */
-	public Tab addTabWithScreenWithStringIdentifier(Screen screen, String string) {
-
-		Tab returnTab = new Tab();
-
-		returnTab.setText(string);
-		returnTab.setId(string);
-		
-		returnTab.setContent(screen);
-		returnTab.onClosedProperty().set(e -> setCorrectTabModifiabilityAndViewability());
-
-		tabPane.getTabs().add(returnTab);
-		
-		setCorrectTabModifiabilityAndViewability();
-
-		return returnTab;
-		
-	}
-	
-	public SingleSelectionModel<Tab> getTabSelectionModel() {
-		return singleSelectionModel;
-	}
-	
-	public void removeTab(Tab tab) {
-		tabPane.getTabs().remove(tab);
-	}
-	
-	// Private
-	/**
-	 * Take all tabs except the current one and make them unmodifiable. Make the current tab modifiable
-	 * 
-	 * @author Ruslan
-	 */
-	private void setCorrectTabModifiabilityAndViewability() {
-		
-		int tabPaneLastIndex = tabPane.getTabs().size() - 1;
-		
-		ObservableList<Tab> tabs = tabPane.getTabs();
-		
-		// All Tab(s) except the last one
-		for (int i=0; i < tabPaneLastIndex; i++) {
-			disableTab(tabs.get(i));
-		}
-		
-		enableTab(tabs.get(tabPaneLastIndex));
-	
-	}
-	
-	private void disableTab(Tab tab) {
-	
-		tab.setClosable(false);
-		tab.setDisable(true);
-		
-	}
-	
-	private void enableTab(Tab tab) {
-		
-		tab.setClosable(true);
-		tab.setDisable(false);
-		
-		// Selects current, enabled tab
-		// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
-		singleSelectionModel.select(tab);
-		
-	}
-	
-	private void removeTabAndChangeSelected(Tab selectedNew) {
-		
-		Tab tab = singleSelectionModel.getSelectedItem();
-		tabPane.getTabs().remove(tab);
-	
-		setCorrectTabModifiabilityAndViewability();		
-		singleSelectionModel.select(selectedNew);
 		
 	}
 	
@@ -384,62 +317,197 @@ public class ScreenController implements ScreenDisplayingInterface {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
 
-	@Override
-	public Tab createMainMenuScreen() {
+
+	private Tab createMainMenuScreen() {
 		
-		return addTabWithScreenWithStringIdentifier(
-				new MainMenuScreen(this, newScreenWidth(), newScreenHeight()),
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createMainMenuScreen(mainMenuScreenManager),
 				STRING.MAIN_MENU
 				);		
 	}
 
-	@Override
-	public Tab createGameEditScreen(Game game) {
+	
+	private Tab createGameEditScreen(Game game) {
 		
-		return addTabWithScreenWithStringIdentifier(
-				new GameEditScreen(game, this, newScreenWidth(), newScreenHeight()),
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createGameEditScreen(game, gameEditScreenManager),
 				STRING.GAME_EDIT
 				);
 		
 	}
 
-	@Override
-	public Tab createSplashEditScreen(SplashScreen splashScreen) {
+	
+	private Tab createSplashEditScreen(SplashScreen splashScreen) {
 
-		return addTabWithScreenWithStringIdentifier(
-				new SplashEditScreen(this, newScreenWidth(), newScreenHeight(), splashScreen),
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
 				STRING.SPLASH_SCREEN
 				);
 		
 	}
 
-	@Override
-	public Tab createLevelEditScreen(Level level) {
+	
+	private Tab createLevelEditScreen(Level level) {
 
-		return addTabWithScreenWithStringIdentifier(
-				new LevelEditScreen(this, newScreenWidth(), newScreenHeight(), level),
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
 				STRING.LEVEL_EDIT
 				);
 	
 	}
 
-	@Override
-	public Tab createSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
+	
+	private Tab createSpriteEditScreen(Tab levelEditTab, Sprite sprite) {
 		
-		return addTabWithScreenWithStringIdentifier(
-					new SpriteEditScreen(this, levelEditScreen, newScreenWidth(), newScreenHeight(), sprite),
+		return tabManager.addTabWithScreenWithStringIdentifier(
+					screenFactory.createSpriteEditScreen(levelEditTab, sprite, spriteEditScreenManager),
 					STRING.SPRITE_EDIT
 					);
 		
 	}
 
-	@Override
-	public Tab createGamePlayScreen(Level level) {
+	
+	private Tab createGamePlayScreen(Level level) {
 		
-		return addTabWithScreenWithStringIdentifier(
-				new GamePlayScreen(this, newScreenWidth(), newScreenHeight(), level),
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createGamePlayScreen(level, gamePlayScreenManager),
 				STRING.GAME_PLAY
 				);
+		
+	}
+
+	private class MainMenuScreenManager implements MainMenuScreenController {
+
+		@Override
+		public void createNewGame() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadGameEditScreen(String recentGameName) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadGame() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void closeApplication() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class GameEditScreenManager implements GameEditScreenController {
+
+		@Override
+		public void returnToMainMenuScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadSplashEditScreen(Game game) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadLevelEditScreen(Level level) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadLevelEditScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadSplashEditScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void playGame(Game game) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void trashLevel(Level level) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class SplashEditScreenManager implements SplashEditScreenController {
+
+		@Override
+		public void returnToGameEditScreen(Tab tab) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	private class LevelEditScreenManager implements LevelEditScreenController {
+
+		@Override
+		public void returnToGameEditScreen(Tab tab) {
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.getTabSelectionModel().select(tab);
+			tabManager.removeTab(levelEditTab);							
+		}
+
+		@Override
+		public void loadSpriteEditScreen(Sprite sprite) {
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createSpriteEditScreen(levelEditTab, sprite);					
+		}
+		
+	}
+	
+	private class SpriteEditScreenManager implements SpriteEditScreenController {
+
+		@Override
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen,
+				Tab switchTo, Sprite sprite) {
+			tabManager.removeTabAndChangeSelected(switchTo);
+			levelEditScreen.addSprite(sprite);
+		}
+		
+	}
+	
+	private class GamePlayScreenManager implements GamePlayScreenController {
+
+		@Override
+		public void returnToMainMenuScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadSplashEditScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadLevelEditScreen() {
+			// TODO Auto-generated method stub
+			
+		}
+
 		
 	}
 

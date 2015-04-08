@@ -48,18 +48,16 @@ public class MainMenuScreen extends Screen {
 	
 	
 	// Constructor & Helpers
-	public MainMenuScreen(ScreenController parent, double width, double height) {
+	public MainMenuScreen(MainMenuScreenController parent, double width, double height) {
 		
-		super(parent, width, height);
+		super(width, height);
+		
+		this.controller = parent;
 		
 		configureButtons(width, height);
 		
 	}
 	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new MainMenuScreenManager(parent);
-	}
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {

@@ -1,17 +1,32 @@
 package screen.splashEditScreen;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
+import sprite.Sprite;
 
 /**
 /* Screen to create a splash screen
@@ -27,28 +42,31 @@ public class SplashEditScreen extends Screen {
 	// Instance variables
 	private SplashEditScreenController controller;
 	private SplashScreen splashScreen;
+	private double width;
+	private double height;
+	private String tag;
 
+	private Sprite startButton = new Sprite();
+	private List<Sprite> images = new ArrayList();
+	private List<Sprite> texts = new ArrayList();
 
 	// Getters & Setters
 
 
 	// Constructor & Helpers
 
-	public SplashEditScreen(ScreenController parent, double width, double height, SplashScreen splashScreen) {
+	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
 
-		super(parent, width, height);
+		super(width, height);
 		
-		configureSplashScreen(splashScreen);
+		this.controller = parent;
+		
+		configureSplashScreen(splashScreen, width, height);
 		configureButtons();
 		configureDisplayArea();
 		
 	}
 	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new SplashEditScreenManager(parent);
-	}
-
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		//COMMENTED OUT TO TEST @AUTHOR KYLE
@@ -64,11 +82,11 @@ public class SplashEditScreen extends Screen {
 	//TODO: Add Image
 	//TODO: Add Text
 	//TODO: Add Animation
-
 	
-	
-	private void configureSplashScreen(SplashScreen splashScreen) {
+	private void configureSplashScreen(SplashScreen splashScreen, double width, double height) {
 		this.splashScreen = splashScreen;
+		this.width = width;
+		this.height = height;
 	}
 	
 	private void configureButtons() {
@@ -80,16 +98,17 @@ public class SplashEditScreen extends Screen {
 		Button save = makeSaveButton();
 		Button trash = makeTrashButton();
 		Button back = makeBackButton();
-		this.setRight(createAddButtons(addStartButton, addImage, addText, addAnimation));
-		this.setBottom(createSaveAndTrashButtons(save,trash));
-		this.setTop(back);
+		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addText, addAnimation));
+		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
+		this.viewableArea().setTop(back);
 		
 	}
 	
 	private void configureDisplayArea() {
 		
-		Rectangle displayArea = new Rectangle(INT.SPLASH_EDIT_SCREEN_DISPLAY_WIDTH, INT.SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT, Color.DIMGRAY); //obviously will change
-		this.setLeft(displayArea);
+		Rectangle displayArea = new Rectangle(width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //obviously will change
+		this.viewableArea().setLeft(displayArea);
+		this.setOnMouseClicked(e -> add(tag, e));
 		
 	}
 
@@ -118,7 +137,7 @@ public class SplashEditScreen extends Screen {
 		Button addStartButton = new Button(STRING.ADD_START_BUTTON);
 		setLargeButtonSize(addStartButton);
 		
-		addStartButton.setOnMouseClicked(e -> controller.addStartButton());
+		addStartButton.setOnMouseClicked(e -> addStartButton());
 		
 		return addStartButton;
 		
@@ -129,7 +148,7 @@ public class SplashEditScreen extends Screen {
 		Button addImage = new Button(STRING.ADD_IMAGE);
 		setLargeButtonSize(addImage);
 		
-		addImage.setOnMouseClicked(e -> controller.addImage());
+		addImage.setOnMouseClicked(e -> addImage());
 		
 		return addImage;
 		
@@ -140,7 +159,7 @@ public class SplashEditScreen extends Screen {
 		Button addText = new Button(STRING.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
-		addText.setOnMouseClicked(e -> controller.addText());
+		addText.setOnMouseClicked(e -> addText());
 		
 		return addText;
 		
@@ -151,7 +170,7 @@ public class SplashEditScreen extends Screen {
 		Button addAnimation = new Button(STRING.ADD_ANIMATION);
 		setLargeButtonSize(addAnimation);
 		
-		addAnimation.setOnMouseClicked(e -> controller.addAnimation());
+		addAnimation.setOnMouseClicked(e -> addAnimation());
 		
 		return addAnimation;
 		
@@ -162,7 +181,7 @@ public class SplashEditScreen extends Screen {
 		Button save = new Button(STRING.SAVE);
 		setSmallButtonSize(save);
 		
-		save.setOnMouseClicked(e -> controller.saveSplashScreen());
+		save.setOnMouseClicked(e -> saveSplashScreen());
 		
 		return save;
 		
@@ -173,7 +192,7 @@ public class SplashEditScreen extends Screen {
 		Button trash = new Button(STRING.TRASH);
 		setSmallButtonSize(trash);
 		
-		trash.setOnMouseClicked(e -> controller.trashSplashScreen());
+		trash.setOnMouseClicked(e -> trashSplashScreen());
 		
 		return trash;
 		
@@ -184,10 +203,98 @@ public class SplashEditScreen extends Screen {
 		Button back = new Button(STRING.BACK);
 		setSmallButtonSize(back);
 		
-		back.setOnMouseClicked(e -> controller.backSplashScreen());
+		back.setOnMouseClicked(e -> backSplashScreen());
 		
 		return back;
 		
+	}
+	
+	public void addStartButton() {
+		File file = null;
+		Image image = null;
+
+		try {
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+			file = fileChooser.showOpenDialog(null);
+			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
+
+		} catch (Exception ex) {	
+			//LOAD STRING.DEFAULT_START_BUTTON
+		}
+
+		ImageCursor imageCursor = new ImageCursor(image);
+		getParent().setCursor(imageCursor);
+		tag = "Start";
+	}
+
+	public void addImage() {
+		File file = null;
+		Image image = null;
+
+		try {
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+			file = fileChooser.showOpenDialog(null);
+			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
+
+		} catch (Exception ex) {	
+			//LOAD STRING.DEFAULT_IMAGE_BUTTON????
+		}
+
+		ImageCursor imageCursor = new ImageCursor(image);
+		//possibly handle sizing here
+		//lambda waiting for a button to resize
+		getParent().setCursor(imageCursor);
+		tag = "Image";
+		
+	}
+
+	public void addText() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addAnimation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void saveSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void trashSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void backSplashScreen() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void add(String tag, MouseEvent e) {
+		if(tag == "Start") {
+//			System.out.println("x " + e.getX());
+//			System.out.println("y " + e.getY());
+			
+			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
+			getParent().setCursor(Cursor.DEFAULT);
+			//add to screen
+			
+		}
+		if(tag == "Image") {
+			Sprite sprite = new Sprite(new Point2D(e.getX(), e.getY()));
+			images.add(sprite);	
+		}
 	}
 	
 	private void setLargeButtonSize(Button button) {

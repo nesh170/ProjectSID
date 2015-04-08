@@ -1,7 +1,6 @@
 package screen.gameEditScreen;
 
 import game.Game;
-
 import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,12 +54,8 @@ import levelPlatform.level.Level;
  * The screen where users edit a game
  * allows users to edit a level or edit a sprite.
  * @author Yongjiao
- * @author Anika
- * TODO by Yongjiao: add the rest of buttons to its appropriate place
- * 
- * TODO by ANIKA: loop creation of buttons - static array in resources of string names
+ * @author Anika 
  */
-//always working on the "stuff" in parent's parent: work on BoarderPane directly (ex: setLeft, setRight)
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 public class GameEditScreen extends Screen {
 	
@@ -69,7 +64,6 @@ public class GameEditScreen extends Screen {
 	private Game myGame;
 	private ObservableList<Level>	myLevels;  	
 	private ObservableList<SplashScreen> mySplashScreen; 	
-	
 	// Getters & Setters
 	/**
 	 * add to current game level
@@ -84,8 +78,8 @@ public class GameEditScreen extends Screen {
 	 * Set up GameEdit screen from previously created game to re-edit game.
 	 * @param controller, width, height, game
 	 */
-	public GameEditScreen(Game game, ScreenController controller, double width, double height){
-		super(null, width, height);
+	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height){
+		super(width, height);
 		myGame = game;
 		initialize(controller);
 		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
@@ -93,14 +87,10 @@ public class GameEditScreen extends Screen {
 	/**
 	 * Creates new GameEditScreen
 	 */
-	public GameEditScreen( ScreenController controller, double width, double height) {
-			this(new Game(), controller, width, height);
+	public GameEditScreen(GameEditScreenController controller, double width, double height) {
+			this(new Game() ,controller, width, height);
 	}
 	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new GameEditScreenManager(parent);
-	}
 	
 	private void configureButtons() {	
 		
@@ -117,8 +107,8 @@ public class GameEditScreen extends Screen {
 	/**
 	 * @param controller
 	 */
-	private void initialize(ScreenController controller){
-		createAppropriateControllerForParent(controller);
+	private void initialize(GameEditScreenController controller){
+		this.controller = controller;
 		configureButtons();
 	}
 	/**
@@ -246,15 +236,23 @@ public class GameEditScreen extends Screen {
 	 * @author Anika modified by Yongjiao
 	 */
 	private List<ScreenButton> createSplashAndLevelButtons() {		
+		// get <String buttonID, String buttonName> map for buttons from STRING constants class
 		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
+		// get values of map and put into an array -> buttonNames = array of button names
 		String[] buttonNames = (String[]) buttonMap.values().toArray();
-		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();		
+		// create a map of <String buttonID, ScreenButton button>
+		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();	
+		// for each name in buttonNames, create a new ScreenButton and put it in the map
 		for (int i = 0; i < buttonNames.length; i++){
 			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
-			System.out.println(buttonNames[i]);
+			System.out.println(buttonNames[i]); // testing
 			myButtons.put(buttonNames[i], myB);
 		}	
-//modified by Yongjiao: changed to use methods in manager class.
+		/*
+		 * initialize event handlers for buttons
+		 * modified by Yongjiao: changed to use methods in manager class.
+		 * modified by Anika: changed to use methods in controller class
+		 */
 		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
 		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
 //		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));

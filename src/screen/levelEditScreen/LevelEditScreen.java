@@ -79,7 +79,7 @@ public class LevelEditScreen extends Screen {
 	 * @param width
 	 * @param height
 	 */
-	public LevelEditScreen(ScreenController parent, double width, double height) {
+	public LevelEditScreen(LevelEditScreenController parent, double width, double height) {
 		
 		this(parent, width, height, new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT));
 		
@@ -98,9 +98,11 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 * @param level
 	 */
-	public LevelEditScreen(ScreenController parent, double width, double height, Level level) {
+	public LevelEditScreen(LevelEditScreenController parent, double width, double height, Level level) {
 		
-		super(parent, width,height);
+		super(width,height);
+		
+		this.controller = parent;
 		
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
@@ -108,10 +110,6 @@ public class LevelEditScreen extends Screen {
 
 	}
 	
-	@Override
-	protected void createAppropriateControllerForParent(ScreenController parent) {
-		this.controller = new LevelEditScreenManager(parent);
-	}
 	
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
@@ -148,7 +146,7 @@ public class LevelEditScreen extends Screen {
 		}
 		
 		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
-		this.setCenter(levelView);
+		this.viewableArea().setCenter(levelView);
 		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
 	}
@@ -156,7 +154,7 @@ public class LevelEditScreen extends Screen {
 	private void makeSpritesInLevelTab() {
 		
 		VBox paneForSprites = new VBox();
-		this.setLeft(paneForSprites);
+		this.viewableArea().setLeft(paneForSprites);
 		
 		TitledPane platforms = makeTitledPane(STRING.PLATFORMS,listOfPlatforms);
 		TitledPane enemies = makeTitledPane(STRING.ENEMIES,listOfEnemies);
@@ -200,7 +198,7 @@ public class LevelEditScreen extends Screen {
 		paneForButtons.setFillWidth(false);
 		paneForButtons.setSpacing(DOUBLE.BUTTON_SPACING);
 		
-		this.setRight(paneForButtons);
+		this.viewableArea().setRight(paneForButtons);
 				
 		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> controller.loadSpriteEditScreen(new Sprite()));
 		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen(currentGameScreen));
