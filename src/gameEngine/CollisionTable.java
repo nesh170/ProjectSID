@@ -31,8 +31,21 @@ public class CollisionTable {
 	
 	public void addActionToMap(String type1, String type2, int direction, Action toAdd){
 		if(myTable.containsKey(type1)) {
-			myTable.get(type1).get(type2)[direction] = toAdd;
+			
+			if(myTable.get(type1).containsKey(type2)){
+				
+				myTable.get(type1).get(type2)[direction] = toAdd;
+				
+			} else {
+				
+				Action[] newActionList = new Action[4];
+				newActionList[direction] = toAdd;
+				myTable.get(type1).put(type2, newActionList);
+				
+			}
+			
 		} else {
+			
 			HashMap<String, Action[]> subMap = new HashMap<String, Action[]>();
 			Action[] newActionList = new Action[4];
 			newActionList[direction] = toAdd;
