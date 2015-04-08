@@ -14,7 +14,7 @@ At a high level, this program can easily be divided into the following four comp
 
 Date started: March 20, 2015
 
-Hours spent: 17+
+Hours spent: 30+
 
 
 Resources:
