@@ -25,7 +25,7 @@ public class ExampleLevelMaker {
 		player.addComponent(new VelocityComponent(player));
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
 		player.addAction(new RightMotionAction(player, 2.0, KeyCode.RIGHT));
-		player.addAction(new JumpAction(player, 20.0));
+		player.addAction(new JumpAction(player, 20.0, KeyCode.UP));
 		player.setPhysics(new Gravity(player, 9.81));
 		//set up platform
 		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
@@ -37,7 +37,7 @@ public class ExampleLevelMaker {
 		Level l = new Level(500, 500, player);
 		l.setSprites(spriteList);
 		try{
-		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir"));
+		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
