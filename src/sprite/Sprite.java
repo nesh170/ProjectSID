@@ -38,6 +38,8 @@ public class Sprite {
 	// Instance Variables	
 	private List<Action> actionList = new ArrayList<Action>();
 	private List<Component> componentList = new ArrayList<Component>();
+	//TODO what is the x and y for?
+	private double x, y;
 	private Physics physics;
 	private List<Sprite> emissionList;
 	
@@ -50,6 +52,20 @@ public class Sprite {
 
 	
 	// Getters & Setters
+	/**
+	 * Use SID pixels here
+	 */
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	/**
+	 * Use SID pixels here
+	 */
+	public void setY(double y) {
+		this.y = y;
+	}
+	
 	public List<Action> actionList() {
 		return Collections.unmodifiableList(this.actionList);
 	}

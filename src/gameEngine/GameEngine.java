@@ -26,7 +26,8 @@ public class GameEngine extends GameEngineAbstract {
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
         myControlsMap = myCurrentLevel.controlMap();
-        myLevelRenderer = new LevelView(myCurrentLevel);
+        //TODO ask Authoring env about this.....
+        myLevelRenderer = new LevelView(myCurrentLevel,null);
         myCurrentLevel.prepareAllSprites();
     }
     

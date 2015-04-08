@@ -1,30 +1,43 @@
 package levelPlatform.level;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
+import sprite.SpriteImage;
 import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.input.MouseEvent;
 
 /**
  * 
  * This class represents the frontend of the levels. It also Handles the collisions
  *
  */
-public class LevelView {
+public class LevelView extends ScrollPane {
     
 	// Static Variables
-
+	
 	
 	// Instance Variables
+	// Edit
+	private EditMode editMode;
+	// Level
     private Level level;
-    private Collision collisionHandler;
+    // Layouts
     private double lengthSidePixel;
+    // Playing
+    private Collision collisionHandler;    
+    
+    private Map<Sprite,ImageView> representationMap;
     
     
     // Getters & Setters
@@ -36,12 +49,20 @@ public class LevelView {
     	this.level = level;
     }
     
+    public void setEditMode(EditMode editMode) {
+    	this.editMode = editMode;
+    }
+    
     public void setLengthSidePixel(double lengthSidePixel) {
     	this.lengthSidePixel = lengthSidePixel;
     }
     
     public double getLengthSidePixel() {
     	return this.lengthSidePixel;
+    }
+    
+    public ImageView getImageForSprite(Sprite sprite) {
+    	return this.representationMap.get(sprite);
     }
     
     
@@ -51,9 +72,9 @@ public class LevelView {
      * 
      * @param level
      */
-    public LevelView(Level level) {
+    public LevelView(Level level, EditMode editMode) {
     	
-    	this(level, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
+    	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
     }
     
@@ -62,11 +83,15 @@ public class LevelView {
      * @param (Level) level
      * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
      */
-    public LevelView(Level level, double lengthSidePixel) {
+    public LevelView(Level level, EditMode editMode, double lengthSidePixel) {
     	
     	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
-        renderLevel();
+    	setEditMode(editMode);
+    	
+    	if (level != null) {
+    		renderLevel();
+    	}
     	
     }
     
@@ -78,12 +103,15 @@ public class LevelView {
      */
     public Group renderLevel() {
     	
+    	if(representationMap == null) {
+    		representationMap = new HashMap<>();
+    	}
         Group levelGroup = new Group();
         level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
         return levelGroup;
         
     }
-    
+        
     /**
      * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
      * @param sprite
@@ -92,20 +120,54 @@ public class LevelView {
     private Group renderSprite(Sprite sprite) {
     	
     	Group spriteGroup = new Group();
+    	Image spriteImage;
+    	ImageView spriteImageView;
+    	
         if (sprite.isActive()) {
-//            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-//            ImageView spriteImageView = new ImageView(spriteImage);
-//            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-//                    .transform().getPosY());
-//            spriteGroup.getChildren().add(spriteImageView);
-            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
-            spriteGroup.getChildren().add(player);
+            // TestCode
+//            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
+//            spriteGroup.getChildren().add(player);
+        	
+            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            spriteImageView = new ImageView(spriteImage);
+            
+            representationMap.put(sprite, spriteImageView);
+            
+            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
+                    .transform().getPosY());
+            spriteGroup.getChildren().add(spriteImageView);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-        }
-        return spriteGroup;
         
+            if (editMode == EditMode.EDIT_MODE_ON) {
+            	
+            	configureMouseHandlersOnSpriteImageView(spriteImageView);
+            	
+            }
+            
+        }
+        
+        return spriteGroup;
+
     }
+
+    private void configureMouseHandlersOnSpriteImageView(ImageView spriteImageView) {
+
+    	spriteImageView.setOnMouseEntered(ee -> createDisplayEditOverlay());
+    	spriteImageView.setOnMouseExited(ee -> destroyDisplayEditOverlay());
+
+    }
+
+    private void createDisplayEditOverlay() {
+    	// TODO Auto-generated method stub
+    }
+
+
+    private void destroyDisplayEditOverlay() {
+    	// TODO Auto-generated method stub
+    }
+
+
     
     /**
      * Checks for collision with each node
