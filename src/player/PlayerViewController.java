@@ -59,16 +59,9 @@ public class PlayerViewController {
 		myPause = makePauseScreen();
 	}
 
-	public PlayerViewController(double width, double height) {
-		myTimeline = new Timeline();
-		myTimeline.setCycleCount(Animation.INDEFINITE);
-		// setupAnimation();
-		Stage chooserStage = new Stage();
-		chooserStage.initModality(Modality.APPLICATION_MODAL);
-		chooseGame(chooserStage);
-		// chooserStage.show();
-		myGameRoot = new ScrollPane();
-		myGameGroup = new Group();
+	public PlayerViewController(ScrollPane pane, double width, double height) {
+		myGameRoot = pane;
+		loadNewChooser();
 		myPause = makePauseScreen();
 	}
 
