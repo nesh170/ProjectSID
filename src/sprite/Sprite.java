@@ -86,6 +86,10 @@ public class Sprite {
 		this.tag = tag;
 	}
 	
+	public void setPhysics(Physics physics){
+	    this.physics=physics;
+	}
+	
 	public void setCollisionTag(String collisionTag){
 		this.collisionTag = collisionTag;
 	}
@@ -160,7 +164,7 @@ public class Sprite {
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());	
 		}
-		//physics.updateByPhysics();
+		physics.updateByPhysics();
 		
 	}
 	
