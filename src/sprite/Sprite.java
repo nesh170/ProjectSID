@@ -37,7 +37,7 @@ public class Sprite {
 	
 	// Instance Variables	
 	private List<Action> actionList = new ArrayList<Action>();
-	private List<Component> componentList = new ArrayList<Component>();;
+	private List<Component> componentList = new ArrayList<Component>();
 	private Physics physics;
 	private List<Sprite> emissionList;
 	
@@ -121,6 +121,7 @@ public class Sprite {
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
+		emissionList = new ArrayList<>();
 	}
 	
 	
@@ -156,11 +157,10 @@ public class Sprite {
 	 * (deciding what should happen first, etc
 	 */
 	public void updateSprite(){
-		
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());	
 		}
-		physics.updateByPhysics();
+		//physics.updateByPhysics();
 		
 	}
 	
@@ -189,8 +189,7 @@ public class Sprite {
 		for(Component component: componentList) {
 			
 			try {
-				
-				if(Class.forName(componentClassName).isInstance(component)) {
+				if(component.getClass() == Class.forName("gameEngine.components." + componentClassName)) {
 					return component;	
 				}
 				
@@ -209,7 +208,7 @@ public class Sprite {
 		for(Action action: actionList) {
 			
 			try {
-				if(Class.forName(actionClassName).isInstance(action)) {
+				if(action.getClass() == Class.forName("gameEngine.actions." + actionClassName)) {
 					return action;	
 				}
 			} catch (ClassNotFoundException e) {

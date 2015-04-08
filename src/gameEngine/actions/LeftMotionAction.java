@@ -29,14 +29,14 @@ public class LeftMotionAction extends Action {
 
 	@Override
 	public void execute() {
+	    System.out.println("left");
 		myVelocityComponent.setVelocityX(-velocity);
 
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
+		myVelocityComponent.setVelocityX(0.0);
 	}
 
 }

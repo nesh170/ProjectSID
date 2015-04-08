@@ -99,7 +99,6 @@ public class LevelView {
 //                    .transform().getPosY());
 //            spriteGroup.getChildren().add(spriteImageView);
             Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
-            player.setFill(Color.BLUE);
             spriteGroup.getChildren().add(player);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
