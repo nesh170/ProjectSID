@@ -22,6 +22,7 @@ public class JumpAction extends Action {
     public void execute () {
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
         velocityComp.setVelocityY(initialVelocity);
+        System.out.println("We're Jumping!");
     }
     
     @Override

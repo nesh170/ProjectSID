@@ -1,1 +1,12 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.pane {
+	-fx-border-color: black;
+	-fx-border-width: 2px;
+	-fx-background-color: lavender
+}
+
+.button {
+	-fx-text-alignment: center;
+	-fx-wrap-text: false
+}
