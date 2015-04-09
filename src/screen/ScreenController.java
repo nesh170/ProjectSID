@@ -170,6 +170,7 @@ public class ScreenController {
 		
 		this.root = new Group();
 		this.scene = new Scene(root);
+		this.scene.getStylesheets().add("resources/SID.css"); //possibly put this in a string class or properties file?
 		
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
