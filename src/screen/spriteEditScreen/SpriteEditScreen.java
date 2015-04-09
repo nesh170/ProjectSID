@@ -234,6 +234,7 @@ public class SpriteEditScreen extends Screen {
 		ListView<String> addedList = new ListView<>(added);
 		
 		VBox buttons = new VBox();
+		buttons.getStyleClass().add("pane");
 		buttons.setAlignment(Pos.CENTER);
 		Button add = new Button(addText);
 		add.setOnMouseClicked(onAdd);
