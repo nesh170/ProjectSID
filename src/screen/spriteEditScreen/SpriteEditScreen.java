@@ -95,7 +95,6 @@ public class SpriteEditScreen extends Screen {
 	protected void initializeRelevantResourceFiles() {
 		super.initializeRelevantResourceFiles();
 		tagResources = ResourceBundle.getBundle("resources.TagChoices");
-		System.out.println(tagResources.getString("Platform"));
 		actionResources = ResourceBundle.getBundle("resources.spritePartProperties.action");
 		componentResources = ResourceBundle.getBundle("resources.spritePartProperties.component");
 		physicsResources = ResourceBundle.getBundle("resources.spritePartProperties.physics");
