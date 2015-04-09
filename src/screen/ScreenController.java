@@ -456,7 +456,9 @@ public class ScreenController {
 
 		@Override
 		public void returnToGameEditScreen(Tab tab) {
-			// TODO Auto-generated method stub
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.getTabSelectionModel().select(tab);
+			tabManager.removeTab(levelEditTab);	
 			
 		}
 		
