@@ -33,9 +33,10 @@ public class GameEngine extends GameEngineAbstract {
     }
     
     @Override
-    public void update () {
+    public double[] update () {
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
+        return myCurrentLevel.getNewCameraLocations();
     }
 
     @Override
