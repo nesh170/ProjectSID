@@ -36,8 +36,15 @@ public class Sprite {
 	
 	
 	// Instance Variables	
+<<<<<<< HEAD
 	private List<Action> actionList = new ArrayList<Action>();
 	private List<Component> componentList = new ArrayList<Component>();
+=======
+	private double x, y;
+	
+	private List<Action> actionList;
+	private List<Component> componentList;
+>>>>>>> a10f0e0d8a89d9edf97b1ee152fd4a9932f9a444
 	private Physics physics;
 	private List<Sprite> emissionList;
 	
@@ -50,6 +57,20 @@ public class Sprite {
 
 	
 	// Getters & Setters
+	/**
+	 * Use SID pixels here
+	 */
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	/**
+	 * Use SID pixels here
+	 */
+	public void setY(double y) {
+		this.y = y;
+	}
+	
 	public List<Action> actionList() {
 		return Collections.unmodifiableList(this.actionList);
 	}
