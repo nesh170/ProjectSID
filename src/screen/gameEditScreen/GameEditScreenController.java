@@ -33,6 +33,5 @@ public interface GameEditScreenController {
 	//public void trashSplash(SplashScreen splash){}		
 	/**
 	 * 
-	 */
-	
+	 */	
 }

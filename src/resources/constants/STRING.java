@@ -21,6 +21,7 @@ public class STRING {
 	public static final String STOP = "Stop";
 	
 	// Main Menu Screen
+	public static final String MAIN_MENU = "Main Menu";
 	public static final String FILE = "File";
 	public static final String NEW = "New";
 	public static final String OPEN = "Open";
@@ -37,14 +38,20 @@ public class STRING {
 	public static final String ADD_TEXT = "Add Text";
 	public static final String ADD_ANIMATION = "Add Animation";
 	
+	public static final String ADD_LEVEL = "Add Level";
+	public static final String EDIT_LEVEL = "Edit Level";
+	public static final String ADD_SPLASH = "Add Splash";
+	public static final String EDIT_SPLASH = "Edit Splash";
+	
 	//GameEdit Screen
+	public static final String GAME_EDIT = "Game Edit";
 	public static final String ADD_SIGN ="images/addsplash.png";
 	public static final String TRASH_ICON = "images/trashicon.png";
-	public static final String LEVEL1IMAGE = "images/level2_tmp.PNG";
+	public static final String LEVEL1IMAGE = "images/level1_tmp.PNG";
 	public static final String LEVEL2IMAGE = "images/level2_tmp.PNG";
 	public static final String SPRITEIMAGE = "images/sprite.jpg";
 	public static final String SPLASH_SCREEN = "Splash Screen";
-	
+	public static final String TRASH_BUTTON = "images/trash_sign.png";
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
@@ -58,7 +65,6 @@ public class STRING {
 	
 	//Sprite Edit Strings
 	public static final String SPRITE_EDIT = "Sprite Edit Screen";
-	
 	
 	
 	// Buttons
@@ -82,6 +88,11 @@ public class STRING {
     	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
     }
 	
+    
+    // GamePlayScren
+    public static final String GAME_PLAY = "Game Play";
+    
+    
 	//Game Engine Constants
 	public static final String PLAYER_SPRITE = "playersprite";
 }
