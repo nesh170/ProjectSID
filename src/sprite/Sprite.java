@@ -2,12 +2,14 @@ package sprite;
 
 import gameEngine.Action;
 import gameEngine.Component;
-import gameEngine.Physics;
 import gameEngine.Transform;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
+
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
@@ -33,11 +35,10 @@ public class Sprite {
 	
 	
 	// Instance Variables	
+	private List<Action> actionList = new ArrayList<Action>();
+	private List<Component> componentList = new ArrayList<Component>();
+	//TODO what is the x and y for?
 	private double x, y;
-	
-	private List<Action> actionList;
-	private List<Component> componentList;
-	private Physics physics;
 	private List<Sprite> emissionList;
 	
 	private boolean isActive;
@@ -98,7 +99,7 @@ public class Sprite {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	
+
 	public void setCollisionTag(String collisionTag){
 		this.collisionTag = collisionTag;
 	}
@@ -116,11 +117,6 @@ public class Sprite {
 		return transform.getDimensions();
 	}
 	
-	public Physics physics(){
-	    //TODO when there is a collision with platform, setPhysicsreaction value to deal with normal
-	    return physics;
-	}
-	
 	
 	// Constructor & Helpers
 	public Sprite() {
@@ -134,11 +130,14 @@ public class Sprite {
 	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
+		emissionList = new ArrayList<>();
 	}
 	
 	
 	public Sprite (Sprite toCopy){
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
+		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		
 	}
 	
 	
@@ -167,12 +166,19 @@ public class Sprite {
 	 * (deciding what should happen first, etc
 	 */
 	public void updateSprite(){
-		
 		if(isActive) {
-			componentList.stream().forEach(com -> com.updateIfEnabled());	
+			componentList.stream().forEach(com -> com.updateIfEnabled());
+			for(Action a: actionList){
+				//TODO: see if we can do this differently (can't remember the word for the technique)
+				try {
+					if(Class.forName("gameEngine.actions.FrameAction").isInstance(a)){
+						a.execute();
+					}
+				} catch (ClassNotFoundException e) {
+					continue;
+				}
+			}
 		}
-		physics.updateByPhysics();
-		
 	}
 	
 	/**
@@ -200,8 +206,7 @@ public class Sprite {
 		for(Component component: componentList) {
 			
 			try {
-				
-				if(component.getClass() == Class.forName(componentClassName)) {
+				if(Class.forName("gameEngine.components." + componentClassName).isInstance(component)) {
 					return component;	
 				}
 				
@@ -220,7 +225,7 @@ public class Sprite {
 		for(Action action: actionList) {
 			
 			try {
-				if(action.getClass() == Class.forName(actionClassName)) {
+				if(Class.forName("gameEngine.actions." + actionClassName).isInstance(action)) {
 					return action;	
 				}
 			} catch (ClassNotFoundException e) {

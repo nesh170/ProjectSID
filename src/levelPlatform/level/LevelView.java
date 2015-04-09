@@ -13,6 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -120,8 +122,14 @@ public class LevelView extends ScrollPane {
     	Group spriteGroup = new Group();
     	Image spriteImage;
     	ImageView spriteImageView;
-    	
-        if (sprite.isActive()) {
+    	//TODO: delete rectangle-making, restore SpriteImage part
+    	Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+    			sprite.transform().getWidth(), sprite.transform().getHeight());
+    	spriteGroup.getChildren().add(r);
+ /*       if (sprite.isActive()) {
+            // TestCode
+//            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
+//            spriteGroup.getChildren().add(player);
         	
             spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
             spriteImageView = new ImageView(spriteImage);
@@ -140,7 +148,7 @@ public class LevelView extends ScrollPane {
             	
             }
             
-        }
+        }*/
         
         return spriteGroup;
 

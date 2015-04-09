@@ -21,6 +21,7 @@ public class VelocityComponent extends Component{
 	
 	public VelocityComponent(Sprite sprite) {
 		super(sprite);
+		myVelocity = Point2D.ZERO;
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class VelocityComponent extends Component{
 	}
 	
 	public void accelerate(Double x, Double y) {
-		myVelocity.add(x, y);
+		myVelocity = myVelocity.add(new Point2D(x, y));
 	}
 	
 	public void setVelocity(Point2D vel) {
@@ -66,5 +67,9 @@ public class VelocityComponent extends Component{
 		//algorithm here.
 	}
 	
+	public void printYvel(){
+		//TODO: remove when done with testing
+		System.out.println(myVelocity.getY());
+	}
 	
 }

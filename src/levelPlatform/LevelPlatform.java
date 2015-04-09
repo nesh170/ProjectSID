@@ -24,7 +24,7 @@ public class LevelPlatform {
 	private int width;
 	private int height;
 	
-	private List<Sprite> sprites;
+	protected List<Sprite> sprites;
 	
 	
 	// Getters & Setters
