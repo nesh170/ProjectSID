@@ -1,5 +1,7 @@
 package screen;
 
+import java.util.ResourceBundle;
+
 import resources.constants.COLOR;
 import resources.constants.DOUBLE;
 import resources.constants.STRING;
@@ -37,10 +39,16 @@ public abstract class Screen extends BorderPane {
 	private MenuBar menuBar;
 	private BorderPane viewableArea;
 	
+	private ResourceBundle languageResources;
+	
 	
 	// Getters & Setters
 	protected BorderPane viewableArea() {
 		return this.viewableArea;
+	}
+	
+	protected ResourceBundle languageResources() {
+		return this.languageResources;
 	}
 	
 	/**
@@ -67,6 +75,7 @@ public abstract class Screen extends BorderPane {
 		configureMenuBar(width);
 		configureBackgroundColor();
 		configureViewableArea(width, height);
+		initializeRelevantResourceFiles();
 				
 	}
 	
@@ -137,6 +146,10 @@ public abstract class Screen extends BorderPane {
 
 		return fileMenu;
 		
+	}
+	
+	protected void initializeRelevantResourceFiles() {
+		languageResources = ResourceBundle.getBundle("resources.stringResources");
 	}
 
 	private void addMenuBarToThis(VBox wrapper) {

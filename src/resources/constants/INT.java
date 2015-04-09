@@ -25,5 +25,6 @@ public class INT {
 	public static final int DEFAULT_LEVEL_WIDTH = 400;
 	public static final int DEFAULT_LEVEL_HEIGHT = 150;
 	
-	
+	//Buttons
+	public static final int PREF_BUTTON_WIDTH = 150;
 }
