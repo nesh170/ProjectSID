@@ -23,20 +23,21 @@ public class RightMotionAction extends Action {
 
 	@Override
 	public void prepare() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+		
 
 	}
 
 	@Override
 	public void execute() {
-		myVelocityComponent.setVelocityX(velocity);
+	    System.out.println("Right");
+	    myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+	    myVelocityComponent.setVelocityX(velocity);
 
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
+	    myVelocityComponent.setVelocityX(0.0);
 	}
 
 }

@@ -6,19 +6,19 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-public class LeftMotionAction extends Action {
+public class FallAction extends Action {
 
-	private Double velocity;
 	private VelocityComponent myVelocityComponent;
+	private double gravityValue;
 	
-	public LeftMotionAction(Sprite sprite, Double delta) {
+	public FallAction(Sprite sprite, double gravValue) {
 		super(sprite);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
+		gravityValue = EngineMathFunctions.accelerationValueFrame(gravValue);
 	}
 
-	public LeftMotionAction(Sprite sprite, Double delta, KeyCode... keys) {
+	public FallAction(Sprite sprite, double gravValue, KeyCode... keys) {
 		super(sprite, keys);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
+		gravityValue = EngineMathFunctions.accelerationValueFrame(gravValue);
 	}
 
 	@Override
@@ -29,14 +29,14 @@ public class LeftMotionAction extends Action {
 
 	@Override
 	public void execute() {
-	    System.out.println("left");
-		myVelocityComponent.setVelocityX(-velocity);
+		myVelocityComponent.accelerate(0.0, gravityValue);
 
 	}
 
 	@Override
 	public void stop() {
-		myVelocityComponent.setVelocityX(0.0);
+		// TODO Auto-generated method stub
+
 	}
 
 }
