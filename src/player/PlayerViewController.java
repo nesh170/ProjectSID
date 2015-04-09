@@ -54,7 +54,6 @@ public class PlayerViewController {
 
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
-		myScene = new Scene(pane, 1200, 600);
 		loadNewChooser();
 		myPause = makePauseScreen();
 	}

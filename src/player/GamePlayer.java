@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -26,11 +27,11 @@ public class GamePlayer {
 	private PlayerViewController myView;
 	
 	// constructor for testing
-	public GamePlayer(Stage stage) {
+	public GamePlayer(Stage stage, MenuBar bar) {
 		myGameRoot = new ScrollPane();
-		myMenu = new PlayerMenu(myGameRoot);
 		myBorderPane = new BorderPane();
-		myBorderPane.setTop(myMenu.getBar());
+		myBorderPane.setTop(bar);
+		myView = new PlayerViewController(myGameRoot);
 		myBorderPane.setCenter(myGameRoot);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);

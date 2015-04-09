@@ -21,9 +21,9 @@ public class PlayerMenu {
 	private PlayerViewController myView;
 	private GamePlayer myPlayer;
 	
-	public PlayerMenu(ScrollPane pane) {
+	public PlayerMenu(Stage stage) {
 		myMenuBar = createPlayerMenu();
-		myView = new PlayerViewController(pane);
+		myPlayer = new GamePlayer(stage, getBar());
 	}
 
 	public PlayerMenu(double width, double height) {
