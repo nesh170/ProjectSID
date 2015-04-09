@@ -1,29 +1,23 @@
 package gameEngine;
 
 
-import java.util.*;
-
 import resources.constants.INT;
 import sprite.Sprite;
 
 public class Collision {
     
-    private static final int LEFT=0;
-    private static final int RIGHT=1;
-    private static final int UP=2;
-    private static final int DOWN=3;
-        /**
-         * The Collision Class needs to be given a map which, for each combination of Sprites, gives
-         * an array of four behaviors, representing what happens as a result of the first sprite colliding
-         * with the second sprite from all four sides
-         */
-        
-        
-        private CollisionTable collideTable;
-        
-        public Collision(CollisionTable table){
-                this.collideTable = table;
-        }
+    /**
+     * The Collision Class needs to be given a map which, for each combination of Sprites, gives
+     * an array of four behaviors, representing what happens as a result of the first sprite colliding
+     * with the second sprite from all four sides
+     */
+    
+    
+    private CollisionTable collideTable;
+    
+    public Collision(CollisionTable table){
+            this.collideTable = table;
+    }
 
     /**
      * Takes in two sprites, determines spatial relationship, and calls appropriate method to handle Collision
@@ -46,21 +40,21 @@ public class Collision {
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Left");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_LEFT);
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_LEFT).execute();
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Right");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_RIGHT);
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_RIGHT).execute();
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Up");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_UP);
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_UP).execute();
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Down");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_DOWN);
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_DOWN).execute();
     }
 }
