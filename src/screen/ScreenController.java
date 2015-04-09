@@ -400,7 +400,7 @@ public class ScreenController {
 
 		@Override
 		public void closeApplication() {
-			// TODO Auto-generated method stub
+
 			close();
 		}
 		
@@ -416,31 +416,26 @@ public class ScreenController {
 
 		@Override
 		public void loadSplashEditScreen(Game game) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void loadLevelEditScreen(Level level) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void loadLevelEditScreen() {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void loadSplashEditScreen() {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void playGame(Game game) {
-			// TODO Auto-generated method stub
 			
 		}
 
