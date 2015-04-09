@@ -1,0 +1,88 @@
+<levelPlatform.level.Level>
+  <width>500</width>
+  <height>500</height>
+  <sprites>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.LeftMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <velocity>1.2598425196849998</velocity>
+        </gameEngine.actions.LeftMotionAction>
+        <gameEngine.actions.RightMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <velocity>1.2598425196849998</velocity>
+        </gameEngine.actions.RightMotionAction>
+        <gameEngine.actions.JumpAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <initialVelocity>12.598425196849998</initialVelocity>
+        </gameEngine.actions.JumpAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.HealthComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myHP>50.0</myHP>
+          <myLives>5</myLives>
+          <hasDeath>true</hasDeath>
+        </gameEngine.components.HealthComponent>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myVelocity>
+            <x>0.0</x>
+            <y>0.0</y>
+            <hash>0</hash>
+          </myVelocity>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <x>0.0</x>
+      <y>0.0</y>
+      <physics class="gameEngine.physics.Gravity">
+        <mySprite reference="../.."/>
+        <myValue>0.10299212598424874</myValue>
+        <myReactionValue>0.0</myReactionValue>
+      </physics>
+      <emissionList/>
+      <isActive>true</isActive>
+      <transform>
+        <myPosition>
+          <x>2.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myRotation>
+        <myDimensions>
+          <width>200.0</width>
+          <height>200.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+  </sprites>
+  <playerSprite reference="../sprites/sprite.Sprite"/>
+</levelPlatform.level.Level>

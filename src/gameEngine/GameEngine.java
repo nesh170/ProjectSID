@@ -3,11 +3,13 @@ package gameEngine;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 
@@ -27,7 +29,7 @@ public class GameEngine extends GameEngineAbstract {
         myCurrentLevel = myLevelList.get(index);
         myControlsMap = myCurrentLevel.controlMap();
         //TODO ask Authoring env about this.....
-        myLevelRenderer = new LevelView(myCurrentLevel,null);
+        myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
     }
     
