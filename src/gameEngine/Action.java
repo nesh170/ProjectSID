@@ -72,7 +72,10 @@ public abstract class Action {
 	 * @param methodMap
 	 */
 	public void setUpKey(Map<KeyCode, Action> controlMap){
+		//TODO: discuss best way to only do this method for certain actions
+		if(myKeyCode != null){
 	    myKeyCode.forEach((KeyCode key)-> controlMap.put(key, this));
+		}
 	}
 	
 }
