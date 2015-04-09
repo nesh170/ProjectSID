@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
@@ -18,6 +19,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import screen.Screen;
@@ -80,6 +83,9 @@ public class SpriteEditScreen extends Screen {
 									e -> saveAndExit()
 									);
 		
+		
+		menuBar.getMenus().addAll(fileMenu);
+		
 	}
 	
 	private void createLeftPane() {
@@ -112,6 +118,11 @@ public class SpriteEditScreen extends Screen {
 	private GridPane createNameAndTagPane() {
 		
 		GridPane nameAndTagPane = new GridPane();
+		VBox.setVgrow(nameAndTagPane, Priority.ALWAYS);
+		nameAndTagPane.setAlignment(Pos.CENTER);
+		nameAndTagPane.setVgap(50);
+		nameAndTagPane.setHgap(10);
+		nameAndTagPane.getStyleClass().add("pane");
 				
 		Text nameLabel = new Text("Name"+":"); //TODO do not hardcode "name"
 		spriteNameField = new TextField();
@@ -132,12 +143,15 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private Pane createAddImagePane() {
-		Pane imagePane = new Pane();
+		StackPane imagePane = new StackPane();
+		VBox.setVgrow(imagePane, Priority.ALWAYS);
+		imagePane.setAlignment(Pos.CENTER);
 		
 		Button imageButton = new Button();
 		imageButton.setGraphic(new ImageView(new Image("images/addimage.png")));
 		
 		imagePane.getChildren().add(imageButton);
+		imagePane.getStyleClass().add("pane");
 		
 		return imagePane;
 	}
