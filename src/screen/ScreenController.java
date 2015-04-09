@@ -274,7 +274,7 @@ public class ScreenController {
 	/**
 	 * Closes the Application.
 	 */
-	public void closeApplication() {
+	public void close() {
 		stage.close();
 	}
 	
@@ -401,7 +401,7 @@ public class ScreenController {
 		@Override
 		public void closeApplication() {
 			// TODO Auto-generated method stub
-			
+			close();
 		}
 		
 	}
