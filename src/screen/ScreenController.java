@@ -429,6 +429,10 @@ public class ScreenController {
 		@Override
 		public void loadLevelEditScreen() {
 			
+			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+			createLevelEditScreen(newLevel);
+			
 		}
 
 		@Override
