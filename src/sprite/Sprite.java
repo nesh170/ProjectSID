@@ -2,7 +2,6 @@ package sprite;
 
 import gameEngine.Action;
 import gameEngine.Component;
-
 import gameEngine.Transform;
 
 import java.util.ArrayList;

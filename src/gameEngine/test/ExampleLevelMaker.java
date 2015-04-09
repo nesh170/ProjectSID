@@ -1,14 +1,17 @@
 package gameEngine.test;
 
+
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.GravityAction;
+
+import gameEngine.actions.FallAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.actions.LeftMotionAction;
+import gameEngine.actions.NormalAction;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.components.HealthComponent;
 import gameEngine.components.VelocityComponent;
-import gameEngine.physics.Gravity;
-import gameEngine.physics.Normal;
+
 
 import java.util.ArrayList;
 import java.util.List;
