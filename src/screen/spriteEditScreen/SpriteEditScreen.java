@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -62,6 +65,7 @@ public class SpriteEditScreen extends Screen {
 	private ObservableList<String> componentsAdded;
 	
 	private Map<String,String> spritePropertiesMap;
+	private Map<Button,ListView<String>> buttonToListMap;
 	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
@@ -83,6 +87,8 @@ public class SpriteEditScreen extends Screen {
 		initializeRelevantResourceFiles();
 		initializeObservableLists();
 		initializeSpritePropertiesMap();
+		
+		buttonToListMap = new HashMap<>();
 		
 		createLeftPane();
 		createRightPane();
@@ -113,8 +119,8 @@ public class SpriteEditScreen extends Screen {
 	
 	private void initializeSpritePropertiesMap() {
 		spritePropertiesMap = new HashMap<>();
-		actionResources.keySet().forEach(e -> spritePropertiesMap.put(actionResources.getString(e), actionResources.getString(e)));
-		componentResources.keySet().forEach(e -> spritePropertiesMap.put(componentResources.getString(e), componentResources.getString(e)));
+		actionResources.keySet().forEach(e -> spritePropertiesMap.put(actionResources.getString(e), languageResources().getString(e)));
+		componentResources.keySet().forEach(e -> spritePropertiesMap.put(componentResources.getString(e), languageResources().getString(e)));
 	}
 
 
@@ -205,41 +211,44 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private VBox createActionAndComponentPane() {
-		/*
-		 * TODO Get rid of duplicated code in this method
-		 * 
-		 */
 		
-		HBox actionPane = new HBox();
-		ListView<String> actionToAddList = new ListView<>(actionsToAdd);
-		ListView<String> actionAddedList = new ListView<>(actionsAdded);
-		
-		VBox actionButtons = new VBox();
-		actionButtons.setAlignment(Pos.CENTER);
-		Button addAction = new Button(languageResources().getString("AddAction"));
-		Button deleteAction = new Button(languageResources().getString("RemoveAction"));
-		actionButtons.getChildren().addAll(addAction,deleteAction);
-		
-		actionPane.getChildren().addAll(actionToAddList,actionButtons,actionAddedList);
-		
-		HBox componentPane = new HBox();
-		ListView<String> componentToAddList = new ListView<>(componentsToAdd);
-		ListView<String> componentAddedList = new ListView<>(componentsAdded);
-		
-		VBox componentButtons = new VBox();
-		componentButtons.setAlignment(Pos.CENTER);
-		Button addComponent = new Button(languageResources().getString("AddComponent"));
-		Button deleteComponent = new Button(languageResources().getString("RemoveComponent"));
-		componentButtons.getChildren().addAll(addComponent,deleteComponent);
-		
-		setPrefButtonWidth(addAction,deleteAction,addComponent,deleteComponent);
-		
-		componentPane.getChildren().addAll(componentToAddList,componentButtons,componentAddedList);
+		HBox actionPane = makeTwoSidedList(actionsToAdd,actionsAdded,
+											languageResources().getString("AddAction"),languageResources().getString("RemoveAction"),
+											e -> addAction(e), e -> removeAction(e));
+		HBox componentPane = makeTwoSidedList(componentsToAdd,componentsAdded,
+											languageResources().getString("AddComponent"),languageResources().getString("RemoveComponent"),
+											e -> addComponent(e), e -> removeComponent(e));
 		
 		VBox actionAndComponentPane = new VBox();
 		actionAndComponentPane.getChildren().addAll(actionPane,componentPane);
 		
 		return actionAndComponentPane;
+	}
+	
+	private HBox makeTwoSidedList(ObservableList<String> toAdd, ObservableList<String> added,
+									String addText, String removeText,
+									EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove) {
+		
+		HBox twoSidedListContainer = new HBox();
+		ListView<String> toAddList = new ListView<>(toAdd);
+		ListView<String> addedList = new ListView<>(added);
+		
+		VBox buttons = new VBox();
+		buttons.setAlignment(Pos.CENTER);
+		Button add = new Button(addText);
+		add.setOnMouseClicked(onAdd);
+		Button delete = new Button(removeText);
+		delete.setOnMouseClicked(onRemove);
+		setPrefButtonWidth(add,delete);
+		buttons.getChildren().addAll(add,delete);
+		
+		buttonToListMap.put(add, toAddList);
+		buttonToListMap.put(delete, addedList);
+		
+		twoSidedListContainer.getChildren().addAll(toAddList,buttons,addedList);
+		
+		return twoSidedListContainer;
+
 	}
 	
 	private ListView<String> createPhysicsPane() {
@@ -252,6 +261,38 @@ public class SpriteEditScreen extends Screen {
 	
 	private ListView<String> createImageListPane() {
 		return new ListView<String>();
+	}
+	
+	private void addAction(MouseEvent e) {
+		String selected = buttonToListMap.get((Button) e.getSource()).getSelectionModel().getSelectedItem();
+		if(selected!=null) {
+			actionsToAdd.remove(selected);
+			actionsAdded.add(selected);
+		}
+	}
+	
+	private void removeAction(MouseEvent e) {
+		String selected = buttonToListMap.get((Button) e.getSource()).getSelectionModel().getSelectedItem();
+		if(selected!=null) {
+			actionsAdded.remove(selected);
+			actionsToAdd.add(selected);
+		}
+	}
+	
+	private void addComponent(MouseEvent e) {
+		String selected = buttonToListMap.get((Button) e.getSource()).getSelectionModel().getSelectedItem();
+		if(selected!=null) {
+			componentsToAdd.remove(selected);
+			componentsAdded.add(selected);
+		}
+	}
+	
+	private void removeComponent(MouseEvent e) {
+		String selected = buttonToListMap.get((Button) e.getSource()).getSelectionModel().getSelectedItem();
+		if(selected!=null) {
+			componentsAdded.remove(selected);
+			componentsToAdd.add(selected);
+		}
 	}
 	
 	private void saveSprite() {
