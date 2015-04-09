@@ -1,7 +1,10 @@
 package levelPlatform.level;
 import gameEngine.Action;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -44,6 +47,10 @@ public class Level extends LevelPlatform {
 	
 	public void setPlayerSprite(Sprite player) {
 	    playerSprite = player;
+	}
+	
+	public void setSprites(List<Sprite> spriteList){
+		sprites = spriteList;
 	}
 	
 	

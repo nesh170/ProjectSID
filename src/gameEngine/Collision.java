@@ -3,6 +3,7 @@ package gameEngine;
 
 import java.util.*;
 
+import resources.constants.INT;
 import sprite.Sprite;
 
 public class Collision {
@@ -18,10 +19,10 @@ public class Collision {
          */
         
         
-        private Map<String, Map<String, Action[]>> collideTable;
+        private CollisionTable collideTable;
         
-        public Collision(Map<String, Map<String, Action[]>> actionTable){
-                collideTable = actionTable;
+        public Collision(CollisionTable table){
+                this.collideTable = table;
         }
 
     /**
@@ -45,21 +46,21 @@ public class Collision {
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Left");
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[LEFT].execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_LEFT);
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Right");
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[RIGHT].execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_RIGHT);
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Up");
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[UP].execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_UP);
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Down");
-        collideTable.get(sprite1.collisonTag()).get(sprite2.collisonTag())[DOWN].execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_DOWN);
     }
 }
