@@ -19,16 +19,14 @@ public class Gravity extends Physics {
 		motionComp.accelerate(0.0, myValue + myReactionValue);
 	}
 
-        @Override
-        public double getValue () {
-            return myValue;
-        }
+    @Override
+    public double getValue () {
+        return myValue;
+    }
 
-        @Override
-        public void setReactionValue (double reaction) {
-            myReactionValue=reaction;
-        }
-
-
+    @Override
+    public void setReactionValue (double reaction) {
+        myReactionValue=reaction;
+    }
 
 }

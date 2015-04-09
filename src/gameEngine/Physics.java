@@ -23,7 +23,7 @@ public abstract class Physics {
 	public abstract void updateByPhysics();
 	
 	/**
-	 * This method gets the value represented by the physics. For example, gravity is defined by it's value
+	 * This method gets the value represented by the physics. For example, gravity is defined by its value
 	 * @return
 	 */
 	public double getValue(){
