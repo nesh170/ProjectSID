@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import levelPlatform.level.Level;
 
@@ -42,6 +43,12 @@ public class DataHandler {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
+	}
+	
+	public static File chooseFile(Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select File");
+		return fileChooser.showOpenDialog(stage);
 	}
 
 	public static File[] getFilesFromDir(File folder) {
