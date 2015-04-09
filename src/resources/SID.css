@@ -5,3 +5,8 @@
 	-fx-border-width: 5px;
 	-fx-background-color: lavender
 }
+
+.button {
+	-fx-text-alignment: center;
+	-fx-wrap-text: false
+}
