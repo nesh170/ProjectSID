@@ -101,9 +101,7 @@ public class GameEditScreen extends Screen {
 		this.setCenter(DisplayLevelRegion());		
 		this.setLeft(DisplaySplash());
 		//this.setBottom(makeAddLevelButton());
-		//set rest of buttons
-		System.out.println("my width is "+ this.getWidth() + "  " + this.getHeight());
-		 
+		//set rest of buttons		 
 	}
 	
 	/**
@@ -142,7 +140,7 @@ public class GameEditScreen extends Screen {
 		
 	}
 	private  Button makeAddSplashSign() {
-		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
+		ImageView addsign = new ImageView(new Image(STRING.ADD_IMG));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
 		Button b = new Button("Add New Splash Screen", addsign);
@@ -191,13 +189,13 @@ public class GameEditScreen extends Screen {
 	private StackPane DisplayLevelRegion(){
 		StackPane levelRegion = new StackPane();	//, DisplayLevels(myLevels)
 		
-		ImageView add = makeButton("/images/plus_sign.png");
+		ImageView add = makeButton(STRING.PLUS_IMG);
 		add.setOnMouseClicked(e -> controller.loadLevelEditScreen());
 		levelRegion.setAlignment(add, Pos.TOP_RIGHT);		
-		ImageView play = makeButton("/images/play.png");
+		ImageView play = makeButton(STRING.PLAY_IMG);
 		play.setOnMouseClicked(e -> controller.playGame(myGame));
 		levelRegion.setAlignment(play, Pos.TOP_CENTER);
-		ImageView trash = makeButton("/images/trash_sign.png");
+		ImageView trash = makeButton(STRING.TRASH_IMG);
 		//trash.setOnMouseClicked(e -> controller.trashLevel(level););
 		levelRegion.setAlignment(trash, Pos.BOTTOM_RIGHT);
 		levelRegion.getChildren().addAll(DisplayLevels(myLevels), add, play, trash);
