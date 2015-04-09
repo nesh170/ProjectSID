@@ -18,6 +18,16 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+        	<groupId>com.thoughtworks.xstream</groupId>
+        	<artifactId>xstream</artifactId>
+        	<version>1.4.8</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.codehaus.groovy</groupId>
+        	<artifactId>groovy-all</artifactId>
+        	<version>2.4.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>javafx</artifactId>
             <version>8.0.31</version>
@@ -28,8 +38,7 @@
 
     <build>
         <sourceDirectory>.</sourceDirectory>
-        <plugins>
-            <plugin>
+        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
@@ -47,6 +56,6 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-        </plugins>
     </build>
 </project>
+
