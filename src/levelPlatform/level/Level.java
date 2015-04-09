@@ -1,10 +1,9 @@
 package levelPlatform.level;
 import gameEngine.Action;
-
+import gameEngine.EngineMathFunctions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -27,7 +26,8 @@ import levelPlatform.LevelPlatform;
 public class Level extends LevelPlatform {
 	
 	// Static Variables
-	
+	public static final int X = 0;
+	public static final int Y = 1;
 	
 	// Instance Variables
 	private Sprite playerSprite;
@@ -72,5 +72,12 @@ public class Level extends LevelPlatform {
 		}
 		
 	}
+
+    public double[] getNewCameraLocations () {
+        double[] xyLocations = new double[2];
+        xyLocations[X] = EngineMathFunctions.toPercent(playerSprite.transform().getPosX(),Math.rint(width()));
+        xyLocations[Y] = EngineMathFunctions.toPercent(playerSprite.transform().getPosY(),Math.rint(height()));
+        return xyLocations;
+    }
 	
 }	
