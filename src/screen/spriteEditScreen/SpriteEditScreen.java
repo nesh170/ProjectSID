@@ -105,9 +105,10 @@ public class SpriteEditScreen extends Screen {
 		VBox rightPane = new VBox();
 		
 		Node actionAndComponentPane = createActionAndComponentPane();
+		Node physicsPane = createPhysicsPane();
 		Node imageListPane = createImageListPane();
 		
-		rightPane.getChildren().addAll(actionAndComponentPane,imageListPane);
+		rightPane.getChildren().addAll(actionAndComponentPane,physicsPane,imageListPane);
 		this.viewableArea().setRight(rightPane);
 
 	}
@@ -163,15 +164,45 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private VBox createActionAndComponentPane() {
-		return null;
+		/*
+		 * TODO Get rid of duplicated code in this method
+		 * 
+		 */
+		
+		HBox actionPane = new HBox();
+		ListView<String> actionToAddList = new ListView<>();
+		ListView<String> actionAddedList = new ListView<>();
+		
+		VBox actionButtons = new VBox();
+		Button addAction = new Button();
+		Button deleteAction = new Button();
+		actionButtons.getChildren().addAll(addAction,deleteAction);
+		
+		actionPane.getChildren().addAll(actionToAddList,actionButtons,actionAddedList);
+		
+		HBox componentPane = new HBox();
+		ListView<String> componentToAddList = new ListView<>();
+		ListView<String> componentAddedList = new ListView<>();
+		
+		VBox componentButtons = new VBox();
+		Button addComponent = new Button();
+		Button deleteComponent = new Button();
+		componentButtons.getChildren().addAll(addComponent,deleteComponent);
+		
+		componentPane.getChildren().addAll(componentToAddList,componentButtons,componentAddedList);
+		
+		VBox actionAndComponentPane = new VBox();
+		actionAndComponentPane.getChildren().addAll(actionPane,componentPane);
+		
+		return actionAndComponentPane;
 	}
 	
 	private ListView<String> createPhysicsPane() {
-		return null;
+		return new ListView<String>();
 	}
 	
 	private ListView<String> createImageListPane() {
-		return null;
+		return new ListView<String>();
 	}
 	
 	private void saveSprite() {
