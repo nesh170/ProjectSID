@@ -380,7 +380,9 @@ public class ScreenController {
 
 		@Override
 		public void createNewGame() {
-			// TODO Auto-generated method stub
+			
+			Game newGame = new Game();
+			createGameEditScreen(newGame);
 			
 		}
 
