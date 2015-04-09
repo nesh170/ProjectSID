@@ -25,6 +25,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -63,6 +65,12 @@ public class SpriteEditScreen extends Screen {
 	private ObservableList<String> actionsAdded; 
 	private ObservableList<String> componentsToAdd;
 	private ObservableList<String> componentsAdded;
+	
+	private TextField keycodeInputBox;
+	private TextField actionValue;
+	private TextField componentValue;
+	
+	private KeyCode currentCode;
 	
 	private Map<String,String> spritePropertiesMap;
 	private Map<Button,ListView<String>> buttonToListMap;
@@ -212,12 +220,22 @@ public class SpriteEditScreen extends Screen {
 	
 	private VBox createActionAndComponentPane() {
 		
+		keycodeInputBox = new TextField();
+		keycodeInputBox.setPromptText(languageResources().getString("KeycodePrompt"));
+		keycodeInputBox.setOnKeyTyped(e -> setCurrentKeycode(e));
+		actionValue = new TextField();
+		actionValue.setPromptText(languageResources().getString("ValuePrompt"));
+		
 		HBox actionPane = makeTwoSidedList(actionsToAdd,actionsAdded,
 											languageResources().getString("AddAction"),languageResources().getString("RemoveAction"),
-											e -> addAction(e), e -> removeAction(e));
+											e -> addAction(e), e -> removeAction(e),
+											keycodeInputBox,actionValue);
+		
+		componentValue = new TextField();
 		HBox componentPane = makeTwoSidedList(componentsToAdd,componentsAdded,
 											languageResources().getString("AddComponent"),languageResources().getString("RemoveComponent"),
-											e -> addComponent(e), e -> removeComponent(e));
+											e -> addComponent(e), e -> removeComponent(e),
+											componentValue);
 		
 		VBox actionAndComponentPane = new VBox();
 		actionAndComponentPane.getChildren().addAll(actionPane,componentPane);
@@ -227,26 +245,29 @@ public class SpriteEditScreen extends Screen {
 	
 	private HBox makeTwoSidedList(ObservableList<String> toAdd, ObservableList<String> added,
 									String addText, String removeText,
-									EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove) {
+									EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove,
+									TextField... userTextFields) {
 		
 		HBox twoSidedListContainer = new HBox();
 		ListView<String> toAddList = new ListView<>(toAdd);
 		ListView<String> addedList = new ListView<>(added);
 		
-		VBox buttons = new VBox();
-		buttons.getStyleClass().add("pane");
-		buttons.setAlignment(Pos.CENTER);
+		VBox fieldsAndButtons = new VBox();
+		fieldsAndButtons.getStyleClass().add("pane");
+		fieldsAndButtons.setAlignment(Pos.CENTER);
 		Button add = new Button(addText);
 		add.setOnMouseClicked(onAdd);
 		Button delete = new Button(removeText);
 		delete.setOnMouseClicked(onRemove);
 		setPrefButtonWidth(add,delete);
-		buttons.getChildren().addAll(add,delete);
+		
+		Arrays.asList(userTextFields).forEach(e -> fieldsAndButtons.getChildren().add(e));
+		fieldsAndButtons.getChildren().addAll(add,delete);
 		
 		buttonToListMap.put(add, toAddList);
 		buttonToListMap.put(delete, addedList);
 		
-		twoSidedListContainer.getChildren().addAll(toAddList,buttons,addedList);
+		twoSidedListContainer.getChildren().addAll(toAddList,fieldsAndButtons,addedList);
 		
 		return twoSidedListContainer;
 
@@ -294,6 +315,11 @@ public class SpriteEditScreen extends Screen {
 			componentsAdded.remove(selected);
 			componentsToAdd.add(selected);
 		}
+	}
+	
+	private void setCurrentKeycode(KeyEvent e) {
+		currentCode = e.getCode();
+		keycodeInputBox.setText(e.getText());
 	}
 	
 	private void saveSprite() {
