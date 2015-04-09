@@ -3,6 +3,7 @@ package screen.spriteEditScreen;
 import gameEngine.Action;
 import gameEngine.Component;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import data.DataHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,6 +41,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import resources.constants.INT;
 import screen.Screen;
 import screen.ScreenController;
@@ -232,6 +236,7 @@ public class SpriteEditScreen extends Screen {
 		
 		Button imageButton = new Button();
 		imageButton.setGraphic(new ImageView(new Image("images/addimage.png")));
+		imageButton.setOnMouseClicked(e -> selectImageFile());
 		
 		imagePane.getChildren().add(imageButton);
 		imagePane.getStyleClass().add("pane");
@@ -362,6 +367,10 @@ public class SpriteEditScreen extends Screen {
 	private void setCurrentKeycode(KeyEvent e) {
 		currentCode = e.getCode();
 		keycodeInputBox.setText(e.getText());
+	}
+	
+	private void selectImageFile() {
+		File file = DataHandler.chooseDir(new Stage());
 	}
 	
 	private void saveSprite() {
