@@ -2,6 +2,6 @@
 
 .pane {
 	-fx-border-color: black;
-	-fx-border-width: 10px;
+	-fx-border-width: 5px;
 	-fx-background-color: lavender
 }
