@@ -123,7 +123,7 @@ public class GameEditScreen extends Screen {
 		displaySplash.setAlignment(Pos.CENTER);
 		
 		StackPane sp = new StackPane();		
-		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeAddSign());
+		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeAddSplashSign());
 			
 		displaySplash.getChildren().add(sp);
 		return displaySplash;
@@ -141,7 +141,7 @@ public class GameEditScreen extends Screen {
 		return text;
 		
 	}
-	private  Button makeAddSign() {
+	private  Button makeAddSplashSign() {
 		ImageView addsign = new ImageView(new Image(STRING.ADD_SIGN));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
@@ -168,15 +168,37 @@ public class GameEditScreen extends Screen {
 		return s1;
 		
 	}
+	/**
+
+
+	private ImageView makePlayButton() {	
+		ImageView img = new ImageView(new Image("/images/play.png"));
+		img.setFitHeight(80);
+		img.setFitWidth(80);
+		img.setOnMouseClicked(e -> controller.playGame(myGame));
+		return img;
+	}
 	
+	private Button makeBackButton() {		
+		Button back = new Button(STRING.BACK);
+		back.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); 
+		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());		
+		return back;
+		
+	}
+	 * @return
+	 */
 	private StackPane DisplayLevelRegion(){
 		StackPane levelRegion = new StackPane();	//, DisplayLevels(myLevels)
 		
-		ImageView add = makeAddButton();
+		ImageView add = makeButton("/images/plus_sign.png");
+		add.setOnMouseClicked(e -> controller.loadLevelEditScreen());
 		levelRegion.setAlignment(add, Pos.TOP_RIGHT);		
-		ImageView play = makePlayButton();
+		ImageView play = makeButton("/images/play.png");
+		play.setOnMouseClicked(e -> controller.playGame(myGame));
 		levelRegion.setAlignment(play, Pos.TOP_CENTER);
-		ImageView trash = makeTrashButton();
+		ImageView trash = makeButton("/images/trash_sign.png");
+		//trash.setOnMouseClicked(e -> controller.trashLevel(level););
 		levelRegion.setAlignment(trash, Pos.BOTTOM_RIGHT);
 		levelRegion.getChildren().addAll(DisplayLevels(myLevels), add, play, trash);
 		
@@ -198,7 +220,11 @@ public class GameEditScreen extends Screen {
 		level3.setOnMouseClicked(handleDouleRightClick(level3));
 		return levelView;		
 	}
-	
+	/**
+	 * handles mouse event: double left mouse click and right mouse click 
+	 * @param node
+	 * @return EventHandler<MouseEvent>
+	 */
 	private EventHandler<MouseEvent> handleDouleRightClick(Node node){
 		return new EventHandler<MouseEvent>() { //double Click to edit a screen
 		    public void handle(MouseEvent mouseEvent) {
@@ -214,7 +240,9 @@ public class GameEditScreen extends Screen {
 		    }
 		};
 	}
-	
+	/**
+	 * make a right click menu for editing and removing a level
+	 */
 	private ContextMenu makeRightClickeMenu(){ //pass in Level
 		final ContextMenu rMenu = new ContextMenu();
 		MenuItem edit = new MenuItem("Edit");
@@ -265,35 +293,12 @@ public class GameEditScreen extends Screen {
 //		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
 		return new ArrayList(myButtons.values());	
 	}
-
-	private ImageView makeTrashButton(){		
-		ImageView trashButton = new ImageView(new Image("/images/trash_sign.png")); 
-		trashButton.setFitHeight(80);
-		trashButton.setFitWidth(80);
-		return trashButton;		
-	}
-	private ImageView makeAddButton(){
-		ImageView img = new ImageView(new Image("/images/plus_sign.png"));
-		img.setFitHeight(80);
-		img.setFitWidth(80);
-		return img;
-	}
-	
-	private ImageView makePlayButton() {	
-		ImageView img = new ImageView(new Image("/images/play.png"));
-		img.setFitHeight(80);
-		img.setFitWidth(80);
-		img.setOnMouseClicked(e -> controller.playGame(myGame));
-		return img;
-	}
-	
-	private Button makeBackButton() {		
-		Button back = new Button(STRING.BACK);
-		back.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); 
-		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());		
-		return back;
-		
-	}
+	private ImageView makeButton(String location){
+		ImageView b = new ImageView(new Image(location));
+		b.setFitHeight(80);
+		b.setFitWidth(80);
+		return b;
+	}	
 	
 	/**
 	 * Consider using makeFileMenu(EventHandler<ActionEvent>... fileMenuActions)
