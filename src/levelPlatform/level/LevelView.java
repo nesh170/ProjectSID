@@ -13,12 +13,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-<<<<<<< HEAD
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-=======
 import javafx.scene.input.MouseEvent;
->>>>>>> a10f0e0d8a89d9edf97b1ee152fd4a9932f9a444
 
 /**
  * 
@@ -127,15 +122,6 @@ public class LevelView extends ScrollPane {
     	ImageView spriteImageView;
     	
         if (sprite.isActive()) {
-<<<<<<< HEAD
-//            Image spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-//            ImageView spriteImageView = new ImageView(spriteImage);
-//            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-//                    .transform().getPosY());
-//            spriteGroup.getChildren().add(spriteImageView);
-            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
-            spriteGroup.getChildren().add(player);
-=======
         	
             spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
             spriteImageView = new ImageView(spriteImage);
@@ -145,7 +131,6 @@ public class LevelView extends ScrollPane {
             SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
                     .transform().getPosY());
             spriteGroup.getChildren().add(spriteImageView);
->>>>>>> a10f0e0d8a89d9edf97b1ee152fd4a9932f9a444
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         

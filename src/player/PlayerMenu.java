@@ -19,12 +19,18 @@ public class PlayerMenu {
 
 	private MenuBar myMenuBar;
 	private PlayerViewController myView;
-
+	private GamePlayer myPlayer;
+	
 	public PlayerMenu(ScrollPane pane) {
 		myMenuBar = createPlayerMenu();
 		myView = new PlayerViewController(pane);
 	}
 
+	public PlayerMenu(double width, double height) {
+		myPlayer = new GamePlayer(width, height);
+		myMenuBar = createPlayerMenu();
+	}
+	
 	public MenuBar createPlayerMenu() {
 		MenuBar menuBar = new MenuBar();
 		Menu menuView = new Menu("View");
@@ -100,24 +106,23 @@ public class PlayerMenu {
 	}
 
 	public void startGame() {
-		myView.startView();
+		myPlayer.start();
 	}
 
 	public void pauseGame() {
-		myView.stopView();
+		myPlayer.pause();
 	}
 
 	public void loadNewGame() {
-		Stage chooserStage = new Stage();
-		chooserStage.initModality(Modality.APPLICATION_MODAL);
-		myView.loadNewChooser();
+		myPlayer.loadNewGame();
 	}
 
+	public void saveGame() {
+		myPlayer.save();
+	}
+	
 	public MenuBar getBar() {
 		return myMenuBar;
 	}
 
-	public void saveGame() {
-		myView.save();
-	}
 }

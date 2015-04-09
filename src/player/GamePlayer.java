@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class GamePlayer {
@@ -22,7 +23,8 @@ public class GamePlayer {
 	private int myHealth;
 	private int myScore;
 	private PlayerMenu myMenu;
-
+	private PlayerViewController myView;
+	
 	// constructor for testing
 	public GamePlayer(Stage stage) {
 		myGameRoot = new ScrollPane();
@@ -38,12 +40,27 @@ public class GamePlayer {
 		myWidth = width;
 		myHeight = height;
 		myGameRoot = new ScrollPane();
-		myMenu = new PlayerMenu(myGameRoot);
+		myView = new PlayerViewController(myGameRoot);
 		myBorderPane = new BorderPane();
-		myBorderPane.setTop(myMenu.getBar());
 		myBorderPane.setCenter(myGameRoot);
 	}
 
+	public void start() {
+		myView.startView();
+	}
+
+	public void pause() {
+		myView.stopView();
+	}
+
+	public void loadNewGame() {
+		myView.loadNewChooser();
+	}
+
+	public void save() {
+		myView.save();
+	}
+	
 	public int getLives() {
 		// return myEngine.getLives();
 		return 0;
@@ -62,10 +79,6 @@ public class GamePlayer {
 	public int getHighScore() {
 		// load in high score?
 		return 0;
-	}
-
-	public void loadNewGame() {
-		System.out.println("LOAD");
 	}
 
 	public void setPreferences() {
