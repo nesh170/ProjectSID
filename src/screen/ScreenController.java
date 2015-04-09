@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
+import resources.constants.INT;
 import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
