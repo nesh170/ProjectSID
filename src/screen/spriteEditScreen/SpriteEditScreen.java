@@ -1,10 +1,25 @@
 package screen.spriteEditScreen;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import screen.Screen;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
@@ -21,7 +36,12 @@ public class SpriteEditScreen extends Screen {
 	
 	private SpriteEditScreenController controller;
 	private Tab levelEditScreen;
+	
+	private TextField spriteNameField;
+	private ChoiceBox<String> tagChoicesHolder;
 
+	private ResourceBundle tagResources;
+	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
 		this(parent, levelEditScreen, width, height, null);
@@ -39,6 +59,8 @@ public class SpriteEditScreen extends Screen {
 			drawSpriteOnScreen(spriteToEdit);
 		}
 		
+		initializeRelevantResourceFiles();
+		
 		createLeftPane();
 		createRightPane();
 		createCenterPane();
@@ -46,6 +68,10 @@ public class SpriteEditScreen extends Screen {
 	}
 		
 	
+	private void initializeRelevantResourceFiles() {
+		tagResources = ResourceBundle.getBundle("resources/TagChoices");
+	}
+
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
@@ -57,7 +83,7 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void createLeftPane() {
-		VBox nameAndTagPane = createNameAndTagPane();
+		GridPane nameAndTagPane = createNameAndTagPane();
 		Pane imagePane = createAddImagePane();
 		
 		VBox leftPane = new VBox();
@@ -76,14 +102,44 @@ public class SpriteEditScreen extends Screen {
 	
 	private void createCenterPane() {
 		
+		Pane paneForImage = new Pane();
+		
+		this.viewableArea().setCenter(paneForImage);
+		
+		
 	}
 	
-	private VBox createNameAndTagPane() {
-		return null;
+	private GridPane createNameAndTagPane() {
+		
+		GridPane nameAndTagPane = new GridPane();
+				
+		Text nameLabel = new Text("Name"+":"); //TODO do not hardcode "name"
+		spriteNameField = new TextField();
+		spriteNameField.setPromptText("Enter the Sprite Name"); //TODO DO NOT HARDCODE THIS STRING
+		
+		Text tagLabel = new Text("Tag"+":"); //TODO do not hardcode "tag"
+		ObservableList<String> tagChoices = FXCollections.observableArrayList();
+		tagResources.keySet().forEach(e -> tagChoices.add(tagResources.getString(e)));
+		tagChoicesHolder = new ChoiceBox<String>(tagChoices);
+		
+		nameAndTagPane.add(nameLabel, 0, 0);
+		nameAndTagPane.add(spriteNameField, 1, 0);
+		nameAndTagPane.add(tagLabel, 0, 1);
+		nameAndTagPane.add(tagChoicesHolder, 1, 1);
+		
+		return nameAndTagPane;
+		
 	}
 	
 	private Pane createAddImagePane() {
-		return null;
+		Pane imagePane = new Pane();
+		
+		Button imageButton = new Button();
+		imageButton.setGraphic(new ImageView(new Image("images/addimage.png")));
+		
+		imagePane.getChildren().add(imageButton);
+		
+		return imagePane;
 	}
 	
 	private VBox createActionAndComponentPane() {
