@@ -422,6 +422,8 @@ public class ScreenController {
 		@Override
 		public void loadLevelEditScreen(Level level) {
 			
+			createLevelEditScreen(level);
+			
 		}
 
 		@Override
