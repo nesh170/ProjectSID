@@ -1,5 +1,9 @@
 package screen.spriteEditScreen;
 
+import gameEngine.Action;
+import gameEngine.Component;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,6 +57,8 @@ public class SpriteEditScreen extends Screen {
 	private SpriteEditScreenController controller;
 	private Tab levelEditScreen;
 	
+	private Sprite editableSprite;
+	
 	private TextField spriteNameField;
 	private ChoiceBox<String> tagChoicesHolder;
 
@@ -62,7 +68,7 @@ public class SpriteEditScreen extends Screen {
 	private ResourceBundle physicsResources;
 	
 	private ObservableList<String> actionsToAdd;
-	private ObservableList<String> actionsAdded; 
+	private ObservableList<String> actionsAdded;
 	private ObservableList<String> componentsToAdd;
 	private ObservableList<String> componentsAdded;
 	
@@ -72,8 +78,10 @@ public class SpriteEditScreen extends Screen {
 	
 	private KeyCode currentCode;
 	
-	private Map<String,String> spritePropertiesMap;
+	private Map<String,String> classPathMap;
 	private Map<Button,ListView<String>> buttonToListMap;
+	private Map<String, Action> actionMap;
+	private Map<String, Component> componentMap;
 	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
@@ -90,13 +98,21 @@ public class SpriteEditScreen extends Screen {
 
 		if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
+			editableSprite = new Sprite(spriteToEdit);
+		}
+		
+		else {
+			editableSprite = new Sprite();
 		}
 		
 		initializeRelevantResourceFiles();
 		initializeObservableLists();
-		initializeSpritePropertiesMap();
+		initializeClassPathMap();
+//		initializeOtherMaps(buttonToListMap,actionMap,componentMap);
 		
 		buttonToListMap = new HashMap<>();
+		actionMap = new HashMap<>();
+		componentMap = new HashMap<>();
 		
 		createLeftPane();
 		createRightPane();
@@ -125,10 +141,15 @@ public class SpriteEditScreen extends Screen {
 		componentsAdded = FXCollections.observableArrayList();
 	}
 	
-	private void initializeSpritePropertiesMap() {
-		spritePropertiesMap = new HashMap<>();
-		actionResources.keySet().forEach(e -> spritePropertiesMap.put(actionResources.getString(e), languageResources().getString(e)));
-		componentResources.keySet().forEach(e -> spritePropertiesMap.put(componentResources.getString(e), languageResources().getString(e)));
+//	@SuppressWarnings("unchecked")
+//	protected void initializeOtherMaps(Map<? extends Object, ? extends Object>... maps) {
+//		Arrays.asList(maps).forEach(e -> { e = new HashMap<>(); });
+//	}
+	
+	private void initializeClassPathMap() {
+		classPathMap = new HashMap<>();
+		actionResources.keySet().forEach(e -> classPathMap.put(languageResources().getString(e), actionResources.getString(e)));
+		componentResources.keySet().forEach(e -> classPathMap.put(languageResources().getString(e),componentResources.getString(e)));
 	}
 
 
@@ -290,6 +311,22 @@ public class SpriteEditScreen extends Screen {
 		if(selected!=null) {
 			actionsToAdd.remove(selected);
 			actionsAdded.add(selected);
+			
+			try {
+				Action action = (Action) Class.forName(classPathMap.get(selected))
+												.getConstructor(Sprite.class,Double.class,KeyCode[].class)
+												.newInstance(editableSprite,Double.parseDouble(actionValue.getText()),new KeyCode[]{currentCode});
+				actionMap.put(selected, action);
+			} catch (InstantiationException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException
+					| ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			keycodeInputBox.clear();
+			actionValue.clear();
 		}
 	}
 	
@@ -298,6 +335,7 @@ public class SpriteEditScreen extends Screen {
 		if(selected!=null) {
 			actionsAdded.remove(selected);
 			actionsToAdd.add(selected);
+			actionMap.keySet().remove(selected);
 		}
 	}
 	
@@ -306,6 +344,10 @@ public class SpriteEditScreen extends Screen {
 		if(selected!=null) {
 			componentsToAdd.remove(selected);
 			componentsAdded.add(selected);
+			
+			
+			
+			componentValue.clear();
 		}
 	}
 	
