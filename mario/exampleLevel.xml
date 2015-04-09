@@ -32,8 +32,13 @@
               <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
             </a>
           </myKeyCode>
-          <initialVelocity>12.598425196849998</initialVelocity>
+          <initialVelocity>-1.2598425196849998</initialVelocity>
         </gameEngine.actions.JumpAction>
+        <gameEngine.actions.GravityAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myGravityConstant>0.010498687664041667</myGravityConstant>
+        </gameEngine.actions.GravityAction>
       </actionList>
       <componentList>
         <gameEngine.components.HealthComponent>
@@ -55,11 +60,6 @@
       </componentList>
       <x>0.0</x>
       <y>0.0</y>
-      <physics class="gameEngine.physics.Gravity">
-        <mySprite reference="../.."/>
-        <myValue>0.10299212598424874</myValue>
-        <myReactionValue>0.0</myReactionValue>
-      </physics>
       <emissionList/>
       <isActive>true</isActive>
       <transform>

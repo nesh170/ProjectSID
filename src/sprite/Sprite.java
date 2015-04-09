@@ -2,7 +2,7 @@ package sprite;
 
 import gameEngine.Action;
 import gameEngine.Component;
-import gameEngine.Physics;
+
 import gameEngine.Transform;
 
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ public class Sprite {
 	private List<Component> componentList = new ArrayList<Component>();
 	//TODO what is the x and y for?
 	private double x, y;
-	private Physics physics;
 	private List<Sprite> emissionList;
 	
 	private boolean isActive;
@@ -101,11 +100,7 @@ public class Sprite {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	
-	public void setPhysics(Physics physics){
-	    this.physics=physics;
-	}
-	
+
 	public void setCollisionTag(String collisionTag){
 		this.collisionTag = collisionTag;
 	}
@@ -121,11 +116,6 @@ public class Sprite {
 	
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
-	}
-	
-	public Physics physics(){
-	    //TODO when there is a collision with platform, setPhysicsreaction value to deal with normal
-	    return physics;
 	}
 	
 	
@@ -178,10 +168,18 @@ public class Sprite {
 	 */
 	public void updateSprite(){
 		if(isActive) {
-			componentList.stream().forEach(com -> com.updateIfEnabled());	
+			componentList.stream().forEach(com -> com.updateIfEnabled());
+			for(Action a: actionList){
+				//TODO: see if we can do this differently (can't remember the word for the technique)
+				try {
+					if(Class.forName("gameEngine.actions.FrameAction").isInstance(a)){
+						a.execute();
+					}
+				} catch (ClassNotFoundException e) {
+					continue;
+				}
+			}
 		}
-		physics.updateByPhysics();
-		
 	}
 	
 	/**
