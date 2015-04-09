@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
+import resources.constants.INT;
 import resources.constants.STRING;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
@@ -170,6 +171,7 @@ public class ScreenController {
 		
 		this.root = new Group();
 		this.scene = new Scene(root);
+		this.scene.getStylesheets().add("resources/SID.css"); //possibly put this in a string class or properties file?
 		
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
@@ -255,7 +257,8 @@ public class ScreenController {
 	private void createInitialScreens() {
 		
 		createMainMenuScreen();
-
+		
+		//USED FOR TEST LEVELEDITSCREEN
 		createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
@@ -273,7 +276,7 @@ public class ScreenController {
 	/**
 	 * Closes the Application.
 	 */
-	public void closeApplication() {
+	public void close() {
 		stage.close();
 	}
 	
@@ -379,7 +382,9 @@ public class ScreenController {
 
 		@Override
 		public void createNewGame() {
-			// TODO Auto-generated method stub
+			
+			Game newGame = new Game();
+			createGameEditScreen(newGame);
 			
 		}
 
@@ -397,8 +402,8 @@ public class ScreenController {
 
 		@Override
 		public void closeApplication() {
-			// TODO Auto-generated method stub
-			
+
+			close();
 		}
 		
 	}
@@ -413,31 +418,32 @@ public class ScreenController {
 
 		@Override
 		public void loadSplashEditScreen(Game game) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void loadLevelEditScreen(Level level) {
-			// TODO Auto-generated method stub
+			
+			createLevelEditScreen(level);
 			
 		}
 
 		@Override
 		public void loadLevelEditScreen() {
-			// TODO Auto-generated method stub
+			
+			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+			createLevelEditScreen(newLevel);
 			
 		}
 
 		@Override
 		public void loadSplashEditScreen() {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void playGame(Game game) {
-			// TODO Auto-generated method stub
 			
 		}
 
@@ -453,7 +459,9 @@ public class ScreenController {
 
 		@Override
 		public void returnToGameEditScreen(Tab tab) {
-			// TODO Auto-generated method stub
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.getTabSelectionModel().select(tab);
+			tabManager.removeTab(levelEditTab);	
 			
 		}
 		
