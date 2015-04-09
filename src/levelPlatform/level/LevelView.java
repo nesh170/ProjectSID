@@ -13,6 +13,8 @@ import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -122,6 +124,7 @@ public class LevelView extends ScrollPane {
     	ImageView spriteImageView;
     	
         if (sprite.isActive()) {
+
         	
             spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
             spriteImageView = new ImageView(spriteImage);
