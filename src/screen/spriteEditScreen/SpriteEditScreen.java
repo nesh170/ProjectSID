@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
@@ -14,6 +15,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -89,8 +91,8 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void createLeftPane() {
-		GridPane nameAndTagPane = createNameAndTagPane();
-		Pane imagePane = createAddImagePane();
+		Node nameAndTagPane = createNameAndTagPane();
+		Node imagePane = createAddImagePane();
 		
 		VBox leftPane = new VBox();
 		leftPane.getChildren().addAll(nameAndTagPane, imagePane);
@@ -102,6 +104,10 @@ public class SpriteEditScreen extends Screen {
 		
 		VBox rightPane = new VBox();
 		
+		Node actionAndComponentPane = createActionAndComponentPane();
+		Node imageListPane = createImageListPane();
+		
+		rightPane.getChildren().addAll(actionAndComponentPane,imageListPane);
 		this.viewableArea().setRight(rightPane);
 
 	}
@@ -157,6 +163,14 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private VBox createActionAndComponentPane() {
+		return null;
+	}
+	
+	private ListView<String> createPhysicsPane() {
+		return null;
+	}
+	
+	private ListView<String> createImageListPane() {
 		return null;
 	}
 	
