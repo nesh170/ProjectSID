@@ -67,13 +67,13 @@ public class PlayerViewController {
 
 	public void startView() {
 		removePause();
-		myEngine.play(myScene);
+		myEngine.play(myGameRoot);
 		myTimeline.play();
 	}
 
 	public void stopView() {
 		myTimeline.stop();
-		// myEngine.pause(myBorderPane);
+		myEngine.pause(myGameRoot);
 		bringupPause();
 	}
 

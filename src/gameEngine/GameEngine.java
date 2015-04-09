@@ -45,7 +45,7 @@ public class GameEngine extends GameEngineAbstract {
      * This pause method is called by the controller
      */
     @Override
-    public void pause (Scene scene) {
+    public void pause (Node scene) {
         scene.setOnKeyPressed(null);
     }
 
@@ -54,7 +54,7 @@ public class GameEngine extends GameEngineAbstract {
      * This sets up the eventhandler to the scene to call the handle method
      */
     @Override
-    public void play (Scene scene) {
+    public void play (Node scene) {
         scene.setOnKeyPressed(keyPressed -> handle(keyPressed,action -> action.execute()));
         scene.setOnKeyReleased(keyReleased -> handle(keyReleased,action -> action.stop()));
     }
