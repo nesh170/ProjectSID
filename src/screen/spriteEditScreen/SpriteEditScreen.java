@@ -1,8 +1,13 @@
 package screen.spriteEditScreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +30,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import resources.constants.INT;
 import screen.Screen;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
@@ -46,6 +52,16 @@ public class SpriteEditScreen extends Screen {
 	private ChoiceBox<String> tagChoicesHolder;
 
 	private ResourceBundle tagResources;
+	private ResourceBundle actionResources;
+	private ResourceBundle componentResources;
+	private ResourceBundle physicsResources;
+	
+	private ObservableList<String> actionsToAdd;
+	private ObservableList<String> actionsAdded; 
+	private ObservableList<String> componentsToAdd;
+	private ObservableList<String> componentsAdded;
+	
+	private Map<String,String> spritePropertiesMap;
 	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
@@ -65,6 +81,8 @@ public class SpriteEditScreen extends Screen {
 		}
 		
 		initializeRelevantResourceFiles();
+		initializeObservableLists();
+		initializeSpritePropertiesMap();
 		
 		createLeftPane();
 		createRightPane();
@@ -72,10 +90,34 @@ public class SpriteEditScreen extends Screen {
 		
 	}
 		
-	
-	private void initializeRelevantResourceFiles() {
-		tagResources = ResourceBundle.getBundle("resources/TagChoices");
+
+	@Override
+	protected void initializeRelevantResourceFiles() {
+		super.initializeRelevantResourceFiles();
+		tagResources = ResourceBundle.getBundle("resources.TagChoices");
+		System.out.println(tagResources.getString("Platform"));
+		actionResources = ResourceBundle.getBundle("resources.spritePartProperties.action");
+		componentResources = ResourceBundle.getBundle("resources.spritePartProperties.component");
+		physicsResources = ResourceBundle.getBundle("resources.spritePartProperties.physics");
 	}
+	
+	private void initializeObservableLists() {
+		actionsToAdd = FXCollections.observableArrayList(actionResources.keySet().stream()
+																	.map(e -> languageResources().getString(e))
+																	.collect(Collectors.toList()));
+		actionsAdded = FXCollections.observableArrayList();
+		componentsToAdd = FXCollections.observableArrayList(componentResources.keySet().stream()
+																	.map(e -> languageResources().getString(e))
+																	.collect(Collectors.toList()));
+		componentsAdded = FXCollections.observableArrayList();
+	}
+	
+	private void initializeSpritePropertiesMap() {
+		spritePropertiesMap = new HashMap<>();
+		actionResources.keySet().forEach(e -> spritePropertiesMap.put(actionResources.getString(e), actionResources.getString(e)));
+		componentResources.keySet().forEach(e -> spritePropertiesMap.put(componentResources.getString(e), componentResources.getString(e)));
+	}
+
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
@@ -170,24 +212,28 @@ public class SpriteEditScreen extends Screen {
 		 */
 		
 		HBox actionPane = new HBox();
-		ListView<String> actionToAddList = new ListView<>();
-		ListView<String> actionAddedList = new ListView<>();
+		ListView<String> actionToAddList = new ListView<>(actionsToAdd);
+		ListView<String> actionAddedList = new ListView<>(actionsAdded);
 		
 		VBox actionButtons = new VBox();
-		Button addAction = new Button();
-		Button deleteAction = new Button();
+		actionButtons.setAlignment(Pos.CENTER);
+		Button addAction = new Button(languageResources().getString("AddAction"));
+		Button deleteAction = new Button(languageResources().getString("RemoveAction"));
 		actionButtons.getChildren().addAll(addAction,deleteAction);
 		
 		actionPane.getChildren().addAll(actionToAddList,actionButtons,actionAddedList);
 		
 		HBox componentPane = new HBox();
-		ListView<String> componentToAddList = new ListView<>();
-		ListView<String> componentAddedList = new ListView<>();
+		ListView<String> componentToAddList = new ListView<>(componentsToAdd);
+		ListView<String> componentAddedList = new ListView<>(componentsAdded);
 		
 		VBox componentButtons = new VBox();
-		Button addComponent = new Button();
-		Button deleteComponent = new Button();
+		componentButtons.setAlignment(Pos.CENTER);
+		Button addComponent = new Button(languageResources().getString("AddComponent"));
+		Button deleteComponent = new Button(languageResources().getString("RemoveComponent"));
 		componentButtons.getChildren().addAll(addComponent,deleteComponent);
+		
+		setPrefButtonWidth(addAction,deleteAction,addComponent,deleteComponent);
 		
 		componentPane.getChildren().addAll(componentToAddList,componentButtons,componentAddedList);
 		
@@ -199,6 +245,10 @@ public class SpriteEditScreen extends Screen {
 	
 	private ListView<String> createPhysicsPane() {
 		return new ListView<String>();
+	}
+	
+	private void setPrefButtonWidth(Button... buttons) {
+		Arrays.asList(buttons).forEach(e -> e.setPrefWidth(INT.PREF_BUTTON_WIDTH));
 	}
 	
 	private ListView<String> createImageListPane() {
