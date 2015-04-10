@@ -28,7 +28,6 @@ public class GamePlayer {
 	private int myScore;
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
-	private VideoPlayer myVideoPlayer;
 	
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
@@ -40,7 +39,6 @@ public class GamePlayer {
 		myBorderPane = new BorderPane();
 		myBorderPane.setTop(bar);
 		myView = new PlayerViewController(myGameRoot);
-		myVideoPlayer = new VideoPlayer();
 		myBorderPane.setCenter(myGameRoot);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);
@@ -51,7 +49,6 @@ public class GamePlayer {
 		myHeight = height;
 		myGameRoot = new ScrollPane();
 		myView = new PlayerViewController(myGameRoot);
-		myVideoPlayer = new VideoPlayer();
 		myGameRoot.setMaxSize(width, height);
 		myGameRoot.setMinSize(width, height);
 		myBorderPane = new BorderPane();
