@@ -21,8 +21,7 @@ public class KillAction extends Action {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		HealthComponent myHealth = (HealthComponent) mySprite.getComponentOfType("HealthComponent");
-		myHealth.kill();
+		mySprite.setIsActive(false);
 
 	}
 
