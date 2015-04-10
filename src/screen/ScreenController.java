@@ -365,7 +365,15 @@ public class ScreenController {
 
 		@Override
 		public void loadGame() {
-			//Load Game from file
+			
+			File gameFile = DataHandler.chooseFile(stage);
+			try {
+				Game game = (Game) DataHandler.fromXMLFile(gameFile);
+				createGameEditScreen(game);
+			}
+			catch (Exception e) {
+				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
+			}
 			
 		}
 
