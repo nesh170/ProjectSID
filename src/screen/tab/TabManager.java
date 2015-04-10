@@ -15,6 +15,8 @@ public class TabManager {
 	private TabPane tabPane;
 	private SingleSelectionModel<Tab> singleSelectionModel;
 	
+	private Tab defaultTab;
+	
 	public TabManager(TabPane tabPane) {
 		this.tabPane = tabPane;
 		singleSelectionModel = tabPane.getSelectionModel();
@@ -25,7 +27,6 @@ public class TabManager {
 	 * 
 	 * @param Screen (to add)
 	 * @param String (title)
-	 * @return Tab (if you'd like your screen to support going to another Tab)
 	 */
 	public Tab addTabWithScreenWithStringIdentifier(Screen screen, String string) {
 
@@ -40,8 +41,18 @@ public class TabManager {
 		tabPane.getTabs().add(returnTab);
 		
 		setCorrectTabModifiabilityAndViewability();
-
+		
 		return returnTab;
+
+	}
+	
+	public void removeTabAndChangeSelected(Tab selectedNew) {
+		
+		Tab tab = singleSelectionModel.getSelectedItem();
+		tabPane.getTabs().remove(tab);
+	
+		setCorrectTabModifiabilityAndViewability();		
+		singleSelectionModel.select(selectedNew);
 		
 	}
 	
@@ -51,6 +62,17 @@ public class TabManager {
 	
 	public void removeTab(Tab tab) {
 		tabPane.getTabs().remove(tab);
+	}
+	
+	public void changeToDefault() {
+		if (defaultTab != null) {
+			removeTabAndChangeSelected(defaultTab);
+		}
+	}
+	
+	
+	public void setDefaultTab(Tab tab) {
+		defaultTab = tab;
 	}
 	
 	// Private
@@ -91,15 +113,6 @@ public class TabManager {
 		singleSelectionModel.select(tab);
 		
 	}
-	
-	public void removeTabAndChangeSelected(Tab selectedNew) {
-		
-		Tab tab = singleSelectionModel.getSelectedItem();
-		tabPane.getTabs().remove(tab);
-	
-		setCorrectTabModifiabilityAndViewability();		
-		singleSelectionModel.select(selectedNew);
-		
-	}
+
 	
 }

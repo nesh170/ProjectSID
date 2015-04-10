@@ -257,7 +257,7 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		createMainMenuScreen();
+		tabManager.setDefaultTab(createMainMenuScreen());
 		
 		//USED FOR TEST LEVELEDITSCREEN
 		createGameEditScreen(null);
@@ -407,7 +407,8 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
-			//MainMenuScreen is singleton
+			
+			tabManager.changeToDefault();
 			
 		}
 
@@ -514,7 +515,8 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
-			// TODO Auto-generated method stub
+			
+			tabManager.changeToDefault();
 			
 		}
 
