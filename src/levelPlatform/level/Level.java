@@ -75,8 +75,8 @@ public class Level extends LevelPlatform {
 
     public double[] getNewCameraLocations () {
         double[] xyLocations = new double[2];
-        xyLocations[X] = playerSprite.transform().getPosX();
-        xyLocations[Y] = playerSprite.transform().getPosY();
+        xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
+        xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
         return xyLocations;
     }
 	

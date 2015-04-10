@@ -1,15 +1,14 @@
 package player;
 
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -85,30 +84,18 @@ public class PlayerViewController {
 		myGameGroup = myEngine.render();
 		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
-//		double minX = (cameraValue[0]/myGameRoot.getMaxWidth())*(myGameRoot.getHmax()-myGameRoot.getHmin())/2;
-//		double minY = (cameraValue[1]/myGameRoot.getMaxHeight())*(myGameRoot.getVmax()-myGameRoot.getVmin())/2;
-		//System.out.println("V is " + myGameRoot.getVvalue() + " " + cameraValue[1]/800);
-		try{
-		myGameRoot.setHvalue(cameraValue[0]/5000);
-		myGameRoot.setVvalue(cameraValue[1]/800);
-		}
-		catch(Exception e){
-			
-		}
-		if(myGameRoot.getHvalue()!=cameraValue[0]/5000){
-			System.out.println(myGameRoot.getHmin() + " MInininum value");
-			System.out.println("H is " + myGameRoot.getHvalue() + " " + cameraValue[0]/5000);
-		}
-		
-		
-//		double minX = cameraValue[0] - myGameRoot.getWidth()/2;
-//		double minY = cameraValue[1] - myGameRoot.getHeight()*cameraValue[1];
-//		double maxX = cameraValue[0] + myGameRoot.getWidth()/2;
-//		double maxY = cameraValue[1] + myGameRoot.getHeight()*cameraValue[1];
-//		myGameRoot.setHmin(minX);
-//		myGameRoot.setVmax(minY);
-//		myGameRoot.setHmin(maxX);
-//		myGameRoot.setVmax(maxY);
+		centerNodeInScrollPane();
+	}
+	
+	public void centerNodeInScrollPane() {
+	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
+	    double yCenterPlayer = cameraValue[1];
+	    double yBounds = myGameRoot.getViewportBounds().getHeight();
+	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
+	    double xCenterPlayer = cameraValue[0];
+	    double xBounds = myGameRoot.getViewportBounds().getWidth();
+	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
+	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
 	}
 
 	private StackPane makePauseScreen() {
