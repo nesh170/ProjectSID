@@ -294,6 +294,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu fileMenu = new Menu("File");
 		MenuItem save = new MenuItem("Save");
+		save.setOnAction(o -> controller.saveGame(myGame));
 		MenuItem exit = new MenuItem("Exit");
 		exit.setOnAction(o -> System.exit(0));
 		fileMenu.getItems().addAll(save, exit);
