@@ -1,9 +1,11 @@
 package player;
 
 import gameEngine.GameEngine;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -23,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -40,6 +43,8 @@ public class PlayerViewController {
 	private Timeline myTimeline;
 	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
+	private Media myVideo;
+	private Media myAudio;
 	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
@@ -164,6 +169,9 @@ public class PlayerViewController {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		try {
 			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myAudio = DataHandler.getAudioFromDir(myGameFolder);
+			myVideo = DataHandler.getVideoFromDir(myGameFolder);
+			myVideoPlayer = new VideoPlayer();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,6 +207,16 @@ public class PlayerViewController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+
+	public void showTutorial() {
+		// TODO Auto-generated method stub
+		try {
+			myVideoPlayer.init(new Stage(), myVideo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
