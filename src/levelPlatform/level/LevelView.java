@@ -65,6 +65,9 @@ public class LevelView extends ScrollPane {
     	return this.representationMap.get(sprite);
     }
     
+    public void setCollisionHandler(){
+    	this.collisionHandler = new Collision(level.getCollisionTable());
+    }
     
     // Constructor & Helpers
     /**
@@ -88,6 +91,7 @@ public class LevelView extends ScrollPane {
     	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
     	setEditMode(editMode);
+    	setCollisionHandler();
     	
     	if (level != null) {
     		renderLevel();

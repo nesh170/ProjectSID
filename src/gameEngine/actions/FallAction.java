@@ -12,6 +12,7 @@ public class FallAction extends Action {
 
 	public FallAction(Sprite sprite, Double gravValue, KeyCode... keys) {
 		super(sprite, keys);
+		value = gravValue;
 	}
 
 	@Override

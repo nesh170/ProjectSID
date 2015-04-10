@@ -11,7 +11,7 @@ public class LeftMotionAction extends Action {
 	private VelocityComponent myVelocityComponent;
 
 	public LeftMotionAction(Sprite sprite, Double delta, KeyCode... keys) {
-		super(sprite, keys);
+		super(sprite, delta, keys);
 	}
 
 	@Override

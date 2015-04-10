@@ -13,8 +13,8 @@ public class RightMotionAction extends Action {
 	
 
 	public RightMotionAction(Sprite sprite, Double delta, KeyCode... keys) {
-		super(sprite, keys);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
+		super(sprite, delta, keys);
+		velocity = delta;
 	}
 
 	@Override
