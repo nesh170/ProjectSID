@@ -63,6 +63,14 @@ public class Transform {
 		return myDimensions.getHeight();
 	}
 	
+	public Double getRightEdge(){
+		return myPosition.getX() + myDimensions.getWidth();
+	}
+	
+	public Double getBottomEdge(){
+		return myPosition.getY() + myDimensions.getHeight();
+	}
+	
 	public void horizontalMove(Double moveAmount){
 		myPosition = new Point2D(myPosition.getX() + moveAmount, myPosition.getY());
 	}

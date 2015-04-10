@@ -1,6 +1,7 @@
 package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
+import gameEngine.CollisionTable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class Level extends LevelPlatform {
 	
 	// Instance Variables
 	private Sprite playerSprite;
+	private CollisionTable collisionTable;
 	
 	
 	// Getters & Setters
@@ -51,6 +53,14 @@ public class Level extends LevelPlatform {
 	
 	public void setSprites(List<Sprite> spriteList){
 		sprites = spriteList;
+	}
+	
+	public void setCollisionTable(CollisionTable collisionTable) {
+		this.collisionTable = collisionTable;
+	}
+	
+	public CollisionTable getCollisionTable() {
+		return collisionTable;
 	}
 	
 	
