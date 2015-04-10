@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class CollisionTable {
 
@@ -13,7 +12,7 @@ public class CollisionTable {
 	private List<String> tagList;
 	
 	public CollisionTable(){
-		myTable = new HashMap<String, Map<String, Action[]>>();
+		myTable = new HashMap<>();
 		tagList = new ArrayList<>();
 	}
 	
@@ -32,11 +31,12 @@ public class CollisionTable {
 		return null;
 	}
 	
-	public Optional<Action> getActionForCollisionAndDirection(String type1, String type2, int direction){
+	public Action getActionForCollisionAndDirection(String type1, String type2, int direction){
 		if (tagList.contains(type1) && myTable.get(type1).containsKey(type2)) {
-			return Optional.ofNullable(myTable.get(type1).get(type2)[direction]);
+			System.out.println("Getting action.");
+			return (myTable.get(type1).get(type2)[direction]);
 		}
-		return Optional.empty();
+		return null;
 	}
 	
 	public void addActionToMap(String type1, String type2, int direction, Action toAdd){
@@ -57,7 +57,7 @@ public class CollisionTable {
 			
 		} else {
 			
-			HashMap<String, Action[]> subMap = new HashMap<String, Action[]>();
+			HashMap<String, Action[]> subMap = new HashMap<>();
 			Action[] newActionList = new Action[4];
 			newActionList[direction] = toAdd;
 			subMap.put(type2, newActionList);

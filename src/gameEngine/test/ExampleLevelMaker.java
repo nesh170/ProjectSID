@@ -20,6 +20,7 @@ import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
+import resources.constants.INT;
 import sprite.Sprite;
 import levelPlatform.level.Level;
 
@@ -28,15 +29,18 @@ public class ExampleLevelMaker {
 	public static void main(String[] args){
 		//set up player
 		Sprite player = new Sprite();
-		player.addComponent(new HealthComponent(player, true));
+		player.addComponent(new HealthComponent(player));
 		player.addComponent(new VelocityComponent(player));
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
 		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
 		player.addAction(rma);
-		player.addAction(new JumpAction(player, -6.0, KeyCode.UP));
+		Action jumpAction = new JumpAction(player, -6.0, KeyCode.UP);
+		player.addAction(jumpAction);
 		Action gravityAction = new FallAction(player, 10.0);
 		gravityAction.runEveryFrame();
 		player.addAction(gravityAction);
+		Action normalAction = new NormalAction(player);
+		player.addAction(normalAction);
 		//set up platform
 		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
 		System.out.println("Oh yeah!!!");
@@ -47,7 +51,10 @@ public class ExampleLevelMaker {
 		
 		//set up collisions
 		CollisionTable ct = new CollisionTable();
-		
+		platform.setCollisionTag("platform");
+		player.setCollisionTag("player");
+		ct.addActionToMap(player.collisonTag(), platform.collisonTag(), INT.COLLISION_UP, normalAction);
+		ct.addActionToMap(platform.collisonTag(), player.collisonTag(), INT.COLLISION_DOWN, null);
 		l.setCollisionTable(ct);
 		
 		l.setSprites(spriteList);
