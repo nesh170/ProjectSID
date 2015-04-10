@@ -181,7 +181,7 @@ public class ScreenController {
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
-		configureFactories(width, height);
+		configureFactories(newScreenWidth, newScreenHeight);
 		configureErrorHandling(root);
 		configureScreenManagers();
 		
