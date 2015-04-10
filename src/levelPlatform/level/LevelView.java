@@ -127,9 +127,12 @@ public class LevelView extends ScrollPane {
     	Image spriteImage;
     	ImageView spriteImageView;
     	//TODO: delete rectangle-making, restore SpriteImage part
-    	Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
-    			sprite.transform().getWidth(), sprite.transform().getHeight());
-    	spriteGroup.getChildren().add(r);
+    	if(sprite.isActive()) {
+    		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+    				sprite.transform().getWidth(), sprite.transform().getHeight());
+        	spriteGroup.getChildren().add(r);
+    	}
+    			
  /*       if (sprite.isActive()) {
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
@@ -195,6 +198,7 @@ public class LevelView extends ScrollPane {
      * @param sprite2
      */
     private void handleCollisions(Sprite sprite1, Sprite sprite2){
+    	if(!sprite1.isActive() || !sprite2.isActive()) return;
     	
         if(sprite1.equals(sprite2)){
             return;
