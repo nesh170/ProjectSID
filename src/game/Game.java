@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import levelPlatform.LevelPlatform;
@@ -13,6 +14,7 @@ public class Game {
 
 	public Game(String name) {
 		myName = name;
+		myLevels = new ArrayList<>();
 	}
 	
 	public void addLevel(Level l){

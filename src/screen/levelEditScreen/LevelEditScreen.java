@@ -145,6 +145,8 @@ public class LevelEditScreen extends Screen {
 	
 	private void setUpLevelViewFromLevel(Level level) {
 		
+		this.level = level;
+		
 		Level levelToUse = level;
 		
 		if (levelToUse == null) {
