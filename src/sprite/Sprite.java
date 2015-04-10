@@ -39,6 +39,7 @@ public class Sprite {
 	private List<Component> componentList = new ArrayList<Component>();
 	//TODO what is the x and y for?
 	private double x, y;
+
 	private List<Sprite> emissionList;
 	
 	private boolean isActive;

@@ -1,6 +1,7 @@
 package screen.gameEditScreen;
 
 import levelPlatform.level.Level;
+import levelPlatform.splashScreen.SplashScreen;
 import game.Game;
 
 /**
@@ -43,8 +44,6 @@ public interface GameEditScreenController {
 	 * removes the splash screen from list of splash screen created
 	 * pass in SplashScreen or Game?
 	 */
-	//public void trashSplash(SplashScreen splash){}		
-	/**
-	 * 
-	 */	
+	public void trashSplash(Game game);	
+
 }

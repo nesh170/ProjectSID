@@ -453,6 +453,14 @@ public class ScreenController {
 			game.removeLevel(levelIndex);
 			
 		}
+
+
+		@Override
+		public void trashSplash(Game game) {
+			
+			game.removeSplash();
+			
+		}
 		
 	}
 	
