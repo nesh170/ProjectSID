@@ -25,8 +25,12 @@ public class INT {
 	public static final int DEFAULT_LEVEL_WIDTH = 400;
 	public static final int DEFAULT_LEVEL_HEIGHT = 150;
 	
+	//SpriteEdit
+	public static final int DEFAULT_IMAGE_SIZE = 50;
+	
 	//Buttons
 	public static final int PREF_BUTTON_WIDTH = 150;
+
 	//Directions
     public static final int COLLISION_LEFT=0;
     public static final int COLLISION_RIGHT=1;
