@@ -62,6 +62,9 @@ public class VelocityComponent extends Component{
 		myVelocity = vel;
 	}
 	
+	public Point2D getVelocity(){
+		return myVelocity;
+	}
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.

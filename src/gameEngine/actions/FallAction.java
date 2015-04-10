@@ -9,16 +9,10 @@ import gameEngine.components.VelocityComponent;
 public class FallAction extends Action {
 
 	private VelocityComponent myVelocityComponent;
-	private double gravityValue;
-	
-	public FallAction(Sprite sprite, Double gravValue) {
-		super(sprite);
-		gravityValue = EngineMathFunctions.accelerationValueFrame(gravValue);
-	}
 
 	public FallAction(Sprite sprite, Double gravValue, KeyCode... keys) {
 		super(sprite, keys);
-		gravityValue = EngineMathFunctions.accelerationValueFrame(gravValue);
+		value = gravValue;
 	}
 
 	@Override
@@ -29,7 +23,7 @@ public class FallAction extends Action {
 
 	@Override
 	public void execute() {
-		myVelocityComponent.accelerate(0.0, gravityValue);
+		myVelocityComponent.accelerate(0.0, EngineMathFunctions.accelerationValueFrame(value));
 
 	}
 

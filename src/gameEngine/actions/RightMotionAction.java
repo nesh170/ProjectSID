@@ -11,14 +11,10 @@ public class RightMotionAction extends Action {
 	private Double velocity;
 	private VelocityComponent myVelocityComponent;
 	
-	public RightMotionAction(Sprite sprite, Double delta) {
-		super(sprite);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
-	}
 
 	public RightMotionAction(Sprite sprite, Double delta, KeyCode... keys) {
-		super(sprite, keys);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
+		super(sprite, delta, keys);
+		velocity = delta;
 	}
 
 	@Override
@@ -31,8 +27,7 @@ public class RightMotionAction extends Action {
 	public void execute() {
 	    System.out.println("Right");
 	    myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
-	    myVelocityComponent.setVelocityX(velocity);
-
+	    myVelocityComponent.setVelocityX(EngineMathFunctions.velocityValueFrame(velocity));
 	}
 
 	@Override

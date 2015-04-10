@@ -34,11 +34,11 @@ public abstract class GameEngineAbstract {
     /**
      * This method pauses the game by decoupling all the bindings to the keys
      */
-    public abstract void pause(Node scene);
+    public abstract void pause(Node node);
     
     /**
      * This method recouples all the bindings to the keys
      */
-    public abstract void play(Node Scene);
+    public abstract void play(Node node);
 
 }
