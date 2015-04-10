@@ -31,7 +31,7 @@ public class DataHandler {
 		XSTREAM.toXML(obj, fWriter);
 		fWriter.close();
 	}
-	
+
 	public static String toXMLString(Object obj) {
 		return XSTREAM.toXML(obj);
 	}
@@ -59,19 +59,17 @@ public class DataHandler {
 	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
-	
+
 	public static Game getGameFromDir(File folder) throws IOException {
 		List<Game> games = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".xml"))
 				.map(file -> fromXMLFile(file))
-				.map(obj -> Game.class.cast(obj))
-				.collect(Collectors.toList());
+				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 
 		if (games.size() != 0) {
 			System.out.println("NOT EXACTLY ONE .XML FILE");
 			return null;
-		}
-		else {
+		} else {
 			return games.get(0);
 		}
 	}
@@ -107,6 +105,12 @@ public class DataHandler {
 				.filter(file -> file.toString().endsWith(".xml"))
 				.map(file -> fromXMLFile(file))
 				.map(obj -> Level.class.cast(obj)).collect(Collectors.toList());
+	}
+
+	public static List<Image> resizeImages(List<Image> images, double newWidth, double newHeight) {
+		return images.stream()
+			.map(image -> new Image(new File("a.jpg").toURI().toString(), newWidth, newHeight, true, true))
+			.collect(Collectors.toList());	
 	}
 
 	public static Image URLToImage(String url) {
