@@ -55,6 +55,22 @@ public class DataHandler {
 	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
+	
+	public static Game getGameFromDir(File folder) throws IOException {
+		List<Game> games = Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.toString().endsWith(".xml"))
+				.map(file -> fromXMLFile(file))
+				.map(obj -> Game.class.cast(obj))
+				.collect(Collectors.toList());
+
+		if (games.size() != 0) {
+			System.out.println("NOT EXACTLY ONE .XML FILE");
+			return null;
+		}
+		else {
+			return games.get(0);
+		}
+	}
 
 	public static List<Image> getImagesFromDir(File folder) throws IOException {
 		return Arrays
