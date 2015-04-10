@@ -37,6 +37,7 @@ public class PlayerMenu {
 		menuBar.getMenus().add(buildFileMenu());
 		menuBar.getMenus().add(buildGamesMenu());
 		menuBar.getMenus().add(menuView);
+		menuBar.getMenus().add(buildHelpMenu());
 		return menuBar;
 	}
 
@@ -74,6 +75,7 @@ public class PlayerMenu {
 		quitItem.setOnAction(event -> {
 			System.exit(0);
 		});
+		
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
 				quitItem);
 		return fileMenu;
@@ -90,6 +92,15 @@ public class PlayerMenu {
 		});
 		gamesMenu.getItems().addAll(marioItem);
 		return gamesMenu;
+	}
+	
+	private Menu buildHelpMenu() {
+		Menu helpMenu = new Menu("Help");
+		MenuItem tutorialItem = new MenuItem("Tutorial");
+		tutorialItem.setOnAction(event -> showTutorial());
+		
+		helpMenu.getItems().addAll(tutorialItem);
+		return helpMenu;
 	}
 
 	private Stage buildGameChooser() {
@@ -119,6 +130,10 @@ public class PlayerMenu {
 
 	public void saveGame() {
 		myPlayer.save();
+	}
+	
+	public void showTutorial() {
+		myPlayer.showTutorial();
 	}
 	
 	public MenuBar getBar() {

@@ -1,10 +1,14 @@
 package screen;
 import game.Game;
 
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 import javax.imageio.ImageIO;
 
+import data.DataHandler;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
@@ -46,6 +50,7 @@ import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
+import util.ErrorHandler;
 
 
 /**
@@ -123,7 +128,7 @@ public class ScreenController {
 	private Scene scene;
 	private TabManager tabManager;
 	// Assists in selecting the correct tab after opening / closing tabs
-	private TextField errorMessageTextField;
+	private ErrorHandler errorHandler;
 	// Screen Managers
 	private MainMenuScreenManager mainMenuScreenManager;
 	private GameEditScreenManager gameEditScreenManager;
@@ -177,6 +182,7 @@ public class ScreenController {
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		configureFactories(width, height);
+		configureErrorHandling(root);
 		configureScreenManagers();
 		
 		configureTabPane();
@@ -184,7 +190,7 @@ public class ScreenController {
 		createInitialScreens();
 	
 	}
-	
+
 	private void configureScreenManagers() {
 		mainMenuScreenManager = new MainMenuScreenManager();
 		gameEditScreenManager = new GameEditScreenManager();
@@ -219,6 +225,10 @@ public class ScreenController {
 	
 	private void configureFactories(double width, double height) {
 		this.screenFactory = new ScreenFactory(width, height);
+	}
+	
+	private void configureErrorHandling(Group root) {
+		errorHandler = new ErrorHandler(root);
 	}
 	
 	private void configureTabPane() {
@@ -256,7 +266,7 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		createMainMenuScreen();
+		tabManager.setDefaultTab(createMainMenuScreen());
 		
 		//USED FOR TEST LEVELEDITSCREEN
 		createGameEditScreen(null);
@@ -279,42 +289,7 @@ public class ScreenController {
 	public void close() {
 		stage.close();
 	}
-	
-	public void displayError(String error) {
-		
-		cleanUpOldErrorMesssage();
-		instantiateErrorMessage(error);
-		configureErrorMessageOffsets();
-		addErrorMessage();
-		
-	}
-	
-	/**
-	 * Methods below are helpers for Error Messages
-	 * 
-	 * @author Ruslan
-	 */
-	private void cleanUpOldErrorMesssage() {
-		
-		if (errorMessageTextField != null) {
-			root.getChildren().remove(errorMessageTextField);
-		}		
-		
-	}
-	
-	private void instantiateErrorMessage(String error) {
-		errorMessageTextField = ErrorMessageTextFieldFactory.configureNewErrorMessageTextField(error);
-	}
-	
-	private void configureErrorMessageOffsets() {
-		errorMessageTextField.setTranslateY(DOUBLE.MENU_BAR_HEIGHT);
-	}
-	
-	private void addErrorMessage() {
-		root.getChildren().add(errorMessageTextField);
-	}
 
-	
 	public File getFileUsingFileChooser(FileChooser fileChooser) {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
@@ -383,20 +358,14 @@ public class ScreenController {
 		@Override
 		public void createNewGame() {
 			
-			Game newGame = new Game();
+			Game newGame = new Game(STRING.DEFAULT_GAME_NAME);
 			createGameEditScreen(newGame);
 			
 		}
 
 		@Override
-		public void loadGameEditScreen(String recentGameName) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
 		public void loadGame() {
-			// TODO Auto-generated method stub
+			//Load Game from file
 			
 		}
 
@@ -412,44 +381,75 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
-			// TODO Auto-generated method stub
-			
+			//MainMenuScreen is singleton
+			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			//tabManager.removeTab(gameEditTab);	
+			tabManager.removeTabAndChangeSelected(gameEditTab);
+
 		}
 
-		@Override
-		public void loadSplashEditScreen(Game game) {
-			
-		}
 
 		@Override
 		public void loadLevelEditScreen(Level level) {
-			
+
 			createLevelEditScreen(level);
 			
 		}
 
 		@Override
-		public void loadLevelEditScreen() {
-			
+		public void loadLevelEditScreen(Game game) {
+			//Create new Level, add to end of game
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createLevelEditScreen(newLevel);
+			game.addLevel(newLevel);
 			
 		}
 
 		@Override
-		public void loadSplashEditScreen() {
+		public void loadSplashEditScreen(Game game) {
+			//Create new SplashEditScreen
+			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
+					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+			createSplashEditScreen(newSplashScreen);
+			game.addSplash(newSplashScreen);
 			
 		}
 
 		@Override
 		public void playGame(Game game) {
-			
+			//Create new GamePlayScreen
+			//Needs to pass in Level
+			//createGamePlayScreen(game);
+			throw new IllegalStateException("Unimplemented playGame");
 		}
 
 		@Override
-		public void trashLevel(Level level) {
-			// TODO Auto-generated method stub
+		public void trashLevel(Game game, int levelIndex) {
+			
+			game.removeLevel(levelIndex);
+			
+		}
+
+
+		@Override
+		public void trashSplash(Game game) {
+			
+			game.removeSplash();
+			
+		}
+
+
+		@Override
+		public void saveGame(Game game) {
+			
+			File dir = DataHandler.chooseDir(stage);
+			
+			try {
+				DataHandler.toXMLFile(dir, game.getName(), dir.getPath());
+			} catch (IOException e) {
+				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
+			}
 			
 		}
 		
@@ -458,28 +458,32 @@ public class ScreenController {
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
 		@Override
-		public void returnToGameEditScreen(Tab tab) {
-			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.getTabSelectionModel().select(tab);
-			tabManager.removeTab(levelEditTab);	
-			
-		}
-		
+		public void returnToGameEditScreen() {
+			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.removeTabAndChangeSelected(splashTab);
+		}		
 	}
 	
 	private class LevelEditScreenManager implements LevelEditScreenController {
 
 		@Override
-		public void returnToGameEditScreen(Tab tab) {
+		public void returnToGameEditScreen() {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.getTabSelectionModel().select(tab);
-			tabManager.removeTab(levelEditTab);							
+			tabManager.removeTabAndChangeSelected(levelEditTab);								
 		}
 
 		@Override
 		public void loadSpriteEditScreen(Sprite sprite) {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			createSpriteEditScreen(levelEditTab, sprite);					
+		}
+		
+		@Override
+		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
+			Sprite newSprite = new Sprite();
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createSpriteEditScreen(levelEditTab, newSprite);
+			levelEditScreen.addSprite(newSprite);
 		}
 		
 	}
@@ -499,7 +503,8 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
-			// TODO Auto-generated method stub
+			
+			tabManager.changeToDefault();
 			
 		}
 

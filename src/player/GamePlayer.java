@@ -4,6 +4,10 @@ import gameEngine.GameEngine;
 import java.io.IOException;
 import java.util.List;
 import javafx.scene.Group;
+
+import media.VideoController;
+import media.VideoPlayer;
+
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +20,8 @@ public class GamePlayer {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
+	private final static String TUTORIAL_URI =
+			"file:///home/leqi/Projects/workspace/COMPSCI308/voogasalad_ScrollingDeep/mario/tutorial.mp4";
 
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
@@ -29,6 +35,7 @@ public class GamePlayer {
 	private int myScore;
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
+	private VideoPlayer myVideoPlayer;
 	
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
@@ -40,6 +47,7 @@ public class GamePlayer {
 		myBorderPane = new BorderPane();
 		myBorderPane.setTop(bar);
 		myView = new PlayerViewController(myGameRoot);
+		myVideoPlayer = new VideoPlayer();
 		myBorderPane.setCenter(myGameRoot);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);
@@ -50,7 +58,11 @@ public class GamePlayer {
 		myHeight = height;
 		myGameRoot = new ScrollPane();
 		myView = new PlayerViewController(myGameRoot);
+		myVideoPlayer = new VideoPlayer();
+		myGameRoot.setMaxSize(width, height);
+		myGameRoot.setMinSize(width, height);
 		myBorderPane = new BorderPane();
+		myView = new PlayerViewController(myGameRoot);
 		myBorderPane.setCenter(myGameRoot);
 	}
 
@@ -62,6 +74,15 @@ public class GamePlayer {
 		myView.stopView();
 	}
 
+	public void showTutorial() {
+		try {
+			myVideoPlayer.init(new Stage(), TUTORIAL_URI);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void loadNewGame() {
 		myView.loadNewChooser();
 	}

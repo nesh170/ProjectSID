@@ -9,8 +9,6 @@ public interface MainMenuScreenController {
 	 */
 	public void createNewGame();
 	
-	void loadGameEditScreen(String recentGameName);
-	
 	/**
 	 * Tells the ScreenController to load a FileChooser. If non-null, load the Game. 
 	 * Important: Done in ScreenController because access to the stage is needed.

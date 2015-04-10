@@ -40,6 +40,7 @@ public abstract class Screen extends BorderPane {
 	private BorderPane viewableArea;
 	
 	private ResourceBundle languageResources;
+	private ResourceBundle tagResources;
 	
 	
 	// Getters & Setters
@@ -49,6 +50,10 @@ public abstract class Screen extends BorderPane {
 	
 	protected ResourceBundle languageResources() {
 		return this.languageResources;
+	}
+	
+	protected ResourceBundle tagResources() {
+		return this.tagResources;
 	}
 	
 	/**
@@ -150,6 +155,7 @@ public abstract class Screen extends BorderPane {
 	
 	protected void initializeRelevantResourceFiles() {
 		languageResources = ResourceBundle.getBundle("resources.stringResources");
+		tagResources = ResourceBundle.getBundle("resources.TagChoices");
 	}
 
 	private void addMenuBarToThis(VBox wrapper) {
