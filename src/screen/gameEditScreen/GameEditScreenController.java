@@ -45,5 +45,11 @@ public interface GameEditScreenController {
 	 * pass in SplashScreen or Game?
 	 */
 	public void trashSplash(Game game);	
+	
+	/**
+	 * Saves game to XML file
+	 * @param game
+	 */
+	public void saveGame(Game game);
 
 }

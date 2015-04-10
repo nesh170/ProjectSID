@@ -91,7 +91,7 @@ public class GameEditScreen extends Screen {
 	 * Creates new GameEditScreen
 	 */
 	public GameEditScreen(GameEditScreenController controller, double width, double height) {
-			this(new Game() ,controller, width, height);
+			this(new Game(STRING.DEFAULT_GAME_NAME) ,controller, width, height);
 	}
 	
 	
@@ -264,6 +264,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu fileMenu = new Menu("File");
 		MenuItem save = new MenuItem("Save");
+		save.setOnAction(o -> controller.saveGame(myGame));
 		MenuItem exit = new MenuItem("Exit");
 		exit.setOnAction(o -> controller.loadLevelEditScreen(myGame));
 		fileMenu.getItems().addAll(save, exit);
