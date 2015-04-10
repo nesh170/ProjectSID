@@ -408,6 +408,8 @@ public class ScreenController {
 		@Override
 		public void returnToMainMenuScreen() {
 			//MainMenuScreen is singleton
+			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.removeTab(gameEditTab);	
 			
 		}
 
