@@ -64,6 +64,8 @@ public class PlayerViewController {
 		myGameRoot = pane;
 		loadNewChooser();
 		myPause = makePauseScreen();
+		myWidth = width;
+		myHeight = height;
 	}
 
 	public void startView() {
@@ -108,8 +110,8 @@ public class PlayerViewController {
 		});
 		pause.getChildren().add(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(500);
-		pause.setPrefHeight(500);
+		pause.setPrefWidth(myWidth - 100);
+		pause.setPrefHeight(myHeight - 50);
 		return pause;
 	}
 

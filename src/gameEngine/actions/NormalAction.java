@@ -3,10 +3,13 @@ package gameEngine.actions;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
+import gameEngine.components.VelocityComponent;
 
 public class NormalAction extends Action {
+	
+	private VelocityComponent myVelocityComponent;
 
-	public NormalAction(Sprite sprite, double normalValue) {
+	public NormalAction(Sprite sprite) {
 		super(sprite);
 		// TODO Auto-generated constructor stub
 	}
@@ -18,13 +21,12 @@ public class NormalAction extends Action {
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		myVelocityComponent.setVelocityY(0.0);
 
 	}
 

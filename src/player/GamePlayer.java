@@ -54,7 +54,10 @@ public class GamePlayer {
 		myGameRoot = new ScrollPane();
 		myView = new PlayerViewController(myGameRoot);
 		myVideoPlayer = new VideoPlayer();
+		myGameRoot.setMaxSize(width, height);
+		myGameRoot.setMinSize(width, height);
 		myBorderPane = new BorderPane();
+		myView = new PlayerViewController(myGameRoot);
 		myBorderPane.setCenter(myGameRoot);
 	}
 

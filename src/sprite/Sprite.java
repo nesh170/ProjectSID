@@ -169,16 +169,7 @@ public class Sprite {
 	public void updateSprite(){
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());
-			for(Action a: actionList){
-				//TODO: see if we can do this differently (can't remember the word for the technique)
-				try {
-					if(Class.forName("gameEngine.actions.FrameAction").isInstance(a)){
-						a.execute();
-					}
-				} catch (ClassNotFoundException e) {
-					continue;
-				}
-			}
+			actionList.stream().forEach(action -> action.update());
 		}
 	}
 	

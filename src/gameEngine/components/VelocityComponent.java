@@ -67,9 +67,4 @@ public class VelocityComponent extends Component{
 		//algorithm here.
 	}
 	
-	public void printYvel(){
-		//TODO: remove when done with testing
-		System.out.println(myVelocity.getY());
-	}
-	
 }

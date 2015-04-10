@@ -11,12 +11,12 @@ public class FallAction extends Action {
 	private VelocityComponent myVelocityComponent;
 	private double gravityValue;
 	
-	public FallAction(Sprite sprite, double gravValue) {
+	public FallAction(Sprite sprite, Double gravValue) {
 		super(sprite);
 		gravityValue = EngineMathFunctions.accelerationValueFrame(gravValue);
 	}
 
-	public FallAction(Sprite sprite, double gravValue, KeyCode... keys) {
+	public FallAction(Sprite sprite, Double gravValue, KeyCode... keys) {
 		super(sprite, keys);
 		gravityValue = EngineMathFunctions.accelerationValueFrame(gravValue);
 	}
