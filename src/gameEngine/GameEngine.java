@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,6 +30,7 @@ public class GameEngine extends GameEngineAbstract {
         //TODO ask Authoring env about this.....
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
+        myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
     }
     
     @Override
