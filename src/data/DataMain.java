@@ -45,8 +45,8 @@ public class DataMain extends Application{
 //			System.out.println(file.toString());
 //		}
 		
-		List<Image> images = DataHandler.getImagesFromDir(f);	
-		ImageView iView = new ImageView(images.get(0));
+//		List<Image> images = DataHandler.getImagesFromDir(f, 800, 400, true);
+		ImageView iView = new ImageView(new Image("http://mario.nintendo.com/img/mario_logo.png"));
 		
 		Stage s = new Stage();
 		Group g = new Group();

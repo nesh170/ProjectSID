@@ -37,5 +37,4 @@ public class INT {
     public static final int COLLISION_UP=2;
     public static final int COLLISION_DOWN=3;
 
-	
 }
