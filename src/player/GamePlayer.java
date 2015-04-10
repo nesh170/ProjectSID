@@ -17,8 +17,6 @@ public class GamePlayer {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
-	private final static String TUTORIAL_URI =
-			"file:///home/leqi/Projects/workspace/COMPSCI308/voogasalad_ScrollingDeep/mario/tutorial.mp4";
 
 	private ScrollPane myGameRoot;
 	private Scene myScene;
@@ -70,12 +68,7 @@ public class GamePlayer {
 	}
 
 	public void showTutorial() {
-		try {
-			myVideoPlayer.init(new Stage(), TUTORIAL_URI);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		myView.showTutorial();
 	}
 	
 	public void loadNewGame() {

@@ -125,7 +125,7 @@ public class DataHandler {
 				.map(file -> new Media(file.toURI().toString()))
 				.collect(Collectors.toList());
 
-		if (videoFiles.size() != 0) {
+		if (videoFiles.size() != 1) {
 			System.out.println("NOT EXACTLY ONE .XML FILE");
 			return null;
 		} else {
@@ -140,7 +140,7 @@ public class DataHandler {
 				.map(file -> new Media(file.toURI().toString()))
 				.collect(Collectors.toList());
 
-		if (videoFiles.size() != 0) {
+		if (videoFiles.size() != 1) {
 			System.out.println("NOT EXACTLY ONE .XML FILE");
 			return null;
 		} else {
