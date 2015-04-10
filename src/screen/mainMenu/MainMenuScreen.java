@@ -19,6 +19,7 @@ import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -125,7 +126,12 @@ public class MainMenuScreen extends Screen {
 		return text;
 		
 	}
-	
+	private HBox DisplayMembersEmojis(){
+		HBox memebers = new HBox(10);
+		ImageView a = new ImageView(new Image("images/member_emoji/Ruslan.png"));
+		
+		return memebers;
+	}
 	/**
 	 * needs to be changed to a MenuItem but otherwise on point!
 	 * please see methods above:

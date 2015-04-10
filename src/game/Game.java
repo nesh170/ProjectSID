@@ -9,7 +9,7 @@ import levelPlatform.splashScreen.SplashScreen;
 
 public class Game {
 	private List<Level>	myLevels;  
-	private LevelPlatform mySplash;
+	private SplashScreen mySplash;
 	private String myName;
 
 	public Game(String name) {
@@ -32,12 +32,17 @@ public class Game {
 	public void removeSplash(){
 		mySplash = null;
 	}	
+	public SplashScreen getSplash(){
+		return mySplash;
+	}
 	public List<Level> getLevel(){
 		return myLevels;
 	}
-
-	public void setLevel(){
-		//myLevels.set(myLevels);
+	/**
+	 * used when user edits a screen
+	 */
+	public void setLevel(int levelIndex, Level l){
+		myLevels.set(levelIndex, l);
 	}
 	
 	public String getName() {
@@ -46,5 +51,22 @@ public class Game {
 	
 	public void setName(String name){
 		myName = name;
+	}
+	/**
+	 * used by GameEdit for displaying proper visual content 
+	 * @return if the game has splash screen set yet
+	 */
+	public boolean hasSplash(){
+		return mySplash !=null;
+	}
+	public boolean hasLevel(){
+		return myLevels!=null;
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getSize(){
+		return myLevels.size();
 	}
 }

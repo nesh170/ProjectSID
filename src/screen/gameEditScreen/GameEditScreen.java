@@ -66,7 +66,8 @@ public class GameEditScreen extends Screen {
 	private GameEditScreenController controller;
 	private Game myGame;
 	private ObservableList<Level>	myLevels;  	
-	private ObservableList<SplashScreen> mySplashScreen; 	
+	private SplashScreen mySplashScreen; 
+	private Level selectedLevel;
 	// Getters & Setters
 	/**
 	 * add to current game level
@@ -90,10 +91,17 @@ public class GameEditScreen extends Screen {
 	
 	private void configureButtons() {	
 		
-		this.setCenter(DisplayLevelRegion());		
-		this.setLeft(DisplaySplash());		 
+		this.setCenter(DisplayLevelRegion());
+		if(!myGame.hasSplash())
+			this.setLeft(DisplayADDSplash());		 
+		else
+			this.setLeft(displayMySplash()); //parameter: myGame.getSplash().ImageRepresentation();
 	}
 	
+	
+	private Button displayMySplash(){
+		return  makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
+	}
 	/**
 	 * @param controller
 	 */
@@ -105,7 +113,7 @@ public class GameEditScreen extends Screen {
 	 * Displays a splash 
 	 * @return
 	 */
-	private VBox DisplaySplash() {
+	private VBox DisplayADDSplash() {
 		
 		VBox displaySplash  = new VBox();
 		displaySplash.setAlignment(Pos.CENTER);
@@ -189,11 +197,11 @@ public class GameEditScreen extends Screen {
 		//can't add ObservableList to a HBox directly
 		HBox levelView = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		levelView.setAlignment(Pos.CENTER);	
-		Button level1 = makeTempLeveDisplayImage(STRING.LEVEL1IMAGE);  //tmp string path
+		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE);  //tmp string path
 		level1.setOnMouseClicked(handleDouleRightClick(level1));		
-		Button level2 = makeTempLeveDisplayImage(STRING.LEVEL2IMAGE);
+		Button level2 = makeTempLevelSplashDisplayImage(STRING.LEVEL2IMAGE);
 		level2.setOnMouseClicked(handleDouleRightClick(level2));
-		Button level3 = makeTempLeveDisplayImage(STRING.SPRITEIMAGE);
+		Button level3 = makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
 		levelView.getChildren().addAll(level1, level2, level3);
 		level3.setOnMouseClicked(handleDouleRightClick(level3));
 		return levelView;		
@@ -231,45 +239,13 @@ public class GameEditScreen extends Screen {
 		return rMenu;
 	}
 	//temporary methods to display level Image
-	private Button makeTempLeveDisplayImage(String path) {
+	private Button makeTempLevelSplashDisplayImage(String path) {
 		Button b = new Button();
 		ImageView level1 = new ImageView(new Image(path));
 		level1.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		level1.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 		b.setGraphic(level1);
 		return b;		
-	}
-	
-	/**
-	 * This method initializes making buttons from STRING constants class for adding and editing
-	 * levels and splash screens.
-	 * Initializes event handlers for buttons on the screen.
-	 * @author Anika modified by Yongjiao
-	 */
-	private List<ScreenButton> createSplashAndLevelButtons() {		
-		// get <String buttonID, String buttonName> map for buttons from STRING constants class
-		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
-		// get values of map and put into an array -> buttonNames = array of button names
-		String[] buttonNames = (String[]) buttonMap.values().toArray();
-		// create a map of <String buttonID, ScreenButton button>
-		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();	
-		// for each name in buttonNames, create a new ScreenButton and put it in the map
-		for (int i = 0; i < buttonNames.length; i++){
-			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
-			System.out.println(buttonNames[i]); // testing
-			myButtons.put(buttonNames[i], myB);
-		}	
-		/*
-		 * initialize event handlers for buttons
-		 * modified by Yongjiao: changed to use methods in manager class.
-		 * modified by Anika: changed to use methods in controller class
-		 */
-//		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
-//		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
-//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
-//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
-//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
-		return new ArrayList(myButtons.values());	
 	}
 	
 	private ImageView makeButton(String location){
