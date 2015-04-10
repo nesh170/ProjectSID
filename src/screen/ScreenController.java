@@ -47,6 +47,7 @@ import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import screen.Screen;
 import sprite.Sprite;
+import util.ErrorHandler;
 
 
 /**
@@ -124,7 +125,7 @@ public class ScreenController {
 	private Scene scene;
 	private TabManager tabManager;
 	// Assists in selecting the correct tab after opening / closing tabs
-	private TextField errorMessageTextField;
+	private ErrorHandler errorHandler;
 	// Screen Managers
 	private MainMenuScreenManager mainMenuScreenManager;
 	private GameEditScreenManager gameEditScreenManager;
@@ -178,6 +179,7 @@ public class ScreenController {
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		configureFactories(width, height);
+		configureErrorHandling(root);
 		configureScreenManagers();
 		
 		configureTabPane();
@@ -185,7 +187,7 @@ public class ScreenController {
 		createInitialScreens();
 	
 	}
-	
+
 	private void configureScreenManagers() {
 		mainMenuScreenManager = new MainMenuScreenManager();
 		gameEditScreenManager = new GameEditScreenManager();
@@ -220,6 +222,10 @@ public class ScreenController {
 	
 	private void configureFactories(double width, double height) {
 		this.screenFactory = new ScreenFactory(width, height);
+	}
+	
+	private void configureErrorHandling(Group root) {
+		errorHandler = new ErrorHandler(root);
 	}
 	
 	private void configureTabPane() {
@@ -280,42 +286,7 @@ public class ScreenController {
 	public void close() {
 		stage.close();
 	}
-	
-	public void displayError(String error) {
-		
-		cleanUpOldErrorMesssage();
-		instantiateErrorMessage(error);
-		configureErrorMessageOffsets();
-		addErrorMessage();
-		
-	}
-	
-	/**
-	 * Methods below are helpers for Error Messages
-	 * 
-	 * @author Ruslan
-	 */
-	private void cleanUpOldErrorMesssage() {
-		
-		if (errorMessageTextField != null) {
-			root.getChildren().remove(errorMessageTextField);
-		}		
-		
-	}
-	
-	private void instantiateErrorMessage(String error) {
-		errorMessageTextField = ErrorMessageTextFieldFactory.configureNewErrorMessageTextField(error);
-	}
-	
-	private void configureErrorMessageOffsets() {
-		errorMessageTextField.setTranslateY(DOUBLE.MENU_BAR_HEIGHT);
-	}
-	
-	private void addErrorMessage() {
-		root.getChildren().add(errorMessageTextField);
-	}
 
-	
 	public File getFileUsingFileChooser(FileChooser fileChooser) {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
