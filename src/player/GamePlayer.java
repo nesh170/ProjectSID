@@ -1,5 +1,6 @@
 package player;
 
+import game.Game;
 import gameEngine.GameEngine;
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +11,7 @@ import media.VideoPlayer;
 
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
@@ -49,16 +51,11 @@ public class GamePlayer {
 		stage.setScene(myScene);
 	}
 
-	public GamePlayer(double width, double height) {
-		myWidth = width;
-		myHeight = height;
-		myGameRoot = new ScrollPane();
-		myView = new PlayerViewController(myGameRoot);
+	public GamePlayer(Game game, ScrollPane pane, double width, double height) {
+		myGameRoot = pane;
 		myGameRoot.setMaxSize(width, height);
 		myGameRoot.setMinSize(width, height);
-		myBorderPane = new BorderPane();
 		myView = new PlayerViewController(myGameRoot);
-		myBorderPane.setCenter(myGameRoot);
 	}
 
 	public void start() {
@@ -79,6 +76,31 @@ public class GamePlayer {
 
 	public void save() {
 		myView.save();
+	}
+	
+	public void setupActions(PlayerMenu pMenu) {
+		List<MenuItem> menuItems = pMenu.getCommandItems();
+		menuItems.get(0).setOnAction(event -> {
+			pause();
+		});
+		menuItems.get(1).setOnAction(event -> {
+			start();
+		});
+		menuItems.get(2).setOnAction(event -> {
+			loadNewGame();
+		});
+		menuItems.get(3).setOnAction(event -> {
+			System.out.println("write code to load saved game");
+		});
+		//this may not be necessary any more
+		menuItems.get(4).setOnAction(event -> {
+			System.exit(0);
+		});
+		
+	}
+	
+	public PlayerMenu getMenu() {
+		return myMenu;
 	}
 	
 	public int getLives() {

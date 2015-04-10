@@ -1,6 +1,8 @@
 package player;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,14 +22,19 @@ public class PlayerMenu {
 	private MenuBar myMenuBar;
 	private PlayerViewController myView;
 	private GamePlayer myPlayer;
+	private List<MenuItem> myCommandItems = new ArrayList<MenuItem>();
 	
 	public PlayerMenu(Stage stage) {
 		myMenuBar = createPlayerMenu();
 		myPlayer = new GamePlayer(stage, getBar());
 	}
 
-	public PlayerMenu(double width, double height) {
-		myPlayer = new GamePlayer(width, height);
+//	public PlayerMenu(double width, double height) {
+//		myPlayer = new GamePlayer(width, height);
+//		myMenuBar = createPlayerMenu();
+//	}
+	
+	public PlayerMenu() {
 		myMenuBar = createPlayerMenu();
 	}
 	
@@ -56,27 +63,27 @@ public class PlayerMenu {
 		pauseItem.setOnAction(event -> {
 			pauseGame();
 		});
-
+		myCommandItems.add(pauseItem);
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
 			startGame();
 		});
-
+		myCommandItems.add(playItem);
 		MenuItem newGameItem = makeMenuItem("New Game");
 		newGameItem.setOnAction(event -> {
 			myView.loadNewChooser();
 		});
-
+		myCommandItems.add(newGameItem);
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			System.out.println("write code to load saved game");
 		});
-
+		myCommandItems.add(loadItem);
 		MenuItem quitItem = makeMenuItem("Quit");
 		quitItem.setOnAction(event -> {
 			System.exit(0);
 		});
-		
+		myCommandItems.add(quitItem);
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
 				quitItem);
 		return fileMenu;
@@ -157,4 +164,8 @@ public class PlayerMenu {
 		return myMenuBar;
 	}
 
+	public List<MenuItem> getCommandItems() {
+		return myCommandItems;
+	}
+	
 }
