@@ -121,8 +121,15 @@ public class Sprite {
 	public void addToEmissionList(Sprite sprite){
 		emissionList.add(sprite);
 	}
+	
 	public SpriteImage spriteImage() {
+		
 	    //TODO talk to Ruslan about death
+		
+		if (spriteImage == null) {
+			this.spriteImage = new SpriteImage();
+		}
+		
 		return this.spriteImage;
 	}
 	
