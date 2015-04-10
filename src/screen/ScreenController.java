@@ -268,7 +268,7 @@ public class ScreenController {
 		
 		tabManager.setDefaultTab(createMainMenuScreen());
 		
-		//USED FOR TEST LEVELEDITSCREEN
+		//USED FOR TEST GAMEEDITSCREEN
 		createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE

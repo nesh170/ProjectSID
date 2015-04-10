@@ -12,11 +12,16 @@ public class Game {
 	private SplashScreen mySplash;
 	private String myName;
 
+	/**
+	 * create untitled game, set game name only when user saved it
+	 */
+	public Game(){
+		myLevels = new ArrayList<>();
+	}
 	public Game(String name) {
 		myName = name;
 		myLevels = new ArrayList<>();
 	}
-	
 	public void addLevel(Level l){
 		myLevels.add(l);
 	}
@@ -57,16 +62,20 @@ public class Game {
 	 * @return if the game has splash screen set yet
 	 */
 	public boolean hasSplash(){
-		return mySplash !=null;
+		return mySplash != null;
 	}
 	public boolean hasLevel(){
 		return myLevels!=null;
 	}
-	/**
-	 * 
-	 * @return
-	 */
-	public int getSize(){
+
+	public int getLevelSize(){
 		return myLevels.size();
+	}
+	/**
+	 * prints game for testing purposes 
+	 */
+	@Override
+	public String toString(){
+		return "Game name is " + myName + "\nGame Level is " + myLevels.toString() + "\nGame Splash Screen";   	
 	}
 }
