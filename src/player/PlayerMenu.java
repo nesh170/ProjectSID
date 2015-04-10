@@ -97,7 +97,7 @@ public class PlayerMenu {
 	private Menu buildHelpMenu() {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
-		tutorialItem.setOnAction(event -> { System.out.println("TUTORIAL"); });
+		tutorialItem.setOnAction(event -> showTutorial());
 		
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
@@ -130,6 +130,10 @@ public class PlayerMenu {
 
 	public void saveGame() {
 		myPlayer.save();
+	}
+	
+	public void showTutorial() {
+		myPlayer.showTutorial();
 	}
 	
 	public MenuBar getBar() {

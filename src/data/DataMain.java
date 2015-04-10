@@ -39,11 +39,11 @@ public class DataMain extends Application{
 			DataHandler.toXMLFile(dummyHolder, "level.xml", f.toString());
 		} catch (IOException e) {}
 		
-//		File[] files = DataHandler.getFilesFromDir(f);
+		File[] files = DataHandler.getFilesFromDir(f);
 		
-//		for (File file : files) {
-//			System.out.println(file.toString());
-//		}
+		for (File file : files) {
+			System.out.println(file.toString());
+		}
 		
 //		List<Image> images = DataHandler.getImagesFromDir(f, 800, 400, true);
 		ImageView iView = new ImageView(new Image("http://mario.nintendo.com/img/mario_logo.png"));
