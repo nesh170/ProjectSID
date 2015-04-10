@@ -56,7 +56,7 @@ public class ExampleLevelBullets {
 		
 		//set up projectile template
 		Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp, player);
 		Action rma2 = new RightMotionAction(projTemp, 2.0, (KeyCode)null);
 		
 		projTemp.addComponent(projComp);

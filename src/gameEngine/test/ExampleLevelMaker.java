@@ -40,6 +40,7 @@ public class ExampleLevelMaker {
 	private Action myNormalAction;
 	private CollisionTable myCT;
 	private Action myKillAction;
+	private Sprite myProjectileTemplate;
 	
 	private Level makeLevel(){
 	System.out.println("Oh yeah!!!");
@@ -49,6 +50,11 @@ public class ExampleLevelMaker {
 	mySpriteList = new ArrayList<Sprite>();
 	mySpriteList.add(myPlayer);
 	Level l = new Level(500, 500, myPlayer);
+	
+	
+
+	
+	
 	//set up collisions
 	myCT = new CollisionTable();
 	myPlayer.setCollisionTag("player");
@@ -61,13 +67,9 @@ public class ExampleLevelMaker {
 	makeEnemy(660, 160, 30, 30);
 	makeEnemy(780, 160, 30, 30);
 	makeEnemy(200, 300, 30, 100);
+	addProjectile();
 	
-	//set up projectile template, add to player, along with shoot actions
-	Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-	ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp);
-	projTemp.addComponent(projComp);
-	Action shootAction = new ShootAction(myPlayer, projTemp, KeyCode.SPACE);
-	myPlayer.addAction(shootAction);
+
 	
 	
 	//Goals:
@@ -105,7 +107,22 @@ public class ExampleLevelMaker {
 		myNormalAction = new NormalAction(myPlayer);
 		myPlayer.addAction(myNormalAction);
 		myKillAction = new KillAction(myPlayer, 0.0, KeyCode.K);
+		
+
 	}
+	
+	private void addProjectile() {
+		//set up projectile template, add to player, along with shoot actions
+		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+		myProjectileTemplate.setCollisionTag("bullet");
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate, myPlayer);
+		myProjectileTemplate.addComponent(projComp);
+		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
+		myPlayer.addAction(shootAction);
+		
+
+	}
+	
 	private void makePlatform(double x, double y, double width, double height, Action action, String tag) {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		platform.setCollisionTag(tag);
