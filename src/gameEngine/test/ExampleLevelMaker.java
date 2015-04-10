@@ -4,6 +4,7 @@ package gameEngine.test;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
+import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.actions.KillAction;
@@ -37,6 +38,7 @@ public class ExampleLevelMaker {
 	private Sprite myPlayer;
 	private List<Sprite> mySpriteList;
 	private Action myJumpAction;
+	private Action myBounceAction;
 	private Action myNormalAction;
 	private CollisionTable myCT;
 	private Action myKillAction;
@@ -61,7 +63,7 @@ public class ExampleLevelMaker {
 	l.setCollisionTable(myCT);
 	//make Platforms here:
 	makePlatform(0, 400, 500, 10, myNormalAction, "platform");
-	makePlatform(600, 350, 300, 10, myJumpAction, "trampoline");
+	makePlatform(600, 350, 300, 10, myBounceAction, "trampoline");
 	makePlatform(1000, 300, 500, 10, myNormalAction, "platform");
 	//Enemy:
 	makeEnemy(660, 160, 30, 30);
@@ -107,6 +109,9 @@ public class ExampleLevelMaker {
 		myNormalAction = new NormalAction(myPlayer);
 		myPlayer.addAction(myNormalAction);
 		myKillAction = new KillAction(myPlayer, 0.0, KeyCode.K);
+		
+		myBounceAction = new BounceAction(myPlayer, JUMP_SPEED, (KeyCode) null);
+		myPlayer.addAction(myBounceAction);
 		
 
 	}
