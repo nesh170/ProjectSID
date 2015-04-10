@@ -96,12 +96,8 @@ public class GameEditScreen extends Screen {
 	
 	private void configureButtons() {	
 		
-		//this.setRight(makeBackButton());		
-		//this.setBottom(makePlayButton());
 		this.setCenter(DisplayLevelRegion());		
-		this.setLeft(DisplaySplash());
-		//this.setBottom(makeAddLevelButton());
-		//set rest of buttons		 
+		this.setLeft(DisplaySplash());		 
 	}
 	
 	/**
@@ -166,26 +162,7 @@ public class GameEditScreen extends Screen {
 		return s1;
 		
 	}
-	/**
 
-
-	private ImageView makePlayButton() {	
-		ImageView img = new ImageView(new Image("/images/play.png"));
-		img.setFitHeight(80);
-		img.setFitWidth(80);
-		img.setOnMouseClicked(e -> controller.playGame(myGame));
-		return img;
-	}
-	
-	private Button makeBackButton() {		
-		Button back = new Button(STRING.BACK);
-		back.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); 
-		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());		
-		return back;
-		
-	}
-	 * @return
-	 */
 	private StackPane DisplayLevelRegion(){
 		StackPane levelRegion = new StackPane();	//, DisplayLevels(myLevels)
 		
@@ -199,8 +176,7 @@ public class GameEditScreen extends Screen {
 		//trash.setOnMouseClicked(e -> controller.trashLevel(level););
 		levelRegion.setAlignment(trash, Pos.BOTTOM_RIGHT);
 		levelRegion.getChildren().addAll(DisplayLevels(myLevels), add, play, trash);
-		
-		
+				
 		return levelRegion;
 	}
 	
@@ -260,12 +236,12 @@ public class GameEditScreen extends Screen {
 		return b;		
 	}
 	
-	/**
+	/*
 	 * This method initializes making buttons from STRING constants class for adding and editing
 	 * levels and splash screens.
 	 * Initializes event handlers for buttons on the screen.
 	 * @author Anika modified by Yongjiao
-	 */
+	 
 	private List<ScreenButton> createSplashAndLevelButtons() {		
 		// get <String buttonID, String buttonName> map for buttons from STRING constants class
 		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
@@ -279,18 +255,19 @@ public class GameEditScreen extends Screen {
 			System.out.println(buttonNames[i]); // testing
 			myButtons.put(buttonNames[i], myB);
 		}	
-		/*
+		*
 		 * initialize event handlers for buttons
 		 * modified by Yongjiao: changed to use methods in manager class.
 		 * modified by Anika: changed to use methods in controller class
-		 */
+		 *
 		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
 		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
-//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
-//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
-//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
+		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> controller.loadLevelEditScreen(level));
+		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen(game));
+		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> controller.trashLevel(level));		
 		return new ArrayList(myButtons.values());	
 	}
+	*/
 	private ImageView makeButton(String location){
 		ImageView b = new ImageView(new Image(location));
 		b.setFitHeight(80);
