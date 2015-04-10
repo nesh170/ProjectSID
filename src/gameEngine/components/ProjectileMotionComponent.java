@@ -11,22 +11,13 @@ public class ProjectileMotionComponent extends VelocityComponent {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void prepare() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void update() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.
-		setVelocity(new Point2D(100.0, 0.0));
+		//TODO: REMOVE HARDCODED SPEED
+		setVelocity(new Point2D(50.0, 0.0));
+
 	}
 
 }

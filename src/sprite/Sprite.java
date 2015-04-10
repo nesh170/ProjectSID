@@ -108,7 +108,10 @@ public class Sprite {
 	public Transform transform() {
 		return this.transform;
 	}
-
+	
+	public void addToEmissionList(Sprite sprite){
+		emissionList.add(sprite);
+	}
 	public SpriteImage spriteImage() {
 	    //TODO talk to Ruslan about death
 		return this.spriteImage;
@@ -170,6 +173,7 @@ public class Sprite {
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());
 			actionList.stream().forEach(action -> action.update());
+			emissionList.stream().forEach(proj -> proj.updateSprite());
 		}
 	}
 	

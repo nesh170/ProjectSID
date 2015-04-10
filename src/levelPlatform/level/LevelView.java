@@ -133,29 +133,29 @@ public class LevelView extends ScrollPane {
         	spriteGroup.getChildren().add(r);
     	}
     			
- /*       if (sprite.isActive()) {
+        if (sprite.isActive()) {
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-            spriteImageView = new ImageView(spriteImage);
+           // spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+          //  spriteImageView = new ImageView(spriteImage);
             
-            representationMap.put(sprite, spriteImageView);
+           // representationMap.put(sprite, spriteImageView);
             
-            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                    .transform().getPosY());
-            spriteGroup.getChildren().add(spriteImageView);
+            //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
+                    //.transform().getPosY());
+           // spriteGroup.getChildren().add(spriteImageView);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
-            if (editMode == EditMode.EDIT_MODE_ON) {
+           // if (editMode == EditMode.EDIT_MODE_ON) {
             	
-            	configureMouseHandlersOnSpriteImageView(spriteImageView);
+           // 	configureMouseHandlersOnSpriteImageView(spriteImageView);
             	
-            }
+           // }
             
-        }*/
+        }
         
         return spriteGroup;
 

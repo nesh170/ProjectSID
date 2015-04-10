@@ -17,7 +17,7 @@ public class ShootAction extends Action{
 	private static final String BULLET_DIR = "bullet.xml";
 	private File bulletFile;
 	
-	public ShootAction(Sprite sprite, KeyCode[] keys, Sprite projectile) {
+	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
 		super(sprite, keys);
 		myProjectileTemplate = projectile;
 		// TODO Auto-generated constructor stub
@@ -38,7 +38,8 @@ public class ShootAction extends Action{
 	public void execute() {
 		// TODO Auto-generated method stub
 		Sprite newProjectile = generateClone();
-		mySprite.emissionList().add(newProjectile);
+		newProjectile.transform().setPosition(mySprite.transform().getPositionPoint());
+		mySprite.addToEmissionList(newProjectile);
 	}
 	
 	private Sprite generateClone(){
