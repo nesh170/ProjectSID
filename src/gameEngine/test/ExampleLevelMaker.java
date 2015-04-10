@@ -31,8 +31,8 @@ public class ExampleLevelMaker {
 		Sprite player = new Sprite();
 		player.addComponent(new HealthComponent(player));
 		player.addComponent(new VelocityComponent(player));
-		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
-		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
+		player.addAction(new LeftMotionAction(player, 20.0, KeyCode.LEFT));
+		Action rma = new RightMotionAction(player, 20.0, KeyCode.RIGHT);
 		player.addAction(rma);
 		Action jumpAction = new JumpAction(player, -6.0, KeyCode.UP);
 		player.addAction(jumpAction);
@@ -42,12 +42,12 @@ public class ExampleLevelMaker {
 		Action normalAction = new NormalAction(player);
 		player.addAction(normalAction);
 		//set up platform
-		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
+		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(5000, 10));
 		List<Sprite> spriteList = new ArrayList<Sprite>();
 		spriteList.add(platform);
 		spriteList.add(player);
 		spriteList.add(platform);
-		Level l = new Level(500, 500, player);
+		Level l = new Level(5000, 500, player);
 		
 		//set up collisions
 		CollisionTable ct = new CollisionTable();
