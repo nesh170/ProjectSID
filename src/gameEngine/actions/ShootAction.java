@@ -1,5 +1,8 @@
 package gameEngine.actions;
 
+import java.io.File;
+import java.io.IOException;
+import data.DataHandler;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
@@ -11,6 +14,8 @@ import gameEngine.Action;
 public class ShootAction extends Action{
 	
 	private Sprite myProjectileTemplate;
+	private static final String BULLET_DIR = "bullet.xml";
+	private File bulletFile;
 	
 	public ShootAction(Sprite sprite, KeyCode[] keys, Sprite projectile) {
 		super(sprite, keys);
@@ -20,8 +25,13 @@ public class ShootAction extends Action{
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-		
+        try {
+            DataHandler.toXMLFile(myProjectileTemplate, BULLET_DIR, System.getProperty("user.dir"));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+	    bulletFile= new File(System.getProperty("user.dir")+ "/" + BULLET_DIR);
 	}
 
 	@Override
@@ -32,8 +42,7 @@ public class ShootAction extends Action{
 	}
 	
 	private Sprite generateClone(){
-		Sprite clone = new Sprite(myProjectileTemplate);
-		return clone;
+		return (Sprite) DataHandler.fromXMLFile(bulletFile);
 	}
 	
 	private void addProjectileMotion(Sprite proj){
