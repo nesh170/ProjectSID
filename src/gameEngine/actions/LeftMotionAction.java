@@ -8,17 +8,10 @@ import gameEngine.components.VelocityComponent;
 
 public class LeftMotionAction extends Action {
 
-	private Double velocity;
 	private VelocityComponent myVelocityComponent;
-	
-	public LeftMotionAction(Sprite sprite, Double delta) {
-		super(sprite);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
-	}
 
 	public LeftMotionAction(Sprite sprite, Double delta, KeyCode... keys) {
-		super(sprite, keys);
-		velocity = EngineMathFunctions.velocityValueFrame(delta);
+		super(sprite, delta, keys);
 	}
 
 	@Override
@@ -30,7 +23,7 @@ public class LeftMotionAction extends Action {
 	@Override
 	public void execute() {
 	    System.out.println("left");
-		myVelocityComponent.setVelocityX(-velocity);
+		myVelocityComponent.setVelocityX(-EngineMathFunctions.velocityValueFrame(value));
 
 	}
 

@@ -43,6 +43,7 @@ public class Sprite {
 	private List<Sprite> emissionList;
 	
 	private boolean isActive;
+	private String name;
 	private String tag;
 	private String collisionTag;
 
@@ -89,6 +90,14 @@ public class Sprite {
 		this.isActive = isActive;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public String tag() {
 		return this.tag;
 	}
@@ -108,9 +117,19 @@ public class Sprite {
 	public Transform transform() {
 		return this.transform;
 	}
-
+	
+	public void addToEmissionList(Sprite sprite){
+		emissionList.add(sprite);
+	}
+	
 	public SpriteImage spriteImage() {
+		
 	    //TODO talk to Ruslan about death
+		
+		if (spriteImage == null) {
+			this.spriteImage = new SpriteImage();
+		}
+		
 		return this.spriteImage;
 	}
 	
@@ -170,6 +189,7 @@ public class Sprite {
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());
 			actionList.stream().forEach(action -> action.update());
+			emissionList.stream().forEach(proj -> proj.updateSprite());
 		}
 	}
 	
