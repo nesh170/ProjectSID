@@ -1,9 +1,9 @@
 package gameEngine.test;
 
 
+import gameEngine.Action;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.GravityAction;
-
 import gameEngine.actions.FallAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.actions.LeftMotionAction;
@@ -11,7 +11,6 @@ import gameEngine.actions.NormalAction;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.components.HealthComponent;
 import gameEngine.components.VelocityComponent;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +30,13 @@ public class ExampleLevelMaker {
 		player.addComponent(new HealthComponent(player, true));
 		player.addComponent(new VelocityComponent(player));
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
-		player.addAction(new RightMotionAction(player, 2.0, KeyCode.RIGHT));
-		player.addAction(new JumpAction(player, -2.0, KeyCode.UP));
-		player.addAction(new GravityAction(player, 1.0));
+		Action rma = new RightMotionAction(player, 2.0);
+		rma.runEveryFrame();
+		player.addAction(rma);
+		player.addAction(new JumpAction(player, -6.0, KeyCode.UP));
+		Action gravityAction = new GravityAction(player, 10.0);
+		gravityAction.runEveryFrame();
+		player.addAction(gravityAction);
 		//set up platform
 		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
 		System.out.println("Oh yeah!!!");

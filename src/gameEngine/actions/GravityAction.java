@@ -22,8 +22,7 @@ public class GravityAction extends FrameAction {
 	@Override
 	public void execute() {
 		VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
-		velocityComp.accelerate(0.0, 5.0);
-		velocityComp.printYvel();
+		velocityComp.accelerate(0.0, myGravityConstant);
 	}
 
 	@Override
