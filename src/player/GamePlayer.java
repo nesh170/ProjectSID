@@ -1,10 +1,13 @@
 package player;
 
+import gameEngine.GameEngine;
 import java.io.IOException;
 import java.util.List;
+import javafx.scene.Group;
 
 import media.VideoController;
 import media.VideoPlayer;
+
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
@@ -19,6 +22,8 @@ public class GamePlayer {
 	public final static double UPDATE_RATE = 120;
 
 	private ScrollPane myGameRoot;
+	private Group myGameGroup;
+	private GameEngine myEngine;
 	private Scene myScene;
 	private BorderPane myBorderPane;
 	private double myWidth;

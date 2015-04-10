@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -13,14 +15,26 @@ import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Separator;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -47,8 +61,9 @@ public class SplashEditScreen extends Screen {
 	private String tag;
 
 	private Sprite startButton = new Sprite();
-	private List<Sprite> images = new ArrayList();
 	private List<Sprite> texts = new ArrayList();
+	private ImageView imageView;
+	private Text text;
 
 	// Getters & Setters
 
@@ -69,24 +84,18 @@ public class SplashEditScreen extends Screen {
 	
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
+		
 		//COMMENTED OUT TO TEST @AUTHOR KYLE
 		//throw new IllegalStateException("unimplemented addMenuItemsToMenuBar in Screen");
-		//Menu back = new Menu();
-		//menuBar.getMenus().add(back);
+		
 	}
 	
-	//MenuBar
-	//TODO: Back	
-	//Buttons
-	//TODO: Add Start Button
-	//TODO: Add Image
-	//TODO: Add Text
-	//TODO: Add Animation
-	
 	private void configureSplashScreen(SplashScreen splashScreen, double width, double height) {
+		
 		this.splashScreen = splashScreen;
 		this.width = width;
 		this.height = height;
+		
 	}
 	
 	private void configureButtons() {
@@ -106,9 +115,11 @@ public class SplashEditScreen extends Screen {
 	
 	private void configureDisplayArea() {
 		
-		Rectangle displayArea = new Rectangle(width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //obviously will change
+		double rectWidth = width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH;
+		double rectHeight = height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT;
+		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, Color.RED);
 		this.viewableArea().setLeft(displayArea);
-		this.setOnMouseClicked(e -> add(tag, e));
+		this.setOnMouseClicked(e -> add(tag, e, displayArea));
 		
 	}
 
@@ -210,6 +221,7 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	public void addStartButton() {
+		
 		File file = null;
 		Image image = null;
 
@@ -223,15 +235,19 @@ public class SplashEditScreen extends Screen {
 			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
 
 		} catch (Exception ex) {	
-			//LOAD STRING.DEFAULT_START_BUTTON
+			//TODO Load Default Image
 		}
 
 		ImageCursor imageCursor = new ImageCursor(image);
 		getParent().setCursor(imageCursor);
+
 		tag = "Start";
+		imageView = new ImageView(image);
+		
 	}
 
 	public void addImage() {
+		
 		File file = null;
 		Image image = null;
 
@@ -245,64 +261,129 @@ public class SplashEditScreen extends Screen {
 			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
 
 		} catch (Exception ex) {	
-			//LOAD STRING.DEFAULT_IMAGE_BUTTON????
+			//TODO Load Default Image
 		}
 
-		ImageCursor imageCursor = new ImageCursor(image);
-		//possibly handle sizing here
-		//lambda waiting for a button to resize
-		getParent().setCursor(imageCursor);
 		tag = "Image";
+		imageView = new ImageView(image);
 		
 	}
 
 	public void addText() {
 		// TODO Auto-generated method stub
 		
+		tag = "Text";
+		
 	}
 
 	public void addAnimation() {
-		// TODO Auto-generated method stub
+		
+		//TODO move values and strings elsewhere
+		
+		String[] animations = new String[]{"Stars",
+	            "Animation 2",
+	            "Animation 3"};
+
+		GridPane grid = new GridPane();
+		final ComboBox<String> comboBox = new ComboBox<String>();
+		comboBox.getItems().addAll(animations); 
+		comboBox.getSelectionModel().selectedIndexProperty().addListener(new
+				ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue ov,
+					Number value, Number new_value) {
+					animation(animations[new_value.intValue()]);
+			}
+
+		});
+		comboBox.setMinWidth(150);
+		grid.add(comboBox, 0, 0);
+		grid.setTranslateX(width - 250);
+		grid.setTranslateY(height - 200);
+		this.getChildren().add(grid);
+		
+	}
+	
+	private void animation(String animation) {
+		
+		if(animation == "Stars") {
+			stars();
+		}
+		else if(animation == "Animation 2") {
+			//another animation
+		}
+		else if(animation == "Animation 3") {
+			//another animation
+		}
+		
+	}
+
+	private void stars() {
+		
+		Image image = new Image("/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg"); //TODO move
+		ImageView iv2 = new ImageView(image);
 		
 	}
 
 	public void saveSplashScreen() {
-		// TODO Auto-generated method stub
+		
+		// automatic
 		
 	}
 
 	public void trashSplashScreen() {
-		// TODO Auto-generated method stub
+		
+		// TODO Auto-generated method stub	
 		
 	}
 
 	public void backSplashScreen() {
-		// TODO Auto-generated method stub
+		
+		controller.returnToGameEditScreen();
 		
 	}
 	
-	private void add(String tag, MouseEvent e) {
-		if(tag == "Start") {
-//			System.out.println("x " + e.getX());
-//			System.out.println("y " + e.getY());
-			
+	private void add(String tag, MouseEvent e, Rectangle rectangle) {
+		
+		if(tag == "Start") {		
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
-			//add to screen
+	
+			this.add(imageView);
+			imageView.setTranslateX(e.getX());
+			imageView.setTranslateY(e.getY());
+		}
+		else if(tag == "Image") {
+			rectangle.setFill(new ImagePattern(imageView.getImage()));
+		}
+		else if(tag == "Text") {
 			
+			text = new Text("Well Hi");
+			
+			StackPane pane = new StackPane();
+
+		    pane.getChildren().add(rectangle);
+		    pane.getChildren().addAll(text);
+		    text.setTranslateX(e.getX()-((width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH)/2));
+		    text.setTranslateY(e.getY()-((height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT)/2)-50); //50 probz
+
+			this.getChildren().add(pane);
+		    this.viewableArea().setLeft(pane);
+
 		}
-		if(tag == "Image") {
-			Sprite sprite = new Sprite(new Point2D(e.getX(), e.getY()));
-			images.add(sprite);	
-		}
+		
 	}
 	
 	private void setLargeButtonSize(Button button) {
+		
 		button.setMinSize(INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //temporary values
+	
 	}
 	
 	private void setSmallButtonSize(Button button) {
+		
 		button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); //temporary values
+	
 	}
 
 }

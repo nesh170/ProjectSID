@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import data.DataHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -64,18 +67,24 @@ public class SpriteEditScreen extends Screen {
 	private Sprite editableSprite;
 	
 	private TextField spriteNameField;
+	private TextField imageSizeField;
 	private ChoiceBox<String> tagChoicesHolder;
+	
+	private Pane paneForImage;
+	private ListView<String> imageListPane;
 
 	private ResourceBundle tagResources;
 	private ResourceBundle actionResources;
 	private ResourceBundle componentResources;
-	private ResourceBundle physicsResources;
 	
 	private ObservableList<String> actionsToAdd;
 	private ObservableList<String> actionsAdded;
 	private ObservableList<String> componentsToAdd;
 	private ObservableList<String> componentsAdded;
+	private ObservableList<String> imagesAdded;
 	
+	
+	private ChoiceBox<String> actionTypeBox;
 	private TextField keycodeInputBox;
 	private TextField actionValue;
 	private TextField componentValue;
@@ -85,7 +94,9 @@ public class SpriteEditScreen extends Screen {
 	private Map<String,String> classPathMap;
 	private Map<Button,ListView<String>> buttonToListMap;
 	private Map<String, Action> actionMap;
+	private Map<String,Boolean> keyCodesAreVisibleMap;
 	private Map<String, Component> componentMap;
+	private Map<String, ImageView> stringToImageMap;
 	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
@@ -112,11 +123,13 @@ public class SpriteEditScreen extends Screen {
 		initializeRelevantResourceFiles();
 		initializeObservableLists();
 		initializeClassPathMap();
+		initializeKeyCodesAreVisibleMap();
 //		initializeOtherMaps(buttonToListMap,actionMap,componentMap);
 		
 		buttonToListMap = new HashMap<>();
 		actionMap = new HashMap<>();
 		componentMap = new HashMap<>();
+		stringToImageMap = new HashMap<>();
 		
 		createLeftPane();
 		createRightPane();
@@ -125,13 +138,22 @@ public class SpriteEditScreen extends Screen {
 	}
 		
 
+	private void initializeKeyCodesAreVisibleMap() {
+		
+		keyCodesAreVisibleMap = new HashMap<>();
+		keyCodesAreVisibleMap.put(languageResources().getString("AlwaysRun"), false);
+		keyCodesAreVisibleMap.put(languageResources().getString("NeedCode"), true);
+		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"), false);
+		
+	}
+
 	@Override
 	protected void initializeRelevantResourceFiles() {
 		super.initializeRelevantResourceFiles();
 		tagResources = ResourceBundle.getBundle("resources.TagChoices");
 		actionResources = ResourceBundle.getBundle("resources.spritePartProperties.action");
 		componentResources = ResourceBundle.getBundle("resources.spritePartProperties.component");
-		physicsResources = ResourceBundle.getBundle("resources.spritePartProperties.physics");
+//		physicsResources = ResourceBundle.getBundle("resources.spritePartProperties.physics");
 	}
 	
 	private void initializeObservableLists() {
@@ -143,6 +165,7 @@ public class SpriteEditScreen extends Screen {
 																	.map(e -> languageResources().getString(e))
 																	.collect(Collectors.toList()));
 		componentsAdded = FXCollections.observableArrayList();
+		imagesAdded = FXCollections.observableArrayList();
 	}
 	
 //	@SuppressWarnings("unchecked")
@@ -185,17 +208,17 @@ public class SpriteEditScreen extends Screen {
 		VBox rightPane = new VBox();
 		
 		Node actionAndComponentPane = createActionAndComponentPane();
-		Node physicsPane = createPhysicsPane();
-		Node imageListPane = createImageListPane();
+//		Node physicsPane = createPhysicsPane();
+		initializeImageListPane();
 		
-		rightPane.getChildren().addAll(actionAndComponentPane,physicsPane,imageListPane);
+		rightPane.getChildren().addAll(actionAndComponentPane,imageListPane);
 		this.viewableArea().setRight(rightPane);
 
 	}
 	
 	private void createCenterPane() {
 		
-		Pane paneForImage = new Pane();
+		paneForImage = new Pane();
 		
 		this.viewableArea().setCenter(paneForImage);
 		
@@ -230,23 +253,38 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private Pane createAddImagePane() {
+//		VBox imageAndSizePane = new VBox();
+//		VBox.setVgrow(imageAndSizePane, Priority.ALWAYS);
+//		imageAndSizePane.setAlignment(Pos.CENTER);
+		
 		StackPane imagePane = new StackPane();
 		VBox.setVgrow(imagePane, Priority.ALWAYS);
 		imagePane.setAlignment(Pos.CENTER);
+		
+		VBox imageButtonAndSizeText = new VBox();
+		VBox.setVgrow(imageButtonAndSizeText, Priority.ALWAYS);
+		imageButtonAndSizeText.setAlignment(Pos.CENTER);
 		
 		Button imageButton = new Button();
 		imageButton.setGraphic(new ImageView(new Image("images/addimage.png")));
 		imageButton.setOnMouseClicked(e -> selectImageFile());
 		
-		imagePane.getChildren().add(imageButton);
-		imagePane.getStyleClass().add("pane");
+		imageSizeField = new TextField();
+		imageSizeField.setPromptText(languageResources().getString("ImageSize"));
 		
+		imageButtonAndSizeText.getChildren().addAll(imageButton,imageSizeField);
+		
+		imagePane.getChildren().add(imageButtonAndSizeText);
+		imagePane.getStyleClass().add("pane");
+						
 		return imagePane;
 	}
 	
 	private VBox createActionAndComponentPane() {
 		
+		initializeActionTypeBox();
 		keycodeInputBox = new TextField();
+		keycodeInputBox.setVisible(false);
 		keycodeInputBox.setPromptText(languageResources().getString("KeycodePrompt"));
 		keycodeInputBox.setOnKeyTyped(e -> setCurrentKeycode(e));
 		actionValue = new TextField();
@@ -255,9 +293,10 @@ public class SpriteEditScreen extends Screen {
 		HBox actionPane = makeTwoSidedList(actionsToAdd,actionsAdded,
 											languageResources().getString("AddAction"),languageResources().getString("RemoveAction"),
 											e -> addAction(e), e -> removeAction(e),
-											keycodeInputBox,actionValue);
+											actionTypeBox,keycodeInputBox,actionValue);
 		
 		componentValue = new TextField();
+		componentValue.setPromptText(languageResources().getString("ValuePrompt"));
 		HBox componentPane = makeTwoSidedList(componentsToAdd,componentsAdded,
 											languageResources().getString("AddComponent"),languageResources().getString("RemoveComponent"),
 											e -> addComponent(e), e -> removeComponent(e),
@@ -269,10 +308,27 @@ public class SpriteEditScreen extends Screen {
 		return actionAndComponentPane;
 	}
 	
-	private HBox makeTwoSidedList(ObservableList<String> toAdd, ObservableList<String> added,
+	private void initializeActionTypeBox() {
+		ObservableList<String> actionTypes = FXCollections.observableArrayList();
+		actionTypes.addAll(
+				languageResources().getString("AlwaysRun"),
+				languageResources().getString("NeedCode"),
+				languageResources().getString("OnCollision"));
+		actionTypeBox = new ChoiceBox<String>(actionTypes);
+		actionTypeBox.getSelectionModel().select(0);
+		actionTypeBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			
+			public void changed(ObservableValue<? extends String> ov, String oldSelect, String newSelect) {
+				keycodeInputBox.setVisible(keyCodesAreVisibleMap.get(newSelect));
+			}
+			
+		});
+	}
+
+	protected HBox makeTwoSidedList(ObservableList<String> toAdd, ObservableList<String> added,
 									String addText, String removeText,
 									EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove,
-									TextField... userTextFields) {
+									Control... userTextFields) {
 		
 		HBox twoSidedListContainer = new HBox();
 		ListView<String> toAddList = new ListView<>(toAdd);
@@ -307,8 +363,42 @@ public class SpriteEditScreen extends Screen {
 		Arrays.asList(buttons).forEach(e -> e.setPrefWidth(INT.PREF_BUTTON_WIDTH));
 	}
 	
-	private ListView<String> createImageListPane() {
-		return new ListView<String>();
+	private void initializeImageListPane() {
+		
+		imageListPane = new ListView<String>(imagesAdded);
+		
+		imageListPane.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE))  {
+//				String selected = imageListPane.getSelectionModel().getSelectedItem();
+//				stringToImageMap.remove(selected);
+//				imagesAdded.remove(selected);
+			}
+		});
+		
+		imageListPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> ov,
+					String oldSelect, String newSelect) {
+				
+				paneForImage.getChildren().clear();
+				paneForImage.getChildren().add(stringToImageMap.get(newSelect));
+				
+//				Map<String,ImageView> newMap = new HashMap<>();
+//				imagesAdded.clear();
+//				int counter = 0;
+//				for(String key:stringToImageMap.keySet()) {
+//					String imageName = languageResources().getString("ImageName")+counter;
+//					newMap.put(imageName,stringToImageMap.get(key));
+//					imagesAdded.add(imageName);
+//					counter++;
+//				}
+//				stringToImageMap = newMap;
+
+			}
+			
+		});
+
 	}
 	
 	private void addAction(MouseEvent e) {
@@ -349,6 +439,11 @@ public class SpriteEditScreen extends Screen {
 		if(selected!=null) {
 			componentsToAdd.remove(selected);
 			componentsAdded.add(selected);
+//			try {
+//				Component component = (Component) Class.forName(classPathMap.get(selected))
+//						.getConstructor()
+//						.newInstance(initargs);
+//			}
 			
 			
 			
@@ -370,11 +465,35 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void selectImageFile() {
-		File file = DataHandler.chooseDir(new Stage());
+		try {
+			
+			int imageSize = INT.DEFAULT_IMAGE_SIZE;
+			if(imageSizeField.getText()!="" && imageSizeField.getText().matches("^[0-9]+$")) {
+				imageSize = Integer.parseInt(imageSizeField.getText());
+			}
+			File file = DataHandler.chooseFile(new Stage());
+			Image image = DataHandler.fileToImage(file,imageSize,imageSize,true);
+			ImageView spriteImageRep = new ImageView(image);
+			int currentImageNumber = imagesAdded.size();
+			String imageName = languageResources().getString("ImageName")+currentImageNumber;
+			stringToImageMap.put(imageName, spriteImageRep);
+			imagesAdded.add(imageName);
+			
+			if(currentImageNumber == 0) {
+				paneForImage.getChildren().add(spriteImageRep);
+			}
+			
+			imageSizeField.clear();
+						
+		}
+		catch (NullPointerException e) {
+			//do nothing
+		}
 	}
 	
 	private void saveSprite() {
-		//TODO
+		editableSprite.setName(spriteNameField.getText());
+		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
 	}
 	
 	private void exit() {
@@ -382,8 +501,20 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void saveAndExit() {
-		saveSprite();
-		exit();
+		if(spriteNameField.getText().isEmpty()) {
+			
+			spriteNameField.getStyleClass().add("text-field-error");
+			
+		}
+		
+		else{
+			
+			saveSprite();
+			LevelEditScreen levelEdit = (LevelEditScreen) levelEditScreen.getContent();
+			controller.returnToSelectedLevel(levelEdit, levelEditScreen, editableSprite);
+
+		}
+		
 	}
 
 	// All other instance methods
