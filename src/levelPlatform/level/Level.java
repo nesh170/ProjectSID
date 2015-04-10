@@ -1,11 +1,14 @@
 package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.function.IntConsumer;
+import gameEngine.EngineMathFunctions;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -28,11 +31,14 @@ import levelPlatform.LevelPlatform;
 public class Level extends LevelPlatform {
 	
 	// Static Variables
-	
+	public static final int X = 0;
+	public static final int Y = 1;
 	
 	// Instance Variables
 	private Sprite playerSprite;
 	private CollisionTable collisionTable;
+        private IntConsumer nextLevelMethod;
+        private Map<Sprite, Integer> goalMap;
 	
 	
 	// Getters & Setters
@@ -63,6 +69,10 @@ public class Level extends LevelPlatform {
 		return collisionTable;
 	}
 	
+	public void setGoalMap(Map<Sprite,Integer> goalMap){
+	    this.goalMap=goalMap;
+	}
+	
 	
 	// Constructor & Helpers
 	public Level(int width, int height) {
@@ -82,5 +92,37 @@ public class Level extends LevelPlatform {
 		}
 		
 	}
+
+	/**
+	 * Gets the method to initialize the next level from the GameEngine
+	 * @param nextLevelConsumer
+	 */
+    public void passInitializeLevelMethod (IntConsumer nextLevelConsumer) {
+        nextLevelMethod = nextLevelConsumer;
+        
+    }
+    
+    @Override
+    public void update(){
+        super.update();
+        goalMap.keySet().forEach(sprite -> handleGoals(sprite));
+    }
+
+    /**
+     * Checks the goal and initializes the next level if the goal is acheived
+     * @param sprite
+     */
+    private void handleGoals (Sprite sprite) {
+        if(!sprite.isActive()){
+            nextLevelMethod.accept(goalMap.get(sprite));
+        }
+    }
+        
+    public double[] getNewCameraLocations () {
+        double[] xyLocations = new double[2];
+        xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
+        xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
+        return xyLocations;
+    }
 	
 }	

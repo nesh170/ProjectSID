@@ -3,10 +3,8 @@ package gameEngine;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
@@ -31,12 +29,14 @@ public class GameEngine extends GameEngineAbstract {
         //TODO ask Authoring env about this.....
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
+        myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
     }
     
     @Override
-    public void update () {
+    public double[] update () {
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
+        return myCurrentLevel.getNewCameraLocations();
     }
 
     @Override
@@ -48,8 +48,8 @@ public class GameEngine extends GameEngineAbstract {
      * This pause method is called by the controller
      */
     @Override
-    public void pause (Scene scene) {
-        scene.setOnKeyPressed(null);
+    public void pause (Node node) {
+        node.setOnKeyPressed(null);
     }
 
     /**
@@ -57,9 +57,9 @@ public class GameEngine extends GameEngineAbstract {
      * This sets up the eventhandler to the scene to call the handle method
      */
     @Override
-    public void play (Scene scene) {
-        scene.setOnKeyPressed(keyPressed -> handle(keyPressed,action -> action.execute()));
-        scene.setOnKeyReleased(keyReleased -> handle(keyReleased,action -> action.stop()));
+    public void play (Node node) {
+        node.setOnKeyPressed(keyPressed -> handle(keyPressed,action -> action.execute()));
+        node.setOnKeyReleased(keyReleased -> handle(keyReleased,action -> action.stop()));
     }
     
     /**
