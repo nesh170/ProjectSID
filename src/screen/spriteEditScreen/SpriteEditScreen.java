@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import data.DataHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -69,13 +72,15 @@ public class SpriteEditScreen extends Screen {
 	private ResourceBundle tagResources;
 	private ResourceBundle actionResources;
 	private ResourceBundle componentResources;
-	private ResourceBundle physicsResources;
+//	private ResourceBundle physicsResources;
 	
 	private ObservableList<String> actionsToAdd;
 	private ObservableList<String> actionsAdded;
 	private ObservableList<String> componentsToAdd;
 	private ObservableList<String> componentsAdded;
 	
+	
+	private ChoiceBox<String> actionTypeBox;
 	private TextField keycodeInputBox;
 	private TextField actionValue;
 	private TextField componentValue;
@@ -85,6 +90,7 @@ public class SpriteEditScreen extends Screen {
 	private Map<String,String> classPathMap;
 	private Map<Button,ListView<String>> buttonToListMap;
 	private Map<String, Action> actionMap;
+	private Map<String,Boolean> keyCodesAreVisibleMap;
 	private Map<String, Component> componentMap;
 	
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
@@ -112,6 +118,7 @@ public class SpriteEditScreen extends Screen {
 		initializeRelevantResourceFiles();
 		initializeObservableLists();
 		initializeClassPathMap();
+		initializeKeyCodesAreVisibleMap();
 //		initializeOtherMaps(buttonToListMap,actionMap,componentMap);
 		
 		buttonToListMap = new HashMap<>();
@@ -125,13 +132,22 @@ public class SpriteEditScreen extends Screen {
 	}
 		
 
+	private void initializeKeyCodesAreVisibleMap() {
+		
+		keyCodesAreVisibleMap = new HashMap<>();
+		keyCodesAreVisibleMap.put(languageResources().getString("AlwaysRun"), false);
+		keyCodesAreVisibleMap.put(languageResources().getString("NeedCode"), true);
+		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"), false);
+		
+	}
+
 	@Override
 	protected void initializeRelevantResourceFiles() {
 		super.initializeRelevantResourceFiles();
 		tagResources = ResourceBundle.getBundle("resources.TagChoices");
 		actionResources = ResourceBundle.getBundle("resources.spritePartProperties.action");
 		componentResources = ResourceBundle.getBundle("resources.spritePartProperties.component");
-		physicsResources = ResourceBundle.getBundle("resources.spritePartProperties.physics");
+//		physicsResources = ResourceBundle.getBundle("resources.spritePartProperties.physics");
 	}
 	
 	private void initializeObservableLists() {
@@ -246,6 +262,7 @@ public class SpriteEditScreen extends Screen {
 	
 	private VBox createActionAndComponentPane() {
 		
+		initializeActionTypeBox();
 		keycodeInputBox = new TextField();
 		keycodeInputBox.setPromptText(languageResources().getString("KeycodePrompt"));
 		keycodeInputBox.setOnKeyTyped(e -> setCurrentKeycode(e));
@@ -255,9 +272,10 @@ public class SpriteEditScreen extends Screen {
 		HBox actionPane = makeTwoSidedList(actionsToAdd,actionsAdded,
 											languageResources().getString("AddAction"),languageResources().getString("RemoveAction"),
 											e -> addAction(e), e -> removeAction(e),
-											keycodeInputBox,actionValue);
+											actionTypeBox,keycodeInputBox,actionValue);
 		
 		componentValue = new TextField();
+		componentValue.setPromptText(languageResources().getString("ValuePrompt"));
 		HBox componentPane = makeTwoSidedList(componentsToAdd,componentsAdded,
 											languageResources().getString("AddComponent"),languageResources().getString("RemoveComponent"),
 											e -> addComponent(e), e -> removeComponent(e),
@@ -269,10 +287,26 @@ public class SpriteEditScreen extends Screen {
 		return actionAndComponentPane;
 	}
 	
+	private void initializeActionTypeBox() {
+		ObservableList<String> actionTypes = FXCollections.observableArrayList();
+		actionTypes.addAll(
+				languageResources().getString("AlwaysRun"),
+				languageResources().getString("NeedCode"),
+				languageResources().getString("OnCollision"));
+		actionTypeBox = new ChoiceBox<String>(actionTypes);
+		actionTypeBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			
+			public void changed(ObservableValue<? extends String> ov, String oldSelect, String newSelect) {
+				keycodeInputBox.setVisible(keyCodesAreVisibleMap.get(newSelect));
+			}
+			
+		});
+	}
+
 	private HBox makeTwoSidedList(ObservableList<String> toAdd, ObservableList<String> added,
 									String addText, String removeText,
 									EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove,
-									TextField... userTextFields) {
+									Control... userTextFields) {
 		
 		HBox twoSidedListContainer = new HBox();
 		ListView<String> toAddList = new ListView<>(toAdd);

@@ -56,7 +56,7 @@ public class SplashEditScreen extends Screen {
 	// Constructor & Helpers
 
 	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
-
+ 
 		super(width, height);
 		
 		this.controller = parent;
