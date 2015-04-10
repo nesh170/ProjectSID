@@ -23,6 +23,7 @@ public abstract class Action {
 	private boolean isActive;
 	private List<KeyCode> myKeyCode;
 	private boolean runsEveryFrame = false;
+	protected double value;
 	
 	/** At construction, action knows the
 	 * sprite it is attached to
@@ -39,6 +40,17 @@ public abstract class Action {
 	public Action(Sprite sprite, KeyCode... keys){
 		this(sprite);
 		myKeyCode = Arrays.asList(keys);
+	}
+	
+	/**
+	 * Constructor for actions that use double values
+	 * @param sprite
+	 * @param value
+	 * @param keys
+	 */
+	public Action(Sprite sprite, Double val, KeyCode... keys){
+		this(sprite, keys);
+		value = val;
 	}
 	
 	/** Set behavior to active */

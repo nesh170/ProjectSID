@@ -57,10 +57,6 @@ public class LevelView extends ScrollPane {
     	this.lengthSidePixel = lengthSidePixel;
     }
     
-    public void setCollisionHandler() {
-    	this.collisionHandler = new Collision(level.getCollisionTable());
-    }
-    
     public double getLengthSidePixel() {
     	return this.lengthSidePixel;
     }
@@ -77,7 +73,7 @@ public class LevelView extends ScrollPane {
      * @param level
      */
     public LevelView(Level level, EditMode editMode) {
-    	
+  
     	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
     }
@@ -92,13 +88,10 @@ public class LevelView extends ScrollPane {
     	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
     	setEditMode(editMode);
-    	setCollisionHandler();
     	
     	if (level != null) {
     		renderLevel();
     	}
-    	
-    	
     	
     }
     

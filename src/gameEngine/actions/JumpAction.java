@@ -8,20 +8,18 @@ import gameEngine.components.VelocityComponent;
 
 public class JumpAction extends Action {
 	
-	private Double initialVelocity;
-	
-	public JumpAction(Sprite sprite, Double initVelocity, KeyCode... keys){
-		super(sprite , keys);
-		initialVelocity = EngineMathFunctions.velocityValueFrame(initVelocity);
-		
+
+	public JumpAction(Sprite sprite) {
+		super(sprite);
 	}
+
 	@Override
 	public void prepare() {}
 	
     @Override
     public void execute () {
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
-        velocityComp.setVelocityY(initialVelocity);
+        velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
         System.out.println("We're Jumping!");
     }
     

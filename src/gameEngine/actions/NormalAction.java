@@ -6,16 +6,11 @@ import gameEngine.Action;
 import gameEngine.components.VelocityComponent;
 
 public class NormalAction extends Action {
-	
-	private VelocityComponent myVelocityComponent;
 
+	private VelocityComponent myVelocityComponent;
+	
 	public NormalAction(Sprite sprite) {
 		super(sprite);
-		// TODO Auto-generated constructor stub
-	}
-
-	public NormalAction(Sprite sprite, KeyCode... keys) {
-		super(sprite, keys);
 		// TODO Auto-generated constructor stub
 	}
 
