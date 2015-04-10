@@ -28,7 +28,7 @@ public class INT {
 	//MainMenu
 	public static final int DEFAULT_BUTTON_WIDTH = 100;
 	public static final int DEFAULT_BUTTON_HEIGHT = 50;
-	public static final double DEFAULT_BUTTON_SPREAD = 20;
+	public static final double DEFAULT_BUTTON_SPREAD = 30;
 	
 	// Level
 	public static final int DEFAULT_LEVEL_WIDTH = 400;

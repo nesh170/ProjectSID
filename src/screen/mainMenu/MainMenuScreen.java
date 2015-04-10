@@ -14,11 +14,18 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -35,7 +42,7 @@ import screen.ScreenController;
  * @author Ruslan
  * @author Leo
  * @author Kyle
- *
+ * @author Yongjiao
  */
 
 public class MainMenuScreen extends Screen {
@@ -58,6 +65,7 @@ public class MainMenuScreen extends Screen {
 		this.controller = controller;
 
 		configureButtons(width, height);
+		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
 		
 	}
 	
@@ -78,17 +86,44 @@ public class MainMenuScreen extends Screen {
 	 *  2. instantiateMusicMenu()
 	 */
 	private void configureButtons(double width, double height) {
-		
-		Button newGame = makeNewGameButton();
-		Button loadGame = loadGameButton();
-		
+		StackPane menu = new StackPane();	
+		menu.getChildren().addAll(makeBlueDevil(), makeMenuButtons(), makeText("Welcome Blue Devils"));
+		this.viewableArea().setCenter(menu);
+	}
+	
+	private ImageView makeBlueDevil(){
+		ImageView img = new ImageView(new Image("images/Blue_Devil.png"));
+		img.setFitHeight(300);
+		img.setFitWidth(540);
+		return img;
+	}
+	
+	private VBox makeMenuButtons(){
+		Button newGame = makeButton("New Game");
+		Button loadGame = makeButton("Load Game");
+		Button exit = makeButton("Exit Application ");
 		newGame.setOnMouseClicked(e -> controller.createNewGame());
 		loadGame.setOnMouseClicked(e -> controller.loadGame());
-		
-		VBox vbox = new VBox(height/INT.DEFAULT_BUTTON_SPREAD);
-		this.viewableArea().setCenter(vbox);
-		vbox.getChildren().addAll(newGame, loadGame);
+		exit.setOnMouseClicked(e -> System.exit(0));
+		VBox vbox = new VBox(INT.DEFAULT_BUTTON_SPREAD);
+		vbox.getChildren().addAll(newGame, loadGame, exit);
 		vbox.setAlignment(Pos.CENTER);
+		return vbox;
+	}
+	private Text makeText(String s) {
+		
+		Text text = new Text(s);
+		DropShadow ds = new DropShadow();
+		ds.setOffsetY(3.0f);
+		text.setEffect(ds);
+		text.setCache(true);
+		text.setX(10.0f);
+		text.setY(270.0f);
+		text.setFill(Color.BLACK);
+		text.setFont(Font.font("SERIF", FontWeight.BOLD, 48));
+		text.setTranslateY(-250);  //?? uncertain of how offset works but this works for now
+		return text;
+		
 	}
 	
 	/**
@@ -98,30 +133,11 @@ public class MainMenuScreen extends Screen {
 	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
 	 *  2. instantiateMusicMenu()
 	 */
-	private Button makeNewGameButton() {
-		
-		Button newGameButton = new Button(STRING.NEWGAME);
-		newGameButton.setOnMouseClicked(e -> controller.createNewGame());
-		newGameButton.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
-		newGameButton.setAlignment(Pos.CENTER);
-		
-		return newGameButton;
-		
-	}
-	
-	/**
-	 * needs to be changed to a MenuItem but otherwise on point!
-	 * please see methods above:
-	 * 	0. addMenuItemsToMenuBar(MenuBar menuBar)
-	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
-	 *  2. instantiateMusicMenu()
-	 */
-	private Button loadGameButton() {
-		Button loadGameButton = new Button(STRING.LOADGAME);
-		loadGameButton.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
-		loadGameButton.setAlignment(Pos.CENTER);
-		
-		return loadGameButton;
+	private Button makeButton(String s) {	
+		Button b = new Button(s);
+		b.setStyle("-fx-background-color: lightgray;");
+		b.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
+		return b;
 		
 	}
 		
