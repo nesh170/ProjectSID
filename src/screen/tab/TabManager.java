@@ -67,12 +67,14 @@ public class TabManager {
 	public void changeToDefault() {
 		if (defaultTab != null) {
 			removeTabAndChangeSelected(defaultTab);
+			defaultTab.setClosable(false);
 		}
 	}
 	
 	
 	public void setDefaultTab(Tab tab) {
 		defaultTab = tab;
+		defaultTab.setClosable(false);
 	}
 	
 	// Private
