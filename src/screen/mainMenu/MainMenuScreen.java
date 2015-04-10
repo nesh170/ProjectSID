@@ -85,17 +85,8 @@ public class MainMenuScreen extends Screen {
 	 *  2. instantiateMusicMenu()
 	 */
 	private void configureButtons(double width, double height) {
-		StackPane menu = new StackPane();
-		Button newGame = makeButton("New Game");
-		Button loadGame = makeButton("Load Game");
-		Button exit = makeButton("Exit Application ");
-		newGame.setOnMouseClicked(e -> controller.createNewGame());
-		loadGame.setOnMouseClicked(e -> controller.loadGame());
-		exit.setOnMouseClicked(e -> System.exit(0));
-		VBox vbox = new VBox(height/INT.DEFAULT_BUTTON_SPREAD);
-		vbox.getChildren().addAll(newGame, loadGame, exit);
-		vbox.setAlignment(Pos.CENTER);
-		menu.getChildren().addAll(makeBlueDevil(), vbox, makeText("Welcome Blue Devils"));
+		StackPane menu = new StackPane();	
+		menu.getChildren().addAll(makeBlueDevil(), makeMenuButtons(), makeText("Welcome Blue Devils"));
 		this.viewableArea().setCenter(menu);
 	}
 	
@@ -106,6 +97,18 @@ public class MainMenuScreen extends Screen {
 		return img;
 	}
 	
+	private VBox makeMenuButtons(){
+		Button newGame = makeButton("New Game");
+		Button loadGame = makeButton("Load Game");
+		Button exit = makeButton("Exit Application ");
+		newGame.setOnMouseClicked(e -> controller.createNewGame());
+		loadGame.setOnMouseClicked(e -> controller.loadGame());
+		exit.setOnMouseClicked(e -> System.exit(0));
+		VBox vbox = new VBox(INT.DEFAULT_BUTTON_SPREAD);
+		vbox.getChildren().addAll(newGame, loadGame, exit);
+		vbox.setAlignment(Pos.CENTER);
+		return vbox;
+	}
 	private Text makeText(String s) {
 		
 		Text text = new Text(s);
@@ -116,7 +119,7 @@ public class MainMenuScreen extends Screen {
 		text.setX(10.0f);
 		text.setY(270.0f);
 		text.setFill(Color.BLACK);
-		text.setFont(Font.font("SERIF", FontWeight.BOLD, 40));
+		text.setFont(Font.font("SERIF", FontWeight.BOLD, 48));
 		text.setTranslateY(-250);  //?? uncertain of how offset works but this works for now
 		return text;
 		
