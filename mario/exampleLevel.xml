@@ -9,6 +9,7 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
       <transform>
         <myPosition>
           <x>0.0</x>
@@ -117,36 +118,9 @@
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList/>
-      <componentList/>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <collisionTag>platform</collisionTag>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>430.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>500.0</width>
-          <height>10.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
+    <sprite.Sprite reference="../sprite.Sprite"/>
   </sprites>
-<<<<<<< HEAD
   <playerSprite reference="../sprites/sprite.Sprite[2]"/>
-=======
-  <playerSprite reference="../sprites/sprite.Sprite"/>
   <collisionTable>
     <myTable>
       <entry>
@@ -171,7 +145,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -185,5 +159,4 @@
       <string>player</string>
     </tagList>
   </collisionTable>
->>>>>>> d017e9cf4e5d27da058ea78dc1c0a6de961013ee
 </levelPlatform.level.Level>
