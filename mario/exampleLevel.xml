@@ -18,7 +18,12 @@
         <gameEngine.actions.RightMotionAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
-          <runsEveryFrame>true</runsEveryFrame>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
           <velocity>1.2598425196849998</velocity>
         </gameEngine.actions.RightMotionAction>
         <gameEngine.actions.JumpAction>

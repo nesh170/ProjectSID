@@ -30,8 +30,7 @@ public class ExampleLevelMaker {
 		player.addComponent(new HealthComponent(player, true));
 		player.addComponent(new VelocityComponent(player));
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
-		Action rma = new RightMotionAction(player, 2.0);
-		rma.runEveryFrame();
+		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
 		player.addAction(rma);
 		player.addAction(new JumpAction(player, -6.0, KeyCode.UP));
 		Action gravityAction = new GravityAction(player, 10.0);
