@@ -6,6 +6,11 @@ public class AudioController {
 
 	private MediaPlayer myAudioPlayer;
 	
+	public AudioController(MediaPlayer mp) {
+		this.myAudioPlayer = mp;
+		play();
+	}
+	
 	public void play() {
 		myAudioPlayer.play();
 	}

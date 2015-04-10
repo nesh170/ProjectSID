@@ -26,6 +26,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -33,6 +34,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import levelPlatform.level.Level;
+import media.AudioController;
 import media.VideoPlayer;
 
 public class PlayerViewController {
@@ -43,6 +45,7 @@ public class PlayerViewController {
 	private Timeline myTimeline;
 	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
+	private AudioController myAudioController;
 	private Media myVideo;
 	private Media myAudio;
 	private StackPane myPause;
@@ -172,6 +175,7 @@ public class PlayerViewController {
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();
+			myAudioController = new AudioController(new MediaPlayer(myAudio));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
