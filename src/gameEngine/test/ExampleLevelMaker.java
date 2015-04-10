@@ -34,8 +34,8 @@ public class ExampleLevelMaker {
 		Sprite player = new Sprite();
 		player.addComponent(new HealthComponent(player));
 		player.addComponent(new VelocityComponent(player));
-		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
-		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
+		player.addAction(new LeftMotionAction(player, 20.0, KeyCode.LEFT));
+		Action rma = new RightMotionAction(player, 20.0, KeyCode.RIGHT);
 		player.addAction(rma);
 		Action jumpAction = new JumpAction(player, -6.0, KeyCode.UP);
 		player.addAction(jumpAction);
@@ -45,15 +45,18 @@ public class ExampleLevelMaker {
 		Action normalAction = new NormalAction(player);
 		player.addAction(normalAction);
 		//set up platform
+
 		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
 		
 		Action killAction = new KillAction(player, 0.0, KeyCode.UP);
 		
+
+
 		List<Sprite> spriteList = new ArrayList<Sprite>();
 		spriteList.add(platform);
 		spriteList.add(player);
 		spriteList.add(platform);
-		Level l = new Level(500, 500, player);
+		Level l = new Level(5000, 500, player);
 		
 		//set up collisions
 		CollisionTable ct = new CollisionTable();
@@ -62,10 +65,12 @@ public class ExampleLevelMaker {
 		ct.addActionToMap(player.collisonTag(), platform.collisonTag(), INT.COLLISION_UP, killAction);
 		ct.addActionToMap(platform.collisonTag(), player.collisonTag(), INT.COLLISION_DOWN, null);
 		l.setCollisionTable(ct);
+
 		
 		Map<Sprite, Integer> goalMap = new HashMap<>();
 		goalMap.put(player, 0);
 		
+
 		l.setSprites(spriteList);
 		l.setGoalMap(goalMap);
 		try{

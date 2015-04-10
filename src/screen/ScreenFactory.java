@@ -43,8 +43,7 @@ public class ScreenFactory {
 	
 	public Screen createGameEditScreen(Game game, 
 			GameEditScreenController gameEditScreenController) {
-		
-		return new GameEditScreen(game, gameEditScreenController, width, height);
+			return new GameEditScreen(game, gameEditScreenController, width, height);
 		
 	}
 	
