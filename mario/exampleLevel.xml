@@ -87,6 +87,34 @@
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <transform>
+        <myPosition>
+          <x>0.0</x>
+          <y>430.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <myDimensions>
+          <width>500.0</width>
+          <height>10.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
   </sprites>
   <playerSprite reference="../sprites/sprite.Sprite"/>
+  <collisionTable>
+    <myTable/>
+    <tagList/>
+  </collisionTable>
 </levelPlatform.level.Level>
