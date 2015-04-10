@@ -1,9 +1,12 @@
 package player;
 
+import game.Game;
 import gameEngine.GameEngine;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -51,6 +54,7 @@ public class PlayerViewController {
 	private Group myGameGroup;
 	private GameEngine myEngine;
 	private double[] cameraValue;
+	private Game myGame;
 	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
@@ -58,12 +62,10 @@ public class PlayerViewController {
 		myPause = makePauseScreen();
 	}
 
-	public PlayerViewController(ScrollPane pane, double width, double height) {
+	public PlayerViewController(Game game, ScrollPane pane) {
 		myGameRoot = pane;
-		loadNewChooser();
 		myPause = makePauseScreen();
-		myWidth = width;
-		myHeight = height;
+		selectGame(game);
 	}
 
 	public void startView() {
@@ -170,6 +172,13 @@ public class PlayerViewController {
 		setupAnimation();
 	}
 
+	public void selectGame(Game game) {
+		myGame = game;
+//		myGameLevels = game.getLevels;
+//		myEngine = new GameEngine(myGameLevels);
+//		setupAnimation();
+	}			
+	
 	public HBox createHUD() {
 		HBox HUDbox = new HBox(myWidth);
 		Text LivesText = new Text("Health:" + myHealth);
