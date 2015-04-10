@@ -20,8 +20,6 @@ public class UtilsLoader {
 	}
 
 	private void createLoaderChooser(Stage stage) {
-        //stage.initModality(Modality.APPLICATION_MODAL);
-        //stage.initOwner(s);
 	    Button sounds = new Button("Sounds");
 	    Button images = new Button("Images");
         sounds.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
