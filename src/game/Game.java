@@ -24,5 +24,12 @@ public class Game {
 	}
 	public void removeSplash(){
 		mySplash = null;
+	}	
+	public List<Level> getLevel(){
+		return myLevels;
 	}
+	public void setLevel(){
+		//myLevels.set(myLevels);
+	}
+	
 }

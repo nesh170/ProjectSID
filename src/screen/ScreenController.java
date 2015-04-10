@@ -260,14 +260,14 @@ public class ScreenController {
 		createMainMenuScreen();
 		
 		//USED FOR TEST LEVELEDITSCREEN
-		createGameEditScreen(null);
+		//createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		createSplashEditScreen(null);
+		//createSplashEditScreen(null);
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
-		createLevelEditScreen(null);
+		//createLevelEditScreen(null);
 
 	}
 	
@@ -409,8 +409,8 @@ public class ScreenController {
 		public void returnToMainMenuScreen() {
 			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTab(gameEditTab);	
-			
+			//tabManager.removeTab(gameEditTab);	
+			tabManager.removeTabAndChangeSelected(gameEditTab);
 		}
 
 
@@ -470,11 +470,9 @@ public class ScreenController {
 
 		@Override
 		public void returnToGameEditScreen() {
-			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTab(levelEditTab);	
-			
-		}
-		
+			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.removeTabAndChangeSelected(splashTab);
+		}		
 	}
 	
 	private class LevelEditScreenManager implements LevelEditScreenController {
@@ -482,7 +480,7 @@ public class ScreenController {
 		@Override
 		public void returnToGameEditScreen() {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTab(levelEditTab);								
+			tabManager.removeTabAndChangeSelected(levelEditTab);								
 		}
 
 		@Override
