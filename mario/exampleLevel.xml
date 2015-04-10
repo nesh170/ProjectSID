@@ -37,12 +37,12 @@
           <runsEveryFrame>false</runsEveryFrame>
           <initialVelocity>-3.779527559055</initialVelocity>
         </gameEngine.actions.JumpAction>
-        <gameEngine.actions.GravityAction>
+        <gameEngine.actions.FallAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <runsEveryFrame>true</runsEveryFrame>
-          <myGravityConstant>0.10498687664041667</myGravityConstant>
-        </gameEngine.actions.GravityAction>
+          <gravityValue>0.10498687664041667</gravityValue>
+        </gameEngine.actions.FallAction>
       </actionList>
       <componentList>
         <gameEngine.components.HealthComponent>

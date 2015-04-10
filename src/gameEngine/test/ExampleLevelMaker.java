@@ -33,7 +33,7 @@ public class ExampleLevelMaker {
 		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
 		player.addAction(rma);
 		player.addAction(new JumpAction(player, -6.0, KeyCode.UP));
-		Action gravityAction = new GravityAction(player, 10.0);
+		Action gravityAction = new FallAction(player, 10.0);
 		gravityAction.runEveryFrame();
 		player.addAction(gravityAction);
 		//set up platform
