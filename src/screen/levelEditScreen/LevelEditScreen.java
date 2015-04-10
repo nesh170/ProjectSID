@@ -54,6 +54,7 @@ public class LevelEditScreen extends Screen {
 	
 	private Level level;
 	private LevelView levelView;
+	private Group levelDisplay;
 	private Tab currentGameScreen;
 	private Sprite spriteToAdd;
 	private Sprite selectedSprite;
@@ -65,6 +66,7 @@ public class LevelEditScreen extends Screen {
 	
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
+	private Map<Sprite,ImageView> spriteToImageMap;
 
 
 	// Getters & Setters
@@ -109,6 +111,7 @@ public class LevelEditScreen extends Screen {
 		this.controller = parent;
 		
 		stringToSpriteMap = new HashMap<>();
+		spriteToImageMap = new HashMap<>();
 		
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
@@ -148,6 +151,7 @@ public class LevelEditScreen extends Screen {
 	private void setUpLevelViewFromLevel(Level level) {
 		
 		this.level = level;
+		this.levelDisplay = new Group();
 		
 		Level levelToUse = level;
 		
@@ -158,6 +162,7 @@ public class LevelEditScreen extends Screen {
 		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
 		this.viewableArea().setCenter(levelView);
 		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
+		this.levelView.setContent(levelDisplay);
 		
 	}
 	
@@ -231,15 +236,20 @@ public class LevelEditScreen extends Screen {
 		
 		if(spriteToAdd != null) {
 			
+			ImageView spriteImageView = new ImageView(spriteToAdd.spriteImage().getImageToDisplay(100)); //TODO get rid of magic;
+			
 			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
+			spriteToImageMap.put(spriteToAdd,spriteImageView);
 			stringToListMap.get(spriteToAdd.tag()).add(spriteToAdd.getName());
 			
 			configureSpriteXYFromClick(e, spriteToAdd);
 			
+			spriteImageView.setX(spriteToAdd.getX());
+			spriteImageView.setY(spriteToAdd.getY());
+			
 			level.sprites().add(spriteToAdd);
-			setUpLevelViewFromLevel(level);
-			levelView.renderLevel();
-
+			levelDisplay.getChildren().add(spriteImageView);
+						
 			//do this once sprite has been added
 			spriteToAdd = null; 
 			
