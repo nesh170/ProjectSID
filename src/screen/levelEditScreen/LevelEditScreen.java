@@ -228,8 +228,8 @@ public class LevelEditScreen extends Screen {
 		
 		if(spriteToAdd != null) {
 			
-			stringToSpriteMap.put(spriteToAdd.tag(), spriteToAdd);
-			stringToListMap.get(spriteToAdd.tag()).add(spriteToAdd.toString());
+			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
+			stringToListMap.get(spriteToAdd.tag()).add(spriteToAdd.getName());
 			
 			configureSpriteXYFromClick(e, spriteToAdd);
 			

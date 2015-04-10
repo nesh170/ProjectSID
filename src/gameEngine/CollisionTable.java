@@ -33,7 +33,6 @@ public class CollisionTable {
 	
 	public Action getActionForCollisionAndDirection(String type1, String type2, int direction){
 		if (tagList.contains(type1) && myTable.get(type1).containsKey(type2)) {
-			System.out.println("Getting action.");
 			return (myTable.get(type1).get(type2)[direction]);
 		}
 		return null;

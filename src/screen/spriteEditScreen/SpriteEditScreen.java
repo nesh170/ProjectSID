@@ -492,6 +492,7 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void saveSprite() {
+		editableSprite.setName(spriteNameField.getText());
 		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
 	}
 	
@@ -500,9 +501,20 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void saveAndExit() {
-		saveSprite();
-		LevelEditScreen levelEdit = (LevelEditScreen) levelEditScreen.getContent();
-		controller.returnToSelectedLevel(levelEdit, levelEditScreen, editableSprite);
+		if(spriteNameField.getText().isEmpty()) {
+			
+			spriteNameField.getStyleClass().add("text-field-error");
+			
+		}
+		
+		else{
+			
+			saveSprite();
+			LevelEditScreen levelEdit = (LevelEditScreen) levelEditScreen.getContent();
+			controller.returnToSelectedLevel(levelEdit, levelEditScreen, editableSprite);
+
+		}
+		
 	}
 
 	// All other instance methods

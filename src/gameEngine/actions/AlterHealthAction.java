@@ -7,17 +7,11 @@ import gameEngine.components.HealthComponent;
 
 public class AlterHealthAction extends Action {
 
-	private Double alterAmount;
 	private HealthComponent myHealth;
 	
-	public AlterHealthAction(Sprite sprite, Double delta){
-		super(sprite);
-		alterAmount = delta;
-	}
 	
 	public AlterHealthAction(Sprite sprite, Double delta, KeyCode... keys){
 		super(sprite, keys);
-		alterAmount = delta;
 	}
 	@Override
 	public void prepare() {
@@ -27,7 +21,7 @@ public class AlterHealthAction extends Action {
 
 	@Override
 	public void execute() {
-		myHealth.increase(alterAmount);
+		myHealth.increase(value);
 	}
 
 	@Override
