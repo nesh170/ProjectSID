@@ -1,11 +1,14 @@
 package screen;
 import game.Game;
 
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 import javax.imageio.ImageIO;
 
+import data.DataHandler;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Side;
