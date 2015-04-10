@@ -10,7 +10,7 @@ public class PlayerMain extends Application {
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("Game Player");
-		GamePlayer myGamePlayer = new GamePlayer(stage);
+		PlayerMenu menu = new PlayerMenu(stage);
 		stage.show();
 	}
 
