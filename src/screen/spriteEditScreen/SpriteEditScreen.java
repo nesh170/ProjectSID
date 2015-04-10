@@ -468,11 +468,11 @@ public class SpriteEditScreen extends Screen {
 		try {
 			
 			int imageSize = INT.DEFAULT_IMAGE_SIZE;
-			if(imageSizeField.getText()!=null || imageSizeField.getText().matches("^[0-9]+$")) {
+			if(imageSizeField.getText()!="" && imageSizeField.getText().matches("^[0-9]+$")) {
 				imageSize = Integer.parseInt(imageSizeField.getText());
 			}
 			File file = DataHandler.chooseFile(new Stage());
-			Image image = DataHandler.fileToImage(file);
+			Image image = DataHandler.fileToImage(file,imageSize,imageSize,true);
 			ImageView spriteImageRep = new ImageView(image);
 			int currentImageNumber = imagesAdded.size();
 			String imageName = languageResources().getString("ImageName")+currentImageNumber;
@@ -482,6 +482,8 @@ public class SpriteEditScreen extends Screen {
 			if(currentImageNumber == 0) {
 				paneForImage.getChildren().add(spriteImageRep);
 			}
+			
+			imageSizeField.clear();
 						
 		}
 		catch (NullPointerException e) {
