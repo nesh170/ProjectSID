@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -107,12 +108,6 @@ public class DataHandler {
 				.map(obj -> Level.class.cast(obj)).collect(Collectors.toList());
 	}
 
-	public static List<Image> resizeImages(List<Image> images, double newWidth, double newHeight) {
-		return images.stream()
-			.map(image -> new Image(new File("a.jpg").toURI().toString(), newWidth, newHeight, true, true))
-			.collect(Collectors.toList());	
-	}
-
 	public static Image URLToImage(String url) {
 		try {
 			URL checkValidURL = new URL(url);
@@ -123,6 +118,36 @@ public class DataHandler {
 		return new Image(url);
 	}
 
+	public static Media getVideoFromDir(File folder) {
+		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.toString().endsWith(".flv")
+						|| file.toString().endsWith(".mp4"))
+				.map(file -> new Media(file.toURI().toString()))
+				.collect(Collectors.toList());
+
+		if (videoFiles.size() != 0) {
+			System.out.println("NOT EXACTLY ONE .XML FILE");
+			return null;
+		} else {
+			return videoFiles.get(0);
+		}
+	}
+	
+	public static Media getAudioFromDir(File folder) {
+		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.toString().endsWith(".mp3")
+						|| file.toString().endsWith(".m4a"))
+				.map(file -> new Media(file.toURI().toString()))
+				.collect(Collectors.toList());
+
+		if (videoFiles.size() != 0) {
+			System.out.println("NOT EXACTLY ONE .XML FILE");
+			return null;
+		} else {
+			return videoFiles.get(0);
+		}
+	}
+	
 	public static Image fileToImage(File file) {
 		return new Image(file.toURI().toString());
 	}
