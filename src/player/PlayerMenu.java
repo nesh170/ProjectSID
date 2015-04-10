@@ -37,6 +37,7 @@ public class PlayerMenu {
 		menuBar.getMenus().add(buildFileMenu());
 		menuBar.getMenus().add(buildGamesMenu());
 		menuBar.getMenus().add(menuView);
+		menuBar.getMenus().add(buildSoundMenu());
 		menuBar.getMenus().add(buildHelpMenu());
 		return menuBar;
 	}
@@ -102,6 +103,21 @@ public class PlayerMenu {
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
 	}
+	
+	private Menu buildSoundMenu() {
+		Menu soundMenu = new Menu("Sound");
+		MenuItem playItem = makeMenuItem("Play");
+		playItem.setOnAction(event -> myPlayer.playMusic());
+		
+		MenuItem pauseItem = new MenuItem("Pause");
+		pauseItem.setOnAction(event -> myPlayer.pauseMusic());
+		
+		MenuItem stopItem = makeMenuItem("Stop");
+		stopItem.setOnAction(event -> myPlayer.stopMusic());
+		
+		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
+		return soundMenu;
+	}
 
 	private Stage buildGameChooser() {
 		Stage gameChooser = new Stage();
@@ -134,6 +150,7 @@ public class PlayerMenu {
 	
 	public void showTutorial() {
 		myPlayer.showTutorial();
+		myPlayer.pauseMusic();
 	}
 	
 	public MenuBar getBar() {

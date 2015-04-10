@@ -111,4 +111,16 @@ public class GamePlayer {
 		return null;
 	}
 
+	public void playMusic() {
+		myView.playMusic();
+	}
+
+	public void pauseMusic() {
+		myView.pauseMusic();
+	}
+
+	public void stopMusic() {
+		myView.stopMusic();
+	}
+
 }

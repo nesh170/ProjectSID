@@ -217,10 +217,24 @@ public class PlayerViewController {
 	public void showTutorial() {
 		// TODO Auto-generated method stub
 		try {
-			myVideoPlayer.init(new Stage(), myVideo);
+			Stage videoStage = new Stage();
+			videoStage.setOnCloseRequest(event -> playMusic());
+			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void playMusic() {
+		myAudioController.play();
+	}
+
+	public void pauseMusic() {
+		myAudioController.pause();
+	}
+
+	public void stopMusic() {
+		myAudioController.stop();
 	}
 }

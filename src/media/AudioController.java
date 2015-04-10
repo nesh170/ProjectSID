@@ -1,10 +1,12 @@
 package media;
 
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class AudioController {
 
 	private MediaPlayer myAudioPlayer;
+	private Duration myPauseTime;
 	
 	public AudioController(MediaPlayer mp) {
 		this.myAudioPlayer = mp;
@@ -20,7 +22,7 @@ public class AudioController {
 	}
 	
 	public void pause() {
-		myAudioPlayer.stop();
+		myAudioPlayer.pause();
 	}
 	
 	public void reset() {
