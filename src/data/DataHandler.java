@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,6 +90,16 @@ public class DataHandler {
 				.collect(Collectors.toList());
 	}
 
+	public static Image URLToImage(String url) {
+		try {
+			URL checkValidURL = new URL(url);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(url + " is not valid.");
+		}
+		return new Image(url);
+	}
+	
 	public static Image fileToImage(File file) {
 		return new Image(file.toURI().toString());
 	}
