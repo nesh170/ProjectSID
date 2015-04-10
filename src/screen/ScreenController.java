@@ -2,6 +2,7 @@ package screen;
 import game.Game;
 
 import java.io.File;
+import java.net.URI;
 
 import javax.imageio.ImageIO;
 
@@ -389,14 +390,8 @@ public class ScreenController {
 		}
 
 		@Override
-		public void loadGameEditScreen(String recentGameName) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
 		public void loadGame() {
-			// TODO Auto-generated method stub
+			//Load Game from file
 			
 		}
 
@@ -412,44 +407,50 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
-			// TODO Auto-generated method stub
+			//MainMenuScreen is singleton
 			
 		}
 
-		@Override
-		public void loadSplashEditScreen(Game game) {
-			
-		}
 
 		@Override
 		public void loadLevelEditScreen(Level level) {
-			
+
 			createLevelEditScreen(level);
 			
 		}
 
 		@Override
-		public void loadLevelEditScreen() {
-			
+		public void loadLevelEditScreen(Game game) {
+			//Create new Level, add to end of game
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createLevelEditScreen(newLevel);
+			game.addLevel(newLevel);
 			
 		}
 
 		@Override
-		public void loadSplashEditScreen() {
+		public void loadSplashEditScreen(Game game) {
+			//Create new SplashEditScreen
+			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
+					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+			createSplashEditScreen(newSplashScreen);
+			game.addSplash(newSplashScreen);
 			
 		}
 
 		@Override
 		public void playGame(Game game) {
-			
+			//Create new GamePlayScreen
+			//Needs to pass in Level
+			//createGamePlayScreen(game);
+			throw new IllegalStateException("Unimplemented playGame");
 		}
 
 		@Override
-		public void trashLevel(Level level) {
-			// TODO Auto-generated method stub
+		public void trashLevel(Game game, int levelIndex) {
+			
+			game.removeLevel(levelIndex);
 			
 		}
 		
@@ -458,9 +459,8 @@ public class ScreenController {
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
 		@Override
-		public void returnToGameEditScreen(Tab tab) {
+		public void returnToGameEditScreen() {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.getTabSelectionModel().select(tab);
 			tabManager.removeTab(levelEditTab);	
 			
 		}
@@ -470,16 +470,23 @@ public class ScreenController {
 	private class LevelEditScreenManager implements LevelEditScreenController {
 
 		@Override
-		public void returnToGameEditScreen(Tab tab) {
+		public void returnToGameEditScreen() {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.getTabSelectionModel().select(tab);
-			tabManager.removeTab(levelEditTab);							
+			tabManager.removeTab(levelEditTab);								
 		}
 
 		@Override
 		public void loadSpriteEditScreen(Sprite sprite) {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			createSpriteEditScreen(levelEditTab, sprite);					
+		}
+		
+		@Override
+		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
+			Sprite newSprite = new Sprite();
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createSpriteEditScreen(levelEditTab, newSprite);
+			levelEditScreen.addSprite(newSprite);
 		}
 		
 	}
