@@ -1,15 +1,14 @@
 package player;
 
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -31,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import levelPlatform.level.Level;
+import media.VideoPlayer;
 
 public class PlayerViewController {
 
@@ -39,6 +39,7 @@ public class PlayerViewController {
 
 	private Timeline myTimeline;
 	private Stage myGameChooser;
+	private VideoPlayer myVideoPlayer;
 	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
@@ -51,7 +52,8 @@ public class PlayerViewController {
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-
+	private double[] cameraValue;
+	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
 		loadNewChooser();
@@ -62,6 +64,8 @@ public class PlayerViewController {
 		myGameRoot = pane;
 		loadNewChooser();
 		myPause = makePauseScreen();
+		myWidth = width;
+		myHeight = height;
 	}
 
 	public void startView() {
@@ -77,14 +81,25 @@ public class PlayerViewController {
 	}
 
 	private void update() {
-		myEngine.update();
+		cameraValue = myEngine.update();
 	}
 
 	private void display() {
-
 		myGameGroup = myEngine.render();
 		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
+		centerNodeInScrollPane();
+	}
+	
+	public void centerNodeInScrollPane() {
+	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
+	    double yCenterPlayer = cameraValue[1];
+	    double yBounds = myGameRoot.getViewportBounds().getHeight();
+	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
+	    double xCenterPlayer = cameraValue[0];
+	    double xBounds = myGameRoot.getViewportBounds().getWidth();
+	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
+	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
 	}
 
 	private StackPane makePauseScreen() {
@@ -95,8 +110,8 @@ public class PlayerViewController {
 		});
 		pause.getChildren().add(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(500);
-		pause.setPrefHeight(500);
+		pause.setPrefWidth(myWidth - 100);
+		pause.setPrefHeight(myHeight - 50);
 		return pause;
 	}
 

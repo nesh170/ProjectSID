@@ -22,9 +22,9 @@ public abstract class GameEngineAbstract {
     
     /**
      * The update method runs through each sprite and update their position and any other values based on the state of the game.
-     * It also checks for collisions. 
+     * It also checks for collisions. It also returns the X,Y Camera position.
      */
-    public abstract void update();
+    public abstract double[] update();
     
     /**
      * The render method creates a new group then calls on the LevelViewScreen

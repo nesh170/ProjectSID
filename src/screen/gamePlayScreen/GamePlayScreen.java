@@ -2,6 +2,7 @@ package screen.gamePlayScreen;
 
 import gameEngine.GameEngine;
 import player.GamePlayer;
+import player.PlayerMenu;
 import javafx.scene.control.MenuBar;
 import levelPlatform.level.Level;
 import screen.Screen;
@@ -12,7 +13,7 @@ public class GamePlayScreen extends Screen {
 	// Instance Variables
 	private GamePlayScreenController controller;
 	private Level level;
-	private GamePlayer myPlayer;
+	private PlayerMenu myMenu;
 	private GamePlayScreenController gamePlayScreenController;
 	
 	
@@ -26,7 +27,7 @@ public class GamePlayScreen extends Screen {
 		configureLevel(level);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
 		//also every GamePlayer must be containted within a gamePlayer screen
-		myPlayer = new GamePlayer(width, height);		
+		myMenu = new PlayerMenu(width, height);		
 		
 	}
 		
@@ -38,7 +39,7 @@ public class GamePlayScreen extends Screen {
 		super(width, height);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
 		//also every GamePlayer must be containted within a gamePlayer screen
-		myPlayer = new GamePlayer(width, height);	
+		myMenu = new PlayerMenu(width, height);	
 		this.gamePlayScreenController = gamePlayScreenController;
 	}
 

@@ -1,10 +1,10 @@
 package levelPlatform.level;
 import gameEngine.Action;
-
+import gameEngine.EngineMathFunctions;
+import gameEngine.CollisionTable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -27,10 +27,12 @@ import levelPlatform.LevelPlatform;
 public class Level extends LevelPlatform {
 	
 	// Static Variables
-	
+	public static final int X = 0;
+	public static final int Y = 1;
 	
 	// Instance Variables
 	private Sprite playerSprite;
+	private CollisionTable collisionTable;
 	
 	
 	// Getters & Setters
@@ -53,6 +55,14 @@ public class Level extends LevelPlatform {
 		sprites = spriteList;
 	}
 	
+	public void setCollisionTable(CollisionTable collisionTable) {
+		this.collisionTable = collisionTable;
+	}
+	
+	public CollisionTable getCollisionTable() {
+		return collisionTable;
+	}
+	
 	
 	// Constructor & Helpers
 	public Level(int width, int height) {
@@ -72,5 +82,12 @@ public class Level extends LevelPlatform {
 		}
 		
 	}
+
+    public double[] getNewCameraLocations () {
+        double[] xyLocations = new double[2];
+        xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
+        xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
+        return xyLocations;
+    }
 	
 }	

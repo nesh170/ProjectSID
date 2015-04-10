@@ -231,6 +231,39 @@ public class GameEditScreen extends Screen {
 		b.setGraphic(level1);
 		return b;		
 	}
+	
+	/**
+	 * This method initializes making buttons from STRING constants class for adding and editing
+	 * levels and splash screens.
+	 * Initializes event handlers for buttons on the screen.
+	 * @author Anika modified by Yongjiao
+	 */
+	private List<ScreenButton> createSplashAndLevelButtons() {		
+		// get <String buttonID, String buttonName> map for buttons from STRING constants class
+		Map<String, String> buttonMap = STRING.LEVELS_SPLASH_MAP;
+		// get values of map and put into an array -> buttonNames = array of button names
+		String[] buttonNames = (String[]) buttonMap.values().toArray();
+		// create a map of <String buttonID, ScreenButton button>
+		Map<String, ScreenButton> myButtons = new HashMap<String, ScreenButton>();	
+		// for each name in buttonNames, create a new ScreenButton and put it in the map
+		for (int i = 0; i < buttonNames.length; i++){
+			ScreenButton myB = new ScreenButton(buttonNames[i], STRING.BUTTON_STYLE);
+			System.out.println(buttonNames[i]); // testing
+			myButtons.put(buttonNames[i], myB);
+		}	
+		/*
+		 * initialize event handlers for buttons
+		 * modified by Yongjiao: changed to use methods in manager class.
+		 * modified by Anika: changed to use methods in controller class
+		 */
+//		myButtons.get("ADD_LEVEL").setOnMouseClicked( e -> controller.loadLevelEditScreen()); 
+//		myButtons.get("ADD_SPLASH").setOnMouseClicked(e -> controller.loadSplashEditScreen());	
+//		myButtons.get("EDIT_LEVEL").setOnMouseClicked(e -> parent.loadLevelEditScreen(level));
+//		myButtons.get("EDIT_SPLASH").setOnMouseClicked(e -> parent.loadSplashEditScreen(game));
+//		myButtons.get("REMOVE_LEVEL").setOnMouseClicked(e -> parent.trashLevel(level));		
+		return new ArrayList(myButtons.values());	
+	}
+	
 	private ImageView makeButton(String location){
 		ImageView b = new ImageView(new Image(location));
 		b.setFitHeight(80);

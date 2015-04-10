@@ -18,7 +18,7 @@ public class HealthComponent extends Component {
 	private int myLives;
 	private boolean hasDeath;
 	
-	public HealthComponent(Sprite sprite, boolean death){
+	public HealthComponent(Sprite sprite){
 		super(sprite);
 		myHP = DEFAULT_STARTING_HP;
 		myLives = DEFAULT_STARTING_LIVES;
