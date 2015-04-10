@@ -1,6 +1,7 @@
 package player;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Pos;
@@ -21,7 +22,7 @@ public class PlayerMenu {
 	private MenuBar myMenuBar;
 	private PlayerViewController myView;
 	private GamePlayer myPlayer;
-	private List<MenuItem> myCommandItems;
+	private List<MenuItem> myCommandItems = new ArrayList<MenuItem>();
 	
 	public PlayerMenu(Stage stage) {
 		myMenuBar = createPlayerMenu();
