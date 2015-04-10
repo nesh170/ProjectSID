@@ -44,7 +44,6 @@ public class GamePlayer implements GamePlayerInterface {
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	
-	private GamePlayerView myView;
 	private GameEngine myEngine;
 	private Scene myScene;
 
