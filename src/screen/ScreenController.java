@@ -355,7 +355,7 @@ public class ScreenController {
 		@Override
 		public void createNewGame() {
 			
-			Game newGame = new Game();
+			Game newGame = new Game(STRING.DEFAULT_GAME_NAME);
 			createGameEditScreen(newGame);
 			
 		}
