@@ -65,6 +65,19 @@ public class DataHandler {
 				.collect(Collectors.toList());
 	}
 	
+	public static List<Image> getImagesFromDir(File folder, double maxWidth, double maxHeight, boolean preserve) throws IOException {
+		return Arrays
+				.asList(folder.listFiles())
+				.stream()
+				.filter(file -> file.toString().endsWith(".jpg")
+						|| file.toString().endsWith(".png")
+						|| file.toString().endsWith(".tif")
+						|| file.toString().endsWith(".tiff")
+						|| file.toString().endsWith(".gif"))
+				.map(file -> fileToImage(file, maxWidth, maxHeight, preserve))
+				.collect(Collectors.toList());
+	}
+	
 	public static List<Level> getLevelsFromDir(File folder) throws IOException {
 		return Arrays
 				.asList(folder.listFiles())
@@ -79,8 +92,21 @@ public class DataHandler {
 		return new Image(file.toURI().toString());
 	}
 	
+	/**
+	 * Call this function to obtain a JavaFX Image object from an image file. This specific method
+	 * allows you to specify the maximum width and height of the new Image object. If the preserve
+	 * input is true, the file's image ratio is preserved, and kept within the bounds of the box.
+	 * If preserve is false, then the image simply has a width of maxWidth, and a height of
+	 * maxHeight.
+	 * 
+	 * @param file		The image file that represents the image you want to convert to JavaFX.
+	 * @param maxWidth	The maximum width of the JavaFX image.
+	 * @param maxHeight	The maximum height of the JavaFX image.
+	 * @param preserve	whether the original file's aspect ratio is fixed.
+	 * @return a JavaFX Image object.
+	 */
 	public static Image fileToImage(File file, double maxWidth, double maxHeight, boolean preserve) {
-		return new Image(file.toURI().toString(), maxWidth, maxHeight, preserve, false);
+		return new Image(file.toURI().toString(), maxWidth, maxHeight, preserve, true);
 	}
 
 }

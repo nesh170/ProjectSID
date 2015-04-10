@@ -45,7 +45,7 @@ public class DataMain extends Application{
 //			System.out.println(file.toString());
 //		}
 		
-		List<Image> images = DataHandler.getImagesFromDir(f);	
+		List<Image> images = DataHandler.getImagesFromDir(f, 800, 400, true);
 		ImageView iView = new ImageView(images.get(0));
 		
 		Stage s = new Stage();
