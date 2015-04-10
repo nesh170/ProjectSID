@@ -492,7 +492,7 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void saveSprite() {
-		//TODO
+		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
 	}
 	
 	private void exit() {
@@ -501,7 +501,8 @@ public class SpriteEditScreen extends Screen {
 	
 	private void saveAndExit() {
 		saveSprite();
-		exit();
+		LevelEditScreen levelEdit = (LevelEditScreen) levelEditScreen.getContent();
+		controller.returnToSelectedLevel(levelEdit, levelEditScreen, editableSprite);
 	}
 
 	// All other instance methods
