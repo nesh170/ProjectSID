@@ -117,7 +117,7 @@ public class GameEditScreen extends Screen {
 		return displaySplash;
 		
 	}
-	
+
 	private Text makeText(String s) {
 		
 		Text text = new Text(s);
@@ -156,7 +156,15 @@ public class GameEditScreen extends Screen {
 		return s1;
 		
 	}
-
+	/**
+	 * display a note on editing and removing a level
+	 */
+	private Text displayNote() {
+		Text t = new Text("Note: Double Left Click to Edit Level, Right click to remove/edit");
+		t.setTranslateY(210);
+		t.setTranslateX(270);
+		return t;
+	}
 	private StackPane DisplayLevelRegion(){
 		StackPane levelRegion = new StackPane();	//, DisplayLevels(myLevels)
 		
@@ -172,7 +180,7 @@ public class GameEditScreen extends Screen {
 		ImageView trash = makeButton(STRING.TRASH_IMG);
 		//trash.setOnMouseClicked(e -> controller.trashLevel(myGame, levelIndex));
 		levelRegion.setAlignment(trash, Pos.BOTTOM_RIGHT);
-		levelRegion.getChildren().addAll(DisplayLevels(myLevels), back, add, play, trash);			
+		levelRegion.getChildren().addAll(DisplayLevels(myLevels), back, add, play, trash, displayNote());			
 		return levelRegion;
 	}
 	

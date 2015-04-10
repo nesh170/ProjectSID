@@ -65,6 +65,7 @@ public class MainMenuScreen extends Screen {
 		this.controller = controller;
 
 		configureButtons(width, height);
+		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
 		
 	}
 	
@@ -134,6 +135,7 @@ public class MainMenuScreen extends Screen {
 	 */
 	private Button makeButton(String s) {	
 		Button b = new Button(s);
+		b.setStyle("-fx-background-color: lightgray;");
 		b.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
 		return b;
 		
