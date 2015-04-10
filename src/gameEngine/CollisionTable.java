@@ -1,16 +1,20 @@
 package gameEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class CollisionTable {
 
 	private Map<String, Map<String, Action[]>> myTable;
 	private List<Action> availableActions;
+	private List<String> tagList;
 	
 	public CollisionTable(){
 		myTable = new HashMap<String, Map<String, Action[]>>();
+		tagList = new ArrayList<>();
 	}
 	
 	private void generateActionsList(){
@@ -22,11 +26,17 @@ public class CollisionTable {
 	}
 	
 	public Action[] getActionsForCollision(String type1, String type2){
-		return myTable.get(type1).get(type2);
+		if (tagList.contains(type1) && myTable.get(type1).containsKey(type2)) {
+			return myTable.get(type1).get(type2);
+		}
+		return null;
 	}
 	
-	public Action getActionForCollisionAndDirection(String type1, String type2, int direction){
-		return myTable.get(type1).get(type2)[direction];
+	public Optional<Action> getActionForCollisionAndDirection(String type1, String type2, int direction){
+		if (tagList.contains(type1) && myTable.get(type1).containsKey(type2)) {
+			return Optional.ofNullable(myTable.get(type1).get(type2)[direction]);
+		}
+		return Optional.empty();
 	}
 	
 	public void addActionToMap(String type1, String type2, int direction, Action toAdd){
@@ -41,6 +51,7 @@ public class CollisionTable {
 				Action[] newActionList = new Action[4];
 				newActionList[direction] = toAdd;
 				myTable.get(type1).put(type2, newActionList);
+				tagList.add(type2);
 				
 			}
 			
@@ -51,6 +62,8 @@ public class CollisionTable {
 			newActionList[direction] = toAdd;
 			subMap.put(type2, newActionList);
 			myTable.put(type1, subMap);
+			tagList.add(type1);
+			tagList.add(type2);
 			
 		}
 		

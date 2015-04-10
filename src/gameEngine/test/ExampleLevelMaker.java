@@ -2,6 +2,7 @@ package gameEngine.test;
 
 
 import gameEngine.Action;
+import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.JumpAction;
@@ -42,8 +43,14 @@ public class ExampleLevelMaker {
 		List<Sprite> spriteList = new ArrayList<Sprite>();
 		spriteList.add(platform);
 		spriteList.add(player);
-		//spriteList.add(platform);
+		spriteList.add(platform);
 		Level l = new Level(500, 500, player);
+		
+		//set up collisions
+		CollisionTable ct = new CollisionTable();
+		
+		l.setCollisionTable(ct);
+		
 		l.setSprites(spriteList);
 		try{
 		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");

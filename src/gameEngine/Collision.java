@@ -40,21 +40,21 @@ public class Collision {
     
     private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Left");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_LEFT).execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_LEFT).get().execute();
     }
     
     private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Right");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_RIGHT).execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_RIGHT).get().execute();
     }
     
     private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Up");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_UP).execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_UP).get().execute();
     }
     
     private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
         System.out.println("Collision Down");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_DOWN).execute();
+        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_DOWN).get().execute();
     }
 }
