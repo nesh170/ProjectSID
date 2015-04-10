@@ -269,14 +269,14 @@ public class ScreenController {
 		tabManager.setDefaultTab(createMainMenuScreen());
 		
 		//USED FOR TEST LEVELEDITSCREEN
-		createGameEditScreen(null);
+		//createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		createSplashEditScreen(null);
+		//createSplashEditScreen(null);
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
-		createLevelEditScreen(null);
+		//createLevelEditScreen(null);
 
 	}
 	
