@@ -52,10 +52,12 @@ public class STRING {
 	public static final String LEVEL1IMAGE = "images/GameEdit_Images/level1_tmp.PNG";
 	public static final String LEVEL2IMAGE = "images/GameEdit_Images/level2_tmp.PNG";
 	public static final String SPRITEIMAGE = "images/sprite.jpg";
+	public static final String BACK_IMG = "images/GameEdit_Images/back.png";
 	public static final String SPLASH_SCREEN = "Splash Screen";
 	public static final String PLUS_IMG = "images/GameEdit_Images/plus_sign.png";
 	public static final String PLAY_IMG = "images/GameEdit_Images/play.png";
 	public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
+
 	
 	// Splash Edit Screen Default Images
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";

@@ -389,9 +389,11 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
-			
-			tabManager.changeToDefault();
-			
+			//MainMenuScreen is singleton
+			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			//tabManager.removeTab(gameEditTab);	
+			tabManager.removeTabAndChangeSelected(gameEditTab);
+
 		}
 
 
@@ -465,11 +467,9 @@ public class ScreenController {
 
 		@Override
 		public void returnToGameEditScreen() {
-			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTab(levelEditTab);	
-			
-		}
-		
+			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
+			tabManager.removeTabAndChangeSelected(splashTab);
+		}		
 	}
 	
 	private class LevelEditScreenManager implements LevelEditScreenController {
@@ -477,7 +477,7 @@ public class ScreenController {
 		@Override
 		public void returnToGameEditScreen() {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTab(levelEditTab);								
+			tabManager.removeTabAndChangeSelected(levelEditTab);								
 		}
 
 		@Override
