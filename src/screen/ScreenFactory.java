@@ -47,7 +47,8 @@ public class ScreenFactory {
 			return new GameEditScreen(game, gameEditScreenController, width, height);
 		}
 		else {
-			return new GameEditScreen(gameEditScreenController, width, height);
+			Game newGame = new Game(STRING.DEFAULT_GAME_NAME);
+			return new GameEditScreen(newGame, gameEditScreenController, width, height);
 		}
 		
 	}
