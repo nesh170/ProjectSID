@@ -11,6 +11,8 @@ public class STRING {
 	public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
 	public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
 	
+	public static final String DEFAULT_GAME_NAME = "(untitled)";
+	
 	// Screen Controller
 	public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
 	
@@ -98,4 +100,8 @@ public class STRING {
     
 	//Game Engine Constants
 	public static final String PLAYER_SPRITE = "playersprite";
+	
+	//Error Messages
+	public static final String ILLEGAL_FILE_PATH = "Illegal File Path Error";
+	
 }
