@@ -87,13 +87,6 @@ public class GameEditScreen extends Screen {
 		initialize(controller);
 		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
 	}
-	/**
-	 * Creates new GameEditScreen
-	 */
-	public GameEditScreen(GameEditScreenController controller, double width, double height) {
-			this(new Game(STRING.DEFAULT_GAME_NAME) ,controller, width, height);
-	}
-	
 	
 	private void configureButtons() {	
 		
