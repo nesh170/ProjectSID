@@ -75,8 +75,8 @@ public class Level extends LevelPlatform {
 
     public double[] getNewCameraLocations () {
         double[] xyLocations = new double[2];
-        xyLocations[X] = EngineMathFunctions.toPercent(playerSprite.transform().getPosX(),Math.rint(width()));
-        xyLocations[Y] = EngineMathFunctions.toPercent(playerSprite.transform().getPosY(),Math.rint(height()));
+        xyLocations[X] = playerSprite.transform().getPosX();
+        xyLocations[Y] = playerSprite.transform().getPosY();
         return xyLocations;
     }
 	
