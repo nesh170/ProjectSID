@@ -71,7 +71,7 @@ public class SplashEditScreen extends Screen {
 	// Constructor & Helpers
 
 	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
-
+ 
 		super(width, height);
 		
 		this.controller = parent;
@@ -339,9 +339,7 @@ public class SplashEditScreen extends Screen {
 
 	public void backSplashScreen() {
 		
-		// TODO remove after merge
-		Tab tab = null;
-		controller.returnToGameEditScreen(tab);
+		controller.returnToGameEditScreen();
 		
 	}
 	
