@@ -86,7 +86,7 @@ public class DataHandler {
 				.stream()
 				.filter(file -> file.toString().endsWith(".xml"))
 				.map(file -> fromXMLFile(file))
-				.map(obj -> (Level) obj)
+				.map(obj -> Level.class.cast(obj))
 				.collect(Collectors.toList());
 	}
 
