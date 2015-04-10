@@ -31,6 +31,10 @@ public class DataHandler {
 		XSTREAM.toXML(obj, fWriter);
 		fWriter.close();
 	}
+	
+	public static String toXMLString(Object obj) {
+		return XSTREAM.toXML(obj);
+	}
 
 	public static Object fromXMLString(String xml) {
 		return XSTREAM.fromXML(xml);
