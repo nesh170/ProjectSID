@@ -3,6 +3,34 @@
   <height>500</height>
   <sprites>
     <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <transform>
+        <myPosition>
+          <x>0.0</x>
+          <y>430.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myRotation>
+        <myDimensions>
+          <width>500.0</width>
+          <height>10.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
       <actionList>
         <gameEngine.actions.LeftMotionAction>
           <mySprite reference="../../.."/>
@@ -60,11 +88,7 @@
         <gameEngine.components.VelocityComponent>
           <mySprite reference="../../.."/>
           <isActive>true</isActive>
-          <myVelocity>
-            <x>0.0</x>
-            <y>0.0</y>
-            <hash>0</hash>
-          </myVelocity>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
         </gameEngine.components.VelocityComponent>
       </componentList>
       <x>0.0</x>
@@ -119,6 +143,9 @@
       </transform>
     </sprite.Sprite>
   </sprites>
+<<<<<<< HEAD
+  <playerSprite reference="../sprites/sprite.Sprite[2]"/>
+=======
   <playerSprite reference="../sprites/sprite.Sprite"/>
   <collisionTable>
     <myTable>
@@ -158,4 +185,5 @@
       <string>player</string>
     </tagList>
   </collisionTable>
+>>>>>>> d017e9cf4e5d27da058ea78dc1c0a6de961013ee
 </levelPlatform.level.Level>
