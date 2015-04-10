@@ -22,6 +22,7 @@ public abstract class Action {
 	protected Sprite mySprite;
 	private boolean isActive;
 	private List<KeyCode> myKeyCode;
+	private boolean runsEveryFrame = false;
 	
 	/** At construction, action knows the
 	 * sprite it is attached to
@@ -57,6 +58,13 @@ public abstract class Action {
 	 * 
 	 */
 	public abstract void prepare();
+	
+	public void update(){
+		if(runsEveryFrame){
+			execute();
+		}
+	}
+	
 	/**
 	 * Executes the behavior based on a keypressed
 	 */
@@ -76,6 +84,12 @@ public abstract class Action {
 		if(myKeyCode != null){
 	    myKeyCode.forEach((KeyCode key)-> controlMap.put(key, this));
 		}
+	}
+	/**
+	 * Call this method for every action that needs to execute every frame. (usually things like gravity)
+	 */
+	public void runEveryFrame(){
+		runsEveryFrame = true;
 	}
 	
 }

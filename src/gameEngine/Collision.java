@@ -11,7 +11,7 @@ public class Collision {
      * an array of four behaviors, representing what happens as a result of the first sprite colliding
      * with the second sprite from all four sides
      */
-    
+    private static final double TOLERANCE = 5.0;
     
     private CollisionTable collideTable;
     
@@ -25,36 +25,19 @@ public class Collision {
      * @param sprite2
      **/
     public void handleCollide(Sprite sprite1, Sprite sprite2){
-        //get the difference in x from center to center. positive if sprite1 is to the right
-        double xDif = (sprite1.transform().getPosX() + sprite1.dimensions().getWidth()/2)
-                           -  (sprite2.transform().getPosX() + sprite2.dimensions().getWidth()/2);
-        //get the difference in y from center to center. positive if sprite1 is below
-        double yDif = (sprite1.transform().getPosY() + sprite1.dimensions().getHeight()/2)
-                           -  (sprite2.transform().getPosY() + sprite2.dimensions().getHeight()/2);
+    	Transform transform1 = sprite1.transform();
+    	Transform transform2 = sprite2.transform();
+
         //TODO: Think of a better way to do this if possible
-        if(Math.abs(xDif)>Math.abs(yDif) && xDif<0) handleSprite1Left(sprite1, sprite2);
-        if(Math.abs(xDif)>Math.abs(yDif) && xDif>0) handleSprite1Right(sprite1, sprite2);
-        if(Math.abs(xDif)<Math.abs(yDif) && yDif<0) handleSprite1Up(sprite1, sprite2);
-        if(Math.abs(xDif)<Math.abs(yDif) && yDif>0) handleSprite1Down(sprite1, sprite2);
+        if(transform1.getRightEdge() < transform2.getPosX()+TOLERANCE) handleSprite1(sprite1, sprite2, INT.COLLISION_LEFT);
+        if(transform1.getPosX() > transform2.getRightEdge() - TOLERANCE) handleSprite1(sprite1, sprite2, INT.COLLISION_RIGHT);
+        if(transform1.getBottomEdge() < transform2.getPosY() + TOLERANCE) handleSprite1(sprite1, sprite2, INT.COLLISION_UP);
+        if(transform1.getPosY() > transform2.getBottomEdge() - TOLERANCE) handleSprite1(sprite1, sprite2, INT.COLLISION_DOWN);
     }
     
-    private void handleSprite1Left(Sprite sprite1, Sprite sprite2){
-        System.out.println("Collision Left");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_LEFT).execute();
-    }
-    
-    private void handleSprite1Right(Sprite sprite1, Sprite sprite2){
-        System.out.println("Collision Right");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_RIGHT).execute();
-    }
-    
-    private void handleSprite1Up(Sprite sprite1, Sprite sprite2){
-        System.out.println("Collision Up");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_UP).execute();
-    }
-    
-    private void handleSprite1Down(Sprite sprite1, Sprite sprite2){
-        System.out.println("Collision Down");
-        collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), INT.COLLISION_DOWN).execute();
+    private void handleSprite1(Sprite sprite1, Sprite sprite2, int direction) {
+    	Action a = collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), direction);
+    	if(a != null) a.execute();
+    	System.out.println(direction);
     }
 }
