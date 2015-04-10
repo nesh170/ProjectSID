@@ -78,5 +78,9 @@ public class DataHandler {
 	public static Image fileToImage(File file) {
 		return new Image(file.toURI().toString());
 	}
+	
+	public static Image fileToImage(File file, double maxWidth, double maxHeight, boolean preserve) {
+		return new Image(file.toURI().toString(), maxWidth, maxHeight, preserve, false);
+	}
 
 }
