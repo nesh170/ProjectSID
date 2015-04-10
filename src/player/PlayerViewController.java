@@ -51,7 +51,8 @@ public class PlayerViewController {
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-
+	private double[] cameraValue;
+	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
 		loadNewChooser();
@@ -77,14 +78,37 @@ public class PlayerViewController {
 	}
 
 	private void update() {
-		myEngine.update();
+		cameraValue = myEngine.update();
 	}
 
 	private void display() {
-
 		myGameGroup = myEngine.render();
 		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
+//		double minX = (cameraValue[0]/myGameRoot.getMaxWidth())*(myGameRoot.getHmax()-myGameRoot.getHmin())/2;
+//		double minY = (cameraValue[1]/myGameRoot.getMaxHeight())*(myGameRoot.getVmax()-myGameRoot.getVmin())/2;
+		//System.out.println("V is " + myGameRoot.getVvalue() + " " + cameraValue[1]/800);
+		try{
+		myGameRoot.setHvalue(cameraValue[0]/5000);
+		myGameRoot.setVvalue(cameraValue[1]/800);
+		}
+		catch(Exception e){
+			
+		}
+		if(myGameRoot.getHvalue()!=cameraValue[0]/5000){
+			System.out.println(myGameRoot.getHmin() + " MInininum value");
+			System.out.println("H is " + myGameRoot.getHvalue() + " " + cameraValue[0]/5000);
+		}
+		
+		
+//		double minX = cameraValue[0] - myGameRoot.getWidth()/2;
+//		double minY = cameraValue[1] - myGameRoot.getHeight()*cameraValue[1];
+//		double maxX = cameraValue[0] + myGameRoot.getWidth()/2;
+//		double maxY = cameraValue[1] + myGameRoot.getHeight()*cameraValue[1];
+//		myGameRoot.setHmin(minX);
+//		myGameRoot.setVmax(minY);
+//		myGameRoot.setHmin(maxX);
+//		myGameRoot.setVmax(maxY);
 	}
 
 	private StackPane makePauseScreen() {

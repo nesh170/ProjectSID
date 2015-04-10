@@ -26,9 +26,6 @@ public class EngineMathFunctions {
     }
 
     
-    public static double toPercent (double numerator, double total) {
-        return (numerator/total)*PERCENT;
-    }
     
     
    

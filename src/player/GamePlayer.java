@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,6 +30,10 @@ public class GamePlayer {
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
 		myGameRoot = new ScrollPane();
+		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setMaxSize(900, 450);
+		myGameRoot.setMinSize(900,450);
 		myBorderPane = new BorderPane();
 		myBorderPane.setTop(bar);
 		myView = new PlayerViewController(myGameRoot);
