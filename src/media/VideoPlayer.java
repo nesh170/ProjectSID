@@ -16,9 +16,10 @@ public class VideoPlayer {
 					
 		stage.setTitle("Embedded Media Player");
         Group root = new Group();
-        Scene scene = new Scene(root, 1200, 600);
-
         Media media = new Media(uri.toString());
+        
+        Scene scene = new Scene(root, media.getWidth(), media.getHeight());
+        
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         
