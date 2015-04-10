@@ -133,10 +133,21 @@ public class Sprite {
 		return this.spriteImage;
 	}
 	
+	public void setSpriteImage(SpriteImage spriteImage) {
+		this.spriteImage = spriteImage;
+	}
+	
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
 	}
 	
+	public double getX() {
+		return this.x;
+	}
+	
+	public double getY() {
+		return this.y;
+	}
 	
 	// Constructor & Helpers
 	public Sprite() {

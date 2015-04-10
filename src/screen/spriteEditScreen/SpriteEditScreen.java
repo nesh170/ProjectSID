@@ -3,6 +3,7 @@ package screen.spriteEditScreen;
 import gameEngine.Action;
 import gameEngine.Component;
 
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+
 
 import data.DataHandler;
 import javafx.beans.value.ChangeListener;
@@ -51,6 +53,8 @@ import screen.Screen;
 import screen.ScreenController;
 import screen.levelEditScreen.LevelEditScreen;
 import sprite.Sprite;
+import sprite.SpriteImage;import util.ImageToInt2DArray;
+
 
 /**
  * 
@@ -114,10 +118,15 @@ public class SpriteEditScreen extends Screen {
 		if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
 			editableSprite = new Sprite(spriteToEdit);
+			if(editableSprite.spriteImage()==null) {
+				editableSprite.setSpriteImage(new SpriteImage());
+			}
+			
 		}
 		
 		else {
 			editableSprite = new Sprite();
+			editableSprite.setSpriteImage(new SpriteImage());
 		}
 		
 		initializeRelevantResourceFiles();
@@ -492,6 +501,11 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private void saveSprite() {
+		stringToImageMap.keySet().forEach(e-> {
+			Image image = stringToImageMap.get(e).getImage();
+			int[][] convertedImage = ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight());
+			System.out.println(editableSprite.spriteImage().addImage(convertedImage));
+		});
 		editableSprite.setName(spriteNameField.getText());
 		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
 	}
