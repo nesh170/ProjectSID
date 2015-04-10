@@ -216,6 +216,7 @@ public class LevelEditScreen extends Screen {
 		paneForButtons.setAlignment(Pos.BASELINE_CENTER);
 		paneForButtons.setFillWidth(false);
 		paneForButtons.setSpacing(DOUBLE.BUTTON_SPACING);
+		paneForButtons.getStyleClass().add("pane");
 		
 		this.viewableArea().setRight(paneForButtons);
 				
