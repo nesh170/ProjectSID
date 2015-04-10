@@ -27,6 +27,7 @@ public class ExampleLevelMaker {
 	
 	public static void main(String[] args){
 		System.out.println("Oh yeah!!!");
+		List<Sprite> spriteList = new ArrayList<>();
 		//set up player
 		Sprite player = new Sprite();
 		player.addComponent(new HealthComponent(player));
@@ -42,13 +43,9 @@ public class ExampleLevelMaker {
 		Action normalAction = new NormalAction(player);
 		player.addAction(normalAction);
 		//set up platform
-		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
-		
-		List<Sprite> spriteList = new ArrayList<Sprite>();
+		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(5000, 10));
 		spriteList.add(platform);
-		spriteList.add(player);
-		spriteList.add(platform);
-		Level l = new Level(500, 500, player);
+		Level l = new Level(5000, 500, player);
 		
 		//set up collisions
 		CollisionTable ct = new CollisionTable();
@@ -57,7 +54,10 @@ public class ExampleLevelMaker {
 		ct.addActionToMap(player.collisonTag(), platform.collisonTag(), INT.COLLISION_UP, normalAction);
 		ct.addActionToMap(platform.collisonTag(), player.collisonTag(), INT.COLLISION_DOWN, null);
 		l.setCollisionTable(ct);
-		
+
+		//spriteList.add(block);
+		spriteList.add(platform);
+
 		l.setSprites(spriteList);
 		try{
 		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");

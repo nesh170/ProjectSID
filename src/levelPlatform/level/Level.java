@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
+import gameEngine.EngineMathFunctions;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -27,7 +31,8 @@ import levelPlatform.LevelPlatform;
 public class Level extends LevelPlatform {
 	
 	// Static Variables
-	
+	public static final int X = 0;
+	public static final int Y = 1;
 	
 	// Instance Variables
 	private Sprite playerSprite;
@@ -111,6 +116,13 @@ public class Level extends LevelPlatform {
         if(!sprite.isActive()){
             nextLevelMethod.accept(goalMap.get(sprite));
         }
+    }
+        
+    public double[] getNewCameraLocations () {
+        double[] xyLocations = new double[2];
+        xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
+        xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
+        return xyLocations;
     }
 	
 }	
