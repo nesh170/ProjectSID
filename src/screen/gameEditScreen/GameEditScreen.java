@@ -280,9 +280,7 @@ public class GameEditScreen extends Screen {
 	 */
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {					
-		Menu back = new Menu("Go Back");
-		back.setOnAction(o -> controller.returnToMainMenuScreen());
-		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), back, makeTrashMenu());	
+		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), makeTrashMenu());	
 
 	}		
 
