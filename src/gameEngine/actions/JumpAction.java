@@ -8,21 +8,24 @@ import gameEngine.components.VelocityComponent;
 
 public class JumpAction extends Action {
 	
-	private Double initialVelocity;
-	
-	public JumpAction(Sprite sprite, Double initVelocity, KeyCode... keys){
-		super(sprite , keys);
-		initialVelocity = EngineMathFunctions.velocityValueFrame(initVelocity);
-		
+
+	public JumpAction(Sprite sprite, double value, KeyCode... keys) {
+		super(sprite,value,keys);
 	}
+
 	@Override
 	public void prepare() {}
 	
     @Override
     public void execute () {
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
-        velocityComp.setVelocityY(initialVelocity);
-        System.out.println("We're Jumping!");
+        if(velocityComp.isGrounded()){
+        	velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
+        	System.out.println("We're Jumping!");
+        	velocityComp.setGrounded(false);
+        }
+     
+        
     }
     
     @Override

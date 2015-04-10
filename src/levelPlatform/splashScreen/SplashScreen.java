@@ -1,8 +1,8 @@
 package levelPlatform.splashScreen;
 
-import levelPlatform.LevelPlatform;
+import levelPlatform.level.Level;
 
-public class SplashScreen extends LevelPlatform {
+public class SplashScreen extends Level {
 
 	// Static Variables
 	

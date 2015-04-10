@@ -43,6 +43,8 @@ public class PlayerMenu {
 		menuBar.getMenus().add(buildFileMenu());
 		menuBar.getMenus().add(buildGamesMenu());
 		menuBar.getMenus().add(menuView);
+		menuBar.getMenus().add(buildSoundMenu());
+		menuBar.getMenus().add(buildHelpMenu());
 		return menuBar;
 	}
 
@@ -57,22 +59,32 @@ public class PlayerMenu {
 		Menu fileMenu = new Menu("File");
 
 		MenuItem pauseItem = makeMenuItem("Pause Game");
+		pauseItem.setOnAction(event -> {
+			pauseGame();
+		});
 		myCommandItems.add(pauseItem);
-		
 		MenuItem playItem = makeMenuItem("Resume Game");
+		playItem.setOnAction(event -> {
+			startGame();
+		});
 		myCommandItems.add(playItem);
-		
 		MenuItem newGameItem = makeMenuItem("New Game");
+		newGameItem.setOnAction(event -> {
+			myView.loadNewChooser();
+		});
 		myCommandItems.add(newGameItem);
-		
 		MenuItem loadItem = makeMenuItem("Load Game");
+		loadItem.setOnAction(event -> {
+			System.out.println("write code to load saved game");
+		});
 		myCommandItems.add(loadItem);
-		
 		MenuItem quitItem = makeMenuItem("Quit");
+		quitItem.setOnAction(event -> {
+			System.exit(0);
+		});
+		myCommandItems.add(quitItem);
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
 				quitItem);
-		myCommandItems.add(quitItem);
-		
 		return fileMenu;
 	}
 
@@ -87,6 +99,30 @@ public class PlayerMenu {
 		});
 		gamesMenu.getItems().addAll(marioItem);
 		return gamesMenu;
+	}
+	
+	private Menu buildHelpMenu() {
+		Menu helpMenu = new Menu("Help");
+		MenuItem tutorialItem = new MenuItem("Tutorial");
+		tutorialItem.setOnAction(event -> showTutorial());
+		
+		helpMenu.getItems().addAll(tutorialItem);
+		return helpMenu;
+	}
+	
+	private Menu buildSoundMenu() {
+		Menu soundMenu = new Menu("Sound");
+		MenuItem playItem = makeMenuItem("Play");
+		playItem.setOnAction(event -> myPlayer.playMusic());
+		
+		MenuItem pauseItem = new MenuItem("Pause");
+		pauseItem.setOnAction(event -> myPlayer.pauseMusic());
+		
+		MenuItem stopItem = makeMenuItem("Stop");
+		stopItem.setOnAction(event -> myPlayer.stopMusic());
+		
+		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
+		return soundMenu;
 	}
 
 	private Stage buildGameChooser() {
@@ -116,6 +152,11 @@ public class PlayerMenu {
 
 	public void saveGame() {
 		myPlayer.save();
+	}
+	
+	public void showTutorial() {
+		myPlayer.showTutorial();
+		myPlayer.pauseMusic();
 	}
 	
 	public MenuBar getBar() {

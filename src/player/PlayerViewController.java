@@ -26,6 +26,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -33,6 +35,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import levelPlatform.level.Level;
+import media.AudioController;
+import media.VideoPlayer;
 
 public class PlayerViewController {
 
@@ -41,6 +45,10 @@ public class PlayerViewController {
 
 	private Timeline myTimeline;
 	private Stage myGameChooser;
+	private VideoPlayer myVideoPlayer;
+	private AudioController myAudioController;
+	private Media myVideo;
+	private Media myAudio;
 	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
@@ -164,6 +172,10 @@ public class PlayerViewController {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		try {
 			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myAudio = DataHandler.getAudioFromDir(myGameFolder);
+			myVideo = DataHandler.getVideoFromDir(myGameFolder);
+			myVideoPlayer = new VideoPlayer();
+			myAudioController = new AudioController(new MediaPlayer(myAudio));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -207,5 +219,29 @@ public class PlayerViewController {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void showTutorial() {
+		// TODO Auto-generated method stub
+		try {
+			Stage videoStage = new Stage();
+			videoStage.setOnCloseRequest(event -> playMusic());
+			myVideoPlayer.init(videoStage, myVideo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void playMusic() {
+		myAudioController.play();
+	}
+
+	public void pauseMusic() {
+		myAudioController.pause();
+	}
+
+	public void stopMusic() {
+		myAudioController.stop();
 	}
 }

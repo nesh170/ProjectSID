@@ -19,9 +19,14 @@ public class VelocityComponent extends Component{
 
 	private Point2D myVelocity;
 	
+	private static final double TERMINAL_VELOCITY = 5.0;
+	
+	private boolean isGrounded;
+	
 	public VelocityComponent(Sprite sprite) {
 		super(sprite);
 		myVelocity = Point2D.ZERO;
+		isGrounded = true;
 	}
 
 	@Override
@@ -46,6 +51,13 @@ public class VelocityComponent extends Component{
 		myVelocity = Point2D.ZERO.add(x, y);
 	}
 	
+	public void setGrounded(boolean ground){
+		isGrounded = ground;
+	}
+	
+	public boolean isGrounded(){
+		return isGrounded;
+	}
 	public void setVelocityX(Double x) {
 		myVelocity = Point2D.ZERO.add(x, myVelocity.getY());
 	}
@@ -55,13 +67,18 @@ public class VelocityComponent extends Component{
 	}
 	
 	public void accelerate(Double x, Double y) {
+		if(myVelocity.getY()<TERMINAL_VELOCITY){
 		myVelocity = myVelocity.add(new Point2D(x, y));
+		}
 	}
 	
 	public void setVelocity(Point2D vel) {
 		myVelocity = vel;
 	}
 	
+	public Point2D getVelocity(){
+		return myVelocity;
+	}
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.

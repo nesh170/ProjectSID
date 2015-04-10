@@ -30,4 +30,8 @@ public class DOUBLE {
 	// LevelView
 	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 5.0;
 	
+	// Bullet info
+	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;
+	public static final double BULLET_SPEED = 35.0;
+	
 }

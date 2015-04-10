@@ -10,3 +10,7 @@
 	-fx-text-alignment: center;
 	-fx-wrap-text: false
 }
+
+.text-field-error {
+	-fx-background-color: red
+}

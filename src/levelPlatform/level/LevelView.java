@@ -57,10 +57,6 @@ public class LevelView extends ScrollPane {
     	this.lengthSidePixel = lengthSidePixel;
     }
     
-    public void setCollisionHandler() {
-    	this.collisionHandler = new Collision(level.getCollisionTable());
-    }
-    
     public double getLengthSidePixel() {
     	return this.lengthSidePixel;
     }
@@ -69,6 +65,9 @@ public class LevelView extends ScrollPane {
     	return this.representationMap.get(sprite);
     }
     
+    public void setCollisionHandler(){
+    	this.collisionHandler = new Collision(level.getCollisionTable());
+    }
     
     // Constructor & Helpers
     /**
@@ -77,7 +76,7 @@ public class LevelView extends ScrollPane {
      * @param level
      */
     public LevelView(Level level, EditMode editMode) {
-    	
+  
     	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
     }
@@ -97,8 +96,6 @@ public class LevelView extends ScrollPane {
     	if (level != null) {
     		renderLevel();
     	}
-    	
-    	
     	
     }
     
@@ -130,32 +127,35 @@ public class LevelView extends ScrollPane {
     	Image spriteImage;
     	ImageView spriteImageView;
     	//TODO: delete rectangle-making, restore SpriteImage part
-    	Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
-    			sprite.transform().getWidth(), sprite.transform().getHeight());
-    	spriteGroup.getChildren().add(r);
- /*       if (sprite.isActive()) {
+    	if(sprite.isActive()) {
+    		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+    				sprite.transform().getWidth(), sprite.transform().getHeight());
+        	spriteGroup.getChildren().add(r);
+    	}
+    			
+        if (sprite.isActive()) {
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-            spriteImageView = new ImageView(spriteImage);
+           // spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+          //  spriteImageView = new ImageView(spriteImage);
             
-            representationMap.put(sprite, spriteImageView);
+           // representationMap.put(sprite, spriteImageView);
             
-            SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                    .transform().getPosY());
-            spriteGroup.getChildren().add(spriteImageView);
+            //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
+                    //.transform().getPosY());
+           // spriteGroup.getChildren().add(spriteImageView);
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
-            if (editMode == EditMode.EDIT_MODE_ON) {
+           // if (editMode == EditMode.EDIT_MODE_ON) {
             	
-            	configureMouseHandlersOnSpriteImageView(spriteImageView);
+           // 	configureMouseHandlersOnSpriteImageView(spriteImageView);
             	
-            }
+           // }
             
-        }*/
+        }
         
         return spriteGroup;
 
@@ -198,6 +198,7 @@ public class LevelView extends ScrollPane {
      * @param sprite2
      */
     private void handleCollisions(Sprite sprite1, Sprite sprite2){
+    	if(!sprite1.isActive() || !sprite2.isActive()) return;
     	
         if(sprite1.equals(sprite2)){
             return;

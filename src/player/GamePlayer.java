@@ -1,9 +1,13 @@
 package player;
 
 import game.Game;
-
+import gameEngine.GameEngine;
 import java.io.IOException;
 import java.util.List;
+import javafx.scene.Group;
+
+import media.VideoController;
+import media.VideoPlayer;
 
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -20,6 +24,8 @@ public class GamePlayer {
 	public final static double UPDATE_RATE = 120;
 
 	private ScrollPane myGameRoot;
+	private Group myGameGroup;
+	private GameEngine myEngine;
 	private Scene myScene;
 	private BorderPane myBorderPane;
 	private double myWidth;
@@ -60,6 +66,10 @@ public class GamePlayer {
 		myView.stopView();
 	}
 
+	public void showTutorial() {
+		myView.showTutorial();
+	}
+	
 	public void loadNewGame() {
 		myView.loadNewChooser();
 	}
@@ -121,6 +131,18 @@ public class GamePlayer {
 	public List findGames() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void playMusic() {
+		myView.playMusic();
+	}
+
+	public void pauseMusic() {
+		myView.pauseMusic();
+	}
+
+	public void stopMusic() {
+		myView.stopMusic();
 	}
 
 }
