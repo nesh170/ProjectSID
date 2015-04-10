@@ -30,6 +30,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import levelPlatform.level.Level;
+import media.VideoPlayer;
 
 public class PlayerViewController {
 
@@ -38,6 +39,7 @@ public class PlayerViewController {
 
 	private Timeline myTimeline;
 	private Stage myGameChooser;
+	private VideoPlayer myVideoPlayer;
 	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
