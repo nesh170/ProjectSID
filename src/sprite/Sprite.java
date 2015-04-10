@@ -43,6 +43,7 @@ public class Sprite {
 	private List<Sprite> emissionList;
 	
 	private boolean isActive;
+	private String name;
 	private String tag;
 	private String collisionTag;
 
@@ -87,6 +88,14 @@ public class Sprite {
 	
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public String tag() {
