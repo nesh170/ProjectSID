@@ -90,7 +90,7 @@ public class GameEditScreen extends Screen {
 	 * Creates new GameEditScreen
 	 */
 	public GameEditScreen(GameEditScreenController controller, double width, double height) {
-			this(new Game() ,controller, width, height);
+			this(new Game(STRING.DEFAULT_GAME_NAME) ,controller, width, height);
 	}
 	
 	
