@@ -3,6 +3,7 @@ package screen.mainMenu;
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
 import media.MediaManager;
 import javafx.event.EventHandler;
@@ -16,8 +17,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
@@ -48,12 +51,12 @@ public class MainMenuScreen extends Screen {
 	
 	
 	// Constructor & Helpers
-	public MainMenuScreen(MainMenuScreenController parent, double width, double height) {
+	public MainMenuScreen(MainMenuScreenController controller, double width, double height) {
 		
 		super(width, height);
 		
-		this.controller = parent;
-		
+		this.controller = controller;
+
 		configureButtons(width, height);
 		
 	}
@@ -76,18 +79,16 @@ public class MainMenuScreen extends Screen {
 	 */
 	private void configureButtons(double width, double height) {
 		
-		//System.out.println(width);
-		//System.out.println(height);
-		
 		Button newGame = makeNewGameButton();
 		Button loadGame = loadGameButton();
 		
-		VBox vbox = new VBox(100); //need a better way to set this up. not sure how
-		vbox.getChildren().addAll(newGame, loadGame);
-		this.getChildren().add(vbox);
-		vbox.setTranslateX(width/2); //need a better way to set this up. not sure how
-		vbox.setTranslateY((height/2)-100); //need a better way to set this up. not sure how
+		newGame.setOnMouseClicked(e -> controller.createNewGame());
+		loadGame.setOnMouseClicked(e -> controller.loadGame());
 		
+		VBox vbox = new VBox(height/INT.DEFAULT_BUTTON_SPREAD);
+		this.viewableArea().setCenter(vbox);
+		vbox.getChildren().addAll(newGame, loadGame);
+		vbox.setAlignment(Pos.CENTER);
 	}
 	
 	/**
@@ -101,12 +102,8 @@ public class MainMenuScreen extends Screen {
 		
 		Button newGameButton = new Button(STRING.NEWGAME);
 		newGameButton.setOnMouseClicked(e -> controller.createNewGame());
-		//TODO placing in the pane
-		//TODO style
-		//this.getChildren().add(newGameButton);
-		newGameButton.setMinSize(100, 50);
-		//this.setCenter(newGameButton);
-		newGameButton.setOnMouseClicked(e -> controller.createNewGame());
+		newGameButton.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
+		newGameButton.setAlignment(Pos.CENTER);
 		
 		return newGameButton;
 		
@@ -121,19 +118,8 @@ public class MainMenuScreen extends Screen {
 	 */
 	private Button loadGameButton() {
 		Button loadGameButton = new Button(STRING.LOADGAME);
-		ChoiceBox<String> loadGameChoice = new ChoiceBox<String>();
-		//TODO placing in the pane
-		//TODO style
-		//this.getChildren().add(loadGameButton);
-		loadGameButton.setMinSize(100, 50);
-		//this.setCenter(loadGameButton);
-		loadGameButton.setOnMouseClicked(e -> controller.loadGame());
-		this.getChildren().add(loadGameButton);
-		loadGameChoice.setTranslateX(500);
-		loadGameChoice.setTranslateY(500);
-		loadGameButton.setTranslateX(500);
-		loadGameButton.setTranslateY(400);
-		this.getChildren().add(loadGameChoice);
+		loadGameButton.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
+		loadGameButton.setAlignment(Pos.CENTER);
 		
 		return loadGameButton;
 		
@@ -158,7 +144,7 @@ public class MainMenuScreen extends Screen {
 		
 		private void fill() {
 			
-			ArrayList<Menu> menusToAdd = new ArrayList<>();
+			List<Menu> menusToAdd = new ArrayList<>();
 			
 			menusToAdd.add(instantiateFileMenu());
 			menusToAdd.add(instantiateMusicMenu());
