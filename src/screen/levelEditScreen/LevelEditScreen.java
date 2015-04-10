@@ -58,9 +58,13 @@ public class LevelEditScreen extends Screen {
 	private Sprite spriteToAdd;
 	private Sprite selectedSprite;
 				
-	private final ObservableList<Sprite> listOfPlatforms = FXCollections.observableArrayList();
-	private final ObservableList<Sprite> listOfEnemies = FXCollections.observableArrayList();
-	private final ObservableList<Sprite> listOfPlayers = FXCollections.observableArrayList();
+	private final ObservableList<String> listOfPlatforms = FXCollections.observableArrayList();
+	private final ObservableList<String> listOfEnemies = FXCollections.observableArrayList();
+	private final ObservableList<String> listOfPlayers = FXCollections.observableArrayList();
+	private final ObservableList<String> listOfPowerups = FXCollections.observableArrayList();
+	
+	private Map<String,ObservableList<String>> stringToListMap;
+	private Map<String,Sprite> stringToSpriteMap;
 
 
 	// Getters & Setters
@@ -104,6 +108,8 @@ public class LevelEditScreen extends Screen {
 		
 		this.controller = parent;
 		
+		stringToSpriteMap = new HashMap<>();
+		
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
@@ -123,7 +129,7 @@ public class LevelEditScreen extends Screen {
 		menuBar.getMenus().addAll(fileMenu,addNewSpriteButton);
 		
 	}
-			
+				
 	private Menu makeAddSpriteButton() {
 		
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
@@ -156,17 +162,25 @@ public class LevelEditScreen extends Screen {
 		VBox paneForSprites = new VBox();
 		this.viewableArea().setLeft(paneForSprites);
 		
-		TitledPane platforms = makeTitledPane(STRING.PLATFORMS,listOfPlatforms);
-		TitledPane enemies = makeTitledPane(STRING.ENEMIES,listOfEnemies);
-		TitledPane players = makeTitledPane(STRING.PLAYERS,listOfPlayers); 
+		TitledPane platforms = makeTitledPane(languageResources().getString("Platform"),listOfPlatforms);
+		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),listOfEnemies);
+		TitledPane players = makeTitledPane(languageResources().getString("Player"),listOfPlayers);
+		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),listOfPowerups);
 		
-		paneForSprites.getChildren().addAll(platforms,enemies,players);
+		stringToListMap = new HashMap<>();
+		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
+		stringToListMap.put(tagResources().getString("Enemy"), listOfEnemies);
+		stringToListMap.put(tagResources().getString("Player"), listOfPlayers);
+		stringToListMap.put(tagResources().getString("Powerup"), listOfPowerups);
+
+		
+		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups);
 		
 	}
 
-	private TitledPane makeTitledPane(String title, ObservableList<Sprite> content) {
+	private TitledPane makeTitledPane(String title, ObservableList<String> content) {
 
-		ListView<Sprite> platformListView = new ListView<>(content);
+		ListView<String> platformListView = new ListView<>(content);
 		/*
 		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
 		 */
@@ -179,7 +193,8 @@ public class LevelEditScreen extends Screen {
 				 * this next line could throw an exception possibly if
 				 * the selection model is empty, catch statement is precautionary
 				 */				
-				selectedSprite = platformListView.getSelectionModel().getSelectedItem(); 																		
+				String sprite = platformListView.getSelectionModel().getSelectedItem();
+				selectedSprite = stringToSpriteMap.get(sprite);
 				levelView.getImageForSprite(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
 			}
 			catch (IndexOutOfBoundsException | NullPointerException ee) {
@@ -210,6 +225,9 @@ public class LevelEditScreen extends Screen {
 	private void addSpriteToLocation(MouseEvent e) {
 		
 		if(spriteToAdd != null) {
+			
+			stringToSpriteMap.put(spriteToAdd.tag(), spriteToAdd);
+			stringToListMap.get(spriteToAdd.tag()).add(spriteToAdd.toString());
 			
 			configureSpriteXYFromClick(e, spriteToAdd);
 			
