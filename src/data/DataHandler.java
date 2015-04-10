@@ -62,7 +62,8 @@ public class DataHandler {
 				.filter(file -> file.toString().endsWith(".jpg")
 						|| file.toString().endsWith(".png")
 						|| file.toString().endsWith(".tif")
-						|| file.toString().endsWith(".tiff"))
+						|| file.toString().endsWith(".tiff")
+						|| file.toString().endsWith(".gif"))
 				.map(file -> fileToImage(file))
 				.collect(Collectors.toList());
 	}
