@@ -115,8 +115,8 @@ public class LevelEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
 		Menu fileMenu = makeFileMenu(e -> save(),
-									e -> controller.returnToGameEditScreen(currentGameScreen),
-									e -> controller.returnToGameEditScreen(currentGameScreen));
+									e -> controller.returnToGameEditScreen(),
+									e -> controller.returnToGameEditScreen());
 		//TODO for file menu = save and exit (third parameter) might need a different lambda
 		Menu addNewSpriteButton = makeAddSpriteButton();
 		
@@ -201,7 +201,7 @@ public class LevelEditScreen extends Screen {
 		this.viewableArea().setRight(paneForButtons);
 				
 		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> controller.loadSpriteEditScreen(new Sprite()));
-		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen(currentGameScreen));
+		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen());
 		
 		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
 

@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>javafx</artifactId>
-            <version>8.0.31</version>
+            <version>${java.version}</version>
             <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
             <scope>system</scope>
         </dependency>
@@ -38,7 +38,8 @@
 
     <build>
         <sourceDirectory>.</sourceDirectory>
-        <plugin>
+        <plugins>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
@@ -56,6 +57,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+        </plugins>
     </build>
 </project>
 
