@@ -15,7 +15,7 @@ public class Game {
 		myLevels.add(l);
 	}
 	
-	public void addSprite(SplashScreen s){
+	public void addSplash(SplashScreen s){
 		mySplash = s;
 	}
 	

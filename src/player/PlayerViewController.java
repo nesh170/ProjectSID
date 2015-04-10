@@ -1,15 +1,14 @@
 package player;
 
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -53,7 +52,8 @@ public class PlayerViewController {
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-
+	private double[] cameraValue;
+	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
 		loadNewChooser();
@@ -79,14 +79,25 @@ public class PlayerViewController {
 	}
 
 	private void update() {
-		myEngine.update();
+		cameraValue = myEngine.update();
 	}
 
 	private void display() {
-
 		myGameGroup = myEngine.render();
 		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
+		centerNodeInScrollPane();
+	}
+	
+	public void centerNodeInScrollPane() {
+	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
+	    double yCenterPlayer = cameraValue[1];
+	    double yBounds = myGameRoot.getViewportBounds().getHeight();
+	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
+	    double xCenterPlayer = cameraValue[0];
+	    double xBounds = myGameRoot.getViewportBounds().getWidth();
+	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
+	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
 	}
 
 	private StackPane makePauseScreen() {
