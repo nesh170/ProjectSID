@@ -76,6 +76,6 @@ public class Game {
 	 */
 	@Override
 	public String toString(){
-		return "Game name is " + myName + "\nGame Level is " + myLevels.toString() + "\nGame Splash Screen";   	
+		return "Game name is " + myName + "\nGame Level is " + myLevels.toString() + "\n Game Splash Screen";   	
 	}
 }

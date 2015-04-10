@@ -68,7 +68,7 @@ public class GameEditScreen extends Screen {
 	private SplashScreen mySplashScreen; 
 	private Level selectedLevel;
 	private StackPane levelDisplay;
-	private VBox SplashDisplay;
+	private VBox splashDisplay;
 	// Getters & Setters
 	/**
 	 * add to current game level
@@ -102,35 +102,36 @@ public class GameEditScreen extends Screen {
 		configureLevelDisplay();
 		this.setCenter(levelDisplay);
 		
-		if(!myGame.hasSplash())
-			this.setLeft(DisplayAdd());		 
-		else{
-			Button s = displayMySplash();
-			s.setOnMouseClicked(e -> this.handleDouleRightClick(s));
-			this.setLeft(displayMySplash()); //parameter: myGame.getSplash().ImageRepresentation();
-		}
+		ConfigureSplashDisplay();
+		this.setLeft(splashDisplay);	
 	}
+	
 
-	private Button displayMySplash(){
-		return  makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
-	}
 	/**
 	 * Displays a splash 
 	 * @return
 	 */
-	private VBox DisplayAdd() {
+	private void ConfigureSplashDisplay() {
 		
-		VBox displaySplash  = new VBox();
-		displaySplash.setAlignment(Pos.CENTER);
+		splashDisplay  = new VBox();
+		splashDisplay.setAlignment(Pos.CENTER);
+		StackPane sp = new StackPane();	
+		splashDisplay.getChildren().add(sp);
 		
-		StackPane sp = new StackPane();		
-		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN), makeAddSignWhenEmpty("Add New Splash Screen"));
-			
-		displaySplash.getChildren().add(sp);
-		return displaySplash;
-		
+		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN));
+		Button s;
+		if(!myGame.hasSplash())
+			s = makeAddSignWhenEmpty("Add New Splash Screen");
+		else{
+			s = displayMySplash();
+			s.setOnMouseClicked(e -> this.handleDouleRightClick(s)); //parameter: myGame.getSplash().ImageRepresentation();
+		}
+		sp.getChildren().add(s);
 	}
-
+	private Button displayMySplash(){
+		return  makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
+	}
+	
 	private Text makeText(String s) {
 		
 		Text text = new Text(s);
@@ -142,7 +143,7 @@ public class GameEditScreen extends Screen {
 		return text;
 		
 	}
-	private  Button makeAddSignWhenEmpty(String s) {
+	private  Button makeAddSignWhenEmpty( String s) {
 		ImageView addsign = new ImageView(new Image(STRING.ADD_IMG));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
@@ -151,8 +152,7 @@ public class GameEditScreen extends Screen {
 		b.setOnMouseClicked(e -> controller.loadSplashEditScreen(myGame)); //？change to doubleclicked
 		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT); 
 		b.setGraphic(addsign);	
-	
-		return b;		
+		return b;
 	}
 	
 	/**
