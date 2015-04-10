@@ -1,9 +1,5 @@
 package media;
 
-import java.io.File;
-
-import data.DataHandler;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
