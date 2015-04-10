@@ -19,8 +19,13 @@ public class JumpAction extends Action {
     @Override
     public void execute () {
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
-        velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
-        System.out.println("We're Jumping!");
+        if(velocityComp.isGrounded()){
+        	velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
+        	System.out.println("We're Jumping!");
+        	velocityComp.setGrounded(false);
+        }
+     
+        
     }
     
     @Override
