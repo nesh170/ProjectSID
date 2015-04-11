@@ -429,7 +429,6 @@ public class ScreenController {
 			//Create new GamePlayScreen
 			//Needs to pass in Level
 			//createGamePlayScreen(game);
-			throw new IllegalStateException("Unimplemented playGame");
 		}
 
 		@Override
@@ -527,7 +526,6 @@ public class ScreenController {
 			// TODO Auto-generated method stub
 			
 		}
-
 		
 	}
 
