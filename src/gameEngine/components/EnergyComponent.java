@@ -8,7 +8,7 @@ public class EnergyComponent extends Component {
     private double initialEnergy;
     private double currentEnergy;
 
-    public EnergyComponent (Sprite sprite, double energyLevel) {
+    public EnergyComponent (Sprite sprite, Double energyLevel) {
         super(sprite);
         initialEnergy = currentEnergy = energyLevel;
     }
