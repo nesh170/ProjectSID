@@ -122,14 +122,14 @@ public class GameEditScreen extends Screen {
 		Button s;
 		if(!myGame.hasSplash())
 			s = makeAddSignWhenEmpty("Add New Splash Screen");
-		else{
+		else
 			s = displayMySplash();
-			s.setOnMouseClicked(e -> this.handleDouleRightClick(s)); //parameter: myGame.getSplash().ImageRepresentation();
-		}
 		sp.getChildren().add(s);
 	}
 	private Button displayMySplash(){
-		return  makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
+		Button b =  makeTempLevelSplashDisplayImage(STRING.SPLASH_TMP);
+		b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter: myGame.getSplash().ImageRepresentation();
+		return b;
 	}
 	
 	private Text makeText(String s) {
@@ -159,11 +159,12 @@ public class GameEditScreen extends Screen {
 	 * display a note on editing and removing a level
 	 */
 	private Text displayNote() {
-		Text t = new Text("Note: Double Left Click to Edit Level/Splash, Right click to remove/edit");
+		Text t = new Text(STRING.NOTE);
 		t.setTranslateY(210);
-		t.setTranslateX(270);
+		t.setTranslateX(250);
 		return t;
-	}
+	}	
+	
 	private void configureLevelDisplay(){
 			//, DisplayLevels(myLevels)
 		levelDisplay = new StackPane();
