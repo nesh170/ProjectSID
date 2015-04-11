@@ -12,7 +12,7 @@ public class ImageToInt2DArray {
 
 	public static int[][] convertImageTo2DIntArray(Image image, int width, int height) {
 		
-		int[][] returnArray = new int[width][height];
+		int[][] returnArray = new int[height][width];
 		
 		// Obtain PixelReader
         PixelReader pixelReader = image.getPixelReader();
@@ -24,7 +24,7 @@ public class ImageToInt2DArray {
         
         for (int row = 0; row < height; row++) {
         	
-        	for (int column = 0; column < height; column++) {
+        	for (int column = 0; column < width; column++) {
         		
         		BufferedImage tempBufferedImage = bufferedImage.getSubimage(xSegmentLength*column, ySegmentLength*row, xSegmentLength, ySegmentLength);
         		

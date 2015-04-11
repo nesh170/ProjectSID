@@ -136,9 +136,10 @@ public class ScreenController {
 	private LevelEditScreenManager levelEditScreenManager;
 	private SpriteEditScreenManager spriteEditScreenManager;
 	private GamePlayScreenManager gamePlayScreenManager;
-	
 	//Factories
 	private ScreenFactory screenFactory;
+	
+	
 	// Getters & Setters (static)
 	
 	
@@ -170,6 +171,7 @@ public class ScreenController {
 	public void setCursor(ImageCursor imageCursor) {
 		stage.getScene().setCursor(imageCursor);
 	}
+	
 	
 	// Constructors & Helpers
 	public ScreenController(Stage stage, double width, double height) {
@@ -262,7 +264,6 @@ public class ScreenController {
 	private void addTabPane(TabPane tabPane) {
 		root.getChildren().add(tabPane);
 	}
-	
 
 	private void createInitialScreens() {
 		
@@ -388,13 +389,13 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
+			
 			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			//tabManager.removeTab(gameEditTab);	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
 
 		}
-
 
 		@Override
 		public void loadLevelEditScreen(Level level) {
@@ -483,31 +484,40 @@ public class ScreenController {
 
 		@Override
 		public void returnToGameEditScreen() {
+			
 			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
 			tabManager.removeTabAndChangeSelected(splashTab);
+			
 		}		
+		
 	}
 	
 	private class LevelEditScreenManager implements LevelEditScreenController {
 
 		@Override
 		public void returnToGameEditScreen() {
+			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTabAndChangeSelected(levelEditTab);								
+			tabManager.removeTabAndChangeSelected(levelEditTab);	
+			
 		}
 
 		@Override
 		public void loadSpriteEditScreen(Sprite sprite) {
+			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);					
+			createSpriteEditScreen(levelEditTab, sprite);	
+			
 		}
 		
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
+			
 			Sprite newSprite = new Sprite();
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			createSpriteEditScreen(levelEditTab, newSprite);
 			levelEditScreen.addSprite(newSprite);
+			
 		}
 		
 	}
@@ -515,10 +525,11 @@ public class ScreenController {
 	private class SpriteEditScreenManager implements SpriteEditScreenController {
 
 		@Override
-		public void returnToSelectedLevel(LevelEditScreen levelEditScreen,
-				Tab switchTo, Sprite sprite) {
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo, Sprite sprite) {
+			
 			tabManager.removeTabAndChangeSelected(switchTo);
 			levelEditScreen.addSprite(sprite);
+			
 		}
 		
 	}
