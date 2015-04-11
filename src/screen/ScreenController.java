@@ -60,7 +60,7 @@ import util.ErrorHandler;
  * @author Kyle
  * @author Leo
  * @author Michael
- *
+ * @Yongjiao
  */
 
 
@@ -269,20 +269,19 @@ public class ScreenController {
 		tabManager.setDefaultTab(createMainMenuScreen());
 		
 		//USED FOR TEST GAMEEDITSCREEN
-		createGameEditScreen(null);
+		//createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		createSplashEditScreen(null);
+		//createSplashEditScreen(null);
 		
 		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
 		//so there will be no tab to return to, and there should be an error
-		createLevelEditScreen(null);
+		//createLevelEditScreen(null);
 
 	}
 	
 	
 	// All other instance methods
-	// Public
 	/**
 	 * Closes the Application.
 	 */
@@ -334,10 +333,10 @@ public class ScreenController {
 	}
 
 	
-	private Tab createSpriteEditScreen(Tab levelEditTab, Sprite sprite) {
+	private Tab createSpriteEditScreen(Tab tab, Sprite sprite) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createSpriteEditScreen(levelEditTab, sprite, spriteEditScreenManager),
+					screenFactory.createSpriteEditScreen(tab, sprite, spriteEditScreenManager),
 					STRING.SPRITE_EDIT
 					);
 		
@@ -423,7 +422,24 @@ public class ScreenController {
 			game.addSplash(newSplashScreen);
 			
 		}
-
+		/**
+		 * reloads GameEditScreen, needs to reloads the game to reflect those changes on the screen
+		 * Used when remove is clicked, so that GameEditScreen correctly reflects the removal of level or splash
+		 * 
+		 * OR to addListener() when change happened, use animation to reflect changes instead of refreshes whole screen
+		 * addListener( o-> animationToReduceLevelImage); (use easy method for now)
+		 * @param game
+		 */
+		public void reloadGameEditScreen(Game game){
+			Screen newScreen = screenFactory.createGameEditScreen(game, gameEditScreenManager);
+			
+			tabManager.addTabWithScreenWithStringIdentifier(
+						screenFactory.createGameEditScreen(game, gameEditScreenManager),
+						STRING.GAME_EDIT
+						);
+			tabManager.replaceTab(newScreen);
+		}
+		
 		@Override
 		public void playGame(Game game) {
 			//Create new GamePlayScreen
@@ -436,7 +452,7 @@ public class ScreenController {
 		public void trashLevel(Game game, int levelIndex) {
 			
 			game.removeLevel(levelIndex);
-			
+			reloadGameEditScreen(game);
 		}
 
 
@@ -444,7 +460,7 @@ public class ScreenController {
 		public void trashSplash(Game game) {
 			
 			game.removeSplash();
-			
+			reloadGameEditScreen(game);
 		}
 
 
