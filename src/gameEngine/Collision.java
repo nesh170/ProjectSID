@@ -45,7 +45,7 @@ public class Collision {
     	}
     	if(velocity2 != null){
     		edgeToleranceX2 = velocity2.getVelocity().getX();
-    		edgeToleranceX2 = velocity2.getVelocity().getY();
+    		edgeToleranceY2 = velocity2.getVelocity().getY();
     	}
     	
     	edgeToleranceX = Double.max(edgeToleranceX1, edgeToleranceX2);

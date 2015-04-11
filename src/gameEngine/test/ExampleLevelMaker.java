@@ -4,6 +4,7 @@ package gameEngine.test;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
+import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.JumpAction;
 import gameEngine.actions.KillAction;
@@ -37,9 +38,11 @@ public class ExampleLevelMaker {
 	private Sprite myPlayer;
 	private List<Sprite> mySpriteList;
 	private Action myJumpAction;
+	private Action myBounceAction;
 	private Action myNormalAction;
 	private CollisionTable myCT;
 	private Action myKillAction;
+	private Sprite myProjectileTemplate;
 	
 	private Level makeLevel(){
 	System.out.println("Oh yeah!!!");
@@ -49,25 +52,26 @@ public class ExampleLevelMaker {
 	mySpriteList = new ArrayList<Sprite>();
 	mySpriteList.add(myPlayer);
 	Level l = new Level(500, 500, myPlayer);
+	
+	
+
+	
+	
 	//set up collisions
 	myCT = new CollisionTable();
 	myPlayer.setCollisionTag("player");
 	l.setCollisionTable(myCT);
 	//make Platforms here:
 	makePlatform(0, 400, 500, 10, myNormalAction, "platform");
-	makePlatform(600, 350, 300, 10, myJumpAction, "trampoline");
+	makePlatform(600, 350, 300, 10, myBounceAction, "trampoline");
 	makePlatform(1000, 300, 500, 10, myNormalAction, "platform");
 	//Enemy:
 	makeEnemy(660, 160, 30, 30);
 	makeEnemy(780, 160, 30, 30);
 	makeEnemy(200, 300, 30, 100);
+	addProjectile();
 	
-	//set up projectile template, add to player, along with shoot actions
-	Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-	ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp);
-	projTemp.addComponent(projComp);
-	Action shootAction = new ShootAction(myPlayer, projTemp, KeyCode.SPACE);
-	myPlayer.addAction(shootAction);
+
 	
 	
 	//Goals:
@@ -92,8 +96,8 @@ public class ExampleLevelMaker {
 		mySpriteList.add(enemy);
 	}
 	private void addPlayerComponentsAndActions() {
-		myPlayer.addComponent(new HealthComponent(myPlayer));
-		myPlayer.addComponent(new VelocityComponent(myPlayer));
+		myPlayer.addComponent(new HealthComponent(myPlayer,null));
+		myPlayer.addComponent(new VelocityComponent(myPlayer, null));
 		myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
 		Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
 		myPlayer.addAction(rma);
@@ -105,7 +109,25 @@ public class ExampleLevelMaker {
 		myNormalAction = new NormalAction(myPlayer);
 		myPlayer.addAction(myNormalAction);
 		myKillAction = new KillAction(myPlayer, 0.0, KeyCode.K);
+		
+		myBounceAction = new BounceAction(myPlayer, JUMP_SPEED, (KeyCode) null);
+		myPlayer.addAction(myBounceAction);
+		
+
 	}
+	
+	private void addProjectile() {
+		//set up projectile template, add to player, along with shoot actions
+		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+		myProjectileTemplate.setCollisionTag("bullet");
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,null, myPlayer);
+		myProjectileTemplate.addComponent(projComp);
+		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
+		myPlayer.addAction(shootAction);
+		
+
+	}
+	
 	private void makePlatform(double x, double y, double width, double height, Action action, String tag) {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		platform.setCollisionTag(tag);

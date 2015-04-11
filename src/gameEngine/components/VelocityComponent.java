@@ -1,6 +1,8 @@
 package gameEngine.components;
 
+import java.util.List;
 import javafx.geometry.Point2D;
+import resources.constants.DOUBLE;
 import sprite.Sprite;
 import gameEngine.Component;
 
@@ -18,12 +20,19 @@ import gameEngine.Component;
 public class VelocityComponent extends Component{
 
 	private Point2D myVelocity;
+	private double myTerminalVelocity;
+	private boolean isGrounded;
 	
-	private static final double TERMINAL_VELOCITY = 5.0;
-	
-	public VelocityComponent(Sprite sprite) {
-		super(sprite);
+	public VelocityComponent(Sprite sprite, List<Double> valueList) {
+		super(sprite, valueList);
 		myVelocity = Point2D.ZERO;
+		try{
+		myTerminalVelocity=valueList.get(0);
+		}
+		catch(Exception e){
+		    myTerminalVelocity=DOUBLE.TERMINAL_VELOCITY;
+		}
+		isGrounded = true;
 	}
 
 	@Override
@@ -48,6 +57,13 @@ public class VelocityComponent extends Component{
 		myVelocity = Point2D.ZERO.add(x, y);
 	}
 	
+	public void setGrounded(boolean ground){
+		isGrounded = ground;
+	}
+	
+	public boolean isGrounded(){
+		return isGrounded;
+	}
 	public void setVelocityX(Double x) {
 		myVelocity = Point2D.ZERO.add(x, myVelocity.getY());
 	}
@@ -57,7 +73,7 @@ public class VelocityComponent extends Component{
 	}
 	
 	public void accelerate(Double x, Double y) {
-		if(myVelocity.getY()<TERMINAL_VELOCITY){
+		if(myVelocity.getY()<myTerminalVelocity){
 		myVelocity = myVelocity.add(new Point2D(x, y));
 		}
 	}

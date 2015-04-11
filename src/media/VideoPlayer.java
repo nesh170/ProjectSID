@@ -8,15 +8,14 @@ import javafx.stage.Stage;
 
 public class VideoPlayer {
 	    
-	public void init(Stage stage, String uri) throws Exception {
+	public void init(Stage stage, Media video) throws Exception {
 					
 		stage.setTitle("Embedded Media Player");
         Group root = new Group();
-        Media media = new Media(uri.toString());
         
-        Scene scene = new Scene(root, media.getWidth(), media.getHeight());
+        Scene scene = new Scene(root, video.getWidth(), video.getHeight());
         
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(video);
         mediaPlayer.setAutoPlay(true);
         
         VideoController mediaControl = new VideoController(mediaPlayer);
