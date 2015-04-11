@@ -33,5 +33,8 @@ public class DOUBLE {
 	// Bullet info
 	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;
 	public static final double BULLET_SPEED = 35.0;
+
+	//Terminal Velocity fo velocity Component
+        public static final double TERMINAL_VELOCITY = 5;
 	
 }

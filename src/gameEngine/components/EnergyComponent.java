@@ -1,5 +1,6 @@
 package gameEngine.components;
 
+import java.util.List;
 import sprite.Sprite;
 import gameEngine.Component;
 
@@ -8,9 +9,9 @@ public class EnergyComponent extends Component {
     private double initialEnergy;
     private double currentEnergy;
 
-    public EnergyComponent (Sprite sprite, double energyLevel) {
-        super(sprite);
-        initialEnergy = currentEnergy = energyLevel;
+    public EnergyComponent (Sprite sprite, List<Double> valueList) {
+        super(sprite, valueList);
+        initialEnergy = currentEnergy = valueList.get(0);
     }
 
     @Override
