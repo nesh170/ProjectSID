@@ -67,6 +67,7 @@ public class GameEditScreen extends Screen {
 	private ObservableList<Level>	myLevels;  	
 	private SplashScreen mySplashScreen; 
 	private Level selectedLevel;
+	private int selectedIndex;
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
 	// Getters & Setters
@@ -126,6 +127,7 @@ public class GameEditScreen extends Screen {
 			s = displayMySplash();
 		sp.getChildren().add(s);
 	}
+	
 	private Button displayMySplash(){
 		Button b =  makeTempLevelSplashDisplayImage(STRING.SPLASH_TMP);
 		b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter: myGame.getSplash().ImageRepresentation();
@@ -140,8 +142,7 @@ public class GameEditScreen extends Screen {
 		text.setEffect(r);
 		text.setFont(Font.font("SERIF", FontWeight.BOLD, 30));
 		text.setTranslateY(-300);  //?? uncertain of how offset works but this works for now
-		return text;
-		
+		return text;	
 	}
 	private  Button makeAddSignWhenEmpty( String s) {
 		ImageView addsign = new ImageView(new Image(STRING.ADD_IMG));
@@ -183,7 +184,7 @@ public class GameEditScreen extends Screen {
 		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());
 		
 		ImageView trash = makeButton(STRING.TRASH_IMG);
-		//trash.setOnMouseClicked(e -> controller.trashLevel(myGame, levelIndex));
+		trash.setOnMouseClicked(e -> controller.trashLevel(myGame, selectedIndex));
 		levelDisplay.setAlignment(trash, Pos.BOTTOM_RIGHT);
 		
 		levelDisplay.getChildren().addAll(levelSP, back, add, play, trash, displayNote());
@@ -280,9 +281,9 @@ public class GameEditScreen extends Screen {
 	private ContextMenu makeRightClickeMenu(){ //pass in Level
 		final ContextMenu rMenu = new ContextMenu();
 		MenuItem edit = new MenuItem("Edit");
-		//edit.setOnAction(controller.loadLevelEditScreen();
+		edit.setOnAction(e -> controller.loadLevelEditScreen(selectedLevel));
 		MenuItem remove = new MenuItem("remove");
-		//remove.setOnAction(controller.trashLevel(level);
+		remove.setOnAction(e -> controller.trashLevel(myGame, selectedIndex));
 		rMenu.getItems().addAll(edit, remove);
 		return rMenu;
 	}
@@ -318,7 +319,7 @@ public class GameEditScreen extends Screen {
 		MenuItem addLevel = new MenuItem("Add new Level");
 		addLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame));
 		MenuItem editLevel = new MenuItem("Edit Level");
-//		editLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame.getLevel(index))); //references to the specific level within a game
+		editLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame.getLevel().get(selectedIndex))); //references to the specific level within a game
 		levelMenu.getItems().addAll(addLevel, editLevel);
 		return levelMenu;
 		
@@ -330,7 +331,7 @@ public class GameEditScreen extends Screen {
 		MenuItem addSplash = new MenuItem("Add new Splash Screen");
 		addSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
 		MenuItem editSplash = new MenuItem("Edit Splash Screen");
-		//	addSplash.setOnAction(o -> controller.loadSplashEditScreen(selectedSplash));
+		addSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 		
