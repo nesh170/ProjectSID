@@ -74,7 +74,7 @@ public class SpriteEditScreen extends Screen {
 	private TextField imageSizeField;
 	private ChoiceBox<String> tagChoicesHolder;
 	
-	private Pane paneForImage;
+	private StackPane paneForImage;
 	private ListView<String> imageListPane;
 
 	private ResourceBundle tagResources;
@@ -227,7 +227,8 @@ public class SpriteEditScreen extends Screen {
 	
 	private void createCenterPane() {
 		
-		paneForImage = new Pane();
+		paneForImage = new StackPane();
+		paneForImage.setAlignment(Pos.CENTER);
 		
 		this.viewableArea().setCenter(paneForImage);
 		
@@ -262,9 +263,6 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private Pane createAddImagePane() {
-//		VBox imageAndSizePane = new VBox();
-//		VBox.setVgrow(imageAndSizePane, Priority.ALWAYS);
-//		imageAndSizePane.setAlignment(Pos.CENTER);
 		
 		StackPane imagePane = new StackPane();
 		VBox.setVgrow(imagePane, Priority.ALWAYS);
@@ -329,6 +327,10 @@ public class SpriteEditScreen extends Screen {
 			
 			public void changed(ObservableValue<? extends String> ov, String oldSelect, String newSelect) {
 				keycodeInputBox.setVisible(keyCodesAreVisibleMap.get(newSelect));
+				if(!keycodeInputBox.isVisible()) {
+					currentCode = null;
+					keycodeInputBox.setText("");
+				}
 			}
 			
 		});
@@ -363,11 +365,7 @@ public class SpriteEditScreen extends Screen {
 		return twoSidedListContainer;
 
 	}
-	
-	private ListView<String> createPhysicsPane() {
-		return new ListView<String>();
-	}
-	
+		
 	private void setPrefButtonWidth(Button... buttons) {
 		Arrays.asList(buttons).forEach(e -> e.setPrefWidth(INT.PREF_BUTTON_WIDTH));
 	}
@@ -413,20 +411,24 @@ public class SpriteEditScreen extends Screen {
 	private void addAction(MouseEvent e) {
 		String selected = buttonToListMap.get((Button) e.getSource()).getSelectionModel().getSelectedItem();
 		if(selected!=null) {
-			actionsToAdd.remove(selected);
-			actionsAdded.add(selected);
 			
 			try {
+				KeyCode[] keylist = new KeyCode[1];
+				if(currentCode!=null) {
+					keylist[0] = currentCode;
+				}
 				Action action = (Action) Class.forName(classPathMap.get(selected))
 												.getConstructor(Sprite.class,Double.class,KeyCode[].class)
-												.newInstance(editableSprite,Double.parseDouble(actionValue.getText()),new KeyCode[]{currentCode});
+												.newInstance(editableSprite,Double.parseDouble(actionValue.getText()),keylist);
 				actionMap.put(selected, action);
+				actionsToAdd.remove(selected);
+				actionsAdded.add(selected);
+				actionValue.getStyleClass().remove("text-field-error");
 			} catch (InstantiationException | IllegalAccessException
-					| IllegalArgumentException | InvocationTargetException
-					| NoSuchMethodException | SecurityException
-					| ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+					| InvocationTargetException | NoSuchMethodException | ClassNotFoundException e1) {
+				System.out.println("Fix your constructors");
+			} catch (NumberFormatException e1) {
+				actionValue.getStyleClass().add("text-field-error");
 			}
 			
 			keycodeInputBox.clear();
@@ -446,13 +448,21 @@ public class SpriteEditScreen extends Screen {
 	private void addComponent(MouseEvent e) {
 		String selected = buttonToListMap.get((Button) e.getSource()).getSelectionModel().getSelectedItem();
 		if(selected!=null) {
-			componentsToAdd.remove(selected);
-			componentsAdded.add(selected);
-//			try {
-//				Component component = (Component) Class.forName(classPathMap.get(selected))
-//						.getConstructor()
-//						.newInstance(initargs);
-//			}
+			try {
+				Component component = (Component) Class.forName(classPathMap.get(selected))
+						.getConstructor(Sprite.class,Double.class)
+						.newInstance(editableSprite,Double.parseDouble(componentValue.getText()));
+				componentMap.put(selected, component);
+				componentsToAdd.remove(selected);
+				componentsAdded.add(selected);
+				componentValue.getStyleClass().remove("text-field-error");
+
+			} catch(InstantiationException | IllegalAccessException
+					| InvocationTargetException | NoSuchMethodException | ClassNotFoundException e1) {
+				System.out.println("Fix your constructors");
+			} catch (NumberFormatException e1) {
+				componentValue.getStyleClass().add("text-field-error");
+			}
 			
 			
 			
@@ -504,7 +514,13 @@ public class SpriteEditScreen extends Screen {
 		stringToImageMap.keySet().forEach(e-> {
 			Image image = stringToImageMap.get(e).getImage();
 			int[][] convertedImage = ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight());
-			System.out.println(editableSprite.spriteImage().addImage(convertedImage));
+			editableSprite.spriteImage().addImage(convertedImage);
+		});
+		componentMap.keySet().forEach(e -> {
+			editableSprite.addComponent(componentMap.get(e));
+		});
+		actionMap.keySet().forEach(e -> {
+			editableSprite.addAction(actionMap.get(e));
 		});
 		editableSprite.setName(spriteNameField.getText());
 		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
