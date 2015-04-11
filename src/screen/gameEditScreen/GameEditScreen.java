@@ -59,6 +59,7 @@ import levelPlatform.level.Level;
  * @author Anika 
  */
 //Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
+//Splash double click and right click
 public class GameEditScreen extends Screen {
 	
 	// Instance variables
@@ -258,16 +259,16 @@ public class GameEditScreen extends Screen {
 		    public void handle(MouseEvent mouseEvent) {
 		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
 		            if(mouseEvent.getClickCount() == 2){
-		            	System.out.println("Double Clicked");
-		            	//throw new IllegalStateException("unimplemented loadEditLevelScreen: need to pass in a level");
+		            	controller.loadLevelEditScreen(selectedLevel);
 		            }
 		        }
 		        else if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-		        	makeRightClickeMenu().show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());		        	
+		        	makeRightClickeMenu().show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());		
 		        }
 		    }
 		};
 	}
+	
 	
 	private ImageView makeButton(String location){
 		ImageView b = new ImageView(new Image(location));
@@ -331,7 +332,7 @@ public class GameEditScreen extends Screen {
 		MenuItem addSplash = new MenuItem("Add new Splash Screen");
 		addSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
 		MenuItem editSplash = new MenuItem("Edit Splash Screen");
-		addSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
+		editSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 		
