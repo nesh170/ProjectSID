@@ -9,7 +9,7 @@ import gameEngine.components.VelocityComponent;
 public class JumpAction extends Action {
 	
 
-	public JumpAction(Sprite sprite, double value, KeyCode... keys) {
+	public JumpAction(Sprite sprite, Double value, KeyCode... keys) {
 		super(sprite,value,keys);
 	}
 
