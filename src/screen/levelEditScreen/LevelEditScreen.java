@@ -122,6 +122,7 @@ public class LevelEditScreen extends Screen {
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
+		initializeLevelDisplay(level);
 		
 		this.setOnMouseEntered(e -> initializeDisplaySize());
 	}
@@ -150,7 +151,7 @@ public class LevelEditScreen extends Screen {
 		MenuItem addSprite = new MenuItem(STRING.ADD_SPRITE);
 		spriteButton.getItems().add(addSprite);
 		
-		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(new Sprite()));
+		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
 		return spriteButton;
 		
 	}
@@ -234,7 +235,7 @@ public class LevelEditScreen extends Screen {
 		
 		this.viewableArea().setRight(paneForButtons);
 				
-		Button addSpriteButton = makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(new Sprite()));
+		Button addSpriteButton = makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
 		Button returnToGameEditButton = makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
 		Button addWidthButton = makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
 		Button addHeightButton = makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
@@ -247,21 +248,11 @@ public class LevelEditScreen extends Screen {
 		
 		if(spriteToAdd != null && imageToAdd!=null) {
 			
-			ImageView spriteImageView = new ImageView(imageToAdd); //TODO get rid of magic;
-			
-			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
-			spriteToImageMap.put(spriteToAdd,spriteImageView);
-			stringToListMap.get(spriteToAdd.tag()).add(spriteToAdd.getName());
-			
 			configureSpriteXYFromClick(e, spriteToAdd);
 			
-			spriteImageView.setTranslateX(spriteToAdd.getX());
-			spriteImageView.setTranslateY(spriteToAdd.getY());
-			
-			level.sprites().add(spriteToAdd);
-			levelDisplay.getChildren().add(spriteImageView);
+			addSpriteToLevelDisplay(spriteToAdd);
 						
-			//do this once sprite has been added
+			level.sprites().add(spriteToAdd);
 			levelDisplay.setCursor(Cursor.DEFAULT);
 			
 			spriteToAdd = null; 
@@ -300,6 +291,28 @@ public class LevelEditScreen extends Screen {
 		
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
+	}
+	
+	private void initializeLevelDisplay(Level level) {
+		
+		levelDisplay.setMinSize(level.width(), level.height());
+		level.sprites().forEach(e -> addSpriteToLevelDisplay(e));
+		
+	}
+	
+	/*
+	 * Visually displays the sprite
+	 */
+	private void addSpriteToLevelDisplay(Sprite sprite) {
+		
+		ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
+		levelDisplay.getChildren().add(imageView);
+		imageView.setTranslateX(sprite.getX());
+		imageView.setTranslateY(sprite.getY());
+		stringToSpriteMap.put(sprite.getName(), sprite);
+		spriteToImageMap.put(sprite, imageView);
+		stringToListMap.get(sprite.tag()).add(sprite.getName());
+		
 	}
 	
 	// All other instance methods
