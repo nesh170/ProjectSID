@@ -46,7 +46,7 @@ public class GamePlayScreen extends Screen {
 		this.gamePlayScreenController = gamePlayScreenController;
 	}
 
-	public GamePlayScreen(Game game, double width, double height) {
+	public GamePlayScreen(GamePlayScreenController sc, Game game, double width, double height) {
 		super(width, height);
 		ScrollPane pane = new ScrollPane();
 		viewableArea().setCenter(pane);
