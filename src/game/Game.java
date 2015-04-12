@@ -24,12 +24,17 @@ public class Game {
 	/**
 	 * create untitled game, set game name only when user saved it
 	 */
-	public Game(){
-		myLevels = new ArrayList<>();
+	public Game() {
+		
+		this(null);
+		
 	}
+	
 	public Game(String name) {
-		myName = name;
-		myLevels = new ArrayList<>();
+		
+		this.name = name;
+		this.levels = new ArrayList<>();
+		
 	}
 	public void addLevel(Level l){
 		myLevels.add(l);
