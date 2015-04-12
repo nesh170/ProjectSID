@@ -8,14 +8,14 @@ import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 
 public class Game {
-	private List<Level>	myLevels;  
-	private SplashScreen mySplash;
-	private String myName;
 	
 	// Static Variables
 	
 	
 	// Instance Variables
+	private List<Level>	levels;  
+	private SplashScreen splashScreen;
+	private String name;
 
 	
 	// Getters & Setters
