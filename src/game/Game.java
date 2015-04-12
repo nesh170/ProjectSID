@@ -19,6 +19,22 @@ public class Game {
 
 	
 	// Getters & Setters
+	public List<Level> levels() {
+		return levels;
+	}
+	
+	public SplashScreen splashScreen() {
+		return splashScreen;
+	}
+	
+	public String name() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	
 	// Constructor & Helpers
 	/**
@@ -36,66 +52,63 @@ public class Game {
 		this.levels = new ArrayList<>();
 		
 	}
-	public void addLevel(Level l){
-		myLevels.add(l);
+	
+	
+	// All other instance methods
+	public void addLevel(Level level) {
+		levels.add(level);
 	}
 	
-	public void addSplash(SplashScreen s){
-		mySplash = s;
+	public void addSplash(SplashScreen s) {
+		splashScreen = s;
 	}
 	
-	public void removeLevel(int levelIndex){
-		myLevels.remove(levelIndex);
+	public void removeLevel(int levelIndex) {
+		levels.remove(levelIndex);
 	}
 	
-	public void removeSplash(){
-		mySplash = null;
+	public void removeSplash() {
+		splashScreen = null;
 	}	
-	public SplashScreen getSplash(){
-		return mySplash;
-	}
-	public List<Level> getLevel(){
-		return myLevels;
-	}
+	
 	/**
 	 * used when user edits a screen
 	 */
-	public void setLevel(int levelIndex, Level l){
-		myLevels.set(levelIndex, l);
+	public void setLevel(int levelIndex, Level l) {
+		levels.set(levelIndex, l);
 	}
 	
-	public String getName() {
-		return myName;
-	}
-	
-	public void setName(String name){
-		myName = name;
-	}
 	/**
 	 * used by GameEdit for displaying proper visual content 
 	 * @return if the game has splash screen set yet
 	 */
-	public boolean hasSplash(){
-		return mySplash != null;
+	public boolean hasSplash() {
+		return splashScreen != null;
 	}
-	public boolean hasLevel(){
-		return myLevels!=null;
+	
+	public boolean hasLevel() {
+		return levels!=null;
 	}
 
-	public int getLevelSize(){
-		return myLevels.size();
+	public int getLevelsSize() {
+		return levels.size();
 	}
 	/**
 	 * prints game for testing purposes 
 	 */
 	@Override
-	public String toString(){
-		String s = "Game name is " + myName + "\n" +
-				"Game Level is " + myLevels.toString() + "\n"; 
-		if(mySplash == null)
+	public String toString() {
+		
+		String s = "Game name is " + name + "\n" + "Game Level is " + levels.toString() + "\n";
+		
+		if (splashScreen == null) {
 			return s + "Game Splash Screen: null";   	
-		else
+		}
+		
+		else {
 			return s + "Game Splash Screen is not null";
+		}
+			
 	}
 	
 }
