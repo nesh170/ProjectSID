@@ -132,11 +132,7 @@ public class Sprite {
 		
 		return this.spriteImage;
 	}
-	
-	public void setSpriteImage(SpriteImage spriteImage) {
-		this.spriteImage = spriteImage;
-	}
-	
+		
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
 	}

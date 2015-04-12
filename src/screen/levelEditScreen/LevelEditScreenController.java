@@ -15,9 +15,10 @@ public interface LevelEditScreenController {
 	
 	/**
 	 * Loads a new sprite edit screen with an existing sprite
+	 * @param levelEditScreen TODO
 	 * @param sprite
 	 */
-	public void loadSpriteEditScreen(Sprite sprite);
+	public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite);
 	
 	/**
 	 * Loads a new sprite edit screen with a new sprite

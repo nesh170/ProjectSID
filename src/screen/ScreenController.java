@@ -471,7 +471,7 @@ public class ScreenController {
 			File dir = DataHandler.chooseDir(stage);
 			
 			try {
-				DataHandler.toXMLFile(game, game.getName(), dir.getPath());
+				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
 			}
@@ -503,10 +503,12 @@ public class ScreenController {
 		}
 
 		@Override
-		public void loadSpriteEditScreen(Sprite sprite) {
+		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
+			
 			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);	
+			createSpriteEditScreen(levelEditTab, sprite);
+			levelEditScreen.addSprite(sprite);
 			
 		}
 		
@@ -514,10 +516,7 @@ public class ScreenController {
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
 			
 			Sprite newSprite = new Sprite();
-			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, newSprite);
-			levelEditScreen.addSprite(newSprite);
-			
+			loadSpriteEditScreen(levelEditScreen, newSprite);
 		}
 		
 	}
