@@ -320,7 +320,7 @@ public class GameEditScreen extends Screen {
 		MenuItem addLevel = new MenuItem("Add new Level");
 		addLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame));
 		MenuItem editLevel = new MenuItem("Edit Level");
-		editLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame.getLevel().get(selectedIndex))); //references to the specific level within a game
+		editLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame.levels().get(selectedIndex))); //references to the specific level within a game
 		levelMenu.getItems().addAll(addLevel, editLevel);
 		return levelMenu;
 		

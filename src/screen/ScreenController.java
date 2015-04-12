@@ -471,7 +471,7 @@ public class ScreenController {
 			File dir = DataHandler.chooseDir(stage);
 			
 			try {
-				DataHandler.toXMLFile(game, game.getName(), dir.getPath());
+				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
 			}
