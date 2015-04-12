@@ -11,7 +11,16 @@ public class Game {
 	private List<Level>	myLevels;  
 	private SplashScreen mySplash;
 	private String myName;
+	
+	// Static Variables
+	
+	
+	// Instance Variables
 
+	
+	// Getters & Setters
+	
+	// Constructor & Helpers
 	/**
 	 * create untitled game, set game name only when user saved it
 	 */
