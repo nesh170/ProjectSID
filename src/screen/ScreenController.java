@@ -446,6 +446,7 @@ public class ScreenController {
 			//Create new GamePlayScreen
 			//Needs to pass in Level
 			//createGamePlayScreen(game);
+			createGamePlayScreen(game);
 			throw new IllegalStateException("Unimplemented playGame");
 		}
 
