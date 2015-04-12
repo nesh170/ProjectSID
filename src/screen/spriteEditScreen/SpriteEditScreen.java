@@ -125,16 +125,11 @@ public class SpriteEditScreen extends Screen {
 
 		if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
-			editableSprite = new Sprite(spriteToEdit);
-			if(editableSprite.spriteImage()==null) {
-				editableSprite.setSpriteImage(new SpriteImage());
-			}
-			
+			editableSprite = new Sprite(spriteToEdit);			
 		}
 		
 		else {
 			editableSprite = new Sprite();
-			editableSprite.setSpriteImage(new SpriteImage());
 		}
 		
 		initializeRelevantResourceFiles();
@@ -657,7 +652,6 @@ public class SpriteEditScreen extends Screen {
 		
 	}
 
-	// All other instance methods
 	private void drawSpriteOnScreen(Sprite sprite) {
 		//TODO implement
 	}
