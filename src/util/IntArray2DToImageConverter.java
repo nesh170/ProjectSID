@@ -71,11 +71,13 @@ public class IntArray2DToImageConverter {
 		
 		PixelWriter pixelWriter = destinationImage.getPixelWriter();
 		
-		for (int x=0; x < destinationImage.getWidth(); x++) {
+		for (int row=0; row < destinationImage.getHeight(); row++) {
 			
-			for (int y=0; y < destinationImage.getHeight(); y++) {
+			for (int column=0; column < destinationImage.getWidth(); column++) {
 				
-				pixelWriter.setArgb(x, y, getIntARGBToDrawWithArrayWithImageXWithImageYWithLengthSidePixel(sourceArray, x, y, lengthSidePixel));
+				pixelWriter.setArgb(column, row, 
+						getIntARGBToDrawWithArrayWithImageXWithImageYWithLengthSidePixel(sourceArray, row, column, lengthSidePixel)
+						);
 				
 			}
 			

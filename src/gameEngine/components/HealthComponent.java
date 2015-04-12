@@ -1,5 +1,6 @@
 package gameEngine.components;
 
+import java.util.List;
 import sprite.Sprite;
 import gameEngine.Component;
 
@@ -18,10 +19,16 @@ public class HealthComponent extends Component {
 	private int myLives;
 	private boolean hasDeath;
 	
-	public HealthComponent(Sprite sprite){
-		super(sprite);
-		myHP = DEFAULT_STARTING_HP;
-		myLives = DEFAULT_STARTING_LIVES;
+	public HealthComponent(Sprite sprite, List<Double> valueList){
+		super(sprite, valueList);
+		try{
+		    myHP = valueList.get(0);
+		    myLives = Math.toIntExact(Math.round(valueList.get(1)));
+		}
+		catch(Exception e){
+		    myHP = DEFAULT_STARTING_HP;
+		    myLives = DEFAULT_STARTING_LIVES;
+		}		    
 		hasDeath = DEFAULT_DEATH;
 	}
 	

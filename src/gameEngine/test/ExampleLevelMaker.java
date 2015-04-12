@@ -96,8 +96,8 @@ public class ExampleLevelMaker {
 		mySpriteList.add(enemy);
 	}
 	private void addPlayerComponentsAndActions() {
-		myPlayer.addComponent(new HealthComponent(myPlayer));
-		myPlayer.addComponent(new VelocityComponent(myPlayer));
+		myPlayer.addComponent(new HealthComponent(myPlayer,null));
+		myPlayer.addComponent(new VelocityComponent(myPlayer, null));
 		myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
 		Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
 		myPlayer.addAction(rma);
@@ -120,7 +120,7 @@ public class ExampleLevelMaker {
 		//set up projectile template, add to player, along with shoot actions
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate, myPlayer);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,null, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

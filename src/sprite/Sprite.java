@@ -132,11 +132,18 @@ public class Sprite {
 		
 		return this.spriteImage;
 	}
-	
+		
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
 	}
 	
+	public double getX() {
+		return this.x;
+	}
+	
+	public double getY() {
+		return this.y;
+	}
 	
 	// Constructor & Helpers
 	public Sprite() {
