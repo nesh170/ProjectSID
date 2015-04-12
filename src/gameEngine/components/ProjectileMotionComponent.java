@@ -1,5 +1,6 @@
 package gameEngine.components;
 
+import java.util.List;
 import javafx.geometry.Point2D;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
@@ -9,10 +10,9 @@ public class ProjectileMotionComponent extends VelocityComponent {
 
 	private Sprite myShooter;
 	
-	public ProjectileMotionComponent(Sprite sprite, Sprite shooter) {
-		super(sprite);
+	public ProjectileMotionComponent(Sprite sprite, List<Double> valueList ,Sprite shooter) {
+		super(sprite,valueList);
 		myShooter = shooter;
-		// TODO Auto-generated constructor stub
 	}
 
 	

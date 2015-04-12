@@ -60,7 +60,7 @@ import util.ErrorHandler;
  * @author Kyle
  * @author Leo
  * @author Michael
- *
+ * @Yongjiao
  */
 
 
@@ -136,9 +136,10 @@ public class ScreenController {
 	private LevelEditScreenManager levelEditScreenManager;
 	private SpriteEditScreenManager spriteEditScreenManager;
 	private GamePlayScreenManager gamePlayScreenManager;
-	
 	//Factories
 	private ScreenFactory screenFactory;
+	
+	
 	// Getters & Setters (static)
 	
 	
@@ -171,6 +172,7 @@ public class ScreenController {
 		stage.getScene().setCursor(imageCursor);
 	}
 	
+	
 	// Constructors & Helpers
 	public ScreenController(Stage stage, double width, double height) {
 		
@@ -181,7 +183,7 @@ public class ScreenController {
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
-		configureFactories(width, height);
+		configureFactories(newScreenWidth, newScreenHeight);
 		configureErrorHandling(root);
 		configureScreenManagers();
 		
@@ -262,13 +264,12 @@ public class ScreenController {
 	private void addTabPane(TabPane tabPane) {
 		root.getChildren().add(tabPane);
 	}
-	
 
 	private void createInitialScreens() {
 		
 		tabManager.setDefaultTab(createMainMenuScreen());
 		
-		//USED FOR TEST LEVELEDITSCREEN
+		//USED FOR TEST GAMEEDITSCREEN
 		//createGameEditScreen(null);
 		
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
@@ -282,7 +283,6 @@ public class ScreenController {
 	
 	
 	// All other instance methods
-	// Public
 	/**
 	 * Closes the Application.
 	 */
@@ -334,10 +334,10 @@ public class ScreenController {
 	}
 
 	
-	private Tab createSpriteEditScreen(Tab levelEditTab, Sprite sprite) {
+	private Tab createSpriteEditScreen(Tab tab, Sprite sprite) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createSpriteEditScreen(levelEditTab, sprite, spriteEditScreenManager),
+					screenFactory.createSpriteEditScreen(tab, sprite, spriteEditScreenManager),
 					STRING.SPRITE_EDIT
 					);
 		
@@ -389,13 +389,13 @@ public class ScreenController {
 
 		@Override
 		public void returnToMainMenuScreen() {
+			
 			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			//tabManager.removeTab(gameEditTab);	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
 
 		}
-
 
 		@Override
 		public void loadLevelEditScreen(Level level) {
@@ -423,7 +423,24 @@ public class ScreenController {
 			game.addSplash(newSplashScreen);
 			
 		}
-
+		/**
+		 * reloads GameEditScreen, needs to reloads the game to reflect those changes on the screen
+		 * Used when remove is clicked, so that GameEditScreen correctly reflects the removal of level or splash
+		 * 
+		 * OR to addListener() when change happened, use animation to reflect changes instead of refreshes whole screen
+		 * addListener( o-> animationToReduceLevelImage); (use easy method for now)
+		 * @param game
+		 */
+		public void reloadGameEditScreen(Game game){
+			Screen newScreen = screenFactory.createGameEditScreen(game, gameEditScreenManager);
+			
+			tabManager.addTabWithScreenWithStringIdentifier(
+						screenFactory.createGameEditScreen(game, gameEditScreenManager),
+						STRING.GAME_EDIT
+						);
+			tabManager.replaceTab(newScreen);
+		}
+		
 		@Override
 		public void playGame(Game game) {
 			//Create new GamePlayScreen
@@ -436,7 +453,7 @@ public class ScreenController {
 		public void trashLevel(Game game, int levelIndex) {
 			
 			game.removeLevel(levelIndex);
-			
+			reloadGameEditScreen(game);
 		}
 
 
@@ -444,7 +461,7 @@ public class ScreenController {
 		public void trashSplash(Game game) {
 			
 			game.removeSplash();
-			
+			reloadGameEditScreen(game);
 		}
 
 
@@ -454,7 +471,7 @@ public class ScreenController {
 			File dir = DataHandler.chooseDir(stage);
 			
 			try {
-				DataHandler.toXMLFile(dir, game.getName(), dir.getPath());
+				DataHandler.toXMLFile(game, game.getName(), dir.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
 			}
@@ -467,31 +484,40 @@ public class ScreenController {
 
 		@Override
 		public void returnToGameEditScreen() {
+			
 			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
 			tabManager.removeTabAndChangeSelected(splashTab);
+			
 		}		
+		
 	}
 	
 	private class LevelEditScreenManager implements LevelEditScreenController {
 
 		@Override
 		public void returnToGameEditScreen() {
+			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			tabManager.removeTabAndChangeSelected(levelEditTab);								
+			tabManager.removeTabAndChangeSelected(levelEditTab);	
+			
 		}
 
 		@Override
 		public void loadSpriteEditScreen(Sprite sprite) {
+			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);					
+			createSpriteEditScreen(levelEditTab, sprite);	
+			
 		}
 		
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
+			
 			Sprite newSprite = new Sprite();
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			createSpriteEditScreen(levelEditTab, newSprite);
 			levelEditScreen.addSprite(newSprite);
+			
 		}
 		
 	}
@@ -499,10 +525,11 @@ public class ScreenController {
 	private class SpriteEditScreenManager implements SpriteEditScreenController {
 
 		@Override
-		public void returnToSelectedLevel(LevelEditScreen levelEditScreen,
-				Tab switchTo, Sprite sprite) {
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo, Sprite sprite) {
+			
 			tabManager.removeTabAndChangeSelected(switchTo);
 			levelEditScreen.addSprite(sprite);
+			
 		}
 		
 	}
