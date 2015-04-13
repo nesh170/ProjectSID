@@ -114,13 +114,13 @@ public class PlayerMenu {
 	private Menu buildSoundMenu() {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
-		playItem.setOnAction(event -> myPlayer.playMusic());
+		myCommandItems.add(playItem);
 		
 		MenuItem pauseItem = new MenuItem("Pause");
-		pauseItem.setOnAction(event -> myPlayer.pauseMusic());
+		myCommandItems.add(pauseItem);
 		
 		MenuItem stopItem = makeMenuItem("Stop");
-		stopItem.setOnAction(event -> myPlayer.stopMusic());
+		myCommandItems.add(stopItem);
 		
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
