@@ -57,8 +57,7 @@ public class GamePlayScreen extends Screen {
 	//GamePlayer specific menuBar
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		PlayerMenu menu = new PlayerMenu();
-		menuBar = menu.getBar();
+		PlayerMenu menu = new PlayerMenu(menuBar);
 		myMenu = menu;
 	}
 	

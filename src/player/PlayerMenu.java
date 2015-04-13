@@ -34,12 +34,12 @@ public class PlayerMenu {
 //		myMenuBar = createPlayerMenu();
 //	}
 	
-	public PlayerMenu() {
-		myMenuBar = createPlayerMenu();
+	public PlayerMenu(MenuBar menuBar) {
+		myMenuBar = menuBar;
+		createPlayerMenu(menuBar);
 	}
 	
-	public MenuBar createPlayerMenu() {
-		MenuBar menuBar = new MenuBar();
+	public MenuBar createPlayerMenu(MenuBar menuBar) {
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().add(buildFileMenu());
 		menuBar.getMenus().add(buildGamesMenu());
@@ -47,6 +47,11 @@ public class PlayerMenu {
 		menuBar.getMenus().add(buildSoundMenu());
 		menuBar.getMenus().add(buildHelpMenu());
 		return menuBar;
+	}
+	
+	public MenuBar createPlayerMenu() {
+		MenuBar menuBar = new MenuBar();
+		return createPlayerMenu(menuBar);
 	}
 
 	private MenuItem makeMenuItem(String name) {
