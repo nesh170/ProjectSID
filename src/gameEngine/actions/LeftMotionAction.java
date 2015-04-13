@@ -22,7 +22,6 @@ public class LeftMotionAction extends Action {
 
 	@Override
 	public void execute() {
-	    System.out.println("left");
 		myVelocityComponent.setVelocityX(-EngineMathFunctions.velocityValueFrame(value));
 
 	}

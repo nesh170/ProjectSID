@@ -118,34 +118,44 @@ public class LevelView extends ScrollPane {
     	Image spriteImage;
     	ImageView spriteImageView;
     	//TODO: delete rectangle-making, restore SpriteImage part
-    	if(sprite.isActive()) {
+    	/*if(sprite.isActive()) {
     		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
     				sprite.transform().getWidth(), sprite.transform().getHeight());
         	spriteGroup.getChildren().add(r);
-    	}
+    	}*/
     			
         if (sprite.isActive()) {
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-           // spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-          //  spriteImageView = new ImageView(spriteImage);
+            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            spriteImageView = new ImageView(spriteImage);
                         
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                    //.transform().getPosY());
-           // spriteGroup.getChildren().add(spriteImageView);
+                   // .transform().getPosY());
+            spriteImageView.setX(sprite.transform().getPosX());
+            spriteImageView.setY(sprite.transform().getPosY());
+            if(spriteImage !=null){
+            	spriteImageView.setFitWidth(sprite.transform().getWidth());
+            	spriteImageView.setFitHeight(sprite.transform().getHeight());
+            	spriteGroup.getChildren().add(spriteImageView);
+            }
+            else{
+        		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+        				sprite.transform().getWidth(), sprite.transform().getHeight());
+            	spriteGroup.getChildren().add(r);
+            }
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
-           // if (editMode == EditMode.EDIT_MODE_ON) {
+            if (editMode == EditMode.EDIT_MODE_ON) {
             	
-           // 	configureMouseHandlersOnSpriteImageView(spriteImageView);
+            	configureMouseHandlersOnSpriteImageView(spriteImageView);
             	
-           // }
+            }
             
         }
-        
         return spriteGroup;
 
     }
