@@ -79,7 +79,7 @@ public class SplashEditScreen extends Screen {
 		configureSplashScreen(splashScreen, width, height);
 		configureButtons();
 		configureDisplayArea();
-		
+		this.getStyleClass().add("pane");
 	}
 	
 	@Override
