@@ -1,5 +1,6 @@
 package screen.levelEditScreen;
 
+import game.Game;
 import sprite.Sprite;
 import javafx.scene.control.Tab;
 
@@ -25,5 +26,14 @@ public interface LevelEditScreenController {
 	 * @param levelEditScreen
 	 */
 	public void loadSpriteEditScreen(LevelEditScreen levelEditScreen);
+	
+	/**
+	 * Loads the collision table screen for the user to edit actions
+	 * that occur during interactions between sprites
+	 * @author Anika
+	 * @param level
+	 */
+	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen);
+	
 
 }
