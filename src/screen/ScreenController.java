@@ -373,6 +373,16 @@ public class ScreenController {
 		
 	}
 
+	/**
+	 * A series of private, nested classes that implement ScreenController interfaces. 
+	 * These classes conveniently use any necessary ScreenController instance variables
+	 * while protecting us from entirely passing in the ScreenController into Screen objects.
+	 * Screen objects use the provided methods in the ScreenController interfaces to 
+	 * perform transitioning, closing, opening, etc. actions
+	 * 
+	 * @author AuthoringEnvironment Team
+	 *
+	 */
 	private class MainMenuScreenManager implements MainMenuScreenController {
 		/**
 		 * Display a pop up to specify game name and description
