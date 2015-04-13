@@ -603,6 +603,16 @@ public class ScreenController {
 		
 	}
 	
+	private class CollisionTableScreenManager implements CollisionTableScreenController {
+
+		@Override
+		public void returnToLevel() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 	private class GamePlayScreenManager implements GamePlayScreenController {
 
 		@Override
