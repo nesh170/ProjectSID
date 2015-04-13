@@ -26,6 +26,9 @@ public class DOUBLE {
 	//Default move speed for some non-player sprites
 	public static final double DEFAULT_TOWARD_MULTIPLIER = 0.1;
 	
+	//Default level time limit
+	public static final double DEFAULT_TIME_LIMIT = 300.0;
+	
 	
 	// LevelView
 	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 5.0;

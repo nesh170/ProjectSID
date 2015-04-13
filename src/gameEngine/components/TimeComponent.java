@@ -1,5 +1,8 @@
 package gameEngine.components;
 
+import java.util.List;
+
+import resources.constants.DOUBLE;
 import sprite.Sprite;
 import gameEngine.Component;
 
@@ -8,9 +11,14 @@ public class TimeComponent extends Component {
 	private double levelTime;
 	private int displayTime;
 
-	public TimeComponent(Sprite sprite, double levelTime) {
-		super(sprite);
-		this.levelTime = levelTime;
+	public TimeComponent(Sprite sprite, List<Double> valueList) {
+		super(sprite, valueList);
+		try{
+		    levelTime = myValueList.get(0);
+		}
+		catch(Exception e){
+		    levelTime = DOUBLE.DEFAULT_TIME_LIMIT;
+		}
 	}
 
 	@Override
