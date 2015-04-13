@@ -30,4 +30,9 @@
       <startDimensions reference="../myDimensions"/>
     </transform>
   </playerSprite>
+  <collisionTable>
+    <myTable/>
+    <tagList/>
+  </collisionTable>
+  <goalMap/>
 </levelPlatform.level.Level>
