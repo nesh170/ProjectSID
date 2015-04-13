@@ -8,7 +8,7 @@ import javafx.scene.control.TabPane;
 
 /***
  * Lets 
- * @author Michael, Ruslan
+ * @author Michael, Ruslan 
  */
 public class TabManager {
 	
@@ -55,6 +55,17 @@ public class TabManager {
 		singleSelectionModel.select(selectedNew);
 		
 	}
+	/**
+	 * replace current tab content with a new node
+	 * used when reloads a screen
+	 * @param newTab
+	 * @author Yongjiao
+	 */
+	public void replaceTab(Screen newScreen){
+		
+		Tab currentTab = singleSelectionModel.getSelectedItem();
+		currentTab.setContent(newScreen);
+	}
 	
 	public SingleSelectionModel<Tab> getTabSelectionModel() {
 		return singleSelectionModel;
@@ -79,7 +90,7 @@ public class TabManager {
 	
 	// Private
 	/**
-	 * Take all tabs except the current one and make them unmodifiable. Make the current tab modifiable
+	 * Take all tabs except the current/last one and make them unmodifiable. Make the current tab modifiable
 	 * 
 	 * @author Ruslan
 	 */

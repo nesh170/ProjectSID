@@ -1,6 +1,8 @@
 package player;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,25 +22,36 @@ public class PlayerMenu {
 	private MenuBar myMenuBar;
 	private PlayerViewController myView;
 	private GamePlayer myPlayer;
+	private List<MenuItem> myCommandItems = new ArrayList<MenuItem>();
 	
 	public PlayerMenu(Stage stage) {
 		myMenuBar = createPlayerMenu();
 		myPlayer = new GamePlayer(stage, getBar());
 	}
 
-	public PlayerMenu(double width, double height) {
-		myPlayer = new GamePlayer(width, height);
-		myMenuBar = createPlayerMenu();
+//	public PlayerMenu(double width, double height) {
+//		myPlayer = new GamePlayer(width, height);
+//		myMenuBar = createPlayerMenu();
+//	}
+	
+	public PlayerMenu(MenuBar menuBar) {
+		myMenuBar = menuBar;
+		createPlayerMenu(menuBar);
 	}
 	
-	public MenuBar createPlayerMenu() {
-		MenuBar menuBar = new MenuBar();
+	public MenuBar createPlayerMenu(MenuBar menuBar) {
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().add(buildFileMenu());
 		menuBar.getMenus().add(buildGamesMenu());
 		menuBar.getMenus().add(menuView);
+		menuBar.getMenus().add(buildSoundMenu());
 		menuBar.getMenus().add(buildHelpMenu());
 		return menuBar;
+	}
+	
+	public MenuBar createPlayerMenu() {
+		MenuBar menuBar = new MenuBar();
+		return createPlayerMenu(menuBar);
 	}
 
 	private MenuItem makeMenuItem(String name) {
@@ -55,27 +68,27 @@ public class PlayerMenu {
 		pauseItem.setOnAction(event -> {
 			pauseGame();
 		});
-
+		myCommandItems.add(pauseItem);
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
 			startGame();
 		});
-
+		myCommandItems.add(playItem);
 		MenuItem newGameItem = makeMenuItem("New Game");
 		newGameItem.setOnAction(event -> {
 			myView.loadNewChooser();
 		});
-
+		myCommandItems.add(newGameItem);
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			System.out.println("write code to load saved game");
 		});
-
+		myCommandItems.add(loadItem);
 		MenuItem quitItem = makeMenuItem("Quit");
 		quitItem.setOnAction(event -> {
 			System.exit(0);
 		});
-		
+		myCommandItems.add(quitItem);
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
 				quitItem);
 		return fileMenu;
@@ -101,6 +114,21 @@ public class PlayerMenu {
 		
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
+	}
+	
+	private Menu buildSoundMenu() {
+		Menu soundMenu = new Menu("Sound");
+		MenuItem playItem = makeMenuItem("Play");
+		myCommandItems.add(playItem);
+		
+		MenuItem pauseItem = new MenuItem("Pause");
+		myCommandItems.add(pauseItem);
+		
+		MenuItem stopItem = makeMenuItem("Stop");
+		myCommandItems.add(stopItem);
+		
+		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
+		return soundMenu;
 	}
 
 	private Stage buildGameChooser() {
@@ -134,10 +162,15 @@ public class PlayerMenu {
 	
 	public void showTutorial() {
 		myPlayer.showTutorial();
+		myPlayer.pauseMusic();
 	}
 	
 	public MenuBar getBar() {
 		return myMenuBar;
 	}
 
+	public List<MenuItem> getCommandItems() {
+		return myCommandItems;
+	}
+	
 }

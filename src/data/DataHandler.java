@@ -16,6 +16,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -32,6 +33,10 @@ public class DataHandler {
 		fWriter.close();
 	}
 
+	public static String toXMLString(Object obj) {
+		return XSTREAM.toXML(obj);
+	}
+
 	public static Object fromXMLString(String xml) {
 		return XSTREAM.fromXML(xml);
 	}
@@ -39,13 +44,12 @@ public class DataHandler {
 	public static Object fromXMLFile(File xml) {
 		return XSTREAM.fromXML(xml);
 	}
-
 	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setTitle("Open Directory");
+		directoryChooser.setTitle("Please chose a directory to save");
 		return directoryChooser.showDialog(stage);
 	}
-
+	
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select File");
@@ -55,19 +59,17 @@ public class DataHandler {
 	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
-	
+
 	public static Game getGameFromDir(File folder) throws IOException {
 		List<Game> games = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".xml"))
 				.map(file -> fromXMLFile(file))
-				.map(obj -> Game.class.cast(obj))
-				.collect(Collectors.toList());
+				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 
 		if (games.size() != 0) {
 			System.out.println("NOT EXACTLY ONE .XML FILE");
 			return null;
-		}
-		else {
+		} else {
 			return games.get(0);
 		}
 	}
@@ -115,6 +117,36 @@ public class DataHandler {
 		return new Image(url);
 	}
 
+	public static Media getVideoFromDir(File folder) {
+		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.toString().endsWith(".flv")
+						|| file.toString().endsWith(".mp4"))
+				.map(file -> new Media(file.toURI().toString()))
+				.collect(Collectors.toList());
+
+		if (videoFiles.size() != 1) {
+			System.out.println("NOT EXACTLY ONE .XML FILE");
+			return null;
+		} else {
+			return videoFiles.get(0);
+		}
+	}
+	
+	public static Media getAudioFromDir(File folder) {
+		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.toString().endsWith(".mp3")
+						|| file.toString().endsWith(".m4a"))
+				.map(file -> new Media(file.toURI().toString()))
+				.collect(Collectors.toList());
+
+		if (videoFiles.size() != 1) {
+			System.out.println("NOT EXACTLY ONE .XML FILE");
+			return null;
+		} else {
+			return videoFiles.get(0);
+		}
+	}
+	
 	public static Image fileToImage(File file) {
 		return new Image(file.toURI().toString());
 	}

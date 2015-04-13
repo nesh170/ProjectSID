@@ -1,9 +1,12 @@
 package player;
 
+import game.Game;
 import gameEngine.GameEngine;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -23,6 +26,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -30,6 +35,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import levelPlatform.level.Level;
+import media.AudioController;
 import media.VideoPlayer;
 
 public class PlayerViewController {
@@ -40,6 +46,9 @@ public class PlayerViewController {
 	private Timeline myTimeline;
 	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
+	private AudioController myAudioController;
+	private Media myVideo;
+	private Media myAudio;
 	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
@@ -53,6 +62,7 @@ public class PlayerViewController {
 	private Group myGameGroup;
 	private GameEngine myEngine;
 	private double[] cameraValue;
+	private Game myGame;
 	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
@@ -60,12 +70,10 @@ public class PlayerViewController {
 		myPause = makePauseScreen();
 	}
 
-	public PlayerViewController(ScrollPane pane, double width, double height) {
+	public PlayerViewController(Game game, ScrollPane pane) {
 		myGameRoot = pane;
-		loadNewChooser();
 		myPause = makePauseScreen();
-		myWidth = width;
-		myHeight = height;
+		selectGame(game);
 	}
 
 	public void startView() {
@@ -164,6 +172,10 @@ public class PlayerViewController {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		try {
 			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myAudio = DataHandler.getAudioFromDir(myGameFolder);
+			myVideo = DataHandler.getVideoFromDir(myGameFolder);
+			myVideoPlayer = new VideoPlayer();
+			myAudioController = new AudioController(new MediaPlayer(myAudio));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -172,6 +184,13 @@ public class PlayerViewController {
 		setupAnimation();
 	}
 
+	public void selectGame(Game game) {
+		myGame = game;
+		myGameLevels = game.levels();
+		myEngine = new GameEngine(myGameLevels);
+		setupAnimation();
+	}			
+	
 	public HBox createHUD() {
 		HBox HUDbox = new HBox(myWidth);
 		Text LivesText = new Text("Health:" + myHealth);
@@ -200,5 +219,29 @@ public class PlayerViewController {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void showTutorial() {
+		// TODO Auto-generated method stub
+		try {
+			Stage videoStage = new Stage();
+			videoStage.setOnCloseRequest(event -> playMusic());
+			myVideoPlayer.init(videoStage, myVideo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void playMusic() {
+		myAudioController.play();
+	}
+
+	public void pauseMusic() {
+		myAudioController.pause();
+	}
+
+	public void stopMusic() {
+		myAudioController.stop();
 	}
 }
