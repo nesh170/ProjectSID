@@ -42,8 +42,12 @@ public class GamePlayScreen extends Screen {
 		super(width, height);
 		//maybe change? adding creating GamePlayer here so screen can get MenuBar
 		//also every GamePlayer must be containted within a gamePlayer screen
-		//myMenu = new PlayerMenu(width, height);	
+		//myMenu = new PlayerMenu(width, height);
 		this.gamePlayScreenController = gamePlayScreenController;
+		ScrollPane pane = new ScrollPane();
+		this.setCenter(pane);
+		myPlayer = new GamePlayer(pane, width, height);
+		myPlayer.setupActions(myMenu);
 	}
 
 	public GamePlayScreen(GamePlayScreenController sc, Game game, double width, double height) {

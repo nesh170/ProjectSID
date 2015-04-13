@@ -345,10 +345,19 @@ public class ScreenController {
 	}
 
 	
-	private Tab createGamePlayScreen(Level level) {
+	private Tab createGamePlayScreen(Game game) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createGamePlayScreen(level, gamePlayScreenManager),
+				screenFactory.createGamePlayScreen(game, gamePlayScreenManager),
+				STRING.GAME_PLAY
+				);
+		
+	}
+	
+	private Tab createGamePlayScreen() {
+		
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createGamePlayScreen(gamePlayScreenManager),
 				STRING.GAME_PLAY
 				);
 		
@@ -444,11 +453,8 @@ public class ScreenController {
 		
 		@Override
 		public void playGame(Game game) {
-			//Create new GamePlayScreen
-			//Needs to pass in Level
 			//createGamePlayScreen(game);
-			createGamePlayScreen(game);
-			throw new IllegalStateException("Unimplemented playGame");
+			createGamePlayScreen();
 		}
 
 		@Override

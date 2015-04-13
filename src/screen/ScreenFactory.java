@@ -83,4 +83,8 @@ public class ScreenFactory {
 		
 	}
 
+	public Screen createGamePlayScreen(GamePlayScreenController gamePlayScreenController) {
+		return new GamePlayScreen(gamePlayScreenController, width, height);
+	}
+
 }
