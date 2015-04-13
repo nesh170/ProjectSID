@@ -149,6 +149,26 @@ public class CollisionTableScreen extends Screen{
 	}
 	
 	
+	/**
+	  * Each HBox consists of:
+	  * 
+	  *								|----------------------------------------------------------------------------|	
+	  * 							|           Player	   	 |	        Platform		|	   	Power-up		 |	
+	  * 							|------------------------|--------------------------|------------------------|	
+	  * 							| [Dir] [Action v] [Val] |	[Dir] [Action v]  [Val] | [Dir] [Action v] [Val] |	
+	  *  		   ENEMY			|				   		 |				 	 		|						 |	
+	  * 							|				   		 |				 	 		|						 |	
+	  * 							|  	  (+) Add Action  	 |  	(+) Add Action      |  	 (+) Add Action  	 |	
+	  * 							|				   		 |				 	 		|						 |	
+	  * 							|----------------------------------------------------------------------------|	
+	  * @return
+	  */
+	private HBox createNewSpriteTable()
+	{
+		HBox spriteBox = new HBox();
+		spriteBox.setAlignment(Pos.CENTER);
+		return spriteBox;
+	}
 	
 	
 	
