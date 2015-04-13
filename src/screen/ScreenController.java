@@ -11,11 +11,17 @@ import javax.imageio.ImageIO;
 import data.DataHandler;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -24,10 +30,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
@@ -183,7 +194,7 @@ public class ScreenController {
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
-		configureFactories(newScreenWidth, newScreenHeight);
+		configureFactories(newScreenWidth, newScreenHeight - 40);
 		configureErrorHandling(root);
 		configureScreenManagers();
 		
@@ -344,25 +355,33 @@ public class ScreenController {
 	}
 
 	
-	private Tab createGamePlayScreen(Level level) {
+	private Tab createGamePlayScreen(Game game) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createGamePlayScreen(level, gamePlayScreenManager),
+				screenFactory.createGamePlayScreen(game, gamePlayScreenManager),
+				STRING.GAME_PLAY
+				);
+		
+	}
+	
+	private Tab createGamePlayScreen() {
+		
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createGamePlayScreen(gamePlayScreenManager),
 				STRING.GAME_PLAY
 				);
 		
 	}
 
 	private class MainMenuScreenManager implements MainMenuScreenController {
-
+		/**
+		 * Display a pop up to specify game name and description
+		 */
 		@Override
-		public void createNewGame() {
-			
-			Game newGame = new Game(STRING.DEFAULT_GAME_NAME);
-			createGameEditScreen(newGame);
-			
+		public void createNewGame(Popup popup) {
+			popup.show(stage);
 		}
-
+		
 		@Override
 		public void loadGame() {
 			
@@ -381,6 +400,17 @@ public class ScreenController {
 		public void closeApplication() {
 
 			close();
+		}
+		/**
+		 * creates a new game after user specify the game name in pop up window.
+		 */
+		@Override
+		public void confirmToCreateGame(Popup popup, TextField gameName,
+				TextField des) {
+			Game newGame = new Game(gameName.getText());
+            newGame.setDescription(des.getText());
+            createGameEditScreen(newGame);
+            popup.hide();
 		}
 		
 	}
@@ -443,9 +473,8 @@ public class ScreenController {
 		
 		@Override
 		public void playGame(Game game) {
-			//Create new GamePlayScreen
-			//Needs to pass in Level
-			//createGamePlayScreen(game);
+			createGamePlayScreen();
+
 		}
 
 		@Override
@@ -468,7 +497,6 @@ public class ScreenController {
 		public void saveGame(Game game) {
 			
 			File dir = DataHandler.chooseDir(stage);
-			
 			try {
 				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 			} catch (IOException e) {
@@ -476,9 +504,8 @@ public class ScreenController {
 			}
 			
 		}
-		
 	}
-	
+
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
 		@Override
