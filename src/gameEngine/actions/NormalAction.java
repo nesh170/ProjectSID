@@ -22,6 +22,7 @@ public class NormalAction extends Action {
 	@Override
 	public void execute() {
 		myVelocityComponent.setVelocityY(0.0);
+		myVelocityComponent.setGrounded(true);
 
 	}
 

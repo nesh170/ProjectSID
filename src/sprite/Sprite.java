@@ -43,6 +43,7 @@ public class Sprite {
 	private List<Sprite> emissionList;
 	
 	private boolean isActive;
+	private String name;
 	private String tag;
 	private String collisionTag;
 
@@ -89,6 +90,14 @@ public class Sprite {
 		this.isActive = isActive;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
 	public String tag() {
 		return this.tag;
 	}
@@ -112,15 +121,29 @@ public class Sprite {
 	public void addToEmissionList(Sprite sprite){
 		emissionList.add(sprite);
 	}
+	
 	public SpriteImage spriteImage() {
+		
 	    //TODO talk to Ruslan about death
+		
+		if (spriteImage == null) {
+			this.spriteImage = new SpriteImage();
+		}
+		
 		return this.spriteImage;
 	}
-	
+		
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
 	}
 	
+	public double getX() {
+		return this.x;
+	}
+	
+	public double getY() {
+		return this.y;
+	}
 	
 	// Constructor & Helpers
 	public Sprite() {

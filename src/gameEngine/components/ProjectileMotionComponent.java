@@ -1,14 +1,18 @@
 package gameEngine.components;
 
+import java.util.List;
 import javafx.geometry.Point2D;
+import resources.constants.DOUBLE;
 import sprite.Sprite;
 import gameEngine.components.VelocityComponent;
 
 public class ProjectileMotionComponent extends VelocityComponent {
 
-	public ProjectileMotionComponent(Sprite sprite) {
-		super(sprite);
-		// TODO Auto-generated constructor stub
+	private Sprite myShooter;
+	
+	public ProjectileMotionComponent(Sprite sprite, List<Double> valueList ,Sprite shooter) {
+		super(sprite,valueList);
+		myShooter = shooter;
 	}
 
 	
@@ -16,7 +20,10 @@ public class ProjectileMotionComponent extends VelocityComponent {
 		//override for any possible movement
 		//algorithm here.
 		//TODO: REMOVE HARDCODED SPEED
-		setVelocity(new Point2D(50.0, 0.0));
+		if((mySprite.transform().getPosX() - myShooter.transform().getPosX()) > DOUBLE.BULLET_SELF_DESTRUCT_DIST){
+			mySprite.setIsActive(false);
+		}
+		setVelocityX(DOUBLE.BULLET_SPEED);
 
 	}
 

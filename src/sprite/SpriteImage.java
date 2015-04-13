@@ -65,6 +65,7 @@ public class SpriteImage {
 		
 	}
 	
+	
 	// Constructor & Helpers
 	public SpriteImage() {
 		
@@ -85,7 +86,7 @@ public class SpriteImage {
 	 * @return true if SpriteImage contains at least one int[][]
 	 */
 	public boolean hasImages() {
-		return images.isEmpty();
+		return !images.isEmpty();
 	}
 	
 	/**

@@ -36,9 +36,7 @@ public class LevelView extends ScrollPane {
     private double lengthSidePixel;
     // Playing
     private Collision collisionHandler;    
-    
-    private Map<Sprite,ImageView> representationMap;
-    
+        
     
     // Getters & Setters
     public Level level() {
@@ -60,11 +58,7 @@ public class LevelView extends ScrollPane {
     public double getLengthSidePixel() {
     	return this.lengthSidePixel;
     }
-    
-    public ImageView getImageForSprite(Sprite sprite) {
-    	return this.representationMap.get(sprite);
-    }
-    
+        
     public void setCollisionHandler(){
     	this.collisionHandler = new Collision(level.getCollisionTable());
     }
@@ -107,9 +101,6 @@ public class LevelView extends ScrollPane {
      */
     public Group renderLevel() {
     	
-    	if(representationMap == null) {
-    		representationMap = new HashMap<>();
-    	}
         Group levelGroup = new Group();
         level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
         return levelGroup;
@@ -140,9 +131,7 @@ public class LevelView extends ScrollPane {
         	
            // spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
           //  spriteImageView = new ImageView(spriteImage);
-            
-           // representationMap.put(sprite, spriteImageView);
-            
+                        
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
                     //.transform().getPosY());
            // spriteGroup.getChildren().add(spriteImageView);

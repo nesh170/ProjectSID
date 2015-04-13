@@ -25,6 +25,11 @@ public class INT {
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH = 150;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT = 50;
 	
+	//MainMenu
+	public static final int DEFAULT_BUTTON_WIDTH = 100;
+	public static final int DEFAULT_BUTTON_HEIGHT = 50;
+	public static final double DEFAULT_BUTTON_SPREAD = 30;
+	
 	// Level
 	public static final int DEFAULT_LEVEL_WIDTH = 400;
 	public static final int DEFAULT_LEVEL_HEIGHT = 150;
@@ -38,5 +43,7 @@ public class INT {
     public static final int COLLISION_RIGHT=1;
     public static final int COLLISION_UP=2;
     public static final int COLLISION_DOWN=3;
+
+	
 
 }

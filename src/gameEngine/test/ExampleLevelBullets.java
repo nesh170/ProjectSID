@@ -31,8 +31,8 @@ public class ExampleLevelBullets {
 		System.out.println("Oh yeah!!!");
 		//set up player
 		Sprite player = new Sprite();
-		player.addComponent(new HealthComponent(player));
-		player.addComponent(new VelocityComponent(player));
+		player.addComponent(new HealthComponent(player,null));
+		player.addComponent(new VelocityComponent(player,null));
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
 		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
 		player.addAction(rma);
@@ -56,7 +56,7 @@ public class ExampleLevelBullets {
 		
 		//set up projectile template
 		Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp,null, player);
 		Action rma2 = new RightMotionAction(projTemp, 2.0, (KeyCode)null);
 		
 		projTemp.addComponent(projComp);

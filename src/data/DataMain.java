@@ -2,6 +2,7 @@ package data;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import sprite.Sprite;
 import javafx.application.Application;
@@ -35,8 +36,9 @@ public class DataMain extends Application{
 			System.out.println(file.toString());
 		}
 		
-//		List<Image> images = DataHandler.getImagesFromDir(f, 800, 400, true);
-		ImageView iView = new ImageView(new Image("http://mario.nintendo.com/img/mario_logo.png"));
+		List<Image> images = DataHandler.getImagesFromDir(f);
+		Image im = new Image("http://mario.nintendo.com/img/mario_logo.png");
+		ImageView iView = new ImageView(im);
 		
 		Stage s = new Stage();
 		Group g = new Group();
