@@ -479,7 +479,7 @@ public class ScreenController {
 			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createSplashEditScreen(newSplashScreen);
-			game.setSplash(newSplashScreen);
+			game.addSplash(newSplashScreen);
 			
 		}
 		/**
