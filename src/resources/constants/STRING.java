@@ -75,6 +75,7 @@ public class STRING {
 	//Sprite Edit Strings
 	public static final String SPRITE_EDIT = "Sprite Edit Screen";
 	
+	public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
 	
 	// Buttons
 	public static final String BUTTON_STYLE = 
