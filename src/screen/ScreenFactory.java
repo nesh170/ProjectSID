@@ -76,11 +76,15 @@ public class ScreenFactory {
 	}
 
 	
-	public Screen createGamePlayScreen(Level level,
+	public Screen createGamePlayScreen(Game game,
 			GamePlayScreenController gamePlayScreenController) {
 		
-		return new GamePlayScreen(gamePlayScreenController, width, height, level);
+		return new GamePlayScreen(gamePlayScreenController, game, width, height);
 		
+	}
+
+	public Screen createGamePlayScreen(GamePlayScreenController gamePlayScreenController) {
+		return new GamePlayScreen(gamePlayScreenController, width, height);
 	}
 
 }

@@ -2,12 +2,18 @@ package screen.mainMenu;
 
 import java.net.URI;
 
+import javafx.scene.control.TextField;
+import javafx.stage.Popup;
+
 public interface MainMenuScreenController {
-	
+
 	/**
-	 * Creates a new game and loads the game to the game editing screen
+	 * shows popup for user to input game name and description
+	 * @param popup
 	 */
-	public void createNewGame();
+	public void createNewGame(Popup popup);
+	
+	//public void createNewGame();
 	
 	/**
 	 * Tells the ScreenController to load a FileChooser. If non-null, load the Game. 
@@ -19,4 +25,10 @@ public interface MainMenuScreenController {
 	
 	public void closeApplication();
 	
+	/**
+	 * Creates a new game and loads the game to the game editing screen
+	 */
+	public void confirmToCreateGame(Popup popup, TextField gameName,
+			TextField des);
+
 }
