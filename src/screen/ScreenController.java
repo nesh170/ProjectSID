@@ -184,6 +184,7 @@ public class ScreenController {
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
 		configureFactories(newScreenWidth, newScreenHeight);
+		configureFactories(newScreenWidth, newScreenHeight - 40);
 		configureErrorHandling(root);
 		configureScreenManagers();
 		
