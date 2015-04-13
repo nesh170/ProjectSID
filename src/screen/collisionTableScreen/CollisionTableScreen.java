@@ -148,6 +148,11 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
+	public void setSprites(List sprites)
+	{
+	//	gameSprites = new ArrayList<Sprite>(sprites.size());
+	///	gameSprites.addAll();
+	}
 	
 	/**
 	  * Each HBox consists of:
