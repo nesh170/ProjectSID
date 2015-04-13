@@ -141,6 +141,16 @@ public class CollisionTableScreen extends Screen{
 		super(width, height);
 		// TODO Auto-generated constructor stub
 	}
+	
+	/**
+	 * CollisionTableScreen(collisionTableScreenController, width, height, level);
+	 */
+	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, List<String> sprites) {
+		super(width, height);
+		myController = controller;
+		levelSprites = sprites;
+		
+	}
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
