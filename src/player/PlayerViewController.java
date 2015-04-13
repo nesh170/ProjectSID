@@ -186,9 +186,9 @@ public class PlayerViewController {
 
 	public void selectGame(Game game) {
 		myGame = game;
-//		myGameLevels = game.getLevels;
-//		myEngine = new GameEngine(myGameLevels);
-//		setupAnimation();
+		myGameLevels = game.levels();
+		myEngine = new GameEngine(myGameLevels);
+		setupAnimation();
 	}			
 	
 	public HBox createHUD() {

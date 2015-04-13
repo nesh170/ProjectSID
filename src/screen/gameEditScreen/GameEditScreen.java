@@ -50,6 +50,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import levelPlatform.level.Level;
 
 /**
@@ -58,7 +59,6 @@ import levelPlatform.level.Level;
  * @author Yongjiao
  * @author Anika 
  */
-//Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 //Splash double click and right click
 public class GameEditScreen extends Screen {
 	
@@ -67,8 +67,11 @@ public class GameEditScreen extends Screen {
 	private Game myGame;
 	private ObservableList<Level>	myLevels;  	
 	private SplashScreen mySplashScreen; 
-	private Level selectedLevel;
-	private int selectedIndex;
+	
+	//initalized for testing purpose
+	private Level selectedLevel = new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT); 
+	private int selectedIndex = 0;
+	
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
 	// Getters & Setters
@@ -131,7 +134,7 @@ public class GameEditScreen extends Screen {
 	
 	private Button displayMySplash(){
 		Button b =  makeTempLevelSplashDisplayImage(STRING.SPLASH_TMP);
-		b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter: myGame.getSplash().ImageRepresentation();
+		//b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter: myGame.getSplash().ImageRepresentation();
 		return b;
 	}
 	
@@ -172,23 +175,19 @@ public class GameEditScreen extends Screen {
 		levelDisplay = new StackPane();
 		ScrollPane levelSP = this.displayLevels(myLevels);
 
-		ImageView add = makeButton(STRING.PLUS_IMG);
-		add.setOnMouseClicked(e -> controller.loadLevelEditScreen(myGame));
+		ImageView add = makeButton(STRING.PLUS_IMG, e -> controller.loadLevelEditScreen(myGame));
 		levelDisplay.setAlignment(add, Pos.TOP_RIGHT);		
 		
-		ImageView play = makeButton(STRING.PLAY_IMG);
-		play.setOnMouseClicked(e -> controller.playGame(myGame));
+		ImageView play = makeButton(STRING.PLAY_IMG, e -> controller.playGame(myGame));
 		levelDisplay.setAlignment(play, Pos.TOP_CENTER);
 		
-		ImageView back = makeButton(STRING.BACK_IMG);
+		ImageView back = makeButton(STRING.BACK_IMG, e -> controller.returnToMainMenuScreen());
 		levelDisplay.setAlignment(back, Pos.TOP_LEFT);
-		back.setOnMouseClicked(e -> controller.returnToMainMenuScreen());
 		
-		ImageView trash = makeButton(STRING.TRASH_IMG);
-		trash.setOnMouseClicked(e -> controller.trashLevel(myGame, selectedIndex));
-		levelDisplay.setAlignment(trash, Pos.BOTTOM_RIGHT);
+//		ImageView trash = makeButton(STRING.TRASH_IMG, e -> controller.trashLevel(myGame, selectedIndex));
+//		levelDisplay.setAlignment(trash, Pos.BOTTOM_RIGHT);
 		
-		levelDisplay.getChildren().addAll(levelSP, back, add, play, trash, displayNote());
+		levelDisplay.getChildren().addAll(levelSP, back, add, play, displayNote());
 	}
 	
 	/**
@@ -230,22 +229,20 @@ public class GameEditScreen extends Screen {
 	private void displayLevelsInParallel(HBox hb) {
 	
 		//can't add ObservableList to a HBox directly
-		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE);  //tmp string path
-		level1.setOnMouseClicked(handleDouleRightClick(level1));		
+		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE);  //tmp string path	
 		Button level2 = makeTempLevelSplashDisplayImage(STRING.LEVEL2IMAGE);
-		level2.setOnMouseClicked(handleDouleRightClick(level2));
 		Button level3 = makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
-		hb.getChildren().addAll(level1, level2, level3);
-		level3.setOnMouseClicked(handleDouleRightClick(level3));	
+		hb.getChildren().addAll(level1, level2, level3);	
 	}
 	
 	//temporary methods to display level/Splash Image
 	private Button makeTempLevelSplashDisplayImage(String path) {
 		Button b = new Button();
-		ImageView level1 = new ImageView(new Image(path));
-		level1.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-		level1.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
-		b.setGraphic(level1);
+		ImageView img = new ImageView(new Image(path));
+		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
+		b.setGraphic(img);
+		b.setOnMouseClicked(handleDouleRightClick(b));
 		return b;		
 	}
 	
@@ -270,10 +267,11 @@ public class GameEditScreen extends Screen {
 	}
 	
 	
-	private ImageView makeButton(String location){
+	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda){
 		ImageView b = new ImageView(new Image(location));
 		b.setFitHeight(80);
 		b.setFitWidth(80);
+		b.setOnMouseClicked(lamda);
 		return b;
 	}	
 	/**
@@ -289,30 +287,14 @@ public class GameEditScreen extends Screen {
 		return rMenu;
 	}
 	
-	/**
-	 * Consider using makeFileMenu(EventHandler<ActionEvent>... fileMenuActions)
-	 * located in the abstract class screen in order to reduce duplicated code
-	 * in different screens (all screens have a file menu)
-	 * 
-	 * -Leo
-	 */
 	@Override
-	protected void addMenuItemsToMenuBar(MenuBar menuBar) {					
-		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), makeTrashMenu());	
+	protected void addMenuItemsToMenuBar(MenuBar menuBar) {		
+		Menu fileMenu = makeFileMenu(o -> controller.saveGame(myGame),
+				o -> controller.returnToMainMenuScreen(),
+				o -> controller.returnToMainMenuScreen());
+		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(), makeGameMenu(), makeTrashMenu());	
 
 	}		
-
-	private Menu makeFileMenu() {
-		
-		Menu fileMenu = new Menu("File");
-		MenuItem save = new MenuItem("Save");
-		save.setOnAction(o -> controller.saveGame(myGame));
-		MenuItem exit = new MenuItem("Exit");
-		exit.setOnAction(o -> controller.loadLevelEditScreen(myGame));
-		fileMenu.getItems().addAll(save, exit);
-		return fileMenu;
-		
-	}
 	
 	private Menu makeLevelMenu() {
 		
@@ -338,13 +320,22 @@ public class GameEditScreen extends Screen {
 		
 	}
 	
+	private Menu makeGameMenu() {
+		Menu gameMenu = new Menu("Game");
+		MenuItem addPlay = new MenuItem("Play Game");
+		addPlay.setOnAction(o -> controller.playGame(myGame));
+		gameMenu.getItems().addAll(addPlay);
+		return gameMenu;
+	}
+	
 	private Menu makeTrashMenu() {
 		
 		ImageView trashImage = new ImageView(new Image(STRING.TRASH_ICON));
 		
-		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
-		
+		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);		
 		Menu trashButton = new Menu("", trashImage);
+		MenuItem delete = new MenuItem("Add new Level");
+		delete.setOnAction(o -> controller.trashLevel(myGame, selectedIndex));
 		return trashButton;
 		
 	}

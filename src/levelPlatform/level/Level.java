@@ -78,7 +78,7 @@ public class Level extends LevelPlatform {
 	
 	// Constructor & Helpers
 	public Level(int width, int height) {
-		this(width, height, null);
+		this(width, height, new Sprite());
 	}
 	
 	public Level(int width, int height, Sprite playerSprite) {
