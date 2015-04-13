@@ -339,5 +339,6 @@ public class GameEditScreen extends Screen {
 		return trashButton;
 		
 	}
+	
 
 }
