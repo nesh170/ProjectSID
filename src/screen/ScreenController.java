@@ -533,6 +533,9 @@ public class ScreenController {
 			}
 			
 		}
+
+		
+	
 	}
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
@@ -572,6 +575,18 @@ public class ScreenController {
 			
 			Sprite newSprite = new Sprite();
 			loadSpriteEditScreen(levelEditScreen, newSprite);
+		}
+
+		@Override
+		/**
+		 * collision table load screen
+		 * @author Anika
+		 * @param levelEditScreen
+		 */
+		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
+			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createCollisionTableScreen(collisionTableTab, levelEditScreen.getSpriteTags());
+
 		}
 		
 	}
