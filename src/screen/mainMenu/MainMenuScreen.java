@@ -1,24 +1,31 @@
 package screen.mainMenu;
 
+import game.Game;
+
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import media.MediaManager;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -28,6 +35,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
@@ -53,7 +61,7 @@ public class MainMenuScreen extends Screen {
 	
 	// Instance variables
 	MainMenuScreenController controller;
-	
+	Popup myPopUp;
 	
 	// Getters & Setters
 	
@@ -88,14 +96,14 @@ public class MainMenuScreen extends Screen {
 	 */
 	private void configureButtons(double width, double height) {
 		StackPane menu = new StackPane();	
-		menu.getChildren().addAll(makeBlueDevil(), makeMenuButtons(), makeText("Welcome Blue Devils"));
+		menu.getChildren().addAll(makeImageView("images/Blue_Devil.png", 300, 540), makeMenuButtons(), makeText("Welcome Blue Devils"));
 		this.viewableArea().setCenter(menu);
 	}
 	
-	private ImageView makeBlueDevil(){
-		ImageView img = new ImageView(new Image("images/Blue_Devil.png"));
-		img.setFitHeight(300);
-		img.setFitWidth(540);
+	private ImageView makeImageView(String s, int height, int width){
+		ImageView img = new ImageView(s);
+		img.setFitHeight(height);
+		img.setFitWidth(width);
 		return img;
 	}
 	
@@ -103,13 +111,58 @@ public class MainMenuScreen extends Screen {
 		Button newGame = makeButton("New Game");
 		Button loadGame = makeButton("Load Game");
 		Button exit = makeButton("Exit Application ");
-		newGame.setOnMouseClicked(e -> controller.createNewGame());
+		configurePopUp();
+		newGame.setOnMouseClicked(e -> controller.createNewGame(myPopUp));
 		loadGame.setOnMouseClicked(e -> controller.loadGame());
 		exit.setOnMouseClicked(e -> System.exit(0));
 		VBox vbox = new VBox(INT.DEFAULT_BUTTON_SPREAD);
 		vbox.getChildren().addAll(newGame, loadGame, exit);
 		vbox.setAlignment(Pos.CENTER);
 		return vbox;
+	}
+	
+	private void configurePopUp(){
+		//popup menu for game name		
+		 makeMyPopUp();
+		 GridPane grid = configureGridPane();
+	     ImageView img = makeImageView("images/GameEdit_Images/popup.png", 350, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
+	     myPopUp.getContent().addAll(img, grid);
+	}
+	private void makeMyPopUp() {     
+	     myPopUp = new Popup();
+	     myPopUp.setAutoFix(false);
+	     myPopUp.setHideOnEscape(true);
+	     myPopUp.setX(500);
+	     myPopUp.setY(250);
+		
+	}
+
+	private GridPane configureGridPane(){
+		 GridPane grid = makeGridPane();
+	     TextField gameName = new TextField("Please name your game here");
+	     grid.add(gameName, 1, 1);
+	     TextField des = new TextField("Please add your game description here");
+	     des.setPrefHeight(100);
+	     grid.add(des, 1, 2);
+	     HBox popUpHBox = new HBox(100);
+	     grid.add(popUpHBox, 1, 8);
+	     Button ok = new Button("confirm");
+	     Button cancel = new Button("cancel");
+	     popUpHBox.getChildren().addAll(cancel, ok);
+	     ok.setOnAction(e -> controller.confirmToCreateGame(myPopUp, gameName, des));
+	     cancel.setOnAction(e -> myPopUp.hide());
+	   return grid;
+	}
+	private GridPane makeGridPane(){
+		 GridPane grid = new GridPane();
+	     grid.setAlignment(Pos.CENTER);
+	     grid.setHgap(15);
+	     grid.setVgap(15);	
+	     Label name = new Label("Game Name:");
+	     grid.add(name, 0, 1);
+	     Label description = new Label("Game Description:");
+	     grid.add(description, 0, 2);
+	     return grid;
 	}
 	private Text makeText(String s) {
 		
@@ -122,16 +175,11 @@ public class MainMenuScreen extends Screen {
 		text.setY(270.0f);
 		text.setFill(Color.BLACK);
 		text.setFont(Font.font("SERIF", FontWeight.BOLD, 48));
-		text.setTranslateY(-250);  //?? uncertain of how offset works but this works for now
+		text.setTranslateY(-250);  
 		return text;
 		
 	}
-	private HBox DisplayMembersEmojis(){
-		HBox memebers = new HBox(10);
-		ImageView a = new ImageView(new Image("images/member_emoji/Ruslan.png"));
-		
-		return memebers;
-	}
+
 	/**
 	 * needs to be changed to a MenuItem but otherwise on point!
 	 * please see methods above:
@@ -205,7 +253,7 @@ public class MainMenuScreen extends Screen {
 			MenuItem closeFile = new MenuItem(STRING.CLOSE);
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
-			newFile.setOnAction(e -> controller.createNewGame());
+			newFile.setOnAction(e -> controller.createNewGame(myPopUp));
 			openFile.setOnAction(e -> controller.loadGame());
 			closeFile.setOnAction(e -> controller.closeApplication());
 			
