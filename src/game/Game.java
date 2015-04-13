@@ -57,7 +57,7 @@ public class Game {
 		levels.add(level);
 	}
 	
-	public void addSplash(SplashScreen s) {
+	public void setSplash(SplashScreen s) {
 		splashScreen = s;
 	}
 	
@@ -84,8 +84,11 @@ public class Game {
 		return splashScreen != null;
 	}
 	
+	/*	should be levels.size()!=0, but temporary put incorrectly for other testing purposes 
+	/*	do not change for now
+	 */
 	public boolean hasLevel() {
-		return levels!=null;
+		return levels.size() == 0;
 	}
 
 	public int getLevelsSize() {
