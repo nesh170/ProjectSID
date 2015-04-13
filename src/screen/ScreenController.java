@@ -5,6 +5,7 @@ import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -45,6 +46,7 @@ import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
+import screen.collisionTableScreen.CollisionTableScreenController;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreen;
@@ -147,6 +149,7 @@ public class ScreenController {
 	private LevelEditScreenManager levelEditScreenManager;
 	private SpriteEditScreenManager spriteEditScreenManager;
 	private GamePlayScreenManager gamePlayScreenManager;
+	private CollisionTableScreenManager collisionTableScreenManager;
 	//Factories
 	private ScreenFactory screenFactory;
 	
@@ -211,6 +214,7 @@ public class ScreenController {
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
+		collisionTableScreenManager = new CollisionTableScreenManager();
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
