@@ -1,7 +1,16 @@
 package screen.collisionTableScreen;
 
+import java.awt.List;
+import java.util.ArrayList;
+
+import javafx.geometry.Pos;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
+import resources.constants.INT;
 import screen.Screen;
+import sprite.Sprite;
 
 /**
  * Visual Design (discussion April 7)
@@ -136,10 +145,11 @@ import screen.Screen;
 public class CollisionTableScreen extends Screen{
 	
 	private CollisionTableScreenController myController;
+	private ArrayList<Sprite> gameSprites;
 
-	public CollisionTableScreen(double width, double height) {
+	public CollisionTableScreen(CollisionTableScreenController screenController, double width, double height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
+		myController = screenController;
 	}
 
 	@Override
