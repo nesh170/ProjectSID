@@ -50,6 +50,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import levelPlatform.level.Level;
 
 /**
@@ -58,7 +59,6 @@ import levelPlatform.level.Level;
  * @author Yongjiao
  * @author Anika 
  */
-//Question:GameEditScreen do not need to save anything? only trash level or splashscreens? saving done by LevelEdit, SpriteEdit, SplashEdit?
 //Splash double click and right click
 public class GameEditScreen extends Screen {
 	
@@ -67,8 +67,11 @@ public class GameEditScreen extends Screen {
 	private Game myGame;
 	private ObservableList<Level>	myLevels;  	
 	private SplashScreen mySplashScreen; 
-	private Level selectedLevel;
-	private int selectedIndex;
+	
+	//initalized for testing purpose
+	private Level selectedLevel = new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT); 
+	private int selectedIndex = 0;
+	
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
 	// Getters & Setters
@@ -284,13 +287,6 @@ public class GameEditScreen extends Screen {
 		return rMenu;
 	}
 	
-	/**
-	 * Consider using makeFileMenu(EventHandler<ActionEvent>... fileMenuActions)
-	 * located in the abstract class screen in order to reduce duplicated code
-	 * in different screens (all screens have a file menu)
-	 * 
-	 * -Leo
-	 */
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {		
 		Menu fileMenu = makeFileMenu(o -> controller.saveGame(myGame),
@@ -328,9 +324,10 @@ public class GameEditScreen extends Screen {
 		
 		ImageView trashImage = new ImageView(new Image(STRING.TRASH_ICON));
 		
-		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
-		
+		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);		
 		Menu trashButton = new Menu("", trashImage);
+		MenuItem delete = new MenuItem("Add new Level");
+		delete.setOnAction(o -> controller.trashLevel(myGame, selectedIndex));
 		return trashButton;
 		
 	}
