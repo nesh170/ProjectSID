@@ -366,7 +366,6 @@ public class ScreenController {
 	 * @return Tab
 	 */
 	private Tab createCollisionTableScreen(Tab tab, List<String> sprites) {
-		System.out.println("This is for debugging: in createCollisionTableScreen in ScreenController");
 		return tabManager.addTabWithScreenWithStringIdentifier(
 					screenFactory.createCollisionTableScreen(sprites, collisionTableScreenManager),
 					STRING.COLLISION_TABLE_EDIT
