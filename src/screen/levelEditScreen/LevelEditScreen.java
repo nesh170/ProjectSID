@@ -239,10 +239,14 @@ public class LevelEditScreen extends Screen {
 		Button returnToGameEditButton = makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
 		Button addWidthButton = makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
 		Button addHeightButton = makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
-		
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton);
+		// added by Anika
+		// TODO: fix hardcoded string
+		Button addCollTableButton = makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
+
+		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
 
 	}
+	
 	
 	private void addSpriteToLocation(MouseEvent e) {
 		
