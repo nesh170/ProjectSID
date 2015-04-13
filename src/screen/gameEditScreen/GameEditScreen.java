@@ -292,7 +292,7 @@ public class GameEditScreen extends Screen {
 		Menu fileMenu = makeFileMenu(o -> controller.saveGame(myGame),
 				o -> controller.returnToMainMenuScreen(),
 				o -> controller.returnToMainMenuScreen());
-		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(), makeTrashMenu());	
+		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(), makeGameMenu(), makeTrashMenu());	
 
 	}		
 	
@@ -318,6 +318,14 @@ public class GameEditScreen extends Screen {
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 		
+	}
+	
+	private Menu makeGameMenu() {
+		Menu gameMenu = new Menu("Game");
+		MenuItem addPlay = new MenuItem("Play Game");
+		addPlay.setOnAction(o -> controller.playGame(myGame));
+		gameMenu.getItems().addAll(addPlay);
+		return gameMenu;
 	}
 	
 	private Menu makeTrashMenu() {
