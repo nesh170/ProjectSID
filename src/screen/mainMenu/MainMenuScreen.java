@@ -134,7 +134,6 @@ public class MainMenuScreen extends Screen {
 	     myPopUp.setHideOnEscape(true);
 	     myPopUp.setX(500);
 	     myPopUp.setY(250);
-		
 	}
 
 	private GridPane configureGridPane(){
@@ -151,7 +150,7 @@ public class MainMenuScreen extends Screen {
 	     popUpHBox.getChildren().addAll(cancel, ok);
 	     ok.setOnAction(e -> controller.confirmToCreateGame(myPopUp, gameName, des));
 	     cancel.setOnAction(e -> myPopUp.hide());
-	   return grid;
+	     return grid;
 	}
 	private GridPane makeGridPane(){
 		 GridPane grid = new GridPane();

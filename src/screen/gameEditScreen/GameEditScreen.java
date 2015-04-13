@@ -2,7 +2,6 @@ package screen.gameEditScreen;
 
 import game.Game;
 
-import java.awt.SplashScreen;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -52,6 +51,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import levelPlatform.level.Level;
+import levelPlatform.splashScreen.SplashScreen;
 
 /**
  * The screen where users edit a game
@@ -91,9 +91,10 @@ public class GameEditScreen extends Screen {
 	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height){
 		super(width, height);
 		myGame = game;
+		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
+		myGame.setSplash(new SplashScreen(300, 400)); //those line tests weather splash display area will change if there is splash screen in myGame
 		System.out.println(myGame);
 		initialize(controller);
-		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
 	}
 
 	/**
@@ -103,6 +104,7 @@ public class GameEditScreen extends Screen {
 		this.controller = controller;
 		configureButtons();
 	}
+	
 	private void configureButtons() {	
 		configureLevelDisplay();
 		this.setCenter(levelDisplay);
@@ -125,15 +127,16 @@ public class GameEditScreen extends Screen {
 		
 		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN));
 		Button s;
+		System.out.println(myGame.hasSplash());		
 		if(!myGame.hasSplash())
-			s = makeAddSignWhenEmpty("Add New Splash Screen");
+			s = makeAddSignWhenEmpty("Add New Splash Screen", e -> controller.loadSplashEditScreen(myGame));
 		else
 			s = displayMySplash();
 		sp.getChildren().add(s);
 	}
 	
 	private Button displayMySplash(){
-		Button b =  makeTempLevelSplashDisplayImage(STRING.SPLASH_TMP);
+		Button b =  makeTempLevelSplashDisplayImage(STRING.SPLASH_TMP, INT.SPLASH);
 		//b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter: myGame.getSplash().ImageRepresentation();
 		return b;
 	}
@@ -148,13 +151,13 @@ public class GameEditScreen extends Screen {
 		text.setTranslateY(-300);  //?? uncertain of how offset works but this works for now
 		return text;	
 	}
-	private  Button makeAddSignWhenEmpty( String s) {
+	private  Button makeAddSignWhenEmpty( String s, EventHandler<MouseEvent> lamda) {
 		ImageView addsign = new ImageView(new Image(STRING.ADD_IMG));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
 		Button b = new Button(s, addsign);
 		b.setContentDisplay(ContentDisplay.TOP);
-		b.setOnMouseClicked(e -> controller.loadSplashEditScreen(myGame)); //？change to doubleclicked
+		b.setOnMouseClicked(lamda); 
 		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT); 
 		b.setGraphic(addsign);	
 		return b;
@@ -223,26 +226,26 @@ public class GameEditScreen extends Screen {
 		//can't add ObservableList to a HBox directly
 		hb.setAlignment(Pos.CENTER);	
 		
-		hb.getChildren().addAll(this.makeAddSignWhenEmpty("Add New Level Here"));	
+		hb.getChildren().addAll(this.makeAddSignWhenEmpty("Add New Level Here", e -> controller.loadLevelEditScreen(myGame)));	
 	}
 	
 	private void displayLevelsInParallel(HBox hb) {
 	
 		//can't add ObservableList to a HBox directly
-		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE);  //tmp string path	
-		Button level2 = makeTempLevelSplashDisplayImage(STRING.LEVEL2IMAGE);
-		Button level3 = makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE);
+		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE, INT.LEVEL);  //tmp string path	
+		Button level2 = makeTempLevelSplashDisplayImage(STRING.LEVEL2IMAGE, INT.LEVEL);
+		Button level3 = makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE, INT.LEVEL);
 		hb.getChildren().addAll(level1, level2, level3);	
 	}
 	
 	//temporary methods to display level/Splash Image
-	private Button makeTempLevelSplashDisplayImage(String path) {
+	private Button makeTempLevelSplashDisplayImage(String path, int flag) {
 		Button b = new Button();
 		ImageView img = new ImageView(new Image(path));
 		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 		b.setGraphic(img);
-		b.setOnMouseClicked(handleDouleRightClick(b));
+		b.setOnMouseClicked(handleDouleRightClick(b , flag));
 		return b;		
 	}
 	
@@ -251,16 +254,22 @@ public class GameEditScreen extends Screen {
 	 * @param node
 	 * @return EventHandler<MouseEvent>
 	 */
-	private EventHandler<MouseEvent> handleDouleRightClick(Node node){
+	private EventHandler<MouseEvent> handleDouleRightClick(Node node, int flag){
 		return new EventHandler<MouseEvent>() { //double Click to edit a screen
 		    public void handle(MouseEvent mouseEvent) {
 		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
 		            if(mouseEvent.getClickCount() == 2){
+		            	if(flag == INT.LEVEL)
 		            	controller.loadLevelEditScreen(selectedLevel);
+		            	else controller.loadSplashEditScreen(myGame);
 		            }
 		        }
 		        else if(mouseEvent.getButton().equals(MouseButton.SECONDARY)){
-		        	makeRightClickeMenu().show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());		
+		        	if(flag == INT.LEVEL)
+		        	makeRightClickMenu(e -> controller.loadLevelEditScreen(selectedLevel), e -> controller.trashLevel(myGame, selectedIndex)).
+		        	show(node, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+		        	else makeRightClickMenu(e -> controller.loadSplashEditScreen(myGame), e-> controller.trashSplash(myGame)).
+		        	show(node, mouseEvent.getSceneX(), mouseEvent.getSceneY());
 		        }
 		    }
 		};
@@ -277,12 +286,12 @@ public class GameEditScreen extends Screen {
 	/**
 	 * make a right click menu for editing and removing a level
 	 */
-	private ContextMenu makeRightClickeMenu(){ //pass in Level
+	private ContextMenu makeRightClickMenu(EventHandler<ActionEvent> toEdit, EventHandler<ActionEvent> toRemove){ //pass in Level
 		final ContextMenu rMenu = new ContextMenu();
 		MenuItem edit = new MenuItem("Edit");
-		edit.setOnAction(e -> controller.loadLevelEditScreen(selectedLevel));
+		edit.setOnAction(toEdit);
 		MenuItem remove = new MenuItem("remove");
-		remove.setOnAction(e -> controller.trashLevel(myGame, selectedIndex));
+		remove.setOnAction(toRemove);
 		rMenu.getItems().addAll(edit, remove);
 		return rMenu;
 	}
