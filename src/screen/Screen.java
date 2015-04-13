@@ -147,7 +147,7 @@ public abstract class Screen extends BorderPane {
 		saveAndExit.setOnAction(fileMenuActions[2]);
 		
 		Menu fileMenu = new Menu("File");
-		fileMenu.getItems().addAll(exit,saveAndExit);
+		fileMenu.getItems().addAll(save, exit); //removed saveAndExit temporarily since it's not working by Yongjiao 
 
 		return fileMenu;
 		
