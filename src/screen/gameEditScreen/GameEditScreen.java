@@ -298,7 +298,7 @@ public class GameEditScreen extends Screen {
 	 */
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {					
-		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), makeTrashMenu());	
+		menuBar.getMenus().addAll(makeFileMenu(), makeLevelMenu(), makeSplashMenu(), makeGameMenu(), makeTrashMenu());	
 
 	}		
 
@@ -336,6 +336,14 @@ public class GameEditScreen extends Screen {
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 		
+	}
+	
+	private Menu makeGameMenu() {
+		Menu gameMenu = new Menu("Game");
+		MenuItem addPlay = new MenuItem("Play Game");
+		addPlay.setOnAction(o -> controller.playGame(myGame));
+		gameMenu.getItems().addAll(addPlay);
+		return gameMenu;
 	}
 	
 	private Menu makeTrashMenu() {
