@@ -71,7 +71,7 @@
                     <execution>
                         <phase>validate</phase>
                         <goals>
-                            <goal>cpd-check</goal>
+                            <goal>cpd</goal>
                         </goals>
                     </execution>
                 </executions>
