@@ -1,10 +1,14 @@
 package screen;
 
+import java.util.List;
+
 import game.Game;
 import javafx.scene.control.Tab;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.STRING;
+import screen.collisionTableScreen.CollisionTableScreen;
+import screen.collisionTableScreen.CollisionTableScreenController;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreen;
@@ -59,6 +63,20 @@ public class ScreenFactory {
 		return new SplashEditScreen(splashEditScreenManager, width, height, splashScreen);
 		
 	}
+	
+	/**
+	 * @author Anika
+	 * @param splashScreen
+	 * @param splashEditScreenManager
+	 * @return Screen
+	 */
+	public Screen createCollisionTableScreen(List<String> sprites, 
+			CollisionTableScreenController collisionTableScreenController) {
+
+		return new CollisionTableScreen(collisionTableScreenController, width, height, sprites);
+		
+	}
+	
 	
 	public Screen createLevelEditScreen(Level level, 
 			LevelEditScreenController levelEditScreenController) {
