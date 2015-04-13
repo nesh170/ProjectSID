@@ -473,8 +473,8 @@ public class ScreenController {
 		
 		@Override
 		public void playGame(Game game) {
-			//createGamePlayScreen(game);
 			createGamePlayScreen();
+
 		}
 
 		@Override
@@ -579,7 +579,6 @@ public class ScreenController {
 			// TODO Auto-generated method stub
 			
 		}
-
 		
 	}
 
