@@ -1,6 +1,8 @@
 package screen.levelEditScreen;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
@@ -328,6 +330,18 @@ public class LevelEditScreen extends Screen {
 		spriteToAdd = sprite;
 		imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
 		levelDisplay.setCursor(new ImageCursor(imageToAdd));
+		
+	}
+	
+	/**
+	 * used for collision table
+	 * Note: can't simply cast keyset as list!! (4/13/15)
+	 * @author Anika
+	 * @return sprite tags as Strings
+	 */
+	public List<String> getSpriteTags()
+	{
+		return new ArrayList<String>(stringToSpriteMap.keySet());
 		
 	}
 			
