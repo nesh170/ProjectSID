@@ -9,7 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CustomMenuItem;
@@ -17,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -54,8 +57,12 @@ public class LevelEditScreen extends Screen {
 	
 	private Level level;
 	private LevelView levelView;
+	private Pane levelDisplay;
 	private Tab currentGameScreen;
+	
 	private Sprite spriteToAdd;
+	private Image imageToAdd;
+	
 	private Sprite selectedSprite;
 				
 	private final ObservableList<String> listOfPlatforms = FXCollections.observableArrayList();
@@ -65,6 +72,7 @@ public class LevelEditScreen extends Screen {
 	
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
+	private Map<Sprite,ImageView> spriteToImageMap;
 
 
 	// Getters & Setters
@@ -109,11 +117,14 @@ public class LevelEditScreen extends Screen {
 		this.controller = parent;
 		
 		stringToSpriteMap = new HashMap<>();
+		spriteToImageMap = new HashMap<>();
 		
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
-
+		initializeLevelDisplay(level);
+		
+		this.setOnMouseEntered(e -> initializeDisplaySize());
 	}
 	
 	
@@ -137,8 +148,10 @@ public class LevelEditScreen extends Screen {
 		super.sizeMenuImageView(spritePic, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
 		
 		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
+		MenuItem addSprite = new MenuItem(STRING.ADD_SPRITE);
+		spriteButton.getItems().add(addSprite);
 		
-		spriteButton.setOnAction(e -> controller.loadSpriteEditScreen(new Sprite()));
+		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
 		return spriteButton;
 		
 	}
@@ -146,6 +159,7 @@ public class LevelEditScreen extends Screen {
 	private void setUpLevelViewFromLevel(Level level) {
 		
 		this.level = level;
+		levelDisplay = new Pane();
 		
 		Level levelToUse = level;
 		
@@ -153,9 +167,13 @@ public class LevelEditScreen extends Screen {
 			levelToUse = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		}
 		
-		this.levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
-		this.viewableArea().setCenter(levelView);
-		this.levelView.setOnMouseReleased(e -> addSpriteToLocation(e));
+		levelView = new LevelView(levelToUse, EditMode.EDIT_MODE_ON);
+		viewableArea().setCenter(levelView);
+		levelView.setContent(levelDisplay);
+		levelView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		levelView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		
+		levelDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
 	}
 	
@@ -174,7 +192,6 @@ public class LevelEditScreen extends Screen {
 		stringToListMap.put(tagResources().getString("Enemy"), listOfEnemies);
 		stringToListMap.put(tagResources().getString("Player"), listOfPlayers);
 		stringToListMap.put(tagResources().getString("Powerup"), listOfPowerups);
-
 		
 		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups);
 		
@@ -189,7 +206,7 @@ public class LevelEditScreen extends Screen {
 		platformListView.setOnMouseReleased(e -> {
 			try {
 				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
-					levelView.getImageForSprite(selectedSprite).setOpacity(1);
+					spriteToImageMap.get(selectedSprite).setOpacity(1);
 				}
 				/*
 				 * this next line could throw an exception possibly if
@@ -197,7 +214,7 @@ public class LevelEditScreen extends Screen {
 				 */				
 				String sprite = platformListView.getSelectionModel().getSelectedItem();
 				selectedSprite = stringToSpriteMap.get(sprite);
-				levelView.getImageForSprite(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+				spriteToImageMap.get(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
 			}
 			catch (IndexOutOfBoundsException | NullPointerException ee) {
 				//do not select any sprites, since no sprites are in the selection model
@@ -214,31 +231,32 @@ public class LevelEditScreen extends Screen {
 		paneForButtons.setAlignment(Pos.BASELINE_CENTER);
 		paneForButtons.setFillWidth(false);
 		paneForButtons.setSpacing(DOUBLE.BUTTON_SPACING);
+		paneForButtons.getStyleClass().add("pane");
 		
 		this.viewableArea().setRight(paneForButtons);
 				
-		Button addSpriteButton = makeButtonForPane("Add Sprite", e -> controller.loadSpriteEditScreen(new Sprite()));
-		Button returnToGameEditButton = makeButtonForPane("Back", e -> controller.returnToGameEditScreen());
+		Button addSpriteButton = makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
+		Button returnToGameEditButton = makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
+		Button addWidthButton = makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
+		Button addHeightButton = makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
 		
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton);
+		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton);
 
 	}
 	
 	private void addSpriteToLocation(MouseEvent e) {
 		
-		if(spriteToAdd != null) {
-			
-			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
-			stringToListMap.get(spriteToAdd.tag()).add(spriteToAdd.getName());
+		if(spriteToAdd != null && imageToAdd!=null) {
 			
 			configureSpriteXYFromClick(e, spriteToAdd);
 			
+			addSpriteToLevelDisplay(spriteToAdd);
+						
 			level.sprites().add(spriteToAdd);
-			setUpLevelViewFromLevel(level);
-			levelView.renderLevel();
-
-			//do this once sprite has been added
+			levelDisplay.setCursor(Cursor.DEFAULT);
+			
 			spriteToAdd = null; 
+			imageToAdd = null;
 			
 		}
 		
@@ -257,9 +275,44 @@ public class LevelEditScreen extends Screen {
 		sprite.setY(yLocation);
 				
 	}
+	
+	private void initializeDisplaySize() {
+		//Have to do this last
+		levelDisplay.setMinSize(levelView.getWidth(), levelView.getHeight());
+	}
+	
+	private void addWidth() {
+		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
+	}
+	
+	private void addHeight() {
+		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
+	}
 		
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
+	}
+	
+	private void initializeLevelDisplay(Level level) {
+		
+		levelDisplay.setMinSize(level.width(), level.height());
+		level.sprites().forEach(e -> addSpriteToLevelDisplay(e));
+		
+	}
+	
+	/*
+	 * Visually displays the sprite
+	 */
+	private void addSpriteToLevelDisplay(Sprite sprite) {
+		
+		ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
+		levelDisplay.getChildren().add(imageView);
+		imageView.setTranslateX(sprite.getX());
+		imageView.setTranslateY(sprite.getY());
+		stringToSpriteMap.put(sprite.getName(), sprite);
+		spriteToImageMap.put(sprite, imageView);
+		stringToListMap.get(sprite.tag()).add(sprite.getName());
+		
 	}
 	
 	// All other instance methods
@@ -269,6 +322,8 @@ public class LevelEditScreen extends Screen {
 	public void addSprite(Sprite sprite) {
 		
 		spriteToAdd = sprite;
+		imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
+		levelDisplay.setCursor(new ImageCursor(imageToAdd));
 		
 	}
 			

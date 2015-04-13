@@ -36,9 +36,7 @@ public class LevelView extends ScrollPane {
     private double lengthSidePixel;
     // Playing
     private Collision collisionHandler;    
-    
-    private Map<Sprite,ImageView> representationMap;
-    
+        
     
     // Getters & Setters
     public Level level() {
@@ -60,11 +58,7 @@ public class LevelView extends ScrollPane {
     public double getLengthSidePixel() {
     	return this.lengthSidePixel;
     }
-    
-    public ImageView getImageForSprite(Sprite sprite) {
-    	return this.representationMap.get(sprite);
-    }
-    
+        
     public void setCollisionHandler(){
     	this.collisionHandler = new Collision(level.getCollisionTable());
     }
@@ -107,9 +101,6 @@ public class LevelView extends ScrollPane {
      */
     public Group renderLevel() {
     	
-    	if(representationMap == null) {
-    		representationMap = new HashMap<>();
-    	}
         Group levelGroup = new Group();
         level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
         return levelGroup;
@@ -127,36 +118,44 @@ public class LevelView extends ScrollPane {
     	Image spriteImage;
     	ImageView spriteImageView;
     	//TODO: delete rectangle-making, restore SpriteImage part
-    	if(sprite.isActive()) {
+    	/*if(sprite.isActive()) {
     		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
     				sprite.transform().getWidth(), sprite.transform().getHeight());
         	spriteGroup.getChildren().add(r);
-    	}
+    	}*/
     			
         if (sprite.isActive()) {
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-           // spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-          //  spriteImageView = new ImageView(spriteImage);
-            
-           // representationMap.put(sprite, spriteImageView);
-            
+            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            spriteImageView = new ImageView(spriteImage);
+                        
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                    //.transform().getPosY());
-           // spriteGroup.getChildren().add(spriteImageView);
+                   // .transform().getPosY());
+            spriteImageView.setX(sprite.transform().getPosX());
+            spriteImageView.setY(sprite.transform().getPosY());
+            if(spriteImage !=null){
+            	spriteImageView.setFitWidth(sprite.transform().getWidth());
+            	spriteImageView.setFitHeight(sprite.transform().getHeight());
+            	spriteGroup.getChildren().add(spriteImageView);
+            }
+            else{
+        		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+        				sprite.transform().getWidth(), sprite.transform().getHeight());
+            	spriteGroup.getChildren().add(r);
+            }
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
-           // if (editMode == EditMode.EDIT_MODE_ON) {
+            if (editMode == EditMode.EDIT_MODE_ON) {
             	
-           // 	configureMouseHandlersOnSpriteImageView(spriteImageView);
+            	configureMouseHandlersOnSpriteImageView(spriteImageView);
             	
-           // }
+            }
             
         }
-        
         return spriteGroup;
 
     }

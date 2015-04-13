@@ -35,8 +35,8 @@ public class Sprite {
 	
 	
 	// Instance Variables	
-	private List<Action> actionList = new ArrayList<Action>();
-	private List<Component> componentList = new ArrayList<Component>();
+	private List<Action> actionList;
+	private List<Component> componentList;
 	//TODO what is the x and y for?
 	private double x, y;
 
@@ -132,11 +132,18 @@ public class Sprite {
 		
 		return this.spriteImage;
 	}
-	
+		
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
 	}
 	
+	public double getX() {
+		return this.x;
+	}
+	
+	public double getY() {
+		return this.y;
+	}
 	
 	// Constructor & Helpers
 	public Sprite() {
@@ -151,6 +158,8 @@ public class Sprite {
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
 		emissionList = new ArrayList<>();
+		actionList = new ArrayList<Action>();
+		componentList = new ArrayList<Component>();
 	}
 	
 	

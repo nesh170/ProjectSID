@@ -26,6 +26,9 @@ public class DOUBLE {
 	//Default move speed for some non-player sprites
 	public static final double DEFAULT_TOWARD_MULTIPLIER = 0.1;
 	
+	//Default level time limit
+	public static final double DEFAULT_TIME_LIMIT = 300.0;
+	
 	
 	// LevelView
 	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 5.0;
@@ -33,5 +36,8 @@ public class DOUBLE {
 	// Bullet info
 	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;
 	public static final double BULLET_SPEED = 35.0;
+
+	//Terminal Velocity fo velocity Component
+        public static final double TERMINAL_VELOCITY = 5;
 	
 }
