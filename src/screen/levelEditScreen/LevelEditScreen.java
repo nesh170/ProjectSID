@@ -124,6 +124,8 @@ public class LevelEditScreen extends Screen {
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
+		
+		// Have to do this last
 		initializeLevelDisplay(level);
 		
 		this.setOnMouseEntered(e -> initializeDisplaySize());
@@ -282,8 +284,10 @@ public class LevelEditScreen extends Screen {
 				
 	}
 	
+	/**
+	 * Do this last in the constructor
+	 */
 	private void initializeDisplaySize() {
-		//Have to do this last
 		levelDisplay.setMinSize(levelView.getWidth(), levelView.getHeight());
 	}
 	
