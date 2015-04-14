@@ -18,8 +18,13 @@ public class STRING {
 		
 	}
 	
-	// Screen Controller
-	public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
+	public class ERROR {
+		
+		// Errors
+		public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
+		
+	}
+	
 	
 	// Music Playback
 	public static final String MUSIC_OPTIONS = "Music Options";
