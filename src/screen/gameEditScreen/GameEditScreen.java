@@ -127,7 +127,7 @@ public class GameEditScreen extends Screen {
 		StackPane sp = new StackPane();	
 		splashDisplay.getChildren().add(sp);
 		
-		sp.getChildren().addAll(makeText(STRING.GAME_EDIT_SCREEN.SPLASH_SCREEN));
+		sp.getChildren().addAll(makeText(STRING.GAME_EDIT.SPLASH_SCREEN));
 		Button s;
 		System.out.println(myGame.hasSplash());		
 		if(!myGame.hasSplash())
@@ -138,7 +138,7 @@ public class GameEditScreen extends Screen {
 	}
 	
 	private Button displayMySplash(){
-		Button b =  makeTempLevelSplashDisplayImage(STRING.SPLASH_TMP, INT.SPLASH);
+		Button b =  makeTempLevelSplashDisplayImage(STRING.GAME_EDIT.SPLASH_TMP, INT.SPLASH);
 		//b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter: myGame.getSplash().ImageRepresentation();
 		return b;
 	}
@@ -156,7 +156,7 @@ public class GameEditScreen extends Screen {
 	
 	private  Button makeAddSignWhenEmpty( String s, EventHandler<MouseEvent> lamda) {
 		
-		ImageView addsign = new ImageView(new Image(STRING.ADD_IMG));
+		ImageView addsign = new ImageView(new Image(STRING.GAME_EDIT.ADD_IMG));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
 		Button b = new Button(s, addsign);
@@ -173,7 +173,7 @@ public class GameEditScreen extends Screen {
 	 */
 	private Text displayNote() {
 		
-		Text t = new Text(STRING.GAME_EDIT_SCREEN.NOTE);
+		Text t = new Text(STRING.GAME_EDIT.NOTE);
 		t.setTranslateY(210);
 		t.setTranslateX(250);
 		return t;
@@ -181,23 +181,25 @@ public class GameEditScreen extends Screen {
 	}	
 	
 	private void configureLevelDisplay(){
+		
 			//, DisplayLevels(myLevels)
 		levelDisplay = new StackPane();
 		ScrollPane levelSP = this.displayLevels(myLevels);
 
-		ImageView add = makeButton(STRING.PLUS_IMG, e -> controller.loadLevelEditScreen(myGame));
+		ImageView add = makeButton(STRING.GAME_EDIT.PLUS_IMG, e -> controller.loadLevelEditScreen(myGame));
 		levelDisplay.setAlignment(add, Pos.TOP_RIGHT);		
 		
-		ImageView play = makeButton(STRING.PLAY_IMG, e -> controller.playGame(myGame));
+		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG, e -> controller.playGame(myGame));
 		levelDisplay.setAlignment(play, Pos.TOP_CENTER);
 		
-		ImageView back = makeButton(STRING.BACK_IMG, e -> controller.returnToMainMenuScreen());
+		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG, e -> controller.returnToMainMenuScreen());
 		levelDisplay.setAlignment(back, Pos.TOP_LEFT);
 		
 //		ImageView trash = makeButton(STRING.TRASH_IMG, e -> controller.trashLevel(myGame, selectedIndex));
 //		levelDisplay.setAlignment(trash, Pos.BOTTOM_RIGHT);
 		
 		levelDisplay.getChildren().addAll(levelSP, back, add, play, displayNote());
+		
 	}
 	
 	/**
@@ -223,6 +225,7 @@ public class GameEditScreen extends Screen {
 		return sp;
 		
 	}
+	
 	private HBox configureHBox() {
 		
 		HBox hb = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
@@ -252,9 +255,9 @@ public class GameEditScreen extends Screen {
 	private void displayLevelsInParallel(HBox hb) {
 	
 		//can't add ObservableList to a HBox directly
-		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE, INT.LEVEL);  //tmp string path	
-		Button level2 = makeTempLevelSplashDisplayImage(STRING.LEVEL2IMAGE, INT.LEVEL);
-		Button level3 = makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE, INT.LEVEL);
+		Button level1 = makeTempLevelSplashDisplayImage(STRING.GAME_EDIT.LEVEL1IMAGE, INT.LEVEL);  //tmp string path	
+		Button level2 = makeTempLevelSplashDisplayImage(STRING.GAME_EDIT.LEVEL2IMAGE, INT.LEVEL);
+		Button level3 = makeTempLevelSplashDisplayImage(STRING.GAME_EDIT.SPRITEIMAGE, INT.LEVEL);
 		hb.getChildren().addAll(level1, level2, level3);
 		
 	}
@@ -362,7 +365,7 @@ public class GameEditScreen extends Screen {
 	
 	private Menu makeTrashMenu() {
 		
-		ImageView trashImage = new ImageView(new Image(STRING.TRASH_ICON));
+		ImageView trashImage = new ImageView(new Image(STRING.GAME_EDIT.TRASH_ICON));
 		
 		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);		
 		Menu trashButton = new Menu("", trashImage);
@@ -371,6 +374,5 @@ public class GameEditScreen extends Screen {
 		return trashButton;
 		
 	}
-	
 
 }

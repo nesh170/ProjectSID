@@ -322,7 +322,7 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGameEditScreen(game, gameEditScreenManager),
-				STRING.GAME_EDIT_SCREEN.GAME_EDIT
+				STRING.GAME_EDIT.GAME_EDIT
 				);
 		
 	}
@@ -331,7 +331,7 @@ public class ScreenController {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
-				STRING.GAME_EDIT_SCREEN.SPLASH_SCREEN
+				STRING.GAME_EDIT.SPLASH_SCREEN
 				);
 		
 	}
@@ -340,7 +340,7 @@ public class ScreenController {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
-				STRING.LEVEL_EDIT
+				STRING.LEVEL_EDIT.LEVEL_EDIT
 				);
 	
 	}
@@ -349,7 +349,7 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 					screenFactory.createSpriteEditScreen(tab, sprite, spriteEditScreenManager),
-					STRING.SPRITE_EDIT
+					STRING.SPRITE_EDIT.SPRITE_EDIT
 					);
 		
 	}
@@ -363,7 +363,7 @@ public class ScreenController {
 	private Tab createCollisionTableScreen(Tab tab, List<String> sprites) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
 					screenFactory.createCollisionTableScreen(sprites, collisionTableScreenManager),
-					STRING.COLLISION_TABLE_EDIT
+					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
 	}
@@ -372,7 +372,7 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGamePlayScreen(game, gamePlayScreenManager),
-				STRING.GAME_PLAY
+				STRING.GAME_PLAY.GAME_PLAY
 				);
 		
 	}
@@ -381,7 +381,7 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGamePlayScreen(gamePlayScreenManager),
-				STRING.GAME_PLAY
+				STRING.GAME_PLAY.GAME_PLAY
 				);
 		
 	}
@@ -414,7 +414,7 @@ public class ScreenController {
 				createGameEditScreen(game);
 			}
 			catch (Exception e) {
-				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
+				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
 			
 		}
@@ -489,7 +489,7 @@ public class ScreenController {
 			
 			tabManager.addTabWithScreenWithStringIdentifier(
 						screenFactory.createGameEditScreen(game, gameEditScreenManager),
-						STRING.GAME_EDIT_SCREEN.GAME_EDIT
+						STRING.GAME_EDIT.GAME_EDIT
 						);
 			tabManager.replaceTab(newScreen);
 		}
@@ -523,7 +523,7 @@ public class ScreenController {
 			try {
 				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 			} catch (IOException e) {
-				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
+				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
 			
 		}

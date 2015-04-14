@@ -152,8 +152,8 @@ public class LevelEditScreen extends Screen {
 		
 		super.sizeMenuImageView(spritePic, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
 		
-		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
-		MenuItem addSprite = new MenuItem(STRING.ADD_SPRITE);
+		Menu spriteButton = new Menu(STRING.LEVEL_EDIT.ADD_SPRITE,spritePic);
+		MenuItem addSprite = new MenuItem(STRING.LEVEL_EDIT.ADD_SPRITE);
 		spriteButton.getItems().add(addSprite);
 		
 		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
@@ -256,7 +256,6 @@ public class LevelEditScreen extends Screen {
 		verticalButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
 
 	}
-	
 	
 	private void addSpriteToLocation(MouseEvent e) {
 		
