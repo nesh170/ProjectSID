@@ -36,7 +36,7 @@ public class ErrorMessageTextFieldFactory {
 
 		messageBox.setEditable(false);
 
-		messageBox.setStyle(STRING.FX_RED_BACKGROUND);
+		messageBox.setStyle(STRING.COLORS.FX_RED_BACKGROUND);
 		messageBox.setOpacity(DOUBLE.NINETY_PERCENT);
 
 		messageBox.setMinWidth(messageWidth);

@@ -73,7 +73,7 @@ public class MainMenuScreen extends Screen {
 		
 		this.controller = controller;
 		configureButtons(width, height);
-		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
+		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 		this.getStyleClass().add("pane");
 		
 	}
