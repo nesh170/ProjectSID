@@ -5,13 +5,18 @@ import java.util.Map;
 
 public class STRING {
 
-	// Colors
-	public static final String DEFAULT_FX_BACKGROUND_COLOR = "CORNFLOWERBLUE;";
-	public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
-	public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
-	public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
-	
+	// Generally Reused Strings / To Sort
 	public static final String DEFAULT_GAME_NAME = "(untitled)";
+
+	public class COLORS {
+		
+		// Colors
+		public static final String DEFAULT_FX_BACKGROUND_COLOR = "CORNFLOWERBLUE;";
+		public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
+		public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
+		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
+		
+	}
 	
 	// Screen Controller
 	public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
