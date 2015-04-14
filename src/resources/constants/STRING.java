@@ -25,12 +25,18 @@ public class STRING {
 		
 	}
 	
+	public class MUSIC {
 	
-	// Music Playback
-	public static final String MUSIC_OPTIONS = "Music Options";
-	public static final String PLAY = "Play";
-	public static final String PAUSE = "Pause";
-	public static final String STOP = "Stop";
+		// Music Playback
+		public static final String MUSIC_OPTIONS = "Music Options";
+		public static final String PLAY = "Play";
+		public static final String PAUSE = "Pause";
+		public static final String STOP = "Stop";
+		
+	}
+	
+	
+	
 	
 	// Main Menu Screen
 	public static final String MAIN_MENU = "Main Menu";
@@ -72,6 +78,7 @@ public class STRING {
 	public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 	
 	// Splash Edit Screen Default Images
+	// TODO: Fix this
 	public static final String DEFAULT_START_BUTTON_IMAGE = "/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg";
 	
 	//Level Edit Screen Buttons, Menus, miscellaneous strings

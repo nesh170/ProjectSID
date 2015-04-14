@@ -243,11 +243,11 @@ public class MainMenuScreen extends Screen {
 
 		private Menu instantiateMusicMenu() {
 
-			Menu musicMenu = new Menu(STRING.MUSIC_OPTIONS);
+			Menu musicMenu = new Menu(STRING.MUSIC.MUSIC_OPTIONS);
 
-			MenuItem playButton = new MenuItem(STRING.PLAY);
-			MenuItem pauseButton = new MenuItem(STRING.PAUSE);
-			MenuItem stopButton = new MenuItem(STRING.STOP);
+			MenuItem playButton = new MenuItem(STRING.MUSIC.PLAY);
+			MenuItem pauseButton = new MenuItem(STRING.MUSIC.PAUSE);
+			MenuItem stopButton = new MenuItem(STRING.MUSIC.STOP);
 
 			playButton.setOnAction(e -> handlePlayPressed());
 			pauseButton.setOnAction(e -> handlePausePressed());
