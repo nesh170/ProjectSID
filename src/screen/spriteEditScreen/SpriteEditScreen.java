@@ -408,6 +408,7 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private Pane initializeActionPaneBoxes() {
+		
 		initializeActionTypeBox();
 				
 		keycodeInputBox = new TextField();
@@ -424,7 +425,9 @@ public class SpriteEditScreen extends Screen {
 											actionTypeBox,keycodeInputBox,actionValue);
 		
 		return actionPane;
+		
 	}
+	
 	private Pane initializeComponentPaneBoxes() {
 				
 		componentValue = new TextField();
