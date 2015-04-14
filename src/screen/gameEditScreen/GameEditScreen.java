@@ -127,7 +127,7 @@ public class GameEditScreen extends Screen {
 		StackPane sp = new StackPane();	
 		splashDisplay.getChildren().add(sp);
 		
-		sp.getChildren().addAll(makeText(STRING.SPLASH_SCREEN));
+		sp.getChildren().addAll(makeText(STRING.GAME_EDIT_SCREEN.SPLASH_SCREEN));
 		Button s;
 		System.out.println(myGame.hasSplash());		
 		if(!myGame.hasSplash())
@@ -165,16 +165,19 @@ public class GameEditScreen extends Screen {
 		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT); 
 		b.setGraphic(addsign);	
 		return b;
+		
 	}
 	
 	/**
 	 * display a note on editing and removing a level
 	 */
 	private Text displayNote() {
-		Text t = new Text(STRING.NOTE);
+		
+		Text t = new Text(STRING.GAME_EDIT_SCREEN.NOTE);
 		t.setTranslateY(210);
 		t.setTranslateX(250);
 		return t;
+		
 	}	
 	
 	private void configureLevelDisplay(){
@@ -202,35 +205,48 @@ public class GameEditScreen extends Screen {
 	 * @param ObservableList<Level>
 	 */
 	private ScrollPane displayLevels(List<Level> levels) { 		
+		
 		//TODO: get ListView: List<LevelView>: a group to represent each level, in replace of ImageView below
 		//TableView<ObservableList> levelTable = new TableView();	
 		ScrollPane sp = configureScrollPane();
 		HBox levelHB = configureHBox();
 		sp.setContent(levelHB);
-		if(myGame.hasLevel())
-			 displayLevelsInParallel(levelHB);
-		else			
-			displayLevelsWhenEmpty(levelHB);		
+		
+		if (myGame.hasLevel()) {
+			displayLevelsInParallel(levelHB);
+		}
+			 
+		else {
+			displayLevelsWhenEmpty(levelHB);
+		}
+					
 		return sp;
 		
 	}
-	private HBox configureHBox(){
+	private HBox configureHBox() {
+		
 		HBox hb = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
 		hb.setAlignment(Pos.CENTER);
 		return hb;
+		
 	}
-	private ScrollPane configureScrollPane(){
+	
+	private ScrollPane configureScrollPane() {
+		
 		ScrollPane sp = new ScrollPane();
 		sp.setFitToHeight(true); //wont extend out of ScrollPane vertically 
 		sp.setPannable(true);
 		return sp;
+		
 	}
+	
 	private void displayLevelsWhenEmpty(HBox hb) {
 		
 		//can't add ObservableList to a HBox directly
 		hb.setAlignment(Pos.CENTER);	
 		
 		hb.getChildren().addAll(this.makeAddSignWhenEmpty("Add New Level Here", e -> controller.loadLevelEditScreen(myGame)));	
+		
 	}
 	
 	private void displayLevelsInParallel(HBox hb) {
@@ -239,7 +255,8 @@ public class GameEditScreen extends Screen {
 		Button level1 = makeTempLevelSplashDisplayImage(STRING.LEVEL1IMAGE, INT.LEVEL);  //tmp string path	
 		Button level2 = makeTempLevelSplashDisplayImage(STRING.LEVEL2IMAGE, INT.LEVEL);
 		Button level3 = makeTempLevelSplashDisplayImage(STRING.SPRITEIMAGE, INT.LEVEL);
-		hb.getChildren().addAll(level1, level2, level3);	
+		hb.getChildren().addAll(level1, level2, level3);
+		
 	}
 	
 	//temporary methods to display level/Splash Image
@@ -279,14 +296,16 @@ public class GameEditScreen extends Screen {
 		};
 	}
 	
-	
-	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda){
+	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda) {
+		
 		ImageView b = new ImageView(new Image(location));
 		b.setFitHeight(80);
 		b.setFitWidth(80);
 		b.setOnMouseClicked(lamda);
 		return b;
+		
 	}	
+	
 	/**
 	 * make a right click menu for editing and removing a level
 	 */

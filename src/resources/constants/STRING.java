@@ -48,27 +48,35 @@ public class STRING {
 		
 	}
 
+	public class SPLASH_EDIT_SCREEN {
+		
+		// Splash Edit Screen Buttons
+		public static final String BACK = "Back";
+		public static final String TRASH = "Trash";
+		public static final String SAVE = "Save";
+		public static final String ADD_START_BUTTON = "Add Start Button";
+		public static final String ADD_IMAGE = "Add Background Image";
+		public static final String ADD_TEXT = "Add Text";
+		public static final String ADD_ANIMATION = "Add Animation";
+		
+		public static final String ADD_LEVEL = "Add Level";
+		public static final String EDIT_LEVEL = "Edit Level";
+		public static final String ADD_SPLASH = "Add Splash";
+		public static final String EDIT_SPLASH = "Edit Splash";
+		
+	}
+	
+	public class GAME_EDIT_SCREEN {
+		
+		//GameEdit Screen
+		public static final String GAME_EDIT = "Game Edit";
+		public static final String SPLASH_SCREEN = "Splash Screen";
+		public static final String NOTE = "* Note: Double Left Click to Edit Level/Splash, Right click to remove/edit";
+		
+	}
 	
 	
 	
-	// Splash Edit Screen Buttons
-	public static final String BACK = "Back";
-	public static final String TRASH = "Trash";
-	public static final String SAVE = "Save";
-	public static final String ADD_START_BUTTON = "Add Start Button";
-	public static final String ADD_IMAGE = "Add Background Image";
-	public static final String ADD_TEXT = "Add Text";
-	public static final String ADD_ANIMATION = "Add Animation";
-	
-	public static final String ADD_LEVEL = "Add Level";
-	public static final String EDIT_LEVEL = "Edit Level";
-	public static final String ADD_SPLASH = "Add Splash";
-	public static final String EDIT_SPLASH = "Edit Splash";
-	
-	//GameEdit Screen
-	public static final String GAME_EDIT = "Game Edit";
-	public static final String SPLASH_SCREEN = "Splash Screen";
-	public static final String NOTE = "* Note: Double Left Click to Edit Level/Splash, Right click to remove/edit";
 	//GameEdit: image path
 	public static final String ADD_IMG ="images/GameEdit_Images/addsplash.png";
 	public static final String TRASH_ICON = "images/GameEdit_Images/trashicon.png";

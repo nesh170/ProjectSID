@@ -322,17 +322,16 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGameEditScreen(game, gameEditScreenManager),
-				STRING.GAME_EDIT
+				STRING.GAME_EDIT_SCREEN.GAME_EDIT
 				);
 		
 	}
-
 	
 	private Tab createSplashEditScreen(SplashScreen splashScreen) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
-				STRING.SPLASH_SCREEN
+				STRING.GAME_EDIT_SCREEN.SPLASH_SCREEN
 				);
 		
 	}
@@ -490,7 +489,7 @@ public class ScreenController {
 			
 			tabManager.addTabWithScreenWithStringIdentifier(
 						screenFactory.createGameEditScreen(game, gameEditScreenManager),
-						STRING.GAME_EDIT
+						STRING.GAME_EDIT_SCREEN.GAME_EDIT
 						);
 			tabManager.replaceTab(newScreen);
 		}
