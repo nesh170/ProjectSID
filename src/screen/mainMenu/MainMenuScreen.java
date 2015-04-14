@@ -261,11 +261,11 @@ public class MainMenuScreen extends Screen {
 
 		private Menu instantiateFileMenu() {
 
-			Menu fileMenu = new Menu(STRING.FILE);
+			Menu fileMenu = new Menu(STRING.MAIN_MENU_SCREEN.FILE);
 
-			MenuItem newFile = new MenuItem(STRING.NEW);
-			MenuItem openFile = new MenuItem(STRING.OPEN);
-			MenuItem closeFile = new MenuItem(STRING.CLOSE);
+			MenuItem newFile = new MenuItem(STRING.MAIN_MENU_SCREEN.NEW);
+			MenuItem openFile = new MenuItem(STRING.MAIN_MENU_SCREEN.OPEN);
+			MenuItem closeFile = new MenuItem(STRING.MAIN_MENU_SCREEN.CLOSE);
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
 			newFile.setOnAction(e -> controller.createNewGame(myPopUp));

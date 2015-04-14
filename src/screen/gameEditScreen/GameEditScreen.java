@@ -74,6 +74,8 @@ public class GameEditScreen extends Screen {
 	
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
+	
+	
 	// Getters & Setters
 	/**
 	 * add to current game level
@@ -151,7 +153,9 @@ public class GameEditScreen extends Screen {
 		text.setTranslateY(-300);  //?? uncertain of how offset works but this works for now
 		return text;	
 	}
+	
 	private  Button makeAddSignWhenEmpty( String s, EventHandler<MouseEvent> lamda) {
+		
 		ImageView addsign = new ImageView(new Image(STRING.ADD_IMG));
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);

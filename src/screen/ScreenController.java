@@ -314,10 +314,9 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createMainMenuScreen(mainMenuScreenManager),
-				STRING.MAIN_MENU
+				STRING.MAIN_MENU_SCREEN.MAIN_MENU
 				);		
 	}
-
 	
 	private Tab createGameEditScreen(Game game) {
 		
@@ -337,7 +336,6 @@ public class ScreenController {
 				);
 		
 	}
-
 	
 	private Tab createLevelEditScreen(Level level) {
 
@@ -347,7 +345,6 @@ public class ScreenController {
 				);
 	
 	}
-
 	
 	private Tab createSpriteEditScreen(Tab tab, Sprite sprite) {
 		
@@ -357,7 +354,6 @@ public class ScreenController {
 					);
 		
 	}
-	
 	
 	/**
 	 * @author Anika
@@ -373,7 +369,6 @@ public class ScreenController {
 		
 	}
 
-	
 	private Tab createGamePlayScreen(Game game) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(

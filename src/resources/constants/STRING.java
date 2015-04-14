@@ -35,17 +35,21 @@ public class STRING {
 		
 	}
 	
+	public class MAIN_MENU_SCREEN {
+		
+		// Main Menu Screen
+		public static final String MAIN_MENU = "Main Menu";
+		public static final String FILE = "File";
+		public static final String NEW = "New";
+		public static final String OPEN = "Open";
+		public static final String CLOSE = "Close";
+		public static final String NEWGAME = "New Game";
+		public static final String LOADGAME = "Load Game";
+		
+	}
+
 	
 	
-	
-	// Main Menu Screen
-	public static final String MAIN_MENU = "Main Menu";
-	public static final String FILE = "File";
-	public static final String NEW = "New";
-	public static final String OPEN = "Open";
-	public static final String CLOSE = "Close";
-	public static final String NEWGAME = "New Game";
-	public static final String LOADGAME = "Load Game";
 	
 	// Splash Edit Screen Buttons
 	public static final String BACK = "Back";
