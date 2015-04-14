@@ -19,7 +19,7 @@ public class ErrorMessageTextFieldFactory {
 
 	public static TextField configureNewErrorMessageTextField(String error) {
 		
-		TextField returnErrorMessageTextField = new TextField(error + STRING.CLICK_TO_DISMISS);
+		TextField returnErrorMessageTextField = new TextField(error + STRING.ERROR.CLICK_TO_DISMISS);
 		
 		configureNewMessage(returnErrorMessageTextField);
 
