@@ -230,24 +230,29 @@ public class LevelEditScreen extends Screen {
 	
 	private void makeButtonsTab() {
 		
-		VBox paneForButtons = new VBox();
+		VerticalButtonBox verticalButtonBox = new VerticalButtonBox();
 		
-		paneForButtons.setAlignment(Pos.BASELINE_CENTER);
-		paneForButtons.setFillWidth(false);
-		paneForButtons.setSpacing(DOUBLE.BUTTON_SPACING);
-		paneForButtons.getStyleClass().add("pane");
-		
-		this.viewableArea().setRight(paneForButtons);
-				
-		Button addSpriteButton = makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
-		Button returnToGameEditButton = makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
-		Button addWidthButton = makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
-		Button addHeightButton = makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
-		// added by Anika
-		// TODO: fix hardcoded string
-		Button addCollTableButton = makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
+		this.viewableArea().setRight(verticalButtonBox);
 
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
+		//added by Anika
+		// TODO: fix hardcoded string
+
+		Button addSpriteButton = 
+				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
+		
+		Button returnToGameEditButton = 
+				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
+		
+		Button addWidthButton = 
+				makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
+		
+		Button addHeightButton = 
+				makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
+		
+		Button addCollTableButton = 
+				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
+		
+		verticalButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
 
 	}
 	
