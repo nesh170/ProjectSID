@@ -40,6 +40,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
 import screen.gameEditScreen.GameEditScreen;
+import screen.util.VerticalButtonBox;
 import sprite.Sprite;
 import sprite.SpriteImage;
 
