@@ -87,7 +87,7 @@ public class Level extends LevelPlatform {
 	 */
 	public Level(int width, int height) {
 		
-		this(width, height, new Sprite());
+		this(width, height, null);
 		
 	}
 
@@ -101,19 +101,25 @@ public class Level extends LevelPlatform {
 	public Level(int width, int height, Sprite playerSprite) {
 		
 		super(width, height);
-		playerSprite = new Sprite();
-		collisionTable = new CollisionTable();
-	    goalMap = new HashMap<>();
-		
-		if (playerSprite != null) {
 
-			this.playerSprite = playerSprite;
+		instantiateMaps();
 
-			// Call this in Level in addition to its super -- prepare playerSprite as well
-			prepareAllSprites();
-
+		if (playerSprite == null) {
+			setPlayerSprite(new Sprite());
+		} else {
+			setPlayerSprite(playerSprite);
 		}
 
+		// Call this in Level in addition to its super -- prepare playerSprite as well
+		prepareAllSprites();
+
+	}
+	
+	private void instantiateMaps() {
+		
+		this.collisionTable = new CollisionTable();
+	    this.goalMap = new HashMap<>();
+		
 	}
 
 	/**
