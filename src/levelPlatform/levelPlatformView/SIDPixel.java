@@ -18,6 +18,14 @@ import javafx.scene.paint.Color;
  */
 public class SIDPixel extends Region {
 
+	// Static Variables
+	private static final boolean TESTING = false;
+	
+	
+	// Instance Variables
+	
+	
+	// Constructor & Helpers
 	public SIDPixel(double lengthSIDPixel) {
 
 		configureSnapToPixelProperty();
