@@ -165,13 +165,6 @@ public class SpriteImage {
 		
 	}
 	
-	public Image convertArrayToImage() {
-		
-		//TODO unimplemented
-		return null;
-		
-	}
-	
 	private boolean checkDimensions(int[][] image) {
 		
 		int width = image[0].length;
@@ -201,6 +194,7 @@ public class SpriteImage {
 	}
 	
 	/**
+	* @deprecated
 	* 
 	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
 	* SpriteImage takes care of the rest.
