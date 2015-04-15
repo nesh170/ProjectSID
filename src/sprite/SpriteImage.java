@@ -2,8 +2,10 @@ package sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import resources.constants.INT;
 import util.Int2DArraySizes;
 import util.IntArray2DToImageConverter;
