@@ -1,4 +1,4 @@
-package screen.splashEditScreen;
+package screen.levelPlatformCapableScreen.splashEditScreen;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
+import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
 import sprite.Sprite;
 
 /**
@@ -50,7 +51,7 @@ import sprite.Sprite;
  * @author Kyle
  *
  */
-public class SplashEditScreen extends Screen {
+public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	// Static variables
 
@@ -386,27 +387,36 @@ public class SplashEditScreen extends Screen {
 		controller.returnToGameEditScreen();	
 	}
 	
-	private void add(String tag, MouseEvent e, Rectangle rectangle) {		
+	private void add(String tag, MouseEvent e, Rectangle rectangle) {
+		
 		if(tag == "Start") {		
+			
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
-			this.add(startButtonImageView);
 			startButtonImageView.setOnMousePressed(f -> startButtonMove(f));
-			startButtonImageView.setX(e.getX());
-			startButtonImageView.setY(e.getY());
+			
+			// Node, x, y, "SID Pixel XY or JavaFX?"
+			placeNodeAtXYIsUsingSIDPixels(startButtonImageView, e.getX(), e.getY(), false);
+			
 		}
-		else if(tag == "Image") {		
+		
+		else if (tag == "Image") {
+			
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
-			this.add(imageView);
+			
 			imageView.setOnMousePressed(f -> imageMove(f));
-			imageView.setX(e.getX());
-			imageView.setY(e.getY());
+			
+			// Node, x, y, "SID Pixel XY or JavaFX?"
+			placeNodeAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
+						
 		}
+		
 		else if(tag == "Background Image") {
 			rectangle.setFill(new ImagePattern(imageView.getImage()));
 		}
-		else if(tag == "Text") {
+		 
+		else if (tag == "Text") {
 			
 //			text = new Text("Well Hi");
 //			
@@ -421,8 +431,24 @@ public class SplashEditScreen extends Screen {
 //		    this.viewableArea().setLeft(pane);
 
 		}	
+		
 	}
 	
+	/**
+	 * @author Ruslan, ask if any questions
+	 * 
+	 * @param startButtonImageView
+	 * @param x
+	 * @param y
+	 * @param isUsingSIDPixels
+	 */
+	private void placeNodeAtXYIsUsingSIDPixels(ImageView startButtonImageView, double x, double y, boolean isUsingSIDPixels) {
+
+		// TODO Implement
+//		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
+		
+	}
+
 	private void startButtonMove(MouseEvent f) {
 		startButtonImageView.setOnMouseReleased(e -> placeStartButton(e));
 	}

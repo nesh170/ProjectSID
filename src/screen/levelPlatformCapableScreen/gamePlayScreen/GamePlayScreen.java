@@ -1,4 +1,4 @@
-package screen.gamePlayScreen;
+package screen.levelPlatformCapableScreen.gamePlayScreen;
 
 import game.Game;
 import gameEngine.GameEngine;
@@ -9,8 +9,9 @@ import javafx.scene.control.ScrollPane;
 import levelPlatform.level.Level;
 import screen.Screen;
 import screen.ScreenController;
+import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
 
-public class GamePlayScreen extends Screen {
+public class GamePlayScreen extends LevelPlatformCapableScreen {
 
 	// Instance Variables
 	private GamePlayScreenController controller;
