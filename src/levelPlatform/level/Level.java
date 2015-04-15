@@ -79,12 +79,25 @@ public class Level extends LevelPlatform {
 
 
 	// Constructor & Helpers
+	/**
+	 * Calls the larger constructor and internally creates a new Sprite() for playerSprite
+	 * 
+	 * @param width
+	 * @param height
+	 */
 	public Level(int width, int height) {
 		
 		this(width, height, new Sprite());
 		
 	}
 
+	/**
+	 * Handles a null playerSprite by creating one
+	 * 
+	 * @param width
+	 * @param height
+	 * @param playerSprite
+	 */
 	public Level(int width, int height, Sprite playerSprite) {
 		
 		super(width, height);
