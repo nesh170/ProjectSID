@@ -5,6 +5,8 @@ import javafx.stage.Stage;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.levelPlatformView.LevelPlatformView;
+import resources.constants.DOUBLE;
+import resources.constants.INT;
 import tester.Tester;
 
 
@@ -26,7 +28,11 @@ public class LevelPlatformViewTester extends Tester {
 		this.addNode(borderPane);
 		
 		Level level = new Level(100, 50);
-		LevelPlatformView levelPlatformView = new LevelPlatformView(level, EditMode.EDIT_MODE_ON, 10.0);
+		
+		double width = DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL * INT.DEFAULT_LEVEL_WIDTH;
+		double height = DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL * INT.DEFAULT_BUTTON_HEIGHT;
+		
+		LevelPlatformView levelPlatformView = new LevelPlatformView(level, EditMode.EDIT_MODE_ON, width, height);
 		
 		borderPane.setCenter(levelPlatformView);
 		
