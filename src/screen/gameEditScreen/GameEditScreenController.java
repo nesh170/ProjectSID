@@ -16,6 +16,8 @@ public interface GameEditScreenController {
 	
 	public void returnToMainMenuScreen();
 	
+	
+	
 	/**
 	 * Loads a new splash edit screen that edits the splash screen
 	 * of the game parameter?

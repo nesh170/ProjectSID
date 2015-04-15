@@ -171,12 +171,9 @@ public class LevelView extends ScrollPane {
     	// TODO Auto-generated method stub
     }
 
-
     private void destroyDisplayEditOverlay() {
     	// TODO Auto-generated method stub
     }
-
-
     
     /**
      * Checks for collision with each node
