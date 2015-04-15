@@ -210,6 +210,7 @@ public class SpriteImage {
 			adjustCounters();
 			
 			int[][] sourceArray = images.get(currentImageIndex);
+
 			return IntArray2DToImageConverter.convert2DIntArrayToImage(sourceArray, lengthSidePixel); 
 			
 		} 
@@ -229,5 +230,6 @@ public class SpriteImage {
 		framesSinceLastUpdate++;
 		
 	}
+
 	
 }
