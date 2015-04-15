@@ -2,9 +2,13 @@ package resources.constants;
 
 public class DOUBLE {
 
-	// Percentages
-	public static final double NINETY_PERCENT = 0.90;
-
+	public class PERCENT {
+		
+		// Percentages
+		public static final double NINETY_PERCENT = 0.90;
+		public static final double SEVENTY_FIVE_PERCENT = 0.75;
+		
+	}
 	
 	// Screen
 	public static final double BUTTON_SPACING = 20;
