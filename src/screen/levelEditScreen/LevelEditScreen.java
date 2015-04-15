@@ -304,6 +304,20 @@ public class LevelEditScreen extends Screen {
 
 
 	// All other instance methods
+	public void addSprite(Sprite sprite) {
+
+		// TODO in a compatible way with refactored LES
+
+	}
+
+	public List<String> getSpriteTags() {
+
+		// TODO in a compatible way with refactored LES
+		
+		return null;
+
+	}
+
 	/**
 	 * TODO: Clean this up and connect it with LevelPlatformView class
 	 * Potential idea: keep the nested class and give it an interface & access to the Level, pass into LevelPlatformView for lambdas
