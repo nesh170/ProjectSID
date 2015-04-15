@@ -89,12 +89,20 @@ public abstract class Screen extends BorderPane {
 	 */
 	public Screen(double width, double height) {
 		
-		configureWidthAndHeight(width, height);
+		instantiateViewableArea();
+		configureSizing(width, height);		// depends on an instance of viewableArea existing
 		configureMenuBar(width);
 		configureBackgroundColor();
-		configureViewableArea(width, height);
 		initializeRelevantResourceFiles();
 				
+	}
+	
+	private void configureSizing(double width, double height) {
+		
+		configureWidthAndHeight(width, height);
+		configureSideBarAndButtonSizing(width);
+		configureViewableAreaSizing(width, height);
+		
 	}
 	
 	private void configureWidthAndHeight(double width, double height) {
@@ -115,6 +123,13 @@ public abstract class Screen extends BorderPane {
 		
 		this.setMinHeight(height);
 		this.setMaxHeight(height);
+		
+	}
+	
+	private void instantiateViewableArea() {
+		
+		this.viewableArea = new BorderPane();
+		this.setCenter(viewableArea);
 		
 	}
 	
@@ -180,11 +195,19 @@ public abstract class Screen extends BorderPane {
 		this.setStyle(STRING.COLORS.FX_BACKGROUND_COLOR_PREDICATE+STRING.COLORS.DEFAULT_FX_BACKGROUND_COLOR);
 	}
 	
-	private void configureViewableArea(double width, double height) {
+	private void configureSideBarAndButtonSizing(double width) {
 		
-		this.viewableArea = new BorderPane();
-		this.viewableArea.setPrefSize(width, height - DOUBLE.MENU_BAR_HEIGHT);
-		this.setCenter(viewableArea);
+		this.sideBarWidth = width * DOUBLE.PERCENT.TEN_PERCENT;
+		this.buttonWidth = sideBarWidth * DOUBLE.PERCENT.NINETY_PERCENT;
+		
+	}
+	
+	private void configureViewableAreaSizing(double width, double height) {
+
+		this.viewableArea.setPrefSize(width - 2 * this.sideBarWidth, height - DOUBLE.MENU_BAR_HEIGHT);
+
+		// Set margins for nice padding
+		BorderPane.setMargin(viewableArea, new Insets(5, 5, 5, 5));
 		
 	}
 	
