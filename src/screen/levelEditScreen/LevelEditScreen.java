@@ -59,7 +59,7 @@ public class LevelEditScreen extends Screen {
 	private LevelEditScreenController controller;
 	
 	private Level level;
-	private LevelPlatformView levelView;
+	private LevelPlatformView levelPlatformView;
 	private Pane levelDisplay;
 	private Tab currentGameScreen;
 	
@@ -172,11 +172,11 @@ public class LevelEditScreen extends Screen {
 			levelToUse = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		}
 		
-		levelView = new LevelPlatformView(levelToUse, EditMode.EDIT_MODE_ON);
-		viewableArea().setCenter(levelView);
-		levelView.setContent(levelDisplay);
-		levelView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		levelView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		levelPlatformView = new LevelPlatformView(levelToUse, EditMode.EDIT_MODE_ON);
+		viewableArea().setCenter(levelPlatformView);
+		levelPlatformView.setContent(levelDisplay);
+		levelPlatformView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		levelPlatformView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		levelDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
@@ -293,7 +293,7 @@ public class LevelEditScreen extends Screen {
 	 * Do this last in the constructor
 	 */
 	private void initializeDisplaySize() {
-		levelDisplay.setMinSize(levelView.getWidth(), levelView.getHeight());
+		levelDisplay.setMinSize(levelPlatformView.getWidth(), levelPlatformView.getHeight());
 	}
 	
 	private void addWidth() {
