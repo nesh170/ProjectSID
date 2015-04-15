@@ -96,11 +96,37 @@ public class LevelPlatformView extends ScrollPane {
 		setLevel(level);
 		setEditMode(editMode);
 		setCollisionHandler();
+		configureTilePane();
 
 		if (level != null) {
 			renderLevel();
 		}
 
+	}
+	
+	/**
+	 * instantiate and add the tile pane to this.
+	 *  
+	 * get the desired width & height, make that many SID pixels.
+	 * get the size of each tile's side via lengthSidePixel
+	 *
+	 * **Important** - Orientation.Horizontal.
+	 * A horizontal tilepane (the default) will tile nodes in rows, wrapping at the tilepane's width. 
+	 * A vertical tilepane will tile nodes in columns, wrapping at the tilepane's height.
+	 *
+	 * also set tile alignment while at it
+	 * 
+	 * @author Ruslan
+	 */
+	private void configureTilePane() {
+		
+		this.sidPixels = new TilePane(Orientation.VERTICAL);
+		this.sidPixels.setTileAlignment(Pos.CENTER);
+		
+		int levelWidth = level.width(), levelHeight = level.height();
+		
+		this.setContent(sidPixels);
+		
 	}
 
 
