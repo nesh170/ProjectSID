@@ -1,4 +1,4 @@
-package screen.collisionTableScreen;
+package screen.screens;
 
 import gameEngine.CollisionTable;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.scene.control.MenuBar;
 import levelPlatform.level.Level;
-import screen.Screen;
+import screen.controllers.CollisionTableScreenController;
 
 /**
  * Visual Design (discussion April 7)

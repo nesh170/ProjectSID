@@ -1,4 +1,4 @@
-package screen.gameEditScreen;
+package screen.screens;
 
 import game.Game;
 
@@ -41,8 +41,8 @@ import javafx.scene.layout.VBox;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
-import screen.Screen;
-import screen.ScreenController;
+import screen.controllers.GameEditScreenController;
+import screen.controllers.ScreenController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;

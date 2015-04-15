@@ -1,6 +1,5 @@
-package screen.levelPlatformCapableScreen;
+package screen.screens;
 
-import screen.Screen;
 
 /**
  * Minimizes duplicated code via inheritance of a LevelPlatformView (2D grid)

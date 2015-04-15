@@ -1,6 +1,6 @@
-package screen.spriteEditScreen;
+package screen.controllers;
 
-import screen.levelPlatformCapableScreen.levelEditScreen.LevelEditScreen;
+import screen.screens.LevelEditScreen;
 import sprite.Sprite;
 import javafx.scene.control.Tab;
 
