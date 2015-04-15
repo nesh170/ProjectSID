@@ -46,7 +46,8 @@ import sprite.SpriteImage;
 
 /**
  * 
- * @author Leo
+ * @author Leo (Primary)
+ * @author Ruslan
  *
  */
 
