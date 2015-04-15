@@ -120,7 +120,7 @@ public class LevelEditScreen extends Screen {
 	 */
 	public LevelEditScreen(LevelEditScreenController controller, double width, double height, Level level) {
 		
-		super(width,height);
+		super(width, height);
 		
 		setController(controller);
 		
