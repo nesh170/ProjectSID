@@ -25,102 +25,102 @@ import levelPlatform.level.Level;
  *
  */
 public class LevelPlatformView extends ScrollPane {
-    
+
 	// Static Variables
-	
-	
+
+
 	// Instance Variables
 	// Edit
 	private EditMode editMode;
 	// Level
-    private Level level;
-    // Layouts
-    private double lengthSidePixel;
-    // Playing
-    private Collision collisionHandler;    
-        
-    
-    // Getters & Setters
-    public Level level() {
-    	return this.level;
-    }
-    
-    public void setLevel(Level level) {
-    	this.level = level;
-    }
-    
-    public void setEditMode(EditMode editMode) {
-    	this.editMode = editMode;
-    }
-    
-    public void setLengthSidePixel(double lengthSidePixel) {
-    	this.lengthSidePixel = lengthSidePixel;
-    }
-    
-    public double getLengthSidePixel() {
-    	return this.lengthSidePixel;
-    }
-        
-    public void setCollisionHandler(){
-    	this.collisionHandler = new Collision(level.collisionTable());
-    }
-    
-    // Constructor & Helpers
-    /**
-     * Infers lengthSidePixel from Default in DOUBLE
-     * 
-     * @param level
-     */
-    public LevelPlatformView(Level level, EditMode editMode) {
-  
-    	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
-        
-    }
-    
-    /**
-     * 
-     * @param (Level) level
-     * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
-     */
-    public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel) {
-    	
-    	setLengthSidePixel(lengthSidePixel);
-    	setLevel(level);
-    	setEditMode(editMode);
-    	setCollisionHandler();
-    	
-    	if (level != null) {
-    		renderLevel();
-    	}
-    	
-    }
-    
-    
-    // All other instance variables
-    /**
-     * Loops through all the avaliable sprite in the level to render each one.
-     * @return
-     */
-    public Group renderLevel() {
-    	
-        Group levelGroup = new Group();
-        level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
-        return levelGroup;
-        
-    }
-        
-    /**
-     * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
-     * @param sprite
-     * @return
-     */
-    private Group renderSprite(Sprite sprite) {
-    	
-    	Group spriteGroup = new Group();
-    	Image spriteImage;
-    	ImageView spriteImageView;
-    	//TODO: delete rectangle-making, restore SpriteImage part
-    	/*if(sprite.isActive()) {
+	private Level level;
+	// Layouts
+	private double lengthSidePixel;
+	// Playing
+	private Collision collisionHandler;    
+
+
+	// Getters & Setters
+	public Level level() {
+		return this.level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public void setEditMode(EditMode editMode) {
+		this.editMode = editMode;
+	}
+
+	public void setLengthSidePixel(double lengthSidePixel) {
+		this.lengthSidePixel = lengthSidePixel;
+	}
+
+	public double getLengthSidePixel() {
+		return this.lengthSidePixel;
+	}
+
+	public void setCollisionHandler(){
+		this.collisionHandler = new Collision(level.collisionTable());
+	}
+
+	// Constructor & Helpers
+	/**
+	 * Infers lengthSidePixel from Default in DOUBLE
+	 * 
+	 * @param level
+	 */
+	public LevelPlatformView(Level level, EditMode editMode) {
+
+		this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
+
+	}
+
+	/**
+	 * 
+	 * @param (Level) level
+	 * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
+	 */
+	public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel) {
+
+		setLengthSidePixel(lengthSidePixel);
+		setLevel(level);
+		setEditMode(editMode);
+		setCollisionHandler();
+
+		if (level != null) {
+			renderLevel();
+		}
+
+	}
+
+
+	// All other instance variables
+	/**
+	 * Loops through all the avaliable sprite in the level to render each one.
+	 * @return
+	 */
+	public Group renderLevel() {
+
+		Group levelGroup = new Group();
+		level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
+		return levelGroup;
+
+	}
+
+	/**
+	 * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
+	 * @param sprite
+	 * @return
+	 */
+	private Group renderSprite(Sprite sprite) {
+
+		Group spriteGroup = new Group();
+		Image spriteImage;
+		ImageView spriteImageView;
+		//TODO: delete rectangle-making, restore SpriteImage part
+		/*if(sprite.isActive()) {
     		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
     				sprite.transform().getWidth(), sprite.transform().getHeight());
         	spriteGroup.getChildren().add(r);
@@ -210,7 +210,5 @@ public class LevelPlatformView extends ScrollPane {
         }
         
     }
-	
-
 	
 }
