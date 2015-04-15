@@ -124,8 +124,7 @@ public class LevelEditScreen extends Screen {
 		
 		setController(controller);
 		
-		stringToSpriteMap = new HashMap<>();
-		spriteToImageMap = new HashMap<>();
+		instantiateMaps();
 		
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
@@ -148,6 +147,13 @@ public class LevelEditScreen extends Screen {
 		Menu addNewSpriteButton = makeAddSpriteButton();
 		
 		menuBar.getMenus().addAll(fileMenu,addNewSpriteButton);
+		
+	}
+	
+	private void instantiateMaps() {
+		
+		this.stringToSpriteMap = new HashMap<>();
+		this.spriteToImageMap = new HashMap<>();
 		
 	}
 				
