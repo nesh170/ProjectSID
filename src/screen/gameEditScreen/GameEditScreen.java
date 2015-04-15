@@ -195,7 +195,7 @@ public class GameEditScreen extends Screen {
 
 	private Button displayMySplash() {
 
-		Button b = makeTempLevelSplashDisplayImage(STRING.GAME_EDIT.SPLASH_TMP, INT.SPLASH);
+		Button b = makeTempLevelSplashDisplayImage(STRING.IMAGE.SPLASH_TMP, INT.SPLASH);
 		
 		// b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter:
 		// myGame.getSplash().ImageRepresentation();
@@ -222,7 +222,7 @@ public class GameEditScreen extends Screen {
 
 	private Button makeAddSignWhenEmpty(String s, EventHandler<MouseEvent> lamda) {
 
-		ImageView addsign = new ImageView(new Image(STRING.GAME_EDIT.ADD_IMG));
+		ImageView addsign = new ImageView(new Image(STRING.IMAGE.GAME_EDIT_IMAGES.ADD_IMG));
 		
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
@@ -255,15 +255,15 @@ public class GameEditScreen extends Screen {
 		levelDisplay = new StackPane();
 		ScrollPane levelSP = this.displayLevels(levels);
 
-		ImageView add = makeButton(STRING.GAME_EDIT.PLUS_IMG,
+		ImageView add = makeButton(STRING.IMAGE.GAME_EDIT_IMAGES.PLUS_IMG,
 				e -> controller.loadLevelEditScreen(game));
 		levelDisplay.setAlignment(add, Pos.TOP_RIGHT);
 
-		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG,
+		ImageView play = makeButton(STRING.IMAGE.GAME_EDIT_IMAGES.PLAY_IMG,
 				e -> controller.playGame(game));
 		levelDisplay.setAlignment(play, Pos.TOP_CENTER);
 
-		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
+		ImageView back = makeButton(STRING.IMAGE.GAME_EDIT_IMAGES.BACK_IMG,
 				e -> controller.returnToMainMenuScreen());
 		levelDisplay.setAlignment(back, Pos.TOP_LEFT);
 
@@ -335,11 +335,11 @@ public class GameEditScreen extends Screen {
 
 		// can't add ObservableList to a HBox directly
 		Button level1 = makeTempLevelSplashDisplayImage(
-				STRING.GAME_EDIT.LEVEL1IMAGE, INT.LEVEL); // tmp string path
+				STRING.IMAGE.GAME_EDIT_IMAGES.LEVEL1IMAGE, INT.LEVEL); // tmp string path
 		Button level2 = makeTempLevelSplashDisplayImage(
-				STRING.GAME_EDIT.LEVEL2IMAGE, INT.LEVEL);
+				STRING.IMAGE.GAME_EDIT_IMAGES.LEVEL2IMAGE, INT.LEVEL);
 		Button level3 = makeTempLevelSplashDisplayImage(
-				STRING.GAME_EDIT.SPRITEIMAGE, INT.LEVEL);
+				STRING.IMAGE.SPRITEIMAGE, INT.LEVEL);
 		hb.getChildren().addAll(level1, level2, level3);
 
 	}
@@ -487,7 +487,7 @@ public class GameEditScreen extends Screen {
 
 	private Menu makeTrashMenu() {
 
-		ImageView trashImage = new ImageView(new Image(STRING.GAME_EDIT.TRASH_ICON));
+		ImageView trashImage = new ImageView(new Image(STRING.IMAGE.GAME_EDIT_IMAGES.TRASH_ICON));
 
 		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
 		
