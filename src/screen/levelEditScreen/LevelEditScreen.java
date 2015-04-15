@@ -359,18 +359,18 @@ public class LevelEditScreen extends Screen {
 		/*
 		 * Visually displays the sprite
 		 */
-		// TODO: Refactor
+		// TODO: Refactor - this belongs in LevelPlatformView, not here
 		private void addSpriteToLevelDisplay(Sprite sprite) {
 
-			ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
-
-			//			levelDisplay.getChildren().add(imageView);
-
-			imageView.setTranslateX(sprite.getX());
-			imageView.setTranslateY(sprite.getY());
-			stringToSpriteMap.put(sprite.getName(), sprite);
-			spriteToImageMap.put(sprite, imageView);
-			stringToListMap.get(sprite.tag()).add(sprite.getName());
+//			ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
+//
+//			//			levelDisplay.getChildren().add(imageView);
+//
+//			imageView.setTranslateX(sprite.getX());
+//			imageView.setTranslateY(sprite.getY());
+//			stringToSpriteMap.put(sprite.getName(), sprite);
+//			spriteToImageMap.put(sprite, imageView);
+//			stringToListMap.get(sprite.tag()).add(sprite.getName());
 
 		}
 
@@ -387,7 +387,7 @@ public class LevelEditScreen extends Screen {
 		public void addSprite(Sprite sprite) {
 
 			spriteToAdd = sprite;
-			imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
+//			imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
 			//			levelDisplay.setCursor(new ImageCursor(imageToAdd));
 
 		}
