@@ -142,6 +142,7 @@ public class SpriteImage {
 		if (!hasImages()) {		// Go ahead
 			
 			images.add(image);
+			instantiateImageViewsFromImagesList();
 			return true;
 			
 		}
@@ -149,8 +150,11 @@ public class SpriteImage {
 		else {					// Already has images. Check width & height before adding
 			
 			if (checkDimensions(image)) {
+				
 				images.add(image);
+				instantiateImageViewsFromImagesList();
 				return true;
+				
 			}
 			
 			else {
@@ -190,6 +194,8 @@ public class SpriteImage {
 	public int removeImage(int indexToRemove) {
 		
 		images.remove(indexToRemove);
+		instantiateImageViewsFromImagesList();
+		
 		return images.size();
 		
 	}
