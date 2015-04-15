@@ -48,6 +48,16 @@ public abstract class Screen extends BorderPane {
 	
 	
 	// Getters & Setters
+	/**
+	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
+	 * If you'd like your Screen subclass to support closing itself, this is where to go
+	 * 
+	 * @param parentTab
+	 */
+	public void setParentTab(Tab parentTab) {
+		this.parentTab = parentTab;
+	}
+	
 	protected BorderPane viewableArea() {
 		return this.viewableArea;
 	}
@@ -60,14 +70,6 @@ public abstract class Screen extends BorderPane {
 		return this.tagResources;
 	}
 	
-	/**
-	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
-	 * If you'd like your Screen subclass to support closing itself, this is where to go
-	 * 
-	 * @param parentTab
-	 */
-	public void setParentTab(Tab parentTab) {
-		this.parentTab = parentTab;
 	protected double sideBarWidth() {
 		return this.sideBarWidth;
 	}
@@ -91,7 +93,6 @@ public abstract class Screen extends BorderPane {
 		return returnDouble;
 
 	}
-	
 	
 	// Constructor & Helpers
 	/**
