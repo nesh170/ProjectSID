@@ -126,7 +126,7 @@ public class LevelEditScreen extends Screen {
 		
 		instantiateMaps();
 		
-		setUpLevelViewFromLevel(level);
+		setUpLevelPlatformViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
 		
@@ -172,7 +172,7 @@ public class LevelEditScreen extends Screen {
 		
 	}
 	
-	private void setUpLevelViewFromLevel(Level level) {
+	private void setUpLevelPlatformViewFromLevel(Level level) {
 		
 		this.level = level;
 		levelDisplay = new Pane();
