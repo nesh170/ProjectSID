@@ -86,34 +86,6 @@ public class STRING {
 		
 	}
 	
-	public class IMAGE {
-
-		// (private) prefix
-		private static final String ImagePrefix = "resources/images/";
-		// Image Names
-		public static final String SPRITEIMAGE = "sprite.jpg";
-		public static final String SPLASH_TMP = "sprite.jpg";
-		
-		
-		public class GAME_EDIT_IMAGES {
-
-			// GameEdit: image path
-			// (private) prefix
-			private static final String GEIPrefix = "resources/images/GameEdit/";
-			// Image Names
-			public static final String ADD_IMG = GEIPrefix + "addsplash.png";
-			public static final String BACK_IMG = GEIPrefix + "back.png";
-			public static final String LEVEL1IMAGE = GEIPrefix + "level1_tmp.PNG";
-			public static final String LEVEL2IMAGE = GEIPrefix + "level2_tmp.PNG";
-			public static final String PLAY_IMG = GEIPrefix + "play.png";
-			public static final String PLUS_IMG = GEIPrefix + "plus_sign.png";
-			public static final String TRASH_IMG = GEIPrefix + "trash_sign.png";
-			public static final String TRASH_ICON = GEIPrefix + "trashicon.png";
-
-		}
-
-	}
-	
 	public class GAME_EDIT {
 		
 		//GameEdit Screen
@@ -121,6 +93,18 @@ public class STRING {
 		public static final String SPLASH_SCREEN = "Splash Screen";
 		public static final String NOTE = "* Note: Double Left Click to Edit Level/Splash, Right click to remove/edit";
 
+		//GameEdit: image path
+		public static final String ADD_IMG ="images/GameEdit_Images/addsplash.png";
+		public static final String TRASH_ICON = "images/GameEdit_Images/trashicon.png";
+		public static final String LEVEL1IMAGE = "images/GameEdit_Images/level1_tmp.PNG";
+		public static final String LEVEL2IMAGE = "images/GameEdit_Images/level2_tmp.PNG";
+		public static final String SPRITEIMAGE = "images/sprite.jpg";
+		public static final String BACK_IMG = "images/GameEdit_Images/back.png";
+		public static final String SPLASH_TMP = "images/sprite.jpg";
+		public static final String PLUS_IMG = "images/GameEdit_Images/plus_sign.png";
+		public static final String PLAY_IMG = "images/GameEdit_Images/play.png";
+		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
+		
 	}
 	
 	public class LEVEL_EDIT {
