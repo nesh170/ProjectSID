@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 
@@ -30,6 +31,8 @@ public class LevelPlatformView extends ScrollPane {
 
 
 	// Instance Variables
+	// Containing TilePane of SIDPixel
+	private TilePane sidPixels;
 	// Edit
 	private EditMode editMode;
 	// Level
