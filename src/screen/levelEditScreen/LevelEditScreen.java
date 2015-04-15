@@ -52,22 +52,18 @@ import sprite.SpriteImage;
  */
 
 public class LevelEditScreen extends Screen {
-	
+
 	// Static Variables
-	
-	
+
+
 	// Instance Variables
 	private LevelEditScreenController controller;
-	
 	private Level level;
 	private LevelPlatformView levelPlatformView;
 	private Tab currentGameScreen;
-	
 	private Sprite spriteToAdd;
 	private Image imageToAdd;
-	
 	private Sprite selectedSprite;
-				
 	private final ObservableList<String> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfEnemies = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfPlayers = FXCollections.observableArrayList();
@@ -255,9 +251,9 @@ public class LevelEditScreen extends Screen {
 		verticalButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
 
 	}
-	
+
 	private void configureLevelPlatformViewWithLevel(Level level) {
-		
+
 		// TODO: have a better implementation of this. we want all pixels to always be square.
 		// what if we have an oddly shaped screen? Write an algorithm that takes the remaining
 		// height, width, and finds the minimum number of squares that fits into both height & width,
@@ -270,9 +266,9 @@ public class LevelEditScreen extends Screen {
 		double realPixelHeight = freeHeightPixels * DOUBLE.PERCENT.NINETY_PERCENT;
 		
 		this.levelPlatformView = new LevelPlatformView(level, EditMode.EDIT_MODE_ON, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL, realPixelWidth, realPixelHeight);			// (Level level, EditMode editMode, double lengthSidePixel)
-		
+
 		viewableArea().setCenter(levelPlatformView);
-		
+
 		levelPlatformView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		levelPlatformView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
@@ -320,24 +316,25 @@ public class LevelEditScreen extends Screen {
 		
 		
 		
-		
-//		levelDisplay.setMinSize(levelPlatformView.getWidth(), levelPlatformView.getHeight());
+
+		//		levelDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
+
 	}
-	
+
 	private void addWidth() {
-		
+
 		// TODO
-		
-//		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
+
+		//		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
 	}
-	
+
 	private void addHeight() {
-		
+
 		// TODO
-		
-//		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
+
+		//		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
 	}
-		
+
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
 	}
@@ -394,5 +391,5 @@ public class LevelEditScreen extends Screen {
 		return new ArrayList<String>(stringToSpriteMap.keySet());
 		
 	}
-			
+
 }
