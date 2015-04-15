@@ -61,7 +61,6 @@ public class LevelEditScreen extends Screen {
 	
 	private Level level;
 	private LevelPlatformView levelPlatformView;
-	private Pane levelDisplay;
 	private Tab currentGameScreen;
 	
 	private Sprite spriteToAdd;
@@ -123,15 +122,13 @@ public class LevelEditScreen extends Screen {
 		setController(controller);
 		
 		instantiateMaps();
-		
-		setUpLevelPlatformViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
 		
-		// Have to do this last
-		initializeLevelDisplay(level);
 		
-		this.setOnMouseEntered(e -> initializeDisplaySize());
+//		initializeLevelDisplay(level);	// Have to do this last
+		
+//		this.setOnMouseEntered(e -> initializeDisplaySize());
 		
 	}
 	
@@ -167,27 +164,6 @@ public class LevelEditScreen extends Screen {
 		
 		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
 		return spriteButton;
-		
-	}
-	
-	private void setUpLevelPlatformViewFromLevel(Level level) {
-		
-		this.level = level;
-		levelDisplay = new Pane();
-		
-		Level levelToUse = level;
-		
-		if (levelToUse == null) {
-			levelToUse = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-		}
-		
-		levelPlatformView = new LevelPlatformView(levelToUse, EditMode.EDIT_MODE_ON);
-		viewableArea().setCenter(levelPlatformView);
-		levelPlatformView.setContent(levelDisplay);
-		levelPlatformView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		levelPlatformView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		
-		levelDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
 		
 	}
 	
@@ -302,16 +278,20 @@ public class LevelEditScreen extends Screen {
 	 * Do this last in the constructor
 	 */
 	private void initializeDisplaySize() {
-		levelDisplay.setMinSize(levelPlatformView.getWidth(), levelPlatformView.getHeight());
+		
+		
+		
+		
+//		levelDisplay.setMinSize(levelPlatformView.getWidth(), levelPlatformView.getHeight());
 	}
-	
+	/*
 	private void addWidth() {
 		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
 	}
 	
 	private void addHeight() {
 		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
-	}
+	}*/
 		
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
@@ -319,7 +299,10 @@ public class LevelEditScreen extends Screen {
 	
 	private void initializeLevelDisplay(Level level) {
 		
-		levelDisplay.setMinSize(level.width(), level.height());
+//		levelDisplay.setMinSize(level.width(), level.height());
+		
+		
+		
 		level.sprites().forEach(e -> addSpriteToLevelDisplay(e));
 		
 	}
@@ -327,10 +310,11 @@ public class LevelEditScreen extends Screen {
 	/*
 	 * Visually displays the sprite
 	 */
+	// TODO: Refactor
 	private void addSpriteToLevelDisplay(Sprite sprite) {
 		
-		ImageView imageView = new ImageView(sprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).getImageToDisplay(1));
-		levelDisplay.getChildren().add(imageView);
+		ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
+		
 		imageView.setTranslateX(sprite.getX());
 		imageView.setTranslateY(sprite.getY());
 		stringToSpriteMap.put(sprite.getName(), sprite);
@@ -343,6 +327,7 @@ public class LevelEditScreen extends Screen {
 	/**
 	 * add a sprite to the level edit screen
 	 */
+	// TODO: Refactor
 	public void addSprite(Sprite sprite) {
 		
 		spriteToAdd = sprite;
