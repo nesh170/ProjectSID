@@ -8,9 +8,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import levelPlatform.LevelPlatformView;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
+import levelPlatform.levelPlatformView.LevelPlatformView;
 
 public class GameEngine extends GameEngineAbstract {
     
