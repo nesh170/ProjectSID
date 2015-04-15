@@ -61,14 +61,19 @@ public class LevelEditScreen extends Screen {
 	private Level level;
 	private LevelPlatformView levelPlatformView;
 	private Tab currentGameScreen;
+	// Layout
+	private VerticalButtonBox rightButtonBox;
+	// Sprite(s)
 	private Sprite spriteToAdd;
-	private Image imageToAdd;
 	private Sprite selectedSprite;
+	// Image
+	private Image imageToAdd;
+	// Lists
 	private final ObservableList<String> listOfPlatforms = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfEnemies = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfPlayers = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfPowerups = FXCollections.observableArrayList();
-	
+	// Maps
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
 	private Map<Sprite,ImageView> spriteToImageMap;
