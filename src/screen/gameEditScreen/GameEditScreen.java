@@ -113,17 +113,17 @@ public class GameEditScreen extends Screen {
 		
 		if (GameEditScreen.TESTING) {
 			
-//			myGame.setSplash(new SplashScreen(300, 400)); 	// those line tests
-			// weather splash
-			// display area will
-			// change if there is
-			// splash screen in
-			// myGame
-//System.out.println(myGame);
+			myGame.setSplash(new SplashScreen(300, 400)); 	// those line tests
+															// weather splash
+															// display area will
+															// change if there is
+															// splash screen in
+															// myGame
+			
+			System.out.println(myGame);
 			
 		}
 		
-
 		initialize(controller);
 		
 	}
