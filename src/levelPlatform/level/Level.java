@@ -65,12 +65,12 @@ public class Level extends LevelPlatform {
 		sprites = spriteList;
 	}
 
+	public CollisionTable collisionTable() {
+		return collisionTable;
+	}
+	
 	public void setCollisionTable(CollisionTable collisionTable) {
 		this.collisionTable = collisionTable;
-	}
-
-	public CollisionTable getCollisionTable() {
-		return collisionTable;
 	}
 
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
