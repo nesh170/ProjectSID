@@ -129,7 +129,7 @@ public class LevelView extends ScrollPane {
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
+            spriteImage = sprite.spriteImage(lengthSidePixel).getImageToDisplay(lengthSidePixel);
             spriteImageView = new ImageView(spriteImage);
                         
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
@@ -171,12 +171,9 @@ public class LevelView extends ScrollPane {
     	// TODO Auto-generated method stub
     }
 
-
     private void destroyDisplayEditOverlay() {
     	// TODO Auto-generated method stub
     }
-
-
     
     /**
      * Checks for collision with each node

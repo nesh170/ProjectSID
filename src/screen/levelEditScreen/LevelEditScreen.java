@@ -1,6 +1,8 @@
 package screen.levelEditScreen;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
@@ -38,6 +40,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
 import screen.gameEditScreen.GameEditScreen;
+import screen.util.VerticalButtonBox;
 import sprite.Sprite;
 import sprite.SpriteImage;
 
@@ -122,6 +125,8 @@ public class LevelEditScreen extends Screen {
 		setUpLevelViewFromLevel(level);
 		makeSpritesInLevelTab();
 		makeButtonsTab();
+		
+		// Have to do this last
 		initializeLevelDisplay(level);
 		
 		this.setOnMouseEntered(e -> initializeDisplaySize());
@@ -147,8 +152,8 @@ public class LevelEditScreen extends Screen {
 		
 		super.sizeMenuImageView(spritePic, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
 		
-		Menu spriteButton = new Menu(STRING.ADD_SPRITE,spritePic);
-		MenuItem addSprite = new MenuItem(STRING.ADD_SPRITE);
+		Menu spriteButton = new Menu(STRING.LEVEL_EDIT.ADD_SPRITE,spritePic);
+		MenuItem addSprite = new MenuItem(STRING.LEVEL_EDIT.ADD_SPRITE);
 		spriteButton.getItems().add(addSprite);
 		
 		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
@@ -226,21 +231,29 @@ public class LevelEditScreen extends Screen {
 	
 	private void makeButtonsTab() {
 		
-		VBox paneForButtons = new VBox();
+		VerticalButtonBox verticalButtonBox = new VerticalButtonBox();
 		
-		paneForButtons.setAlignment(Pos.BASELINE_CENTER);
-		paneForButtons.setFillWidth(false);
-		paneForButtons.setSpacing(DOUBLE.BUTTON_SPACING);
-		paneForButtons.getStyleClass().add("pane");
+		this.viewableArea().setRight(verticalButtonBox);
+
+		//added by Anika
+		// TODO: fix hardcoded string
+
+		Button addSpriteButton = 
+				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
 		
-		this.viewableArea().setRight(paneForButtons);
-				
-		Button addSpriteButton = makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
-		Button returnToGameEditButton = makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
-		Button addWidthButton = makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
-		Button addHeightButton = makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
+		Button returnToGameEditButton = 
+				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
 		
-		paneForButtons.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton);
+		Button addWidthButton = 
+				makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
+		
+		Button addHeightButton = 
+				makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
+		
+		Button addCollTableButton = 
+				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
+		
+		verticalButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
 
 	}
 	
@@ -276,8 +289,10 @@ public class LevelEditScreen extends Screen {
 				
 	}
 	
+	/**
+	 * Do this last in the constructor
+	 */
 	private void initializeDisplaySize() {
-		//Have to do this last
 		levelDisplay.setMinSize(levelView.getWidth(), levelView.getHeight());
 	}
 	
@@ -305,7 +320,7 @@ public class LevelEditScreen extends Screen {
 	 */
 	private void addSpriteToLevelDisplay(Sprite sprite) {
 		
-		ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
+		ImageView imageView = new ImageView(sprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).getImageToDisplay(1));
 		levelDisplay.getChildren().add(imageView);
 		imageView.setTranslateX(sprite.getX());
 		imageView.setTranslateY(sprite.getY());
@@ -322,8 +337,20 @@ public class LevelEditScreen extends Screen {
 	public void addSprite(Sprite sprite) {
 		
 		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
+		imageToAdd = spriteToAdd.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).getImageToDisplay(1); //TODO get rid of magic;
 		levelDisplay.setCursor(new ImageCursor(imageToAdd));
+		
+	}
+	
+	/**
+	 * used for collision table
+	 * Note: can't simply cast keyset as list!! (4/13/15)
+	 * @author Anika
+	 * @return sprite tags as Strings
+	 */
+	public List<String> getSpriteTags()
+	{
+		return new ArrayList<String>(stringToSpriteMap.keySet());
 		
 	}
 			

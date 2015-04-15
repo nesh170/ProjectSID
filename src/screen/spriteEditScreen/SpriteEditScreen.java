@@ -3,7 +3,6 @@ package screen.spriteEditScreen;
 import gameEngine.Action;
 import gameEngine.Component;
 
-
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 
 import data.DataHandler;
 import javafx.beans.value.ChangeListener;
@@ -48,6 +46,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import screen.Screen;
 import screen.ScreenController;
@@ -65,6 +64,7 @@ import sprite.SpriteImage;import util.ImageToInt2DArray;
 
 public class SpriteEditScreen extends Screen {
 	
+	// Instance Variables
 	private SpriteEditScreenController controller;
 	private Tab levelEditScreen;
 	
@@ -110,6 +110,8 @@ public class SpriteEditScreen extends Screen {
 	private Map<String, String> behaviorLabelsMap;
 	private Map<String, String> createdBehaviorParameterMap;
 	
+	
+	// Constructors & Helpers
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
 		this(parent, levelEditScreen, width, height, null);
@@ -153,6 +155,7 @@ public class SpriteEditScreen extends Screen {
 	}
 		
 
+	// All other instance methods
 	private void initializeKeyCodesAreVisibleMap() {
 		
 		keyCodesAreVisibleMap = new HashMap<>();
@@ -408,6 +411,7 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private Pane initializeActionPaneBoxes() {
+		
 		initializeActionTypeBox();
 				
 		keycodeInputBox = new TextField();
@@ -424,7 +428,9 @@ public class SpriteEditScreen extends Screen {
 											actionTypeBox,keycodeInputBox,actionValue);
 		
 		return actionPane;
+		
 	}
+	
 	private Pane initializeComponentPaneBoxes() {
 				
 		componentValue = new TextField();
@@ -619,7 +625,7 @@ public class SpriteEditScreen extends Screen {
 		stringToImageMap.keySet().forEach(e-> {
 			Image image = stringToImageMap.get(e).getImage();
 			int[][] convertedImage = ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight());
-			editableSprite.spriteImage().addImage(convertedImage);
+			editableSprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).addImage(convertedImage);
 		});
 		componentMap.keySet().forEach(e -> {
 			editableSprite.addComponent(componentMap.get(e));
