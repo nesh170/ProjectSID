@@ -50,7 +50,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import screen.Screen;
 import screen.ScreenController;
-import screen.levelEditScreen.LevelEditScreen;
+import screen.levelPlatformCapableScreen.levelEditScreen.LevelEditScreen;
 import sprite.Sprite;
 import sprite.SpriteImage;import util.ImageToInt2DArray;
 

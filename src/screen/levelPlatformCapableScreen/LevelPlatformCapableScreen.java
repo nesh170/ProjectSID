@@ -10,12 +10,23 @@ import screen.Screen;
  */
 public abstract class LevelPlatformCapableScreen extends Screen {
 
+	// Static Variables
+	
+	
+	// Instance Variables
+	
+	
+	// Constructor & Helpers
 	public LevelPlatformCapableScreen(double width, double height) {
 
 		super(width, height);
-		// TODO Auto-generated constructor stub
+		
+		
+		
 	}
 
-
+	
+	// All other instance methods
+	
 
 }

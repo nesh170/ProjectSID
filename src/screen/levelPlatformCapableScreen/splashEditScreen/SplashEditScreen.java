@@ -1,4 +1,4 @@
-package screen.splashEditScreen;
+package screen.levelPlatformCapableScreen.splashEditScreen;
 
 import java.io.File;
 import java.util.ArrayList;

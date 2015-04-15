@@ -1,4 +1,4 @@
-package screen.levelEditScreen;
+package screen.levelPlatformCapableScreen.levelEditScreen;
 
 import game.Game;
 import sprite.Sprite;

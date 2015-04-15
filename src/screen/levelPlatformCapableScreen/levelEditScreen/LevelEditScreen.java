@@ -1,4 +1,4 @@
-package screen.levelEditScreen;
+package screen.levelPlatformCapableScreen.levelEditScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
