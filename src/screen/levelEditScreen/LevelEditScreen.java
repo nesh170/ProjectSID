@@ -31,9 +31,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import levelPlatform.LevelPlatformView;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
+import levelPlatform.view.View;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -59,7 +59,7 @@ public class LevelEditScreen extends Screen {
 	private LevelEditScreenController controller;
 	
 	private Level level;
-	private LevelPlatformView levelView;
+	private View levelView;
 	private Pane levelDisplay;
 	private Tab currentGameScreen;
 	
@@ -172,7 +172,7 @@ public class LevelEditScreen extends Screen {
 			levelToUse = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		}
 		
-		levelView = new LevelPlatformView(levelToUse, EditMode.EDIT_MODE_ON);
+		levelView = new View(levelToUse, EditMode.EDIT_MODE_ON);
 		viewableArea().setCenter(levelView);
 		levelView.setContent(levelDisplay);
 		levelView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
