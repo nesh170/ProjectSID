@@ -50,9 +50,10 @@ public class MediaManager {
 	 */
 	public void loadNewMedia(String fileName) {
 		
-		if (this.playURL == null && this.pauseURL == null) {
-			this.playURL = getClass().getResource(fileName);
-		}
+		this.playURL = getClass().getResource(fileName);
+		this.pauseURL = null;
+		
+		mediaPlayer.stop();
 		
 	}
 	
