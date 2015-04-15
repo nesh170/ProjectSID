@@ -197,10 +197,6 @@ public abstract class Screen extends BorderPane {
 		
 	}
 
-	protected void add(Node node) {
-		this.viewableArea.getChildren().add(node);
-	}
-	
 	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
 
 		Button button = new Button(text);
