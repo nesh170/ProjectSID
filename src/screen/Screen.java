@@ -224,6 +224,8 @@ public abstract class Screen extends BorderPane {
 		Button button = new Button(text);
 		button.setOnAction(lambda);
 		VBox.setVgrow(button, Priority.NEVER);
+		button.setMinWidth(buttonWidth());
+		
 		return button;
 
 	}
