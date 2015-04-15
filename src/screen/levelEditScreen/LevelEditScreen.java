@@ -242,6 +242,31 @@ public class LevelEditScreen extends Screen {
 
 	}
 	
+	private void configureLevelPlatformViewWithLevel(Level level) {
+		
+		// TODO: have a better implementation of this. we want all pixels to always be square.
+		// what if we have an oddly shaped screen? Write an algorithm that takes the remaining
+		// height, width, and finds the minimum number of squares that fits into both height & width,
+		// then take away a percent. long story short, do this better plz
+		
+		double freeWidthPixels = computeWidthRemainingInViewableArea();
+		double freeHeightPixels = computeHeightRemainingInViewableArea();
+		
+		double realPixelWidth = freeWidthPixels * DOUBLE.PERCENT.SEVENTY_FIVE_PERCENT;
+		double realPixelHeight = freeHeightPixels * DOUBLE.PERCENT.NINETY_PERCENT;
+		
+		this.levelPlatformView = new LevelPlatformView(level, EditMode.EDIT_MODE_ON, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL, realPixelWidth, realPixelHeight);			// (Level level, EditMode editMode, double lengthSidePixel)
+		
+		viewableArea().setCenter(levelPlatformView);
+		
+		levelPlatformView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		levelPlatformView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		
+//		levelDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
+		
+	}
+	
+	
 	private void addSpriteToLocation(MouseEvent e) {
 		
 		if(spriteToAdd != null && imageToAdd!=null) {
