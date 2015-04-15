@@ -91,7 +91,6 @@ public class LevelEditScreen extends Screen {
 	
 	// Constructor & Helpers
 	/**
-	 * 
 	 * Constructor for creating new levels.
 	 * 
 	 * @param parent
@@ -106,7 +105,6 @@ public class LevelEditScreen extends Screen {
 	}
 	
 	/**
-	 * 
 	 * Sets up the Level Edit Screen when the user
 	 * selects a level already created.
 	 * 
