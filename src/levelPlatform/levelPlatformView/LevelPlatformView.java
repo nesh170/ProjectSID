@@ -79,9 +79,9 @@ public class LevelPlatformView extends ScrollPane {
 	 * 
 	 * @param level
 	 */
-	public LevelPlatformView(Level level, EditMode editMode) {
+	public LevelPlatformView(Level level, EditMode editMode, double realPixelWidth, double realPixelHeight) {
 
-		this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
+		this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL, realPixelWidth, realPixelHeight);
 
 	}
 
@@ -90,13 +90,14 @@ public class LevelPlatformView extends ScrollPane {
 	 * @param (Level) level
 	 * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
 	 */
-	public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel) {
+	public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel, double realPixelWidth, double realPixelHeight) {
 
-		setLengthSidePixel(lengthSidePixel);
 		setLevel(level);
 		setEditMode(editMode);
+		setLengthSidePixel(lengthSidePixel);
 		setCollisionHandler();
-		configureTilePane();
+		
+		configureTilePane(realPixelWidth, realPixelHeight);
 
 		if (level != null) {
 			renderLevel();
@@ -118,10 +119,13 @@ public class LevelPlatformView extends ScrollPane {
 	 * 
 	 * @author Ruslan
 	 */
-	private void configureTilePane() {
+	private void configureTilePane(double realPixelWidth, double realPixelHeight) {
 		
-		this.sidPixels = new TilePane(Orientation.VERTICAL);
-		this.sidPixels.setTileAlignment(Pos.CENTER);
+		sidPixels = new TilePane(Orientation.VERTICAL);
+		sidPixels.setTileAlignment(Pos.CENTER);
+		
+		sidPixels.setPrefWidth(realPixelWidth);
+		sidPixels.setPrefHeight(realPixelHeight);
 		
 		int levelWidth = level.width(), levelHeight = level.height();
 		
@@ -132,7 +136,6 @@ public class LevelPlatformView extends ScrollPane {
 			this.sidPixels.getChildren().add(new SIDPixel(lengthSidePixel));
 			
 		}
-		
 		
 		this.setContent(sidPixels);
 		
