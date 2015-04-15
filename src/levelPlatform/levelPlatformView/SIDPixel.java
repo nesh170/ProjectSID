@@ -23,11 +23,25 @@ public class SIDPixel extends Region {
 	
 	
 	// Instance Variables
+	private int x, y;
+	
+	
+	// Getters & Setters
+	private void setX(int x) {
+		this.x = x;
+	}
+	
+	private void setY(int y) {
+		this.y = y;
+	}
 	
 	
 	// Constructor & Helpers
-	public SIDPixel(double lengthSIDPixel) {
+	public SIDPixel(int x, int y, double lengthSIDPixel) {
 
+		setX(x);
+		setY(y);
+		
 		configureSnapToPixelProperty();
 		configureSIDPixelSize(lengthSIDPixel);
 		configureHandlers();
