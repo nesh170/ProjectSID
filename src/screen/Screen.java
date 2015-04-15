@@ -39,9 +39,10 @@ public abstract class Screen extends BorderPane {
 	// JavaFX (Internal)
 	private MenuBar menuBar;
 	private BorderPane viewableArea;
-	
+	// Resources
 	private ResourceBundle languageResources;
 	private ResourceBundle tagResources;
+	// Sizing
 	
 	
 	// Getters & Setters
