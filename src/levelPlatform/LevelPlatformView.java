@@ -9,6 +9,8 @@ import sprite.Sprite;
 import sprite.SpriteImage;
 import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
