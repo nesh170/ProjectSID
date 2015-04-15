@@ -131,10 +131,6 @@ public class LevelPlatformView extends ScrollPane {
 			
 			this.sidPixels.getChildren().add(new SIDPixel(lengthSidePixel));
 			
-			if (TESTING) {
-				System.out.println("Sid pixel: "+i);
-			}
-			
 		}
 		
 		
