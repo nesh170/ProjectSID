@@ -1,4 +1,4 @@
-package levelPlatform;
+package levelPlatform.levelPlatformView;
 
 import java.util.HashMap;
 import java.util.Map;
