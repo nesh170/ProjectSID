@@ -2,6 +2,7 @@ package sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 import javafx.scene.image.Image;
@@ -34,7 +35,7 @@ public class SpriteImage {
 	
 	
 	// Instance Variables
-	private transient List<ImageView> imageViews;
+	private transient Optional<List<ImageView>> imageViews = Optional.empty();
 	
 	private List<int[][]> images;			// Stores all 2D, pixelated images
 	private int imageFrameRate;
@@ -92,19 +93,33 @@ public class SpriteImage {
 	
 	private void instantiateImageViewsFromImagesList() {
 		
-		this.imageViews = new SilentFailArrayList<ImageView>();
+		this.imageViews = Optional.of(new SilentFailArrayList<ImageView>());
 		
 		for (int[][] image2DArray : images) {
 			
 			Image image = IntArray2DToImageConverter.convert2DIntArrayToImage(image2DArray, sidPixelLength);
 			ImageView imageView = new ImageView(image);
-			imageViews.add(imageView);
+			
+			imageViews.get().add(imageView);
 			
 		}
 		
 	}
 	
 	// All other instance methods
+	/**
+	 * Cover the case where we have an Empty Optional for transient imageViews list.. Just read from XML
+	 * 
+	 * @author Ruslan
+	 */
+	public void checkForJustReadFromXML() {
+		
+		if (!imageViews.isPresent()) {
+			instantiateImageViewsFromImagesList();
+		}
+		
+	}
+	
 	/**
 	 * Called every time someone calls the SpriteImage getter on a Sprite. Regenerates all ImageViews appropriately 
 	 * if sidPixelLength has changed in terms of real pixels.
@@ -226,9 +241,10 @@ public class SpriteImage {
 	*/
 	public ImageView getImageViewToDisplay() {
 		
+		// Would normally need to add for checks if just read from XML, but the SpriteImage getter already called it here. Assume non-null imageViews
 		Callable getImageViewToDisplay = () -> {
 		
-			return imageViews.get(currentImageIndex);
+			return imageViews.get().get(currentImageIndex);
 			
 		};
 		
