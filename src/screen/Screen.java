@@ -74,23 +74,9 @@ public abstract class Screen extends BorderPane {
 		return this.sideBarWidth;
 	}
 	
-	protected double computeWidthRemainingInViewableArea() {
-
-		double returnDouble = 0.0;
-		
-		return returnDouble;
-
 	protected double buttonWidth() {
 		return this.buttonWidth;
 	}
-
-	protected double computeHeightRemainingInViewableArea() {
-
-		double returnDouble = 0.0;
-		
-		
-		
-		return returnDouble;
 
 	}
 	
