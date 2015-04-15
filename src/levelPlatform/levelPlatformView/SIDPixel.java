@@ -32,6 +32,14 @@ public class SIDPixel extends Region {
 		configureSIDPixelSize(lengthSIDPixel);
 		configureHandlers();
 		
+		if (TESTING) {
+			
+			BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL);
+			Border border = new Border(borderStroke);
+			this.setBorder(null);
+			
+		}
+		
 	}
 
 	private void configureSnapToPixelProperty() {
