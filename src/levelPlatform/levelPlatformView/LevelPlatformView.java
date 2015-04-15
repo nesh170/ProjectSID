@@ -33,7 +33,7 @@ import levelPlatform.level.Level;
 public class LevelPlatformView extends ScrollPane {
 
 	// Static Variables
-
+	private static final boolean TESTING = false;
 
 	// Instance Variables
 	// Containing TilePane of SIDPixel
