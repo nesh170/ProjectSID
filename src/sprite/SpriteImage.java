@@ -106,6 +106,23 @@ public class SpriteImage {
 	
 	// All other instance methods
 	/**
+	 * Called every time someone calls the SpriteImage getter on a Sprite. Regenerates all ImageViews appropriately 
+	 * if sidPixelLength has changed in terms of real pixels.
+	 * 
+	 * @param sidPixelLength
+	 */
+	public void checkForChangedSIDPixelLength(double sidPixelLength) {
+		
+		if (this.sidPixelLength != sidPixelLength) {
+			
+			setSIDPixelLength(sidPixelLength);
+			instantiateImageViewsFromImagesList();
+			
+		}
+		
+	}
+	
+	/**
 	 * No need for if(images == null), "images" is always instantiated in the constructor. 
 	 * 
 	 * @return true if SpriteImage contains at least one int[][]
