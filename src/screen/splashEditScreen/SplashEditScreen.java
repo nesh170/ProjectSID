@@ -377,7 +377,7 @@ public class SplashEditScreen extends Screen {
 	public void trashSplashScreen() {	
 		System.out.println("OH HI THERE");
 		for (ImageView iv : imageViewArray) {
-			//this.
+			//this.remove
 		}
 		//this.remove(startButtonImageView);
 	}
