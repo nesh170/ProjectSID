@@ -70,9 +70,10 @@ public class GameEditScreen extends Screen {
 	
 	// Instance variables
 	private GameEditScreenController controller;
+	
 	private Game game;
-	private ObservableList<Level> levels;
 	private SplashScreen splashScreen;
+	private ObservableList<Level> levels;
 	// initalized for testing purpose
 	private Level selectedLevel = new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT);
 	private int selectedIndex = 0;
