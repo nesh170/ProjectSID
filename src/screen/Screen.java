@@ -43,6 +43,8 @@ public abstract class Screen extends BorderPane {
 	private ResourceBundle languageResources;
 	private ResourceBundle tagResources;
 	// Sizing
+	private double sideBarWidth;
+	private double buttonWidth;
 	
 	
 	// Getters & Setters
@@ -66,6 +68,8 @@ public abstract class Screen extends BorderPane {
 	 */
 	public void setParentTab(Tab parentTab) {
 		this.parentTab = parentTab;
+	protected double sideBarWidth() {
+		return this.sideBarWidth;
 	}
 	
 	protected double computeWidthRemainingInViewableArea() {
@@ -74,6 +78,8 @@ public abstract class Screen extends BorderPane {
 		
 		return returnDouble;
 
+	protected double buttonWidth() {
+		return this.buttonWidth;
 	}
 
 	protected double computeHeightRemainingInViewableArea() {
