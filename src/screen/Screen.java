@@ -7,6 +7,7 @@ import resources.constants.DOUBLE;
 import resources.constants.STRING;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
