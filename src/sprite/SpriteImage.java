@@ -37,6 +37,8 @@ public class SpriteImage {
 	private List<int[][]> images;			// Stores all 2D, pixelated images
 	private int imageFrameRate;
 	
+	private double sidPixelLength;
+	
 	// Counters
 	private int framesSinceLastUpdate;
 	private int currentImageIndex;
@@ -67,10 +69,15 @@ public class SpriteImage {
 		
 	}
 	
+	public void setSIDPixelLength(double sidPixelLength) {
+		this.sidPixelLength = sidPixelLength;
+	}
+	
 	
 	// Constructor & Helpers
-	public SpriteImage() {
+	public SpriteImage(double SIDPixelLength) {
 		
+		setSIDPixelLength(SIDPixelLength);
 		setImageFrameRate(INT.DEFAULT_IMAGE_FRAMERATE);
 		instantiateImagesList();
 		
