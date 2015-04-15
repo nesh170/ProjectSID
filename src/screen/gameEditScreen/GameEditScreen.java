@@ -94,8 +94,8 @@ public class GameEditScreen extends Screen {
 		super(width, height);
 		myGame = game;
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
-		myGame.setSplash(new SplashScreen(300, 400)); //those line tests weather splash display area will change if there is splash screen in myGame
-		System.out.println(myGame);
+		//myGame.setSplash(new SplashScreen(300, 400)); //those line tests weather splash display area will change if there is splash screen in myGame
+		//System.out.println(myGame);
 		initialize(controller);
 	}
 
