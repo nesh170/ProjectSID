@@ -7,6 +7,7 @@ public class DOUBLE {
 		// Percentages
 		public static final double NINETY_PERCENT = 0.90;
 		public static final double SEVENTY_FIVE_PERCENT = 0.75;
+		public static final double TEN_PERCENT = 0.10;
 		
 	}
 	
