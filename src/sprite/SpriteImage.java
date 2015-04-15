@@ -205,20 +205,59 @@ public class SpriteImage {
 	*/
 	public Image getImageToDisplay(double lengthSidePixel) {
 		
-		if (hasImages()) {
-			
-			adjustCounters();
+		Callable getImageToDisplay = () -> {
 			
 			int[][] sourceArray = images.get(currentImageIndex);
 
 			return IntArray2DToImageConverter.convert2DIntArrayToImage(sourceArray, lengthSidePixel); 
 			
+		};
+		
+		return (Image)getImageOrImageViewToDisplayWrapper(getImageToDisplay);
+		
+	}
+	
+	/**
+	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
+	* SpriteImage takes care of the rest. Note, Sprite should be instantiated with the size of each SID Pixel length
+	* 
+	* @return ImageView if non-empty images, null if no images
+	* 
+	*/
+	public ImageView getImageViewToDisplay() {
+		
+		Callable getImageViewToDisplay = () -> {
+		
+			return imageViews.get(currentImageIndex);
+			
+		};
+		
+		return (ImageView)getImageOrImageViewToDisplayWrapper(getImageViewToDisplay);
+		
+	}
+	
+	/**
+	 * Method designed to eliminate duplicated code of checking for an empty list using callables
+	 * 
+	 * @param Callable
+	 * @return Object castable to specific Callable you pass in
+	 */
+	private Object getImageOrImageViewToDisplayWrapper(Callable callable) {
+
+		Object returnObject = null;
+		
+		if (hasImages()) {
+			
+			adjustCounters();
+			
+			try {
+				returnObject = callable.call();
+			} catch (Exception e) {}
+			
 		} 
-		
-		else {
-			return null;
-		}
-		
+
+		return returnObject;
+
 	}
 	
 	private void adjustCounters() {
