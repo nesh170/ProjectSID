@@ -71,9 +71,8 @@ public class GameEditScreen extends Screen {
 	// Instance variables
 	private GameEditScreenController controller;
 	private Game game;
-	private ObservableList<Level> myLevels;
-	private SplashScreen mySplashScreen;
-
+	private ObservableList<Level> levels;
+	private SplashScreen splashScreen;
 	// initalized for testing purpose
 	private Level selectedLevel = new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT);
 	private int selectedIndex = 0;
@@ -101,10 +100,8 @@ public class GameEditScreen extends Screen {
 	 * @param level
 	 * @return
 	 */
-	public void setMyLevel(int index, Level level) {
-
-		myLevels.add(index, level);
-		
+	public void setLevel(int index, Level level) {
+		levels.add(index, level);
 	}
 	
 	
@@ -255,7 +252,7 @@ public class GameEditScreen extends Screen {
 
 		// , DisplayLevels(myLevels)
 		levelDisplay = new StackPane();
-		ScrollPane levelSP = this.displayLevels(myLevels);
+		ScrollPane levelSP = this.displayLevels(levels);
 
 		ImageView add = makeButton(STRING.GAME_EDIT.PLUS_IMG,
 				e -> controller.loadLevelEditScreen(game));
