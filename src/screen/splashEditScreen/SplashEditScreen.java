@@ -399,7 +399,7 @@ public class SplashEditScreen extends Screen {
 			
 		}
 		
-		else if(tag == "Image") {
+		else if (tag == "Image") {
 			
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
@@ -430,6 +430,7 @@ public class SplashEditScreen extends Screen {
 //		    this.viewableArea().setLeft(pane);
 
 		}	
+		
 	}
 	
 	/**
