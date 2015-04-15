@@ -37,7 +37,7 @@ public class LevelPlatformView extends ScrollPane {
 
 	// Instance Variables
 	// Containing TilePane of SIDPixel
-	private TilePane sidPixels;
+	private TilePane sidPixelsTilePane;
 	// Edit
 	private EditMode editMode;
 	// Level
@@ -73,6 +73,7 @@ public class LevelPlatformView extends ScrollPane {
 		this.collisionHandler = new Collision(level.collisionTable());
 	}
 
+	
 	// Constructor & Helpers
 	/**
 	 * Infers lengthSidePixel from Default in DOUBLE
@@ -121,15 +122,15 @@ public class LevelPlatformView extends ScrollPane {
 	 */
 	private void configureTilePane(double realPixelWidth, double realPixelHeight) {
 		
-		sidPixels = new TilePane(Orientation.VERTICAL);
-		sidPixels.setTileAlignment(Pos.CENTER);
+		sidPixelsTilePane = new TilePane(Orientation.VERTICAL);
+		sidPixelsTilePane.setTileAlignment(Pos.CENTER);
 		
-		sidPixels.setPrefWidth(realPixelWidth);
-		sidPixels.setPrefHeight(realPixelHeight);
+		sidPixelsTilePane.setPrefWidth(realPixelWidthOfLevelPlatformView);
+		sidPixelsTilePane.setPrefHeight(realPixelHeightOfLevelPlatformView);
 		
 		int levelWidth = level.width(), levelHeight = level.height();
 		
-		this.sidPixels.setPrefColumns(levelWidth);
+		this.sidPixelsTilePane.setPrefColumns(levelWidth);
 		
 		for (int i=0; i < levelWidth * levelHeight; i++) {
 			
@@ -138,6 +139,7 @@ public class LevelPlatformView extends ScrollPane {
 		}
 		
 		this.setContent(sidPixels);
+		this.setContent(sidPixelsTilePane);
 		
 	}
 
