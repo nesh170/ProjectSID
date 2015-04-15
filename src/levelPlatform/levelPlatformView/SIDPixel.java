@@ -22,9 +22,8 @@ public class SIDPixel extends Region {
 
 		configureSnapToPixelProperty();
 		configureSIDPixelSize(lengthSIDPixel);
-
-
-
+		configureHandlers();
+		
 	}
 
 	private void configureSnapToPixelProperty() {
@@ -43,6 +42,16 @@ public class SIDPixel extends Region {
 
 	}
 
-	
+	/**
+	 * Reserved for mouseover events, maybe need a parent, etc.
+	 * Proposal: Cast the Level object as a new interface that handles methods such as "move Sprite to x,y location." Is this clean design?
+	 * 
+	 * @author Ruslan
+	 */
+	private void configureHandlers() {
+		
+		// TODO homies & homettes
+		
+	}
 
 }
