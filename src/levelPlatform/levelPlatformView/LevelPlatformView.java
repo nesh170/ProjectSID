@@ -125,6 +125,19 @@ public class LevelPlatformView extends ScrollPane {
 		
 		int levelWidth = level.width(), levelHeight = level.height();
 		
+		this.sidPixels.setPrefColumns(levelWidth);
+		
+		for (int i=0; i < levelWidth * levelHeight; i++) {
+			
+			this.sidPixels.getChildren().add(new SIDPixel(lengthSidePixel));
+			
+			if (TESTING) {
+				System.out.println("Sid pixel: "+i);
+			}
+			
+		}
+		
+		
 		this.setContent(sidPixels);
 		
 	}
