@@ -112,7 +112,7 @@ public class LevelPlatformView extends ScrollPane {
 	 * get the desired width & height, make that many SID pixels.
 	 * get the size of each tile's side via lengthSidePixel
 	 *
-	 * **Important** - Orientation.Horizontal.
+	 * **Important** - Orientation.Vertical
 	 * A horizontal tilepane (the default) will tile nodes in rows, wrapping at the tilepane's width. 
 	 * A vertical tilepane will tile nodes in columns, wrapping at the tilepane's height.
 	 *
@@ -120,25 +120,33 @@ public class LevelPlatformView extends ScrollPane {
 	 * 
 	 * @author Ruslan
 	 */
-	private void configureTilePane(double realPixelWidth, double realPixelHeight) {
+	private void configureTilePane(double realPixelWidthOfLevelPlatformView, double realPixelHeightOfLevelPlatformView) {
 		
 		sidPixelsTilePane = new TilePane(Orientation.VERTICAL);
 		sidPixelsTilePane.setTileAlignment(Pos.CENTER);
 		
-		sidPixelsTilePane.setPrefWidth(realPixelWidthOfLevelPlatformView);
-		sidPixelsTilePane.setPrefHeight(realPixelHeightOfLevelPlatformView);
+		sidPixelsTilePane.setMaxHeight(300.0);
+//		sidPixelsTilePane.setMaxHeight(realPixelHeightOfLevelPlatformView);
 		
-		int levelWidth = level.width(), levelHeight = level.height();
+//		int levelWidth = level.width(), levelHeight = level.height();
+		int levelWidth = 20, levelHeight = 10;
+
 		
-		this.sidPixelsTilePane.setPrefColumns(levelWidth);
 		
-		for (int i=0; i < levelWidth * levelHeight; i++) {
+		sidPixelsTilePane.setVgap(1);
+		sidPixelsTilePane.setHgap(1);
+		
+		this.sidPixelsTilePane.setPrefRows(levelHeight);
+		
+		for (int row = 0; row < levelHeight; row++) {
 			
-			this.sidPixels.getChildren().add(new SIDPixel(lengthSidePixel));
+			for (int column = 0; column  < levelWidth; column++) {
+//				this.sidPixelsTilePane.getChildren().add(new SIDPixel(column, row, lengthSidePixel));
+				this.sidPixelsTilePane.getChildren().add(new SIDPixel(column, row, 30.0));
+			}
 			
 		}
 		
-		this.setContent(sidPixels);
 		this.setContent(sidPixelsTilePane);
 		
 	}
