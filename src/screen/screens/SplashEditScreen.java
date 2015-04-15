@@ -1,4 +1,4 @@
-package screen.levelPlatformCapableScreen.splashEditScreen;
+package screen.screens;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -40,9 +40,8 @@ import javafx.stage.Popup;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import resources.constants.STRING;
-import screen.Screen;
-import screen.ScreenController;
-import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
+import screen.controllers.ScreenController;
+import screen.controllers.SplashEditScreenController;
 import sprite.Sprite;
 
 /**

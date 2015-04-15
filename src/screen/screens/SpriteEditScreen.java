@@ -1,4 +1,4 @@
-package screen.spriteEditScreen;
+package screen.screens;
 
 import gameEngine.Action;
 import gameEngine.Component;
@@ -48,9 +48,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
-import screen.Screen;
-import screen.ScreenController;
-import screen.levelPlatformCapableScreen.levelEditScreen.LevelEditScreen;
+import screen.controllers.ScreenController;
+import screen.controllers.SpriteEditScreenController;
 import sprite.Sprite;
 import sprite.SpriteImage;import util.ImageToInt2DArray;
 

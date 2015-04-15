@@ -1,5 +1,7 @@
-package screen.gameEditScreen;
+package screen.factories;
 
+import screen.controllers.GameEditScreenController;
+import screen.screens.GameEditScreen;
 import game.Game;
 
 /**

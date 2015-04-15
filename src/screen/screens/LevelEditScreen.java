@@ -1,4 +1,4 @@
-package screen.levelPlatformCapableScreen.levelEditScreen;
+package screen.screens;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +37,8 @@ import levelPlatform.levelPlatformView.LevelPlatformView;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
-import screen.Screen;
-import screen.ScreenController;
-import screen.gameEditScreen.GameEditScreen;
-import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
+import screen.controllers.LevelEditScreenController;
+import screen.controllers.ScreenController;
 import screen.util.VerticalButtonBox;
 import sprite.Sprite;
 import sprite.SpriteImage;

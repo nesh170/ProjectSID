@@ -1,4 +1,7 @@
-package screen.mainMenu;
+package screen.factories;
+
+import screen.controllers.MainMenuScreenController;
+import screen.screens.MainMenuScreen;
 
 /**
  * Factory used to create MainMenuScreens. Allows for extensibility

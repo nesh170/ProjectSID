@@ -1,4 +1,4 @@
-package screen.levelPlatformCapableScreen.gamePlayScreen;
+package screen.screens;
 
 import game.Game;
 import gameEngine.GameEngine;
@@ -7,9 +7,8 @@ import player.PlayerMenu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import levelPlatform.level.Level;
-import screen.Screen;
-import screen.ScreenController;
-import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
+import screen.controllers.GamePlayScreenController;
+import screen.controllers.ScreenController;
 
 public class GamePlayScreen extends LevelPlatformCapableScreen {
 

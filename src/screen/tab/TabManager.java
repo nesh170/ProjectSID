@@ -1,6 +1,6 @@
 package screen.tab;
 
-import screen.Screen;
+import screen.screens.Screen;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
