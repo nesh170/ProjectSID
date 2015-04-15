@@ -70,7 +70,7 @@ public class GameEditScreen extends Screen {
 	
 	// Instance variables
 	private GameEditScreenController controller;
-	private Game myGame;
+	private Game game;
 	private ObservableList<Level> myLevels;
 	private SplashScreen mySplashScreen;
 
@@ -107,20 +107,20 @@ public class GameEditScreen extends Screen {
 
 		super(width, height);
 		
-		myGame = game;
+		this.game = game;
 		
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 		
 		if (GameEditScreen.TESTING) {
 			
-			myGame.setSplash(new SplashScreen(300, 400)); 	// those line tests
+			this.game.setSplash(new SplashScreen(300, 400)); 	// those line tests
 															// weather splash
 															// display area will
 															// change if there is
 															// splash screen in
 															// myGame
 			
-			System.out.println(myGame);
+			System.out.println(this.game);
 			
 		}
 		
@@ -165,13 +165,13 @@ public class GameEditScreen extends Screen {
 		
 		// Testing
 		if (GameEditScreen.TESTING) {
-			System.out.println(myGame.hasSplash());
+			System.out.println(game.hasSplash());
 		}
 		
-		if (!myGame.hasSplash()) {
+		if (!game.hasSplash()) {
 			
 			s = makeAddSignWhenEmpty("Add New Splash Screen",
-					e -> controller.loadSplashEditScreen(myGame));
+					e -> controller.loadSplashEditScreen(game));
 			
 		}
 			
@@ -246,11 +246,11 @@ public class GameEditScreen extends Screen {
 		ScrollPane levelSP = this.displayLevels(myLevels);
 
 		ImageView add = makeButton(STRING.GAME_EDIT.PLUS_IMG,
-				e -> controller.loadLevelEditScreen(myGame));
+				e -> controller.loadLevelEditScreen(game));
 		levelDisplay.setAlignment(add, Pos.TOP_RIGHT);
 
 		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG,
-				e -> controller.playGame(myGame));
+				e -> controller.playGame(game));
 		levelDisplay.setAlignment(play, Pos.TOP_CENTER);
 
 		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
@@ -281,7 +281,7 @@ public class GameEditScreen extends Screen {
 		HBox levelHB = configureHBox();
 		sp.setContent(levelHB);
 
-		if (myGame.hasLevel()) {
+		if (game.hasLevel()) {
 			displayLevelsInParallel(levelHB);
 		}
 
@@ -317,7 +317,7 @@ public class GameEditScreen extends Screen {
 
 		hb.getChildren().addAll(
 				this.makeAddSignWhenEmpty("Add New Level Here",
-						e -> controller.loadLevelEditScreen(myGame)));
+						e -> controller.loadLevelEditScreen(game)));
 
 	}
 
@@ -367,7 +367,7 @@ public class GameEditScreen extends Screen {
 						}
 							
 						else {
-							controller.loadSplashEditScreen(myGame);
+							controller.loadSplashEditScreen(game);
 						}
 							
 					}
@@ -380,7 +380,7 @@ public class GameEditScreen extends Screen {
 						makeRightClickMenu(
 								e -> controller
 										.loadLevelEditScreen(selectedLevel),
-								e -> controller.trashLevel(myGame,
+								e -> controller.trashLevel(game,
 										selectedIndex)).show(node,
 								mouseEvent.getScreenX(),
 								mouseEvent.getScreenY());
@@ -388,8 +388,8 @@ public class GameEditScreen extends Screen {
 						
 					else {
 						makeRightClickMenu(
-								e -> controller.loadSplashEditScreen(myGame),
-								e -> controller.trashSplash(myGame)).show(node,
+								e -> controller.loadSplashEditScreen(game),
+								e -> controller.trashSplash(game)).show(node,
 								mouseEvent.getSceneX(), mouseEvent.getSceneY());
 					}
 						
@@ -431,7 +431,7 @@ public class GameEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
-		Menu fileMenu = makeFileMenu(o -> controller.saveGame(myGame),
+		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game),
 				o -> controller.returnToMainMenuScreen(),
 				o -> controller.returnToMainMenuScreen());
 		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(),
@@ -443,9 +443,9 @@ public class GameEditScreen extends Screen {
 
 		Menu levelMenu = new Menu("Level");
 		MenuItem addLevel = new MenuItem("Add new Level");
-		addLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame));
+		addLevel.setOnAction(o -> controller.loadLevelEditScreen(game));
 		MenuItem editLevel = new MenuItem("Edit Level");
-		editLevel.setOnAction(o -> controller.loadLevelEditScreen(myGame
+		editLevel.setOnAction(o -> controller.loadLevelEditScreen(game
 				.levels().get(selectedIndex))); // references to the specific
 												// level within a game
 		levelMenu.getItems().addAll(addLevel, editLevel);
@@ -457,9 +457,9 @@ public class GameEditScreen extends Screen {
 
 		Menu splashMenu = new Menu("Splash Screen");
 		MenuItem addSplash = new MenuItem("Add new Splash Screen");
-		addSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
+		addSplash.setOnAction(o -> controller.loadSplashEditScreen(game));
 		MenuItem editSplash = new MenuItem("Edit Splash Screen");
-		editSplash.setOnAction(o -> controller.loadSplashEditScreen(myGame));
+		editSplash.setOnAction(o -> controller.loadSplashEditScreen(game));
 		splashMenu.getItems().addAll(addSplash, editSplash);
 		return splashMenu;
 
@@ -469,7 +469,7 @@ public class GameEditScreen extends Screen {
 
 		Menu gameMenu = new Menu("Game");
 		MenuItem addPlay = new MenuItem("Play Game");
-		addPlay.setOnAction(o -> controller.playGame(myGame));
+		addPlay.setOnAction(o -> controller.playGame(game));
 		gameMenu.getItems().addAll(addPlay);
 		return gameMenu;
 		
@@ -483,7 +483,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu trashButton = new Menu("", trashImage);
 		MenuItem delete = new MenuItem("Add new Level");
-		delete.setOnAction(o -> controller.trashLevel(myGame, selectedIndex));
+		delete.setOnAction(o -> controller.trashLevel(game, selectedIndex));
 		
 		return trashButton;
 
