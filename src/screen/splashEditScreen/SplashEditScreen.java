@@ -64,6 +64,7 @@ public class SplashEditScreen extends Screen {
 
 	private Sprite startButton = new Sprite();
 	private List<Sprite> images = new ArrayList();
+	private List<ImageView> imageViewArray = new ArrayList();
 	private List<Sprite> texts = new ArrayList();
 	private ImageView imageView;
 	private ImageView startButtonImageView;
@@ -287,6 +288,7 @@ public class SplashEditScreen extends Screen {
 
 		tag = "Image";
 		imageView = new ImageView(image);
+		imageViewArray.add(imageView);
 		this.setOnKeyPressed(e -> resize(e, imageCursor));
 		
 	}
@@ -363,41 +365,33 @@ public class SplashEditScreen extends Screen {
 		
 	}
 
-	private void stars() {
-		
+	private void stars() {	
 		Image image = new Image("/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg"); //TODO move
-		ImageView iv2 = new ImageView(image);
-		
+		ImageView iv2 = new ImageView(image);	
 	}
 
-	public void saveSplashScreen() {
-		
-		// automatic
-		
+	public void saveSplashScreen() {	
+		// automatic	
 	}
 
-	public void trashSplashScreen() {
-		
-		// TODO Auto-generated method stub	
-		
+	public void trashSplashScreen() {	
+		System.out.println("OH HI THERE");
+		for (ImageView iv : imageViewArray) {
+			//this.
+		}
+		//this.remove(startButtonImageView);
 	}
 
-	public void backSplashScreen() {
-		
-		controller.returnToGameEditScreen();
-		
+	public void backSplashScreen() {	
+		controller.returnToGameEditScreen();	
 	}
 	
-	private void add(String tag, MouseEvent e, Rectangle rectangle) {
-		System.out.println("HEY");
-
-		
+	private void add(String tag, MouseEvent e, Rectangle rectangle) {		
 		if(tag == "Start") {		
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
 			this.add(startButtonImageView);
-			//startButtonImageView = imageView;
-			startButtonImageView.setOnMousePressed(f -> move(f));
+			startButtonImageView.setOnMousePressed(f -> startButtonMove(f));
 			startButtonImageView.setX(e.getX());
 			startButtonImageView.setY(e.getY());
 		}
@@ -405,6 +399,7 @@ public class SplashEditScreen extends Screen {
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
 			this.add(imageView);
+			imageView.setOnMousePressed(f -> imageMove(f));
 			imageView.setX(e.getX());
 			imageView.setY(e.getY());
 		}
@@ -425,27 +420,27 @@ public class SplashEditScreen extends Screen {
 //			this.getChildren().add(pane);
 //		    this.viewableArea().setLeft(pane);
 
-		}
-		
+		}	
 	}
 	
-	private void move(MouseEvent f) {
-		startButtonImageView.setOnMouseReleased(e -> place(e));
-		tag = null;
+	private void startButtonMove(MouseEvent f) {
+		startButtonImageView.setOnMouseReleased(e -> placeStartButton(e));
+	}
+	private void imageMove(MouseEvent f) {
+		//TODO be able to pick which image to move, not just most recent
+		imageView.setOnMouseReleased(e -> placeImage(e));
 	}
 
-	private void place(MouseEvent e) {
-		System.out.println("e.getX() = " + e.getX());
-		System.out.println("e.getY() = " + e.getY());
-		System.out.println("startButtonImageView.getX() = " + startButtonImageView.getX());
-		System.out.println("startButtonImageView.getX() = " + startButtonImageView.getY());
-		//startButtonImageView.setTranslateX(e.getX() - startButtonImageView.getX());
-		//startButtonImageView.setTranslateY(e.getY() - startButtonImageView.getY());
+	private void placeStartButton(MouseEvent e) {
 		startButtonImageView.setX(e.getX());
 		startButtonImageView.setY(e.getY());
-		System.out.println(startButtonImageView.getX());
-		System.out.println(startButtonImageView.getY());
-		//startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
+		tag = null;
+	}
+	
+	private void placeImage(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+		tag = null;
 	}
 
 	private void resize(KeyEvent e, ImageCursor ic) {
@@ -463,17 +458,12 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private void setLargeButtonSize(Button button) {
-		//System.out.println("width is: " + width);
-		//System.out.println("height is: " + height);
-		//button.setMinSize(INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT); //temporary values
 		button.setMaxWidth(width-this.viewableArea().getWidth());
 		button.setPrefHeight(INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT);
 	
 	}
 	
 	private void setSmallButtonSize(Button button) {
-		
-		//button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT); //temporary values
 		button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);
 	}
 
