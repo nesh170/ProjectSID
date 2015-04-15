@@ -38,6 +38,8 @@ public class SIDPixel extends Region {
 			Border border = new Border(borderStroke);
 			this.setBorder(border);
 			
+			this.setStyle(STRING.COLORS.FX_RED_BACKGROUND);
+			
 		}
 		
 	}
