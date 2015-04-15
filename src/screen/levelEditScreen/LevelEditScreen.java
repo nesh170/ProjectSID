@@ -80,7 +80,7 @@ public class LevelEditScreen extends Screen {
 
 
 	// Getters & Setters
-	public Level getCurrentLevel() {
+	public Level currentLevel() {
 		return level;
 	}
 	
