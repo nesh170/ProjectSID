@@ -350,9 +350,7 @@ public class SplashEditScreen extends Screen {
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
 	
-			this.add(imageView);
-			imageView.setTranslateX(e.getX());
-			imageView.setTranslateY(e.getY());
+			this.viewableArea().setTop(imageView);
 			
 		}
 		
