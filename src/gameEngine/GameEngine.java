@@ -20,17 +20,24 @@ public class GameEngine extends GameEngineAbstract {
     private LevelPlatformView myLevelRenderer;
     
     public GameEngine(List<Level> levelList) {
+    	
         myLevelList = levelList;
         initializeLevel(0);
+        
     }
     
-    public void initializeLevel(int index){
+    public void initializeLevel(int index) {
+    	
         myCurrentLevel = myLevelList.get(index);
         myControlsMap = myCurrentLevel.controlMap();
         //TODO ask Authoring env about this.....
-        myLevelRenderer = new LevelPlatformView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
-        myCurrentLevel.prepareAllSprites();
-        myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
+        
+        // TODO - authEnv
+        
+//        myLevelRenderer = new LevelPlatformView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
+//        myCurrentLevel.prepareAllSprites();
+//        myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
+        
     }
     
     @Override
