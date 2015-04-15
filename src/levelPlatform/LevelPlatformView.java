@@ -1,4 +1,4 @@
-package levelPlatform.level;
+package levelPlatform;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,13 +16,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
+import levelPlatform.level.EditMode;
+import levelPlatform.level.Level;
 
 /**
  * 
  * This class represents the frontend of the levels. It also Handles the collisions
  *
  */
-public class LevelView extends ScrollPane {
+public class LevelPlatformView extends ScrollPane {
     
 	// Static Variables
 	
@@ -69,7 +71,7 @@ public class LevelView extends ScrollPane {
      * 
      * @param level
      */
-    public LevelView(Level level, EditMode editMode) {
+    public LevelPlatformView(Level level, EditMode editMode) {
   
     	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
@@ -80,7 +82,7 @@ public class LevelView extends ScrollPane {
      * @param (Level) level
      * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
      */
-    public LevelView(Level level, EditMode editMode, double lengthSidePixel) {
+    public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel) {
     	
     	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
