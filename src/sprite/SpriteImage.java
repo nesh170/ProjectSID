@@ -34,6 +34,8 @@ public class SpriteImage {
 	
 	
 	// Instance Variables
+	private transient List<ImageView> imageViews;
+	
 	private List<int[][]> images;			// Stores all 2D, pixelated images
 	private int imageFrameRate;
 	
@@ -80,6 +82,7 @@ public class SpriteImage {
 		setSIDPixelLength(SIDPixelLength);
 		setImageFrameRate(INT.DEFAULT_IMAGE_FRAMERATE);
 		instantiateImagesList();
+		instantiateImageViewsFromImagesList();
 		
 	}
 	
@@ -87,6 +90,19 @@ public class SpriteImage {
 		this.images = new SilentFailArrayList<int[][]>();
 	}
 	
+	private void instantiateImageViewsFromImagesList() {
+		
+		this.imageViews = new SilentFailArrayList<ImageView>();
+		
+		for (int[][] image2DArray : images) {
+			
+			Image image = IntArray2DToImageConverter.convert2DIntArrayToImage(image2DArray, sidPixelLength);
+			ImageView imageView = new ImageView(image);
+			imageViews.add(imageView);
+			
+		}
+		
+	}
 	
 	// All other instance methods
 	/**
