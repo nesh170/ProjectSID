@@ -36,7 +36,7 @@ public class SIDPixel extends Region {
 			
 			BorderStroke borderStroke = new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.FULL);
 			Border border = new Border(borderStroke);
-			this.setBorder(null);
+			this.setBorder(border);
 			
 		}
 		
