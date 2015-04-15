@@ -1,4 +1,4 @@
-package screen;
+package screen.util;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javafx.scene.control.Tab;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.STRING;
+import screen.Screen;
 import screen.collisionTableScreen.CollisionTableScreen;
 import screen.collisionTableScreen.CollisionTableScreenController;
 import screen.gameEditScreen.GameEditScreen;

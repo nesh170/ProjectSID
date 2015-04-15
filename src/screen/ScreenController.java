@@ -61,6 +61,7 @@ import screen.spriteEditScreen.SpriteEditScreen;
 import screen.spriteEditScreen.SpriteEditScreenController;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
+import screen.util.ScreenFactory;
 import screen.Screen;
 import sprite.Sprite;
 import util.ErrorHandler;
