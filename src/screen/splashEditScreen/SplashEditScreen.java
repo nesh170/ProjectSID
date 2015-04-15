@@ -79,7 +79,7 @@ public class SplashEditScreen extends Screen {
 		configureSplashScreen(splashScreen, width, height);
 		configureButtons();
 		configureDisplayArea();
-		
+		this.getStyleClass().add("pane");
 	}
 	
 	@Override
@@ -145,7 +145,7 @@ public class SplashEditScreen extends Screen {
 
 	private Button makeAddStartButton() {
 		
-		Button addStartButton = new Button(STRING.ADD_START_BUTTON);
+		Button addStartButton = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_START_BUTTON);
 		setLargeButtonSize(addStartButton);
 		
 		addStartButton.setOnMouseClicked(e -> addStartButton());
@@ -156,7 +156,7 @@ public class SplashEditScreen extends Screen {
 
 	private Button makeAddImageButton() {
 		
-		Button addImage = new Button(STRING.ADD_IMAGE);
+		Button addImage = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_IMAGE);
 		setLargeButtonSize(addImage);
 		
 		addImage.setOnMouseClicked(e -> addImage());
@@ -167,7 +167,7 @@ public class SplashEditScreen extends Screen {
 
 	private Button makeAddTextButton() {
 		
-		Button addText = new Button(STRING.ADD_TEXT);
+		Button addText = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
 		addText.setOnMouseClicked(e -> addText());
@@ -178,7 +178,7 @@ public class SplashEditScreen extends Screen {
 
 	private Button makeAddAnimationButton() {
 		
-		Button addAnimation = new Button(STRING.ADD_ANIMATION);
+		Button addAnimation = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_ANIMATION);
 		setLargeButtonSize(addAnimation);
 		
 		addAnimation.setOnMouseClicked(e -> addAnimation());
@@ -189,7 +189,7 @@ public class SplashEditScreen extends Screen {
 
 	private Button makeSaveButton() {
 		
-		Button save = new Button(STRING.SAVE);
+		Button save = new Button(STRING.SPLASH_EDIT_SCREEN.SAVE);
 		setSmallButtonSize(save);
 		
 		save.setOnMouseClicked(e -> saveSplashScreen());
@@ -200,7 +200,7 @@ public class SplashEditScreen extends Screen {
 
 	private Button makeTrashButton() {
 		
-		Button trash = new Button(STRING.TRASH);
+		Button trash = new Button(STRING.SPLASH_EDIT_SCREEN.TRASH);
 		setSmallButtonSize(trash);
 		
 		trash.setOnMouseClicked(e -> trashSplashScreen());
@@ -211,7 +211,7 @@ public class SplashEditScreen extends Screen {
 	
 	private Button makeBackButton() {
 		
-		Button back = new Button(STRING.BACK);
+		Button back = new Button(STRING.SPLASH_EDIT_SCREEN.BACK);
 		setSmallButtonSize(back);
 		
 		back.setOnMouseClicked(e -> backSplashScreen());

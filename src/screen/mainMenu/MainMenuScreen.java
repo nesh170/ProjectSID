@@ -63,6 +63,7 @@ public class MainMenuScreen extends Screen {
 	MainMenuScreenController controller;
 	Popup myPopUp;
 	
+	
 	// Getters & Setters
 	
 	
@@ -73,15 +74,15 @@ public class MainMenuScreen extends Screen {
 		
 		this.controller = controller;
 		configureButtons(width, height);
-		this.setStyle(STRING.FX_GAME_EDIT_BACKGROUND);
+		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 		this.getStyleClass().add("pane");
 		
 	}
-	
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
+		// No need to do the prefix MainMenuScreen... only reason is that this explicitly specifies that we're using a nested class
 		MainMenuScreen.MainMenuMenuBarFactory mainMenuMenuBarFactory = new MainMenuScreen.MainMenuMenuBarFactory(menuBar);
 		mainMenuMenuBarFactory.fill();
 		
@@ -95,19 +96,24 @@ public class MainMenuScreen extends Screen {
 	 *  2. instantiateMusicMenu()
 	 */
 	private void configureButtons(double width, double height) {
+		
 		StackPane menu = new StackPane();	
 		menu.getChildren().addAll(makeImageView("images/Blue_Devil.png", 300, 540), makeMenuButtons(), makeText("Welcome Blue Devils"));
 		this.viewableArea().setCenter(menu);
+		
 	}
 	
-	private ImageView makeImageView(String s, int height, int width){
+	private ImageView makeImageView(String s, int height, int width) {
+		
 		ImageView img = new ImageView(s);
 		img.setFitHeight(height);
 		img.setFitWidth(width);
 		return img;
+		
 	}
 	
-	private VBox makeMenuButtons(){
+	private VBox makeMenuButtons() {
+		
 		Button newGame = makeButton("New Game");
 		Button loadGame = makeButton("Load Game");
 		Button exit = makeButton("Exit Application ");
@@ -119,25 +125,30 @@ public class MainMenuScreen extends Screen {
 		vbox.getChildren().addAll(newGame, loadGame, exit);
 		vbox.setAlignment(Pos.CENTER);
 		return vbox;
+		
 	}
 	
-	private void configurePopUp(){
+	private void configurePopUp() {
+		
 		//popup menu for game name		
 		 makeMyPopUp();
 		 GridPane grid = configureGridPane();
 	     ImageView img = makeImageView("images/GameEdit_Images/popup.png", 350, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 	     myPopUp.getContent().addAll(img, grid);
+	     
 	}
-	private void makeMyPopUp() {     
+	private void makeMyPopUp() {   
+		
 	     myPopUp = new Popup();
 	     myPopUp.setAutoFix(false);
 	     myPopUp.setHideOnEscape(true);
 	     myPopUp.setX(500);
 	     myPopUp.setY(250);
-		
+	     
 	}
 
-	private GridPane configureGridPane(){
+	private GridPane configureGridPane() {
+		
 		 GridPane grid = makeGridPane();
 	     TextField gameName = new TextField("Please name your game here");
 	     grid.add(gameName, 1, 1);
@@ -151,9 +162,12 @@ public class MainMenuScreen extends Screen {
 	     popUpHBox.getChildren().addAll(cancel, ok);
 	     ok.setOnAction(e -> controller.confirmToCreateGame(myPopUp, gameName, des));
 	     cancel.setOnAction(e -> myPopUp.hide());
-	   return grid;
+	     return grid;
+	     
 	}
-	private GridPane makeGridPane(){
+	
+	private GridPane makeGridPane() {
+		
 		 GridPane grid = new GridPane();
 	     grid.setAlignment(Pos.CENTER);
 	     grid.setHgap(15);
@@ -163,7 +177,9 @@ public class MainMenuScreen extends Screen {
 	     Label description = new Label("Game Description:");
 	     grid.add(description, 0, 2);
 	     return grid;
+	     
 	}
+	
 	private Text makeText(String s) {
 		
 		Text text = new Text(s);
@@ -188,6 +204,7 @@ public class MainMenuScreen extends Screen {
 	 *  2. instantiateMusicMenu()
 	 */
 	private Button makeButton(String s) {	
+		
 		Button b = new Button(s);
 		b.setStyle("-fx-background-color: lightgray;");
 		b.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
@@ -195,6 +212,7 @@ public class MainMenuScreen extends Screen {
 		
 	}
 		
+	
 	// All other instance methods
 	
 	/**
@@ -228,11 +246,11 @@ public class MainMenuScreen extends Screen {
 
 		private Menu instantiateMusicMenu() {
 
-			Menu musicMenu = new Menu(STRING.MUSIC_OPTIONS);
+			Menu musicMenu = new Menu(STRING.MUSIC.MUSIC_OPTIONS);
 
-			MenuItem playButton = new MenuItem(STRING.PLAY);
-			MenuItem pauseButton = new MenuItem(STRING.PAUSE);
-			MenuItem stopButton = new MenuItem(STRING.STOP);
+			MenuItem playButton = new MenuItem(STRING.MUSIC.PLAY);
+			MenuItem pauseButton = new MenuItem(STRING.MUSIC.PAUSE);
+			MenuItem stopButton = new MenuItem(STRING.MUSIC.STOP);
 
 			playButton.setOnAction(e -> handlePlayPressed());
 			pauseButton.setOnAction(e -> handlePausePressed());
@@ -246,11 +264,11 @@ public class MainMenuScreen extends Screen {
 
 		private Menu instantiateFileMenu() {
 
-			Menu fileMenu = new Menu(STRING.FILE);
+			Menu fileMenu = new Menu(STRING.MAIN_MENU_SCREEN.FILE);
 
-			MenuItem newFile = new MenuItem(STRING.NEW);
-			MenuItem openFile = new MenuItem(STRING.OPEN);
-			MenuItem closeFile = new MenuItem(STRING.CLOSE);
+			MenuItem newFile = new MenuItem(STRING.MAIN_MENU_SCREEN.NEW);
+			MenuItem openFile = new MenuItem(STRING.MAIN_MENU_SCREEN.OPEN);
+			MenuItem closeFile = new MenuItem(STRING.MAIN_MENU_SCREEN.CLOSE);
 
 			// These methods use "parent". The beauty of nested classes is that they actually access MainMenuScreen's parent, not the factory's
 			newFile.setOnAction(e -> controller.createNewGame(myPopUp));

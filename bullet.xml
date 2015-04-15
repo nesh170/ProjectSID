@@ -1,0 +1,242 @@
+<sprite.Sprite>
+  <actionList/>
+  <componentList>
+    <gameEngine.components.ProjectileMotionComponent>
+      <mySprite reference="../../.."/>
+      <isActive>true</isActive>
+      <myVelocity>
+        <x>0.0</x>
+        <y>0.0</y>
+        <hash>0</hash>
+      </myVelocity>
+<<<<<<< HEAD
+=======
+      <myTerminalVelocity>5.0</myTerminalVelocity>
+>>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
+      <isGrounded>true</isGrounded>
+      <myShooter>
+        <actionList>
+          <gameEngine.actions.LeftMotionAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array">
+                <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+              </a>
+            </myKeyCode>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>8.0</value>
+            <myVelocityComponent>
+              <mySprite reference="../../../.."/>
+              <isActive>true</isActive>
+<<<<<<< HEAD
+              <myVelocity>
+                <x>0.0</x>
+                <y>-3.2808398950130195</y>
+                <hash>0</hash>
+              </myVelocity>
+              <isGrounded>false</isGrounded>
+=======
+              <myVelocity reference="../../../../../myVelocity"/>
+              <myTerminalVelocity>5.0</myTerminalVelocity>
+              <isGrounded>true</isGrounded>
+>>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
+            </myVelocityComponent>
+          </gameEngine.actions.LeftMotionAction>
+          <gameEngine.actions.RightMotionAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array">
+                <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+              </a>
+            </myKeyCode>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>8.0</value>
+            <velocity>8.0</velocity>
+<<<<<<< HEAD
+            <myVelocityComponent reference="../../gameEngine.actions.LeftMotionAction/myVelocityComponent"/>
+=======
+>>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
+          </gameEngine.actions.RightMotionAction>
+          <gameEngine.actions.JumpAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array">
+                <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+              </a>
+            </myKeyCode>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>-20.0</value>
+          </gameEngine.actions.JumpAction>
+          <gameEngine.actions.FallAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array"/>
+            </myKeyCode>
+            <runsEveryFrame>true</runsEveryFrame>
+            <value>50.0</value>
+            <myVelocityComponent reference="../../gameEngine.actions.LeftMotionAction/myVelocityComponent"/>
+          </gameEngine.actions.FallAction>
+          <gameEngine.actions.NormalAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>0.0</value>
+            <myVelocityComponent reference="../../gameEngine.actions.LeftMotionAction/myVelocityComponent"/>
+          </gameEngine.actions.NormalAction>
+          <gameEngine.actions.BounceAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array">
+                <null/>
+              </a>
+            </myKeyCode>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>-20.0</value>
+          </gameEngine.actions.BounceAction>
+          <gameEngine.actions.ShootAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array">
+                <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+              </a>
+            </myKeyCode>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>0.0</value>
+            <myProjectileTemplate reference="../../../../../.."/>
+<<<<<<< HEAD
+            <bulletFile>/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/bullet.xml</bulletFile>
+=======
+>>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
+          </gameEngine.actions.ShootAction>
+        </actionList>
+        <componentList>
+          <gameEngine.components.HealthComponent>
+            <mySprite reference="../../.."/>
+            <isActive>true</isActive>
+            <myHP>50.0</myHP>
+            <myLives>5</myLives>
+            <hasDeath>true</hasDeath>
+          </gameEngine.components.HealthComponent>
+          <gameEngine.components.VelocityComponent reference="../../actionList/gameEngine.actions.LeftMotionAction/myVelocityComponent"/>
+        </componentList>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+<<<<<<< HEAD
+        <isActive>false</isActive>
+        <collisionTag>player</collisionTag>
+        <transform>
+          <myPosition>
+            <x>748.3464566928876</x>
+            <y>189.5013123359588</y>
+=======
+        <isActive>true</isActive>
+        <collisionTag>player</collisionTag>
+        <transform>
+          <myPosition>
+            <x>0.0</x>
+            <y>100.0</y>
+>>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
+            <hash>0</hash>
+          </myPosition>
+          <myRotation reference="../../../myVelocity"/>
+          <myDimensions>
+            <width>50.0</width>
+            <height>50.0</height>
+            <hash>0</hash>
+          </myDimensions>
+<<<<<<< HEAD
+          <startPosition>
+            <x>0.0</x>
+            <y>100.0</y>
+            <hash>0</hash>
+          </startPosition>
+          <startRotation reference="../../../myVelocity"/>
+          <startDimensions reference="../myDimensions"/>
+        </transform>
+=======
+          <startPosition reference="../myPosition"/>
+          <startRotation reference="../../../myVelocity"/>
+          <startDimensions reference="../myDimensions"/>
+        </transform>
+        <spriteImage>
+          <images class="util.SilentFailArrayList" serialization="custom">
+            <unserializable-parents/>
+            <list>
+              <default>
+                <size>1</size>
+              </default>
+              <int>1</int>
+              <int-array-array>
+                <int-array>
+                  <int>-591365</int>
+                </int-array>
+                <int-array>
+                  <int>-5191200</int>
+                </int-array>
+                <int-array>
+                  <int>-9790780</int>
+                </int-array>
+                <int-array>
+                  <int>-10053694</int>
+                </int-array>
+                <int-array>
+                  <int>-11696455</int>
+                </int-array>
+                <int-array>
+                  <int>-8213810</int>
+                </int-array>
+                <int-array>
+                  <int>-8279603</int>
+                </int-array>
+                <int-array>
+                  <int>-5913893</int>
+                </int-array>
+                <int-array>
+                  <int>-6045477</int>
+                </int-array>
+                <int-array>
+                  <int>-10710849</int>
+                </int-array>
+                <int-array>
+                  <int>-4468252</int>
+                </int-array>
+              </int-array-array>
+            </list>
+          </images>
+          <imageFrameRate>5</imageFrameRate>
+          <framesSinceLastUpdate>1</framesSinceLastUpdate>
+          <currentImageIndex>0</currentImageIndex>
+        </spriteImage>
+>>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
+      </myShooter>
+    </gameEngine.components.ProjectileMotionComponent>
+  </componentList>
+  <x>0.0</x>
+  <y>0.0</y>
+  <emissionList/>
+  <isActive>true</isActive>
+  <collisionTag>bullet</collisionTag>
+  <transform>
+    <myPosition>
+      <x>0.0</x>
+      <y>0.0</y>
+      <hash>0</hash>
+    </myPosition>
+    <myRotation reference="../../componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
+    <myDimensions>
+      <width>10.0</width>
+      <height>10.0</height>
+      <hash>0</hash>
+    </myDimensions>
+    <startPosition reference="../myPosition"/>
+    <startRotation reference="../../componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
+    <startDimensions reference="../myDimensions"/>
+  </transform>
+</sprite.Sprite>

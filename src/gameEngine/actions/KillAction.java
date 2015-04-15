@@ -1,5 +1,6 @@
 package gameEngine.actions;
 
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
@@ -21,8 +22,8 @@ public class KillAction extends Action {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		mySprite.setIsActive(false);
-
+		//mySprite.setIsActive(false);
+		mySprite.transform().setPosition(Point2D.ZERO);
 	}
 
 	@Override

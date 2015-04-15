@@ -19,7 +19,6 @@ public class BounceAction extends Action {
 		// TODO Auto-generated method stub
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
         velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
-        System.out.println("We're Bouncing!");
         velocityComp.setGrounded(false);
       
 	}

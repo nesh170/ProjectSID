@@ -65,6 +65,7 @@ import sprite.SpriteImage;import util.ImageToInt2DArray;
 
 public class SpriteEditScreen extends Screen {
 	
+	// Instance Variables
 	private SpriteEditScreenController controller;
 	private Tab levelEditScreen;
 	
@@ -110,6 +111,8 @@ public class SpriteEditScreen extends Screen {
 	private Map<String, String> behaviorLabelsMap;
 	private Map<String, String> createdBehaviorParameterMap;
 	
+	
+	// Constructors & Helpers
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height) {
 
 		this(parent, levelEditScreen, width, height, null);
@@ -153,6 +156,7 @@ public class SpriteEditScreen extends Screen {
 	}
 		
 
+	// All other instance methods
 	private void initializeKeyCodesAreVisibleMap() {
 		
 		keyCodesAreVisibleMap = new HashMap<>();
@@ -408,6 +412,7 @@ public class SpriteEditScreen extends Screen {
 	}
 	
 	private Pane initializeActionPaneBoxes() {
+		
 		initializeActionTypeBox();
 				
 		keycodeInputBox = new TextField();
@@ -424,7 +429,9 @@ public class SpriteEditScreen extends Screen {
 											actionTypeBox,keycodeInputBox,actionValue);
 		
 		return actionPane;
+		
 	}
+	
 	private Pane initializeComponentPaneBoxes() {
 				
 		componentValue = new TextField();
