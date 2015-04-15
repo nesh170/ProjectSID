@@ -84,6 +84,18 @@ public class GameEditScreen extends Screen {
 
 	// Getters & Setters
 	/**
+	 * add a Level to a Game
+	 * 
+	 * @return int index of where the inserted Level is
+	 */
+	public int addLevel(Level level) {
+		
+		levels.add(level);
+		return levels.indexOf(level);
+		
+	}
+	
+	/**
 	 * add to current game level
 	 * 
 	 * @param level
