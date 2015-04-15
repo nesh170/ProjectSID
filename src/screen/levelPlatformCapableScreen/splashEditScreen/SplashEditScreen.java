@@ -42,6 +42,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
+import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
 import sprite.Sprite;
 
 /**
@@ -50,7 +51,7 @@ import sprite.Sprite;
  * @author Kyle
  *
  */
-public class SplashEditScreen extends Screen {
+public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	// Static variables
 

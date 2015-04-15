@@ -40,6 +40,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenController;
 import screen.gameEditScreen.GameEditScreen;
+import screen.levelPlatformCapableScreen.LevelPlatformCapableScreen;
 import screen.util.VerticalButtonBox;
 import sprite.Sprite;
 import sprite.SpriteImage;
@@ -51,7 +52,7 @@ import sprite.SpriteImage;
  *
  */
 
-public class LevelEditScreen extends Screen {
+public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	// Static Variables
 
