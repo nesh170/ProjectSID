@@ -290,7 +290,7 @@ public class LevelEditScreen extends Screen {
 			addSpriteToLevelDisplay(spriteToAdd);
 						
 			level.sprites().add(spriteToAdd);
-			levelDisplay.setCursor(Cursor.DEFAULT);
+//			levelDisplay.setCursor(Cursor.DEFAULT);
 			
 			spriteToAdd = null; 
 			imageToAdd = null;
@@ -323,14 +323,20 @@ public class LevelEditScreen extends Screen {
 		
 //		levelDisplay.setMinSize(levelPlatformView.getWidth(), levelPlatformView.getHeight());
 	}
-	/*
+	
 	private void addWidth() {
-		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
+		
+		// TODO
+		
+//		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
 	}
 	
 	private void addHeight() {
-		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
-	}*/
+		
+		// TODO
+		
+//		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
+	}
 		
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
@@ -370,8 +376,8 @@ public class LevelEditScreen extends Screen {
 	public void addSprite(Sprite sprite) {
 		
 		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).getImageToDisplay(1); //TODO get rid of magic;
-		levelDisplay.setCursor(new ImageCursor(imageToAdd));
+		imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
+//		levelDisplay.setCursor(new ImageCursor(imageToAdd));
 		
 	}
 	
