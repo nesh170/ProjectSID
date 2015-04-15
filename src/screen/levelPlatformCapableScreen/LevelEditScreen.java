@@ -1,4 +1,4 @@
-package screen.screens;
+package screen.levelPlatformCapableScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;

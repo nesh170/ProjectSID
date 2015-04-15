@@ -1,4 +1,4 @@
-package screen.screens;
+package screen;
 
 import java.util.ResourceBundle;
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.scene.control.MenuBar;
 import levelPlatform.level.Level;
+import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
 
 /**

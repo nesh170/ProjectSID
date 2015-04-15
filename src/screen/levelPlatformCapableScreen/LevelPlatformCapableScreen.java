@@ -1,4 +1,6 @@
-package screen.screens;
+package screen.levelPlatformCapableScreen;
+
+import screen.Screen;
 
 
 /**

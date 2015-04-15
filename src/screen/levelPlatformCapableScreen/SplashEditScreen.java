@@ -1,4 +1,4 @@
-package screen.screens;
+package screen.levelPlatformCapableScreen;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -38,6 +38,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import resources.constants.INT;
 import resources.constants.STRING;
+import screen.Screen;
 import screen.controllers.MainMenuScreenController;
 import screen.controllers.ScreenController;
 

@@ -48,8 +48,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
+import screen.Screen;
 import screen.controllers.ScreenController;
 import screen.controllers.SpriteEditScreenController;
+import screen.levelPlatformCapableScreen.LevelEditScreen;
 import sprite.Sprite;
 import sprite.SpriteImage;import util.ImageToInt2DArray;
 
