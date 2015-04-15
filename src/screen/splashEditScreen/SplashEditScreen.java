@@ -346,17 +346,19 @@ public class SplashEditScreen extends Screen {
 	private void add(String tag, MouseEvent e, Rectangle rectangle) {
 		
 		if(tag == "Start") {		
+			
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
 	
-			this.add(imageView);
-			imageView.setTranslateX(e.getX());
-			imageView.setTranslateY(e.getY());
+			this.viewableArea().setTop(imageView);
+			
 		}
-		else if(tag == "Image") {
+		
+		else if (tag == "Image") {
 			rectangle.setFill(new ImagePattern(imageView.getImage()));
 		}
-		else if(tag == "Text") {
+		 
+		else if (tag == "Text") {
 			
 			text = new Text("Well Hi");
 			

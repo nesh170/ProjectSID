@@ -1,4 +1,4 @@
-package levelPlatform.level;
+package levelPlatform.levelPlatformView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,8 @@ import sprite.Sprite;
 import sprite.SpriteImage;
 import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -16,109 +18,165 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
+import levelPlatform.level.EditMode;
+import levelPlatform.level.Level;
 
 /**
  * 
  * This class represents the frontend of the levels. It also Handles the collisions
+ * 
+ * @author Ruslan
+ * @author AuthEnvTeam (please add yourselves) :)
  *
  */
-public class LevelView extends ScrollPane {
-    
+public class LevelPlatformView extends ScrollPane {
+
 	// Static Variables
-	
-	
+	private static final boolean TESTING = false;
+
 	// Instance Variables
+	// Containing TilePane of SIDPixel
+	private TilePane sidPixelsTilePane;
 	// Edit
 	private EditMode editMode;
 	// Level
-    private Level level;
-    // Layouts
-    private double lengthSidePixel;
-    // Playing
-    private Collision collisionHandler;    
-        
-    
-    // Getters & Setters
-    public Level level() {
-    	return this.level;
-    }
-    
-    public void setLevel(Level level) {
-    	this.level = level;
-    }
-    
-    public void setEditMode(EditMode editMode) {
-    	this.editMode = editMode;
-    }
-    
-    public void setLengthSidePixel(double lengthSidePixel) {
-    	this.lengthSidePixel = lengthSidePixel;
-    }
-    
-    public double getLengthSidePixel() {
-    	return this.lengthSidePixel;
-    }
-        
-    public void setCollisionHandler(){
-    	this.collisionHandler = new Collision(level.getCollisionTable());
-    }
-    
-    // Constructor & Helpers
-    /**
-     * Infers lengthSidePixel from Default in DOUBLE
-     * 
-     * @param level
-     */
-    public LevelView(Level level, EditMode editMode) {
-  
-    	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
-        
-    }
-    
-    /**
-     * 
-     * @param (Level) level
-     * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
-     */
-    public LevelView(Level level, EditMode editMode, double lengthSidePixel) {
-    	
-    	setLengthSidePixel(lengthSidePixel);
-    	setLevel(level);
-    	setEditMode(editMode);
-    	setCollisionHandler();
-    	
-    	if (level != null) {
-    		renderLevel();
-    	}
-    	
-    }
-    
-    
-    // All other instance variables
-    /**
-     * Loops through all the avaliable sprite in the level to render each one.
-     * @return
-     */
-    public Group renderLevel() {
-    	
-        Group levelGroup = new Group();
-        level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
-        return levelGroup;
-        
-    }
-        
-    /**
-     * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
-     * @param sprite
-     * @return
-     */
-    private Group renderSprite(Sprite sprite) {
-    	
-    	Group spriteGroup = new Group();
-    	Image spriteImage;
-    	ImageView spriteImageView;
-    	//TODO: delete rectangle-making, restore SpriteImage part
-    	/*if(sprite.isActive()) {
+	private Level level;
+	// Layouts
+	private double lengthSidePixel;
+	// Playing
+	private Collision collisionHandler;    
+
+
+	// Getters & Setters
+	public Level level() {
+		return this.level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public void setEditMode(EditMode editMode) {
+		this.editMode = editMode;
+	}
+
+	public void setLengthSidePixel(double lengthSidePixel) {
+		this.lengthSidePixel = lengthSidePixel;
+	}
+
+	public double getLengthSidePixel() {
+		return this.lengthSidePixel;
+	}
+
+	public void setCollisionHandler(){
+		this.collisionHandler = new Collision(level.collisionTable());
+	}
+
+	
+	// Constructor & Helpers
+	/**
+	 * Infers lengthSidePixel from Default in DOUBLE
+	 * 
+	 * @param level
+	 */
+	public LevelPlatformView(Level level, EditMode editMode, double realPixelWidth, double realPixelHeight) {
+
+		this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL, realPixelWidth, realPixelHeight);
+
+	}
+
+	/**
+	 * 
+	 * @param (Level) level
+	 * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
+	 */
+	public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel, double realPixelWidth, double realPixelHeight) {
+
+		setLevel(level);
+		setEditMode(editMode);
+		setLengthSidePixel(lengthSidePixel);
+		setCollisionHandler();
+		
+		configureTilePane(realPixelWidth, realPixelHeight);
+
+		if (level != null) {
+			renderLevel();
+		}
+
+	}
+	
+	/**
+	 * instantiate and add the tile pane to this.
+	 *  
+	 * get the desired width & height, make that many SID pixels.
+	 * get the size of each tile's side via lengthSidePixel
+	 *
+	 * **Important** - Orientation.Vertical
+	 * A horizontal tilepane (the default) will tile nodes in rows, wrapping at the tilepane's width. 
+	 * A vertical tilepane will tile nodes in columns, wrapping at the tilepane's height.
+	 *
+	 * also set tile alignment while at it
+	 * 
+	 * @author Ruslan
+	 */
+	private void configureTilePane(double realPixelWidthOfLevelPlatformView, double realPixelHeightOfLevelPlatformView) {
+		
+		sidPixelsTilePane = new TilePane(Orientation.VERTICAL);
+		sidPixelsTilePane.setTileAlignment(Pos.CENTER);
+		
+		sidPixelsTilePane.setMaxHeight(300.0);
+//		sidPixelsTilePane.setMaxHeight(realPixelHeightOfLevelPlatformView);
+		
+//		int levelWidth = level.width(), levelHeight = level.height();
+		int levelWidth = 20, levelHeight = 10;
+
+		
+		
+		sidPixelsTilePane.setVgap(1);
+		sidPixelsTilePane.setHgap(1);
+		
+		this.sidPixelsTilePane.setPrefRows(levelHeight);
+		
+		for (int row = 0; row < levelHeight; row++) {
+			
+			for (int column = 0; column  < levelWidth; column++) {
+//				this.sidPixelsTilePane.getChildren().add(new SIDPixel(column, row, lengthSidePixel));
+				this.sidPixelsTilePane.getChildren().add(new SIDPixel(column, row, 30.0));
+			}
+			
+		}
+		
+		this.setContent(sidPixelsTilePane);
+		
+	}
+
+
+	// All other instance variables
+	/**
+	 * Loops through all the avaliable sprite in the level to render each one.
+	 * @return
+	 */
+	public Group renderLevel() {
+
+		Group levelGroup = new Group();
+		level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
+		return levelGroup;
+
+	}
+
+	/**
+	 * Renders the sprite based on it's current sprite image. It also renders each of the children sprite
+	 * @param sprite
+	 * @return
+	 */
+	private Group renderSprite(Sprite sprite) {
+
+		Group spriteGroup = new Group();
+		Image spriteImage;
+		ImageView spriteImageView;
+		//TODO: delete rectangle-making, restore SpriteImage part
+		/*if(sprite.isActive()) {
     		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
     				sprite.transform().getWidth(), sprite.transform().getHeight());
         	spriteGroup.getChildren().add(r);
@@ -208,7 +266,5 @@ public class LevelView extends ScrollPane {
         }
         
     }
-	
-
 	
 }
