@@ -8,16 +8,16 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import levelPlatform.LevelPlatformView;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
-import levelPlatform.view.View;
 
 public class GameEngine extends GameEngineAbstract {
     
     private Map<KeyCode,Action> myControlsMap;
     private List<Level> myLevelList;
     private Level myCurrentLevel;
-    private View myLevelRenderer;
+    private LevelPlatformView myLevelRenderer;
     
     public GameEngine(List<Level> levelList) {
         myLevelList = levelList;
@@ -28,7 +28,7 @@ public class GameEngine extends GameEngineAbstract {
         myCurrentLevel = myLevelList.get(index);
         myControlsMap = myCurrentLevel.controlMap();
         //TODO ask Authoring env about this.....
-        myLevelRenderer = new View(myCurrentLevel,EditMode.EDIT_MODE_OFF);
+        myLevelRenderer = new LevelPlatformView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
     }

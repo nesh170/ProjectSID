@@ -1,4 +1,4 @@
-package levelPlatform.view;
+package levelPlatform;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import levelPlatform.level.Level;
  * This class represents the frontend of the levels. It also Handles the collisions
  *
  */
-public class View extends ScrollPane {
+public class LevelPlatformView extends ScrollPane {
     
 	// Static Variables
 	
@@ -71,7 +71,7 @@ public class View extends ScrollPane {
      * 
      * @param level
      */
-    public View(Level level, EditMode editMode) {
+    public LevelPlatformView(Level level, EditMode editMode) {
   
     	this(level, editMode, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
         
@@ -82,7 +82,7 @@ public class View extends ScrollPane {
      * @param (Level) level
      * @param (double) lengthSidePixel - size of each of our pixels in real java pixels
      */
-    public View(Level level, EditMode editMode, double lengthSidePixel) {
+    public LevelPlatformView(Level level, EditMode editMode, double lengthSidePixel) {
     	
     	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
