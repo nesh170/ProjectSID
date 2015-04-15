@@ -83,16 +83,16 @@ public class LevelEditScreen extends Screen {
 	private void setController(LevelEditScreenController controller) {
 		this.controller = controller;
 	}
-	
+
 	private void setLevel(Level level) {
 		this.level = level;
 	}
-	
+
 	public Level currentLevel() {
 		return level;
 	}
-	
-	
+
+
 	// Constructor & Helpers
 	/**
 	 * Constructor for creating new levels.
@@ -103,11 +103,11 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 */
 	public LevelEditScreen(LevelEditScreenController parent, double width, double height) {
-		
+
 		this(parent, width, height, new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT));
-		
+
 	}
-	
+
 	/**
 	 * Sets up the Level Edit Screen when the user
 	 * selects a level already created.
@@ -121,94 +121,92 @@ public class LevelEditScreen extends Screen {
 	 * @param level
 	 */
 	public LevelEditScreen(LevelEditScreenController controller, double width, double height, Level level) {
-		
+
 		super(width, height);
-		
+
 		setController(controller);
 		setLevel(level);
 
 		instantiateMaps();
 		makeSpritesInLevelTab();
-		makeButtonsTab();
-		
+		makeButtonsOnRight();
+
 		configureLevelPlatformViewWithLevel(level);		
-		
-//		initializeLevelDisplay(level);	// Have to do this last
-		
-//		this.setOnMouseEntered(e -> initializeDisplaySize());
-		
+
+		//		this.setOnMouseEntered(e -> initializeDisplaySize());
+
 	}
-	
+
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		
+
 		Menu fileMenu = makeFileMenu(e -> save(),
-									e -> controller.returnToGameEditScreen(),
-									e -> controller.returnToGameEditScreen());
+				e -> controller.returnToGameEditScreen(),
+				e -> controller.returnToGameEditScreen());
 		//TODO for file menu = save and exit (third parameter) might need a different lambda
 		Menu addNewSpriteButton = makeAddSpriteButton();
-		
+
 		menuBar.getMenus().addAll(fileMenu,addNewSpriteButton);
-		
+
 	}
-	
+
 	private void instantiateMaps() {
-		
+
 		this.stringToSpriteMap = new HashMap<>();
 		this.spriteToImageMap = new HashMap<>();
-		
+
 	}
-				
+
 	private Menu makeAddSpriteButton() {
-		
+
 		ImageView spritePic = new ImageView(new Image("images/sprite.jpg"));
-		
+
 		super.sizeMenuImageView(spritePic, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
-		
+
 		Menu spriteButton = new Menu(STRING.LEVEL_EDIT.ADD_SPRITE,spritePic);
 		MenuItem addSprite = new MenuItem(STRING.LEVEL_EDIT.ADD_SPRITE);
 		spriteButton.getItems().add(addSprite);
-		
+
 		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
 		return spriteButton;
-		
+
 	}
-	
+
 	private void makeSpritesInLevelTab() {
-		
+
 		VBox paneForSprites = new VBox();
 		this.viewableArea().setLeft(paneForSprites);
-		
+
 		TitledPane platforms = makeTitledPane(languageResources().getString("Platform"),listOfPlatforms);
 		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),listOfEnemies);
 		TitledPane players = makeTitledPane(languageResources().getString("Player"),listOfPlayers);
 		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),listOfPowerups);
-		
+
 		stringToListMap = new HashMap<>();
 		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
 		stringToListMap.put(tagResources().getString("Enemy"), listOfEnemies);
 		stringToListMap.put(tagResources().getString("Player"), listOfPlayers);
 		stringToListMap.put(tagResources().getString("Powerup"), listOfPowerups);
-		
+
 		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups);
-		
+
 	}
 
 	private TitledPane makeTitledPane(String title, ObservableList<String> content) {
 
 		ListView<String> platformListView = new ListView<>(content);
-		
+
 		/*
 		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
 		 */
 		platformListView.setOnMouseReleased(e -> {
-			
+
 			try {
-				
+
 				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
 					spriteToImageMap.get(selectedSprite).setOpacity(1);
 				}
-				
+
 				/*
 				 * this next line could throw an exception possibly if
 				 * the selection model is empty, catch statement is precautionary
@@ -216,44 +214,46 @@ public class LevelEditScreen extends Screen {
 				String sprite = platformListView.getSelectionModel().getSelectedItem();
 				selectedSprite = stringToSpriteMap.get(sprite);
 				spriteToImageMap.get(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
-				
+
 			}
-			
+
 			catch (IndexOutOfBoundsException | NullPointerException ee) {
 				//do not select any sprites, since no sprites are in the selection model
 			}
-			
+
 		});
-		
+
 		return new TitledPane(title, platformListView);
 
 	}
-	
-	private void makeButtonsTab() {
-		
-		VerticalButtonBox verticalButtonBox = new VerticalButtonBox();
-		
-		this.viewableArea().setRight(verticalButtonBox);
+
+	private void makeButtonsOnRight() {
+
+		this.rightButtonBox = new VerticalButtonBox();
+
+		rightButtonBox.setMinWidth(sideBarWidth());
+
+		this.viewableArea().setRight(rightButtonBox);
 
 		//added by Anika
 		// TODO: fix hardcoded string
 
 		Button addSpriteButton = 
 				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
-		
+
 		Button returnToGameEditButton = 
 				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
-		
+
 		Button addWidthButton = 
 				makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
-		
+
 		Button addHeightButton = 
 				makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
-		
+
 		Button addCollTableButton = 
 				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
-		
-		verticalButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
+
+		rightButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
 
 	}
 
