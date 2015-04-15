@@ -63,6 +63,7 @@ public class MainMenuScreen extends Screen {
 	MainMenuScreenController controller;
 	Popup myPopUp;
 	
+	
 	// Getters & Setters
 	
 	
@@ -81,6 +82,7 @@ public class MainMenuScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
+		// No need to do the prefix MainMenuScreen... only reason is that this explicitly specifies that we're using a nested class
 		MainMenuScreen.MainMenuMenuBarFactory mainMenuMenuBarFactory = new MainMenuScreen.MainMenuMenuBarFactory(menuBar);
 		mainMenuMenuBarFactory.fill();
 		
@@ -210,6 +212,7 @@ public class MainMenuScreen extends Screen {
 		
 	}
 		
+	
 	// All other instance methods
 	
 	/**
