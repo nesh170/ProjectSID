@@ -25,6 +25,9 @@ import levelPlatform.level.Level;
 /**
  * 
  * This class represents the frontend of the levels. It also Handles the collisions
+ * 
+ * @author Ruslan
+ * @author AuthEnvTeam (please add yourselves) :)
  *
  */
 public class LevelPlatformView extends ScrollPane {
