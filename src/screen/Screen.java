@@ -124,7 +124,6 @@ public abstract class Screen extends BorderPane {
 		
 	}
 	
-	
 	/**
 	 * passes MenuBar to abstract subclass method
 	 */
@@ -194,6 +193,7 @@ public abstract class Screen extends BorderPane {
 		this.setCenter(viewableArea);
 		
 	}
+	
 	
 	// All other instance methods
 	protected void sizeMenuImageView(ImageView imageView, double width, double height) {
