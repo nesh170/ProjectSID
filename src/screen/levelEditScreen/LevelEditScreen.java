@@ -80,6 +80,10 @@ public class LevelEditScreen extends Screen {
 
 
 	// Getters & Setters
+	private void setController(LevelEditScreenController controller) {
+		this.controller = controller;
+	}
+	
 	public Level currentLevel() {
 		return level;
 	}
@@ -114,11 +118,11 @@ public class LevelEditScreen extends Screen {
 	 * @param height
 	 * @param level
 	 */
-	public LevelEditScreen(LevelEditScreenController parent, double width, double height, Level level) {
+	public LevelEditScreen(LevelEditScreenController controller, double width, double height, Level level) {
 		
 		super(width,height);
 		
-		this.controller = parent;
+		setController(controller);
 		
 		stringToSpriteMap = new HashMap<>();
 		spriteToImageMap = new HashMap<>();
