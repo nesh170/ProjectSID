@@ -83,6 +83,10 @@ public class LevelEditScreen extends Screen {
 		this.controller = controller;
 	}
 	
+	private void setLevel(Level level) {
+		this.level = level;
+	}
+	
 	public Level currentLevel() {
 		return level;
 	}
@@ -120,11 +124,13 @@ public class LevelEditScreen extends Screen {
 		super(width, height);
 		
 		setController(controller);
-		
+		setLevel(level);
+
 		instantiateMaps();
 		makeSpritesInLevelTab();
 		makeButtonsTab();
 		
+		configureLevelPlatformViewWithLevel(level);		
 		
 //		initializeLevelDisplay(level);	// Have to do this last
 		
@@ -190,14 +196,18 @@ public class LevelEditScreen extends Screen {
 	private TitledPane makeTitledPane(String title, ObservableList<String> content) {
 
 		ListView<String> platformListView = new ListView<>(content);
+		
 		/*
 		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
 		 */
 		platformListView.setOnMouseReleased(e -> {
+			
 			try {
+				
 				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
 					spriteToImageMap.get(selectedSprite).setOpacity(1);
 				}
+				
 				/*
 				 * this next line could throw an exception possibly if
 				 * the selection model is empty, catch statement is precautionary
@@ -205,11 +215,15 @@ public class LevelEditScreen extends Screen {
 				String sprite = platformListView.getSelectionModel().getSelectedItem();
 				selectedSprite = stringToSpriteMap.get(sprite);
 				spriteToImageMap.get(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+				
 			}
+			
 			catch (IndexOutOfBoundsException | NullPointerException ee) {
 				//do not select any sprites, since no sprites are in the selection model
 			}
+			
 		});
+		
 		return new TitledPane(title, platformListView);
 
 	}
