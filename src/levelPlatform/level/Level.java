@@ -36,6 +36,7 @@ public class Level extends LevelPlatform {
 	public static final int X = 0;
 	public static final int Y = 1;
 
+	
 	// Instance Variables
 	private Sprite playerSprite;
 	private CollisionTable collisionTable;
@@ -51,6 +52,7 @@ public class Level extends LevelPlatform {
 
 		Map<KeyCode,Action> controlMap = new HashMap<>();
 		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+		
 		return controlMap;
 
 	}
@@ -72,16 +74,19 @@ public class Level extends LevelPlatform {
 	}
 
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
-		this.goalMap=goalMap;
+		this.goalMap = goalMap;
 	}
 
 
 	// Constructor & Helpers
 	public Level(int width, int height) {
+		
 		this(width, height, new Sprite());
+		
 	}
 
 	public Level(int width, int height, Sprite playerSprite) {
+		
 		super(width, height);
 		playerSprite = new Sprite();
 		collisionTable = new CollisionTable();
@@ -104,13 +109,14 @@ public class Level extends LevelPlatform {
 	 */
 	public void passInitializeLevelMethod (IntConsumer nextLevelConsumer) {
 		nextLevelMethod = nextLevelConsumer;
-
 	}
 
 	@Override
-	public void update(){
+	public void update() {
+		
 		super.update();
 		goalMap.keySet().forEach(sprite -> handleGoals(sprite));
+		
 	}
 
 	/**
@@ -118,16 +124,22 @@ public class Level extends LevelPlatform {
 	 * @param sprite
 	 */
 	private void handleGoals (Sprite sprite) {
+		
 		if(!sprite.isActive()){
 			nextLevelMethod.accept(goalMap.get(sprite));
 		}
+		
 	}
 
 	public double[] getNewCameraLocations () {
+		
 		double[] xyLocations = new double[2];
+		
 		xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
 		xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
+		
 		return xyLocations;
+		
 	}
 
 }	
