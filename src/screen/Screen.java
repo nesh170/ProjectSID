@@ -67,6 +67,24 @@ public abstract class Screen extends BorderPane {
 		this.parentTab = parentTab;
 	}
 	
+	protected double computeWidthRemainingInViewableArea() {
+
+		double returnDouble = 0.0;
+		
+		return returnDouble;
+
+	}
+
+	protected double computeHeightRemainingInViewableArea() {
+
+		double returnDouble = 0.0;
+		
+		
+		
+		return returnDouble;
+
+	}
+	
 	
 	// Constructor & Helpers
 	/**
