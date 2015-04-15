@@ -73,7 +73,7 @@ import util.ErrorHandler;
  * @author Kyle
  * @author Leo
  * @author Michael
- * @Yongjiao
+ * @author Yongjiao
  */
 
 
@@ -405,6 +405,18 @@ public class ScreenController {
 			popup.show(stage);
 		}
 		
+		/**
+		 * creates a new game after user specify the game name in pop up window.
+		 */
+		@Override
+		public void confirmToCreateGame(Popup popup, TextField gameName,
+				TextField des) {
+			Game newGame = new Game(gameName.getText());
+            newGame.setDescription(des.getText());
+            createGameEditScreen(newGame);
+            popup.hide();
+		}
+		
 		@Override
 		public void loadGame() {
 			
@@ -424,18 +436,6 @@ public class ScreenController {
 
 			close();
 		}
-		/**
-		 * creates a new game after user specify the game name in pop up window.
-		 */
-		@Override
-		public void confirmToCreateGame(Popup popup, TextField gameName,
-				TextField des) {
-			Game newGame = new Game(gameName.getText());
-            newGame.setDescription(des.getText());
-            createGameEditScreen(newGame);
-            popup.hide();
-		}
-		
 	}
 	
 	private class GameEditScreenManager implements GameEditScreenController {
@@ -444,8 +444,7 @@ public class ScreenController {
 		public void returnToMainMenuScreen() {
 			
 			//MainMenuScreen is singleton
-			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			//tabManager.removeTab(gameEditTab);	
+			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
 
 		}
