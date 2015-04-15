@@ -122,14 +122,15 @@ public class Sprite {
 		emissionList.add(sprite);
 	}
 	
-	public SpriteImage spriteImage() {
+	public SpriteImage spriteImage(double SIDPixelLength) {
 		
 	    //TODO talk to Ruslan about death
 		
 		if (spriteImage == null) {
-			this.spriteImage = new SpriteImage();
+			this.spriteImage = new SpriteImage(SIDPixelLength);
 		}
 		
+		this.spriteImage.checkForChangedSIDPixelLength(SIDPixelLength);
 		
 		return this.spriteImage;
 		
