@@ -66,6 +66,7 @@ public class SplashEditScreen extends Screen {
 	private List<Sprite> images = new ArrayList();
 	private List<Sprite> texts = new ArrayList();
 	private ImageView imageView;
+	private ImageView startButtonImageView;
 	private Text text;
 
 	// Getters & Setters
@@ -257,7 +258,7 @@ public class SplashEditScreen extends Screen {
 		getParent().setCursor(imageCursor);
 
 		tag = "Start";
-		imageView = new ImageView(image);
+		startButtonImageView = new ImageView(image);
 		this.setOnKeyPressed(e -> resize(e, imageCursor));
 		button.setDisable(true);
 		
@@ -388,21 +389,24 @@ public class SplashEditScreen extends Screen {
 	}
 	
 	private void add(String tag, MouseEvent e, Rectangle rectangle) {
+		System.out.println("HEY");
 
 		
 		if(tag == "Start") {		
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
-			this.add(imageView);
-			imageView.setTranslateX(e.getX());
-			imageView.setTranslateY(e.getY());
+			this.add(startButtonImageView);
+			//startButtonImageView = imageView;
+			startButtonImageView.setOnMousePressed(f -> move(f));
+			startButtonImageView.setX(e.getX());
+			startButtonImageView.setY(e.getY());
 		}
 		else if(tag == "Image") {		
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
 			this.add(imageView);
-			imageView.setTranslateX(e.getX());
-			imageView.setTranslateY(e.getY());
+			imageView.setX(e.getX());
+			imageView.setY(e.getY());
 		}
 		else if(tag == "Background Image") {
 			rectangle.setFill(new ImagePattern(imageView.getImage()));
@@ -425,6 +429,25 @@ public class SplashEditScreen extends Screen {
 		
 	}
 	
+	private void move(MouseEvent f) {
+		startButtonImageView.setOnMouseReleased(e -> place(e));
+		tag = null;
+	}
+
+	private void place(MouseEvent e) {
+		System.out.println("e.getX() = " + e.getX());
+		System.out.println("e.getY() = " + e.getY());
+		System.out.println("startButtonImageView.getX() = " + startButtonImageView.getX());
+		System.out.println("startButtonImageView.getX() = " + startButtonImageView.getY());
+		//startButtonImageView.setTranslateX(e.getX() - startButtonImageView.getX());
+		//startButtonImageView.setTranslateY(e.getY() - startButtonImageView.getY());
+		startButtonImageView.setX(e.getX());
+		startButtonImageView.setY(e.getY());
+		System.out.println(startButtonImageView.getX());
+		System.out.println(startButtonImageView.getY());
+		//startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
+	}
+
 	private void resize(KeyEvent e, ImageCursor ic) {
 		KeyCode keyCode = e.getCode();
 		if(keyCode == KeyCode.RIGHT) {
