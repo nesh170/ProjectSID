@@ -48,7 +48,6 @@ public class Level extends LevelPlatform {
 	 * @return a controlMap which might change depending on the behaviours for each level
 	 */
 	public Map<KeyCode,Action> controlMap() {
-		
 		Map<KeyCode,Action> controlMap = new HashMap<>();
 		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
 		return controlMap;
@@ -83,7 +82,7 @@ public class Level extends LevelPlatform {
 	
 	public Level(int width, int height, Sprite playerSprite) {
 		super(width, height);
-		playerSprite = new Sprite();
+		this.playerSprite = new Sprite();
 		collisionTable = new CollisionTable();
 	    goalMap = new HashMap<>();
 		
