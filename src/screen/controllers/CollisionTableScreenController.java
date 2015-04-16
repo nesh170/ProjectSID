@@ -1,4 +1,4 @@
-package screen.collisionTableScreen;
+package screen.controllers;
 
 /**
  * 

@@ -69,7 +69,8 @@ public class STRING {
 		public static final String TRASH = "Trash";
 		public static final String SAVE = "Save";
 		public static final String ADD_START_BUTTON = "Add Start Button";
-		public static final String ADD_IMAGE = "Add Background Image";
+		public static final String ADD_IMAGE = "Add Image";
+		public static final String ADD_BACKGROUND_IMAGE = "Add Background Image";
 		public static final String ADD_TEXT = "Add Text";
 		public static final String ADD_ANIMATION = "Add Animation";
 		

@@ -1,4 +1,4 @@
-package screen.splashEditScreen;
+package screen.controllers;
 
 import javafx.scene.control.Tab;
 

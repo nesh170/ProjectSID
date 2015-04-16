@@ -1,4 +1,4 @@
-package screen.mainMenu;
+package screen.screens;
 
 import game.Game;
 
@@ -39,7 +39,8 @@ import javafx.stage.Popup;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
-import screen.ScreenController;
+import screen.controllers.MainMenuScreenController;
+import screen.controllers.ScreenController;
 
 /**
  * The scene that contains pops up when the Authoring Environment 

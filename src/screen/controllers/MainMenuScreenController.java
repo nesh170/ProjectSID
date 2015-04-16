@@ -1,4 +1,4 @@
-package screen.mainMenu;
+package screen.controllers;
 
 import java.net.URI;
 

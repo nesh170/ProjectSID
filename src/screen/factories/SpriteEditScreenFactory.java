@@ -1,5 +1,7 @@
-package screen.spriteEditScreen;
+package screen.factories;
 
+import screen.controllers.SpriteEditScreenController;
+import screen.screens.SpriteEditScreen;
 import javafx.scene.control.Tab;
 
 /**

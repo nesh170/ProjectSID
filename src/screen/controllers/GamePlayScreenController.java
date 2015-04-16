@@ -1,4 +1,4 @@
-package screen.gamePlayScreen;
+package screen.controllers;
 
 public interface GamePlayScreenController {
 	

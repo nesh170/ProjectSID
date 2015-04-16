@@ -1,4 +1,4 @@
-package screen;
+package screen.controllers;
 import game.Game;
 
 import java.awt.datatransfer.StringSelection;
@@ -46,22 +46,16 @@ import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
-import screen.collisionTableScreen.CollisionTableScreenController;
-import screen.gameEditScreen.GameEditScreen;
-import screen.gameEditScreen.GameEditScreenController;
-import screen.gamePlayScreen.GamePlayScreen;
-import screen.gamePlayScreen.GamePlayScreenController;
-import screen.levelEditScreen.LevelEditScreen;
-import screen.levelEditScreen.LevelEditScreenController;
-import screen.mainMenu.MainMenuScreen;
-import screen.mainMenu.MainMenuScreenController;
-import screen.splashEditScreen.SplashEditScreen;
-import screen.splashEditScreen.SplashEditScreenController;
-import screen.spriteEditScreen.SpriteEditScreen;
-import screen.spriteEditScreen.SpriteEditScreenController;
+import screen.Screen;
+import screen.factories.ScreenFactory;
+import screen.levelPlatformCapableScreen.GamePlayScreen;
+import screen.levelPlatformCapableScreen.LevelEditScreen;
+import screen.levelPlatformCapableScreen.SplashEditScreen;
+import screen.screens.GameEditScreen;
+import screen.screens.MainMenuScreen;
+import screen.screens.SpriteEditScreen;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
-import screen.Screen;
 import sprite.Sprite;
 import util.ErrorHandler;
 

@@ -1,8 +1,7 @@
-package screen.spriteEditScreen;
+package screen.screens;
 
 import gameEngine.Action;
 import gameEngine.Component;
-
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +13,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 
 import data.DataHandler;
 import javafx.beans.value.ChangeListener;
@@ -48,10 +46,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import screen.Screen;
-import screen.ScreenController;
-import screen.levelEditScreen.LevelEditScreen;
+import screen.controllers.ScreenController;
+import screen.controllers.SpriteEditScreenController;
+import screen.levelPlatformCapableScreen.LevelEditScreen;
 import sprite.Sprite;
 import sprite.SpriteImage;import util.ImageToInt2DArray;
 
@@ -626,7 +626,7 @@ public class SpriteEditScreen extends Screen {
 		stringToImageMap.keySet().forEach(e-> {
 			Image image = stringToImageMap.get(e).getImage();
 			int[][] convertedImage = ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight());
-			editableSprite.spriteImage().addImage(convertedImage);
+			editableSprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).addImage(convertedImage);
 		});
 		componentMap.keySet().forEach(e -> {
 			editableSprite.addComponent(componentMap.get(e));

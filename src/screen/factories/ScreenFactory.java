@@ -1,4 +1,4 @@
-package screen;
+package screen.factories;
 
 import java.util.List;
 
@@ -7,20 +7,21 @@ import javafx.scene.control.Tab;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.STRING;
-import screen.collisionTableScreen.CollisionTableScreen;
-import screen.collisionTableScreen.CollisionTableScreenController;
-import screen.gameEditScreen.GameEditScreen;
-import screen.gameEditScreen.GameEditScreenController;
-import screen.gamePlayScreen.GamePlayScreen;
-import screen.gamePlayScreen.GamePlayScreenController;
-import screen.levelEditScreen.LevelEditScreen;
-import screen.levelEditScreen.LevelEditScreenController;
-import screen.mainMenu.MainMenuScreen;
-import screen.mainMenu.MainMenuScreenController;
-import screen.splashEditScreen.SplashEditScreen;
-import screen.splashEditScreen.SplashEditScreenController;
-import screen.spriteEditScreen.SpriteEditScreen;
-import screen.spriteEditScreen.SpriteEditScreenController;
+import screen.Screen;
+import screen.controllers.CollisionTableScreenController;
+import screen.controllers.GameEditScreenController;
+import screen.controllers.GamePlayScreenController;
+import screen.controllers.LevelEditScreenController;
+import screen.controllers.MainMenuScreenController;
+import screen.controllers.SplashEditScreenController;
+import screen.controllers.SpriteEditScreenController;
+import screen.levelPlatformCapableScreen.GamePlayScreen;
+import screen.levelPlatformCapableScreen.LevelEditScreen;
+import screen.levelPlatformCapableScreen.SplashEditScreen;
+import screen.screens.CollisionTableScreen;
+import screen.screens.GameEditScreen;
+import screen.screens.MainMenuScreen;
+import screen.screens.SpriteEditScreen;
 import sprite.Sprite;
 
 /**
