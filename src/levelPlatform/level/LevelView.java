@@ -105,7 +105,7 @@ public class LevelView extends ScrollPane {
     	
     	Group spriteGroup = new Group();
         if (sprite.isActive()) {	
-            ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay();
+            ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method 
             if(spriteImageView !=null){
                 spriteImageView.setX(sprite.transform().getPosX());
                 spriteImageView.setY(sprite.transform().getPosY());
