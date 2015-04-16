@@ -104,42 +104,19 @@ public class LevelView extends ScrollPane {
     private Group renderSprite(Sprite sprite) {
     	
     	Group spriteGroup = new Group();
-    	Image spriteImage;
-    	ImageView spriteImageView;
-    	//TODO: delete rectangle-making, restore SpriteImage part
-    	/*if(sprite.isActive()) {
-    		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
-    				sprite.transform().getWidth(), sprite.transform().getHeight());
-        	spriteGroup.getChildren().add(r);
-    	}*/
-    			
-        if (sprite.isActive()) {
-        	
-            // TestCode
-//            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
-//            spriteGroup.getChildren().add(player);
-        	
-        	spriteImageView = sprite.spriteImage().getImageViewToDisplay();
-                        
-            //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                   // .transform().getPosY());
-            spriteImageView.setX(sprite.transform().getPosX());
-            spriteImageView.setY(sprite.transform().getPosY());
-            
+        if (sprite.isActive()) {	
+            ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay();
             if(spriteImageView !=null){
-            	
+                spriteImageView.setX(sprite.transform().getPosX());
+                spriteImageView.setY(sprite.transform().getPosY());
             	spriteImageView.setFitWidth(sprite.transform().getWidth());
             	spriteImageView.setFitHeight(sprite.transform().getHeight());
             	spriteGroup.getChildren().add(spriteImageView);
-            	
             }
-            
             else {
-            	
-        		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+        	Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
         				sprite.transform().getWidth(), sprite.transform().getHeight());
             	spriteGroup.getChildren().add(r);
-            	
             }
             
             sprite.emissionList().stream()
