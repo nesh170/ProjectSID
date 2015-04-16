@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -32,6 +33,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -47,6 +52,8 @@ import screen.controllers.ScreenController;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -189,16 +196,17 @@ public class GameEditScreen extends Screen {
 		else {
 			s = displayMySplash();
 		}
-			
-		sp.getChildren().add(s);
 		
+		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
+	    rec.setFill(Color.TRANSPARENT);
+		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
+		sp.getChildren().addAll(rec, s);   
 	}
 
 	private Button displayMySplash() {
 
 		Button b = makeTempLevelSplashDisplayImage(STRING.GAME_EDIT.SPLASH_TMP, INT.SPLASH);
-		
-		// b.setOnMouseClicked(e -> this.handleDouleRightClick(b)); //parameter:
+
 		// myGame.getSplash().ImageRepresentation();
 		
 		return b;
@@ -232,7 +240,6 @@ public class GameEditScreen extends Screen {
 		b.setOnMouseClicked(lamda);
 		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 				INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-		b.setGraphic(addsign);
 		
 		return b;
 
@@ -258,15 +265,15 @@ public class GameEditScreen extends Screen {
 
 		ImageView add = makeButton(STRING.GAME_EDIT.PLUS_IMG,
 				e -> controller.loadLevelEditScreen(game));
-		levelDisplay.setAlignment(add, Pos.TOP_RIGHT);
+		StackPane.setAlignment(add, Pos.TOP_RIGHT);
 
 		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG,
 				e -> controller.playGame(game));
-		levelDisplay.setAlignment(play, Pos.TOP_CENTER);
+		StackPane.setAlignment(play, Pos.TOP_CENTER);
 
 		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
 				e -> controller.returnToMainMenuScreen());
-		levelDisplay.setAlignment(back, Pos.TOP_LEFT);
+		StackPane.setAlignment(back, Pos.TOP_LEFT);
 
 		// ImageView trash = makeButton(STRING.TRASH_IMG, e ->
 		// controller.trashLevel(myGame, selectedIndex));
@@ -327,7 +334,7 @@ public class GameEditScreen extends Screen {
 		hb.setAlignment(Pos.CENTER);
 
 		hb.getChildren().addAll(
-				this.makeAddSignWhenEmpty("Add New Level Here",
+				this.makeAddSignWhenEmpty("Add A New Level",
 						e -> controller.loadLevelEditScreen(game)));
 
 	}
