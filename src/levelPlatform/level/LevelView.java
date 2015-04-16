@@ -125,6 +125,7 @@ public class LevelView extends ScrollPane {
     	}*/
     			
         if (sprite.isActive()) {
+        	
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
@@ -135,23 +136,28 @@ public class LevelView extends ScrollPane {
                    // .transform().getPosY());
             spriteImageView.setX(sprite.transform().getPosX());
             spriteImageView.setY(sprite.transform().getPosY());
-            if(spriteImage !=null){
+            
+            if(spriteImageView !=null){
+            	
             	spriteImageView.setFitWidth(sprite.transform().getWidth());
             	spriteImageView.setFitHeight(sprite.transform().getHeight());
             	spriteGroup.getChildren().add(spriteImageView);
+            	
             }
-            else{
+            
+            else {
+            	
         		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
         				sprite.transform().getWidth(), sprite.transform().getHeight());
             	spriteGroup.getChildren().add(r);
+            	
             }
+            
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
             if (editMode == EditMode.EDIT_MODE_ON) {
-            	
             	configureMouseHandlersOnSpriteImageView(spriteImageView);
-            	
             }
             
         }

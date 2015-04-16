@@ -126,10 +126,10 @@ public class SpriteEditScreen extends Screen {
 		this.controller = parent;
 
 		if (spriteToEdit != null) {
-			
+
 			drawSpriteOnScreen(spriteToEdit);
 			editableSprite = new Sprite(spriteToEdit);
-			
+
 		}
 
 		else {
@@ -206,41 +206,41 @@ public class SpriteEditScreen extends Screen {
 	private void initializeValueBoxListenersForLists() {
 
 		actionsToAddList.getSelectionModel().selectedItemProperty()
-				.addListener(new ChangeListener<String>() {
+		.addListener(new ChangeListener<String>() {
 
-					@Override
-					public void changed(ObservableValue<? extends String> ov,
-							String oldSelect, String newSelect) {
+			@Override
+			public void changed(ObservableValue<? extends String> ov,
+					String oldSelect, String newSelect) {
 
-						if (newSelect == null || newSelect.isEmpty()) {
-							actionValue.setPromptText("");
-						}
-						else {
-							actionValue.setPromptText(behaviorLabelsMap
-									.get(newSelect));
-						}
+				if (newSelect == null || newSelect.isEmpty()) {
+					actionValue.setPromptText("");
+				}
+				else {
+					actionValue.setPromptText(behaviorLabelsMap
+							.get(newSelect));
+				}
 
-					}
+			}
 
-				});
+		});
 
 		componentsToAddList.getSelectionModel().selectedItemProperty()
-				.addListener(new ChangeListener<String>() {
+		.addListener(new ChangeListener<String>() {
 
-					@Override
-					public void changed(ObservableValue<? extends String> ov,
-							String oldSelect, String newSelect) {
+			@Override
+			public void changed(ObservableValue<? extends String> ov,
+					String oldSelect, String newSelect) {
 
-						if (newSelect == null || newSelect.isEmpty()) {
-							componentValue.setPromptText("");
-						}
-						else {
-							componentValue.setPromptText(behaviorLabelsMap
-									.get(newSelect));
-						}
-					}
+				if (newSelect == null || newSelect.isEmpty()) {
+					componentValue.setPromptText("");
+				}
+				else {
+					componentValue.setPromptText(behaviorLabelsMap
+							.get(newSelect));
+				}
+			}
 
-				});
+		});
 	}
 
 	private void initializeInformationListenersForLists() {
@@ -259,12 +259,12 @@ public class SpriteEditScreen extends Screen {
 
 		actionsAddedList.setOnMouseEntered(e -> setDataText(actionsAddedList));
 		componentsAddedList
-				.setOnMouseEntered(e -> setDataText(componentsAddedList));
+		.setOnMouseEntered(e -> setDataText(componentsAddedList));
 
 		actionsAddedList.getSelectionModel().selectedItemProperty()
-				.addListener(changeListener);
+		.addListener(changeListener);
 		componentsAddedList.getSelectionModel().selectedItemProperty()
-				.addListener(changeListener);
+		.addListener(changeListener);
 
 	}
 
@@ -283,28 +283,28 @@ public class SpriteEditScreen extends Screen {
 	private void initializeClassPathMap() {
 
 		classPathMap = new HashMap<>();
-		
+
 		actionResources.keySet().forEach(
 				e -> classPathMap.put(
 						languageResources().getString(e),
 						actionResources.getString(e)));
-		
+
 		componentResources.keySet().forEach(
 				e -> classPathMap.put(
 						languageResources().getString(e),
 						componentResources.getString(e)));
-		
+
 	}
 
 	private void initializeBehaviorLabelsMap() {
 
 		behaviorLabelsMap = new HashMap<String, String>();
-		
+
 		behaviorLabels.keySet().forEach(
 				e -> behaviorLabelsMap.put(
 						languageResources().getString(e),
 						behaviorLabels.getString(e)));
-		
+
 	}
 
 	@Override
@@ -328,7 +328,7 @@ public class SpriteEditScreen extends Screen {
 		leftPane.getChildren().addAll(nameAndTagPane, imagePane);
 
 		this.viewableArea().setLeft(leftPane);
-		
+
 	}
 
 	private void createRightPane() {
@@ -336,7 +336,7 @@ public class SpriteEditScreen extends Screen {
 		VBox rightPane = new VBox();
 
 		Node actionAndComponentPane = createActionAndComponentPane();
-		
+
 		// Node physicsPane = createPhysicsPane();
 		initializeImageListPane();
 
@@ -364,18 +364,18 @@ public class SpriteEditScreen extends Screen {
 		nameAndTagPane.getStyleClass().add("pane");
 
 		Text nameLabel = new Text("Name" + ":"); // TODO do not hardcode "name"
-		
+
 		spriteNameField = new TextField();
 		spriteNameField.setPromptText("Enter the Sprite Name"); // TODO DO NOT
-																// HARDCODE THIS
-																// STRING
+		// HARDCODE THIS
+		// STRING
 
 		Text tagLabel = new Text("Tag" + ":"); // TODO do not hardcode "tag"
 		ObservableList<String> tagChoices = FXCollections.observableArrayList();
-		
+
 		tagResources.keySet().forEach(
 				e -> tagChoices.add(tagResources.getString(e)));
-		
+
 		tagChoicesHolder = new ChoiceBox<String>(tagChoices);
 
 		nameAndTagPane.add(nameLabel, 0, 0);
@@ -403,16 +403,16 @@ public class SpriteEditScreen extends Screen {
 
 		imageSizeField = new TextField();
 		imageSizeField
-				.setPromptText(languageResources().getString("ImageSize"));
+		.setPromptText(languageResources().getString("ImageSize"));
 
 		imageButtonAndSizeText.getChildren()
-				.addAll(imageButton, imageSizeField);
+		.addAll(imageButton, imageSizeField);
 
 		imagePane.getChildren().add(imageButtonAndSizeText);
 		imagePane.getStyleClass().add("pane");
 
 		return imagePane;
-		
+
 	}
 
 	private VBox createActionAndComponentPane() {
@@ -426,53 +426,53 @@ public class SpriteEditScreen extends Screen {
 				dataPane);
 
 		return actionAndComponentPane;
-		
+
 	}
 
 	private Node createDataPane() {
 
 		HBox textArea = new HBox();
-		
+
 		textArea.getStyleClass().add("pane");
 		dataText = new Text(languageResources().getString("DataText"));
 		textArea.getChildren().add(dataText);
-		
+
 		return textArea;
-		
+
 	}
 
 	private void initializeActionTypeBox() {
 
 		ObservableList<String> actionTypes = FXCollections.observableArrayList();
-		
+
 		actionTypes.addAll(
 				languageResources().getString("AlwaysRun"),
 				languageResources().getString("NeedCode"), 
 				languageResources().getString("OnCollision"));
-		
+
 		actionTypeBox = new ChoiceBox<String>(actionTypes);
 		actionTypeBox.getSelectionModel().select(0);
-		
+
 		actionTypeBox.getSelectionModel().selectedItemProperty().addListener(
-				
+
 				new ChangeListener<String>() {
 
 					public void changed(ObservableValue<? extends String> ov, String oldSelect, String newSelect) {
 
 						keycodeInputBox.setVisible(
 								keyCodesAreVisibleMap.get(newSelect));
-						
+
 						if (!keycodeInputBox.isVisible()) {
-							
+
 							currentCode = KeyCode.UNDEFINED;
 							clearKeycodeInputBox();
-							
+
 						}
-						
+
 					}
 
 				});
-		
+
 	}
 
 	private Pane initializeActionPaneBoxes() {
@@ -490,7 +490,7 @@ public class SpriteEditScreen extends Screen {
 
 		HBox actionPane = makeTwoSidedList(actionsToAddList, actionsAddedList,
 				languageResources().getString("AddAction"), languageResources()
-						.getString("RemoveAction"), e -> addAction(e),
+				.getString("RemoveAction"), e -> addAction(e),
 				e -> removeAction(e), actionTypeBox, keycodeInputBox,
 				actionValue);
 
@@ -501,7 +501,7 @@ public class SpriteEditScreen extends Screen {
 	private Pane initializeComponentPaneBoxes() {
 
 		componentValue = new TextField();
-		
+
 		// componentValue.setPromptText(languageResources().getString("ValuePrompt"));
 		HBox componentPane = makeTwoSidedList(componentsToAddList,
 				componentsAddedList,
@@ -544,7 +544,7 @@ public class SpriteEditScreen extends Screen {
 
 		Arrays.asList(buttons).forEach(
 				e -> e.setPrefWidth(INT.PREF_BUTTON_WIDTH));
-		
+
 	}
 
 	private void initializeImageListPane() {
@@ -552,7 +552,7 @@ public class SpriteEditScreen extends Screen {
 		imageListPane = new ListView<String>(imagesAdded);
 
 		imageListPane.setOnKeyPressed(e -> {
-			
+
 			if (e.getCode().equals(KeyCode.DELETE)
 					|| e.getCode().equals(KeyCode.BACK_SPACE)) {
 				// String selected =
@@ -560,11 +560,11 @@ public class SpriteEditScreen extends Screen {
 				// stringToImageMap.remove(selected);
 				// imagesAdded.remove(selected);
 			}
-			
+
 		});
 
 		imageListPane.getSelectionModel().selectedItemProperty().addListener(
-				
+
 				new ChangeListener<String>() {
 
 					@Override
@@ -608,9 +608,9 @@ public class SpriteEditScreen extends Screen {
 						.forName(classPathMap.get(selected))
 						.getConstructor(Sprite.class, Double.class,
 								KeyCode[].class)
-						.newInstance(editableSprite,
-								Double.parseDouble(actionValue.getText()),
-								keylist);
+								.newInstance(editableSprite,
+										Double.parseDouble(actionValue.getText()),
+										keylist);
 				actionMap.put(selected, action);
 				actionsToAdd.remove(selected);
 				actionsAdded.add(selected);
@@ -630,33 +630,33 @@ public class SpriteEditScreen extends Screen {
 
 			keycodeInputBox.clear();
 			actionValue.clear();
-			
+
 		}
-		
+
 	}
 
 	private void removeAction(MouseEvent e) {
 
 		String selected = actionsAddedList.getSelectionModel().getSelectedItem();
-		
+
 		if (selected != null) {
-			
+
 			actionsAdded.remove(selected);
 			actionsToAdd.add(selected);
 			actionMap.keySet().remove(selected);
-			
+
 		}
-		
+
 	}
 
 	private void addComponent(MouseEvent e) {
 
 		String selected = componentsToAddList.getSelectionModel().getSelectedItem();
-		
+
 		if (selected != null) {
-			
+
 			try {
-				
+
 				List<Double> values = new ArrayList<>();
 				values.add(Double.parseDouble(componentValue.getText()));
 				Component component = (Component) Class
@@ -680,19 +680,19 @@ public class SpriteEditScreen extends Screen {
 			}
 
 			componentValue.clear();
-			
+
 		}
 	}
 
 	private void removeComponent(MouseEvent e) {
 
 		String selected = componentsAddedList.getSelectionModel().getSelectedItem();
-		
+
 		if (selected != null) {
-			
+
 			componentsAdded.remove(selected);
 			componentsToAdd.add(selected);
-			
+
 		}
 	}
 
@@ -704,7 +704,7 @@ public class SpriteEditScreen extends Screen {
 
 		currentCode = e.getCode();
 		keycodeInputBox.setText(currentCode.getName());
-		
+
 	}
 
 	private void selectImageFile() {
@@ -712,19 +712,19 @@ public class SpriteEditScreen extends Screen {
 		try {
 
 			int imageSize = INT.DEFAULT_IMAGE_SIZE;
-			
+
 			if (imageSizeField.getText() != ""
 					&& imageSizeField.getText().matches("^[0-9]+$")) {
 				imageSize = Integer.parseInt(imageSizeField.getText());
 			}
-			
+
 			File file = DataHandler.chooseFile(new Stage());
 			Image image = DataHandler.fileToImage(file, imageSize, imageSize, true);
 			ImageView spriteImageRep = new ImageView(image);
-			
+
 			int currentImageNumber = imagesAdded.size();
 			String imageName = languageResources().getString("ImageName") + currentImageNumber;
-			
+
 			stringToImageMap.put(imageName, spriteImageRep);
 			imagesAdded.add(imageName);
 
@@ -737,7 +737,7 @@ public class SpriteEditScreen extends Screen {
 		} catch (NullPointerException e) {
 			// do nothing
 		}
-		
+
 	}
 
 	private void saveSprite() {
@@ -751,28 +751,28 @@ public class SpriteEditScreen extends Screen {
 									(int) image.getHeight());
 					editableSprite.spriteImage().addImage(convertedImage);
 				});
-		
+
 		componentMap.keySet().forEach(e -> {
 			editableSprite.addComponent(componentMap.get(e));
 		});
-		
+
 		actionMap.keySet().forEach(e -> {
 			editableSprite.addAction(actionMap.get(e));
 		});
-		
+
 		editableSprite.setName(spriteNameField.getText());
 		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
-		
+
 	}
 
 	private void exit() {
 
 		LevelEditScreen levelEdit = (LevelEditScreen) levelEditScreen
 				.getContent();
-		
+
 		controller.returnToSelectedLevel(levelEdit, levelEditScreen,
 				editableSprite);
-		
+
 	}
 
 	private void saveAndExit() {
@@ -793,7 +793,7 @@ public class SpriteEditScreen extends Screen {
 	private void drawSpriteOnScreen(Sprite sprite) {
 
 		// TODO implement
-		
+
 	}
 
 }
