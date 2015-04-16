@@ -3,8 +3,6 @@
   <height>500</height>
   <sprites>
     <sprite.Sprite>
-<<<<<<< HEAD
-=======
       <actionList/>
       <componentList/>
       <x>0.0</x>
@@ -417,7 +415,6 @@
       </spriteImage>
     </sprite.Sprite>
     <sprite.Sprite>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
       <actionList>
         <gameEngine.actions.LeftMotionAction>
           <mySprite reference="../../.."/>
@@ -479,67 +476,17 @@
           <runsEveryFrame>false</runsEveryFrame>
           <value>-20.0</value>
         </gameEngine.actions.BounceAction>
-<<<<<<< HEAD
-        <gameEngine.actions.ShootAction>
-=======
         <gameEngine.actions.BounceAction>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
             <a class="javafx.scene.input.KeyCode-array">
-<<<<<<< HEAD
-              <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>0.0</value>
-          <myProjectileTemplate>
-            <actionList/>
-            <componentList>
-              <gameEngine.components.ProjectileMotionComponent>
-                <mySprite reference="../../.."/>
-                <isActive>true</isActive>
-                <myVelocity>
-                  <x>0.0</x>
-                  <y>0.0</y>
-                  <hash>0</hash>
-                </myVelocity>
-                <isGrounded>true</isGrounded>
-                <myShooter reference="../../../../../.."/>
-              </gameEngine.components.ProjectileMotionComponent>
-            </componentList>
-            <x>0.0</x>
-            <y>0.0</y>
-            <emissionList/>
-            <isActive>true</isActive>
-            <collisionTag>bullet</collisionTag>
-            <transform>
-              <myPosition>
-                <x>0.0</x>
-                <y>0.0</y>
-                <hash>0</hash>
-              </myPosition>
-              <myRotation reference="../../componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-              <myDimensions>
-                <width>10.0</width>
-                <height>10.0</height>
-                <hash>0</hash>
-              </myDimensions>
-              <startPosition reference="../myPosition"/>
-              <startRotation reference="../../componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-              <startDimensions reference="../myDimensions"/>
-            </transform>
-          </myProjectileTemplate>
-        </gameEngine.actions.ShootAction>
-=======
               <null/>
             </a>
           </myKeyCode>
           <runsEveryFrame>false</runsEveryFrame>
           <value>-70.0</value>
         </gameEngine.actions.BounceAction>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
       </actionList>
       <componentList>
         <gameEngine.components.HealthComponent>
@@ -552,12 +499,8 @@
         <gameEngine.components.VelocityComponent>
           <mySprite reference="../../.."/>
           <isActive>true</isActive>
-<<<<<<< HEAD
-          <myVelocity reference="../../../actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-=======
           <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
           <myTerminalVelocity>5.0</myTerminalVelocity>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
           <isGrounded>true</isGrounded>
         </gameEngine.components.VelocityComponent>
       </componentList>
@@ -565,25 +508,6 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
-<<<<<<< HEAD
-      <collisionTag>player</collisionTag>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>100.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>50.0</width>
-          <height>50.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-=======
       <collisionTag>player</collisionTag>
       <transform>
         <myPosition>
@@ -796,7 +720,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -805,25 +728,6 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
-<<<<<<< HEAD
-      <collisionTag>platform</collisionTag>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>400.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>500.0</width>
-          <height>10.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-=======
       <collisionTag>enemy</collisionTag>
       <transform>
         <myPosition>
@@ -860,7 +764,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -869,25 +772,6 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
-<<<<<<< HEAD
-      <collisionTag>trampoline</collisionTag>
-      <transform>
-        <myPosition>
-          <x>600.0</x>
-          <y>350.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>300.0</width>
-          <height>10.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-=======
       <collisionTag>enemy</collisionTag>
       <transform>
         <myPosition>
@@ -924,7 +808,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -933,25 +816,6 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
-<<<<<<< HEAD
-      <collisionTag>platform</collisionTag>
-      <transform>
-        <myPosition>
-          <x>1000.0</x>
-          <y>300.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>500.0</width>
-          <height>10.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-=======
       <collisionTag>enemy</collisionTag>
       <transform>
         <myPosition>
@@ -988,7 +852,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -1000,22 +863,6 @@
       <collisionTag>enemy</collisionTag>
       <transform>
         <myPosition>
-<<<<<<< HEAD
-          <x>660.0</x>
-          <y>160.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>30.0</width>
-          <height>30.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-=======
           <x>1300.0</x>
           <y>850.0</y>
           <hash>0</hash>
@@ -1049,7 +896,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -1061,22 +907,6 @@
       <collisionTag>enemy</collisionTag>
       <transform>
         <myPosition>
-<<<<<<< HEAD
-          <x>780.0</x>
-          <y>160.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>30.0</width>
-          <height>30.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-=======
           <x>1200.0</x>
           <y>1100.0</y>
           <hash>0</hash>
@@ -1110,7 +940,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -1122,15 +951,6 @@
       <collisionTag>enemy</collisionTag>
       <transform>
         <myPosition>
-<<<<<<< HEAD
-          <x>200.0</x>
-          <y>300.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <myDimensions>
-          <width>30.0</width>
-=======
           <x>1300.0</x>
           <y>1400.0</y>
           <hash>0</hash>
@@ -1278,19 +1098,10 @@
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
           <width>100.0</width>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
           <height>100.0</height>
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../myPosition"/>
-<<<<<<< HEAD
-        <startRotation reference="../../../sprite.Sprite/actionList/gameEngine.actions.ShootAction/myProjectileTemplate/componentList/gameEngine.components.ProjectileMotionComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-  </sprites>
-  <playerSprite reference="../sprites/sprite.Sprite"/>
-=======
         <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
@@ -1404,7 +1215,6 @@
     </sprite.Sprite>
   </sprites>
   <playerSprite reference="../sprites/sprite.Sprite[12]"/>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
   <collisionTable>
     <myTable>
       <entry>
@@ -1425,8 +1235,6 @@
         <string>enemy</string>
         <map>
           <entry>
-<<<<<<< HEAD
-=======
             <string>enemyPlatform</string>
             <gameEngine.Action-array>
               <null/>
@@ -1436,7 +1244,6 @@
             </gameEngine.Action-array>
           </entry>
           <entry>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
             <string>player</string>
             <gameEngine.Action-array>
               <null/>
@@ -1445,8 +1252,6 @@
               <null/>
             </gameEngine.Action-array>
           </entry>
-<<<<<<< HEAD
-=======
           <entry>
             <string>superTrampoline</string>
             <gameEngine.Action-array>
@@ -1470,7 +1275,6 @@
               <null/>
             </gameEngine.Action-array>
           </entry>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
         </map>
       </entry>
       <entry>
@@ -1495,11 +1299,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-<<<<<<< HEAD
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite/actionList/gameEngine.actions.BounceAction"/>
-=======
               <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction"/>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1507,11 +1307,7 @@
             <string>enemy</string>
             <gameEngine.Action-array>
               <gameEngine.actions.KillAction>
-<<<<<<< HEAD
-                <mySprite reference="../../../../../../../../sprites/sprite.Sprite"/>
-=======
                 <mySprite reference="../../../../../../../../sprites/sprite.Sprite[12]"/>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
                 <isActive>false</isActive>
                 <myKeyCode class="java.util.Arrays$ArrayList">
                   <a class="javafx.scene.input.KeyCode-array">
@@ -1531,9 +1327,6 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-<<<<<<< HEAD
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite/actionList/gameEngine.actions.NormalAction"/>
-=======
               <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
               <null/>
             </gameEngine.Action-array>
@@ -1590,7 +1383,6 @@
               <null/>
               <null/>
               <null/>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1605,10 +1397,6 @@
       <string>trampoline</string>
       <string>trampoline</string>
       <string>player</string>
-<<<<<<< HEAD
-      <string>enemy</string>
-      <string>enemy</string>
-=======
       <string>superTrampoline</string>
       <string>superTrampoline</string>
       <string>player</string>
@@ -1622,17 +1410,12 @@
       <string>enemy</string>
       <string>switch</string>
       <string>switch</string>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
       <string>player</string>
     </tagList>
   </collisionTable>
   <goalMap>
     <entry>
-<<<<<<< HEAD
-      <sprite.Sprite reference="../../../sprites/sprite.Sprite"/>
-=======
       <sprite.Sprite reference="../../../sprites/sprite.Sprite[12]"/>
->>>>>>> 79abac9572ccdf23c05a76b4c63a4f016a2f70ef
       <int>0</int>
     </entry>
   </goalMap>
