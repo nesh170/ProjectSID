@@ -5,6 +5,7 @@ import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +27,7 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +47,7 @@ import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
+import screen.collisionTableScreen.CollisionTableScreenController;
 import screen.gameEditScreen.GameEditScreen;
 import screen.gameEditScreen.GameEditScreenController;
 import screen.gamePlayScreen.GamePlayScreen;
@@ -71,7 +74,7 @@ import util.ErrorHandler;
  * @author Kyle
  * @author Leo
  * @author Michael
- * @Yongjiao
+ * @author Yongjiao
  */
 
 
@@ -147,6 +150,7 @@ public class ScreenController {
 	private LevelEditScreenManager levelEditScreenManager;
 	private SpriteEditScreenManager spriteEditScreenManager;
 	private GamePlayScreenManager gamePlayScreenManager;
+	private CollisionTableScreenManager collisionTableScreenManager;
 	//Factories
 	private ScreenFactory screenFactory;
 	
@@ -211,6 +215,7 @@ public class ScreenController {
 		levelEditScreenManager = new LevelEditScreenManager();
 		spriteEditScreenManager = new SpriteEditScreenManager();
 		gamePlayScreenManager = new GamePlayScreenManager();
+		collisionTableScreenManager = new CollisionTableScreenManager();
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
@@ -310,56 +315,65 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createMainMenuScreen(mainMenuScreenManager),
-				STRING.MAIN_MENU
+				STRING.MAIN_MENU_SCREEN.MAIN_MENU
 				);		
 	}
-
 	
 	private Tab createGameEditScreen(Game game) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGameEditScreen(game, gameEditScreenManager),
-				STRING.GAME_EDIT
+				STRING.GAME_EDIT.GAME_EDIT
 				);
 		
 	}
-
 	
 	private Tab createSplashEditScreen(SplashScreen splashScreen) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
-				STRING.SPLASH_SCREEN
+				STRING.GAME_EDIT.SPLASH_SCREEN
 				);
 		
 	}
-
 	
 	private Tab createLevelEditScreen(Level level) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
-				STRING.LEVEL_EDIT
+				STRING.LEVEL_EDIT.LEVEL_EDIT
 				);
 	
 	}
-
 	
 	private Tab createSpriteEditScreen(Tab tab, Sprite sprite) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 					screenFactory.createSpriteEditScreen(tab, sprite, spriteEditScreenManager),
-					STRING.SPRITE_EDIT
+					STRING.SPRITE_EDIT.SPRITE_EDIT
+					);
+		
+	}
+	
+	/**
+	 * @author Anika
+	 * @param tab
+	 * @param sprites
+	 * @return Tab
+	 */
+	private Tab createCollisionTableScreen(Tab tab, List<String> sprites) {
+		return tabManager.addTabWithScreenWithStringIdentifier(
+					screenFactory.createCollisionTableScreen(sprites, collisionTableScreenManager),
+					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
 	}
 
-	
 	private Tab createGamePlayScreen(Game game) {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGamePlayScreen(game, gamePlayScreenManager),
-				STRING.GAME_PLAY
+				STRING.GAME_PLAY.GAME_PLAY
 				);
 		
 	}
@@ -368,7 +382,7 @@ public class ScreenController {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
 				screenFactory.createGamePlayScreen(gamePlayScreenManager),
-				STRING.GAME_PLAY
+				STRING.GAME_PLAY.GAME_PLAY
 				);
 		
 	}
@@ -392,6 +406,18 @@ public class ScreenController {
 			popup.show(stage);
 		}
 		
+		/**
+		 * creates a new game after user specify the game name in pop up window.
+		 */
+		@Override
+		public void confirmToCreateGame(Popup popup, TextField gameName,
+				TextArea des) {
+			Game newGame = new Game(gameName.getText());
+            newGame.setDescription(des.getText());
+            createGameEditScreen(newGame);
+            popup.hide();
+		}
+		
 		@Override
 		public void loadGame() {
 			
@@ -401,7 +427,7 @@ public class ScreenController {
 				createGameEditScreen(game);
 			}
 			catch (Exception e) {
-				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
+				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
 			
 		}
@@ -411,18 +437,6 @@ public class ScreenController {
 
 			close();
 		}
-		/**
-		 * creates a new game after user specify the game name in pop up window.
-		 */
-		@Override
-		public void confirmToCreateGame(Popup popup, TextField gameName,
-				TextField des) {
-			Game newGame = new Game(gameName.getText());
-            newGame.setDescription(des.getText());
-            createGameEditScreen(newGame);
-            popup.hide();
-		}
-		
 	}
 	
 	private class GameEditScreenManager implements GameEditScreenController {
@@ -431,8 +445,7 @@ public class ScreenController {
 		public void returnToMainMenuScreen() {
 			
 			//MainMenuScreen is singleton
-			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			//tabManager.removeTab(gameEditTab);	
+			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
 
 		}
@@ -476,7 +489,7 @@ public class ScreenController {
 			
 			tabManager.addTabWithScreenWithStringIdentifier(
 						screenFactory.createGameEditScreen(game, gameEditScreenManager),
-						STRING.GAME_EDIT
+						STRING.GAME_EDIT.GAME_EDIT
 						);
 			tabManager.replaceTab(newScreen);
 		}
@@ -510,10 +523,13 @@ public class ScreenController {
 			try {
 				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 			} catch (IOException e) {
-				errorHandler.displayError(STRING.ILLEGAL_FILE_PATH);
+				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
 			
 		}
+
+		
+	
 	}
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
@@ -554,6 +570,18 @@ public class ScreenController {
 			Sprite newSprite = new Sprite();
 			loadSpriteEditScreen(levelEditScreen, newSprite);
 		}
+
+		@Override
+		/**
+		 * collision table load screen
+		 * @author Anika
+		 * @param levelEditScreen
+		 */
+		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
+			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createCollisionTableScreen(collisionTableTab, levelEditScreen.getSpriteTags());
+
+		}
 		
 	}
 	
@@ -564,6 +592,16 @@ public class ScreenController {
 			
 			tabManager.removeTabAndChangeSelected(switchTo);
 			levelEditScreen.addSprite(sprite);
+			
+		}
+		
+	}
+	
+	private class CollisionTableScreenManager implements CollisionTableScreenController {
+
+		@Override
+		public void returnToLevel() {
+			// TODO Auto-generated method stub
 			
 		}
 		

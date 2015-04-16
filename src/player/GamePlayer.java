@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class GamePlayer {
 
-	public final static double FRAME_RATE = 60;
+	public final static double FRAME_RATE = 30;
 	public final static double UPDATE_RATE = 120;
 
 	private ScrollPane myGameRoot;

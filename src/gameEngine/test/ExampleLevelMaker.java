@@ -28,6 +28,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import sprite.Sprite;
 import util.ImageToInt2DArray;

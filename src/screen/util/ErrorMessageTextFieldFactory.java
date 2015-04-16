@@ -19,7 +19,7 @@ public class ErrorMessageTextFieldFactory {
 
 	public static TextField configureNewErrorMessageTextField(String error) {
 		
-		TextField returnErrorMessageTextField = new TextField(error + STRING.CLICK_TO_DISMISS);
+		TextField returnErrorMessageTextField = new TextField(error + STRING.ERROR.CLICK_TO_DISMISS);
 		
 		configureNewMessage(returnErrorMessageTextField);
 
@@ -36,7 +36,7 @@ public class ErrorMessageTextFieldFactory {
 
 		messageBox.setEditable(false);
 
-		messageBox.setStyle(STRING.FX_RED_BACKGROUND);
+		messageBox.setStyle(STRING.COLORS.FX_RED_BACKGROUND);
 		messageBox.setOpacity(DOUBLE.NINETY_PERCENT);
 
 		messageBox.setMinWidth(messageWidth);

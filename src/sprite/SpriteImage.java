@@ -2,8 +2,12 @@ package sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Callable;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import util.Int2DArraySizes;
 import util.IntArray2DToImageConverter;
@@ -32,6 +36,8 @@ public class SpriteImage {
 	
 	
 	// Instance Variables
+	private transient Optional<List<ImageView>> imageViews = Optional.empty();
+	
 	private List<int[][]> images;			// Stores all 2D, pixelated images
 	private int imageFrameRate;
 	
@@ -71,6 +77,7 @@ public class SpriteImage {
 		
 		setImageFrameRate(INT.DEFAULT_IMAGE_FRAMERATE);
 		instantiateImagesList();
+		instantiateImageViewsFromImagesList();
 		
 	}
 	
@@ -78,10 +85,36 @@ public class SpriteImage {
 		this.images = new SilentFailArrayList<int[][]>();
 	}
 	
+	private void instantiateImageViewsFromImagesList() {
+		
+		this.imageViews = Optional.of(new SilentFailArrayList<ImageView>());
+		
+		for (int[][] image2DArray : images) {
+			
+			Image image = IntArray2DToImageConverter.convert2DIntArrayToImage(image2DArray, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
+			ImageView imageView = new ImageView(image);
+			
+			imageViews.get().add(imageView);
+			
+		}
+		
+	}
 	
 	// All other instance methods
 	/**
-	 * No need for if(images == null), "images" is always instantiated in the constructor. 
+	 * Cover the case where we have an Empty Optional for transient imageViews list.. Just read from XML
+	 * 
+	 * @author Ruslan
+	 */
+	public void checkForJustReadFromXML() {
+		
+		if (!imageViews.isPresent()) {
+			instantiateImageViewsFromImagesList();
+		}
+		
+	}
+	
+	 /** No need for if(images == null), "images" is always instantiated in the constructor. 
 	 * 
 	 * @return true if SpriteImage contains at least one int[][]
 	 */
@@ -100,6 +133,7 @@ public class SpriteImage {
 		if (!hasImages()) {		// Go ahead
 			
 			images.add(image);
+			instantiateImageViewsFromImagesList();
 			return true;
 			
 		}
@@ -107,8 +141,11 @@ public class SpriteImage {
 		else {					// Already has images. Check width & height before adding
 			
 			if (checkDimensions(image)) {
+				
 				images.add(image);
+				instantiateImageViewsFromImagesList();
 				return true;
+				
 			}
 			
 			else {
@@ -116,13 +153,6 @@ public class SpriteImage {
 			}
 			
 		}
-		
-	}
-	
-	public Image convertArrayToImage() {
-		
-		//TODO unimplemented
-		return null;
 		
 	}
 	
@@ -148,11 +178,14 @@ public class SpriteImage {
 	public int removeImage(int indexToRemove) {
 		
 		images.remove(indexToRemove);
+		instantiateImageViewsFromImagesList();
+		
 		return images.size();
 		
 	}
 	
 	/**
+	* @deprecated
 	* 
 	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
 	* SpriteImage takes care of the rest.
@@ -163,19 +196,60 @@ public class SpriteImage {
 	*/
 	public Image getImageToDisplay(double lengthSidePixel) {
 		
+		Callable getImageToDisplay = () -> {
+			
+			int[][] sourceArray = images.get(currentImageIndex);
+
+			return IntArray2DToImageConverter.convert2DIntArrayToImage(sourceArray, lengthSidePixel); 
+			
+		};
+		
+		return (Image)getImageOrImageViewToDisplayWrapper(getImageToDisplay);
+		
+	}
+	
+	/**
+	* The GameEngine is expected to simply call this method at whatever framerate it runs at. 
+	* SpriteImage takes care of the rest. Note, Sprite should be instantiated with the size of each SID Pixel length
+	* 
+	* @return ImageView if non-empty images, null if no images
+	* 
+	*/
+	public ImageView getImageViewToDisplay() {
+		
+		// Would normally need to add for checks if just read from XML, but the SpriteImage getter already called it here. Assume non-null imageViews
+		Callable getImageViewToDisplay = () -> {
+		
+			return imageViews.get().get(currentImageIndex);
+			
+		};
+		
+		return (ImageView)getImageOrImageViewToDisplayWrapper(getImageViewToDisplay);
+		
+	}
+	
+	/**
+	 * Method designed to eliminate duplicated code of checking for an empty list using callables
+	 * 
+	 * @param Callable
+	 * @return Object castable to specific Callable you pass in
+	 */
+	private Object getImageOrImageViewToDisplayWrapper(Callable callable) {
+
+		Object returnObject = null;
+		
 		if (hasImages()) {
 			
 			adjustCounters();
 			
-			int[][] sourceArray = images.get(currentImageIndex);
-			return IntArray2DToImageConverter.convert2DIntArrayToImage(sourceArray, lengthSidePixel); 
+			try {
+				returnObject = callable.call();
+			} catch (Exception e) {}
 			
 		} 
-		
-		else {
-			return null;
-		}
-		
+
+		return returnObject;
+
 	}
 	
 	private void adjustCounters() {
@@ -187,5 +261,6 @@ public class SpriteImage {
 		framesSinceLastUpdate++;
 		
 	}
+
 	
 }
