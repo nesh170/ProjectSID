@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
+import resources.constants.STRING;
 import levelPlatform.LevelPlatform;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
@@ -16,7 +17,7 @@ public class Game {
 	// Instance Variables
 	private List<Level> levels;
 	private SplashScreen splashScreen;
-	private String name;
+	private String name = STRING.DEFAULT_GAME_NAME;;
 	private String description;
 
 
@@ -48,7 +49,7 @@ public class Game {
 	}
 
 	public Game(String name) {
-
+		
 		this.name = name;
 		this.levels = new ArrayList<>();
 

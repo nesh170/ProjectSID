@@ -335,7 +335,7 @@ public class GameEditScreen extends Screen {
 
 		// can't add ObservableList to a HBox directly
 		Button level1 = makeTempLevelSplashDisplayImage(
-				STRING.GAME_EDIT.LEVEL1IMAGE, INT.LEVEL); // tmp string path
+				STRING.GAME_EDIT.LEVEL1IMAGE, INT.LEVEL); 
 		Button level2 = makeTempLevelSplashDisplayImage(
 				STRING.GAME_EDIT.LEVEL2IMAGE, INT.LEVEL);
 		Button level3 = makeTempLevelSplashDisplayImage(
@@ -345,14 +345,14 @@ public class GameEditScreen extends Screen {
 	}
 
 	// temporary methods to display level/Splash Image
-	private Button makeTempLevelSplashDisplayImage(String path, int flag) {
+	private Button makeTempLevelSplashDisplayImage(String path, int splashOrLevel) {
 
 		Button b = new Button();
 		ImageView img = new ImageView(new Image(path));
 		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 		b.setGraphic(img);
-		b.setOnMouseClicked(handleDouleRightClick(b, flag));
+		b.setOnMouseClicked(handleDouleRightClick(b, splashOrLevel));
 		return b;
 	}
 
@@ -362,7 +362,7 @@ public class GameEditScreen extends Screen {
 	 * @param node
 	 * @return EventHandler<MouseEvent>
 	 */
-	private EventHandler<MouseEvent> handleDouleRightClick(Node node, int flag) {
+	private EventHandler<MouseEvent> handleDouleRightClick(Node node, int splashOrLevel) {
 
 		return new EventHandler<MouseEvent>() { // double Click to edit a screen
 
@@ -372,7 +372,7 @@ public class GameEditScreen extends Screen {
 					
 					if (mouseEvent.getClickCount() == 2) {
 						
-						if (flag == INT.LEVEL) {
+						if (splashOrLevel == INT.LEVEL) {
 							controller.loadLevelEditScreen(selectedLevel);
 						}
 							
@@ -386,7 +386,7 @@ public class GameEditScreen extends Screen {
 				
 				else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
 					
-					if (flag == INT.LEVEL) {
+					if (splashOrLevel == INT.LEVEL) {
 						makeRightClickMenu(
 								e -> controller
 										.loadLevelEditScreen(selectedLevel),
