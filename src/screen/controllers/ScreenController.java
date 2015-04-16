@@ -27,6 +27,7 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -404,7 +405,7 @@ public class ScreenController {
 		 */
 		@Override
 		public void confirmToCreateGame(Popup popup, TextField gameName,
-				TextField des) {
+				TextArea des) {
 			Game newGame = new Game(gameName.getText());
             newGame.setDescription(des.getText());
             createGameEditScreen(newGame);
