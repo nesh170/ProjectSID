@@ -625,7 +625,7 @@ public class SpriteEditScreen extends Screen {
 		stringToImageMap.keySet().forEach(e-> {
 			Image image = stringToImageMap.get(e).getImage();
 			int[][] convertedImage = ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight());
-			editableSprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).addImage(convertedImage);
+			editableSprite.spriteImage().addImage(convertedImage);
 		});
 		componentMap.keySet().forEach(e -> {
 			editableSprite.addComponent(componentMap.get(e));
