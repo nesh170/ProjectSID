@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Reflection;
@@ -133,7 +134,7 @@ public class MainMenuScreen extends Screen {
 		//popup menu for game name		
 		 makeMyPopUp();
 		 GridPane grid = configureGridPane();
-	     ImageView img = makeImageView("images/GameEdit_Images/popup.png", 350, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
+	     ImageView img = makeImageView(STRING.MAIN_MENU_SCREEN.POPUP, 350, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 	     myPopUp.getContent().addAll(img, grid);
 	     
 	}
@@ -150,13 +151,16 @@ public class MainMenuScreen extends Screen {
 	private GridPane configureGridPane() {
 		
 		 GridPane grid = makeGridPane();
-	     TextField gameName = new TextField("Please name your game here");
-	     grid.add(gameName, 1, 1);
-	     TextField des = new TextField("Please add your game description here");
+	     TextField gameName = new TextField();
+	     gameName.setPromptText(STRING.MAIN_MENU_SCREEN.ENTERGNAME);
+	     grid.add(gameName, 2, 2 );
+	     TextArea des = new TextArea();
+	     des.setPromptText(STRING.MAIN_MENU_SCREEN.ENTERGDESCRIPTION);
 	     des.setPrefHeight(100);
-	     grid.add(des, 1, 2);
+	     des.setPrefWidth(150);
+	     grid.add(des, 2, 3 );
 	     HBox popUpHBox = new HBox(100);
-	     grid.add(popUpHBox, 1, 8);
+	     grid.add(popUpHBox, 2, 5);
 	     Button ok = new Button("confirm");
 	     Button cancel = new Button("cancel");
 	     popUpHBox.getChildren().addAll(cancel, ok);
@@ -170,12 +174,13 @@ public class MainMenuScreen extends Screen {
 		
 		 GridPane grid = new GridPane();
 	     grid.setAlignment(Pos.CENTER);
-	     grid.setHgap(15);
-	     grid.setVgap(15);	
-	     Label name = new Label("Game Name:");
-	     grid.add(name, 0, 1);
-	     Label description = new Label("Game Description:");
-	     grid.add(description, 0, 2);
+	     grid.setHgap(10);
+	     grid.setVgap(20);	
+	     grid.addRow(0, new Text(""));
+	     Label name = new Label(STRING.MAIN_MENU_SCREEN.NAMELABEL);
+	     grid.add(name, 0, 2, 2, 1);
+	     Label description = new Label(STRING.MAIN_MENU_SCREEN.DESCRIPTIONLABEL);
+	     grid.add(description, 0, 3, 2, 1);
 	     return grid;
 	     
 	}

@@ -59,7 +59,12 @@ public class STRING {
 		public static final String CLOSE = "Close";
 		public static final String NEWGAME = "New Game";
 		public static final String LOADGAME = "Load Game";
-		
+		public static final String ENTERGNAME = "Enter your game name.";
+		public static final String ENTERGDESCRIPTION = "Enter your game description";
+		public static final String NAMELABEL = "              Game Name: ";
+		public static final String DESCRIPTIONLABEL = "       Game Description: ";
+		//image path
+		public static final String POPUP ="images/GameEdit_Images/popup.png";
 	}
 
 	public class SPLASH_EDIT_SCREEN {
