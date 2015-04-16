@@ -99,7 +99,7 @@ public class Level extends LevelPlatform {
 	 * @param playerSprite
 	 */
 	public Level(int width, int height, Sprite playerSprite) {
-		
+
 		super(width, height);
 
 		instantiateMaps();
