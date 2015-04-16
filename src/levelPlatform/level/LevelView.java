@@ -129,8 +129,7 @@ public class LevelView extends ScrollPane {
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-            spriteImage = sprite.spriteImage(lengthSidePixel).getImageToDisplay(lengthSidePixel);
-            spriteImageView = new ImageView(spriteImage);
+        	spriteImageView = sprite.spriteImage().getImageViewToDisplay();
                         
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
                    // .transform().getPosY());

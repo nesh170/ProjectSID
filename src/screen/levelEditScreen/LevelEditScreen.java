@@ -320,7 +320,8 @@ public class LevelEditScreen extends Screen {
 	 */
 	private void addSpriteToLevelDisplay(Sprite sprite) {
 		
-		ImageView imageView = new ImageView(sprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).getImageToDisplay(1));
+		ImageView imageView = sprite.spriteImage().getImageViewToDisplay();
+		
 		levelDisplay.getChildren().add(imageView);
 		imageView.setTranslateX(sprite.getX());
 		imageView.setTranslateY(sprite.getY());
@@ -337,7 +338,7 @@ public class LevelEditScreen extends Screen {
 	public void addSprite(Sprite sprite) {
 		
 		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).getImageToDisplay(1); //TODO get rid of magic;
+		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage();
 		levelDisplay.setCursor(new ImageCursor(imageToAdd));
 		
 	}
