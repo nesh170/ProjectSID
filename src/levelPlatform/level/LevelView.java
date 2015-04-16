@@ -32,8 +32,6 @@ public class LevelView extends ScrollPane {
 	private EditMode editMode;
 	// Level
     private Level level;
-    // Layouts
-    private double lengthSidePixel;
     // Playing
     private Collision collisionHandler;    
         
@@ -51,14 +49,6 @@ public class LevelView extends ScrollPane {
     	this.editMode = editMode;
     }
     
-    public void setLengthSidePixel(double lengthSidePixel) {
-    	this.lengthSidePixel = lengthSidePixel;
-    }
-    
-    public double getLengthSidePixel() {
-    	return this.lengthSidePixel;
-    }
-        
     public void setCollisionHandler(){
     	this.collisionHandler = new Collision(level.getCollisionTable());
     }
@@ -82,7 +72,6 @@ public class LevelView extends ScrollPane {
      */
     public LevelView(Level level, EditMode editMode, double lengthSidePixel) {
     	
-    	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
     	setEditMode(editMode);
     	setCollisionHandler();
