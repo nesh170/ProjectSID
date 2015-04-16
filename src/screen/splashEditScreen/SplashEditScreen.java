@@ -260,7 +260,7 @@ public class SplashEditScreen extends Screen {
 
 		tag = "Start";
 		startButtonImageView = new ImageView(image);
-		this.setOnKeyPressed(e -> resize(e, imageCursor));
+		this.setOnKeyPressed(e -> resize(startButtonImageView, e, imageCursor));
 		button.setDisable(true);
 		
 	}
@@ -289,7 +289,7 @@ public class SplashEditScreen extends Screen {
 		tag = "Image";
 		imageView = new ImageView(image);
 		imageViewArray.add(imageView);
-		this.setOnKeyPressed(e -> resize(e, imageCursor));
+		this.setOnKeyPressed(e -> resize(imageView, e, imageCursor));
 		
 	}
 
@@ -366,8 +366,8 @@ public class SplashEditScreen extends Screen {
 	}
 
 	private void stars() {	
-		Image image = new Image("/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg"); //TODO move
-		ImageView iv2 = new ImageView(image);	
+		//Image image = new Image("/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg"); //TODO move
+		//ImageView iv2 = new ImageView(image);	
 	}
 
 	public void saveSplashScreen() {	
@@ -392,37 +392,63 @@ public class SplashEditScreen extends Screen {
 			getParent().setCursor(Cursor.DEFAULT);
 			this.add(startButtonImageView);
 			startButtonImageView.setOnMousePressed(f -> startButtonMove(f));
-			startButtonImageView.setX(e.getX());
-			startButtonImageView.setY(e.getY());
+			
+			// Node, x, y, "SID Pixel XY or JavaFX?"
+			placeImageViewAtXYIsUsingSIDPixels(startButtonImageView, e.getX(), e.getY(), false);
+			
 		}
 		else if(tag == "Image") {		
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
 			this.add(imageView);
 			imageView.setOnMousePressed(f -> imageMove(f));
-			imageView.setX(e.getX());
-			imageView.setY(e.getY());
+			
+			// Node, x, y, "SID Pixel XY or JavaFX?"
+			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
+						
 		}
 		else if(tag == "Background Image") {
 			rectangle.setFill(new ImagePattern(imageView.getImage()));
 		}
 		else if(tag == "Text") {
 			
-//			text = new Text("Well Hi");
-//			
-//			StackPane pane = new StackPane();
-//
-//		    pane.getChildren().add(rectangle);
-//		    pane.getChildren().addAll(text);
-//		    text.setTranslateX(e.getX()-((width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH)/2));
-//		    text.setTranslateY(e.getY()-((height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT)/2)-50); //50 probz
-//
-//			this.getChildren().add(pane);
-//		    this.viewableArea().setLeft(pane);
+			text = new Text("Well Hi");
+			
+			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
 
 		}	
 	}
 	
+	/**
+	 * @author Ruslan, ask if any questions
+	 * 
+	 * @param startButtonImageView
+	 * @param x
+	 * @param y
+	 * @param isUsingSIDPixels
+	 */
+	private void placeImageViewAtXYIsUsingSIDPixels(ImageView imageView, double x, double y, boolean isUsingSIDPixels) {
+
+		this.getChildren().add(imageView);
+		imageView.setX(x);
+		imageView.setY(y);
+		
+		// TODO Implement
+//		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
+		
+	}
+	
+	private void placeTextAtXYIsUsingSIDPixels(Text text, double x, double y, boolean isUsingSIDPixels) {
+
+		this.getChildren().add(text);
+		text.setX(x);
+		text.setY(y);
+		
+		// TODO Implement
+//		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
+		
+	}
+
 	private void startButtonMove(MouseEvent f) {
 		startButtonImageView.setOnMouseReleased(e -> placeStartButton(e));
 	}
@@ -443,17 +469,17 @@ public class SplashEditScreen extends Screen {
 		tag = null;
 	}
 
-	private void resize(KeyEvent e, ImageCursor ic) {
+	private void resize(ImageView imageView, KeyEvent e, ImageCursor ic) {
 		KeyCode keyCode = e.getCode();
 		if(keyCode == KeyCode.RIGHT) {
 			System.out.println("right");
-			imageView.setScaleX(1.2);
-			imageView.setScaleY(1.2);
+			imageView.setScaleX(1.8);
+			imageView.setScaleY(1.8);
 		}
 		else if(keyCode == KeyCode.LEFT) {
 			System.out.println("left");
-			imageView.setScaleX(0.8);
-			imageView.setScaleY(0.8);	
+			imageView.setScaleX(0.6);
+			imageView.setScaleY(0.6);
 		}
 	}
 
