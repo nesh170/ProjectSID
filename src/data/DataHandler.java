@@ -47,6 +47,7 @@ public class DataHandler {
 
 	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
