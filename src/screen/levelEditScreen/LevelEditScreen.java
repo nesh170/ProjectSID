@@ -130,8 +130,8 @@ public class LevelEditScreen extends Screen {
 		initializeLevelDisplay(level);
 		
 		this.setOnMouseEntered(e -> initializeDisplaySize());
+		
 	}
-	
 	
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
