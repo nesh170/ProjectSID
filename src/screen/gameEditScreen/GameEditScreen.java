@@ -152,6 +152,7 @@ public class GameEditScreen extends Screen {
 
 		this.controller = controller;
 		configureButtons();
+		
 	}
 
 	private void configureButtons() {
@@ -159,7 +160,7 @@ public class GameEditScreen extends Screen {
 		configureLevelDisplay();
 		this.setCenter(levelDisplay);
 
-		ConfigureSplashDisplay();
+		configureSplashDisplay();
 		this.setLeft(splashDisplay);
 		
 	}
@@ -169,7 +170,7 @@ public class GameEditScreen extends Screen {
 	 * 
 	 * @return
 	 */
-	private void ConfigureSplashDisplay() {
+	private void configureSplashDisplay() {
 
 		splashDisplay = new VBox();
 		splashDisplay.setAlignment(Pos.CENTER);
@@ -199,7 +200,8 @@ public class GameEditScreen extends Screen {
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		sp.getChildren().addAll(rec, s);   
+		sp.getChildren().addAll(rec, s);  
+		
 	}
 
 	private Button displayMySplash() {
@@ -451,6 +453,7 @@ public class GameEditScreen extends Screen {
 		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game),
 				o -> controller.returnToMainMenuScreen(),
 				o -> controller.returnToMainMenuScreen());
+		
 		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(),
 				makeGameMenu(), makeTrashMenu());
 
