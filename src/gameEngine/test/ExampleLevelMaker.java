@@ -34,11 +34,11 @@ import util.ImageToInt2DArray;
 import levelPlatform.level.Level;
 
 public class ExampleLevelMaker extends Application{
-	
+
 	private static final double GRAVITY = 50.0;
 	private static final double SPEED = 8.0;
 	private static final double JUMP_SPEED = -20.0;
-	
+
 	private Sprite myPlayer;
 	private List<Sprite> mySpriteList = new ArrayList<>();
 	private Action myJumpAction;
@@ -51,37 +51,45 @@ public class ExampleLevelMaker extends Application{
 	private List<Sprite> myTrampolines = new ArrayList<Sprite>();
 	private List<Sprite> myEnemyTrampolines = new ArrayList<>();
 	private List<Sprite> myEnemies = new ArrayList<>();
-	
+	private List<Sprite> mySuperTrampolines = new ArrayList<>();
+
 	private Level makeLevel(){
-	System.out.println("Oh yeah!!!");
-	myCT = new CollisionTable();
-	doPlatforms();
-	//set up player
-	myPlayer = new Sprite(new Point2D(0.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
-	myPlayer.setCollisionTag("player");
-	addPlayerComponentsAndActions();
-	mySpriteList.add(myPlayer);
-	Level l = new Level(500, 500, myPlayer);
-	//set up collisions
-	l.setCollisionTable(myCT);
-	makeStationaryEnemies();
-	Sprite tarHeel = makeBouncingEnemy(1700, 1500, 50, 50);
-	Action gthc = new KillAction(tarHeel, 0.0, KeyCode.E);
-	tarHeel.addAction(gthc);
-	//stop from infinitely falling:
-	makeEnemy(-200, 2000, 2000, 50);
-	//Switch:
-	doSwitch(gthc);
-	//Images
-	doImages();
-	//Goals:
-	Map<Sprite, Integer> goalMap = new HashMap<>();
-	goalMap.put(myPlayer, 0);
-	
-	l.setSprites(mySpriteList);
-	l.setGoalMap(goalMap);
-	return l;
-}
+		System.out.println("Oh yeah!!!");
+		myCT = new CollisionTable();
+		doPlatforms();
+		//set up player
+		myPlayer = new Sprite(new Point2D(0.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		myPlayer.setCollisionTag("player");
+		addPlayerComponentsAndActions();
+		mySpriteList.add(myPlayer);
+		Level l = new Level(500, 500, myPlayer);
+		//set up collisions
+		l.setCollisionTable(myCT);
+		//enemies:
+		makeStationaryEnemies();
+		makeBouncingEnemy(1700, 1500, 50, 50);
+		//big one:
+		Sprite tarHeel = makeEnemy(2150, 1450, 100, 100);
+		Action gthc = new KillAction(tarHeel, 0.0, KeyCode.E);
+		tarHeel.addAction(gthc);
+		//stop from infinitely falling:
+		makeEnemy(-200, 2000, 3000, 50);
+		//Switch:
+		doSwitch(gthc);
+		/*//Star:
+		Sprite star = new Sprite(new Point2D(2525.0, 50.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		mySpriteList.add(star);
+		setUpImage(star, "star.png", 8, 8);*/
+		//Images
+		doImages();
+		//Goals:
+		Map<Sprite, Integer> goalMap = new HashMap<>();
+		goalMap.put(myPlayer, 0);
+
+		l.setSprites(mySpriteList);
+		l.setGoalMap(goalMap);
+		return l;
+	}
 
 	private void doPlatforms() {
 		//set up platforms:
@@ -89,8 +97,15 @@ public class ExampleLevelMaker extends Application{
 		makeNormalPlatform(0, 400, 500, 10);
 		makeTrampoline(600, 350, 300, 10);
 		makeNormalPlatform(1500, 300, 300, 10);
-		makeNormalPlatform(1600, 1600, 300, 10);
 		makeTrampoline(1000, 1700, 500, 30);
+		makeNormalPlatform(1550, 1600, 50, 10);
+		makeNormalPlatform(1600, 1600, 300, 10);
+		makeNormalPlatform(1950, 1730, 200, 10);
+		makeNormalPlatform(2050, 1550, 250, 10);
+		//super trampoline:
+		makePlatform(2400, 1600, 100, 10, mySuperTrampolines, "superTrampoline");
+		//Finish:
+		makeNormalPlatform(2500, 100, 100, 10);
 	}
 
 	private void makeStationaryEnemies() {
@@ -99,21 +114,22 @@ public class ExampleLevelMaker extends Application{
 		makeEnemy(780, 160, 30, 30);
 		makeEnemy(200, 300, 30, 100);
 		//Falling part:
-		makeEnemy(1000, 400, 20, 1000);
+		makeEnemy(1000, 400, 20, 1300);
 		makeEnemy(1350, 400, 20, 1000);
 		makeEnemy(1200, 400, 40, 40);
 		makeEnemy(1050, 600, 40, 40);
 		makeEnemy(1300, 850, 40, 40);
 		makeEnemy(1200, 1100, 40, 40);
 		makeEnemy(1300, 1400, 40, 40);
+		//after:
 	}
 
 	private void doSwitch(Action gthc) {
-		Sprite killSwitch = new Sprite(new Point2D(1870.0, 1570.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
+		Sprite killSwitch = new Sprite(new Point2D(2100.0, 1700.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
 		killSwitch.setCollisionTag("switch");
 		mySpriteList.add(killSwitch);
 		setCollisionUp(myPlayer, killSwitch, gthc);
-		setUpImage(killSwitch, "switch.png", 6, 6);
+		setUpImage(killSwitch, "switch.png", 1, 1);
 	}
 
 	private void doImages() {
@@ -125,12 +141,12 @@ public class ExampleLevelMaker extends Application{
 			setUpImage(enemy, "carolinaBlue.png", 1, 1);
 		}
 	}
-	
+
 	private void setUpImage(Sprite sprite, String path, int width, int height){
 		Image img = new Image(path);
 		sprite.spriteImage().addImage(ImageToInt2DArray.convertImageTo2DIntArray(img, width, height));
 	}
-	
+
 	private Sprite makeBouncingEnemy(double x, double y, double width, double height){
 		Sprite enemy = makeEnemy(x, y, width, height);
 		enemy.addComponent(new VelocityComponent(enemy, null));
@@ -139,8 +155,8 @@ public class ExampleLevelMaker extends Application{
 		enemy.addAction(gravityAction);
 		makeBouncing(enemy, myEnemyTrampolines);
 		return enemy;
-		}
-	
+	}
+
 	private Sprite makeEnemy(double x, double y, double width, double height) {
 		Sprite enemy = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		enemy.setCollisionTag("enemy");
@@ -177,14 +193,19 @@ public class ExampleLevelMaker extends Application{
 		for(Sprite platform: trampolines){
 			setCollisionUp(sprite, platform, bounceAction);
 		}
+		Action superBounceAction = new BounceAction(sprite, JUMP_SPEED*3.5, (KeyCode) null);
+		sprite.addAction(superBounceAction);
+		for(Sprite platform: mySuperTrampolines){
+			setCollisionUp(sprite, platform, superBounceAction);
+		}
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action bounceAction) {
 		myCT.addActionToMap(sprite.collisonTag(), platform.collisonTag(), INT.COLLISION_UP, bounceAction);
 		myCT.addActionToMap(platform.collisonTag(), sprite.collisonTag(), INT.COLLISION_DOWN, null);
 	}
-	
-	
+
+
 	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
 		Action jumpAction = new JumpAction(sprite, JUMP_SPEED, kc);
 		if(runsEveryFrame){
@@ -204,7 +225,7 @@ public class ExampleLevelMaker extends Application{
 			setCollisionUp(sprite, platform, normalAction);
 		}
 	}
-	
+
 	private void addProjectile() {
 		//set up projectile template, add to player, along with shoot actions
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
@@ -213,22 +234,22 @@ public class ExampleLevelMaker extends Application{
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
-		
+
 
 	}
-	
+
 	private Sprite makeNormalPlatform(double x, double y, double width, double height){
 		return makePlatform(x, y, width, height, myPlatforms, "platform");
 	}
-	
+
 	private Sprite makeTrampoline(double x, double y, double width, double height){
 		return makePlatform(x, y, width, height, myTrampolines, "trampoline");
 	}
-	
+
 	private Sprite makeEnemyPlatform(double x, double y, double width, double height){
 		return makePlatform(x, y, width, height, myEnemyTrampolines, "enemyPlatform");
 	}
-	
+
 	private Sprite makePlatform(double x, double y, double width, double height, List<Sprite> listToAdd, String tag) {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		platform.setCollisionTag(tag);
@@ -236,13 +257,13 @@ public class ExampleLevelMaker extends Application{
 		mySpriteList.add(platform);
 		return platform;
 	}
-	
-	
+
+
 	public static void main(String[] args){
 		ExampleLevelMaker elm = new ExampleLevelMaker();
 		Level l = elm.makeLevel();
 		try{
-		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
+			DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -253,7 +274,7 @@ public class ExampleLevelMaker extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

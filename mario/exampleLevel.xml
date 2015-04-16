@@ -151,6 +151,75 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <collisionTag>trampoline</collisionTag>
+      <transform>
+        <myPosition>
+          <x>1000.0</x>
+          <y>1700.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>500.0</width>
+          <height>30.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <transform>
+        <myPosition>
+          <x>1550.0</x>
+          <y>1600.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>50.0</width>
+          <height>10.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+      <spriteImage>
+        <images class="util.SilentFailArrayList" serialization="custom">
+          <unserializable-parents/>
+          <list>
+            <default>
+              <size>1</size>
+            </default>
+            <int>1</int>
+            <int-array-array>
+              <int-array>
+                <int>-2702446</int>
+              </int-array>
+            </int-array-array>
+          </list>
+        </images>
+        <imageFrameRate>5</imageFrameRate>
+        <framesSinceLastUpdate>0</framesSinceLastUpdate>
+        <currentImageIndex>0</currentImageIndex>
+      </spriteImage>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
       <collisionTag>platform</collisionTag>
       <transform>
         <myPosition>
@@ -195,23 +264,155 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
-      <collisionTag>trampoline</collisionTag>
+      <collisionTag>platform</collisionTag>
       <transform>
         <myPosition>
-          <x>1000.0</x>
-          <y>1700.0</y>
+          <x>1950.0</x>
+          <y>1730.0</y>
           <hash>0</hash>
         </myPosition>
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
-          <width>500.0</width>
-          <height>30.0</height>
+          <width>200.0</width>
+          <height>10.0</height>
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../myPosition"/>
         <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
+      <spriteImage>
+        <images class="util.SilentFailArrayList" serialization="custom">
+          <unserializable-parents/>
+          <list>
+            <default>
+              <size>1</size>
+            </default>
+            <int>1</int>
+            <int-array-array>
+              <int-array>
+                <int>-2702446</int>
+              </int-array>
+            </int-array-array>
+          </list>
+        </images>
+        <imageFrameRate>5</imageFrameRate>
+        <framesSinceLastUpdate>0</framesSinceLastUpdate>
+        <currentImageIndex>0</currentImageIndex>
+      </spriteImage>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <transform>
+        <myPosition>
+          <x>2050.0</x>
+          <y>1550.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>250.0</width>
+          <height>10.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+      <spriteImage>
+        <images class="util.SilentFailArrayList" serialization="custom">
+          <unserializable-parents/>
+          <list>
+            <default>
+              <size>1</size>
+            </default>
+            <int>1</int>
+            <int-array-array>
+              <int-array>
+                <int>-2702446</int>
+              </int-array>
+            </int-array-array>
+          </list>
+        </images>
+        <imageFrameRate>5</imageFrameRate>
+        <framesSinceLastUpdate>0</framesSinceLastUpdate>
+        <currentImageIndex>0</currentImageIndex>
+      </spriteImage>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>superTrampoline</collisionTag>
+      <transform>
+        <myPosition>
+          <x>2400.0</x>
+          <y>1600.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>100.0</width>
+          <height>10.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <transform>
+        <myPosition>
+          <x>2500.0</x>
+          <y>100.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>100.0</width>
+          <height>10.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+      <spriteImage>
+        <images class="util.SilentFailArrayList" serialization="custom">
+          <unserializable-parents/>
+          <list>
+            <default>
+              <size>1</size>
+            </default>
+            <int>1</int>
+            <int-array-array>
+              <int-array>
+                <int>-2702446</int>
+              </int-array>
+            </int-array-array>
+          </list>
+        </images>
+        <imageFrameRate>5</imageFrameRate>
+        <framesSinceLastUpdate>0</framesSinceLastUpdate>
+        <currentImageIndex>0</currentImageIndex>
+      </spriteImage>
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList>
@@ -274,6 +475,17 @@
           </myKeyCode>
           <runsEveryFrame>false</runsEveryFrame>
           <value>-20.0</value>
+        </gameEngine.actions.BounceAction>
+        <gameEngine.actions.BounceAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <null/>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>-70.0</value>
         </gameEngine.actions.BounceAction>
       </actionList>
       <componentList>
@@ -482,7 +694,7 @@
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
           <width>20.0</width>
-          <height>1000.0</height>
+          <height>1300.0</height>
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../myPosition"/>
@@ -795,17 +1007,17 @@
           <runsEveryFrame>false</runsEveryFrame>
           <value>-20.0</value>
         </gameEngine.actions.BounceAction>
-        <gameEngine.actions.KillAction>
+        <gameEngine.actions.BounceAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
             <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>E</javafx.scene.input.KeyCode>
+              <null/>
             </a>
           </myKeyCode>
           <runsEveryFrame>false</runsEveryFrame>
-          <value>0.0</value>
-        </gameEngine.actions.KillAction>
+          <value>-70.0</value>
+        </gameEngine.actions.BounceAction>
       </actionList>
       <componentList>
         <gameEngine.components.VelocityComponent>
@@ -858,6 +1070,62 @@
       </spriteImage>
     </sprite.Sprite>
     <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.KillAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>E</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>0.0</value>
+        </gameEngine.actions.KillAction>
+      </actionList>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>enemy</collisionTag>
+      <transform>
+        <myPosition>
+          <x>2150.0</x>
+          <y>1450.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>100.0</width>
+          <height>100.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+      <spriteImage>
+        <images class="util.SilentFailArrayList" serialization="custom">
+          <unserializable-parents/>
+          <list>
+            <default>
+              <size>1</size>
+            </default>
+            <int>1</int>
+            <int-array-array>
+              <int-array>
+                <int>-6963741</int>
+              </int-array>
+            </int-array-array>
+          </list>
+        </images>
+        <imageFrameRate>5</imageFrameRate>
+        <framesSinceLastUpdate>0</framesSinceLastUpdate>
+        <currentImageIndex>0</currentImageIndex>
+      </spriteImage>
+    </sprite.Sprite>
+    <sprite.Sprite>
       <actionList/>
       <componentList/>
       <x>0.0</x>
@@ -873,7 +1141,7 @@
         </myPosition>
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
-          <width>2000.0</width>
+          <width>3000.0</width>
           <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
@@ -911,8 +1179,8 @@
       <collisionTag>switch</collisionTag>
       <transform>
         <myPosition>
-          <x>1870.0</x>
-          <y>1570.0</y>
+          <x>2100.0</x>
+          <y>1700.0</y>
           <hash>0</hash>
         </myPosition>
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
@@ -935,52 +1203,7 @@
             <int>1</int>
             <int-array-array>
               <int-array>
-                <int>100663296</int>
-                <int>-1724317673</int>
-                <int>-208140985</int>
-                <int>-208140985</int>
-                <int>-1724317673</int>
-                <int>100663296</int>
-              </int-array>
-              <int-array>
-                <int>-2027093998</int>
-                <int>-1441684</int>
-                <int>-4292443</int>
-                <int>-4292443</int>
-                <int>-1441684</int>
-                <int>-2027093998</int>
-              </int-array>
-              <int-array>
-                <int>-208404416</int>
-                <int>-589707</int>
-                <int>-3917185</int>
-                <int>-3917185</int>
-                <int>-589707</int>
-                <int>-208404416</int>
-              </int-array>
-              <int-array>
-                <int>-5373875</int>
-                <int>-589707</int>
-                <int>-3722629</int>
-                <int>-3722629</int>
-                <int>-589707</int>
-                <int>-5373875</int>
-              </int-array>
-              <int-array>
-                <int>-12838640</int>
-                <int>-8106976</int>
-                <int>-7050680</int>
-                <int>-7050680</int>
-                <int>-8106976</int>
-                <int>-12838640</int>
-              </int-array>
-              <int-array>
-                <int>-14543612</int>
-                <int>-9220329</int>
-                <int>-7176660</int>
-                <int>-7176660</int>
-                <int>-9220329</int>
-                <int>-14543612</int>
+                <int>-477354685</int>
               </int-array>
             </int-array-array>
           </list>
@@ -991,7 +1214,7 @@
       </spriteImage>
     </sprite.Sprite>
   </sprites>
-  <playerSprite reference="../sprites/sprite.Sprite[7]"/>
+  <playerSprite reference="../sprites/sprite.Sprite[12]"/>
   <collisionTable>
     <myTable>
       <entry>
@@ -1016,7 +1239,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[18]/actionList/gameEngine.actions.BounceAction"/>
+              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1026,6 +1249,15 @@
               <null/>
               <null/>
               <null/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
+            <string>superTrampoline</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction[2]"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1067,7 +1299,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.BounceAction"/>
+              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1075,7 +1307,7 @@
             <string>enemy</string>
             <gameEngine.Action-array>
               <gameEngine.actions.KillAction>
-                <mySprite reference="../../../../../../../../sprites/sprite.Sprite[7]"/>
+                <mySprite reference="../../../../../../../../sprites/sprite.Sprite[12]"/>
                 <isActive>false</isActive>
                 <myKeyCode class="java.util.Arrays$ArrayList">
                   <a class="javafx.scene.input.KeyCode-array">
@@ -1095,7 +1327,16 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
+            <string>superTrampoline</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction[2]"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1104,7 +1345,30 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.KillAction reference="../../../../../../../sprites/sprite.Sprite[18]/actionList/gameEngine.actions.KillAction"/>
+              <gameEngine.actions.KillAction reference="../../../../../../../sprites/sprite.Sprite[24]/actionList/gameEngine.actions.KillAction"/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+      <entry>
+        <string>superTrampoline</string>
+        <map>
+          <entry>
+            <string>enemy</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
+            <string>player</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1133,11 +1397,16 @@
       <string>trampoline</string>
       <string>trampoline</string>
       <string>player</string>
+      <string>superTrampoline</string>
+      <string>superTrampoline</string>
+      <string>player</string>
       <string>enemy</string>
       <string>enemy</string>
       <string>player</string>
       <string>enemyPlatform</string>
       <string>enemyPlatform</string>
+      <string>enemy</string>
+      <string>superTrampoline</string>
       <string>enemy</string>
       <string>switch</string>
       <string>switch</string>
@@ -1146,7 +1415,7 @@
   </collisionTable>
   <goalMap>
     <entry>
-      <sprite.Sprite reference="../../../sprites/sprite.Sprite[7]"/>
+      <sprite.Sprite reference="../../../sprites/sprite.Sprite[12]"/>
       <int>0</int>
     </entry>
   </goalMap>

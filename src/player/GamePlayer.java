@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class GamePlayer {
 
-	public final static double FRAME_RATE = 60;
+	public final static double FRAME_RATE = 30;
 	public final static double UPDATE_RATE = 120;
 
 	private ScrollPane myGameRoot;
@@ -53,8 +53,15 @@ public class GamePlayer {
 
 	public GamePlayer(Game game, ScrollPane pane, double width, double height) {
 		myGameRoot = pane;
+		myView = new PlayerViewController(game, myGameRoot);
+	}
+	
+	public GamePlayer(ScrollPane pane, double width, double height) {
+		myGameRoot = pane;
+		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setMaxSize(width, height);
-		myGameRoot.setMinSize(width, height);
+		//myGameRoot.setMinSize(width, height);
 		myView = new PlayerViewController(myGameRoot);
 	}
 
@@ -96,7 +103,15 @@ public class GamePlayer {
 		menuItems.get(4).setOnAction(event -> {
 			System.exit(0);
 		});
-		
+		menuItems.get(5).setOnAction(event -> {
+			playMusic();
+		});
+		menuItems.get(6).setOnAction(event -> {
+			pauseMusic();
+		});
+		menuItems.get(7).setOnAction(event -> {
+			stopMusic();
+		});
 	}
 	
 	public PlayerMenu getMenu() {

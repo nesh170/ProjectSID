@@ -44,16 +44,16 @@ public class DataHandler {
 	public static Object fromXMLFile(File xml) {
 		return XSTREAM.fromXML(xml);
 	}
-
 	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
-
+	
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 		fileChooser.setTitle("Select File");
 		return fileChooser.showOpenDialog(stage);
 	}

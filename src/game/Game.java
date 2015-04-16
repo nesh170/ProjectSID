@@ -16,7 +16,7 @@ public class Game {
 	private List<Level>	levels;  
 	private SplashScreen splashScreen;
 	private String name;
-
+	private String description; 
 	
 	// Getters & Setters
 	public List<Level> levels() {
@@ -51,9 +51,7 @@ public class Game {
 		this.name = name;
 		this.levels = new ArrayList<>();
 		
-	}
-	
-	
+	}	
 	// All other instance methods
 	public void addLevel(Level level) {
 		levels.add(level);
@@ -110,5 +108,8 @@ public class Game {
 		}
 			
 	}
-	
+
+	public void setDescription(String text) {
+		description = text;
+	}
 }
