@@ -32,8 +32,6 @@ public class LevelView extends ScrollPane {
 	private EditMode editMode;
 	// Level
     private Level level;
-    // Layouts
-    private double lengthSidePixel;
     // Playing
     private Collision collisionHandler;    
         
@@ -51,14 +49,6 @@ public class LevelView extends ScrollPane {
     	this.editMode = editMode;
     }
     
-    public void setLengthSidePixel(double lengthSidePixel) {
-    	this.lengthSidePixel = lengthSidePixel;
-    }
-    
-    public double getLengthSidePixel() {
-    	return this.lengthSidePixel;
-    }
-        
     public void setCollisionHandler(){
     	this.collisionHandler = new Collision(level.getCollisionTable());
     }
@@ -82,7 +72,6 @@ public class LevelView extends ScrollPane {
      */
     public LevelView(Level level, EditMode editMode, double lengthSidePixel) {
     	
-    	setLengthSidePixel(lengthSidePixel);
     	setLevel(level);
     	setEditMode(editMode);
     	setCollisionHandler();
@@ -125,34 +114,39 @@ public class LevelView extends ScrollPane {
     	}*/
     			
         if (sprite.isActive()) {
+        	
             // TestCode
 //            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
 //            spriteGroup.getChildren().add(player);
         	
-            spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-            spriteImageView = new ImageView(spriteImage);
+        	spriteImageView = sprite.spriteImage().getImageViewToDisplay();
                         
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
                    // .transform().getPosY());
             spriteImageView.setX(sprite.transform().getPosX());
             spriteImageView.setY(sprite.transform().getPosY());
-            if(spriteImage !=null){
+            
+            if(spriteImageView !=null){
+            	
             	spriteImageView.setFitWidth(sprite.transform().getWidth());
             	spriteImageView.setFitHeight(sprite.transform().getHeight());
             	spriteGroup.getChildren().add(spriteImageView);
+            	
             }
-            else{
+            
+            else {
+            	
         		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
         				sprite.transform().getWidth(), sprite.transform().getHeight());
             	spriteGroup.getChildren().add(r);
+            	
             }
+            
             sprite.emissionList().stream()
                     .forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
         
             if (editMode == EditMode.EDIT_MODE_ON) {
-            	
             	configureMouseHandlersOnSpriteImageView(spriteImageView);
-            	
             }
             
         }
@@ -171,12 +165,9 @@ public class LevelView extends ScrollPane {
     	// TODO Auto-generated method stub
     }
 
-
     private void destroyDisplayEditOverlay() {
     	// TODO Auto-generated method stub
     }
-
-
     
     /**
      * Checks for collision with each node

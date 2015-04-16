@@ -124,13 +124,12 @@ public class Sprite {
 	
 	public SpriteImage spriteImage() {
 		
-	    //TODO talk to Ruslan about death
-		
 		if (spriteImage == null) {
 			this.spriteImage = new SpriteImage();
 		}
 		
 		return this.spriteImage;
+		
 	}
 		
 	public Dimension2D dimensions() {
@@ -154,16 +153,18 @@ public class Sprite {
 		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
-	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
+	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension) {
+		
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
 		emissionList = new ArrayList<>();
 		actionList = new ArrayList<Action>();
 		componentList = new ArrayList<Component>();
+		
 	}
 	
-	
-	public Sprite (Sprite toCopy){
+	public Sprite (Sprite toCopy) {
+		
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
 		

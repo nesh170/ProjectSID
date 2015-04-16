@@ -154,8 +154,10 @@ public abstract class Screen extends BorderPane {
 	}
 	
 	protected void initializeRelevantResourceFiles() {
+		
 		languageResources = ResourceBundle.getBundle("resources.stringResources");
 		tagResources = ResourceBundle.getBundle("resources.TagChoices");
+		
 	}
 
 	private void addMenuBarToThis(VBox wrapper) {
@@ -163,7 +165,7 @@ public abstract class Screen extends BorderPane {
 	}
 	
 	private void configureBackgroundColor() {
-		this.setStyle(STRING.FX_BACKGROUND_COLOR_PREDICATE+STRING.DEFAULT_FX_BACKGROUND_COLOR);
+		this.setStyle(STRING.COLORS.FX_BACKGROUND_COLOR_PREDICATE+STRING.COLORS.DEFAULT_FX_BACKGROUND_COLOR);
 	}
 	
 	private void configureViewableArea(double width, double height) {

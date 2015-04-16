@@ -71,6 +71,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -140,6 +141,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -209,6 +211,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -253,6 +256,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -297,6 +301,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -341,6 +346,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -410,6 +416,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -541,6 +548,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -585,6 +593,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -629,6 +638,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -673,6 +683,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -717,6 +728,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -761,6 +773,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -805,6 +818,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -849,6 +863,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -893,6 +908,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -937,6 +953,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -981,6 +998,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1065,6 +1083,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1121,6 +1140,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1165,6 +1185,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1209,6 +1230,7 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
+        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>

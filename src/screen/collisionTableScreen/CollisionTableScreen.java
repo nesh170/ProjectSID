@@ -1,6 +1,11 @@
 package screen.collisionTableScreen;
 
+import gameEngine.CollisionTable;
+
+import java.util.List;
+
 import javafx.scene.control.MenuBar;
+import levelPlatform.level.Level;
 import screen.Screen;
 
 /**
@@ -136,10 +141,21 @@ import screen.Screen;
 public class CollisionTableScreen extends Screen{
 	
 	private CollisionTableScreenController myController;
-
+	private List<String> levelSprites;
+	private CollisionTable collTable; // TODO: how to get
+	
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
-		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * CollisionTableScreen(collisionTableScreenController, width, height, level);
+	 */
+	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, List<String> sprites) {
+		super(width, height);
+		myController = controller;
+		levelSprites = sprites;
+		
 	}
 
 	@Override
@@ -147,6 +163,7 @@ public class CollisionTableScreen extends Screen{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	
 	

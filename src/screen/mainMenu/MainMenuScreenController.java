@@ -2,6 +2,7 @@ package screen.mainMenu;
 
 import java.net.URI;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Popup;
 
@@ -28,7 +29,7 @@ public interface MainMenuScreenController {
 	/**
 	 * Creates a new game and loads the game to the game editing screen
 	 */
-	public void confirmToCreateGame(Popup popup, TextField gameName,
-			TextField des);
+
+	void confirmToCreateGame(Popup popup, TextField gameName, TextArea des);
 
 }

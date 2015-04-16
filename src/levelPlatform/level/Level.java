@@ -83,6 +83,9 @@ public class Level extends LevelPlatform {
 	
 	public Level(int width, int height, Sprite playerSprite) {
 		super(width, height);
+		playerSprite = new Sprite();
+		collisionTable = new CollisionTable();
+	    goalMap = new HashMap<>();
 		
 		if (playerSprite != null) {
 			
