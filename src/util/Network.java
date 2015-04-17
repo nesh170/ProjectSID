@@ -1,4 +1,4 @@
-package voogasalad.util.network;
+package util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,6 @@ public class Network {
 
     private int myPortNumber; 
     private ServerSocket serverSocket; // TODO might want to delete this line
-    private Socket myClientSocket;
     private PrintWriter myInput;
     private BufferedReader myOutput;
 
@@ -42,6 +41,15 @@ public class Network {
                                + myPortNumber + " or listening for a connection");
             return "";
         }
+        try {
+            Socket clientSocket = serverSocket.accept();
+            myInput = new PrintWriter(clientSocket.getOutputStream(), true);
+            myOutput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        }
+        catch (IOException e) {
+            System.err.println("Exception caught when trying to listen on port "
+                    + myPortNumber + " or listening for a connection");
+        }
         return serverSocket.getInetAddress().getHostName();
     }
 
@@ -53,9 +61,9 @@ public class Network {
      */
     public void setUpClient (String host, int port) {
         try {
-            myClientSocket = new Socket(host, port);
-            myInput = new PrintWriter(myClientSocket.getOutputStream(), true);
-            myOutput = new BufferedReader(new InputStreamReader(myClientSocket.getInputStream()));
+            Socket clientSocket = new Socket(host, port);
+            myInput = new PrintWriter(clientSocket.getOutputStream(), true);
+            myOutput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         }
         catch (IOException e) {
             System.err.println("Exception caught when trying to listen on port "
