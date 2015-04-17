@@ -47,13 +47,13 @@ import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
+import screen.Screen;
 import screen.factories.ScreenFactory;
+import screen.levelPlatformCapableScreen.GamePlayScreen;
+import screen.levelPlatformCapableScreen.LevelEditScreen;
+import screen.levelPlatformCapableScreen.SplashEditScreen;
 import screen.screens.GameEditScreen;
-import screen.screens.GamePlayScreen;
-import screen.screens.LevelEditScreen;
 import screen.screens.MainMenuScreen;
-import screen.screens.Screen;
-import screen.screens.SplashEditScreen;
 import screen.screens.SpriteEditScreen;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
@@ -435,13 +435,14 @@ public class ScreenController {
 	
 	private class GameEditScreenManager implements GameEditScreenController {
 
+
 		@Override
-		public void returnToMainMenuScreen() {
-			
+		public void returnToMainMenuScreen(Popup popup) {
+			hidePopup(popup);
 			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
-
+			
 		}
 
 		@Override
@@ -451,6 +452,10 @@ public class ScreenController {
 			
 		}
 
+		public void  showConfirmPopUpWithGame(Game game, Popup popup){
+			popup.show(stage);
+		}	
+		
 		@Override
 		public void loadLevelEditScreen(Game game) {
 			//Create new Level, add to end of game
@@ -519,10 +524,16 @@ public class ScreenController {
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
-			
 		}
-
 		
+		public void saveAndExit(Game game, Popup popup){
+			saveGame(game);
+			hidePopup(popup);
+		}
+		
+		private void hidePopup(Popup popup){
+			popup.hide();
+		}
 	
 	}
 

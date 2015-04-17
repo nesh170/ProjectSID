@@ -1,4 +1,4 @@
-package screen.screens;
+package screen.levelPlatformCapableScreen;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -260,7 +260,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 		tag = "Start";
 		startButtonImageView = new ImageView(image);
+
 		this.setOnKeyPressed(e -> resize(startButtonImageView, e, imageCursor));
+
 		button.setDisable(true);
 		
 	}
@@ -289,7 +291,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = "Image";
 		imageView = new ImageView(image);
 		imageViewArray.add(imageView);
+
 		this.setOnKeyPressed(e -> resize(imageView, e, imageCursor));
+
 		
 	}
 
@@ -366,8 +370,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 	private void stars() {	
-		//Image image = new Image("/Users/kam237/Documents/workspace308/voogasalad_ScrollingDeep/src/images/sprite.jpg"); //TODO move
-		//ImageView iv2 = new ImageView(image);	
+
 	}
 
 	public void saveSplashScreen() {	
@@ -377,11 +380,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	public void trashSplashScreen() {	
 		System.out.println("OH HI THERE");
 		for (ImageView iv : imageViewArray) {
-<<<<<<< HEAD:src/screen/screens/SplashEditScreen.java
-			//this.remove
-=======
-			//this.
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/splashEditScreen/SplashEditScreen.java
+
 		}
 		//this.remove(startButtonImageView);
 	}
@@ -390,21 +389,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		controller.returnToGameEditScreen();	
 	}
 	
-	private void add(String tag, MouseEvent e, Rectangle rectangle) {		
+	private void add(String tag, MouseEvent e, Rectangle rectangle) {
+		
 		if(tag == "Start") {		
 			
 			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
 			getParent().setCursor(Cursor.DEFAULT);
-<<<<<<< HEAD:src/screen/screens/SplashEditScreen.java
-=======
-			this.add(startButtonImageView);
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/splashEditScreen/SplashEditScreen.java
+
 			startButtonImageView.setOnMousePressed(f -> startButtonMove(f));
 			
 			// Node, x, y, "SID Pixel XY or JavaFX?"
 			placeImageViewAtXYIsUsingSIDPixels(startButtonImageView, e.getX(), e.getY(), false);
 			
-<<<<<<< HEAD:src/screen/screens/SplashEditScreen.java
 		}
 		
 		else if (tag == "Image") {
@@ -418,20 +414,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
 						
 		}
-		
-=======
-		}
-		else if(tag == "Image") {		
-			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
-			getParent().setCursor(Cursor.DEFAULT);
-			this.add(imageView);
-			imageView.setOnMousePressed(f -> imageMove(f));
-			
-			// Node, x, y, "SID Pixel XY or JavaFX?"
-			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
-						
-		}
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/splashEditScreen/SplashEditScreen.java
+
 		else if(tag == "Background Image") {
 			rectangle.setFill(new ImagePattern(imageView.getImage()));
 		}
@@ -441,30 +424,15 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			text = new Text("Well Hi");
 			
 			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
+		}
 
-		}	
-<<<<<<< HEAD:src/screen/screens/SplashEditScreen.java
-		
-=======
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/splashEditScreen/SplashEditScreen.java
-	}
-	
-	/**
-	 * @author Ruslan, ask if any questions
-	 * 
-	 * @param startButtonImageView
-	 * @param x
-	 * @param y
-	 * @param isUsingSIDPixels
-	 */
+	}	
+
 	private void placeImageViewAtXYIsUsingSIDPixels(ImageView imageView, double x, double y, boolean isUsingSIDPixels) {
 
 		this.getChildren().add(imageView);
 		imageView.setX(x);
 		imageView.setY(y);
-		
-		// TODO Implement
-//		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
 		
 	}
 	
@@ -473,31 +441,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		this.getChildren().add(text);
 		text.setX(x);
 		text.setY(y);
-<<<<<<< HEAD:src/screen/screens/SplashEditScreen.java
-=======
-		
-		// TODO Implement
-//		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/splashEditScreen/SplashEditScreen.java
 		
 		// TODO Implement
 //		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
 		
 	}
 
-	private void startButtonMove(MouseEvent f) {
-		startButtonImageView.setOnMouseReleased(e -> placeStartButton(e));
-	}
-	private void imageMove(MouseEvent f) {
-		//TODO be able to pick which image to move, not just most recent
-		imageView.setOnMouseReleased(e -> placeImage(e));
-	}
-
-	private void placeStartButton(MouseEvent e) {
-		startButtonImageView.setX(e.getX());
-		startButtonImageView.setY(e.getY());
-		tag = null;
-	}
 
 	private void startButtonMove(MouseEvent f) {
 		startButtonImageView.setOnMouseReleased(e -> placeStartButton(e));
@@ -518,6 +467,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		imageView.setY(e.getY());
 		tag = null;
 	}
+
 
 	private void resize(ImageView imageView, KeyEvent e, ImageCursor ic) {
 		KeyCode keyCode = e.getCode();

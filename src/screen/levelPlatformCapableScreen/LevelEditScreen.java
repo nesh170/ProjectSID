@@ -1,4 +1,4 @@
-package screen.screens;
+package screen.levelPlatformCapableScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,7 +128,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		instantiateMaps();
 		makeSpritesInLevelTab();
-<<<<<<< HEAD:src/screen/screens/LevelEditScreen.java
 		makeButtonsOnRight();
 
 		configureLevelPlatformViewWithLevel(level);		
@@ -137,17 +136,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-=======
-		makeButtonsTab();
-		
-		// Have to do this last
-		initializeLevelDisplay(level);
-		
-		this.setOnMouseEntered(e -> initializeDisplaySize());
-		
-	}
-	
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/levelEditScreen/LevelEditScreen.java
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
@@ -312,35 +300,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
 	}
-<<<<<<< HEAD:src/screen/screens/LevelEditScreen.java
 
 
-=======
-	
-	private void initializeLevelDisplay(Level level) {
-		
-		levelDisplay.setMinSize(level.width(), level.height());
-		level.sprites().forEach(e -> addSpriteToLevelDisplay(e));
-		
-	}
-	
-	/*
-	 * Visually displays the sprite
-	 */
-	private void addSpriteToLevelDisplay(Sprite sprite) {
-		
-		ImageView imageView = sprite.spriteImage().getImageViewToDisplay();
-		
-		levelDisplay.getChildren().add(imageView);
-		imageView.setTranslateX(sprite.getX());
-		imageView.setTranslateY(sprite.getY());
-		stringToSpriteMap.put(sprite.getName(), sprite);
-		spriteToImageMap.put(sprite, imageView);
-		stringToListMap.get(sprite.tag()).add(sprite.getName());
-		
-	}
-	
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/levelEditScreen/LevelEditScreen.java
 	// All other instance methods
 	public void addSprite(Sprite sprite) {
 
@@ -352,15 +313,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		// TODO in a compatible way with refactored LES
 		
-<<<<<<< HEAD:src/screen/screens/LevelEditScreen.java
 		return null;
 
-=======
-		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage();
-		levelDisplay.setCursor(new ImageCursor(imageToAdd));
-		
->>>>>>> 07f95504df4110a4e2ccef09dd899e00aee79b32:src/screen/levelEditScreen/LevelEditScreen.java
 	}
 
 	/**
