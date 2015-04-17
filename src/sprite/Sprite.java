@@ -102,7 +102,7 @@ public class Sprite {
 		return this.tag;
 	}
 	
-	public String collisonTag(){
+	public String collisionTag(){
 		return this.collisionTag;
 	}
 	
