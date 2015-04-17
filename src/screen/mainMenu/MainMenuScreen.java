@@ -104,15 +104,6 @@ public class MainMenuScreen extends Screen {
 		
 	}
 	
-	private ImageView makeImageView(String s, int height, int width) {
-		
-		ImageView img = new ImageView(s);
-		img.setFitHeight(height);
-		img.setFitWidth(width);
-		return img;
-		
-	}
-	
 	private VBox makeMenuButtons() {
 		
 		Button newGame = makeButton("New Game");
