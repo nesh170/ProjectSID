@@ -185,6 +185,24 @@ public class CollisionTableScreen extends Screen{
 			comboBox.setStyle("-fx-font: 20px \"Serif\";");
 			comboBox.setPromptText("Active Sprite");
 			collisionSet.add(comboBox, 1, 0); 
+			TextField text = new TextField();
+			text.setPromptText("Value");
+			text.setId("Value");
+			collisionSet.add(text, 5, 0); 
+			
+			comboBox4.valueProperty().addListener(new ChangeListener<String>() {
+		           
+		            public void changed(ObservableValue ov, String t, String t1) {                
+		              if (t1.equals("die"))
+		              {
+		            	  text.setDisable(true);
+		              }
+		              else
+		              {
+		            	  text.setDisable(false);
+		              }
+		            }    
+		        });
 	}
 	
 	
