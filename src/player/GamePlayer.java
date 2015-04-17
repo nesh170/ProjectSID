@@ -2,13 +2,14 @@ package player;
 
 import game.Game;
 import gameEngine.GameEngine;
+
 import java.io.IOException;
 import java.util.List;
-import javafx.scene.Group;
 
+import util.Network;
+import javafx.scene.Group;
 import media.VideoController;
 import media.VideoPlayer;
-
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -22,6 +23,7 @@ public class GamePlayer {
 
 	public final static double FRAME_RATE = 30;
 	public final static double UPDATE_RATE = 120;
+	public final static int PORT_NUMBER = 10000;
 
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
@@ -35,6 +37,8 @@ public class GamePlayer {
 	private int myScore;
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
+	
+	private Network myNetwork;
 	
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
@@ -158,6 +162,16 @@ public class GamePlayer {
 
 	public void stopMusic() {
 		myView.stopMusic();
+	}
+	
+	public void startServer() {
+		myNetwork = new Network();
+		String hostName = myNetwork.setUpServer(PORT_NUMBER);
+		System.out.println(hostName);
+	}
+	
+	public void startClient() {
+		
 	}
 
 }

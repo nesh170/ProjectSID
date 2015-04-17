@@ -94,6 +94,9 @@ public class Level extends LevelPlatform {
 			this.playerSpriteList=playerSpriteList;
 			prepareAllSprites();
 		}
+		if (this.playerSpriteList.isEmpty()) {
+			this.playerSpriteList.add(new Sprite());
+		}
 	}
 
 	/**
