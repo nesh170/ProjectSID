@@ -2,13 +2,14 @@ package player;
 
 import game.Game;
 import gameEngine.GameEngine;
+
 import java.io.IOException;
 import java.util.List;
-import javafx.scene.Group;
 
+import util.Network;
+import javafx.scene.Group;
 import media.VideoController;
 import media.VideoPlayer;
-
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -35,6 +36,8 @@ public class GamePlayer {
 	private int myScore;
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
+	
+	private Network myNetwork;
 	
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {

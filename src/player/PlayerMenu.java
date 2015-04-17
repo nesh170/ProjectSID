@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.Dialog;
 
 public class PlayerMenu {
 
@@ -46,6 +47,7 @@ public class PlayerMenu {
 		menuBar.getMenus().add(menuView);
 		menuBar.getMenus().add(buildSoundMenu());
 		menuBar.getMenus().add(buildHelpMenu());
+		menuBar.getMenus().add(buildNetworksMenu());
 		return menuBar;
 	}
 	
@@ -94,6 +96,31 @@ public class PlayerMenu {
 		return fileMenu;
 	}
 
+	private Menu buildNetworksMenu() {
+		Menu networksMenu = new Menu("Multiplayer");
+		MenuItem hostItem = new MenuItem("Host Game");
+		MenuItem joinItem = new MenuItem("Join Game");
+		
+		hostItem.setOnAction(event -> {
+			System.out.println("HOST 10000");
+//			Dialog<String> dialog = new Dialog<>();
+//			dialog.setContentText("You opened port 10000");
+//			dialog.showAndWait();
+			
+			
+		});
+		
+		joinItem.setOnAction(event -> {
+			System.out.println("JOIN 10000");
+//			Dialog<String> dialog = new Dialog<>();
+//			dialog.setContentText("You joined port 10000");
+//			dialog.showAndWait();
+		});
+		
+		networksMenu.getItems().addAll(hostItem, joinItem);
+		return networksMenu;
+	}
+	
 	private Menu buildGamesMenu() {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
