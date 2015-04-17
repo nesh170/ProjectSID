@@ -54,6 +54,16 @@ import screen.controllers.CollisionTableScreenController;
  */
 
 /**
+ * 
+ * Resources:
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/HBox.html
+ * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
+ * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextField.html
+ * 
+ * 
+ * 
  * Visual Design (discussion April 7)
  * 
  * Back-end layout:
