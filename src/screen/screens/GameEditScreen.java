@@ -23,10 +23,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -38,6 +41,7 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import resources.ScreenButton;
@@ -58,6 +62,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 
@@ -88,7 +93,7 @@ public class GameEditScreen extends Screen {
 	// JavaFX
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
-
+	private Popup popup;
 
 	// Getters & Setters
 	/**
@@ -163,6 +168,7 @@ public class GameEditScreen extends Screen {
 		ConfigureSplashDisplay();
 		this.setLeft(splashDisplay);
 		
+		createPopUp();
 	}
 
 	/**
@@ -272,7 +278,7 @@ public class GameEditScreen extends Screen {
 		StackPane.setAlignment(play, Pos.TOP_CENTER);
 
 		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
-				e -> controller.returnToMainMenuScreen());
+				e -> controller.showConfirmPopUpWithGame(game, popup));
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
 
 		// ImageView trash = makeButton(STRING.TRASH_IMG, e ->
@@ -311,6 +317,40 @@ public class GameEditScreen extends Screen {
 
 	}
 
+	private void createPopUp() {   
+		
+	     popup = new Popup();
+	     popup.setAutoFix(false);
+	     popup.setHideOnEscape(true);
+	     popup.setX(500);
+	     popup.setY(250);
+	     ImageView img = makeImageView(STRING.MAIN_MENU_SCREEN.POPUP,
+	    		 300, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
+	     GridPane layout = configurePopUpLayout();
+	     popup.getContent().addAll(img, layout);
+	     
+	}
+	
+	private GridPane configurePopUpLayout(){
+		  GridPane layout = new GridPane();
+		     layout.setAlignment(Pos.CENTER);
+		     layout.setHgap(10);
+		     layout.setVgap(20);
+		     Text doesSave = new Text(STRING.GAME_EDIT.POPUP_SAVE);
+		     doesSave.setStyle(STRING.GAME_EDIT.FONT_POPUP);
+		     HBox buttons= new HBox(150);
+		     Button save = new Button("save");
+		     Button back = new Button("back");
+		     buttons.setAlignment(Pos.CENTER);
+		     buttons.getChildren().addAll( back, save);	   
+		     save.setOnMouseClicked(e -> controller.saveAndExit(game, popup));
+		     back.setOnMouseClicked(e -> controller.returnToMainMenuScreen(popup));
+		     layout.add(new Label(""), 1, 1, 1,4);
+		     layout.add(doesSave, 1, 5);
+		     layout.add(buttons, 1, 9);
+		 return layout;
+	}
+	
 	private HBox configureHBox() {
 
 		HBox hb = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
@@ -449,9 +489,9 @@ public class GameEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
-		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game),
-				o -> controller.returnToMainMenuScreen(),
-				o -> controller.returnToMainMenuScreen());
+		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game), //change
+				o -> controller.returnToMainMenuScreen(popup),
+				o -> controller.returnToMainMenuScreen(popup));
 		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(),
 				makeGameMenu(), makeTrashMenu());
 
@@ -487,7 +527,7 @@ public class GameEditScreen extends Screen {
 
 		Menu gameMenu = new Menu("Game");
 		MenuItem addPlay = new MenuItem("Play Game");
-		addPlay.setOnAction(o -> controller.playGame(game));
+		addPlay.setOnAction( o -> controller.playGame(game));
 		gameMenu.getItems().addAll(addPlay);
 		return gameMenu;
 		

@@ -97,7 +97,7 @@ public class STRING {
 		public static final String GAME_EDIT = "Game Edit";
 		public static final String SPLASH_SCREEN = "Splash Screen";
 		public static final String NOTE = "* Note: Double Left Click to Edit Level/Splash, Right click to remove/edit";
-
+		public static final String FONT_POPUP = "-fx-font: 18 serif;";
 		//GameEdit: image path
 		public static final String ADD_IMG ="images/GameEdit_Images/addsplash.png";
 		public static final String TRASH_ICON = "images/GameEdit_Images/trashicon.png";
@@ -109,6 +109,7 @@ public class STRING {
 		public static final String PLUS_IMG = "images/GameEdit_Images/plus_sign.png";
 		public static final String PLAY_IMG = "images/GameEdit_Images/play.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
+		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
 		
 	}
 	
