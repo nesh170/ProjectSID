@@ -31,7 +31,9 @@ public class LifeComponent extends Component {
 
 	@Override
 	protected void update() {
-		// TODO Auto-generated method stub
+		if (myLives < 0) {
+			//TODO implement gameover method
+		}
 
 	}
 
