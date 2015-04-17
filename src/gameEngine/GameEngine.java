@@ -16,7 +16,7 @@ import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 
-public class GameEngine {
+public class GameEngine extends GameEngineAbstract {
     
     private List<Map<KeyCode,Action>> myControlsMapList = new ArrayList<Map<KeyCode,Action>>();
     private List<Level> myLevelList;
@@ -36,6 +36,7 @@ public class GameEngine {
         initializeLevel(0);
     }
     
+    @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
         myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
@@ -45,12 +46,14 @@ public class GameEngine {
         //TODO: when switching levels, play new song. GameEngine will now have an instance of audio controller
     }
     
+    @Override
     public double[] update () {
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
         return myCurrentLevel.getNewCameraLocations();
     }
 
+    @Override
     public Group render () {
         return myLevelRenderer.renderLevel();
     }
@@ -58,6 +61,7 @@ public class GameEngine {
     /**
      * This pause method is called by the controller
      */
+    @Override
     public void pause (Node node) {
         node.setOnKeyPressed(null);
     }
@@ -66,6 +70,7 @@ public class GameEngine {
      * This method is called by the Game player when the game is played.
      * This sets up the eventhandler to the scene to call the handle method
      */
+    @Override
     public void play (Node node) {
         node.setOnKeyPressed(keyPressed -> handleKeyEvent(keyPressed,INT.LOCAL_PLAYER));
         node.setOnKeyReleased(keyReleased -> handleKeyEvent(keyReleased,INT.LOCAL_PLAYER));
@@ -84,7 +89,7 @@ public class GameEngine {
     }
 
     @Override
-    public String getCurrentLevelinString () {
+    public String getCurrentLevelinXML () {
         return DataHandler.toXMLString(myCurrentLevel);
     }
 

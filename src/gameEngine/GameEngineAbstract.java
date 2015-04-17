@@ -53,6 +53,6 @@ public abstract class GameEngineAbstract {
      * Uses The dataHandler class to convert the current level into a String
      * @return the output of XStream from the current level
      */
-    public abstract String getCurrentLevelinString();
+    public abstract String getCurrentLevelinXML();
     
 }
