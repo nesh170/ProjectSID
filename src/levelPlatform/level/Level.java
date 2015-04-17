@@ -1,16 +1,17 @@
 package levelPlatform.level;
 import gameEngine.Action;
-
 import gameEngine.CollisionTable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
 import gameEngine.EngineMathFunctions;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import resources.constants.INT;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -37,7 +38,7 @@ public class Level extends LevelPlatform {
 	public static final int Y = 1;
 	
 	// Instance Variables
-	private Sprite playerSprite;
+	private List<Sprite> playerSpriteList;
 	private CollisionTable collisionTable;
         private IntConsumer nextLevelMethod;
         private Map<Sprite, Integer> goalMap;
@@ -47,15 +48,15 @@ public class Level extends LevelPlatform {
 	/**
 	 * @return a controlMap which might change depending on the behaviours for each level
 	 */
-	public Map<KeyCode,Action> controlMap() {
+	public Map<KeyCode,Action> controlMap(Sprite playerSprite) {
 		Map<KeyCode,Action> controlMap = new HashMap<>();
 		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
 		return controlMap;
             
 	}
 	
-	public void setPlayerSprite(Sprite player) {
-	    playerSprite = player;
+	public void addPlayerSprite(Sprite player){
+	    playerSpriteList.add(player);
 	}
 	
 	public void setSprites(List<Sprite> spriteList){
@@ -74,27 +75,25 @@ public class Level extends LevelPlatform {
 	    this.goalMap=goalMap;
 	}
 	
+	public List<Sprite> playerSpriteList(){
+	    return Collections.unmodifiableList(playerSpriteList);
+	}
+	
 	
 	// Constructor & Helpers
 	public Level(int width, int height) {
-		this(width, height, new Sprite());
+		this(width, height, new ArrayList<Sprite>());
 	}
 	
-	public Level(int width, int height, Sprite playerSprite) {
+	public Level(int width, int height, List<Sprite> playerSpriteList) {
 		super(width, height);
-		this.playerSprite = new Sprite();
 		collisionTable = new CollisionTable();
-	    goalMap = new HashMap<>();
-		
-		if (playerSprite != null) {
-			
-			this.playerSprite = playerSprite;
-			
-			// Call this in Level in addition to its super -- prepare playerSprite as well
+		this.playerSpriteList=new ArrayList<>();
+	        goalMap = new HashMap<>();
+		if (playerSpriteList != null){
+			this.playerSpriteList=playerSpriteList;
 			prepareAllSprites();
-			
 		}
-		
 	}
 
 	/**
@@ -124,8 +123,8 @@ public class Level extends LevelPlatform {
         
     public double[] getNewCameraLocations () {
         double[] xyLocations = new double[2];
-        xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
-        xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
+        xyLocations[X] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosX()+playerSpriteList.get(INT.LOCAL_PLAYER).transform().getWidth()/2;
+        xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight()/2;
         return xyLocations;
     }
 	

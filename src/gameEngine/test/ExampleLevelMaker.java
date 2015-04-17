@@ -6,7 +6,7 @@ import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
-import gameEngine.actions.JumpAction;
+import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.NormalAction;
@@ -43,9 +43,6 @@ public class ExampleLevelMaker extends Application{
 
 	private Sprite myPlayer;
 	private List<Sprite> mySpriteList = new ArrayList<>();
-	private Action myJumpAction;
-	private Action myBounceAction;
-	private Action myNormalAction;
 	private CollisionTable myCT;
 	private Action myKillAction;
 	private Sprite myProjectileTemplate;
@@ -54,6 +51,7 @@ public class ExampleLevelMaker extends Application{
 	private List<Sprite> myEnemyTrampolines = new ArrayList<>();
 	private List<Sprite> myEnemies = new ArrayList<>();
 	private List<Sprite> mySuperTrampolines = new ArrayList<>();
+	private List<Sprite> players;
 
 	private Level makeLevel(){
 		System.out.println("Oh yeah!!!");
@@ -64,7 +62,9 @@ public class ExampleLevelMaker extends Application{
 		myPlayer.setCollisionTag("player");
 		addPlayerComponentsAndActions();
 		mySpriteList.add(myPlayer);
-		Level l = new Level(500, 500, myPlayer);
+		players  = new ArrayList<>();
+		players.add(myPlayer);
+		Level l = new Level(500, 500, players);
 		//set up collisions
 		l.setCollisionTable(myCT);
 		//enemies:
@@ -90,6 +90,7 @@ public class ExampleLevelMaker extends Application{
 
 		l.setSprites(mySpriteList);
 		l.setGoalMap(goalMap);
+		System.out.println(players.size());
 		return l;
 	}
 
@@ -213,7 +214,7 @@ public class ExampleLevelMaker extends Application{
 
 
 	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
-		Action jumpAction = new JumpAction(sprite, JUMP_SPEED, kc);
+		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
 		if(runsEveryFrame){
 			jumpAction.runEveryFrame();
 		}
