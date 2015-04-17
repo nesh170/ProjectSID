@@ -23,8 +23,8 @@ public class Network {
 
     private int myPortNumber; 
     private ServerSocket serverSocket; // TODO might want to delete this line
-    private PrintWriter myInput;
-    private BufferedReader myOutput;
+    private PrintWriter myOutput;
+    private BufferedReader myInput;
 
 
     /**
@@ -43,8 +43,8 @@ public class Network {
         }
         try {
             Socket clientSocket = serverSocket.accept();
-            myInput = new PrintWriter(clientSocket.getOutputStream(), true);
-            myOutput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            myOutput = new PrintWriter(clientSocket.getOutputStream(), true);
+            myInput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         }
         catch (IOException e) {
             System.err.println("Exception caught when trying to listen on port "
@@ -62,8 +62,8 @@ public class Network {
     public void setUpClient (String host, int port) {
         try {
             Socket clientSocket = new Socket(host, port);
-            myInput = new PrintWriter(clientSocket.getOutputStream(), true);
-            myOutput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            myOutput = new PrintWriter(clientSocket.getOutputStream(), true);
+            myInput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         }
         catch (IOException e) {
             System.err.println("Exception caught when trying to listen on port "
@@ -77,7 +77,7 @@ public class Network {
      * @param key is the KeyCode
      */
     public void sendKeyCode (KeyCode key) {
-        myInput.println(key.getName());
+        myOutput.println(key.getName());
     }
 
     /**
@@ -87,7 +87,7 @@ public class Network {
     public KeyCode getKeyCode () {
         String keyString = "";
         try {
-            keyString = myOutput.readLine();
+            keyString = myInput.readLine();
         }
         catch (IOException e) {
             System.out.println("Error no Keys found");
@@ -101,7 +101,7 @@ public class Network {
      * @throws IOException
      */
     public String getStringFromServer() throws IOException{
-        return myOutput.readLine();
+        return myInput.readLine();
     }
     
     /**
@@ -109,7 +109,7 @@ public class Network {
      * @param stringToSend
      */
     public void sendStringToServer(String stringToSend){
-        myInput.println(stringToSend);
+        myOutput.println(stringToSend);
     }
     
     
