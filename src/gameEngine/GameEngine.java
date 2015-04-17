@@ -11,7 +11,7 @@ import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 
-public class GameEngine extends GameEngineAbstract {
+public class GameEngine {
     
     private Map<KeyCode,Action> myControlsMap;
     private List<Level> myLevelList;
@@ -32,14 +32,12 @@ public class GameEngine extends GameEngineAbstract {
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
     }
     
-    @Override
     public double[] update () {
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
         return myCurrentLevel.getNewCameraLocations();
     }
 
-    @Override
     public Group render () {
         return myLevelRenderer.renderLevel();
     }
@@ -47,7 +45,6 @@ public class GameEngine extends GameEngineAbstract {
     /**
      * This pause method is called by the controller
      */
-    @Override
     public void pause (Node node) {
         node.setOnKeyPressed(null);
     }
@@ -56,7 +53,6 @@ public class GameEngine extends GameEngineAbstract {
      * This method is called by the Game player when the game is played.
      * This sets up the eventhandler to the scene to call the handle method
      */
-    @Override
     public void play (Node node) {
         node.setOnKeyPressed(keyPressed -> handle(keyPressed,action -> action.execute()));
         node.setOnKeyReleased(keyReleased -> handle(keyReleased,action -> action.stop()));

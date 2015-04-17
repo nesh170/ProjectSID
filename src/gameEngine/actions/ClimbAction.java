@@ -7,14 +7,10 @@ public class ClimbAction extends Action {
 
 	public ClimbAction(Sprite sprite) {
 		super(sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void prepare() {
-		// TODO Auto-generated method stub
-
-	}
+	public void prepare() {}
 
 	@Override
 	public void execute() {
@@ -23,9 +19,6 @@ public class ClimbAction extends Action {
 	}
 
 	@Override
-	public void stop() {
-		// TODO Auto-generated method stub
-
-	}
+	public void stop() {}
 
 }
