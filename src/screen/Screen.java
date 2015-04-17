@@ -196,5 +196,15 @@ public abstract class Screen extends BorderPane {
 		return button;
 
 	}
+	
+	
+	protected ImageView makeImageView(String s, int height, int width) {
+		
+		ImageView img = new ImageView(s);
+		img.setFitHeight(height);
+		img.setFitWidth(width);
+		return img;
+		
+	}
 
 }

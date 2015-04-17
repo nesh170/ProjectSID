@@ -441,13 +441,14 @@ public class ScreenController {
 	
 	private class GameEditScreenManager implements GameEditScreenController {
 
+
 		@Override
-		public void returnToMainMenuScreen() {
-			
+		public void returnToMainMenuScreen(Popup popup) {
+			hidePopup(popup);
 			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
-
+			
 		}
 
 		@Override
@@ -457,6 +458,10 @@ public class ScreenController {
 			
 		}
 
+		public void  showConfirmPopUpWithGame(Game game, Popup popup){
+			popup.show(stage);
+		}	
+		
 		@Override
 		public void loadLevelEditScreen(Game game) {
 			//Create new Level, add to end of game
@@ -525,12 +530,20 @@ public class ScreenController {
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
-			
+		}
+		@Override
+		public void saveAndExit(Game game, Popup popup){
+			saveGame(game);
+			hidePopup(popup);
+		}
+		
+		private void hidePopup(Popup popup){
+			popup.hide();
 		}
 
-		
 	
 	}
+
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
 

@@ -2,6 +2,7 @@ package screen.gameEditScreen;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Popup;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 import game.Game;
@@ -13,8 +14,6 @@ import game.Game;
  *
  */
 public interface GameEditScreenController {
-	
-	public void returnToMainMenuScreen();
 	
 	
 	
@@ -55,5 +54,25 @@ public interface GameEditScreenController {
 	 * @param game
 	 */
 	public void saveGame(Game game);
+
+	/**
+	 * 
+	 * @param popup
+	 */
+
+	public void returnToMainMenuScreen(Popup popup);
+	
+	/**
+	 * Shows a pop asking user to save game before return
+	 * @param game
+	 * @param popup
+	 */
+	public void showConfirmPopUpWithGame(Game game, Popup popup);
+	/**
+	 * saves the game and returns back to main menu screen
+	 * @param game
+	 * @param popup
+	 */
+	public void saveAndExit(Game game, Popup popup);
 
 }
