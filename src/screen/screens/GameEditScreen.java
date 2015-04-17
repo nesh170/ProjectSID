@@ -158,6 +158,7 @@ public class GameEditScreen extends Screen {
 
 		this.controller = controller;
 		configureButtons();
+		
 	}
 
 	private void configureButtons() {
@@ -165,7 +166,7 @@ public class GameEditScreen extends Screen {
 		configureLevelDisplay();
 		this.setCenter(levelDisplay);
 
-		ConfigureSplashDisplay();
+		configureSplashDisplay();
 		this.setLeft(splashDisplay);
 		
 		createPopUp();
@@ -176,7 +177,7 @@ public class GameEditScreen extends Screen {
 	 * 
 	 * @return
 	 */
-	private void ConfigureSplashDisplay() {
+	private void configureSplashDisplay() {
 
 		splashDisplay = new VBox();
 		splashDisplay.setAlignment(Pos.CENTER);
@@ -206,7 +207,8 @@ public class GameEditScreen extends Screen {
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		sp.getChildren().addAll(rec, s);   
+		sp.getChildren().addAll(rec, s);  
+  
 	}
 
 	private Button displayMySplash() {
@@ -279,6 +281,7 @@ public class GameEditScreen extends Screen {
 
 		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
 				e -> controller.showConfirmPopUpWithGame(game, popup));
+
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
 
 		// ImageView trash = makeButton(STRING.TRASH_IMG, e ->
@@ -492,6 +495,7 @@ public class GameEditScreen extends Screen {
 		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game), //change
 				o -> controller.returnToMainMenuScreen(popup),
 				o -> controller.returnToMainMenuScreen(popup));
+
 		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(),
 				makeGameMenu(), makeTrashMenu());
 

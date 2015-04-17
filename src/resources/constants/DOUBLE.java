@@ -22,7 +22,7 @@ public class DOUBLE {
 	// Tabs
 	public static final double TAB_HEIGHT = 30.0;
 	// MenuBar
-	public static final double MENU_BAR_HEIGHT = 30.0;
+	public static final double MENU_BAR_HEIGHT = 20.0;
 	// Error Message Width
 	public static final double ERROR_MESSAGE_WIDTH = 400.0;
 	public static final double ERROR_MESSAGE_HEIGHT = 80.0;
@@ -36,7 +36,7 @@ public class DOUBLE {
 	
 	
 	// LevelView
-	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 5.0;
+	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 1.0;
 	
 	// Bullet info
 	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;
