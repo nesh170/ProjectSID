@@ -51,6 +51,7 @@ public class ExampleLevelMaker extends Application{
 	private List<Sprite> myEnemyTrampolines = new ArrayList<>();
 	private List<Sprite> myEnemies = new ArrayList<>();
 	private List<Sprite> mySuperTrampolines = new ArrayList<>();
+	private List<Sprite> players;
 
 	private Level makeLevel(){
 		System.out.println("Oh yeah!!!");
@@ -61,7 +62,9 @@ public class ExampleLevelMaker extends Application{
 		myPlayer.setCollisionTag("player");
 		addPlayerComponentsAndActions();
 		mySpriteList.add(myPlayer);
-		Level l = new Level(500, 500, myPlayer);
+		players  = new ArrayList<>();
+		players.add(myPlayer);
+		Level l = new Level(500, 500, players);
 		//set up collisions
 		l.setCollisionTable(myCT);
 		//enemies:
@@ -87,6 +90,7 @@ public class ExampleLevelMaker extends Application{
 
 		l.setSprites(mySpriteList);
 		l.setGoalMap(goalMap);
+		System.out.println(players.size());
 		return l;
 	}
 

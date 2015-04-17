@@ -52,7 +52,9 @@ public class ExampleLevelBullets {
 		spriteList.add(platform);
 		spriteList.add(player);
 		spriteList.add(platform);
-		Level l = new Level(500, 500, player);
+		List<Sprite> players = new ArrayList<>();
+		players.add(player);
+		Level l = new Level(500, 500, players);
 		
 		//set up projectile template
 		Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));

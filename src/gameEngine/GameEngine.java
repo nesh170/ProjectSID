@@ -1,8 +1,13 @@
 package gameEngine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import data.DataHandler;
+import resources.constants.INT;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -13,10 +18,18 @@ import levelPlatform.level.LevelView;
 
 public class GameEngine {
     
-    private Map<KeyCode,Action> myControlsMap;
+    private List<Map<KeyCode,Action>> myControlsMapList = new ArrayList<Map<KeyCode,Action>>();
     private List<Level> myLevelList;
     private Level myCurrentLevel;
     private LevelView myLevelRenderer;
+    private static final Map<EventType<KeyEvent>, Consumer<Action>> KEY_EVENT_TO_ACTION_CONSUMER_MAP;
+        static{
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP = new HashMap<>();
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_PRESSED, action -> action.execute());
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_RELEASED, action -> action.stop());
+        }
+        
+    
     
     public GameEngine(List<Level> levelList) {
         myLevelList = levelList;
@@ -25,8 +38,7 @@ public class GameEngine {
     
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-        myControlsMap = myCurrentLevel.controlMap();
-        //TODO ask Authoring env about this.....
+        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
@@ -55,18 +67,25 @@ public class GameEngine {
      * This sets up the eventhandler to the scene to call the handle method
      */
     public void play (Node node) {
-        node.setOnKeyPressed(keyPressed -> handle(keyPressed,action -> action.execute()));
-        node.setOnKeyReleased(keyReleased -> handle(keyReleased,action -> action.stop()));
+        node.setOnKeyPressed(keyPressed -> handleKeyEvent(keyPressed,INT.LOCAL_PLAYER));
+        node.setOnKeyReleased(keyReleased -> handleKeyEvent(keyReleased,INT.LOCAL_PLAYER));
     }
     
     /**
-     * This method is a helper method for play where it takes in the keyPressed and gets a behavior from the control and executes it
+     * This method is a helper method for play where it takes in the keyPressed executes the appropriate behavior
+     * @param localPlayer 
      * @param keyPressed
      */
-    private void handle(KeyEvent key,Consumer<Action> consumer) {
-        if(myControlsMap.containsKey(key.getCode())){
-            consumer.accept(myControlsMap.get(key.getCode()));
+    @Override
+    public void handleKeyEvent(KeyEvent key, int playerNumber) {
+        if(myControlsMapList.get(playerNumber).containsKey(key.getCode())){
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(key.getEventType()).accept(myControlsMapList.get(playerNumber).get(key.getCode()));
         }
+    }
+
+    @Override
+    public String getCurrentLevelinString () {
+        return DataHandler.toXMLString(myCurrentLevel);
     }
 
 
