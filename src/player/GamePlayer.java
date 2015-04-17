@@ -3,10 +3,13 @@ package player;
 import game.Game;
 import gameEngine.GameEngine;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import util.Network;
+import javafx.concurrent.Task;
 import javafx.scene.Group;
 import media.VideoController;
 import media.VideoPlayer;
@@ -168,9 +171,60 @@ public class GamePlayer {
 		myNetwork = new Network();
 		String hostName = myNetwork.setUpServer(PORT_NUMBER);
 		System.out.println(hostName);
+		
+		Task<Void> sendTask = new Task<Void>() {
+			@Override
+			protected Void call() {
+				
+				while (true) {
+					myNetwork.sendStringToServer("HI");
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+								
+			}
+		};
+		
+		Thread th = new Thread(sendTask);
+		th.setDaemon(true);
+		th.start();
 	}
 	
 	public void startClient() {
+		myNetwork = new Network();
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String hostName = null;
+		try {
+			hostName = br.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		myNetwork.setUpClient(hostName, PORT_NUMBER);
+		
+		Task<Void> recvTask = new Task<Void>() {
+			@Override
+			protected Void call() {
+				
+				while (true) {
+					try {
+						System.out.println(myNetwork.getStringFromServer());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+								
+			}
+		};
+		
+		Thread th = new Thread(recvTask);
+		th.setDaemon(true);
+		th.start();
 		
 	}
 
