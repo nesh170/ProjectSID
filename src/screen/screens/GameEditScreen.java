@@ -44,6 +44,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import resources.ImageViewButton;
 import resources.ScreenButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -305,14 +306,14 @@ public class GameEditScreen extends Screen {
 
 		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
 				e -> controller.showConfirmPopUpWithGame(game, popup));
-
+	*/
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
 
 		// ImageView trash = makeButton(STRING.TRASH_IMG, e ->
 		// controller.trashLevel(myGame, selectedIndex));
 		// levelDisplay.setAlignment(trash, Pos.BOTTOM_RIGHT);
 
-		levelDisplay.getChildren().addAll(levelSP, back, add, play,
+		levelDisplay.getChildren().addAll(levelSP, back, addButton, play,
 				displayNote());
 
 	}
@@ -486,7 +487,7 @@ public class GameEditScreen extends Screen {
 		
 	}
 
-	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda) {
+	private ImageView makeButton(String location, String locDown, String locUp, EventHandler<MouseEvent> lamda) {
 
 		ImageView b = new ImageView(new Image(location));
 		b.setFitHeight(80);
