@@ -1,7 +1,9 @@
 package gameEngine.actions;
 
+import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
+import gameEngine.Transform;
 
 /**
  * This is an action that switches out one sprite for another
@@ -10,10 +12,14 @@ import gameEngine.Action;
  */
 
 public class SwitchOutAction extends Action{
+	
+	private int mySpriteIndex;
+	private Sprite[] mySprites;
 
 	public SwitchOutAction(Sprite[] sprites, KeyCode ... keys) {
-		super(sprite);
-		// TODO Auto-generated constructor stub
+		super(sprites[0], keys);
+		mySprites = sprites;
+		mySpriteIndex = 0;
 	}
 
 	@Override
@@ -24,8 +30,11 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		Transform transform = mySprite.transform();
+		mySpriteIndex ++;
+		mySprite = mySprites[mySpriteIndex];
+		mySprite.transform().setPosition(transform.getPositionPoint());
+		mySprite.transform().setRotation(transform.getPositionPoint());
 	}
 
 	@Override

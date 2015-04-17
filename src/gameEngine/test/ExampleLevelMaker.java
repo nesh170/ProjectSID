@@ -43,9 +43,6 @@ public class ExampleLevelMaker extends Application{
 
 	private Sprite myPlayer;
 	private List<Sprite> mySpriteList = new ArrayList<>();
-	private Action myJumpAction;
-	private Action myBounceAction;
-	private Action myNormalAction;
 	private CollisionTable myCT;
 	private Action myKillAction;
 	private Sprite myProjectileTemplate;
