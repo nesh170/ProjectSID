@@ -6,7 +6,7 @@ import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
-import gameEngine.actions.JumpAction;
+import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.NormalAction;
@@ -208,7 +208,7 @@ public class ExampleLevelMaker extends Application{
 
 
 	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
-		Action jumpAction = new JumpAction(sprite, JUMP_SPEED, kc);
+		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
 		if(runsEveryFrame){
 			jumpAction.runEveryFrame();
 		}

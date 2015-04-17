@@ -3,7 +3,7 @@ package gameEngine.test;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
-import gameEngine.actions.JumpAction;
+import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.NormalAction;
@@ -36,7 +36,7 @@ public class ExampleLevelBullets {
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
 		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
 		player.addAction(rma);
-		Action jumpAction = new JumpAction(player, -6.0, KeyCode.UP);
+		Action jumpAction = new UpMotionAction(player, -6.0, KeyCode.UP);
 		player.addAction(jumpAction);
 		Action gravityAction = new FallAction(player, 10.0);
 		gravityAction.runEveryFrame();

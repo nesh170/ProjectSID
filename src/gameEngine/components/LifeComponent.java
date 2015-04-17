@@ -24,10 +24,7 @@ public class LifeComponent extends Component {
 	}
 
 	@Override
-	public void prepare() {
-		// TODO Auto-generated method stub
-
-	}
+	public void prepare() {}
 
 	@Override
 	protected void update() {
