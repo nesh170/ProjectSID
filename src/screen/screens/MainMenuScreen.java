@@ -105,15 +105,6 @@ public class MainMenuScreen extends Screen {
 		
 	}
 	
-	private ImageView makeImageView(String s, int height, int width) {
-		
-		ImageView img = new ImageView(s);
-		img.setFitHeight(height);
-		img.setFitWidth(width);
-		return img;
-		
-	}
-	
 	private VBox makeMenuButtons() {
 		
 		Button newGame = makeButton("New Game");
@@ -133,13 +124,13 @@ public class MainMenuScreen extends Screen {
 	private void configurePopUp() {
 		
 		//popup menu for game name		
-		 makeMyPopUp();
+		 createMyPopUp();
 		 GridPane grid = configureGridPane();
 	     ImageView img = makeImageView(STRING.MAIN_MENU_SCREEN.POPUP, 350, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
 	     myPopUp.getContent().addAll(img, grid);
 	     
 	}
-	private void makeMyPopUp() {   
+	private void createMyPopUp() {   
 		
 	     myPopUp = new Popup();
 	     myPopUp.setAutoFix(false);
