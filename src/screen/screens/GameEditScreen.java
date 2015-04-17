@@ -271,6 +271,30 @@ public class GameEditScreen extends Screen {
 		levelDisplay = new StackPane();
 		ScrollPane levelSP = this.displayLevels(levels);
 
+		/*
+		 * using ImageViewButton class
+		 * @author anika, yongjiao
+		 */
+		
+		
+		ImageView addButton = makeButton(STRING.GAME_EDIT.PLUS_IMG, STRING.GAME_EDIT.PLUS_DOWN_IMG,  STRING.GAME_EDIT.PLUS_IMG,
+				e -> controller.loadLevelEditScreen(game));
+		
+		StackPane.setAlignment(addButton, Pos.TOP_RIGHT);
+		
+
+		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG, STRING.GAME_EDIT.BACK_IMG,  STRING.GAME_EDIT.PLAY_IMG,
+				e -> controller.playGame(game));
+		
+		StackPane.setAlignment(play, Pos.TOP_CENTER);
+
+		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG, STRING.GAME_EDIT.BACK_IMG,  STRING.GAME_EDIT.BACK_IMG,
+				e -> controller.showConfirmPopUpWithGame(game, popup));
+		
+		
+		/*
+		
+		
 		ImageView add = makeButton(STRING.GAME_EDIT.PLUS_IMG,
 				e -> controller.loadLevelEditScreen(game));
 		StackPane.setAlignment(add, Pos.TOP_RIGHT);
