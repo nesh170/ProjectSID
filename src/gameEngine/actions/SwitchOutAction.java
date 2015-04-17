@@ -30,11 +30,14 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void execute() {
-		Transform transform = mySprite.transform();
+		Sprite curSprite = mySprite;
 		mySpriteIndex ++;
-		mySprite = mySprites[mySpriteIndex];
-		mySprite.transform().setPosition(transform.getPositionPoint());
-		mySprite.transform().setRotation(transform.getPositionPoint());
+		Sprite nextSprite = mySprites[mySpriteIndex];
+		nextSprite.transform().setPosition(curSprite.transform().getPositionPoint());
+		nextSprite.transform().setRotation(curSprite.transform().getRot());
+		curSprite.transform().setPosition(nextSprite.transform().getPositionPoint());
+		curSprite.transform().setRotation(nextSprite.transform().getRot());
+		mySprite = nextSprite;
 	}
 
 	@Override

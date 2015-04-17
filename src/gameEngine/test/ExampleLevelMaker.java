@@ -61,6 +61,12 @@ public class ExampleLevelMaker extends Application{
 		myPlayer.setCollisionTag("player");
 		addPlayerComponentsAndActions();
 		mySpriteList.add(myPlayer);
+		//Make alternate player:
+		Sprite littlePlayer = new Sprite(new Point2D(300.0, 100.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
+		littlePlayer.setCollisionTag("littlePlayer");
+		littlePlayer.addComponent(new VelocityComponent(littlePlayer, null));
+		makePlayable(littlePlayer);
+		mySpriteList.add(littlePlayer);
 		Level l = new Level(500, 500, myPlayer);
 		//set up collisions
 		l.setCollisionTable(myCT);
@@ -180,14 +186,18 @@ public class ExampleLevelMaker extends Application{
 	private void addPlayerComponentsAndActions() {
 		myPlayer.addComponent(new HealthComponent(myPlayer,null));
 		myPlayer.addComponent(new VelocityComponent(myPlayer, null));
-		myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
-		Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
-		myPlayer.addAction(rma);
-		makeJumping(myPlayer, KeyCode.UP, false);
-		makeFallingLanding(myPlayer);
+		makePlayable(myPlayer);
 		myKillAction = new KillAction(myPlayer, 0.0, KeyCode.K);
-		makeBouncing(myPlayer, myTrampolines);
 		addProjectile();
+	}
+
+	private void makePlayable(Sprite sprite) {
+		sprite.addAction(new LeftMotionAction(sprite, SPEED, KeyCode.LEFT));
+		Action rma = new RightMotionAction(sprite, SPEED, KeyCode.RIGHT);
+		sprite.addAction(rma);
+		makeJumping(sprite, KeyCode.UP, false);
+		makeFallingLanding(sprite);
+		makeBouncing(sprite, myTrampolines);
 	}
 
 	private void makeBouncing(Sprite sprite, List<Sprite> trampolines){
