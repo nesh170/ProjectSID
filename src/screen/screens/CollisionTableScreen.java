@@ -169,6 +169,22 @@ public class CollisionTableScreen extends Screen{
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		// TODO Auto-generated method stub
 		
+			ObservableList<String> options = 
+					FXCollections.observableArrayList(
+							"Option 1",
+							"Option 2",
+							"Option 3"
+							);
+			ComboBox comboBox = new ComboBox(options);
+
+			ArrayList<String> testOptions = new ArrayList<String>();
+			testOptions.add("Option44");
+			comboBox.getItems().addAll(testOptions);
+			
+			comboBox.setId("SpriteActive");
+			comboBox.setStyle("-fx-font: 20px \"Serif\";");
+			comboBox.setPromptText("Active Sprite");
+			collisionSet.add(comboBox, 1, 0); 
 	}
 	
 	
