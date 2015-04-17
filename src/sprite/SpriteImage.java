@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import util.Int2DArraySizes;
 import util.IntArray2DToImageConverter;
@@ -40,8 +41,6 @@ public class SpriteImage {
 	private List<int[][]> images;			// Stores all 2D, pixelated images
 	private int imageFrameRate;
 	
-	private double sidPixelLength;
-	
 	// Counters
 	private int framesSinceLastUpdate;
 	private int currentImageIndex;
@@ -72,15 +71,10 @@ public class SpriteImage {
 		
 	}
 	
-	public void setSIDPixelLength(double sidPixelLength) {
-		this.sidPixelLength = sidPixelLength;
-	}
-	
 	
 	// Constructor & Helpers
-	public SpriteImage(double SIDPixelLength) {
+	public SpriteImage() {
 		
-		setSIDPixelLength(SIDPixelLength);
 		setImageFrameRate(INT.DEFAULT_IMAGE_FRAMERATE);
 		instantiateImagesList();
 		instantiateImageViewsFromImagesList();
@@ -97,7 +91,7 @@ public class SpriteImage {
 		
 		for (int[][] image2DArray : images) {
 			
-			Image image = IntArray2DToImageConverter.convert2DIntArrayToImage(image2DArray, sidPixelLength);
+			Image image = IntArray2DToImageConverter.convert2DIntArrayToImage(image2DArray, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL);
 			ImageView imageView = new ImageView(image);
 			
 			imageViews.get().add(imageView);
@@ -120,25 +114,7 @@ public class SpriteImage {
 		
 	}
 	
-	/**
-	 * Called every time someone calls the SpriteImage getter on a Sprite. Regenerates all ImageViews appropriately 
-	 * if sidPixelLength has changed in terms of real pixels.
-	 * 
-	 * @param sidPixelLength
-	 */
-	public void checkForChangedSIDPixelLength(double sidPixelLength) {
-		
-		if (this.sidPixelLength != sidPixelLength) {
-			
-			setSIDPixelLength(sidPixelLength);
-			instantiateImageViewsFromImagesList();
-			
-		}
-		
-	}
-	
-	/**
-	 * No need for if(images == null), "images" is always instantiated in the constructor. 
+	 /** No need for if(images == null), "images" is always instantiated in the constructor. 
 	 * 
 	 * @return true if SpriteImage contains at least one int[][]
 	 */

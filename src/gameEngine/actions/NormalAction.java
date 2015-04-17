@@ -1,6 +1,5 @@
 package gameEngine.actions;
 
-import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.VelocityComponent;

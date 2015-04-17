@@ -145,7 +145,7 @@ public class ExampleLevelMaker extends Application{
 
 	private void setUpImage(Sprite sprite, String path, int width, int height){
 		Image img = new Image(path);
-		sprite.spriteImage(DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL).addImage(ImageToInt2DArray.convertImageTo2DIntArray(img, width, height));
+		sprite.spriteImage().addImage(ImageToInt2DArray.convertImageTo2DIntArray(img, width, height));
 	}
 
 	private Sprite makeBouncingEnemy(double x, double y, double width, double height){
