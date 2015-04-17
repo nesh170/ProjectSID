@@ -49,6 +49,11 @@ import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
 
 /**
+ * NOTE: I NEED TO REFACTOR THIS CODE 
+ * DO NOT TOUCH YET
+ */
+
+/**
  * Visual Design (discussion April 7)
  * 
  * Back-end layout:
