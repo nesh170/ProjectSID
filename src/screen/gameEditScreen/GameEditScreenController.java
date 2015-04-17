@@ -44,8 +44,7 @@ public interface GameEditScreenController {
 	 */
 	public void trashLevel(Game game, int levelIndex);
 	/**
-	 * removes the splash screen from list of splash screen created
-	 * pass in SplashScreen or Game?
+	 * removes the splash screen the game
 	 */
 	public void trashSplash(Game game);	
 	
