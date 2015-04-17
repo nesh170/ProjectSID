@@ -23,6 +23,7 @@ public class GamePlayer {
 
 	public final static double FRAME_RATE = 30;
 	public final static double UPDATE_RATE = 120;
+	public final static int PORT_NUMBER = 10000;
 
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
@@ -161,6 +162,16 @@ public class GamePlayer {
 
 	public void stopMusic() {
 		myView.stopMusic();
+	}
+	
+	public void startServer() {
+		myNetwork = new Network();
+		String hostName = myNetwork.setUpServer(PORT_NUMBER);
+		System.out.println(hostName);
+	}
+	
+	public void startClient() {
+		
 	}
 
 }

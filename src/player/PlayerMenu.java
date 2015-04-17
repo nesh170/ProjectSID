@@ -106,7 +106,7 @@ public class PlayerMenu {
 //			Dialog<String> dialog = new Dialog<>();
 //			dialog.setContentText("You opened port 10000");
 //			dialog.showAndWait();
-			
+			myPlayer.startServer();
 			
 		});
 		
@@ -115,6 +115,7 @@ public class PlayerMenu {
 //			Dialog<String> dialog = new Dialog<>();
 //			dialog.setContentText("You joined port 10000");
 //			dialog.showAndWait();
+			myPlayer.startClient();
 		});
 		
 		networksMenu.getItems().addAll(hostItem, joinItem);
