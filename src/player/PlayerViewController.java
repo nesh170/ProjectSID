@@ -55,23 +55,24 @@ public class PlayerViewController {
 	private int myLives;
 	private int myHealth;
 	private int myScore;
-	private Scene myScene;
 	private File myGameFolder;
 	private List<Level> myGameLevels;
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-	private double[] cameraValue;
 	private Game myGame;
+	private Camera myCamera;
 	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
+		myCamera = new Camera(pane);
 		loadNewChooser();
 		myPause = makePauseScreen();
 	}
 
 	public PlayerViewController(Game game, ScrollPane pane) {
 		myGameRoot = pane;
+		myCamera = new Camera(pane);
 		myPause = makePauseScreen();
 		selectGame(game);
 	}
@@ -89,7 +90,8 @@ public class PlayerViewController {
 	}
 
 	private void update() {
-		cameraValue = myEngine.update();
+		double[] cameraVals = myEngine.update();
+		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
 	}
 
 	private void display() {
@@ -100,14 +102,7 @@ public class PlayerViewController {
 	}
 	
 	public void centerNodeInScrollPane() {
-	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
-	    double yCenterPlayer = cameraValue[1];
-	    double yBounds = myGameRoot.getViewportBounds().getHeight();
-	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
-	    double xCenterPlayer = cameraValue[0];
-	    double xBounds = myGameRoot.getViewportBounds().getWidth();
-	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
-	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
+	    myCamera.focus();
 	}
 
 	private StackPane makePauseScreen() {
