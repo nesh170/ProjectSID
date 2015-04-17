@@ -30,6 +30,7 @@ public class GameEngine {
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
+        //TODO: when switching levels, play new song. GameEngine will now have an instance of audio controller
     }
     
     public double[] update () {

@@ -1,21 +1,13 @@
 package levelPlatform.level;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
-import sprite.SpriteImage;
-import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.input.MouseEvent;
 
 /**
  * 
@@ -104,42 +96,20 @@ public class LevelView extends ScrollPane {
     private Group renderSprite(Sprite sprite) {
     	
     	Group spriteGroup = new Group();
-    	Image spriteImage;
-    	ImageView spriteImageView;
-    	//TODO: delete rectangle-making, restore SpriteImage part
-    	/*if(sprite.isActive()) {
-    		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
-    				sprite.transform().getWidth(), sprite.transform().getHeight());
-        	spriteGroup.getChildren().add(r);
-    	}*/
-    			
-        if (sprite.isActive()) {
-        	
-            // TestCode
-//            Rectangle player = new Rectangle(sprite.transform().getPosX(),sprite.transform().getPosY(),sprite.transform().getWidth(),sprite.transform().getHeight());
-//            spriteGroup.getChildren().add(player);
-        	
-        	spriteImageView = sprite.spriteImage().getImageViewToDisplay();
-                        
-            //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite
-                   // .transform().getPosY());
-            spriteImageView.setX(sprite.transform().getPosX());
-            spriteImageView.setY(sprite.transform().getPosY());
-            
+        if (sprite.isActive()) {	
+          //  ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
+            ImageView spriteImageView = null;
             if(spriteImageView !=null){
-            	
+                spriteImageView.setX(sprite.transform().getPosX());
+                spriteImageView.setY(sprite.transform().getPosY());
             	spriteImageView.setFitWidth(sprite.transform().getWidth());
             	spriteImageView.setFitHeight(sprite.transform().getHeight());
             	spriteGroup.getChildren().add(spriteImageView);
-            	
             }
-            
             else {
-            	
-        		Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
+        	Rectangle r = new Rectangle(sprite.transform().getPosX(), sprite.transform().getPosY(), 
         				sprite.transform().getWidth(), sprite.transform().getHeight());
             	spriteGroup.getChildren().add(r);
-            	
             }
             
             sprite.emissionList().stream()

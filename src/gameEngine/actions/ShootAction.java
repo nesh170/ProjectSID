@@ -14,8 +14,7 @@ import gameEngine.Action;
 public class ShootAction extends Action{
 	
 	private Sprite myProjectileTemplate;
-	private static final String BULLET_DIR = "bullet.xml";
-	private File bulletFile;
+	private String bulletString;
 	
 	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
 		super(sprite, keys);
@@ -25,13 +24,7 @@ public class ShootAction extends Action{
 
 	@Override
 	public void prepare() {
-        try {
-            DataHandler.toXMLFile(myProjectileTemplate, BULLET_DIR, System.getProperty("user.dir"));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-	    bulletFile= new File(System.getProperty("user.dir")+ "/" + BULLET_DIR);
+            bulletString =  DataHandler.toXMLString(myProjectileTemplate);
 	}
 
 	@Override
@@ -43,7 +36,7 @@ public class ShootAction extends Action{
 	}
 	
 	private Sprite generateClone(){
-		return (Sprite) DataHandler.fromXMLFile(bulletFile);
+		return (Sprite) DataHandler.fromXMLString(bulletString);
 	}
 	
 	private void addProjectileMotion(Sprite proj){
