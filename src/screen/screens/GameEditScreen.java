@@ -493,6 +493,10 @@ public class GameEditScreen extends Screen {
 		b.setFitWidth(80);
 		b.setOnMouseClicked(lamda);
 		
+		// added by anika
+		b.setOnMousePressed(e -> b.setImage(new Image(locDown)));
+		b.setOnMouseReleased(e -> b.setImage(new Image(locUp)));
+
 		return b;
 
 	}
