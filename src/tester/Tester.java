@@ -50,7 +50,7 @@ public abstract class Tester extends Application {
 	}
 	
 	private void setTitle() {
-		stage.setTitle("Testing 'Image To Int 2D Array And Back'");
+		stage.setTitle("Testing");
 	}
 
 	private void configureStage() {
