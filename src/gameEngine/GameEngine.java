@@ -83,6 +83,7 @@ public class GameEngine extends GameEngineAbstract {
      */
     @Override
     public void handleKeyEvent(KeyEvent key, int playerNumber) {
+        System.out.println(key.getEventType());
         if(myControlsMapList.get(playerNumber).containsKey(key.getCode())){
             KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(key.getEventType()).accept(myControlsMapList.get(playerNumber).get(key.getCode()));
         }

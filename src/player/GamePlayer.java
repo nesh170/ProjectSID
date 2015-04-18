@@ -166,72 +166,111 @@ public class GamePlayer {
 		myView.stopMusic();
 	}
 
-    public void startServer () {
-        try {
-            myNetwork.setUpServer(PORT_NUMBER);
-            System.out.println(myNetwork.getStringFromClient());
-            //sendLevelToClient();
-            receiveFromClient();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
-    private void sendLevelToClient(){
-        Task<Void> taskToSend = new Task<Void>() {
 
+	public void startServer () {
+		try {
+			myNetwork.setUpServer(PORT_NUMBER);
+			receiveFromClient();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+		
+	private void sendClientLevels(){
+        Task<Void> sendTask = new Task<Void>() {
             @Override
-            protected Void call () throws Exception {
-                while(true){
-                myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
-                Thread.sleep(50);
+            protected Void call () {
+
+                while (true) {
+                    try {
+                        myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
+                        Thread.sleep(100);
+                    }
+                    catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
+
             }
-
         };
-        Thread serverSendingThread = new Thread(taskToSend);
-        serverSendingThread.setDaemon(true);
-        serverSendingThread.start();
-    }
+
+        Thread th = new Thread(sendTask);
+        th.setDaemon(true);
+        th.start();
+	}
 
 
-    private void receiveFromClient(){
-        Task<Void> taskToReceive = new Task<Void>() {
 
-            @Override
-            protected Void call () throws Exception {
-                while(true){
-                System.out.println(myNetwork.getStringFromClient());
-                }
-            }
 
-        };
-        Thread serverReceiveThread = new Thread(taskToReceive);
-        serverReceiveThread.setDaemon(true);
-        serverReceiveThread.start();
-    }
+	private void receiveFromClient(){
+		Task<Void> taskToReceive = new Task<Void>() {
 
-    public void startClient () {
-        try {
-            myNetwork.setUpClient(PORT_NUMBER);
-            myScene.setOnKeyPressed(key -> sendEvent(key));
-            myScene.setOnKeyReleased(key -> sendEvent(key));
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    
+			@Override
+			protected Void call () throws Exception {
+				while(true){
+				    try{
+					String keyControl = myNetwork.getStringFromClient();
+					KeyEvent key = (KeyEvent) DataHandler.fromXMLString(keyControl);
+					myEngine.handleKeyEvent(key, 0);
+				    }
+				    catch(Exception e){
+				        System.out.println("Error detector");
+				    }
+				}
+			}
 
-    private void sendEvent (KeyEvent key) {
-        try {
-            myNetwork.sendStringToServer(DataHandler.toXMLString(key));
-        }
-        catch (IOException e) {
-            System.err.println("Can't send key");
-        }
-    }
+		};
+		Thread serverReceiveThread = new Thread(taskToReceive);
+		serverReceiveThread.setDaemon(true);
+		serverReceiveThread.start();
+	}
+
+	public void startClient () {
+		try {
+			myNetwork.setUpClient(PORT_NUMBER);
+			myGameRoot.setOnKeyPressed(key -> sendEvent(key));
+			myGameRoot.setOnKeyReleased(key -> sendEvent(key));
+		}
+		catch (Exception e) {
+			System.err.println("Can't start Client");
+		}
+	}
+
+
+	private void sendEvent (KeyEvent key) {
+		try {
+			myNetwork.sendStringToServer(DataHandler.toXMLString(key));
+		}
+		catch (Exception e) {
+			System.err.println("Can't send key");
+		}
+	}
+	
+	       private void receiveLevels(){
+	           Task<Void> sendTask = new Task<Void>() {
+	               @Override
+	               protected Void call () {
+
+	                   while (true) {
+	                       try {
+	                           String level = myNetwork.getStringFromServer();
+	                           
+	                       }
+	                       catch (Exception e) {
+	                           // TODO Auto-generated catch block
+	                           e.printStackTrace();
+	                       }
+	                   }
+
+	               }
+	           };
+
+	           Thread th = new Thread(sendTask);
+	           th.setDaemon(true);
+	           th.start();
+	           }
+
 }
