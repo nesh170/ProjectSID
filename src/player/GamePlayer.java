@@ -14,7 +14,7 @@ import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.List;
 
-import util.Network;
+import voogasalad.util.network.Network;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
 import media.VideoController;
