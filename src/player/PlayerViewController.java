@@ -11,7 +11,6 @@ import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -44,7 +43,6 @@ public class PlayerViewController {
 	public final static double UPDATE_RATE = 120;
 
 	private Timeline myTimeline;
-	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
 	private Media myVideo;

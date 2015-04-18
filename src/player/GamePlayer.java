@@ -117,21 +117,6 @@ public class GamePlayer {
 	public PlayerMenu getMenu() {
 		return myMenu;
 	}
-	
-	public int getLives() {
-		// return myEngine.getLives();
-		return 0;
-	}
-
-	public int getHealth() {
-		// return myEngine.getHealth();
-		return 0;
-	}
-
-	public int getScore() {
-		// return myEngine.getScore();
-		return 0;
-	}
 
 	public int getHighScore() {
 		// load in high score?
