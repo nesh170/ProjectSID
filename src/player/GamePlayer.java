@@ -170,12 +170,30 @@ public class GamePlayer {
         try {
             myNetwork.setUpServer(PORT_NUMBER);
             System.out.println(myNetwork.getStringFromClient());
+            //sendLevelToClient();
             receiveFromClient();
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    
+    private void sendLevelToClient(){
+        Task<Void> taskToSend = new Task<Void>() {
+
+            @Override
+            protected Void call () throws Exception {
+                while(true){
+                myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
+                Thread.sleep(50);
+                }
+            }
+
+        };
+        Thread serverSendingThread = new Thread(taskToSend);
+        serverSendingThread.setDaemon(true);
+        serverSendingThread.start();
     }
 
 
@@ -213,7 +231,7 @@ public class GamePlayer {
             myNetwork.sendStringToServer(DataHandler.toXMLString(key));
         }
         catch (IOException e) {
-            System.err.println("CAN't send key");
+            System.err.println("Can't send key");
         }
     }
 }
