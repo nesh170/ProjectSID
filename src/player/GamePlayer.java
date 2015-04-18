@@ -204,7 +204,7 @@ public class GamePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myNetwork.setUpClient(hostName, PORT_NUMBER);
+		myNetwork.setUpClient("255.255.255.255", PORT_NUMBER);
 		
 		Task<Void> recvTask = new Task<Void>() {
 			@Override
