@@ -6,6 +6,9 @@ import gameEngine.GameEngine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.List;
 
 import util.Network;
@@ -40,9 +43,9 @@ public class GamePlayer {
 	private int myScore;
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
-	
+
 	private Network myNetwork;
-	
+
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
 		myGameRoot = new ScrollPane();
@@ -62,7 +65,7 @@ public class GamePlayer {
 		myGameRoot = pane;
 		myView = new PlayerViewController(game, myGameRoot);
 	}
-	
+
 	public GamePlayer(ScrollPane pane, double width, double height) {
 		myGameRoot = pane;
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -83,7 +86,7 @@ public class GamePlayer {
 	public void showTutorial() {
 		myView.showTutorial();
 	}
-	
+
 	public void loadNewGame() {
 		myView.loadNewChooser();
 	}
@@ -91,7 +94,7 @@ public class GamePlayer {
 	public void save() {
 		myView.save();
 	}
-	
+
 	public void setupActions(PlayerMenu pMenu) {
 		List<MenuItem> menuItems = pMenu.getCommandItems();
 		menuItems.get(0).setOnAction(event -> {
@@ -120,11 +123,11 @@ public class GamePlayer {
 			stopMusic();
 		});
 	}
-	
+
 	public PlayerMenu getMenu() {
 		return myMenu;
 	}
-	
+
 	public int getLives() {
 		// return myEngine.getLives();
 		return 0;
@@ -166,16 +169,54 @@ public class GamePlayer {
 	public void stopMusic() {
 		myView.stopMusic();
 	}
-	
+
 	public void startServer() {
+
+		try {
+			DatagramSocket socket;
+
+			//Keep a socket open to listen to all the UDP trafic that is destined for this port
+			socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
+			socket.setBroadcast(true);
+
+			while (true) {
+				System.out.println(getClass().getName() + ">>>Ready to receive broadcast packets!");
+
+				//Receive a packet
+				byte[] recvBuf = new byte[15000];
+				DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+				socket.receive(packet);
+
+				//Packet received
+				System.out.println(getClass().getName() + ">>>Discovery packet received from: " + packet.getAddress().getHostAddress());
+				System.out.println(getClass().getName() + ">>>Packet received; data: " + new String(packet.getData()));
+
+				//See if the packet holds the right command (message)
+				String message = new String(packet.getData()).trim();
+				if (message.equals("DISCOVER_FUIFSERVER_REQUEST")) {
+					byte[] sendData = "DISCOVER_FUIFSERVER_RESPONSE".getBytes();
+
+					//Send a response
+					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
+					socket.send(sendPacket);
+
+					System.out.println(getClass().getName() + ">>>Sent packet to: " + sendPacket.getAddress().getHostAddress());
+				}
+			}
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
+
 		myNetwork = new Network();
 		String hostName = myNetwork.setUpServer(PORT_NUMBER);
 		System.out.println(hostName);
-		
+
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
 			protected Void call() {
-				
+
 				while (true) {
 					myNetwork.sendStringToServer("HI");
 					try {
@@ -185,15 +226,15 @@ public class GamePlayer {
 						e.printStackTrace();
 					}
 				}
-								
+
 			}
 		};
-		
+
 		Thread th = new Thread(sendTask);
 		th.setDaemon(true);
 		th.start();
 	}
-	
+
 	public void startClient() {
 		myNetwork = new Network();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -205,11 +246,11 @@ public class GamePlayer {
 			e.printStackTrace();
 		}
 		myNetwork.setUpClient("255.255.255.255", PORT_NUMBER);
-		
+
 		Task<Void> recvTask = new Task<Void>() {
 			@Override
 			protected Void call() {
-				
+
 				while (true) {
 					try {
 						System.out.println(myNetwork.getStringFromServer());
@@ -218,14 +259,14 @@ public class GamePlayer {
 						e.printStackTrace();
 					}
 				}
-								
+
 			}
 		};
-		
+
 		Thread th = new Thread(recvTask);
 		th.setDaemon(true);
 		th.start();
-		
+
 	}
 
 }
