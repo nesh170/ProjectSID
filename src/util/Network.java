@@ -4,114 +4,118 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import javafx.scene.input.KeyCode;
 
+
 /**
- * This is the network class, it has methods to set up a server and to also set up a client network which allows the user to send keycodes across
+ * This is the network class, it has methods to set up a server and to also set up a client network
+ * which allows the user to send keycodes across
  * It uses Java Implementation of sockets.
  * 
- * To use this class, The user who wants to instantiate the chat should call the setUpServer and then procceed to call setUpClient
- * to connect to the server. The game who wants to connect to the other game should get up the client by passing in the host name which was returned
- * in the setUpServer method and the portNumber. Messages or KeyCode can be sent across the server based on send and get Methods below.
+ * To use this class, The user who wants to instantiate the chat should call the setUpServer and
+ * then procceed to call setUpClient
+ * to connect to the server. The game who wants to connect to the other game should get up the
+ * client by passing in the host name which was returned
+ * in the setUpServer method and the portNumber. Messages or KeyCode can be sent across the server
+ * based on send and get Methods below.
  * 
  * @author Sivaneshwaran Loganathan & Le Qi
  *
  */
 public class Network {
+    private static final int MAX_PACKET_SIZE = 15000;
+    private static final String TEST_WORD = "SCROLLINGINTHEDEEP";
+    private int myPortNumber;
+    private DatagramSocket myServerSocket;
+    private DatagramSocket myClientSocket;
+    private InetAddress clientIPAddress;
+    private InetAddress serverIPAddress;
 
-    private int myPortNumber; 
-    private ServerSocket serverSocket; // TODO might want to delete this line
-    private PrintWriter myOutput;
-    private BufferedReader myInput;
 
-
-    /**
-     * This method sets up a ServerSocket
-     * @return host name of the server which is needed when a client is associated to it
-     */
-    public String setUpServer (int portNumber) {
-        myPortNumber=portNumber;
-        try {
-            serverSocket = new ServerSocket(myPortNumber);
+    public void setUpServer (int portNumber) throws IOException {
+        myPortNumber = portNumber;
+        myServerSocket = new DatagramSocket(portNumber, InetAddress.getByName("0.0.0.0"));
+        myServerSocket.setBroadcast(true);
+        while (true) {
+            byte[] recvBuf = new byte[15000];
+            DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+            myServerSocket.receive(packet);
+            String message = new String(packet.getData()).trim();
+            if (message.equals(TEST_WORD)) {
+                clientIPAddress = packet.getAddress();
+                System.out.println(clientIPAddress); //TODO remove this at production
+                byte[] sendData = TEST_WORD.getBytes();
+                DatagramPacket sendPacket =
+                        new DatagramPacket(sendData, sendData.length, packet.getAddress(),
+                                           packet.getPort());
+                myServerSocket.send(sendPacket);
+                break;
+            }
         }
-        catch (IOException e) {
-            System.err.println("Exception caught when trying to listen on port "
-                               + myPortNumber + " or listening for a connection");
-            return "";
-        }
-        try {
-            Socket clientSocket = serverSocket.accept();
-            myOutput = new PrintWriter(clientSocket.getOutputStream(), true);
-            myInput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        }
-        catch (IOException e) {
-            System.err.println("Exception caught when trying to listen on port "
-                    + myPortNumber + " or listening for a connection");
-        }
-        return serverSocket.getInetAddress().getHostName();
     }
 
-    /**
-     * This method sets up the client side. It also creates a printWriter to accept the data from the server.
-     * It creates a bufferedReader to allow the user to send the data to the server
-     * @param host is the host name of the server
-     * @param port is the port to connect the server too
-     */
-    public void setUpClient (String host, int port) {
-        try {
-            Socket clientSocket = new Socket(host, port);
-            myOutput = new PrintWriter(clientSocket.getOutputStream(), true);
-            myInput = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    
+    public void setUpClient (int portNumber) throws IOException {
+        myPortNumber = portNumber;
+        myClientSocket = new DatagramSocket();
+        myClientSocket.setBroadcast(true);
+        byte[] sendData = TEST_WORD.getBytes();
+        DatagramPacket sendPacket =
+                new DatagramPacket(sendData, sendData.length,
+                                   InetAddress.getByName("10.190.37.169"), myPortNumber); //TODO Add the loop here
+        myClientSocket.send(sendPacket);
+        byte[] recvBuf = new byte[MAX_PACKET_SIZE];
+        DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+        myClientSocket.receive(receivePacket);
+        String message = new String(receivePacket.getData()).trim();
+        if (message.equals(TEST_WORD)) {
+            serverIPAddress = receivePacket.getAddress();
+            System.out.println("TEST SUCESSS" + serverIPAddress); //TODO remove at prodcutions
         }
-        catch (IOException e) {
-            System.err.println("Exception caught when trying to listen on port "
-                               + port + " or listening for a connection");
-        }
-
     }
 
-    /**
-     * Sends the KeyCode to the server. 
-     * @param key is the KeyCode
-     */
-    public void sendKeyCode (KeyCode key) {
-        myOutput.println(key.getName());
+
+    public String getStringFromServer () throws IOException {
+        return getStringHelper(myClientSocket);
     }
 
-    /**
-     * Gets the keyCode from the server. 
-     * @return keyCode
-     */
-    public KeyCode getKeyCode () {
-        String keyString = "";
-        try {
-            keyString = myInput.readLine();
-        }
-        catch (IOException e) {
-            System.out.println("Error no Keys found");
-        }
-        return KeyCode.getKeyCode(keyString);
+
+    public String getStringFromClient () throws IOException {
+        return getStringHelper(myServerSocket);
+    }
+
+    private String getStringHelper (DatagramSocket socket) throws IOException {
+        byte[] recvBuf = new byte[MAX_PACKET_SIZE];
+        DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+        socket.receive(packet);
+        return new String(packet.getData()).trim();
+    }
+
+    public void sendStringToServer (String stringToSend) throws IOException {
+        sendStringHelper(myClientSocket, stringToSend, serverIPAddress);
     }
     
-    /**
-     * Gets the output from the server and returns in
-     * @return
-     * @throws IOException
-     */
-    public String getStringFromServer() throws IOException{
-        return myInput.readLine();
+    public void sendStringToClient (String stringToSend) throws IOException {
+        sendStringHelper(myServerSocket, stringToSend, clientIPAddress);
     }
     
-    /**
-     * Sends the string to the server to be sent to the clients
-     * @param stringToSend
-     */
-    public void sendStringToServer(String stringToSend){
-        myOutput.println(stringToSend);
+    private void sendStringHelper (DatagramSocket senderSocket, String toSend, InetAddress receipientAddress) throws IOException {
+        byte[] sendData = toSend.getBytes();
+        DatagramPacket sendPacket =
+                new DatagramPacket(sendData, sendData.length,
+                                   receipientAddress, myPortNumber); //TODO Add the loop here
+        senderSocket.send(sendPacket);
     }
-    
-    
-    
+
+    public void closeClientSocket () {
+        myClientSocket.close();
+    }
+
 }
