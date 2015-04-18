@@ -30,7 +30,7 @@ import java.util.Enumeration;
  */
 public class Network {
 	private static final int MAX_PACKET_SIZE = 15000;
-	private static final String IDENTIFIER_WORD = "SCROLLINGINTHEDEEP";
+	private static final String IDENTIFIER_WORD = "DUVALL";
 	private int myPortNumber;
 	private DatagramSocket myServerSocket;
 	private DatagramSocket myClientSocket;
@@ -83,8 +83,6 @@ public class Network {
 		myClientSocket = new DatagramSocket();
 		myClientSocket.setBroadcast(true);
 		byte[] sendData = IDENTIFIER_WORD.getBytes();
-
-		// Broadcast the message over all the network interfaces
 		Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 		while (interfaces.hasMoreElements()) {
 			NetworkInterface networkInterface = interfaces.nextElement();

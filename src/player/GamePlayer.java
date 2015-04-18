@@ -34,8 +34,6 @@ public class GamePlayer {
 	public final static double UPDATE_RATE = 120;
 	public final static int PORT_NUMBER = 52469;
 
-	private final static String TEST_WORD = "DUVALL";
-
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
@@ -49,7 +47,7 @@ public class GamePlayer {
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
 
-	private Network myNetwork;
+	private Network myNetwork = new Network();
 	private DatagramSocket mySocket;
 	private DatagramSocket myClientSocket;
 
@@ -178,119 +176,24 @@ public class GamePlayer {
 	}
 
 	public void startServer() {
-
-		try {
-			//Keep a socket open to listen to all the UDP trafic that is destined for this port
-			mySocket = new DatagramSocket(PORT_NUMBER, InetAddress.getByName("0.0.0.0"));
-			mySocket.setBroadcast(true);
-
-			while (true) {
-				System.out.println(getClass().getName() + ">>>Ready to receive broadcast packets!");
-
-				//Receive a packet
-				byte[] recvBuf = new byte[15000];
-				DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-				mySocket.receive(packet);
-
-				//Packet received
-				System.out.println(getClass().getName() + ">>>Discovery packet received from: " + packet.getAddress().getHostAddress());
-				System.out.println(getClass().getName() + ">>>Packet received; data: " + new String(packet.getData()));
-
-				//See if the packet holds the right command (message)
-				String message = new String(packet.getData()).trim();
-				if (message.equals("THE_DOPEST_PACKET")) {
-					byte[] sendData = "THE_DOPEST_PACKET".getBytes();
-
-					//Send a response
-					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
-					mySocket.send(sendPacket);
-
-					System.out.println(getClass().getName() + ">>>Sent packet to: " + sendPacket.getAddress().getHostAddress());
-				}
-			}
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-
+	    try {
+            myNetwork.setUpServer(PORT_NUMBER);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 
-	private int byteArrayToInt(byte[] byteArray) {
-		return  (byteArray[3] & 0xFF) |
-				(byteArray[2] & 0xFF) << 8 |
-				(byteArray[1] & 0xFF) << 16 |
-				(byteArray[0] & 0xFF) << 24;
-	}
 
-	private byte[] intToByteArray(int a) {
-		return new byte[] {
-				(byte) ((a >> 24) & 0xFF),
-				(byte) ((a >> 16) & 0xFF),   
-				(byte) ((a >> 8) & 0xFF),   
-				(byte) (a & 0xFF)
-		};
-	}
 
 	public void startClient() {
-
-		// Find the server using UDP broadcast
-		try {
-			//Open a random port to send the package
-			myClientSocket = new DatagramSocket();
-			myClientSocket.setBroadcast(true);
-
-			byte[] sendData = TEST_WORD.getBytes();
-
-			// Broadcast the message over all the network interfaces
-			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-			while (interfaces.hasMoreElements()) {
-				NetworkInterface networkInterface = interfaces.nextElement();
-
-				if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-					continue; // Don't want to broadcast to the loopback interface
-				}
-
-				for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-					InetAddress broadcast = interfaceAddress.getBroadcast();
-
-					if (broadcast == null) {
-						continue;
-					}
-
-					int prefixLength = interfaceAddress.getNetworkPrefixLength();
-					int bitsToShift = 32 - prefixLength;
-					int numAddresses = (int) Math.pow(2, bitsToShift);
-
-					int intBroadcast = byteArrayToInt(broadcast.getAddress()) &
-							(-1 << bitsToShift);
-
-					for (int i = 0; i < numAddresses; i++) {
-						InetAddress sendAddress = InetAddress.getByAddress(intToByteArray(intBroadcast + i));
-						DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, sendAddress, PORT_NUMBER);
-						myClientSocket.send(sendPacket);
-						//System.out.println(sendAddress.getHostAddress());
-					}
-				}
-
-				//Wait for a response
-				byte[] recvBuf = new byte[15000];
-				DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
-				myClientSocket.receive(receivePacket);
-
-				//Check if the message is correct
-				String message = new String(receivePacket.getData()).trim();
-				if (message.equals("THE_DOPEST_PACKET")) {
-					//DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
-					System.out.println(receivePacket.getAddress());
-				}
-
-				//Close the port
-				myClientSocket.close();
-				System.out.println("PROBLEMS");
-
-			}
-		} catch (IOException ex) {
-
-		}
+	    try {
+            myNetwork.setUpClient(PORT_NUMBER);
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 }
