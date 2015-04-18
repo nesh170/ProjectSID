@@ -11,7 +11,6 @@ import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -44,7 +43,6 @@ public class PlayerViewController {
 	public final static double UPDATE_RATE = 120;
 
 	private Timeline myTimeline;
-	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
 	private Media myVideo;
@@ -55,23 +53,25 @@ public class PlayerViewController {
 	private int myLives;
 	private int myHealth;
 	private int myScore;
-	private Scene myScene;
 	private File myGameFolder;
 	private List<Level> myGameLevels;
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-	private double[] cameraValue;
 	private Game myGame;
+	private Camera myCamera;
+	private HUD myHUD;
 	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
+		myCamera = new Camera(pane);
 		loadNewChooser();
 		myPause = makePauseScreen();
 	}
 
 	public PlayerViewController(Game game, ScrollPane pane) {
 		myGameRoot = pane;
+		myCamera = new Camera(pane);
 		myPause = makePauseScreen();
 		selectGame(game);
 	}
@@ -89,25 +89,20 @@ public class PlayerViewController {
 	}
 
 	private void update() {
-		cameraValue = myEngine.update();
+		double[] cameraVals = myEngine.update();
+		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
 	}
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
+		myGameGroup.getChildren().add(createHUD());
+		//myGameRoot.setContent(myGameGroup);
 		centerNodeInScrollPane();
 	}
 	
 	public void centerNodeInScrollPane() {
-	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
-	    double yCenterPlayer = cameraValue[1];
-	    double yBounds = myGameRoot.getViewportBounds().getHeight();
-	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
-	    double xCenterPlayer = cameraValue[0];
-	    double xBounds = myGameRoot.getViewportBounds().getWidth();
-	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
-	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
+	    myCamera.focus();
 	}
 
 	private StackPane makePauseScreen() {
@@ -192,19 +187,12 @@ public class PlayerViewController {
 	}			
 	
 	public HBox createHUD() {
-		HBox HUDbox = new HBox(myWidth);
-		Text LivesText = new Text("Health:" + myHealth);
-		LivesText.setFont(Font.font("Arial Black", 20));
-		LivesText.setFill(Color.WHITE);
-		Text HealthText = new Text("Lives:" + myLives);
-		HealthText.setFont(Font.font("Arial Black", 20));
-		HealthText.setFill(Color.WHITE);
-		Text ScoreText = new Text("Score" + myScore);
-		ScoreText.setFont(Font.font("Arial Black", 20));
-		ScoreText.setFill(Color.WHITE);
-		HUDbox.getChildren().addAll(LivesText, HealthText, ScoreText);
-		HUDbox.setAlignment(Pos.BOTTOM_CENTER);
-		return HUDbox;
+		myHUD = new HUD(myGameRoot);
+		myHUD.addItem("Lives");
+		myHUD.addItem("Health");
+		myHUD.addItem("Score");
+		myHUD.updateHUDLocation(myGameRoot.getViewportBounds());
+		return myHUD.getHUDBox();
 	}
 
 	public void save() {
