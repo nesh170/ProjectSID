@@ -3,15 +3,8 @@ package player;
 import game.Game;
 import gameEngine.GameEngine;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
 import java.util.List;
 
 import voogasalad.util.network.Network;
