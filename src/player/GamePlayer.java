@@ -179,6 +179,7 @@ public class GamePlayer {
 	    try {
             myNetwork.setUpServer(PORT_NUMBER);
             myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
+            System.out.println("SENT");
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
