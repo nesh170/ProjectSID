@@ -179,29 +179,29 @@ public class GamePlayer {
 			e.printStackTrace();
 		}
 	}
-		
+
 	private void sendClientLevels(){
-        Task<Void> sendTask = new Task<Void>() {
-            @Override
-            protected Void call () {
+		Task<Void> sendTask = new Task<Void>() {
+			@Override
+			protected Void call () {
 
-                while (true) {
-                    try {
-                        myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
-                        Thread.sleep(100);
-                    }
-                    catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
+				while (true) {
+					try {
+						myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
+						Thread.sleep(100);
+					}
+					catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 
-            }
-        };
+			}
+		};
 
-        Thread th = new Thread(sendTask);
-        th.setDaemon(true);
-        th.start();
+		Thread th = new Thread(sendTask);
+		th.setDaemon(true);
+		th.start();
 	}
 
 
@@ -213,14 +213,15 @@ public class GamePlayer {
 			@Override
 			protected Void call () throws Exception {
 				while(true){
-				    try{
-					String keyControl = myNetwork.getStringFromClient();
-					List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
-					myEngine.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER);
-				    }
-				    catch(Exception e){
-				        e.printStackTrace();
-				    }
+					try{
+						String keyControl = myNetwork.getStringFromClient();
+						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+						myView.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER);
+					}
+					catch(Exception e){
+						System.out.println("Error detector");
+						e.printStackTrace();
+					}
 				}
 			}
 
@@ -243,39 +244,39 @@ public class GamePlayer {
 
 
 	private void sendEvent (KeyEvent key) {
-	    List<String> keyData = new ArrayList<>();
-	    keyData.add(key.getEventType().getName());
-	    keyData.add(key.getCode().toString());
+		List<String> keyData = new ArrayList<>();
+		keyData.add(key.getEventType().getName());
+		keyData.add(key.getCode().getName());
 		try {
-		    myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
+			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
 		}
 		catch (Exception e) {
 			System.err.println("Can't send key");
 		}
 	}
-	
-	       private void receiveLevels(){
-	           Task<Void> sendTask = new Task<Void>() {
-	               @Override
-	               protected Void call () {
 
-	                   while (true) {
-	                       try {
-	                           String level = myNetwork.getStringFromServer();
-	                           
-	                       }
-	                       catch (Exception e) {
-	                           // TODO Auto-generated catch block
-	                           e.printStackTrace();
-	                       }
-	                   }
+	private void receiveLevels(){
+		Task<Void> sendTask = new Task<Void>() {
+			@Override
+			protected Void call () {
 
-	               }
-	           };
+				while (true) {
+					try {
+						String level = myNetwork.getStringFromServer();
 
-	           Thread th = new Thread(sendTask);
-	           th.setDaemon(true);
-	           th.start();
-	           }
+					}
+					catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			}
+		};
+
+		Thread th = new Thread(sendTask);
+		th.setDaemon(true);
+		th.start();
+	}
 
 }

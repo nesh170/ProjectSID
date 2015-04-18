@@ -244,4 +244,12 @@ public class PlayerViewController {
 	public void stopMusic() {
 		myAudioController.stop();
 	}
+	
+	public String getCurrentLevelinXML() {
+		return myEngine.getCurrentLevelinXML();
+	}
+
+	public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
+		myEngine.handleKeyEvent(keyEventType, keyCode, playerNumber);
+	}
 }
