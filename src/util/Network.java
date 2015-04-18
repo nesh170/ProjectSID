@@ -57,7 +57,7 @@ public class Network {
 			String message = new String(packet.getData()).trim();
 			if (message.equals(IDENTIFIER_WORD)) {
 				clientIPAddress = packet.getAddress();
-				System.out.println(clientIPAddress); // TODO remove this at production
+				System.out.println("CLIENT CONNECTED SUCCESS" + " " + clientIPAddress); // TODO remove this at production
 				byte[] sendData = IDENTIFIER_WORD.getBytes();
 				DatagramPacket sendPacket =
 						new DatagramPacket(sendData, sendData.length, packet.getAddress(),
@@ -118,7 +118,7 @@ public class Network {
 			String message = new String(receivePacket.getData()).trim();
 			if (message.equals(IDENTIFIER_WORD)) {
 				serverIPAddress = receivePacket.getAddress();
-				System.out.println("TEST SUCESSS" + serverIPAddress); // TODO remove at prodcutions
+				System.out.println("SERVER CONNECTION SUCESSS" + " " + serverIPAddress);
 			}
 		}
 	}
