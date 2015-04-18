@@ -2,8 +2,8 @@ package tester.data;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
 import data.DataHandler;
 import sprite.Sprite;
 import tester.Tester;
@@ -26,7 +26,7 @@ public class DataTester extends Tester {
 
 		File f = DataHandler.chooseDir(stage);
 
-		Level level = new Level(1200, 600, new Sprite());
+		Level level = new Level(1200, 600,new ArrayList<Sprite>());
 
 		try {
 			DataHandler.toXMLFile(level, "level.xml", f.toString());
