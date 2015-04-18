@@ -109,7 +109,7 @@ public class Network {
 					InetAddress sendAddress = InetAddress.getByAddress(intToByteArray(intBroadcast + i));
 					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, sendAddress, portNumber);
 					myClientSocket.send(sendPacket);
-					//System.out.println(sendAddress.getHostAddress());
+					System.out.println(sendAddress.getHostAddress());
 				}
 			}
 			byte[] recvBuf = new byte[MAX_PACKET_SIZE];
