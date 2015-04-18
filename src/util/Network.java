@@ -109,7 +109,6 @@ public class Network {
 					InetAddress sendAddress = InetAddress.getByAddress(intToByteArray(intBroadcast + i));
 					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, sendAddress, portNumber);
 					myClientSocket.send(sendPacket);
-					System.out.println(sendAddress.getHostAddress());
 				}
 			}
 			byte[] recvBuf = new byte[MAX_PACKET_SIZE];
@@ -146,7 +145,9 @@ public class Network {
 	private String getStringHelper (DatagramSocket socket) throws IOException {
 		byte[] recvBuf = new byte[MAX_PACKET_SIZE];
 		DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
+		System.out.println("Waiting...");
 		socket.receive(packet);
+		System.out.println("Received!");
 		return new String(packet.getData()).trim();
 	}
 
