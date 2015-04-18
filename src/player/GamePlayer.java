@@ -246,7 +246,7 @@ public class GamePlayer {
 	private void sendEvent (KeyEvent key) {
 		List<String> keyData = new ArrayList<>();
 		keyData.add(key.getEventType().getName());
-		keyData.add(key.getCode().toString());
+		keyData.add(key.getCode().getName());
 		try {
 			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
 		}
