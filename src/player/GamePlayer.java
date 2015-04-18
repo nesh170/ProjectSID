@@ -9,6 +9,9 @@ import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import java.util.List;
 
 import util.Network;
@@ -45,6 +48,8 @@ public class GamePlayer {
 	private PlayerViewController myView;
 
 	private Network myNetwork;
+	private DatagramSocket mySocket;
+	private DatagramSocket myClientSocket;
 
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
@@ -173,11 +178,9 @@ public class GamePlayer {
 	public void startServer() {
 
 		try {
-			DatagramSocket socket;
-
 			//Keep a socket open to listen to all the UDP trafic that is destined for this port
-			socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
-			socket.setBroadcast(true);
+			mySocket = new DatagramSocket(PORT_NUMBER, InetAddress.getByName("0.0.0.0"));
+			mySocket.setBroadcast(true);
 
 			while (true) {
 				System.out.println(getClass().getName() + ">>>Ready to receive broadcast packets!");
@@ -185,7 +188,7 @@ public class GamePlayer {
 				//Receive a packet
 				byte[] recvBuf = new byte[15000];
 				DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-				socket.receive(packet);
+				mySocket.receive(packet);
 
 				//Packet received
 				System.out.println(getClass().getName() + ">>>Discovery packet received from: " + packet.getAddress().getHostAddress());
@@ -198,7 +201,7 @@ public class GamePlayer {
 
 					//Send a response
 					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
-					socket.send(sendPacket);
+					mySocket.send(sendPacket);
 
 					System.out.println(getClass().getName() + ">>>Sent packet to: " + sendPacket.getAddress().getHostAddress());
 				}
@@ -208,65 +211,78 @@ public class GamePlayer {
 			ex.printStackTrace();
 		}
 
-
-		myNetwork = new Network();
-		String hostName = myNetwork.setUpServer(PORT_NUMBER);
-		System.out.println(hostName);
-
-		Task<Void> sendTask = new Task<Void>() {
-			@Override
-			protected Void call() {
-
-				while (true) {
-					myNetwork.sendStringToServer("HI");
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-			}
-		};
-
-		Thread th = new Thread(sendTask);
-		th.setDaemon(true);
-		th.start();
 	}
 
 	public void startClient() {
-		myNetwork = new Network();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String hostName = null;
+
+		// Find the server using UDP broadcast
 		try {
-			hostName = br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		myNetwork.setUpClient("255.255.255.255", PORT_NUMBER);
+			//Open a random port to send the package
+			myClientSocket = new DatagramSocket();
+			myClientSocket.setBroadcast(true);
 
-		Task<Void> recvTask = new Task<Void>() {
-			@Override
-			protected Void call() {
+			byte[] sendData = "THE_DOPEST_PACKET".getBytes();
 
-				while (true) {
-					try {
-						System.out.println(myNetwork.getStringFromServer());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			//Try the 255.255.255.255 first
+			try {
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), PORT_NUMBER);
+				myClientSocket.send(sendPacket);
+				System.out.println(getClass().getName() + ">>> Request packet sent to: 255.255.255.255 (DEFAULT)");
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("YOU HAVE PROBLEMS");
+			}
+
+			// Broadcast the message over all the network interfaces
+			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+			while (interfaces.hasMoreElements()) {
+				NetworkInterface networkInterface = interfaces.nextElement();
+
+				if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+					continue; // Don't want to broadcast to the loopback interface
 				}
 
+				for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+					InetAddress broadcast = interfaceAddress.getBroadcast();
+					if (broadcast == null) {
+						continue;
+					}
+
+					// Send the broadcast package!
+					try {
+						DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, PORT_NUMBER);
+						myClientSocket.send(sendPacket);
+					} catch (Exception e) {
+
+						System.out.println("ANOTHER FUCKING PROBLEM");
+					}
+
+					System.out.println(getClass().getName() + ">>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
+				}
 			}
-		};
 
-		Thread th = new Thread(recvTask);
-		th.setDaemon(true);
-		th.start();
+			System.out.println(getClass().getName() + ">>> Done looping over all network interfaces. Now waiting for a reply!");
 
+			//Wait for a response
+			byte[] recvBuf = new byte[15000];
+			DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+			myClientSocket.receive(receivePacket);
+
+			//We have a response
+			System.out.println(getClass().getName() + ">>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
+
+			//Check if the message is correct
+			String message = new String(receivePacket.getData()).trim();
+			if (message.equals("THE_DOPEST_PACKET")) {
+				//DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
+				System.out.println(receivePacket.getAddress());
+			}
+
+			//Close the port!
+			myClientSocket.close();
+		} catch (IOException ex) {
+
+			System.out.println("PROBLEMS");
+		}
 	}
-
 }
