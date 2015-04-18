@@ -102,7 +102,6 @@ public class PlayerMenu {
 		MenuItem joinItem = new MenuItem("Join Game");
 		
 		hostItem.setOnAction(event -> {
-			System.out.println("HOST 10000");
 //			Dialog<String> dialog = new Dialog<>();
 //			dialog.setContentText("You opened port 10000");
 //			dialog.showAndWait();
@@ -111,7 +110,6 @@ public class PlayerMenu {
 		});
 		
 		joinItem.setOnAction(event -> {
-			System.out.println("JOIN 10000");
 //			Dialog<String> dialog = new Dialog<>();
 //			dialog.setContentText("You joined port 10000");
 //			dialog.showAndWait();

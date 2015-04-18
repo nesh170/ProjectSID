@@ -178,6 +178,7 @@ public class GamePlayer {
 	public void startServer() {
 	    try {
             myNetwork.setUpServer(PORT_NUMBER);
+            myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -190,6 +191,8 @@ public class GamePlayer {
 	public void startClient() {
 	    try {
             myNetwork.setUpClient(PORT_NUMBER);
+            System.out.println(myNetwork.getStringFromServer());
+            
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
