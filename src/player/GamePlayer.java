@@ -187,7 +187,7 @@ public class GamePlayer {
 
 				while (true) {
 					try {
-						myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
+						myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
 						Thread.sleep(100);
 					}
 					catch (Exception e) {
@@ -215,11 +215,12 @@ public class GamePlayer {
 				while(true){
 					try{
 						String keyControl = myNetwork.getStringFromClient();
-						List<String> keyString = (List<String>) DataHandler.fromXMLString(keyControl);
-						myEngine.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER);
+						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+						myView.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER);
 					}
 					catch(Exception e){
 						System.out.println("Error detector");
+						e.printStackTrace();
 					}
 				}
 			}
