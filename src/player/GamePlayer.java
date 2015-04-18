@@ -166,37 +166,76 @@ public class GamePlayer {
 		myView.stopMusic();
 	}
 
-    public void startServer () {
-        try {
-            myNetwork.setUpServer(PORT_NUMBER);
-            System.out.println(myNetwork.getStringFromClient());
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+	public void startServer () {
+		try {
+			myNetwork.setUpServer(PORT_NUMBER);
+			System.out.println(myNetwork.getStringFromClient());
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		Task<Void> sendTask = new Task<Void>() {
+//			@Override
+//			protected Void call() {
+//				
+//				while (true) {
+//					myNetwork.sendStringToServer("HI");
+//					try {
+//						Thread.sleep(100);
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//								
+//			}
+//		};
+//		
+//		Thread th = new Thread(sendTask);
+//		th.setDaemon(true);
+//		th.start();
+	}
 
+	public void startClient () {
+		try {
+			myNetwork.setUpClient(PORT_NUMBER);
+			myScene.setOnKeyPressed(key -> sendEvent(key));
+			myScene.setOnKeyReleased(key -> sendEvent(key));
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		Task<Void> recvTask = new Task<Void>() {
+//			@Override
+//			protected Void call() {
+//
+//				while (true) {
+//					try {
+//						System.out.println(myNetwork.getStringFromServer());
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//
+//			}
+//		};
+//
+//		Thread th = new Thread(recvTask);
+//		th.setDaemon(true);
+//		th.start();
+	}
 
-
-    public void startClient () {
-        try {
-            myNetwork.setUpClient(PORT_NUMBER);
-            myScene.setOnKeyPressed(key -> sendEvent(key));
-            myScene.setOnKeyReleased(key -> sendEvent(key));
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    private void sendEvent (KeyEvent key) {
-        try {
-            myNetwork.sendStringToServer(DataHandler.toXMLString(key));
-        }
-        catch (IOException e) {
-            System.err.println("CAN't send key");
-        }
-    }
+	private void sendEvent (KeyEvent key) {
+		try {
+			myNetwork.sendStringToServer(DataHandler.toXMLString(key));
+		}
+		catch (IOException e) {
+			System.err.println("CAN't send key");
+		}
+	}
 }
