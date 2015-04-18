@@ -119,6 +119,7 @@ public class Network {
 			if (message.equals(IDENTIFIER_WORD)) {
 				serverIPAddress = receivePacket.getAddress();
 				System.out.println("SERVER CONNECTION SUCESSS" + " " + serverIPAddress);
+				break;
 			}
 		}
 	}
