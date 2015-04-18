@@ -225,43 +225,13 @@ public class GamePlayer {
 
 			//Try the 255.255.255.255 first
 			try {
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), PORT_NUMBER);
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("10.190.37.169"), PORT_NUMBER);
 				myClientSocket.send(sendPacket);
 				System.out.println(getClass().getName() + ">>> Request packet sent to: 255.255.255.255 (DEFAULT)");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("YOU HAVE PROBLEMS");
 			}
-
-			// Broadcast the message over all the network interfaces
-			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-			while (interfaces.hasMoreElements()) {
-				NetworkInterface networkInterface = interfaces.nextElement();
-
-				if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-					continue; // Don't want to broadcast to the loopback interface
-				}
-
-				for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-					InetAddress broadcast = interfaceAddress.getBroadcast();
-					if (broadcast == null) {
-						continue;
-					}
-
-					// Send the broadcast package!
-					try {
-						DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, PORT_NUMBER);
-						myClientSocket.send(sendPacket);
-					} catch (Exception e) {
-
-						System.out.println("ANOTHER FUCKING PROBLEM");
-					}
-
-					System.out.println(getClass().getName() + ">>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
-				}
-			}
-
-			System.out.println(getClass().getName() + ">>> Done looping over all network interfaces. Now waiting for a reply!");
 
 			//Wait for a response
 			byte[] recvBuf = new byte[15000];
