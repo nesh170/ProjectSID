@@ -4,7 +4,9 @@ import game.Game;
 import gameEngine.GameEngine;
 import java.io.IOException;
 import java.net.DatagramSocket;
+import java.util.ArrayList;
 import java.util.List;
+import resources.constants.INT;
 import data.DataHandler;
 import voogasalad.util.network.Network;
 import javafx.concurrent.Task;
@@ -213,8 +215,8 @@ public class GamePlayer {
 				while(true){
 				    try{
 					String keyControl = myNetwork.getStringFromClient();
-					KeyEvent key = (KeyEvent) DataHandler.fromXMLString(keyControl);
-					myEngine.handleKeyEvent(key, 0);
+					List<String> keyString = (List<String>) DataHandler.fromXMLString(keyControl);
+					myEngine.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER);
 				    }
 				    catch(Exception e){
 				        System.out.println("Error detector");
@@ -241,8 +243,11 @@ public class GamePlayer {
 
 
 	private void sendEvent (KeyEvent key) {
+	    List<String> keyData = new ArrayList<>();
+	    keyData.add(key.getEventType().getName());
+	    keyData.add(key.getCode().toString());
 		try {
-			myNetwork.sendStringToServer(DataHandler.toXMLString(key));
+		    myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
 		}
 		catch (Exception e) {
 			System.err.println("Can't send key");
