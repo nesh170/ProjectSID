@@ -272,23 +272,10 @@ public class GamePlayer {
 					}
 				}
 
-				//Try the 255.255.255.255 first
-				//			try {
-				//				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("10.190.37.169"), PORT_NUMBER);
-				//				myClientSocket.send(sendPacket);
-				//				System.out.println(getClass().getName() + ">>> Request packet sent to: 255.255.255.255 (DEFAULT)");
-				//			} catch (Exception e) {
-				//				e.printStackTrace();
-				//				System.out.println("YOU HAVE PROBLEMS");
-				//			}
-
 				//Wait for a response
 				byte[] recvBuf = new byte[15000];
 				DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
 				myClientSocket.receive(receivePacket);
-
-				//We have a response
-				System.out.println(getClass().getName() + ">>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
 
 				//Check if the message is correct
 				String message = new String(receivePacket.getData()).trim();
@@ -297,7 +284,7 @@ public class GamePlayer {
 					System.out.println(receivePacket.getAddress());
 				}
 
-				//Close the port!
+				//Close the port
 				myClientSocket.close();
 				System.out.println("PROBLEMS");
 
