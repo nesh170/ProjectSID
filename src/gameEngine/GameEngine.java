@@ -90,6 +90,7 @@ public class GameEngine extends GameEngineAbstract {
 
     @Override
     public String getCurrentLevelinXML () {
+        System.out.println(myCurrentLevel.playerSpriteList().get(0).collisionTag());
         return DataHandler.toXMLString(myCurrentLevel);
     }
 
