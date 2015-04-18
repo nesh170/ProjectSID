@@ -2,11 +2,10 @@ package player;
 
 import game.Game;
 import gameEngine.GameEngine;
-
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.util.List;
-
+import data.DataHandler;
 import voogasalad.util.network.Network;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
@@ -17,6 +16,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,8 +41,6 @@ public class GamePlayer {
 	private PlayerViewController myView;
 
 	private Network myNetwork = new Network();
-	private DatagramSocket mySocket;
-	private DatagramSocket myClientSocket;
 
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
@@ -168,8 +166,8 @@ public class GamePlayer {
 		myView.stopMusic();
 	}
 
-	public void startServer() {
-	    try {
+    public void startServer () {
+        try {
             myNetwork.setUpServer(PORT_NUMBER);
             System.out.println(myNetwork.getStringFromClient());
         }
@@ -177,17 +175,28 @@ public class GamePlayer {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-	}
+    }
 
 
 
-	public void startClient() {
-	    try {
+    public void startClient () {
+        try {
             myNetwork.setUpClient(PORT_NUMBER);
+            myScene.setOnKeyPressed(key -> sendEvent(key));
+            myScene.setOnKeyReleased(key -> sendEvent(key));
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-	}
+    }
+
+    private void sendEvent (KeyEvent key) {
+        try {
+            myNetwork.sendStringToServer(DataHandler.toXMLString(key));
+        }
+        catch (IOException e) {
+            System.err.println("CAN't send key");
+        }
+    }
 }
