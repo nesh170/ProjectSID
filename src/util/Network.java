@@ -145,9 +145,7 @@ public class Network {
 	private String getStringHelper (DatagramSocket socket) throws IOException {
 		byte[] recvBuf = new byte[MAX_PACKET_SIZE];
 		DatagramPacket packet = new DatagramPacket(recvBuf, recvBuf.length);
-		System.out.println("Waiting...");
 		socket.receive(packet);
-		System.out.println("Received!");
 		return new String(packet.getData()).trim();
 	}
 
