@@ -60,6 +60,7 @@ public class PlayerViewController {
 	private GameEngine myEngine;
 	private Game myGame;
 	private Camera myCamera;
+	private HUD myHUD;
 	
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
@@ -94,8 +95,9 @@ public class PlayerViewController {
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
+		myGameGroup.getChildren().add(createHUD());
+		//myGameRoot.setContent(myGameGroup);
 		centerNodeInScrollPane();
 	}
 	
@@ -185,19 +187,12 @@ public class PlayerViewController {
 	}			
 	
 	public HBox createHUD() {
-		HBox HUDbox = new HBox(myWidth);
-		Text LivesText = new Text("Health:" + myHealth);
-		LivesText.setFont(Font.font("Arial Black", 20));
-		LivesText.setFill(Color.WHITE);
-		Text HealthText = new Text("Lives:" + myLives);
-		HealthText.setFont(Font.font("Arial Black", 20));
-		HealthText.setFill(Color.WHITE);
-		Text ScoreText = new Text("Score" + myScore);
-		ScoreText.setFont(Font.font("Arial Black", 20));
-		ScoreText.setFill(Color.WHITE);
-		HUDbox.getChildren().addAll(LivesText, HealthText, ScoreText);
-		HUDbox.setAlignment(Pos.BOTTOM_CENTER);
-		return HUDbox;
+		myHUD = new HUD(myGameRoot);
+		myHUD.addItem("Lives");
+		myHUD.addItem("Health");
+		myHUD.addItem("Score");
+		myHUD.updateHUDLocation(myGameRoot.getViewportBounds());
+		return myHUD.getHUDBox();
 	}
 
 	public void save() {
