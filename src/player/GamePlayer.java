@@ -178,8 +178,7 @@ public class GamePlayer {
 	public void startServer() {
 	    try {
             myNetwork.setUpServer(PORT_NUMBER);
-            myNetwork.sendStringToClient("Essays are generally scholarly pieces of writing giving the author's own argument, but the definition is vague, overlapping with those of an article, a pamphlet and a short story");
-            System.out.println("SENT");
+            System.out.println(myNetwork.getStringFromClient());
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
@@ -192,8 +191,8 @@ public class GamePlayer {
 	public void startClient() {
 	    try {
             myNetwork.setUpClient(PORT_NUMBER);
-            System.out.println(myNetwork.getStringFromServer());
-            
+            myNetwork.sendStringToServer("Essays are generally scholarly pieces of writing giving the author's own argument, but the definition is vague, overlapping with those of an article, a pamphlet and a short story");
+            System.out.println("SENT");
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
