@@ -178,7 +178,7 @@ public class GamePlayer {
 	public void startServer() {
 	    try {
             myNetwork.setUpServer(PORT_NUMBER);
-            myNetwork.sendStringToClient(myEngine.getCurrentLevelinXML());
+            myNetwork.sendStringToClient("Essays are generally scholarly pieces of writing giving the author's own argument, but the definition is vague, overlapping with those of an article, a pamphlet and a short story");
             System.out.println("SENT");
         }
         catch (IOException e) {
