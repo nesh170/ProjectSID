@@ -11,6 +11,9 @@ import data.DataHandler;
 import voogasalad.util.network.Network;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
+import levelPlatform.level.EditMode;
+import levelPlatform.level.Level;
+import levelPlatform.level.LevelView;
 import media.VideoController;
 import media.VideoPlayer;
 import javafx.scene.Scene;
@@ -172,6 +175,7 @@ public class GamePlayer {
 	public void startServer () {
 		try {
 			myNetwork.setUpServer(PORT_NUMBER);
+			sendClientLevels();
 			receiveFromClient();
 		}
 		catch (IOException e) {
@@ -236,6 +240,7 @@ public class GamePlayer {
 			myNetwork.setUpClient(PORT_NUMBER);
 			myGameRoot.setOnKeyPressed(key -> sendEvent(key));
 			myGameRoot.setOnKeyReleased(key -> sendEvent(key));
+			receiveLevels();
 		}
 		catch (Exception e) {
 			System.err.println("Can't start Client");
@@ -256,17 +261,17 @@ public class GamePlayer {
 	}
 
 	private void receiveLevels(){
-		Task<Void> sendTask = new Task<Void>() {
+		Task<Void> recvTask = new Task<Void>() {
 			@Override
 			protected Void call () {
-
+			    LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
 				while (true) {
 					try {
 						String level = myNetwork.getStringFromServer();
-
+						renderer.setLevel((Level) DataHandler.fromXMLString(level));
+						myGameRoot.setContent(renderer.renderLevel());
 					}
 					catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -274,7 +279,7 @@ public class GamePlayer {
 			}
 		};
 
-		Thread th = new Thread(sendTask);
+		Thread th = new Thread(recvTask);
 		th.setDaemon(true);
 		th.start();
 	}

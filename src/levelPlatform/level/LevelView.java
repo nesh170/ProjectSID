@@ -42,7 +42,12 @@ public class LevelView extends ScrollPane {
     }
     
     public void setCollisionHandler(){
+        try{
     	this.collisionHandler = new Collision(level.getCollisionTable());
+        }
+        catch (NullPointerException e){
+            //exception does not need to be handled, this is to allow null levels
+        }
     }
     
     // Constructor & Helpers
