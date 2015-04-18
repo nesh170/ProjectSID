@@ -170,16 +170,17 @@ public class GamePlayer {
 		try {
 			myNetwork.setUpServer(PORT_NUMBER);
 			System.out.println(myNetwork.getStringFromClient());
+			receiveFromClient();
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 //		Task<Void> sendTask = new Task<Void>() {
 //			@Override
 //			protected Void call() {
-//				
+//
 //				while (true) {
 //					myNetwork.sendStringToServer("HI");
 //					try {
@@ -189,13 +190,32 @@ public class GamePlayer {
 //						e.printStackTrace();
 //					}
 //				}
-//								
+//
 //			}
 //		};
-//		
+//
 //		Thread th = new Thread(sendTask);
 //		th.setDaemon(true);
 //		th.start();
+
+
+	}
+
+
+	private void receiveFromClient(){
+		Task<Void> taskToReceive = new Task<Void>() {
+
+			@Override
+			protected Void call () throws Exception {
+				while(true){
+					System.out.println(myNetwork.getStringFromClient());
+				}
+			}
+
+		};
+		Thread serverReceiveThread = new Thread(taskToReceive);
+		serverReceiveThread.setDaemon(true);
+		serverReceiveThread.start();
 	}
 
 	public void startClient () {
@@ -208,7 +228,7 @@ public class GamePlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 //		Task<Void> recvTask = new Task<Void>() {
 //			@Override
 //			protected Void call() {
@@ -229,6 +249,7 @@ public class GamePlayer {
 //		th.setDaemon(true);
 //		th.start();
 	}
+
 
 	private void sendEvent (KeyEvent key) {
 		try {
