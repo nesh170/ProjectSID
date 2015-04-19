@@ -33,7 +33,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
-import levelPlatform.levelPlatformView.LevelPlatformView;
+import javafx.scene.control.ScrollPane;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -56,7 +56,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	// Instance Variables
 	private LevelEditScreenController controller;
 	private Level level;
-	private LevelPlatformView levelPlatformView;
+//	private ScrollPane scrollPane;
+//	private Pane levelDisplay;
+	private LevelEditDisplay levelEditDisplay;
 	private Tab currentGameScreen;
 	// Layout
 	private VerticalButtonBox rightButtonBox;
@@ -73,7 +75,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	// Maps
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
-	private Map<Sprite,ImageView> spriteToImageMap;
 
 
 	// Getters & Setters
@@ -128,9 +129,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		makeSpritesInLevelTab();
 		makeButtonsOnRight();
 
-		configureLevelPlatformViewWithLevel(level);		
+		configureLevelEditDisplay(level);		
 
-		//		this.setOnMouseEntered(e -> initializeDisplaySize());
+		this.setOnMouseEntered(e -> onLevelScreenRender());
 
 	}
 
@@ -150,7 +151,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void instantiateMaps() {
 
 		this.stringToSpriteMap = new HashMap<>();
-		this.spriteToImageMap = new HashMap<>();
 
 	}
 
@@ -201,7 +201,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 			try {
 
 				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
-					spriteToImageMap.get(selectedSprite).setOpacity(1);
+					levelEditDisplay.getImage(selectedSprite).setOpacity(1);
 				}
 
 				/*
@@ -210,7 +210,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				 */				
 				String sprite = platformListView.getSelectionModel().getSelectedItem();
 				selectedSprite = stringToSpriteMap.get(sprite);
-				spriteToImageMap.get(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+				levelEditDisplay.getImage(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
 
 			}
 
@@ -241,58 +241,31 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		Button returnToGameEditButton = 
 				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
 
+		Button addWidthLeftButton = 
+				makeButtonForPane(languageResources().getString("AddWidthLeft"), e -> levelEditDisplay.addWidthLeft());
+		
 		Button addWidthButton = 
-				makeButtonForPane(languageResources().getString("AddWidth"), e -> addWidth());
+				makeButtonForPane(languageResources().getString("AddWidthRight"), e -> levelEditDisplay.addWidthRight());
 
+		Button addHeightUpButton = 
+				makeButtonForPane(languageResources().getString("AddHeightUp"), e -> levelEditDisplay.addHeightUp());
+				
 		Button addHeightButton = 
-				makeButtonForPane(languageResources().getString("AddHeight"), e -> addHeight());
+				makeButtonForPane(languageResources().getString("AddHeightDown"), e -> levelEditDisplay.addHeightDown());
 
 		Button addCollTableButton = 
 				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
 
-		rightButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthButton, addHeightButton, addCollTableButton);
+		rightButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton);
 
 	}
 
-	private void configureLevelPlatformViewWithLevel(Level level) {
+	private void configureLevelEditDisplay(Level level) {
 
-		// TODO: have a better implementation of this. we want all pixels to always be square.
-		// what if we have an oddly shaped screen? Write an algorithm that takes the remaining
-		// height, width, and finds the minimum number of squares that fits into both height & width,
-		// then take away a percent. long story short, do this better plz
+		this.levelEditDisplay = new LevelEditDisplay(level.width(),level.height(),level.sprites());
+		viewableArea().setCenter(levelEditDisplay);
+		levelEditDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
 
-		double freeWidthPixels = viewableArea().getPrefWidth();
-		double freeHeightPixels = 0.0;
-
-		double realPixelWidth = freeWidthPixels * DOUBLE.PERCENT.SEVENTY_FIVE_PERCENT;
-		double realPixelHeight = freeHeightPixels * DOUBLE.PERCENT.NINETY_PERCENT;
-
-		System.out.println("Max width: "+freeWidthPixels);
-
-
-		this.levelPlatformView = new LevelPlatformView(level, EditMode.EDIT_MODE_ON, DOUBLE.DEFAULT_LENGTH_SIDE_PIXEL, realPixelWidth, realPixelHeight);			// (Level level, EditMode editMode, double lengthSidePixel)
-
-		viewableArea().setCenter(levelPlatformView);
-
-		levelPlatformView.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		levelPlatformView.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-
-		//		levelDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
-
-	}
-
-	private void addWidth() {
-
-		// TODO
-
-		//		levelDisplay.setMinWidth(levelDisplay.getMinWidth()+500);
-	}
-
-	private void addHeight() {
-
-		// TODO
-
-		//		levelDisplay.setMinHeight(levelDisplay.getMinHeight()+500);
 	}
 
 	private void save() {
@@ -300,107 +273,79 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	}
 
 
-	// All other instance methods
-	public void addSprite(Sprite sprite) {
 
-		// TODO in a compatible way with refactored LES
+	// TODO
+	private void configureSpriteXYFromClick(MouseEvent e, Sprite sprite) {
+
+		double xLocation = e.getX();
+		double yLocation = e.getY();
+
+		sprite.setX(xLocation);
+		sprite.setY(yLocation);
 
 	}
 
-	public List<String> getSpriteTags() {
+	private void addSpriteToLocation(MouseEvent e) {
 
-		// TODO in a compatible way with refactored LES
-		
-		return null;
+		if(spriteToAdd != null && imageToAdd!=null) {
+
+			configureSpriteXYFromClick(e, spriteToAdd);
+
+			addSpriteToLevelDisplay(spriteToAdd);
+
+			level.sprites().add(spriteToAdd);
+			levelEditDisplay.setCursor(Cursor.DEFAULT);
+
+			spriteToAdd = null; 
+			imageToAdd = null;
+
+		}
+
+	}
+
+	/*
+	 * Visually displays the sprite
+	 */
+	// TODO: Refactor - this belongs in LevelPlatformView, not here
+	private void addSpriteToLevelDisplay(Sprite sprite) {
+
+		ImageView imageView = sprite.spriteImage().getImageViewToDisplay();
+
+		levelEditDisplay.addSpriteToDisplay(sprite,imageView);
+
+		stringToSpriteMap.put(sprite.getName(), sprite);
+		stringToListMap.get(sprite.tag()).add(sprite.getName());
+
+	}
+	
+	private void onLevelScreenRender() {
+		levelEditDisplay.setContentMinSize();
+		this.setOnMouseEntered(null);
+	}
+
+	/**
+	 * add a sprite to the level edit screen
+	 */
+	// TODO: Refactor
+	public void addSprite(Sprite sprite) {
+
+		spriteToAdd = sprite;
+		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage(); //TODO get rid of magic;
+		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
 
 	}
 
 	/**
-	 * TODO: Clean this up and connect it with LevelPlatformView class
-	 * Potential idea: keep the nested class and give it an interface & access to the Level, pass into LevelPlatformView for lambdas
+	 * used for collision table
+	 * Note: can't simply cast keyset as list!! (4/13/15)
+	 * @author Anika
+	 * @return sprite tags as Strings
 	 */
-	private class SpriteRelatedMethodsToSort {
-
-		// TODO
-		private void configureSpriteXYFromClick(MouseEvent e, Sprite sprite) {
-
-			//			System.out.println("LevelEditScreen uses e.getX and Y. those are JavaFX. use the"
-			//			+ " future util to first convert those to SID pixels");
-
-			double xLocation = e.getX();
-			double yLocation = e.getY();
-
-			sprite.setX(xLocation);
-			sprite.setY(yLocation);
-
-		}
-
-		private void addSpriteToLocation(MouseEvent e) {
-
-			if(spriteToAdd != null && imageToAdd!=null) {
-
-				configureSpriteXYFromClick(e, spriteToAdd);
-
-				addSpriteToLevelDisplay(spriteToAdd);
-
-				level.sprites().add(spriteToAdd);
-				//				levelDisplay.setCursor(Cursor.DEFAULT);
-
-				spriteToAdd = null; 
-				imageToAdd = null;
-
-			}
-
-		}
-
-		/*
-		 * Visually displays the sprite
-		 */
-		// TODO: Refactor - this belongs in LevelPlatformView, not here
-		private void addSpriteToLevelDisplay(Sprite sprite) {
-
-//			ImageView imageView = new ImageView(sprite.spriteImage().getImageToDisplay(1));
-//
-//			//			levelDisplay.getChildren().add(imageView);
-//
-//			imageView.setTranslateX(sprite.getX());
-//			imageView.setTranslateY(sprite.getY());
-//			stringToSpriteMap.put(sprite.getName(), sprite);
-//			spriteToImageMap.put(sprite, imageView);
-//			stringToListMap.get(sprite.tag()).add(sprite.getName());
-
-		}
-
-		private void initializeLevelDisplay(Level level) {
-
-			level.sprites().forEach(e -> addSpriteToLevelDisplay(e));
-
-		}
-
-		/**
-		 * add a sprite to the level edit screen
-		 */
-		// TODO: Refactor
-		public void addSprite(Sprite sprite) {
-
-			spriteToAdd = sprite;
-//			imageToAdd = spriteToAdd.spriteImage().getImageToDisplay(1); //TODO get rid of magic;
-			//			levelDisplay.setCursor(new ImageCursor(imageToAdd));
-
-		}
-
-		/**
-		 * used for collision table
-		 * Note: can't simply cast keyset as list!! (4/13/15)
-		 * @author Anika
-		 * @return sprite tags as Strings
-		 */
-		public List<String> getSpriteTags()
-		{
-			return new ArrayList<String>(stringToSpriteMap.keySet());
-
-		}
+	public List<String> getSpriteTags()
+	{
+		return new ArrayList<String>(stringToSpriteMap.keySet());
 
 	}
+
 
 }
