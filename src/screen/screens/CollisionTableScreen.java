@@ -3,6 +3,7 @@ package screen.screens;
 import gameEngine.CollisionTable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
@@ -42,6 +43,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import levelPlatform.level.Level;
+import resources.ScreenButton;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -312,10 +314,6 @@ public class CollisionTableScreen extends Screen{
 			collisionTable.setAlignment(Pos.CENTER);
 			collisionTable.setTranslateY(100);
 			collisionTable.setTranslateX(100);
-
-
-			
-			
 			
 
 			GridPane collisionSet = new GridPane();
