@@ -44,10 +44,8 @@ import sprite.Sprite;
 import sprite.SpriteImage;
 
 /**
- * 
- * @author Leo (Primary)
+ * @author Leo
  * @author Ruslan
- *
  */
 
 public class LevelEditScreen extends LevelPlatformCapableScreen {

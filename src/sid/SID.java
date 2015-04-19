@@ -27,6 +27,13 @@ public class SID extends Application {
 		showStage(stage);
 		
 	}
+	/*
+	 * James - talk about player, then hand over to Patrick
+	 * Patrick - demonstrate in game/ introduce others to talk about their topic
+	 * Gray - sprite
+	 * siva- levelView/camera
+	 * Emmanuel - action/component
+	 */
 	
 	private void setTitle(Stage stage) {
 		stage.setTitle("[S]crolling [I]n The [D]eep");
