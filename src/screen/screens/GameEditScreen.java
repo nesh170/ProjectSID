@@ -214,7 +214,6 @@ public class GameEditScreen extends Screen {
 	 * @return
 	 */
 	public void displayApproporiateSplashButton(){
-		splashSP.getChildren().remove(game.splashScreen());
 		Button b = new Button();
 		// Testing
 		if (GameEditScreen.TESTING) {
@@ -223,13 +222,14 @@ public class GameEditScreen extends Screen {
 		if (!game.hasSplash()) {
 			
 			b = makeAddSignWhenEmpty("Add New Splash Screen",
-					e -> controller.loadSplashEditScreen(game, this));		
+					e -> controller.loadSplashEditScreen(game, this));	
+			splashSP.getChildren().add(b);
 		}
 			
 		else {
 			b = displayMySplash();
+			splashSP.getChildren().set(splashSP.getChildren().size() -1, b);
 		}
-		splashSP.getChildren().add(b);
 	}
 	
 	private Button displayMySplash() {
@@ -398,7 +398,6 @@ public class GameEditScreen extends Screen {
 
 	private void displayLevelsWhenEmpty() {
 
-		// can't add ObservableList to a HBox directly
 		levelHB.setAlignment(Pos.CENTER);
 
 		levelHB.getChildren().addAll(
@@ -415,7 +414,7 @@ public class GameEditScreen extends Screen {
 			levelHB.getChildren().add(level);
 		}
 	}
-	//TODO: refresh node when going to SplashScreen
+
 	//TODO: change here for different level indexes
 	private Button getLevelSplashDisplayImage(ImageView img, int splashOrLevel) {
 
