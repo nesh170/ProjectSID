@@ -220,7 +220,7 @@ public class GamePlayer {
 					try{
 						String keyControl = myNetwork.getStringFromClient();
 						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
-						myView.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER);
+						myView.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER); //Add code to make another player play
 					}
 					catch(Exception e){
 						System.out.println("Error detector");
