@@ -362,7 +362,9 @@ public class CollisionTableScreen extends Screen{
 			text.setId("Value");
 			collisionSet.add(text, 5, 0); 
 			
-			comboBox4.valueProperty().addListener(new ChangeListener<String>() {
+			
+		
+			action.valueProperty().addListener(new ChangeListener<String>() {
 		           
 		            public void changed(ObservableValue ov, String t, String t1) {                
 		              if (t1.equals("die"))
