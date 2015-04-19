@@ -565,7 +565,6 @@ public class ScreenController {
 			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			createSpriteEditScreen(levelEditTab, sprite);
-			levelEditScreen.addSprite(sprite);
 			
 		}
 		
