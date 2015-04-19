@@ -35,6 +35,7 @@ public class INT {
 	// Level
 	public static final int DEFAULT_LEVEL_WIDTH = 400;
 	public static final int DEFAULT_LEVEL_HEIGHT = 150;
+	public static final int DEFAULT_INCREASE_LEVEL_SIZE = 700;
 
 	//Buttons
 	public static final int PREF_BUTTON_WIDTH = 150;
