@@ -323,49 +323,6 @@ public class CollisionTableScreen extends Screen{
 			collisionSet.setVgap(30);
 			collisionSet.setPadding(new Insets(0, 50, 0, 50));
 
-			// Category in column 2, row 1
-			ObservableList<String> options = 
-					FXCollections.observableArrayList(
-							"Option 1",
-							"Option 2",
-							"Option 3"
-							);
-			ComboBox comboBox = new ComboBox(options);
-
-			ArrayList<String> testOptions = new ArrayList<String>();
-			testOptions.add("Option44");
-			comboBox.getItems().addAll(testOptions);
-			
-			comboBox.setId("SpriteActive");
-			comboBox.setStyle("-fx-font: 20px \"Serif\";");
-			comboBox.setPromptText("Active Sprite");
-			collisionSet.add(comboBox, 1, 0); 
-			
-			
-
-			
-			// Title in column 3, row 1
-			ObservableList<String> nextOptions = 
-					FXCollections.observableArrayList(
-							"Option 1",
-							"Option 2",
-							"Option 3"
-							);
-			ComboBox comboBox2 = new ComboBox(nextOptions);
-
-			comboBox2.getItems().addAll(
-				    "Option 4",
-				    "Option 5",
-				    "Option 6"
-				);
-			
-			comboBox2.setId("SpriteInActive");
-			comboBox2.setStyle("-fx-font: 20px \"Serif\";");
-			comboBox2.setPromptText("Inactive Sprite");
-
-			collisionSet.add(comboBox2, 2, 0); 
-			
-			
 			
 			
 			
