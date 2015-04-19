@@ -396,8 +396,6 @@ public class CollisionTableScreen extends Screen{
 		sp.setContent(tile);     
 		return sp;
 	}
-	private void displayLevelsWhenEmpty(HBox hb) {
-
 	
 	//TODO
 	private void saveRow()
