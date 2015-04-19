@@ -1,17 +1,23 @@
 package levelPlatform.level;
 import gameEngine.Action;
-
 import gameEngine.CollisionTable;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
+
 import gameEngine.EngineMathFunctions;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import resources.constants.INT;
+import resources.constants.STRING;
 import sprite.Sprite;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
 
@@ -149,7 +155,18 @@ public class Level extends LevelPlatform {
 		}
 		
 	}
-
+	/**
+	 * get an ImageView representation for each level to display on GameEditScreen.
+	 * returns a image of draft Level if 
+	 * @return ImageView or Image
+	 */
+	public ImageView getLevelImageView(){
+		//TODO: implement this method
+		//temporary image to reprsent each level
+		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.LEVEL2IMAGE));
+		return new ImageView(new Image(STRING.GAME_EDIT.LEVEL2IMAGE));
+	}
+	
 	public double[] getNewCameraLocations () {
 		
 		double[] xyLocations = new double[2];
