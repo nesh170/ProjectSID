@@ -268,6 +268,18 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 
 	}
+	
+
+	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
+	{
+		ObservableList<String> options = FXCollections.observableArrayList();
+		ComboBox comboBox = new ComboBox(options);
+		comboBox.getItems().addAll(list);
+		comboBox.setId(id);
+		comboBox.setStyle(style);
+		comboBox.setPromptText(promptText);
+		return comboBox;
+	}
 
 	private ScrollPane configureScrollPane(){
 		ScrollPane sp = new ScrollPane();
