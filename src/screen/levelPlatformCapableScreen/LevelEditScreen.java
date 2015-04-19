@@ -16,14 +16,17 @@ import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.PopupControl;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -31,9 +34,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import javafx.scene.control.ScrollPane;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
+import javafx.stage.PopupWindow.AnchorLocation;
+import resources.ImageViewButton;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -174,10 +183,10 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		VBox paneForSprites = new VBox();
 		this.viewableArea().setLeft(paneForSprites);
 
-		TitledPane platforms = makeTitledPane(languageResources().getString("Platform"),listOfPlatforms);
-		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),listOfEnemies);
-		TitledPane players = makeTitledPane(languageResources().getString("Player"),listOfPlayers);
-		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),listOfPowerups);
+		TitledPane platforms = makeTitledPane(languageResources().getString("Platform"),languageResources().getString("AddPlatform"), listOfPlatforms);
+		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),languageResources().getString("AddEnemy"), listOfEnemies);
+		TitledPane players = makeTitledPane(languageResources().getString("Player"),languageResources().getString("AddPlayer"), listOfPlayers);
+		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),languageResources().getString("AddPowerup"), listOfPowerups);
 
 		stringToListMap = new HashMap<>();
 		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
@@ -189,9 +198,14 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-	private TitledPane makeTitledPane(String title, ObservableList<String> content) {
+	private TitledPane makeTitledPane(String title, String addSpriteTitle, ObservableList<String> content) {
 
+		VBox titledPaneBox = new VBox();
+		titledPaneBox.setAlignment(Pos.CENTER);
 		ListView<String> platformListView = new ListView<>(content);
+		Button addButton = new Button(addSpriteTitle);
+		addButton.setOnMouseClicked(e -> makeAddSpritePopup(addButton));
+		titledPaneBox.getChildren().addAll(platformListView, addButton);
 
 		/*
 		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
@@ -220,7 +234,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		});
 
-		return new TitledPane(title, platformListView);
+		return new TitledPane(title, titledPaneBox);
 
 	}
 
@@ -242,16 +256,16 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
 
 		Button addWidthLeftButton = 
-				makeButtonForPane(languageResources().getString("AddWidthLeft"), e -> levelEditDisplay.addWidthLeft());
+				makeButtonForPane(languageResources().getString("AddWidthLeft"), e -> addWidthLeft());
 		
 		Button addWidthButton = 
-				makeButtonForPane(languageResources().getString("AddWidthRight"), e -> levelEditDisplay.addWidthRight());
+				makeButtonForPane(languageResources().getString("AddWidthRight"), e -> addWidthRight());
 
 		Button addHeightUpButton = 
-				makeButtonForPane(languageResources().getString("AddHeightUp"), e -> levelEditDisplay.addHeightUp());
+				makeButtonForPane(languageResources().getString("AddHeightUp"), e -> addHeightUp());
 				
 		Button addHeightButton = 
-				makeButtonForPane(languageResources().getString("AddHeightDown"), e -> levelEditDisplay.addHeightDown());
+				makeButtonForPane(languageResources().getString("AddHeightDown"), e -> addHeightDown());
 
 		Button addCollTableButton = 
 				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
@@ -322,11 +336,48 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		levelEditDisplay.setContentMinSize();
 		this.setOnMouseEntered(null);
 	}
+	
+	private void addWidthLeft() {
+		levelEditDisplay.addWidthLeft();
+		level.sprites().forEach(sprite -> {
+			sprite.setX(sprite.getX() + levelEditDisplay.getSizeToIncrease());
+		});
+	}
+	
+	private void addWidthRight() {
+		levelEditDisplay.addWidthRight();
+	}
+	
+	private void addHeightUp() {
+		levelEditDisplay.addHeightUp();
+		level.sprites().forEach(sprite -> {
+			sprite.setY(sprite.getY() + levelEditDisplay.getSizeToIncrease());
+		});
+
+	}
+	
+	private void addHeightDown() {
+		levelEditDisplay.addHeightDown();
+	}
+	
+	
+	/**
+	 * Very tentative method here:
+	 * Need some kind of popup, contextmenu, tooltip, etc. to appear when clicking on add sprite
+	 * buttons on the left.  Hard coded in a rectangle for now just to see how things are working
+	 * -Leo
+	 * 
+	 */
+	private void makeAddSpritePopup(Button button) {
+		Popup newSpriteDisplay = new Popup();
+		newSpriteDisplay.show(button, levelEditDisplay.getLayoutX(),levelEditDisplay.getLayoutY());
+		newSpriteDisplay.getContent().add(new Rectangle(100,100,Color.ALICEBLUE));
+		newSpriteDisplay.setAnchorLocation(AnchorLocation.CONTENT_TOP_LEFT);
+	}
 
 	/**
 	 * add a sprite to the level edit screen
 	 */
-	// TODO: Refactor
 	public void addSprite(Sprite sprite) {
 
 		spriteToAdd = sprite;
