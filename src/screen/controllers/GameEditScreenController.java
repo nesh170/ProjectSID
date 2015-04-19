@@ -1,5 +1,6 @@
 package screen.controllers;
 
+import screen.screens.GameEditScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Popup;
@@ -16,16 +17,16 @@ import game.Game;
 public interface GameEditScreenController {
 	
 	/**
-	 * Loads a new splash edit screen that edits the splash screen
-	 * of the game parameter?
+	 * Loads a new level edit screen and adds it to a game and the ObservableList in GameEditScreen
 	 * @param game
 	 */
-	public void loadSplashEditScreen(Game game);
+	void loadLevelEditScreen(Game game, GameEditScreen gameEditScreen);
 	/**
-	 * Loads a new level edit screen and adds it to a game
+	 * Loads a new splash edit screen that edits the splash screen
+	 * updates gameEditScreen display
 	 * @param game
 	 */
-	public void loadLevelEditScreen(Game game);
+	void loadSplashEditScreen(Game game, GameEditScreen gameEditScreen);
 	/**
 	 * Loads a new level edit screen with an existing level
 	 * @param level
@@ -71,5 +72,6 @@ public interface GameEditScreenController {
 	 * @param popup
 	 */
 	public void saveAndExit(Game game, Popup popup);
+	
 
 }

@@ -457,23 +457,24 @@ public class ScreenController {
 		}	
 		
 		@Override
-		public void loadLevelEditScreen(Game game) {
+		public void loadLevelEditScreen(Game game, GameEditScreen gameEditScreen) {
 			//Create new Level, add to end of game
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createLevelEditScreen(newLevel);
 			game.addLevel(newLevel);
+			gameEditScreen.displayLevelsInParallel(game.levels());
 			
 		}
-
+		
 		@Override
-		public void loadSplashEditScreen(Game game) {
+		public void loadSplashEditScreen(Game game, GameEditScreen gameEditScreen) {
 			//Create new SplashEditScreen
 			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createSplashEditScreen(newSplashScreen);
 			game.setSplash(newSplashScreen);
-			
+			gameEditScreen.displayApproporiateSplashButton();		
 		}
 		/**
 		 * reloads GameEditScreen, needs to reloads the game to reflect those changes on the screen

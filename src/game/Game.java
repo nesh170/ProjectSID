@@ -29,7 +29,7 @@ public class Game {
 	public SplashScreen splashScreen() {
 		return splashScreen;
 	}
-
+	
 	public String name() {
 		return name;
 	}
@@ -59,7 +59,10 @@ public class Game {
 	public void addLevel(Level level) {
 		levels.add(level);
 	}
-
+	public void add(int index, Level level) {
+		levels.add(index, level);		
+	}
+	
 	public void setSplash(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
@@ -93,7 +96,7 @@ public class Game {
 	 * testing purposes /* do not change for now
 	 */
 	public boolean hasLevel() {
-		return levels.size() == 0;
+		return levels.size() != 0;
 	}
 
 	public int getLevelsSize() {
