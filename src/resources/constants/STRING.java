@@ -135,7 +135,7 @@ public class STRING {
 	public class COLLISION_EDIT {
 		
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
-		
+		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
 	}
 	
 	public class GAME_PLAY {
