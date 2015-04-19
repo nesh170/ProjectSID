@@ -293,9 +293,13 @@ public class CollisionTableScreen extends Screen{
 		TilePane tile = new TilePane(Orientation.VERTICAL);
 		HBox description = new HBox(800);
 		description.setAlignment(Pos.TOP_CENTER);
-		Text category = new Text("Sales:");
-		category.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		description.getChildren().add(category);
+		
+		ImageView titleImage = new ImageView(new Image(STRING.COLLISION_EDIT.COLLISION_SCREEN_TITLE));
+		titleImage.setFitWidth(600);
+		titleImage.setPreserveRatio(true);
+		titleImage.setTranslateX(200);
+		
+		description.getChildren().add(titleImage);
 
 		tile.setPadding(new Insets(25, 25, 25, 25));
 		tile.setVgap(20);
