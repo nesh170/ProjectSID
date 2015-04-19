@@ -376,8 +376,10 @@ public class CollisionTableScreen extends Screen{
 		            }    
 		        });
 			
+			ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
+			collisionSet.add(saveSelection, 6, 0); 
 			
-			
+			saveSelection.setOnMouseClicked(e->saveRow());
 
 			collisionTable.getChildren().add(collisionSet);
 
@@ -396,7 +398,13 @@ public class CollisionTableScreen extends Screen{
 	}
 	private void displayLevelsWhenEmpty(HBox hb) {
 
+	
+	//TODO
+	private void saveRow()
+	{
+		
 	}
+	
 
 
 	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda){
