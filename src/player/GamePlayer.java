@@ -267,9 +267,12 @@ public class GamePlayer {
 			    LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
 				while (true) {
 					try {
-						String level = myNetwork.getStringFromServer();
-						renderer.setLevel((Level) DataHandler.fromXMLString(level));
+						Level level =(Level) DataHandler.fromXMLString(myNetwork.getStringFromServer());
+						renderer.setLevel(level);
 						myGameRoot.setContent(renderer.renderLevel());
+						Camera camera = new Camera(myGameRoot);
+						double[] coordinates = level.getNewCameraLocations();
+						camera.focusOn(coordinates[0], coordinates[1]);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
