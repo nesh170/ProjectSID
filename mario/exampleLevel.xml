@@ -71,7 +71,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -141,7 +140,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -211,7 +209,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -256,7 +253,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -301,7 +297,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -346,7 +341,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -416,7 +410,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -494,6 +487,59 @@
           <runsEveryFrame>false</runsEveryFrame>
           <value>-70.0</value>
         </gameEngine.actions.BounceAction>
+        <gameEngine.actions.ShootAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>0.0</value>
+          <myProjectileTemplate>
+            <actionList/>
+            <componentList>
+              <gameEngine.components.ProjectileMotionComponent>
+                <mySprite reference="../../.."/>
+                <myValueList class="java.util.Arrays$ArrayList">
+                  <a class="java.lang.Double-array">
+                    <double>5.0</double>
+                    <double>200.0</double>
+                  </a>
+                </myValueList>
+                <isActive>true</isActive>
+                <myVelocity reference="../../../../../../../sprite.Sprite/transform/myRotation"/>
+                <myTerminalVelocity>5.0</myTerminalVelocity>
+                <isGrounded>true</isGrounded>
+                <myShooter reference="../../../../../.."/>
+                <myBulletSpeed>5.0</myBulletSpeed>
+                <mySelfDestructDistance>200.0</mySelfDestructDistance>
+              </gameEngine.components.ProjectileMotionComponent>
+            </componentList>
+            <x>0.0</x>
+            <y>0.0</y>
+            <emissionList/>
+            <isActive>true</isActive>
+            <collisionTag>bullet</collisionTag>
+            <transform>
+              <myPosition>
+                <x>0.0</x>
+                <y>0.0</y>
+                <hash>0</hash>
+              </myPosition>
+              <myRotation reference="../../../../../../sprite.Sprite/transform/myRotation"/>
+              <myDimensions>
+                <width>10.0</width>
+                <height>10.0</height>
+                <hash>0</hash>
+              </myDimensions>
+              <startPosition reference="../myPosition"/>
+              <startRotation reference="../../../../../../sprite.Sprite/transform/myRotation"/>
+              <startDimensions reference="../myDimensions"/>
+            </transform>
+          </myProjectileTemplate>
+        </gameEngine.actions.ShootAction>
       </actionList>
       <componentList>
         <gameEngine.components.HealthComponent>
@@ -548,7 +594,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -593,7 +638,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -638,7 +682,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -683,7 +726,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -728,7 +770,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -773,7 +814,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -818,7 +858,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -863,7 +902,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -908,7 +946,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -953,7 +990,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -998,7 +1034,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1083,7 +1118,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1140,7 +1174,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1185,7 +1218,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1230,7 +1262,6 @@
           </list>
         </images>
         <imageFrameRate>5</imageFrameRate>
-        <sidPixelLength>5.0</sidPixelLength>
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
@@ -1257,6 +1288,15 @@
         <string>enemy</string>
         <map>
           <entry>
+            <string>bullet</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
             <string>enemyPlatform</string>
             <gameEngine.Action-array>
               <null/>
@@ -1281,6 +1321,30 @@
               <null/>
               <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction[2]"/>
               <null/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+      <entry>
+        <string>bullet</string>
+        <map>
+          <entry>
+            <string>enemy</string>
+            <gameEngine.Action-array>
+              <gameEngine.actions.KillAction>
+                <mySprite reference="../../../../../../../../sprites/sprite.Sprite[13]"/>
+                <isActive>false</isActive>
+                <myKeyCode class="java.util.Arrays$ArrayList">
+                  <a class="javafx.scene.input.KeyCode-array">
+                    <null/>
+                  </a>
+                </myKeyCode>
+                <runsEveryFrame>false</runsEveryFrame>
+                <value>0.0</value>
+              </gameEngine.actions.KillAction>
+              <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+              <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+              <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
             </gameEngine.Action-array>
           </entry>
         </map>
@@ -1425,6 +1489,9 @@
       <string>enemy</string>
       <string>enemy</string>
       <string>player</string>
+      <string>bullet</string>
+      <string>enemy</string>
+      <string>bullet</string>
       <string>enemyPlatform</string>
       <string>enemyPlatform</string>
       <string>enemy</string>
