@@ -330,46 +330,31 @@ public class CollisionTableScreen extends Screen{
 			sprites.add("power-up");
 			sprites.add("lava");
 			sprites.add("chocolate");
+			ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", "-fx-font: 20px \"Serif\";", "Active Sprite");
+		
+			collisionSet.add(activeSpriteList, 1, 0); 
+			
+			ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", "-fx-font: 20px \"Serif\";", "Inactive Sprite");
+		
+			collisionSet.add(inactiveSpriteList, 2, 0); 
 			
 			
+			ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
+
+			ComboBox direction = this.createComboBoxFromList(third, "Direction", "-fx-font: 20px \"Serif\";", "Direction");
 			
-			ObservableList<String> directionOptions = 
-					FXCollections.observableArrayList(
-							"Above",
-							"Below",
-							"Left",
-							"Right"
-							);
-			ComboBox comboBox3 = new ComboBox(directionOptions);
-			comboBox3.setPromptText("Direction");
+			collisionSet.add(direction, 3, 0); 
 
 			
+			ArrayList<String> fourth = new ArrayList<String>();
+			fourth.add("die");
+			fourth.add("move");
+			fourth.add("sigh");
+			fourth.add("groove");
 			
-			comboBox3.setId("Direction");
-			comboBox3.setStyle("-fx-font: 20px \"Serif\";");
-			collisionSet.add(comboBox3, 3, 0); 
+			ComboBox action = this.createComboBoxFromList(fourth, "Action", "-fx-font: 20px \"Serif\";", "Action");
 
-			
-			
-			
-
-			ObservableList<String> actionOptions = 
-					FXCollections.observableArrayList(
-							"die",
-							"move",
-							"sigh",
-							"groove"
-							);
-			ComboBox comboBox4 = new ComboBox(actionOptions);
-			comboBox4.setPromptText("Action");
-
-			
-			
-			comboBox4.setId("Action");
-			comboBox4.setStyle("-fx-font: 20px \"Serif\";");
-			collisionSet.add(comboBox4, 4, 0); 
-			
-			
+			collisionSet.add(action, 4, 0); 
 			
 			
 			TextField text = new TextField();
