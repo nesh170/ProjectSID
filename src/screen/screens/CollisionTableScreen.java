@@ -242,24 +242,14 @@ public class CollisionTableScreen extends Screen{
 
 	// HASHMAP of s1 s2 and action and direction
 	private void initialize(){
-		configureButtons();
-		//makeSpriteTableDisplay();
-		//	this.setCenter(tablesDisplay);
-	}
-
-
-	private void configureButtons() {	
 		configureLevelDisplay();
 		this.setCenter(tablesDisplay);
-
 	}
-
 
 	private void configureLevelDisplay(){
 		//, DisplayLevels(myLevels)
 		tablesDisplay = new StackPane();
 		ScrollPane levelSP = this.displayLevels(this.levelSprites);
-
 
 		tablesDisplay.getChildren().addAll(levelSP);
 	}
@@ -278,18 +268,13 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 
 	}
-	private HBox configureHBox(){
-		HBox hb = new HBox(INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE);
-		hb.setAlignment(Pos.CENTER);
-		return hb;
-	}
+
 	private ScrollPane configureScrollPane(){
 		ScrollPane sp = new ScrollPane();
 
 		sp.setPannable(true);
 
-		
-		
+	
 		TilePane tile = new TilePane(Orientation.VERTICAL);
 		HBox description = new HBox(800);
 		description.setAlignment(Pos.TOP_CENTER);
