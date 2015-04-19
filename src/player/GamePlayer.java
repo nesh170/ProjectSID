@@ -128,7 +128,7 @@ public class GamePlayer {
 	public PlayerMenu getMenu() {
 		return myMenu;
 	}
-
+	
 	public int getLives() {
 		// return myEngine.getLives();
 		return 0;
