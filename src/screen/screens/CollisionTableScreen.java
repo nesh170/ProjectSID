@@ -323,6 +323,13 @@ public class CollisionTableScreen extends Screen{
 			collisionSet.setVgap(30);
 			collisionSet.setPadding(new Insets(0, 50, 0, 50));
 
+			ArrayList<String> sprites = new ArrayList<String>();
+			sprites.add("player"); // TODO: fix from input list
+			sprites.add("enemy");
+			sprites.add("platform");
+			sprites.add("power-up");
+			sprites.add("lava");
+			sprites.add("chocolate");
 			
 			
 			
