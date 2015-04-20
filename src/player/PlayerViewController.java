@@ -65,6 +65,7 @@ public class PlayerViewController {
 	public PlayerViewController(ScrollPane pane) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
+		createHUD();
 		loadNewChooser();
 		myPause = makePauseScreen();
 	}
@@ -72,6 +73,7 @@ public class PlayerViewController {
 	public PlayerViewController(Game game, ScrollPane pane) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
+		createHUD();
 		myPause = makePauseScreen();
 		selectGame(game);
 	}
@@ -95,9 +97,15 @@ public class PlayerViewController {
 
 	private void display() {
 		myGameGroup = myEngine.render();
+//		myGameRoot.setContent(myGameGroup);
+//		StackPane stack = new StackPane();
+//		stack.setPrefSize(myGameRoot.getWidth(), myGameRoot.getHeight());
+//		stack.getChildren().add(myHUD.getHUDBox());
+//		stack.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+//		myGameGroup.getChildren().add(stack);
+		myHUD.updateHUDLocation(myGameGroup.getBoundsInParent());
+		myGameGroup.getChildren().add(myHUD.getHUDBox());
 		myGameRoot.setContent(myGameGroup);
-		myGameGroup.getChildren().add(createHUD());
-		//myGameRoot.setContent(myGameGroup);
 		centerNodeInScrollPane();
 	}
 	
@@ -186,13 +194,13 @@ public class PlayerViewController {
 		setupAnimation();
 	}			
 	
-	public HBox createHUD() {
+	public void createHUD() {
 		myHUD = new HUD(myGameRoot);
-		myHUD.addItem("Lives");
-		myHUD.addItem("Health");
-		myHUD.addItem("Score");
-		myHUD.updateHUDLocation(myGameRoot.getViewportBounds());
-		return myHUD.getHUDBox();
+		myHUD.addItem("Lives", 0);
+		myHUD.addItem("Health", 0);
+		myHUD.addItem("Score", 0);
+		//myHUD.updateHUDLocation(myGameGroup.getBoundsInParent());
+		//return myHUD.getHUDBox();
 	}
 
 	public void save() {

@@ -3,9 +3,13 @@ package screen.gamePlayScreen;
 import game.Game;
 import gameEngine.GameEngine;
 import player.GamePlayer;
+import player.HUD;
 import player.PlayerMenu;
+import javafx.geometry.Pos;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import levelPlatform.level.Level;
 import screen.Screen;
 import screen.ScreenController;
@@ -44,17 +48,17 @@ public class GamePlayScreen extends Screen {
 		//also every GamePlayer must be containted within a gamePlayer screen
 		//myMenu = new PlayerMenu(width, height);
 		this.gamePlayScreenController = gamePlayScreenController;
-		ScrollPane pane = new ScrollPane();
-		this.setCenter(pane);
-		myPlayer = new GamePlayer(pane, width, height);
+		ScrollPane scroll = new ScrollPane();
+		this.setCenter(scroll);
+		myPlayer = new GamePlayer(scroll, width, height);
 		myPlayer.setupActions(myMenu);
 	}
 
 	public GamePlayScreen(GamePlayScreenController sc, Game game, double width, double height) {
 		super(width, height);
-		ScrollPane pane = new ScrollPane();
-		viewableArea().setCenter(pane);
-		myPlayer = new GamePlayer(game, pane, width, height);
+		ScrollPane scroll = new ScrollPane();
+		viewableArea().setCenter(scroll);
+		myPlayer = new GamePlayer(game, scroll, width, height);
 		myPlayer.setupActions(myMenu);
 	}
 	
@@ -64,7 +68,6 @@ public class GamePlayScreen extends Screen {
 		PlayerMenu menu = new PlayerMenu(menuBar);
 		myMenu = menu;
 	}
-	
 	
 	// All other instance methods
 
