@@ -34,6 +34,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -152,6 +154,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		configureLevelEditDisplay(level);		
 
 		this.setOnMouseEntered(e -> onLevelScreenRender());
+		this.setOnKeyPressed(e -> checkForDelete(e));
 
 	}
 
@@ -449,6 +452,19 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		newSpriteDisplay.getContent().add(display);
 		
 		newSpriteDisplay.show(button, levelEditDisplay.getLayoutX(),levelEditDisplay.getLayoutY());
+	}
+	
+	private void checkForDelete(KeyEvent e) {
+		
+		if((e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE))
+				&& selectedSprite!=null) {
+			level.sprites().remove(selectedSprite);
+			stringToListMap.get(selectedSprite.tag()).remove(selectedSprite.getName());
+			stringToSpriteMap.remove(selectedSprite.getName());
+			levelEditDisplay.removeSpriteFromDisplay(selectedSprite, levelEditDisplay.getImage(selectedSprite));
+			selectedSprite = null;
+		}
+		
 	}
 
 	/**

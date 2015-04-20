@@ -142,6 +142,11 @@ public class LevelEditDisplay extends ScrollPane {
 		image.setTranslateY(sprite.getY());
 		content.getChildren().add(image);
 	}
+	
+	public void removeSpriteFromDisplay(Sprite sprite, ImageView image) {
+		spriteToImageMap.keySet().remove(sprite);
+		content.getChildren().remove(image);
+	}
 
 
 }
