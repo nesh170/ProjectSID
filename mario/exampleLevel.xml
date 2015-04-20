@@ -439,7 +439,7 @@
           <value>8.0</value>
           <velocity>8.0</velocity>
         </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.JumpAction>
+        <gameEngine.actions.UpMotionAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
@@ -449,7 +449,8 @@
           </myKeyCode>
           <runsEveryFrame>false</runsEveryFrame>
           <value>-20.0</value>
-        </gameEngine.actions.JumpAction>
+          <climbing>false</climbing>
+        </gameEngine.actions.UpMotionAction>
         <gameEngine.actions.FallAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
@@ -546,7 +547,6 @@
           <mySprite reference="../../.."/>
           <isActive>true</isActive>
           <myHP>50.0</myHP>
-          <myLives>5</myLives>
           <hasDeath>true</hasDeath>
         </gameEngine.components.HealthComponent>
         <gameEngine.components.VelocityComponent>
@@ -597,111 +597,6 @@
         <framesSinceLastUpdate>0</framesSinceLastUpdate>
         <currentImageIndex>0</currentImageIndex>
       </spriteImage>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>8.0</value>
-        </gameEngine.actions.LeftMotionAction>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>8.0</value>
-          <velocity>8.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.JumpAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>-20.0</value>
-        </gameEngine.actions.JumpAction>
-        <gameEngine.actions.FallAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array"/>
-          </myKeyCode>
-          <runsEveryFrame>true</runsEveryFrame>
-          <value>50.0</value>
-        </gameEngine.actions.FallAction>
-        <gameEngine.actions.NormalAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>0.0</value>
-        </gameEngine.actions.NormalAction>
-        <gameEngine.actions.BounceAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <null/>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>-20.0</value>
-        </gameEngine.actions.BounceAction>
-        <gameEngine.actions.BounceAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <null/>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>-70.0</value>
-        </gameEngine.actions.BounceAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <collisionTag>littlePlayer</collisionTag>
-      <transform>
-        <myPosition>
-          <x>300.0</x>
-          <y>100.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
-        <myDimensions>
-          <width>30.0</width>
-          <height>30.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
@@ -1372,53 +1267,14 @@
       </spriteImage>
     </sprite.Sprite>
   </sprites>
-  <playerSprite reference="../sprites/sprite.Sprite[12]"/>
+  <playerSpriteList>
+    <sprite.Sprite reference="../../sprites/sprite.Sprite[12]"/>
+  </playerSpriteList>
   <collisionTable>
     <myTable>
       <entry>
-        <string>littlePlayer</string>
-        <map>
-          <entry>
-            <string>trampoline</string>
-            <gameEngine.Action-array>
-              <null/>
-              <null/>
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.BounceAction"/>
-              <null/>
-            </gameEngine.Action-array>
-          </entry>
-          <entry>
-            <string>platform</string>
-            <gameEngine.Action-array>
-              <null/>
-              <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.NormalAction"/>
-              <null/>
-            </gameEngine.Action-array>
-          </entry>
-          <entry>
-            <string>superTrampoline</string>
-            <gameEngine.Action-array>
-              <null/>
-              <null/>
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.BounceAction[2]"/>
-              <null/>
-            </gameEngine.Action-array>
-          </entry>
-        </map>
-      </entry>
-      <entry>
         <string>trampoline</string>
         <map>
-          <entry>
-            <string>littlePlayer</string>
-            <gameEngine.Action-array>
-              <null/>
-              <null/>
-              <null/>
-              <null/>
-            </gameEngine.Action-array>
-          </entry>
           <entry>
             <string>player</string>
             <gameEngine.Action-array>
@@ -1447,7 +1303,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[24]/actionList/gameEngine.actions.BounceAction"/>
+              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1465,7 +1321,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[24]/actionList/gameEngine.actions.BounceAction[2]"/>
+              <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction[2]"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1478,7 +1334,7 @@
             <string>enemy</string>
             <gameEngine.Action-array>
               <gameEngine.actions.KillAction>
-                <mySprite reference="../../../../../../../../sprites/sprite.Sprite[14]"/>
+                <mySprite reference="../../../../../../../../sprites/sprite.Sprite[13]"/>
                 <isActive>false</isActive>
                 <myKeyCode class="java.util.Arrays$ArrayList">
                   <a class="javafx.scene.input.KeyCode-array">
@@ -1512,15 +1368,6 @@
       <entry>
         <string>platform</string>
         <map>
-          <entry>
-            <string>littlePlayer</string>
-            <gameEngine.Action-array>
-              <null/>
-              <null/>
-              <null/>
-              <null/>
-            </gameEngine.Action-array>
-          </entry>
           <entry>
             <string>player</string>
             <gameEngine.Action-array>
@@ -1586,7 +1433,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.KillAction reference="../../../../../../../sprites/sprite.Sprite[25]/actionList/gameEngine.actions.KillAction"/>
+              <gameEngine.actions.KillAction reference="../../../../../../../sprites/sprite.Sprite[24]/actionList/gameEngine.actions.KillAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -1595,15 +1442,6 @@
       <entry>
         <string>superTrampoline</string>
         <map>
-          <entry>
-            <string>littlePlayer</string>
-            <gameEngine.Action-array>
-              <null/>
-              <null/>
-              <null/>
-              <null/>
-            </gameEngine.Action-array>
-          </entry>
           <entry>
             <string>enemy</string>
             <gameEngine.Action-array>
@@ -1650,13 +1488,6 @@
       <string>superTrampoline</string>
       <string>superTrampoline</string>
       <string>player</string>
-      <string>littlePlayer</string>
-      <string>platform</string>
-      <string>littlePlayer</string>
-      <string>trampoline</string>
-      <string>littlePlayer</string>
-      <string>superTrampoline</string>
-      <string>littlePlayer</string>
       <string>enemy</string>
       <string>enemy</string>
       <string>player</string>

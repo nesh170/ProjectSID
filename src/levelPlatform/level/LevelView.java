@@ -2,10 +2,12 @@ package levelPlatform.level;
 
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
+import sprite.ImageManager;
 import sprite.Sprite;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
@@ -26,7 +28,8 @@ public class LevelView extends ScrollPane {
     private Level level;
     // Playing
     private Collision collisionHandler;    
-        
+    
+    private ImageManager myImageManager = new ImageManager();
     
     // Getters & Setters
     public Level level() {
@@ -71,7 +74,6 @@ public class LevelView extends ScrollPane {
     	if (level != null) {
     		renderLevel();
     	}
-    	
     }
     
     
@@ -97,9 +99,12 @@ public class LevelView extends ScrollPane {
     	
     	Group spriteGroup = new Group();
         if (sprite.isActive()) {	
-          //  ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
-            ImageView spriteImageView = null;
-            if(spriteImageView !=null){
+           // ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
+           // ImageView spriteImageView = null;
+        	Image spriteImg = myImageManager.getImageForString(sprite.getImagePath());
+        	ImageView spriteImageView = null;
+            if(spriteImg !=null){
+            	spriteImageView = new ImageView(spriteImg);
                 spriteImageView.setX(sprite.transform().getPosX());
                 spriteImageView.setY(sprite.transform().getPosY());
             	spriteImageView.setFitWidth(sprite.transform().getWidth());
