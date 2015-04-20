@@ -1,9 +1,14 @@
 package screen.levelPlatformCapableScreen;
 
+import gameEngine.Action;
+import gameEngine.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,6 +56,7 @@ import screen.controllers.ScreenController;
 import screen.util.VerticalButtonBox;
 import sprite.Sprite;
 import sprite.SpriteImage;
+import util.ImageToInt2DArray;
 
 /**
  * @author Leo
@@ -65,8 +71,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	// Instance Variables
 	private LevelEditScreenController controller;
 	private Level level;
-//	private ScrollPane scrollPane;
-//	private Pane levelDisplay;
 	private LevelEditDisplay levelEditDisplay;
 	private Tab currentGameScreen;
 	// Layout
@@ -84,6 +88,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	// Maps
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
+	//Sets of premade sprites
+	private Set<ImageView> premadePlatforms;
+	private Set<ImageView> premadeEnemies;
+	private Set<ImageView> premadePlayers;
+	private Set<ImageView> premadePowerups;
 
 
 	// Getters & Setters
@@ -135,6 +144,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		setLevel(level);
 
 		instantiateMaps();
+		makePremadeSpriteSets();
 		makeSpritesInLevelTab();
 		makeButtonsOnRight();
 
@@ -183,10 +193,10 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		VBox paneForSprites = new VBox();
 		this.viewableArea().setLeft(paneForSprites);
 
-		TitledPane platforms = makeTitledPane(languageResources().getString("Platform"),languageResources().getString("AddPlatform"), listOfPlatforms);
-		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),languageResources().getString("AddEnemy"), listOfEnemies);
-		TitledPane players = makeTitledPane(languageResources().getString("Player"),languageResources().getString("AddPlayer"), listOfPlayers);
-		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),languageResources().getString("AddPowerup"), listOfPowerups);
+		TitledPane platforms = makeTitledPane(languageResources().getString("Platform"),languageResources().getString("AddPlatform"), listOfPlatforms, premadePlatforms);
+		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),languageResources().getString("AddEnemy"), listOfEnemies, premadeEnemies);
+		TitledPane players = makeTitledPane(languageResources().getString("Player"),languageResources().getString("AddPlayer"), listOfPlayers, premadePlayers);
+		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),languageResources().getString("AddPowerup"), listOfPowerups, premadePowerups);
 
 		stringToListMap = new HashMap<>();
 		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
@@ -198,13 +208,13 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-	private TitledPane makeTitledPane(String title, String addSpriteTitle, ObservableList<String> content) {
+	private TitledPane makeTitledPane(String title, String addSpriteTitle, ObservableList<String> content, Set<ImageView> premade) {
 
 		VBox titledPaneBox = new VBox();
 		titledPaneBox.setAlignment(Pos.CENTER);
 		ListView<String> platformListView = new ListView<>(content);
 		Button addButton = new Button(addSpriteTitle);
-		addButton.setOnMouseClicked(e -> makeAddSpritePopup(addButton));
+		addButton.setOnMouseClicked(e -> makeAddSpritePopup(addButton,premade));
 		titledPaneBox.getChildren().addAll(platformListView, addButton);
 
 		/*
@@ -281,6 +291,54 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		levelEditDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
 
 	}
+	
+	private void makePremadeSpriteSets() {
+		makePremadePlatformSet();
+		makePremadePlayerSet();
+		makePremadeEnemySet();
+		makePremadePowerupSet();
+	}
+
+	private void makePremadePowerupSet() {
+		//TODO add extra premades
+		
+		premadePowerups = new HashSet<>();
+		
+	}
+
+	private void makePremadeEnemySet() {
+		//TODO add extra premades
+
+		premadeEnemies = new HashSet<>();
+		
+	}
+
+	private void makePremadePlayerSet() {
+		//TODO add extra premades
+
+		premadePlayers = new HashSet<>();
+		
+	}
+
+	private void makePremadePlatformSet() {
+		//TODO add extra premades
+
+		premadePlatforms = new HashSet<>();
+		makeSpriteForPremadeSet("platform.jpeg",new ArrayList<Action>(), new ArrayList<Component>(), premadePlatforms);
+	}
+	
+	private void makeSpriteForPremadeSet(String imagePath, List<Action> actions, List<Component> components, Set<ImageView> setForSprite) {
+		Image image = new Image(imagePath);
+		ImageView imageView = new ImageView(image);
+		Sprite sprite = new Sprite();
+		sprite.spriteImage().addImage(ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight()));
+		actions.forEach(action -> sprite.addAction(action));
+		components.forEach(component -> sprite.addComponent(component));	
+		
+		imageView.setOnMouseClicked(e -> addSprite(sprite));
+		
+		setForSprite.add(imageView);
+	}
 
 	private void save() {
 		//TODO save this level to XML (and update game edit screen)?
@@ -317,10 +375,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-	/*
-	 * Visually displays the sprite
-	 */
-	// TODO: Refactor - this belongs in LevelPlatformView, not here
 	private void addSpriteToLevelDisplay(Sprite sprite) {
 
 		ImageView imageView = sprite.spriteImage().getImageViewToDisplay();
@@ -368,11 +422,15 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	 * -Leo
 	 * 
 	 */
-	private void makeAddSpritePopup(Button button) {
+	private void makeAddSpritePopup(Button button, Set<ImageView> premade) {
 		Popup newSpriteDisplay = new Popup();
+
+		VBox display = new VBox();
+		premade.forEach(image -> display.getChildren().add(image));
+		
+		newSpriteDisplay.getContent().add(display);
+		
 		newSpriteDisplay.show(button, levelEditDisplay.getLayoutX(),levelEditDisplay.getLayoutY());
-		newSpriteDisplay.getContent().add(new Rectangle(100,100,Color.ALICEBLUE));
-		newSpriteDisplay.setAnchorLocation(AnchorLocation.CONTENT_TOP_LEFT);
 	}
 
 	/**
@@ -381,7 +439,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	public void addSprite(Sprite sprite) {
 
 		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage(); //TODO get rid of magic;
+		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage();
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
 
 	}
