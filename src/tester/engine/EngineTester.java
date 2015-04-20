@@ -21,7 +21,7 @@ public class EngineTester extends Tester {
 	@Override
 	protected void test(Stage stage) {
 		Sprite player = new Sprite(new Point2D(0.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
-		Level l = new Level(500, 500, player);
+		Level l = new Level(500, 500);
 		try{
 			DataHandler.toXMLFile(l, "testingLevel.xml", System.getProperty("user.dir")+"/engineTesting");
 		}
