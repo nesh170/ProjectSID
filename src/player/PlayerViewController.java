@@ -62,18 +62,18 @@ public class PlayerViewController {
 	private Camera myCamera;
 	private HUD myHUD;
 	
-	public PlayerViewController(ScrollPane pane) {
+	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
-		createHUD();
+		myHUD = gameHUD;
 		loadNewChooser();
 		myPause = makePauseScreen();
 	}
 
-	public PlayerViewController(Game game, ScrollPane pane) {
+	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
-		createHUD();
+		myHUD = gameHUD;
 		myPause = makePauseScreen();
 		selectGame(game);
 	}
@@ -97,15 +97,9 @@ public class PlayerViewController {
 
 	private void display() {
 		myGameGroup = myEngine.render();
-//		myGameRoot.setContent(myGameGroup);
-//		StackPane stack = new StackPane();
-//		stack.setPrefSize(myGameRoot.getWidth(), myGameRoot.getHeight());
-//		stack.getChildren().add(myHUD.getHUDBox());
-//		stack.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
-//		myGameGroup.getChildren().add(stack);
-		myHUD.updateHUDLocation(myGameGroup.getBoundsInParent());
-		myGameGroup.getChildren().add(myHUD.getHUDBox());
 		myGameRoot.setContent(myGameGroup);
+		//sets focus automatically to root which is receiving key inputs
+		myGameRoot.requestFocus();
 		centerNodeInScrollPane();
 	}
 	
@@ -193,15 +187,6 @@ public class PlayerViewController {
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
 	}			
-	
-	public void createHUD() {
-		myHUD = new HUD(myGameRoot);
-		myHUD.addItem("Lives", 0);
-		myHUD.addItem("Health", 0);
-		myHUD.addItem("Score", 0);
-		//myHUD.updateHUDLocation(myGameGroup.getBoundsInParent());
-		//return myHUD.getHUDBox();
-	}
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",

@@ -47,10 +47,14 @@ public class HUD {
 	 * Allows HUD to be moved as the screen moves
 	 */
 	public void updateHUDLocation(Bounds bounds) {
-		myHUDBox.setTranslateX(bounds.getMinX() + (myPane.getHvalue() * (bounds.getMaxX() - myPane.getWidth())));
-		myHUDBox.setTranslateY(bounds.getMinY() + (myPane.getVvalue() * (bounds.getMaxY() - myPane.getHeight())));
-//		System.out.println(myPane.getHvalue());
-//		System.out.println(myPane.getVvalue());
+//		myHUDBox.setTranslateX(bounds.getMinX() + (myPane.getHvalue() * (bounds.getMaxX() - myPane.getWidth())));
+//		myHUDBox.setTranslateY(bounds.getMinY() + (myPane.getVvalue() * (bounds.getMaxY() - myPane.getHeight())));
+		myHUDBox.setTranslateX(-myPane.getViewportBounds().getMinX());
+		myHUDBox.setTranslateY(-myPane.getViewportBounds().getMinY());
+		System.out.println("boundsMinX: " + bounds.getMinX());
+		System.out.println("boundsMinY: " + bounds.getMinY());
+		System.out.println("ViewportMinY: " + myPane.getViewportBounds().getMinY());
+		System.out.println("ViewportMinX: " + myPane.getViewportBounds().getMinX());
 	}
 	
 	public void addItem(String item, double val) {

@@ -22,7 +22,7 @@ public class GamePlayScreen extends Screen {
 	private PlayerMenu myMenu;
 	private GamePlayer myPlayer;
 	private GamePlayScreenController gamePlayScreenController;
-	
+	private HUD myHUD;
 	
 	// Constructor & Helpers
 	public GamePlayScreen(GamePlayScreenController parent, double width, double height, Level level) {
@@ -49,8 +49,14 @@ public class GamePlayScreen extends Screen {
 		//myMenu = new PlayerMenu(width, height);
 		this.gamePlayScreenController = gamePlayScreenController;
 		ScrollPane scroll = new ScrollPane();
-		this.setCenter(scroll);
-		myPlayer = new GamePlayer(scroll, width, height);
+		StackPane base = new StackPane();
+		StackPane top = new StackPane();
+		myHUD = createHUD(scroll);
+		top.getChildren().add(myHUD.getHUDBox());
+		top.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+		this.setCenter(base);
+		base.getChildren().addAll(scroll, top);
+		myPlayer = new GamePlayer(scroll, myHUD);
 		myPlayer.setupActions(myMenu);
 	}
 
@@ -58,7 +64,7 @@ public class GamePlayScreen extends Screen {
 		super(width, height);
 		ScrollPane scroll = new ScrollPane();
 		viewableArea().setCenter(scroll);
-		myPlayer = new GamePlayer(game, scroll, width, height);
+		myPlayer = new GamePlayer(game, scroll, myHUD);
 		myPlayer.setupActions(myMenu);
 	}
 	
@@ -67,6 +73,14 @@ public class GamePlayScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		PlayerMenu menu = new PlayerMenu(menuBar);
 		myMenu = menu;
+	}
+	
+	public HUD createHUD(ScrollPane pane) {
+		myHUD = new HUD(pane);
+		myHUD.addItem("Lives", 0);
+		myHUD.addItem("Health", 0);
+		myHUD.addItem("Score", 0);
+		return myHUD;
 	}
 	
 	// All other instance methods
