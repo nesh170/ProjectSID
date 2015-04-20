@@ -179,6 +179,7 @@ public class PlayerViewController {
 		}
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
+		startView();
 	}
 
 	public void selectGame(Game game) {
@@ -186,6 +187,7 @@ public class PlayerViewController {
 		myGameLevels = game.levels();
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
+		startView();
 	}			
 
 	public void save() {
