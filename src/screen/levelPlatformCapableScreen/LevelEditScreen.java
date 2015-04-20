@@ -57,6 +57,7 @@ import screen.util.VerticalButtonBox;
 import sprite.Sprite;
 import sprite.SpriteImage;
 import util.ImageToInt2DArray;
+import util.UniqueString;
 
 /**
  * @author Leo
@@ -324,18 +325,31 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		//TODO add extra premades
 
 		premadePlatforms = new HashSet<>();
-		makeSpriteForPremadeSet("platform.jpeg",new ArrayList<Action>(), new ArrayList<Component>(), premadePlatforms);
+		makeSpriteForPremadeSet("platform.jpeg",languageResources().getString("Platform1"),tagResources().getString("Platform"),new ArrayList<Action>(), new ArrayList<Component>(), premadePlatforms);
+		makeSpriteForPremadeSet("spike.png",languageResources().getString("Platform2"),tagResources().getString("Platform"),new ArrayList<Action>(), new ArrayList<Component>(), premadePlatforms);
 	}
 	
-	private void makeSpriteForPremadeSet(String imagePath, List<Action> actions, List<Component> components, Set<ImageView> setForSprite) {
+	
+	/**
+	 * 
+	 * @param imagePath - Path of the image that represents the sprite in game
+	 * @param customName - Name displayed for the sprite in the Level Edit Screen
+	 * @param tag - Type of sprite, might need to change from string to ENUM later
+	 * @param actions - List of actions attatched to the sprite
+	 * @param components - List of components attached to the sprite
+	 * @param setForSprite - Set of ImageViews to add to in order to create the popup menu later on
+	 */
+	private void makeSpriteForPremadeSet(String imagePath, String customName, String tag, List<Action> actions, List<Component> components, Set<ImageView> setForSprite) {
 		Image image = new Image(imagePath);
 		ImageView imageView = new ImageView(image);
 		Sprite sprite = new Sprite();
 		sprite.spriteImage().addImage(ImageToInt2DArray.convertImageTo2DIntArray(image, (int) image.getWidth(), (int) image.getHeight()));
 		actions.forEach(action -> sprite.addAction(action));
-		components.forEach(component -> sprite.addComponent(component));	
+		components.forEach(component -> sprite.addComponent(component));
+		sprite.setName(customName);
+		sprite.setTag(tag);
 		
-		imageView.setOnMouseClicked(e -> addSprite(sprite));
+		imageView.setOnMouseClicked(e -> addSprite(new Sprite(sprite)));
 		
 		setForSprite.add(imageView);
 	}
@@ -381,6 +395,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		levelEditDisplay.addSpriteToDisplay(sprite,imageView);
 
+		String newSpriteName = UniqueString.makeUniqueKey(stringToSpriteMap.keySet(), sprite.getName());
+		sprite.setName(newSpriteName);
 		stringToSpriteMap.put(sprite.getName(), sprite);
 		stringToListMap.get(sprite.tag()).add(sprite.getName());
 
@@ -424,8 +440,10 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	 */
 	private void makeAddSpritePopup(Button button, Set<ImageView> premade) {
 		Popup newSpriteDisplay = new Popup();
-
+		
 		VBox display = new VBox();
+		display.getStyleClass().add("pane");
+		display.setSpacing(DOUBLE.BUTTON_SPACING);
 		premade.forEach(image -> display.getChildren().add(image));
 		
 		newSpriteDisplay.getContent().add(display);
