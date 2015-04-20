@@ -292,7 +292,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		this.levelEditDisplay = new LevelEditDisplay(level.width(),level.height(),level.sprites());
 		viewableArea().setCenter(levelEditDisplay);
-		levelEditDisplay.setOnMouseReleased(e -> addSpriteToLocation(e));
+		levelEditDisplay.getContent().setOnMouseReleased(e -> addSpriteToLocation(e));
 
 	}
 	
