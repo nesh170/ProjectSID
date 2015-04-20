@@ -154,7 +154,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		configureLevelEditDisplay(level);		
 
 		this.setOnMouseEntered(e -> onLevelScreenRender());
-		this.setOnKeyPressed(e -> checkForDelete(e));
+		this.setOnKeyPressed(e -> checkForKeyPressed(e));
 
 	}
 
@@ -454,6 +454,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	 */
 	private void makeAddSpritePopup(Button button, Set<ImageView> premade) {
 		Popup newSpriteDisplay = new Popup();
+		newSpriteDisplay.setHideOnEscape(true);
+		newSpriteDisplay.setAutoHide(true);
 		
 		VBox display = new VBox();
 		display.getStyleClass().add("pane");
@@ -465,19 +467,33 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		newSpriteDisplay.show(button, levelEditDisplay.getLayoutX(),levelEditDisplay.getLayoutY());
 	}
 	
-	private void checkForDelete(KeyEvent e) {
+	private void checkForKeyPressed(KeyEvent e) {
 		
 		if((e.getCode().equals(KeyCode.DELETE) || e.getCode().equals(KeyCode.BACK_SPACE))
 				&& selectedSprite!=null) {
-			level.sprites().remove(selectedSprite);
-			stringToListMap.get(selectedSprite.tag()).remove(selectedSprite.getName());
-			stringToSpriteMap.remove(selectedSprite.getName());
-			levelEditDisplay.removeSpriteFromDisplay(selectedSprite, levelEditDisplay.getImage(selectedSprite));
-			selectedSprite = null;
+			delete();
 		}
+		if(e.getCode().equals(KeyCode.C) && selectedSprite!=null) {
+			copy();
+		}
+
 		
 	}
-
+	
+	private void delete() {
+		level.sprites().remove(selectedSprite);
+		stringToListMap.get(selectedSprite.tag()).remove(selectedSprite.getName());
+		stringToSpriteMap.remove(selectedSprite.getName());
+		levelEditDisplay.removeSpriteFromDisplay(selectedSprite, levelEditDisplay.getImage(selectedSprite));
+		selectedSprite = null;
+	}
+	
+	private void copy() {
+		addSprite(new Sprite(selectedSprite));
+		levelEditDisplay.getImage(selectedSprite).setOpacity(1);
+		selectedSprite = null;
+	}
+	
 	/**
 	 * add a sprite to the level edit screen
 	 */
