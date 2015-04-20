@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import levelPlatform.level.Level;
 
 /**
  * 
@@ -54,9 +55,10 @@ public class LevelEditDisplay extends ScrollPane {
 	 * Sets the size of the content equal to the size of the scroll pane
 	 * after resizing.
 	 */
-	public void setContentMinSize() {
+	public void setContentMinSize(Level level) {
 		
 		content.setMinSize(this.getWidth(), this.getHeight());
+		level.configureWidthAndHeight((int) this.getWidth(), (int) this.getHeight());
 		
 	}
 		

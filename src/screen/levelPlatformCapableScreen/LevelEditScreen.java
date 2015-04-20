@@ -406,7 +406,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void onLevelScreenRender() {
-		levelEditDisplay.setContentMinSize();
+		levelEditDisplay.setContentMinSize(level);
 		this.setOnMouseEntered(null);
 	}
 	
@@ -415,10 +415,16 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		level.sprites().forEach(sprite -> {
 			sprite.setX(sprite.getX() + levelEditDisplay.getSizeToIncrease());
 		});
+		addLevelWidth();
 	}
 	
 	private void addWidthRight() {
 		levelEditDisplay.addWidthRight();
+		addLevelWidth();
+	}
+	
+	private void addLevelWidth() {
+		level.configureWidthAndHeight(levelEditDisplay.getSizeToIncrease() + level.width(), level.height());
 	}
 	
 	private void addHeightUp() {
@@ -426,11 +432,16 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		level.sprites().forEach(sprite -> {
 			sprite.setY(sprite.getY() + levelEditDisplay.getSizeToIncrease());
 		});
-
+		addLevelHeight();
 	}
 	
 	private void addHeightDown() {
 		levelEditDisplay.addHeightDown();
+		addLevelHeight();
+	}
+	
+	private void addLevelHeight() {
+		level.configureWidthAndHeight(level.width(),levelEditDisplay.getSizeToIncrease() +  level.height());
 	}
 	
 	

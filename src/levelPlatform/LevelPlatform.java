@@ -60,7 +60,7 @@ public class LevelPlatform {
 		instantiateLists();
 	}
 	
-	private void configureWidthAndHeight(int width, int height) {
+	public void configureWidthAndHeight(int width, int height) {
 		
 		this.width = width;
 		this.height = height;
