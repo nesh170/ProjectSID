@@ -1,5 +1,6 @@
 package tester.engine;
 
+import gameEngine.Action;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.components.VelocityComponent;
@@ -38,10 +39,16 @@ public class EngineTester extends Tester {
 		player.setImagePath("mario.jpg");
 		myPlayerList.add(player);
 		mySpriteList.add(player);
-		//Test to make sure images run smoothly:
-		for(int i = 200; i<400; i+= 20){
-		makeMovingThing(i);
+		//test MotionPathAction
+		makeMotionPathSprite(new Point2D[] {new Point2D(0.0, 200.0), new Point2D(100.0, 200.0)}, 2.0);
+		makeMotionPathSprite(new Point2D[] {new Point2D(150.0, 300.0), new Point2D(200.0, 350.0), 
+							 new Point2D(250.0, 300.0)}, 2.0);
+		Point2D[] zigZagPath = new Point2D[30];
+		for(int i = 0; i<zigZagPath.length; i++){
+			zigZagPath[i] = new Point2D(160 + 20*i, 80 + (i%2)*40);
 		}
+		makeMotionPathSprite(zigZagPath, 5.0);
+		
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);
 		try{
@@ -51,6 +58,17 @@ public class EngineTester extends Tester {
 			System.out.println("Oh no!!!");
 		}
 	}
+
+	private void makeMotionPathSprite(Point2D[] points, double speed) {
+		Sprite mps = new Sprite(points[0], Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		mps.addComponent(new VelocityComponent(mps, null));
+		Action mpa = new MotionPathAction(mps, speed, points, (KeyCode) null);
+		mpa.runEveryFrame();
+		mps.addAction(mpa);
+		mps.setImagePath("duke.png");
+		mySpriteList.add(mps);
+	}
+	
 
 	private void makeMovingThing(int i) {
 		Sprite movingThing = new Sprite(new Point2D(0.0, i), Point2D.ZERO, new Dimension2D(15.0, 15.0));

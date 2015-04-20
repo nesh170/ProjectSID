@@ -32,13 +32,11 @@ public class MotionPathAction extends Action {
 	public void execute() {
 		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 		//myLastVisititedIndex gives most recent point visited
-		//use direction to determine next point
+		//use direction to determine next point, get current point of mySprite
 		Point2D nextPoint = myPoints[myLastVisitedIndex + myDirection];
-		//use speed, and position of next point and sprite, to move the sprite to the next point appropriately
 		Point2D curPos = mySprite.transform().getPositionPoint();
-		double angle = Math.atan((nextPoint.getY() - curPos.getY())/(nextPoint.getX() - curPos.getX()));
-		myVelocityComponent.setVelocityX(mySpeed*Math.cos(angle));
-		myVelocityComponent.setVelocityY(mySpeed*Math.sin(angle));
+		//use speed, and position of next point and sprite, to move the sprite to the next point appropriately
+		moveSprite(nextPoint, curPos);
 		//Check to see if we're close enough to switch to next point. If so, switch
 		if(closeEnough(curPos, nextPoint)){
 			myLastVisitedIndex += myDirection;
@@ -47,6 +45,19 @@ public class MotionPathAction extends Action {
 		if(myLastVisitedIndex + myDirection<0 || myLastVisitedIndex + myDirection >= myPoints.length){
 			myDirection = myDirection*(-1);
 		}
+	}
+
+	private void moveSprite(Point2D nextPoint, Point2D curPos) {
+		//displacement vector between two points:
+		double[] vecXY = new double[] {nextPoint.getX()-curPos.getX(), nextPoint.getY()-curPos.getY()};
+		double magXY = Math.sqrt(vecXY[0]*vecXY[0] + vecXY[1]*vecXY[1]);
+		//get unit displacement vector:
+		if(magXY>0){
+			vecXY = new double[] {vecXY[0]/magXY, vecXY[1]/magXY};
+		}
+		//multiplying speed by unit disp vector gets appropriate velocity in x and y:
+		myVelocityComponent.setVelocityX(mySpeed*vecXY[0]);
+		myVelocityComponent.setVelocityY(mySpeed*vecXY[1]);
 	}
 	
 	private boolean closeEnough(Point2D curPos, Point2D nextPoint){

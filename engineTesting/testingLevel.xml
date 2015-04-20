@@ -3,33 +3,8 @@
   <height>500</height>
   <sprites>
     <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity>
-            <x>0.0</x>
-            <y>0.0</y>
-            <hash>0</hash>
-          </myVelocity>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
+      <actionList/>
+      <componentList/>
       <x>0.0</x>
       <y>0.0</y>
       <emissionList/>
@@ -41,48 +16,56 @@
           <y>100.0</y>
           <hash>0</hash>
         </myPosition>
-        <myRotation reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <myRotation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myRotation>
         <myDimensions>
           <width>50.0</width>
           <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../myPosition"/>
-        <startRotation reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <startRotation reference="../myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList>
-        <gameEngine.actions.RightMotionAction>
+        <tester.engine.MotionPathAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
             <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+              <null/>
             </a>
           </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>0.0</value>
+          <myPoints>
+            <javafx.geometry.Point2D>
+              <x>0.0</x>
+              <y>200.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>100.0</x>
+              <y>200.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </myPoints>
+          <myDirection>1</myDirection>
+          <myLastVisitedIndex>0</myLastVisitedIndex>
+          <mySpeed>2.0</mySpeed>
+          <myTolerance>2.0</myTolerance>
+        </tester.engine.MotionPathAction>
       </actionList>
       <componentList>
         <gameEngine.components.VelocityComponent>
           <mySprite reference="../../.."/>
           <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
           <myTerminalVelocity>5.0</myTerminalVelocity>
           <isGrounded>true</isGrounded>
         </gameEngine.components.VelocityComponent>
@@ -91,54 +74,60 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <imagePath>duke.png</imagePath>
       <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>200.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <myPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
+          <width>50.0</width>
+          <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <startPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList>
-        <gameEngine.actions.RightMotionAction>
+        <tester.engine.MotionPathAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
             <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+              <null/>
             </a>
           </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>0.0</value>
+          <myPoints>
+            <javafx.geometry.Point2D>
+              <x>150.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>200.0</x>
+              <y>350.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>250.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </myPoints>
+          <myDirection>1</myDirection>
+          <myLastVisitedIndex>0</myLastVisitedIndex>
+          <mySpeed>2.0</mySpeed>
+          <myTolerance>2.0</myTolerance>
+        </tester.engine.MotionPathAction>
       </actionList>
       <componentList>
         <gameEngine.components.VelocityComponent>
           <mySprite reference="../../.."/>
           <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
           <myTerminalVelocity>5.0</myTerminalVelocity>
           <isGrounded>true</isGrounded>
         </gameEngine.components.VelocityComponent>
@@ -147,54 +136,195 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <imagePath>duke.png</imagePath>
       <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>220.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <myPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
+          <width>50.0</width>
+          <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <startPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList>
-        <gameEngine.actions.RightMotionAction>
+        <tester.engine.MotionPathAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
             <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+              <null/>
             </a>
           </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>0.0</value>
+          <myPoints>
+            <javafx.geometry.Point2D>
+              <x>160.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>180.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>200.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>220.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>240.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>260.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>280.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>300.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>320.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>340.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>360.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>380.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>400.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>420.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>440.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>460.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>480.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>500.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>520.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>540.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>560.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>580.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>600.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>620.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>640.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>660.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>680.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>700.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>720.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>740.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </myPoints>
+          <myDirection>1</myDirection>
+          <myLastVisitedIndex>0</myLastVisitedIndex>
+          <mySpeed>5.0</mySpeed>
+          <myTolerance>5.0</myTolerance>
+        </tester.engine.MotionPathAction>
       </actionList>
       <componentList>
         <gameEngine.components.VelocityComponent>
           <mySprite reference="../../.."/>
           <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
           <myTerminalVelocity>5.0</myTerminalVelocity>
           <isGrounded>true</isGrounded>
         </gameEngine.components.VelocityComponent>
@@ -203,428 +333,23 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <imagePath>duke.png</imagePath>
       <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>240.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <myPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
+          <width>50.0</width>
+          <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>260.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>280.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>300.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>320.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>340.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>360.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.RightMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-          <velocity>2.0</velocity>
-        </gameEngine.actions.RightMotionAction>
-        <gameEngine.actions.LeftMotionAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>2.0</value>
-        </gameEngine.actions.LeftMotionAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <transform>
-        <myPosition>
-          <x>0.0</x>
-          <y>380.0</y>
-          <hash>0</hash>
-        </myPosition>
-        <myRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
-        <myDimensions>
-          <width>15.0</width>
-          <height>15.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../myPosition"/>
-        <startRotation reference="../../../sprite.Sprite/componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+        <startPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
   </sprites>
   <playerSpriteList>
     <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[2]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[3]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[4]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[5]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[6]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[7]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[8]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[9]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[10]"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite[11]"/>
   </playerSpriteList>
   <collisionTable>
     <myTable/>
