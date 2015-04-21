@@ -167,6 +167,11 @@ public class Sprite {
 		
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		this.setTag(toCopy.tag());
+		this.setName(toCopy.name);
+		toCopy.actionList().forEach(action -> this.addAction(action));
+		toCopy.componentList().forEach(component -> this.addComponent(component));
+		this.spriteImage = new SpriteImage(toCopy.spriteImage()); 
 		
 	}
 	

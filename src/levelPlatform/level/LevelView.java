@@ -42,7 +42,7 @@ public class LevelView extends ScrollPane {
     }
     
     public void setCollisionHandler(){
-    	this.collisionHandler = new Collision(level.getCollisionTable());
+    	this.collisionHandler = new Collision(level.collisionTable());
     }
     
     // Constructor & Helpers
