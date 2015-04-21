@@ -7,12 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
+
 import gameEngine.EngineMathFunctions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import resources.constants.INT;
 import sprite.Sprite;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
 
@@ -32,18 +35,18 @@ import levelPlatform.LevelPlatform;
  * 
  */
 public class Level extends LevelPlatform {
-	
+
 	// Static Variables
 	public static final int X = 0;
 	public static final int Y = 1;
+
 	
 	// Instance Variables
 	private List<Sprite> playerSpriteList;
 	private CollisionTable collisionTable;
-        private IntConsumer nextLevelMethod;
-        private Map<Sprite, Integer> goalMap;
-	
-	
+	private IntConsumer nextLevelMethod;
+	private Map<Sprite, Integer> goalMap;
+
 	// Getters & Setters
 	/**
 	 * @return a controlMap which might change depending on the behaviours for each level
@@ -51,28 +54,29 @@ public class Level extends LevelPlatform {
 	public Map<KeyCode,Action> controlMap(Sprite playerSprite) {
 		Map<KeyCode,Action> controlMap = new HashMap<>();
 		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
+		
 		return controlMap;
-            
-	}
+
+	}	
 	
 	public void addPlayerSprite(Sprite player){
 	    playerSpriteList.add(player);
 	}
-	
+
 	public void setSprites(List<Sprite> spriteList){
 		sprites = spriteList;
+	}
+
+	public CollisionTable collisionTable() {
+		return collisionTable;
 	}
 	
 	public void setCollisionTable(CollisionTable collisionTable) {
 		this.collisionTable = collisionTable;
 	}
-	
-	public CollisionTable getCollisionTable() {
-		return collisionTable;
-	}
-	
+
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
-	    this.goalMap=goalMap;
+		this.goalMap = goalMap;
 	}
 	
 	public List<Sprite> playerSpriteList(){
@@ -81,6 +85,12 @@ public class Level extends LevelPlatform {
 	
 	
 	// Constructor & Helpers
+	/**
+	 * Calls the larger constructor and internally creates a new Sprite() for playerSprite
+	 * 
+	 * @param width
+	 * @param height
+	 */
 	public Level(int width, int height) {
 		this(width, height, new ArrayList<Sprite>());
 	}
@@ -103,6 +113,7 @@ public class Level extends LevelPlatform {
 	 * Gets the method to initialize the next level from the GameEngine
 	 * @param nextLevelConsumer
 	 */
+
     public void passInitializeLevelMethod (IntConsumer nextLevelConsumer) {
         nextLevelMethod = nextLevelConsumer;
         
@@ -130,5 +141,5 @@ public class Level extends LevelPlatform {
         xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight()/2;
         return xyLocations;
     }
-	
+
 }	

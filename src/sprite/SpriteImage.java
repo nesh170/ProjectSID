@@ -1,6 +1,7 @@
 package sprite;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -79,6 +80,11 @@ public class SpriteImage {
 		instantiateImagesList();
 		instantiateImageViewsFromImagesList();
 		
+	}
+	
+	public SpriteImage(SpriteImage spriteImage) {
+		this();
+		spriteImage.images.forEach(image -> this.addImage(image));
 	}
 	
 	private void instantiateImagesList() {

@@ -1,6 +1,6 @@
 package sid;
 
-import screen.ScreenController;
+import screen.controllers.ScreenController;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
