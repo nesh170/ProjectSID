@@ -165,8 +165,8 @@ public class SpriteEditScreen extends Screen {
 				false);
 		keyCodesAreVisibleMap.put(languageResources().getString("NeedCode"),
 				true);
-		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"),
-				false);
+//		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"),
+//				false);
 
 	}
 
@@ -204,6 +204,7 @@ public class SpriteEditScreen extends Screen {
 
 	}
 
+	//TODO get rid of some duplicated code in this method
 	private void initializeValueBoxListenersForLists() {
 
 		actionsToAddList.getSelectionModel().selectedItemProperty()
@@ -448,9 +449,8 @@ public class SpriteEditScreen extends Screen {
 
 		actionTypes.addAll(
 				languageResources().getString("AlwaysRun"),
-				languageResources().getString("NeedCode"), 
-				languageResources().getString("OnCollision"));
-
+				languageResources().getString("NeedCode"));
+				//languageResources().getString("OnCollision")
 		actionTypeBox = new ChoiceBox<String>(actionTypes);
 		actionTypeBox.getSelectionModel().select(0);
 
@@ -612,6 +612,9 @@ public class SpriteEditScreen extends Screen {
 								.newInstance(editableSprite,
 										Double.parseDouble(actionValue.getText()),
 										keylist);
+				if(!keyCodesAreVisibleMap.get(actionTypeBox.getSelectionModel().getSelectedItem())) {
+					action.runEveryFrame();
+				}
 				actionMap.put(selected, action);
 				actionsToAdd.remove(selected);
 				actionsAdded.add(selected);
