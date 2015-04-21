@@ -434,12 +434,13 @@ public class ScreenController {
 	}
 	
 	private class GameEditScreenManager implements GameEditScreenController {
-
+		/**TODO: BUG Here: returning is not working when new levels are added.
+		 */
 
 		@Override
 		public void returnToMainMenuScreen(Popup popup) {
+			
 			hidePopup(popup);
-			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
 			
@@ -455,44 +456,29 @@ public class ScreenController {
 		public void  showConfirmPopUpWithGame(Game game, Popup popup){
 			popup.show(stage);
 		}	
-		
+		/**
+		 * creates a new level as well as LevelEditScreen for this new level.
+		 * Adds the new level to append to end of levels list in game object.
+		 */
 		@Override
 		public void loadLevelEditScreen(Game game, GameEditScreen gameEditScreen) {
-			//Create new Level, add to end of game
+			
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			newLevel.setIndex(game.getLevelsSize());
-			createLevelEditScreen(newLevel);
 			game.addLevel(newLevel);
+			createLevelEditScreen(newLevel);
 			gameEditScreen.displayLevels(game.levels());
 			
 		}
 		
 		@Override
 		public void loadSplashEditScreen(Game game, GameEditScreen gameEditScreen) {
-			//Create new SplashEditScreen
+			
 			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createSplashEditScreen(newSplashScreen);
 			game.setSplash(newSplashScreen);
 			gameEditScreen.displayApproporiateSplashButton();		
-		}
-		/**
-		 * reloads GameEditScreen, needs to reloads the game to reflect those changes on the screen
-		 * Used when remove is clicked, so that GameEditScreen correctly reflects the removal of level or splash
-		 * 
-		 * OR to addListener() when change happened,
-		 * addListener( o-> animationToReduceLevelImage);
-		 * @param game
-		 */
-		public void reloadGameEditScreen(Game game){
-			Screen newScreen = screenFactory.createGameEditScreen(game, gameEditScreenManager);
-			
-			tabManager.addTabWithScreenWithStringIdentifier(
-						screenFactory.createGameEditScreen(game, gameEditScreenManager),
-						STRING.GAME_EDIT.GAME_EDIT
-						);
-			tabManager.replaceTab(newScreen);
 		}
 		
 		@Override

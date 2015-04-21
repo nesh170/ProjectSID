@@ -66,9 +66,14 @@ public class Game {
 	public void setSplash(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
-
+	/**
+	 * This method is for design alternative: when Level has index private instance variable to
+	 * keep track of the ordering of level
+	 * @param levelIndex
+	 */
 	public void removeLevel(int levelIndex) {
 		levels.remove(levelIndex);
+		//rearrange and updates the rest of list levels' levelIndex
 	}
 
 	public void removeSplash() {

@@ -75,7 +75,7 @@ import levelPlatform.splashScreen.SplashScreen;
  * @author Yongjiao
  * @author Anika
  */
-// Splash double click and right click
+//TODO disable rest of screen when popup shows
 public class GameEditScreen extends Screen {
 
 	// Static Variables
@@ -86,8 +86,6 @@ public class GameEditScreen extends Screen {
 	private GameEditScreenController controller;
 	
 	private Game game;
-//	private ObservableList<Level> levels;
-	// initalized for testing purpose
 	private Level selectedLevel;
 	private int selectedIndex;
 	// JavaFX
@@ -128,9 +126,8 @@ public class GameEditScreen extends Screen {
 	 *            , width, height, game
 	 */
 	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height) {
-
+	
 		super(width, height);
-		
 		this.game = game;
 		
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
@@ -234,7 +231,7 @@ public class GameEditScreen extends Screen {
 	
 	private Button displayMySplash() {
 
-		ImageView img = game.splashScreen().getSplashImageView();
+		ImageView img = game.splashScreen().getLevelPlatformImageView();
 		Button b = getLevelSplashDisplayImage(img, INT.SPLASH, 0);
 		
 		return b;
@@ -332,14 +329,14 @@ public class GameEditScreen extends Screen {
 	}
 	
 	/**
-	 * display list of levels that are represented by images in parallel
+	 * dynamically display most updated list of levels in game or add sign when empty
 	 * @param game.levels()
 	 */
 	public void displayLevels(List<Level> levels) {
 		
 		// TODO:  in replace of ImageView below
 		if (game.hasLevel()) {
-			displayLevelsInParallel();
+			displayLevelsAndReassignPossition();
 		}
 
 		else {
@@ -358,18 +355,23 @@ public class GameEditScreen extends Screen {
 						e -> controller.loadLevelEditScreen(game, this)));
 
 	}
-
-	private void displayLevelsInParallel() {
+	/**
+	 * display levels 
+	 * reassign position info when there is change of position in levels
+	 */
+	private void displayLevelsAndReassignPossition() {
 		levelHB.getChildren().clear();
+		int index = 0; 
 		for (Level l: game.levels()) {
-			Button level = getLevelSplashDisplayImage(
-					l.getLevelImageView(), INT.LEVEL, l.index()); //pass in index and set levelIndex
+			Button level = getLevelOrSplashButtons(
+					l.getLevelPlatformImageView(), INT.LEVEL, index); //pass in index and set levelIndex
 			levelHB.getChildren().add(level);
+			index++;
 		}
 	}
 
 	//TODO: change here for different level indexes
-	private Button getLevelSplashDisplayImage(ImageView img, int splashOrLevel, int index) {
+	private Button getLevelOrSplashButtons(ImageView img, int splashOrLevel, int index) {
 
 		Button b = new Button();
 		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
@@ -438,9 +440,8 @@ public class GameEditScreen extends Screen {
 	}	
 	
 	private void configureSelection(int index){
-		if(!game.hasLevel())	
-			System.out.println("Warning: I am empty!!");
 		selectedIndex = index;
+		System.out.println("my index is "+ selectedIndex);
 		selectedLevel = game.levels().get(selectedIndex);
 	}
 	
@@ -458,8 +459,8 @@ public class GameEditScreen extends Screen {
 		return b;
 
 	}
-//TODO disable rest of screen
-	
+
+
 	private void createPopUp() {   
 		
 	     popup = new Popup();
@@ -525,7 +526,7 @@ public class GameEditScreen extends Screen {
 				o -> controller.returnToMainMenuScreen(popup),
 				o -> controller.returnToMainMenuScreen(popup));
 
-		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeSplashMenu(),
+		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(),
 				makeGameMenu(), makeTrashMenu());
 
 	}
@@ -543,19 +544,7 @@ public class GameEditScreen extends Screen {
 		return levelMenu;
 
 	}
-
-	private Menu makeSplashMenu() {
-
-		Menu splashMenu = new Menu("Splash Screen");
-		MenuItem addSplash = new MenuItem("Add new Splash Screen");
-		addSplash.setOnAction(o -> controller.loadSplashEditScreen(game, this));
-		MenuItem editSplash = new MenuItem("Edit Splash Screen");
-		editSplash.setOnAction(o -> controller.loadSplashEditScreen(game, this));
-		splashMenu.getItems().addAll(addSplash, editSplash);
-		return splashMenu;
-
-	}
-
+	
 	private Menu makeGameMenu() {
 
 		Menu gameMenu = new Menu("Game");
