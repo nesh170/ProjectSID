@@ -483,8 +483,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void selectSprite(Sprite sprite) {
 		selectedSprite = sprite;
 		levelEditDisplay.getImage(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
-		levelEditDisplay.setVvalue(selectedSprite.getY());
-		levelEditDisplay.setHvalue(selectedSprite.getX());
+		levelEditDisplay.setVvalue(selectedSprite.getY()-levelEditDisplay.getHeight()/2);
+		levelEditDisplay.setHvalue(selectedSprite.getX()-levelEditDisplay.getWidth()/2);
 	}
 	
 	private void delete() {
