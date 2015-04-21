@@ -74,6 +74,7 @@ public class GamePlayer {
 		myHUD.addItem("Score", 0);
 		stack.getChildren().add(myHUD.getHUDBox());
 		stack.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+		myView.setPauseBase(stack);
 		return stack;
 	}
 

@@ -60,7 +60,8 @@ public class PlayerViewController {
 	private Game myGame;
 	private Camera myCamera;
 	private HUD myHUD;
-
+	private StackPane myTop;
+	
 	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
@@ -76,7 +77,6 @@ public class PlayerViewController {
 	}
 
 	public void startView() {
-		removePause();
 		myEngine.play(myGameRoot);
 		myTimeline.play();
 	}
@@ -110,6 +110,7 @@ public class PlayerViewController {
 		pause.setAlignment(Pos.CENTER);
 		Button startButton = new Button("Resume");
 		startButton.setOnAction(event -> {
+			removePause();
 			startView();
 		});
 		pause.getChildren().addAll(startButton);
@@ -119,12 +120,17 @@ public class PlayerViewController {
 
 	private void bringupPause() {
 		StackPane pause = makePauseScreen();
-		myGameRoot.setContent(pause);
+		myTop.getChildren().add(pause);
 		pause.requestFocus();
 	}
 
+	public void setPauseBase(StackPane pane) {
+		myTop = pane;
+	}
+	
 	private void removePause() {
-		myGameRoot.setContent(myGameGroup);
+		//top pane's only child will be pause menu
+		myTop.getChildren().remove(0);
 	}
 
 	private void setupAnimation() {
