@@ -409,7 +409,7 @@ public class ScreenController {
 		@Override
 		public void confirmToCreateGame(Popup popup, TextField gameName,
 				TextArea des) {
-			Pattern currKeyPattern = Pattern.compile(".+");
+			Pattern currKeyPattern = Pattern.compile(STRING.REGEX.ANY_CHAR);
 			Matcher m = currKeyPattern.matcher(gameName.getText());
 			
 			if (m.matches()) {
@@ -419,7 +419,7 @@ public class ScreenController {
 				popup.hide();
 			}
 			else {
-				errorHandler.displayError("Please Enter Game Name");
+				errorHandler.displayError(STRING.ERROR.EMPTY_GAME_NAME);
 			}
 		}
 		

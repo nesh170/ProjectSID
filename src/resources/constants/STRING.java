@@ -23,6 +23,7 @@ public class STRING {
 		// Errors
 		public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
 		public static final String ILLEGAL_FILE_PATH = "Illegal File Path Error";
+		public static final String EMPTY_GAME_NAME = "Please Enter Game Name";
 		
 	}
 	
@@ -47,6 +48,10 @@ public class STRING {
 		public static final String RELEASED_BUTTON_CSS = "-fx-font: 14 georgia; -fx-text-fill: black;  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
 		
 		
+	}
+	
+	public class REGEX {
+		public static final String ANY_CHAR = ".+";
 	}
 	
 	public class MAIN_MENU_SCREEN {
