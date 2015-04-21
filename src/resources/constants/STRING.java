@@ -54,6 +54,10 @@ public class STRING {
 		public static final String ANY_CHAR = ".+";
 	}
 	
+	public class EXT {
+		public static final String XML = ".xml";
+	}
+	
 	public class MAIN_MENU_SCREEN {
 		
 		// Main Menu Screen

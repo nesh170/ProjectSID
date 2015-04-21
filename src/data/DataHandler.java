@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import resources.constants.STRING;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -28,7 +30,7 @@ public class DataHandler {
 
 	public static void toXMLFile(Object obj, String filename, String filePath)
 			throws IOException {
-		Writer fWriter = new FileWriter(new File(filePath, filename));
+		Writer fWriter = new FileWriter(new File(filePath, filename + STRING.EXT.XML));
 		XSTREAM.toXML(obj, fWriter);
 		fWriter.close();
 	}
@@ -67,7 +69,6 @@ public class DataHandler {
 				.filter(file -> file.toString().endsWith(".xml"))
 				.map(file -> fromXMLFile(file))
 				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
-
 		if (games.size() != 1) {
 			System.out.println("NOT EXACTLY ONE .XML FILE");
 			return null;
@@ -127,7 +128,7 @@ public class DataHandler {
 				.collect(Collectors.toList());
 
 		if (videoFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .XML FILE");
+			System.out.println("NOT EXACTLY ONE .flv or .mp4 FILE");
 			return null;
 		} else {
 			return videoFiles.get(0);
@@ -142,7 +143,7 @@ public class DataHandler {
 				.collect(Collectors.toList());
 
 		if (videoFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .XML FILE");
+			System.out.println("NOT EXACTLY ONE .mp3 or .m4a FILE");
 			return null;
 		} else {
 			return videoFiles.get(0);
