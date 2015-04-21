@@ -34,14 +34,14 @@ public class GamePlayer {
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
 	private HUD myHUD;
-	
+
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar) {
 		myGameRoot = new ScrollPane();
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setMaxSize(900, 450);
-		myGameRoot.setMinSize(900,450);
+		myGameRoot.setMinSize(900, 450);
 		myBorderPane = new BorderPane();
 		myBorderPane.setTop(bar);
 		myView = new PlayerViewController(myGameRoot, new HUD());
@@ -54,12 +54,12 @@ public class GamePlayer {
 		myGameRoot = pane;
 		myView = new PlayerViewController(game, myGameRoot, myHUD);
 	}
-	
+
 	public GamePlayer(ScrollPane pane) {
 		myGameRoot = pane;
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		//myGameRoot.setMaxSize(width, height);
+		// myGameRoot.setMaxSize(width, height);
 		myView = new PlayerViewController(myGameRoot, myHUD);
 	}
 
@@ -68,12 +68,12 @@ public class GamePlayer {
 		myHUD = new HUD(pane);
 		myHUD.addItem("Lives", 0);
 		myHUD.addItem("Health", 0);
-		myHUD.addItem("Score", 0);		
+		myHUD.addItem("Score", 0);
 		stack.getChildren().add(myHUD.getHUDBox());
 		stack.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
 		return stack;
 	}
-	
+
 	public void start() {
 		myView.startView();
 	}
@@ -85,7 +85,7 @@ public class GamePlayer {
 	public void showTutorial() {
 		myView.showTutorial();
 	}
-	
+
 	public void loadNewGame() {
 		myView.loadNewChooser();
 	}
@@ -93,11 +93,11 @@ public class GamePlayer {
 	public void save() {
 		myView.save();
 	}
-	
+
 	public void setupActions(PlayerMenu pMenu) {
 		pMenu.createPlayerMenu(myView);
 	}
-	
+
 	public PlayerMenu getMenu() {
 		return myMenu;
 	}

@@ -21,17 +21,17 @@ public class PlayerMenu {
 
 	private MenuBar myMenuBar;
 	private GamePlayer myPlayer;
-	
+
 	public PlayerMenu(Stage stage) {
 		myMenuBar = new MenuBar();
-		//createPlayerMenu(new PlayerViewController());
+		// createPlayerMenu(new PlayerViewController());
 		myPlayer = new GamePlayer(stage, getBar());
 	}
-	
+
 	public PlayerMenu(MenuBar menuBar) {
 		myMenuBar = menuBar;
 	}
-	
+
 	public void createPlayerMenu(MenuBar menuBar, PlayerViewController view) {
 		Menu menuView = new Menu("View");
 		menuBar.getMenus().add(buildFileMenu(view));
@@ -40,7 +40,7 @@ public class PlayerMenu {
 		menuBar.getMenus().add(buildSoundMenu(view));
 		menuBar.getMenus().add(buildHelpMenu(view));
 	}
-	
+
 	public void createPlayerMenu(PlayerViewController view) {
 		createPlayerMenu(myMenuBar, view);
 	}
@@ -61,7 +61,8 @@ public class PlayerMenu {
 		});
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			view.startView();;
+			view.startView();
+			;
 		});
 		MenuItem newGameItem = makeMenuItem("New Game");
 		newGameItem.setOnAction(event -> {
@@ -92,27 +93,27 @@ public class PlayerMenu {
 		gamesMenu.getItems().addAll(marioItem);
 		return gamesMenu;
 	}
-	
+
 	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
 		tutorialItem.setOnAction(event -> view.showTutorial());
-		
+
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
 	}
-	
+
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
 		playItem.setOnAction(event -> view.playMusic());
-		
+
 		MenuItem pauseItem = new MenuItem("Pause");
 		pauseItem.setOnAction(event -> view.pauseMusic());
-		
+
 		MenuItem stopItem = makeMenuItem("Stop");
 		stopItem.setOnAction(event -> view.stopMusic());
-		
+
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
 	}
@@ -145,12 +146,12 @@ public class PlayerMenu {
 	public void saveGame() {
 		myPlayer.save();
 	}
-	
+
 	public void showTutorial() {
 		myPlayer.showTutorial();
 		myPlayer.pauseMusic();
 	}
-	
+
 	public MenuBar getBar() {
 		return myMenuBar;
 	}
