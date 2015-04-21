@@ -37,7 +37,7 @@ public class GamePlayer {
 	private PlayerViewController myView;
 	
 	// constructor for testing
-	public GamePlayer(Stage stage, MenuBar bar) {
+	public GamePlayer(Stage stage, MenuBar bar, HUD gameHUD) {
 		myGameRoot = new ScrollPane();
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -45,24 +45,23 @@ public class GamePlayer {
 		myGameRoot.setMinSize(900,450);
 		myBorderPane = new BorderPane();
 		myBorderPane.setTop(bar);
-		myView = new PlayerViewController(myGameRoot);
+		myView = new PlayerViewController(myGameRoot, gameHUD);
 		myBorderPane.setCenter(myGameRoot);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);
 	}
 
-	public GamePlayer(Game game, ScrollPane pane, double width, double height) {
+	public GamePlayer(Game game, ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
-		myView = new PlayerViewController(game, myGameRoot);
+		myView = new PlayerViewController(game, myGameRoot, gameHUD);
 	}
 	
-	public GamePlayer(ScrollPane pane, double width, double height) {
+	public GamePlayer(ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setMaxSize(width, height);
-		//myGameRoot.setMinSize(width, height);
-		myView = new PlayerViewController(myGameRoot);
+		//myGameRoot.setMaxSize(width, height);
+		myView = new PlayerViewController(myGameRoot, gameHUD);
 	}
 
 	public void start() {
@@ -116,21 +115,6 @@ public class GamePlayer {
 	
 	public PlayerMenu getMenu() {
 		return myMenu;
-	}
-	
-	public int getLives() {
-		// return myEngine.getLives();
-		return 0;
-	}
-
-	public int getHealth() {
-		// return myEngine.getHealth();
-		return 0;
-	}
-
-	public int getScore() {
-		// return myEngine.getScore();
-		return 0;
 	}
 
 	public int getHighScore() {

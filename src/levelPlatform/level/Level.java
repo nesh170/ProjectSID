@@ -1,20 +1,18 @@
 package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
 
 import gameEngine.EngineMathFunctions;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import resources.constants.INT;
-import resources.constants.STRING;
 import sprite.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -44,7 +42,7 @@ public class Level extends LevelPlatform {
 
 	
 	// Instance Variables
-	private Sprite playerSprite;
+	private List<Sprite> playerSpriteList;
 	private CollisionTable collisionTable;
 	private IntConsumer nextLevelMethod;
 	private Map<Sprite, Integer> goalMap;
@@ -53,8 +51,7 @@ public class Level extends LevelPlatform {
 	/**
 	 * @return a controlMap which might change depending on the behaviours for each level
 	 */
-	public Map<KeyCode,Action> controlMap() {
-
+	public Map<KeyCode,Action> controlMap(Sprite playerSprite) {
 		Map<KeyCode,Action> controlMap = new HashMap<>();
 		playerSprite.actionList().forEach(action -> action.setUpKey(controlMap));
 		
@@ -62,8 +59,8 @@ public class Level extends LevelPlatform {
 
 	}	
 	
-	public void setPlayerSprite(Sprite player) {
-		playerSprite = player;
+	public void addPlayerSprite(Sprite player){
+	    playerSpriteList.add(player);
 	}
 
 	public void setSprites(List<Sprite> spriteList){
@@ -81,7 +78,12 @@ public class Level extends LevelPlatform {
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
 		this.goalMap = goalMap;
 	}
-
+	
+	public List<Sprite> playerSpriteList(){
+	    return Collections.unmodifiableList(playerSpriteList);
+	}
+	
+	
 	// Constructor & Helpers
 	/**
 	 * Calls the larger constructor and internally creates a new Sprite() for playerSprite
@@ -90,78 +92,54 @@ public class Level extends LevelPlatform {
 	 * @param height
 	 */
 	public Level(int width, int height) {
-		
-		this(width, height, null);
-		
-	}
-
-	/**
-	 * Handles a null playerSprite by creating one
-	 * 
-	 * @param width
-	 * @param height
-	 * @param playerSprite
-	 */
-	public Level(int width, int height, Sprite playerSprite) {
-
-		super(width, height);
-
-		instantiateMaps();
-
-		if (playerSprite == null) {
-			setPlayerSprite(new Sprite());
-		} else {
-			setPlayerSprite(playerSprite);
-		}
-
-		// Call this in Level in addition to its super -- prepare playerSprite as well
-		prepareAllSprites();
+		this(width, height, new ArrayList<Sprite>());
 	}
 	
-	private void instantiateMaps() {
-		
-		this.collisionTable = new CollisionTable();
-	    this.goalMap = new HashMap<>();
-		
+	public Level(int width, int height, List<Sprite> playerSpriteList) {
+		super(width, height);
+		collisionTable = new CollisionTable();
+		this.playerSpriteList=new ArrayList<>();
+	        goalMap = new HashMap<>();
+		if (playerSpriteList != null){
+			this.playerSpriteList=playerSpriteList;
+			prepareAllSprites();
+		}
+		if (this.playerSpriteList.isEmpty()) {
+			this.playerSpriteList.add(new Sprite());
+		}
 	}
 
 	/**
 	 * Gets the method to initialize the next level from the GameEngine
 	 * @param nextLevelConsumer
 	 */
-	public void passInitializeLevelMethod (IntConsumer nextLevelConsumer) {
-		nextLevelMethod = nextLevelConsumer;
-	}
 
-	@Override
-	public void update() {
-		
-		super.update();
-		goalMap.keySet().forEach(sprite -> handleGoals(sprite));
-		
-	}
+    public void passInitializeLevelMethod (IntConsumer nextLevelConsumer) {
+        nextLevelMethod = nextLevelConsumer;
+        
+    }
+    
+    @Override
+    public void update(){
+        super.update();
+        goalMap.keySet().forEach(sprite -> handleGoals(sprite));
+    }
 
-	/**
-	 * Checks the goal and initializes the next level if the goal is acheived
-	 * @param sprite
-	 */
-	private void handleGoals (Sprite sprite) {
-		
-		if(!sprite.isActive()){
-			nextLevelMethod.accept(goalMap.get(sprite));
-		}
-		
-	}
-	
-	public double[] getNewCameraLocations () {
-		
-		double[] xyLocations = new double[2];
-		
-		xyLocations[X] = playerSprite.transform().getPosX()+playerSprite.transform().getWidth()/2;
-		xyLocations[Y] = playerSprite.transform().getPosY()-playerSprite.transform().getHeight()/2;
-		
-		return xyLocations;
-		
-	}
+    /**
+     * Checks the goal and initializes the next level if the goal is acheived
+     * @param sprite
+     */
+    private void handleGoals (Sprite sprite) {
+        if(!sprite.isActive()){
+            nextLevelMethod.accept(goalMap.get(sprite));
+        }
+    }
+        
+    public double[] getNewCameraLocations () {
+        double[] xyLocations = new double[2];
+        xyLocations[X] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosX()+playerSpriteList.get(INT.LOCAL_PLAYER).transform().getWidth()/2;
+        xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight()/2;
+        return xyLocations;
+    }
 
 }	

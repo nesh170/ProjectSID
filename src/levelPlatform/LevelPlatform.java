@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import resources.constants.STRING;
