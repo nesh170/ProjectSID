@@ -41,8 +41,10 @@ public class EngineTester extends Tester {
 		myPlayerList.add(player);
 		mySpriteList.add(player);
 		//test MotionPathAction
+		makeTextBoxSprite(":This sprite wraps around:", 150, 220);
 		makeMotionPathSprite(new Point2D[] {new Point2D(150.0, 300.0), new Point2D(200.0, 350.0), 
 							 new Point2D(250.0, 300.0), new Point2D(200.0, 250.0)}, 2.0, true);
+		makeTextBoxSprite(":This sprite does not:", 180, 40);
 		Point2D[] zigZagPath = makeZigZagPath(30, 20, 40, 160, 80);
 		makeMotionPathSprite(zigZagPath, 5.0, false);
 		
@@ -56,6 +58,13 @@ public class EngineTester extends Tester {
 		}
 	}
 
+	private void makeTextBoxSprite(String text, int x, int y){
+		Sprite textSprite = new Sprite(new Point2D(x, y), Point2D.ZERO, new Dimension2D(text.length()*12, 150.0));
+		textSprite.setImagePath(text);
+		textSprite.setCollisionTag("textBox");
+		mySpriteList.add(textSprite);
+	}
+	
 	private Point2D[] makeZigZagPath(int numLines, int horSpace, int verSpace, int xStart, int yStart) {
 		Point2D[] zigZagPath = new Point2D[numLines];
 		for(int i = 0; i<zigZagPath.length; i++){
@@ -70,6 +79,7 @@ public class EngineTester extends Tester {
 		MotionPathAction mpa = new MotionPathAction(mps, speed, points, (KeyCode) null);
 		if(wrapsAround) mpa.wrapAround();
 		mpa.runEveryFrame();
+		mps.setCollisionTag("motionPathSprite");
 		mps.addAction(mpa);
 		mps.setImagePath("duke.png");
 		mySpriteList.add(mps);

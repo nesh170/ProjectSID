@@ -32,6 +32,32 @@
       </transform>
     </sprite.Sprite>
     <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>textBox</collisionTag>
+      <imagePath>:This sprite wraps around:</imagePath>
+      <transform>
+        <myPosition>
+          <x>150.0</x>
+          <y>220.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>312.0</width>
+          <height>150.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
       <actionList>
         <gameEngine.actions.MotionPathAction>
           <mySprite reference="../../.."/>
@@ -85,6 +111,7 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <collisionTag>motionPathSprite</collisionTag>
       <imagePath>duke.png</imagePath>
       <transform>
         <myPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
@@ -95,6 +122,32 @@
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>textBox</collisionTag>
+      <imagePath>:This sprite does not:</imagePath>
+      <transform>
+        <myPosition>
+          <x>180.0</x>
+          <y>40.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>264.0</width>
+          <height>150.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
         <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
@@ -283,6 +336,7 @@
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <collisionTag>motionPathSprite</collisionTag>
       <imagePath>duke.png</imagePath>
       <transform>
         <myPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
