@@ -50,6 +50,11 @@ public class STRING {
 		
 	}
 	
+	public class CSS {
+		public static final String ERROR = "text-field-error";
+		public static final String PANE = "pane";
+	}
+	
 	public class REGEX {
 		public static final String ANY_CHAR = ".+";
 	}
@@ -140,6 +145,9 @@ public class STRING {
 		
 		//Sprite Edit Strings
 		public static final String SPRITE_EDIT = "Sprite Edit Screen";
+		public static final String NAME = "Name";
+		public static final String SPRITE_PROMPT = "SpritePrompt";
+		public static final String IMAGE_PROMPT = "ImagePrompt";
 		
 	}
 	
@@ -165,6 +173,7 @@ public class STRING {
 	
 	//new String[]{"Add Level", "Edit Level", "Add Splash", "Edit Splash", "Remove Level"};
 	public static final Map<String, String> LEVELS_SPLASH_MAP;
+
     static
     {
     	LEVELS_SPLASH_MAP = new HashMap<String, String>();
