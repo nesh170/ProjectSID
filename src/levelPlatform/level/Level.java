@@ -1,17 +1,23 @@
 package levelPlatform.level;
 import gameEngine.Action;
-
 import gameEngine.CollisionTable;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
+
 import gameEngine.EngineMathFunctions;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import resources.constants.INT;
+import resources.constants.STRING;
 import sprite.Sprite;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
 
@@ -38,11 +44,11 @@ public class Level extends LevelPlatform {
 
 	
 	// Instance Variables
+	private int index;	//index of level indicating the order of level within the game
 	private Sprite playerSprite;
 	private CollisionTable collisionTable;
 	private IntConsumer nextLevelMethod;
 	private Map<Sprite, Integer> goalMap;
-
 
 	// Getters & Setters
 	/**
@@ -56,7 +62,14 @@ public class Level extends LevelPlatform {
 		return controlMap;
 
 	}
-
+	
+	public int index(){
+		return index;
+	}
+	public void setIndex(int index){
+		this.index = index;
+	}
+	
 	public void setPlayerSprite(Sprite player) {
 		playerSprite = player;
 	}
@@ -76,7 +89,6 @@ public class Level extends LevelPlatform {
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
 		this.goalMap = goalMap;
 	}
-
 
 	// Constructor & Helpers
 	/**
@@ -112,7 +124,7 @@ public class Level extends LevelPlatform {
 
 		// Call this in Level in addition to its super -- prepare playerSprite as well
 		prepareAllSprites();
-
+		this.index = index;
 	}
 	
 	private void instantiateMaps() {
@@ -149,7 +161,18 @@ public class Level extends LevelPlatform {
 		}
 		
 	}
-
+	/**
+	 * get an ImageView representation for each level to display on GameEditScreen.
+	 * returns a image of draft Level if 
+	 * @return ImageView or Image
+	 */
+	public ImageView getLevelImageView(){
+		//TODO: implement this method
+		//temporary image to reprsent each level
+		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.LEVEL2IMAGE));
+		return new ImageView(new Image(STRING.GAME_EDIT.LEVEL2IMAGE));
+	}
+	
 	public double[] getNewCameraLocations () {
 		
 		double[] xyLocations = new double[2];
