@@ -46,6 +46,7 @@ public class Sprite {
 	private String name;
 	private String tag;
 	private String collisionTag;
+	private String imagePath;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
@@ -64,6 +65,14 @@ public class Sprite {
 	 */
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	
 	public List<Action> actionList() {
@@ -190,6 +199,10 @@ public class Sprite {
 	
 	public void prepareAllActions(){
 		actionList.stream().forEach(action -> action.prepare());
+	}
+	
+	public void prepareImages(){
+		
 	}
 	
 	/**
