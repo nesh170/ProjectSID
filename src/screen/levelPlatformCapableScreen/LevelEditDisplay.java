@@ -89,6 +89,8 @@ public class LevelEditDisplay extends ScrollPane {
 	 */
 	public void addWidthRight() {
 		content.setMinWidth(content.getMinWidth() + increaseLevelSize);
+		this.setHmin(0);
+		this.setHmax(content.getWidth());
 	}
 	
 	/*
@@ -96,6 +98,8 @@ public class LevelEditDisplay extends ScrollPane {
 	 */
 	public void addHeightDown() {
 		content.setMinHeight(content.getMinHeight() + increaseLevelSize);
+		this.setVmin(0);
+		this.setVmax(content.getHeight());
 	}
 	
 	/*
