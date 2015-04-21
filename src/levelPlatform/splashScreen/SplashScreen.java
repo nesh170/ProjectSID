@@ -19,16 +19,12 @@ public class SplashScreen extends Level {
 		super(width, height);
 		
 	}
-	// All other instance methods
-	/**
-	 * get an ImageView representation for splash screen to display on GameEditScreen.
-	 * @return ImageView or Image
-	 */
-	public ImageView getSplashImageView(){
+
+	@Override
+	public ImageView getLevelPlatformImageView(){
 		//TODO: implement this method
-		//temporary img to reprsent each level
+		//temporary image to reprsent each level
 		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.SPLASH_TMP));
-		return img;		
+		return img;
 	}
-	
 }
