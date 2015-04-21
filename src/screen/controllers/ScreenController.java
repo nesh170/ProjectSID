@@ -464,7 +464,7 @@ public class ScreenController {
 			newLevel.setIndex(game.getLevelsSize());
 			createLevelEditScreen(newLevel);
 			game.addLevel(newLevel);
-			gameEditScreen.displayLevelsInParallel();
+			gameEditScreen.displayLevels(game.levels());
 			
 		}
 		
@@ -506,7 +506,7 @@ public class ScreenController {
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
 			game.removeLevel(levelIndex);
-			gameEditScreen.displayLevelsInParallel();
+			gameEditScreen.displayLevels(game.levels());
 			
 		}
 

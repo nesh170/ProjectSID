@@ -288,7 +288,7 @@ public class GameEditScreen extends Screen {
 	private void configureLevelDisplay() {
 
 		levelDisplay = new StackPane();
-		ScrollPane levelSP = this.displayLevels(game.levels());
+		ScrollPane levelSP = this.createScrollPane();
 
 		/*
 		 * using ImageViewButton class to make a blink of image when button is pressed down
@@ -319,18 +319,25 @@ public class GameEditScreen extends Screen {
 
 	}
 
-	/**
-	 * display list of levels that are represented by images in parallel
-	 * 
-	 * @param ObservableList
-	 *            <Level>
-	 */
-	private ScrollPane displayLevels(List<Level> levels) {
-		
-		// TODO:  in replace of ImageView below
-		ScrollPane sp = configureScrollPane();
+	private ScrollPane createScrollPane() {
+
+		ScrollPane sp = new ScrollPane();
+		sp.setFitToHeight(true); // wont extend out of ScrollPane vertically
+		sp.setPannable(true);
 		this.levelHB = configureHBox();
 		sp.setContent(levelHB);
+		displayLevels(game.levels());
+		return sp;
+		
+	}
+	
+	/**
+	 * display list of levels that are represented by images in parallel
+	 * @param game.levels()
+	 */
+	public void displayLevels(List<Level> levels) {
+		
+		// TODO:  in replace of ImageView below
 		if (game.hasLevel()) {
 			displayLevelsInParallel();
 		}
@@ -339,30 +346,20 @@ public class GameEditScreen extends Screen {
 			displayLevelsWhenEmpty();
 		}
 		
-		return sp;
-
 	}
 
-	private ScrollPane configureScrollPane() {
-
-		ScrollPane sp = new ScrollPane();
-		sp.setFitToHeight(true); // wont extend out of ScrollPane vertically
-		sp.setPannable(true);
-		return sp;
-
-	}
 
 	private void displayLevelsWhenEmpty() {
 
-		levelHB.setAlignment(Pos.CENTER);
-
+		//levelHB.setAlignment(Pos.CENTER);
+		levelHB.getChildren().clear();
 		levelHB.getChildren().addAll(
 				this.makeAddSignWhenEmpty("Add A New Level",
 						e -> controller.loadLevelEditScreen(game, this)));
 
 	}
 
-	public void displayLevelsInParallel() {
+	private void displayLevelsInParallel() {
 		levelHB.getChildren().clear();
 		for (Level l: game.levels()) {
 			Button level = getLevelSplashDisplayImage(
@@ -441,6 +438,8 @@ public class GameEditScreen extends Screen {
 	}	
 	
 	private void configureSelection(int index){
+		if(!game.hasLevel())	
+			System.out.println("Warning: I am empty!!");
 		selectedIndex = index;
 		selectedLevel = game.levels().get(selectedIndex);
 	}
@@ -459,7 +458,7 @@ public class GameEditScreen extends Screen {
 		return b;
 
 	}
-
+//TODO disable rest of screen
 	
 	private void createPopUp() {   
 		
