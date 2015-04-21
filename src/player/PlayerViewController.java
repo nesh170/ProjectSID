@@ -171,7 +171,7 @@ public class PlayerViewController {
 		// for games already established so no directory needs to be opened here
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		try {
-			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myGameLevels = DataHandler.getGameFromDir(myGameFolder).levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();
