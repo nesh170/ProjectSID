@@ -232,7 +232,7 @@ public class GameEditScreen extends Screen {
 	private Button displayMySplash() {
 
 		ImageView img = game.splashScreen().getLevelPlatformImageView();
-		Button b = getLevelSplashDisplayImage(img, INT.SPLASH, 0);
+		Button b = getLevelOrSplashButtons(img, INT.SPLASH, 0);
 		
 		return b;
 		
