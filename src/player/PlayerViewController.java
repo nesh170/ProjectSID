@@ -106,17 +106,21 @@ public class PlayerViewController {
 
 	private StackPane makePauseScreen() {
 		StackPane pause = new StackPane();
+		pause.setPrefSize(500, 500);
+		pause.setAlignment(Pos.CENTER);
 		Button startButton = new Button("Resume");
 		startButton.setOnAction(event -> {
 			startView();
 		});
-		pause.getChildren().addAll(startButton, myHUD.getHUDBox());
+		pause.getChildren().addAll(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
 
 	private void bringupPause() {
-		myGameRoot.setContent(makePauseScreen());
+		StackPane pause = makePauseScreen();
+		myGameRoot.setContent(pause);
+		pause.requestFocus();
 	}
 
 	private void removePause() {

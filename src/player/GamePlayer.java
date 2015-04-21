@@ -52,6 +52,9 @@ public class GamePlayer {
 
 	public GamePlayer(Game game, ScrollPane pane) {
 		myGameRoot = pane;
+		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		// myGameRoot.setMaxSize(width, height);
 		myView = new PlayerViewController(game, myGameRoot, myHUD);
 	}
 
