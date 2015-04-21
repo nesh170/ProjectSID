@@ -131,26 +131,6 @@ public class PlayerMenu {
 		return gameChooser;
 	}
 
-	public void startGame() {
-		myPlayer.start();
-	}
-
-	public void pauseGame() {
-		myPlayer.pause();
-	}
-
-	public void loadNewGame() {
-		myPlayer.loadNewGame();
-	}
-
-	public void saveGame() {
-		myPlayer.save();
-	}
-
-	public void showTutorial() {
-		myPlayer.showTutorial();
-		myPlayer.pauseMusic();
-	}
 
 	public MenuBar getBar() {
 		return myMenuBar;

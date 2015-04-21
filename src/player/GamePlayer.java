@@ -74,26 +74,6 @@ public class GamePlayer {
 		return stack;
 	}
 
-	public void start() {
-		myView.startView();
-	}
-
-	public void pause() {
-		myView.stopView();
-	}
-
-	public void showTutorial() {
-		myView.showTutorial();
-	}
-
-	public void loadNewGame() {
-		myView.loadNewChooser();
-	}
-
-	public void save() {
-		myView.save();
-	}
-
 	public void setupActions(PlayerMenu pMenu) {
 		pMenu.createPlayerMenu(myView);
 	}
@@ -117,16 +97,5 @@ public class GamePlayer {
 		return null;
 	}
 
-	public void playMusic() {
-		myView.playMusic();
-	}
-
-	public void pauseMusic() {
-		myView.pauseMusic();
-	}
-
-	public void stopMusic() {
-		myView.stopMusic();
-	}
 
 }
