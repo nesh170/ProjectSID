@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
@@ -406,10 +409,18 @@ public class ScreenController {
 		@Override
 		public void confirmToCreateGame(Popup popup, TextField gameName,
 				TextArea des) {
-			Game newGame = new Game(gameName.getText());
-            newGame.setDescription(des.getText());
-            createGameEditScreen(newGame);
-            popup.hide();
+			Pattern currKeyPattern = Pattern.compile(".+");
+			Matcher m = currKeyPattern.matcher(gameName.getText());
+			
+			if (m.matches()) {
+				Game newGame = new Game(gameName.getText());
+				newGame.setDescription(des.getText());
+				createGameEditScreen(newGame);
+				popup.hide();
+			}
+			else {
+				errorHandler.displayError("Please Enter Game Name");
+			}
 		}
 		
 		@Override
