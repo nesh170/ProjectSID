@@ -44,11 +44,11 @@ public class Level extends LevelPlatform {
 
 	
 	// Instance Variables
+	private int index;	//index of level indicating the order of level within the game
 	private Sprite playerSprite;
 	private CollisionTable collisionTable;
 	private IntConsumer nextLevelMethod;
 	private Map<Sprite, Integer> goalMap;
-
 
 	// Getters & Setters
 	/**
@@ -62,7 +62,14 @@ public class Level extends LevelPlatform {
 		return controlMap;
 
 	}
-
+	
+	public int index(){
+		return index;
+	}
+	public void setIndex(int index){
+		this.index = index;
+	}
+	
 	public void setPlayerSprite(Sprite player) {
 		playerSprite = player;
 	}
@@ -82,7 +89,6 @@ public class Level extends LevelPlatform {
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
 		this.goalMap = goalMap;
 	}
-
 
 	// Constructor & Helpers
 	/**
@@ -118,7 +124,7 @@ public class Level extends LevelPlatform {
 
 		// Call this in Level in addition to its super -- prepare playerSprite as well
 		prepareAllSprites();
-
+		this.index = index;
 	}
 	
 	private void instantiateMaps() {

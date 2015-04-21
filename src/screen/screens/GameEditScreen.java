@@ -88,8 +88,8 @@ public class GameEditScreen extends Screen {
 	private Game game;
 //	private ObservableList<Level> levels;
 	// initalized for testing purpose
-	private Level selectedLevel = new Level(INT.DEFAULT_LEVEL_WIDTH, INT.DEFAULT_LEVEL_HEIGHT);
-	private int selectedIndex = 0;
+	private Level selectedLevel;
+	private int selectedIndex;
 	// JavaFX
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
@@ -235,8 +235,7 @@ public class GameEditScreen extends Screen {
 	private Button displayMySplash() {
 
 		ImageView img = game.splashScreen().getSplashImageView();
-		Button b = getLevelSplashDisplayImage(img, INT.SPLASH);
-
+		Button b = getLevelSplashDisplayImage(img, INT.SPLASH, 0);
 		
 		return b;
 		
@@ -333,7 +332,7 @@ public class GameEditScreen extends Screen {
 		this.levelHB = configureHBox();
 		sp.setContent(levelHB);
 		if (game.hasLevel()) {
-			displayLevelsInParallel(levels);
+			displayLevelsInParallel();
 		}
 
 		else {
@@ -341,6 +340,123 @@ public class GameEditScreen extends Screen {
 		}
 		
 		return sp;
+
+	}
+
+	private ScrollPane configureScrollPane() {
+
+		ScrollPane sp = new ScrollPane();
+		sp.setFitToHeight(true); // wont extend out of ScrollPane vertically
+		sp.setPannable(true);
+		return sp;
+
+	}
+
+	private void displayLevelsWhenEmpty() {
+
+		levelHB.setAlignment(Pos.CENTER);
+
+		levelHB.getChildren().addAll(
+				this.makeAddSignWhenEmpty("Add A New Level",
+						e -> controller.loadLevelEditScreen(game, this)));
+
+	}
+
+	public void displayLevelsInParallel() {
+		levelHB.getChildren().clear();
+		for (Level l: game.levels()) {
+			Button level = getLevelSplashDisplayImage(
+					l.getLevelImageView(), INT.LEVEL, l.index()); //pass in index and set levelIndex
+			levelHB.getChildren().add(level);
+		}
+	}
+
+	//TODO: change here for different level indexes
+	private Button getLevelSplashDisplayImage(ImageView img, int splashOrLevel, int index) {
+
+		Button b = new Button();
+		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
+		b.setGraphic(img);
+		b.setOnMouseClicked(handleDoubleRightClick(b, splashOrLevel, this, index));
+		return b;
+	}
+
+	/**
+	 * handles mouse event: double left mouse click and right mouse click
+	 * 
+	 * @param node
+	 * @return EventHandler<MouseEvent>
+	 */
+	private EventHandler<MouseEvent> handleDoubleRightClick(Node node, int splashOrLevel, 
+			GameEditScreen g, int index) {
+		
+		return new EventHandler<MouseEvent>() { // double Click to edit a screen
+
+			public void handle(MouseEvent mouseEvent) {
+
+				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+					
+					if (mouseEvent.getClickCount() == 2) {
+						
+						if (splashOrLevel == INT.LEVEL) {
+							configureSelection(index);
+							controller.loadLevelEditScreen(selectedLevel);
+						}
+							
+						else {
+							controller.loadSplashEditScreen(game, g);
+						}
+							
+					}
+					
+				}
+				
+				else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+					
+					if (splashOrLevel == INT.LEVEL) {
+						configureSelection(index);
+						makeRightClickMenu(
+								e -> controller
+										.loadLevelEditScreen(selectedLevel),
+								e -> controller.trashLevel(game,
+										selectedIndex, g)).show(node,
+								mouseEvent.getScreenX(),
+								mouseEvent.getScreenY());
+					}
+						
+					else {
+						makeRightClickMenu(
+								e -> controller.loadSplashEditScreen(game, g),
+								e -> controller.trashSplash(game, g)).show(node,
+								mouseEvent.getSceneX(), mouseEvent.getSceneY());
+					}
+						
+				}
+				
+			}
+			
+		};
+		
+	}	
+	
+	private void configureSelection(int index){
+		selectedIndex = index;
+		selectedLevel = game.levels().get(selectedIndex);
+	}
+	
+	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
+
+		ImageView b = new ImageView(new Image(locUp));
+		b.setFitHeight(80);
+		b.setFitWidth(80);
+		b.setOnMouseClicked(lamda);
+		
+		// added by anika
+		b.setOnMousePressed(e -> b.setImage(new Image(locDown)));
+		b.setOnMouseReleased(e -> b.setImage(new Image(locUp)));
+
+		return b;
 
 	}
 
@@ -386,116 +502,7 @@ public class GameEditScreen extends Screen {
 		return hb;
 
 	}
-
-	private ScrollPane configureScrollPane() {
-
-		ScrollPane sp = new ScrollPane();
-		sp.setFitToHeight(true); // wont extend out of ScrollPane vertically
-		sp.setPannable(true);
-		return sp;
-
-	}
-
-	private void displayLevelsWhenEmpty() {
-
-		levelHB.setAlignment(Pos.CENTER);
-
-		levelHB.getChildren().addAll(
-				this.makeAddSignWhenEmpty("Add A New Level",
-						e -> controller.loadLevelEditScreen(game, this)));
-
-	}
-
-	public void displayLevelsInParallel(List<Level> levels) {
-		levelHB.getChildren().clear();
-		for (Level l: levels) {
-			Button level = getLevelSplashDisplayImage(
-					l.getLevelImageView(), INT.LEVEL);
-			levelHB.getChildren().add(level);
-		}
-	}
-
-	//TODO: change here for different level indexes
-	private Button getLevelSplashDisplayImage(ImageView img, int splashOrLevel) {
-
-		Button b = new Button();
-		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
-		b.setGraphic(img);
-		b.setOnMouseClicked(handleDouleRightClick(b, splashOrLevel, this));
-		return b;
-	}
-
-	/**
-	 * handles mouse event: double left mouse click and right mouse click
-	 * 
-	 * @param node
-	 * @return EventHandler<MouseEvent>
-	 */
-	private EventHandler<MouseEvent> handleDouleRightClick(Node node, int splashOrLevel, GameEditScreen g) {
-
-		return new EventHandler<MouseEvent>() { // double Click to edit a screen
-
-			public void handle(MouseEvent mouseEvent) {
-
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					
-					if (mouseEvent.getClickCount() == 2) {
-						
-						if (splashOrLevel == INT.LEVEL) {
-							controller.loadLevelEditScreen(selectedLevel);
-						}
-							
-						else {
-							controller.loadSplashEditScreen(game, g);
-						}
-							
-					}
-					
-				}
-				
-				else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-					
-					if (splashOrLevel == INT.LEVEL) {
-						makeRightClickMenu(
-								e -> controller
-										.loadLevelEditScreen(selectedLevel),
-								e -> controller.trashLevel(game,
-										selectedIndex)).show(node,
-								mouseEvent.getScreenX(),
-								mouseEvent.getScreenY());
-					}
-						
-					else {
-						makeRightClickMenu(
-								e -> controller.loadSplashEditScreen(game, g),
-								e -> controller.trashSplash(game)).show(node,
-								mouseEvent.getSceneX(), mouseEvent.getSceneY());
-					}
-						
-				}
-				
-			}
-			
-		};
-		
-	}
-
-	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
-
-		ImageView b = new ImageView(new Image(locUp));
-		b.setFitHeight(80);
-		b.setFitWidth(80);
-		b.setOnMouseClicked(lamda);
-		
-		// added by anika
-		b.setOnMousePressed(e -> b.setImage(new Image(locDown)));
-		b.setOnMouseReleased(e -> b.setImage(new Image(locUp)));
-
-		return b;
-
-	}
-
+	
 	/**
 	 * make a right click menu for editing and removing a level
 	 */
@@ -568,7 +575,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu trashButton = new Menu("", trashImage);
 		MenuItem delete = new MenuItem("Add new Level");
-		delete.setOnAction(o -> controller.trashLevel(game, selectedIndex));
+		delete.setOnAction(o -> controller.trashLevel(game, selectedIndex, this));
 		
 		return trashButton;
 

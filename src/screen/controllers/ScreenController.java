@@ -461,9 +461,10 @@ public class ScreenController {
 			//Create new Level, add to end of game
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+			newLevel.setIndex(game.getLevelsSize());
 			createLevelEditScreen(newLevel);
 			game.addLevel(newLevel);
-			gameEditScreen.displayLevelsInParallel(game.levels());
+			gameEditScreen.displayLevelsInParallel();
 			
 		}
 		
@@ -480,8 +481,8 @@ public class ScreenController {
 		 * reloads GameEditScreen, needs to reloads the game to reflect those changes on the screen
 		 * Used when remove is clicked, so that GameEditScreen correctly reflects the removal of level or splash
 		 * 
-		 * OR to addListener() when change happened, use animation to reflect changes instead of refreshes whole screen
-		 * addListener( o-> animationToReduceLevelImage); (use easy method for now)
+		 * OR to addListener() when change happened,
+		 * addListener( o-> animationToReduceLevelImage);
 		 * @param game
 		 */
 		public void reloadGameEditScreen(Game game){
@@ -496,23 +497,26 @@ public class ScreenController {
 		
 		@Override
 		public void playGame(Game game) {
+			
 			createGamePlayScreen();
 
 		}
 
 		@Override
-		public void trashLevel(Game game, int levelIndex) {
+		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
 			game.removeLevel(levelIndex);
-			reloadGameEditScreen(game);
+			gameEditScreen.displayLevelsInParallel();
+			
 		}
 
 
 		@Override
-		public void trashSplash(Game game) {
+		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			reloadGameEditScreen(game);
+			gameEditScreen.displayApproporiateSplashButton();
+			
 		}
 
 

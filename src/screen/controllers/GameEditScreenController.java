@@ -38,14 +38,14 @@ public interface GameEditScreenController {
 	 */
 	public void playGame(Game game);
 	/**
-	 * remove the level from list of levels created 
+	 * remove the level from list of levels created and updates gameEditScreen
 	 * @param level
 	 */
-	public void trashLevel(Game game, int levelIndex);
+	public void trashLevel(Game game, int levelIndex, GameEditScreen gameEditScreen);
 	/**
-	 * removes the splash screen the game
+	 * removes the splash screen the game and updates gameEditScreen
 	 */
-	public void trashSplash(Game game);	
+	public void trashSplash(Game game, GameEditScreen gameEditScreen);	
 	
 	/**
 	 * Saves game to XML file
