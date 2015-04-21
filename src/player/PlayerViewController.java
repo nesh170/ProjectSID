@@ -162,10 +162,7 @@ public class PlayerViewController {
 		chooseGame(chooserStage);
 	}
 
-	private void chooseGame(Stage gameChooser) {
-		// find a way to set up a map so we can just have file paths
-		// for games already established so no directory needs to be opened here
-		myGameFolder = DataHandler.chooseDir(gameChooser);
+	public void initializeGameAttributes() {
 		try {
 			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
@@ -177,6 +174,13 @@ public class PlayerViewController {
 			e.printStackTrace();
 		}
 		myEngine = new GameEngine(myGameLevels);
+	}
+	
+	private void chooseGame(Stage gameChooser) {
+		// find a way to set up a map so we can just have file paths
+		// for games already established so no directory needs to be opened here
+		myGameFolder = DataHandler.chooseDir(gameChooser);
+		initializeGameAttributes();
 		setupAnimation();
 		startView();
 	}
@@ -203,6 +207,12 @@ public class PlayerViewController {
 		}
 	}
 
+	public void restart() {
+		stopView();
+		initializeGameAttributes();
+		startView();
+	}
+	
 	public void showTutorial() {
 		// TODO Auto-generated method stub
 		try {

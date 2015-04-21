@@ -64,20 +64,16 @@ public class PlayerMenu {
 			view.startView();
 			;
 		});
-		MenuItem newGameItem = makeMenuItem("New Game");
-		newGameItem.setOnAction(event -> {
-			view.loadNewChooser();
-		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			System.out.println("write code to load saved game");
 		});
-		MenuItem quitItem = makeMenuItem("Quit");
-		quitItem.setOnAction(event -> {
-			System.exit(0);
+		MenuItem restartItem = makeMenuItem("Restart");
+		restartItem.setOnAction(event -> {
+			view.restart();
 		});
-		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
-				quitItem);
+		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
+				restartItem);
 		return fileMenu;
 	}
 
