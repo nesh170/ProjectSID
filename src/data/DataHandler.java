@@ -68,7 +68,7 @@ public class DataHandler {
 				.map(file -> fromXMLFile(file))
 				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 
-		if (games.size() != 0) {
+		if (games.size() != 1) {
 			System.out.println("NOT EXACTLY ONE .XML FILE");
 			return null;
 		} else {
