@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -224,30 +226,28 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		/*
 		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
 		 */
-		platformListView.setOnMouseReleased(e -> {
+		platformListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
-			try {
-
-				if(selectedSprite!=null) { //Deselect the old selected sprite by setting opacity to 1
-					levelEditDisplay.getImage(selectedSprite).setOpacity(1);
+			public void changed(ObservableValue<? extends String> ov,
+					String oldSelect, String newSelect) {
+				try {
+					if(stringToSpriteMap.containsKey(oldSelect)) {
+						levelEditDisplay.getImage(stringToSpriteMap.get(oldSelect)).setOpacity(1);
+					}
+					/*
+					 * this next line could throw an exception possibly if
+					 * the selection model is empty, catch statement is precautionary
+					 */
+					selectSprite(stringToSpriteMap.get(newSelect));
 				}
 
-				/*
-				 * this next line could throw an exception possibly if
-				 * the selection model is empty, catch statement is precautionary
-				 */				
-				String sprite = platformListView.getSelectionModel().getSelectedItem();
-				selectedSprite = stringToSpriteMap.get(sprite);
-				levelEditDisplay.getImage(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
-
+				catch (IndexOutOfBoundsException | NullPointerException ee) {
+					//do not select any sprites, since no sprites are in the selection model
+				}				
 			}
-
-			catch (IndexOutOfBoundsException | NullPointerException ee) {
-				//do not select any sprites, since no sprites are in the selection model
-			}
-
+			
 		});
-
+		
 		return new TitledPane(title, titledPaneBox);
 
 	}
@@ -480,18 +480,24 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
+	private void selectSprite(Sprite sprite) {
+		selectedSprite = sprite;
+		levelEditDisplay.getImage(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+		levelEditDisplay.setVvalue(selectedSprite.getY());
+		levelEditDisplay.setHvalue(selectedSprite.getX());
+	}
+	
 	private void delete() {
 		level.sprites().remove(selectedSprite);
-		stringToListMap.get(selectedSprite.tag()).remove(selectedSprite.getName());
 		stringToSpriteMap.remove(selectedSprite.getName());
 		levelEditDisplay.removeSpriteFromDisplay(selectedSprite, levelEditDisplay.getImage(selectedSprite));
+		Sprite tempSprite = selectedSprite;
 		selectedSprite = null;
+		stringToListMap.get(tempSprite.tag()).remove(tempSprite.getName());
 	}
 	
 	private void copy() {
 		addSprite(new Sprite(selectedSprite));
-		levelEditDisplay.getImage(selectedSprite).setOpacity(1);
-		selectedSprite = null;
 	}
 	
 	/**
