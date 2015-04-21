@@ -75,7 +75,9 @@ import levelPlatform.splashScreen.SplashScreen;
  * @author Yongjiao
  * @author Anika
  */
-//TODO disable rest of screen when popup shows
+//TODO list: - disable rest of screen when popup shows
+//- could add only once a draft levelImagerepresnetation when user returns from LevelEditScreen without modifying everything since level is automatically saved
+//- could also add drag and drop functionality to rearrange ordering of list of levels.
 public class GameEditScreen extends Screen {
 
 	// Static Variables
@@ -441,7 +443,6 @@ public class GameEditScreen extends Screen {
 	
 	private void configureSelection(int index){
 		selectedIndex = index;
-		System.out.println("my index is "+ selectedIndex);
 		selectedLevel = game.levels().get(selectedIndex);
 	}
 	
