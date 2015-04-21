@@ -25,7 +25,7 @@ public class HUD {
 	public HUD(ScrollPane pane, HashMap<String, Double> map) {
 		myPane = pane;
 		myHUDMap = map;
-		myHUDBox = new HBox();
+		myHUDBox = new HBox(10);
 		mySize = 20;
 		myFont = "Arial Black";
 		myColor = Color.BLACK;
@@ -37,7 +37,7 @@ public class HUD {
 	
 	public HUD() {
 		myHUDMap = new HashMap<String, Double>();
-		myHUDBox = new HBox();
+		myHUDBox = new HBox(10);
 		mySize = 20;
 		myFont = "Arial Black";
 		myColor = Color.BLACK;

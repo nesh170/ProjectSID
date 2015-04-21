@@ -44,19 +44,14 @@ public class GamePlayScreen extends Screen {
 	
 	public GamePlayScreen(GamePlayScreenController gamePlayScreenController, double width, double height) {
 		super(width, height);
-		//maybe change? adding creating GamePlayer here so screen can get MenuBar
-		//also every GamePlayer must be containted within a gamePlayer screen
-		//myMenu = new PlayerMenu(width, height);
+		//also every GamePlayer must be contained within a gamePlayer screen
 		this.gamePlayScreenController = gamePlayScreenController;
 		ScrollPane scroll = new ScrollPane();
 		StackPane base = new StackPane();
-		StackPane top = new StackPane();
-		myHUD = createHUD(scroll);
-		top.getChildren().add(myHUD.getHUDBox());
-		top.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+		myPlayer = new GamePlayer(scroll);
+		StackPane top = myPlayer.createHUD(scroll);
 		this.setCenter(base);
 		base.getChildren().addAll(scroll, top);
-		myPlayer = new GamePlayer(scroll, myHUD);
 		myPlayer.setupActions(myMenu);
 	}
 
@@ -64,7 +59,7 @@ public class GamePlayScreen extends Screen {
 		super(width, height);
 		ScrollPane scroll = new ScrollPane();
 		viewableArea().setCenter(scroll);
-		myPlayer = new GamePlayer(game, scroll, myHUD);
+		myPlayer = new GamePlayer(game, scroll);
 		myPlayer.setupActions(myMenu);
 	}
 	
@@ -73,14 +68,6 @@ public class GamePlayScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		PlayerMenu menu = new PlayerMenu(menuBar);
 		myMenu = menu;
-	}
-	
-	public HUD createHUD(ScrollPane pane) {
-		myHUD = new HUD(pane);
-		myHUD.addItem("Lives", 0);
-		myHUD.addItem("Health", 0);
-		myHUD.addItem("Score", 0);
-		return myHUD;
 	}
 	
 	// All other instance methods

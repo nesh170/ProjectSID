@@ -26,7 +26,7 @@ public class PlayerMenu {
 	
 	public PlayerMenu(Stage stage) {
 		myMenuBar = createPlayerMenu();
-		myPlayer = new GamePlayer(stage, getBar(), new HUD());
+		myPlayer = new GamePlayer(stage, getBar());
 	}
 
 //	public PlayerMenu(double width, double height) {

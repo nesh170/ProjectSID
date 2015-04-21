@@ -47,7 +47,6 @@ public class PlayerViewController {
 	private AudioController myAudioController;
 	private Media myVideo;
 	private Media myAudio;
-	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
 	private int myLives;
@@ -67,14 +66,12 @@ public class PlayerViewController {
 		myCamera = new Camera(pane);
 		myHUD = gameHUD;
 		loadNewChooser();
-		myPause = makePauseScreen();
 	}
 
 	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
 		myHUD = gameHUD;
-		myPause = makePauseScreen();
 		selectGame(game);
 	}
 
@@ -113,15 +110,13 @@ public class PlayerViewController {
 		startButton.setOnAction(event -> {
 			startView();
 		});
-		pause.getChildren().add(startButton);
+		pause.getChildren().addAll(startButton, myHUD.getHUDBox());
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(myWidth - 100);
-		pause.setPrefHeight(myHeight - 50);
 		return pause;
 	}
 
 	private void bringupPause() {
-		myGameRoot.setContent(myPause);
+		myGameRoot.setContent(makePauseScreen());
 	}
 
 	private void removePause() {
