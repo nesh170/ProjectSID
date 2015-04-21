@@ -61,7 +61,7 @@ public class LogInScreen extends Screen {
 		
 	}
 	
-	private ImageView makeImageView(String s, int height, int width) {
+	protected ImageView makeImageView(String s, int height, int width) {
 		
 		ImageView img = new ImageView(s);
 		img.setFitHeight(height);
