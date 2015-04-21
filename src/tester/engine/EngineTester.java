@@ -2,6 +2,7 @@ package tester.engine;
 
 import gameEngine.Action;
 import gameEngine.actions.LeftMotionAction;
+import gameEngine.actions.MotionPathAction;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.components.VelocityComponent;
 
@@ -40,14 +41,10 @@ public class EngineTester extends Tester {
 		myPlayerList.add(player);
 		mySpriteList.add(player);
 		//test MotionPathAction
-		makeMotionPathSprite(new Point2D[] {new Point2D(0.0, 200.0), new Point2D(100.0, 200.0)}, 2.0);
 		makeMotionPathSprite(new Point2D[] {new Point2D(150.0, 300.0), new Point2D(200.0, 350.0), 
-							 new Point2D(250.0, 300.0)}, 2.0);
-		Point2D[] zigZagPath = new Point2D[30];
-		for(int i = 0; i<zigZagPath.length; i++){
-			zigZagPath[i] = new Point2D(160 + 20*i, 80 + (i%2)*40);
-		}
-		makeMotionPathSprite(zigZagPath, 5.0);
+							 new Point2D(250.0, 300.0), new Point2D(200.0, 250.0)}, 2.0, true);
+		Point2D[] zigZagPath = makeZigZagPath(30, 20, 40, 160, 80);
+		makeMotionPathSprite(zigZagPath, 5.0, false);
 		
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);
@@ -59,10 +56,19 @@ public class EngineTester extends Tester {
 		}
 	}
 
-	private void makeMotionPathSprite(Point2D[] points, double speed) {
+	private Point2D[] makeZigZagPath(int numLines, int horSpace, int verSpace, int xStart, int yStart) {
+		Point2D[] zigZagPath = new Point2D[numLines];
+		for(int i = 0; i<zigZagPath.length; i++){
+			zigZagPath[i] = new Point2D(xStart + horSpace*i, yStart + (i%2)*verSpace);
+		}
+		return zigZagPath;
+	}
+
+	private void makeMotionPathSprite(Point2D[] points, double speed, boolean wrapsAround) {
 		Sprite mps = new Sprite(points[0], Point2D.ZERO, new Dimension2D(50.0, 50.0));
 		mps.addComponent(new VelocityComponent(mps, null));
-		Action mpa = new MotionPathAction(mps, speed, points, (KeyCode) null);
+		MotionPathAction mpa = new MotionPathAction(mps, speed, points, (KeyCode) null);
+		if(wrapsAround) mpa.wrapAround();
 		mpa.runEveryFrame();
 		mps.addAction(mpa);
 		mps.setImagePath("duke.png");

@@ -33,64 +33,7 @@
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList>
-        <tester.engine.MotionPathAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <null/>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>true</runsEveryFrame>
-          <value>0.0</value>
-          <myPoints>
-            <javafx.geometry.Point2D>
-              <x>0.0</x>
-              <y>200.0</y>
-              <hash>0</hash>
-            </javafx.geometry.Point2D>
-            <javafx.geometry.Point2D>
-              <x>100.0</x>
-              <y>200.0</y>
-              <hash>0</hash>
-            </javafx.geometry.Point2D>
-          </myPoints>
-          <myDirection>1</myDirection>
-          <myLastVisitedIndex>0</myLastVisitedIndex>
-          <mySpeed>2.0</mySpeed>
-          <myTolerance>2.0</myTolerance>
-        </tester.engine.MotionPathAction>
-      </actionList>
-      <componentList>
-        <gameEngine.components.VelocityComponent>
-          <mySprite reference="../../.."/>
-          <isActive>true</isActive>
-          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
-          <myTerminalVelocity>5.0</myTerminalVelocity>
-          <isGrounded>true</isGrounded>
-        </gameEngine.components.VelocityComponent>
-      </componentList>
-      <x>0.0</x>
-      <y>0.0</y>
-      <emissionList/>
-      <isActive>true</isActive>
-      <imagePath>duke.png</imagePath>
-      <transform>
-        <myPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
-        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
-        <myDimensions>
-          <width>50.0</width>
-          <height>50.0</height>
-          <hash>0</hash>
-        </myDimensions>
-        <startPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
-        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
-        <startDimensions reference="../myDimensions"/>
-      </transform>
-    </sprite.Sprite>
-    <sprite.Sprite>
-      <actionList>
-        <tester.engine.MotionPathAction>
+        <gameEngine.actions.MotionPathAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
@@ -116,12 +59,18 @@
               <y>300.0</y>
               <hash>0</hash>
             </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>200.0</x>
+              <y>250.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
           </myPoints>
           <myDirection>1</myDirection>
           <myLastVisitedIndex>0</myLastVisitedIndex>
           <mySpeed>2.0</mySpeed>
           <myTolerance>2.0</myTolerance>
-        </tester.engine.MotionPathAction>
+          <wrapsAround>true</wrapsAround>
+        </gameEngine.actions.MotionPathAction>
       </actionList>
       <componentList>
         <gameEngine.components.VelocityComponent>
@@ -138,21 +87,21 @@
       <isActive>true</isActive>
       <imagePath>duke.png</imagePath>
       <transform>
-        <myPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
           <width>50.0</width>
           <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
-        <startPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
         <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
     <sprite.Sprite>
       <actionList>
-        <tester.engine.MotionPathAction>
+        <gameEngine.actions.MotionPathAction>
           <mySprite reference="../../.."/>
           <isActive>false</isActive>
           <myKeyCode class="java.util.Arrays$ArrayList">
@@ -318,7 +267,8 @@
           <myLastVisitedIndex>0</myLastVisitedIndex>
           <mySpeed>5.0</mySpeed>
           <myTolerance>5.0</myTolerance>
-        </tester.engine.MotionPathAction>
+          <wrapsAround>false</wrapsAround>
+        </gameEngine.actions.MotionPathAction>
       </actionList>
       <componentList>
         <gameEngine.components.VelocityComponent>
@@ -335,14 +285,14 @@
       <isActive>true</isActive>
       <imagePath>duke.png</imagePath>
       <transform>
-        <myPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
           <width>50.0</width>
           <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
-        <startPosition reference="../../actionList/tester.engine.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
         <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
