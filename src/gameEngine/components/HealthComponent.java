@@ -12,22 +12,18 @@ import gameEngine.Component;
 public class HealthComponent extends Component {
 	
 	private static final Double DEFAULT_STARTING_HP = 50.0;
-	private static final int DEFAULT_STARTING_LIVES = 5;
 	private static final boolean DEFAULT_DEATH = true;
 	
 	private Double myHP;
-	private int myLives;
 	private boolean hasDeath;
 	
 	public HealthComponent(Sprite sprite, List<Double> valueList){
 		super(sprite, valueList);
 		try{
 		    myHP = valueList.get(0);
-		    myLives = Math.toIntExact(Math.round(valueList.get(1)));
 		}
 		catch(Exception e){
 		    myHP = DEFAULT_STARTING_HP;
-		    myLives = DEFAULT_STARTING_LIVES;
 		}		    
 		hasDeath = DEFAULT_DEATH;
 	}
@@ -39,10 +35,6 @@ public class HealthComponent extends Component {
 		myHP = startingHP;
 	}
 	
-	public void setLives(int startingLives){
-		myLives = startingLives;
-	}
-	
 	public void setHasDeath(boolean death){
 		hasDeath = death;
 	}
@@ -50,10 +42,6 @@ public class HealthComponent extends Component {
 	/** get health points */
 	public Double getHealth(){
 		return myHP;
-	}
-	
-	public int getLives(){
-		return myLives;
 	}
 	
 	/**	Subtract double from HP */
@@ -76,12 +64,6 @@ public class HealthComponent extends Component {
 		myHP += increaseAmount;
 	}
 	
-	
-	public void kill(){
-		mySprite.setIsActive(false);
-		myLives--;
-	}
-	
 	@Override
 	public void prepare() {
 		// TODO Auto-generated method stub
@@ -90,10 +72,10 @@ public class HealthComponent extends Component {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		LifeComponent lifeComponent = (LifeComponent) mySprite.getComponentOfType("LifeComponent");
 		
 		if(mySprite.isActive() && myHP <= 0.0 && hasDeath)	{
-			kill();
+			lifeComponent.kill();
 		}
 
 	}

@@ -40,12 +40,16 @@ public class INT {
 	//Buttons
 	public static final int PREF_BUTTON_WIDTH = 150;
 
-
+	//Multiplayer
+	public static final int LOCAL_PLAYER = 0;
+	
 	//Directions
     public static final int COLLISION_LEFT=0;
     public static final int COLLISION_RIGHT=1;
     public static final int COLLISION_UP=2;
     public static final int COLLISION_DOWN=3;
+
+    
 
 	
 
