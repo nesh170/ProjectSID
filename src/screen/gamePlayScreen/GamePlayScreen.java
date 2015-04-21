@@ -22,7 +22,6 @@ public class GamePlayScreen extends Screen {
 	private PlayerMenu myMenu;
 	private GamePlayer myPlayer;
 	private GamePlayScreenController gamePlayScreenController;
-	private HUD myHUD;
 	
 	// Constructor & Helpers
 	public GamePlayScreen(GamePlayScreenController parent, double width, double height, Level level) {

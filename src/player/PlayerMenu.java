@@ -20,38 +20,29 @@ import javafx.stage.Stage;
 public class PlayerMenu {
 
 	private MenuBar myMenuBar;
-	private PlayerViewController myView;
 	private GamePlayer myPlayer;
-	private List<MenuItem> myCommandItems = new ArrayList<MenuItem>();
 	
 	public PlayerMenu(Stage stage) {
-		myMenuBar = createPlayerMenu();
+		myMenuBar = new MenuBar();
+		//createPlayerMenu(new PlayerViewController());
 		myPlayer = new GamePlayer(stage, getBar());
 	}
-
-//	public PlayerMenu(double width, double height) {
-//		myPlayer = new GamePlayer(width, height);
-//		myMenuBar = createPlayerMenu();
-//	}
 	
 	public PlayerMenu(MenuBar menuBar) {
 		myMenuBar = menuBar;
-		createPlayerMenu(menuBar);
 	}
 	
-	public MenuBar createPlayerMenu(MenuBar menuBar) {
+	public void createPlayerMenu(MenuBar menuBar, PlayerViewController view) {
 		Menu menuView = new Menu("View");
-		menuBar.getMenus().add(buildFileMenu());
-		menuBar.getMenus().add(buildGamesMenu());
+		menuBar.getMenus().add(buildFileMenu(view));
+		menuBar.getMenus().add(buildGamesMenu(view));
 		menuBar.getMenus().add(menuView);
-		menuBar.getMenus().add(buildSoundMenu());
-		menuBar.getMenus().add(buildHelpMenu());
-		return menuBar;
+		menuBar.getMenus().add(buildSoundMenu(view));
+		menuBar.getMenus().add(buildHelpMenu(view));
 	}
 	
-	public MenuBar createPlayerMenu() {
-		MenuBar menuBar = new MenuBar();
-		return createPlayerMenu(menuBar);
+	public void createPlayerMenu(PlayerViewController view) {
+		createPlayerMenu(myMenuBar, view);
 	}
 
 	private MenuItem makeMenuItem(String name) {
@@ -61,71 +52,66 @@ public class PlayerMenu {
 		return item;
 	}
 
-	private Menu buildFileMenu() {
+	private Menu buildFileMenu(PlayerViewController view) {
 		Menu fileMenu = new Menu("File");
 
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
-			pauseGame();
+			view.stopView();
 		});
-		myCommandItems.add(pauseItem);
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			startGame();
+			view.startView();;
 		});
-		myCommandItems.add(playItem);
 		MenuItem newGameItem = makeMenuItem("New Game");
 		newGameItem.setOnAction(event -> {
-			myView.loadNewChooser();
+			view.loadNewChooser();
 		});
-		myCommandItems.add(newGameItem);
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			System.out.println("write code to load saved game");
 		});
-		myCommandItems.add(loadItem);
 		MenuItem quitItem = makeMenuItem("Quit");
 		quitItem.setOnAction(event -> {
 			System.exit(0);
 		});
-		myCommandItems.add(quitItem);
 		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
 				quitItem);
 		return fileMenu;
 	}
 
-	private Menu buildGamesMenu() {
+	private Menu buildGamesMenu(PlayerViewController view) {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
 		marioItem.setOnAction(event -> {
 			Text prompt = new Text("Are you sure you want to load a new Game? "
 					+ "Save progress before proceeding.");
-			Stage choose = myView.chooserConfirmationDialog(prompt);
+			Stage choose = view.chooserConfirmationDialog(prompt);
 			choose.show();
 		});
 		gamesMenu.getItems().addAll(marioItem);
 		return gamesMenu;
 	}
 	
-	private Menu buildHelpMenu() {
+	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
-		tutorialItem.setOnAction(event -> showTutorial());
+		tutorialItem.setOnAction(event -> view.showTutorial());
 		
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
 	}
 	
-	private Menu buildSoundMenu() {
+	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
-		myCommandItems.add(playItem);
+		playItem.setOnAction(event -> view.playMusic());
 		
 		MenuItem pauseItem = new MenuItem("Pause");
-		myCommandItems.add(pauseItem);
+		pauseItem.setOnAction(event -> view.pauseMusic());
 		
 		MenuItem stopItem = makeMenuItem("Stop");
-		myCommandItems.add(stopItem);
+		stopItem.setOnAction(event -> view.stopMusic());
 		
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
@@ -169,8 +155,4 @@ public class PlayerMenu {
 		return myMenuBar;
 	}
 
-	public List<MenuItem> getCommandItems() {
-		return myCommandItems;
-	}
-	
 }

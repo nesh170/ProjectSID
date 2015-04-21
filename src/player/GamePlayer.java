@@ -26,12 +26,8 @@ public class GamePlayer {
 	public final static double UPDATE_RATE = 120;
 
 	private ScrollPane myGameRoot;
-	private Group myGameGroup;
-	private GameEngine myEngine;
 	private Scene myScene;
 	private BorderPane myBorderPane;
-	private double myWidth;
-	private double myHeight;
 	private int myLives;
 	private int myHealth;
 	private int myScore;
@@ -99,32 +95,7 @@ public class GamePlayer {
 	}
 	
 	public void setupActions(PlayerMenu pMenu) {
-		List<MenuItem> menuItems = pMenu.getCommandItems();
-		menuItems.get(0).setOnAction(event -> {
-			pause();
-		});
-		menuItems.get(1).setOnAction(event -> {
-			start();
-		});
-		menuItems.get(2).setOnAction(event -> {
-			loadNewGame();
-		});
-		menuItems.get(3).setOnAction(event -> {
-			System.out.println("write code to load saved game");
-		});
-		//this may not be necessary any more
-		menuItems.get(4).setOnAction(event -> {
-			System.exit(0);
-		});
-		menuItems.get(5).setOnAction(event -> {
-			playMusic();
-		});
-		menuItems.get(6).setOnAction(event -> {
-			pauseMusic();
-		});
-		menuItems.get(7).setOnAction(event -> {
-			stopMusic();
-		});
+		pMenu.createPlayerMenu(myView);
 	}
 	
 	public PlayerMenu getMenu() {
