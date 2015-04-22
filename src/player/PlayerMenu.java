@@ -11,7 +11,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -24,8 +26,15 @@ public class PlayerMenu {
 
 	public PlayerMenu(Stage stage) {
 		myMenuBar = new MenuBar();
-		// createPlayerMenu(new PlayerViewController());
-		myPlayer = new GamePlayer(stage, getBar());
+		HUD hud = new HUD();
+		ScrollPane myGameRoot = new ScrollPane();
+		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setMaxSize(900, 450);
+		myGameRoot.setMinSize(900, 450);
+		PlayerViewController pvc = new PlayerViewController(myGameRoot, hud);
+		createPlayerMenu(pvc);
+		myPlayer = new GamePlayer(stage, getBar(), myGameRoot);
 	}
 
 	public PlayerMenu(MenuBar menuBar) {

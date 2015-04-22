@@ -36,16 +36,11 @@ public class GamePlayer {
 	private HUD myHUD;
 
 	// constructor for testing
-	public GamePlayer(Stage stage, MenuBar bar) {
-		myGameRoot = new ScrollPane();
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setMaxSize(900, 450);
-		myGameRoot.setMinSize(900, 450);
+	public GamePlayer(Stage stage, MenuBar bar, ScrollPane pane) {
+		myGameRoot = pane;
 		myBorderPane = new BorderPane();
-		myBorderPane.setTop(bar);
-		myView = new PlayerViewController(myGameRoot, new HUD());
 		myBorderPane.setCenter(myGameRoot);
+		myBorderPane.setTop(bar);
 		myScene = new Scene(myBorderPane, 1200, 600);
 		stage.setScene(myScene);
 	}
