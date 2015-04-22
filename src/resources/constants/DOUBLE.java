@@ -2,9 +2,14 @@ package resources.constants;
 
 public class DOUBLE {
 
-	// Percentages
-	public static final double NINETY_PERCENT = 0.90;
-
+	public class PERCENT {
+		
+		// Percentages
+		public static final double NINETY_PERCENT = 0.90;
+		public static final double SEVENTY_FIVE_PERCENT = 0.75;
+		public static final double TEN_PERCENT = 0.10;
+		
+	}
 	
 	// Screen
 	public static final double BUTTON_SPACING = 20;
@@ -17,7 +22,7 @@ public class DOUBLE {
 	// Tabs
 	public static final double TAB_HEIGHT = 30.0;
 	// MenuBar
-	public static final double MENU_BAR_HEIGHT = 30.0;
+	public static final double MENU_BAR_HEIGHT = 20.0;
 	// Error Message Width
 	public static final double ERROR_MESSAGE_WIDTH = 400.0;
 	public static final double ERROR_MESSAGE_HEIGHT = 80.0;

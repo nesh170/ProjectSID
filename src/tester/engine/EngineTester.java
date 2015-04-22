@@ -4,6 +4,7 @@ import gameEngine.Action;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
 import gameEngine.actions.RightMotionAction;
+import gameEngine.actions.SwitchOutAction;
 import gameEngine.components.VelocityComponent;
 
 import java.util.ArrayList;
@@ -36,17 +37,18 @@ public class EngineTester extends Tester {
 	
 	@Override
 	protected void test(Stage stage) {
-		Sprite player = new Sprite(new Point2D(0.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
 		player.setImagePath("mario.jpg");
 		myPlayerList.add(player);
 		mySpriteList.add(player);
-		//test MotionPathAction
-		makeTextBoxSprite(":This sprite wraps around:", 150, 220);
-		makeMotionPathSprite(new Point2D[] {new Point2D(150.0, 300.0), new Point2D(200.0, 350.0), 
-							 new Point2D(250.0, 300.0), new Point2D(200.0, 250.0)}, 2.0, true);
-		makeTextBoxSprite(":This sprite does not:", 180, 40);
-		Point2D[] zigZagPath = makeZigZagPath(30, 20, 40, 160, 80);
-		makeMotionPathSprite(zigZagPath, 5.0, false);
+		
+		Sprite switcher2 = new Sprite(new Point2D(200.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		switcher2.setImagePath("star.png");
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, switcher2}, KeyCode.S);
+		player.addAction(switchOut);
+		switcher2.addAction(switchOut);
+		myPlayerList.add(switcher2);
+		mySpriteList.add(switcher2);
 		
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);

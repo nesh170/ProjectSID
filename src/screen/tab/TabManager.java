@@ -50,21 +50,10 @@ public class TabManager {
 		
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
-	
+		
 		setCorrectTabModifiabilityAndViewability();		
 		singleSelectionModel.select(selectedNew);
 		
-	}
-	/**
-	 * replace current tab content with a new node
-	 * used when reloads a screen
-	 * @param newTab
-	 * @author Yongjiao
-	 */
-	public void replaceTab(Screen newScreen){
-		
-		Tab currentTab = singleSelectionModel.getSelectedItem();
-		currentTab.setContent(newScreen);
 	}
 	
 	public SingleSelectionModel<Tab> getTabSelectionModel() {
