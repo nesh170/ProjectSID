@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.*;
 
+import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
@@ -50,6 +51,12 @@ public class Sprite {
 	private Transform transform;
 	private SpriteImage spriteImage;
 
+	
+	public static Sprite makeCopy(Sprite toCopy) {
+		String xmlCopy = DataHandler.toXMLString(toCopy);
+		Sprite returnCopy = (Sprite) DataHandler.fromXMLString(xmlCopy);
+		return returnCopy; 
+	}
 	
 	// Getters & Setters
 	/**
@@ -163,8 +170,12 @@ public class Sprite {
 		
 	}
 	
+	@Deprecated
+	/*
+	 * Use static method makeSprite(Sprite toCopy) instead.
+	 */
 	public Sprite (Sprite toCopy) {
-		
+				
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
 		this.setTag(toCopy.tag());
