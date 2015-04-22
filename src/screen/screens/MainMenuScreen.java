@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
@@ -106,20 +107,40 @@ public class MainMenuScreen extends Screen {
 	}
 	
 	private VBox makeMenuButtons() {
-		
-		Button newGame = makeButton("New Game");
-		Button loadGame = makeButton("Load Game");
-		Button exit = makeButton("Exit Application ");
 		configurePopUp();
+		
+		Button newGame = makeEnlargeButton("New Game");
+		
+		Button loadGame = makeEnlargeButton("Load Game");
+		
+		Button exit = makeEnlargeButton("Exit Application ");
+
+		
 		newGame.setOnMouseClicked(e -> controller.createNewGame(myPopUp));
 		loadGame.setOnMouseClicked(e -> controller.loadGame());
 		exit.setOnMouseClicked(e -> System.exit(0));
+		
 		VBox vbox = new VBox(INT.DEFAULT_BUTTON_SPREAD);
 		vbox.getChildren().addAll(newGame, loadGame, exit);
 		vbox.setAlignment(Pos.CENTER);
 		return vbox;
 		
 	}
+	
+	private Button makeEnlargeButton(String name){
+		Button b = new Button(name);
+		b.setStyle(STRING.COLORS.FX_MAIN_MENU_BUTTON);
+		b.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
+		b.setOnMouseEntered( e -> setNodeScale(b, 1.2));
+		b.setOnMouseExited(e -> setNodeScale(b,1.0));
+		return b;
+	}
+	
+	private void setNodeScale( Node n, double f){
+		n.setScaleX(f);
+		n.setScaleY(f);
+	}
+	
 	
 	private void configurePopUp() {
 		
@@ -200,15 +221,6 @@ public class MainMenuScreen extends Screen {
 	 * 	1. instantiateAnotherMenu(MenuBar menuBar)
 	 *  2. instantiateMusicMenu()
 	 */
-	private Button makeButton(String s) {	
-		
-		Button b = new Button(s);
-		b.setStyle("-fx-background-color: lightgray;");
-		b.setMinSize(INT.DEFAULT_BUTTON_WIDTH, INT.DEFAULT_BUTTON_HEIGHT);
-		return b;
-		
-	}
-		
 	
 	// All other instance methods
 	
