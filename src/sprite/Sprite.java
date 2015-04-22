@@ -48,7 +48,6 @@ public class Sprite {
 	private String tag;
 	private String collisionTag;
 	private String imagePath;
-	private Point2D size;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
@@ -75,10 +74,14 @@ public class Sprite {
 		this.y = y;
 	}
 	
-	public void setSize(Point2D size) {
-		this.size = size;
+	public void setPosition(Point2D pos) {
+		transform.setPosition(pos);
 	}
 	
+	public void setDimensions(Dimension2D dims) {
+		transform.setDimensions(dims);
+	}
+			
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -157,6 +160,11 @@ public class Sprite {
 		return transform.getDimensions();
 	}
 	
+	public Point2D getPosition() {
+		return transform.getPositionPoint();
+	}
+
+	
 	public double getX() {
 		return this.x;
 	}
@@ -164,11 +172,7 @@ public class Sprite {
 	public double getY() {
 		return this.y;
 	}
-	
-	public Point2D getSize() {
-		return size;
-	}
-	
+		
 	// Constructor & Helpers
 	public Sprite() {
 		this(POINT2D.DEFAULT_POSITION, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
@@ -296,7 +300,6 @@ public class Sprite {
 		
 		return null;
 		
-	}
-	
+	}	
 	
 }

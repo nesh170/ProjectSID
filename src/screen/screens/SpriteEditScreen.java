@@ -3,6 +3,7 @@ package screen.screens;
 import gameEngine.Action;
 import gameEngine.Component;
 
+
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+
 import data.DataHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -128,17 +131,6 @@ public class SpriteEditScreen extends Screen {
 		this.levelEditScreen = levelEditScreen;
 		this.controller = parent;
 
-		if (spriteToEdit != null) {
-
-			drawSpriteOnScreen(spriteToEdit);
-			editableSprite = Sprite.makeCopy(spriteToEdit);
-
-		}
-
-		else {
-			editableSprite = new Sprite();
-		}
-
 		initializeRelevantResourceFiles();
 		initializeObservableLists();
 		initializeValueBoxListenersForLists();
@@ -156,6 +148,17 @@ public class SpriteEditScreen extends Screen {
 		createLeftPane();
 		createRightPane();
 		createCenterPane();
+		
+		if (spriteToEdit != null) {
+
+			drawSpriteOnScreen(spriteToEdit);
+			editableSprite = Sprite.makeCopy(spriteToEdit);
+
+		}
+
+		else {
+			editableSprite = new Sprite();
+		}
 
 	}
 
@@ -706,24 +709,28 @@ public class SpriteEditScreen extends Screen {
 			File file = DataHandler.chooseFile(new Stage());
 			Image image = DataHandler.fileToImage(file, imageSize, imageSize, true);
 			String filePath = file.getPath();
-			ImageView spriteImageRep = new ImageView(image);
-
-			int currentImageNumber = imagesAdded.size();
-			String imageName = languageResources().getString("ImageName") + currentImageNumber;
-
-			stringToImageMap.put(imageName, new ImageAndFilePair(spriteImageRep,filePath));
-			imagesAdded.add(imageName);
-
-			if (currentImageNumber == 0) {
-				paneForImage.getChildren().add(spriteImageRep);
-			}
-
-			imageSizeField.clear();
+			addImageToPane(filePath,image);
 
 		} catch (NullPointerException e) {
 			// do nothing
 		}
 
+	}
+	
+	private void addImageToPane(String path, Image image) {
+		ImageView spriteImageRep = new ImageView(image);
+
+		int currentImageNumber = imagesAdded.size();
+		String imageName = languageResources().getString("ImageName") + currentImageNumber;
+
+		stringToImageMap.put(imageName, new ImageAndFilePair(spriteImageRep,path));
+		imagesAdded.add(imageName);
+
+		if (currentImageNumber == 0) {
+			paneForImage.getChildren().add(spriteImageRep);
+		}
+
+		imageSizeField.clear();
 	}
 
 	private void saveSprite() {
@@ -732,7 +739,7 @@ public class SpriteEditScreen extends Screen {
 				e -> {
 					//TODO - need this to take in multiple image paths
 					editableSprite.setImagePath(stringToImageMap.get(e).filePath());
-					editableSprite.setSize(new Point2D((stringToImageMap).get(e).image().getImage().getWidth(),
+					editableSprite.setDimensions(new Dimension2D((stringToImageMap).get(e).image().getImage().getWidth(),
 														(stringToImageMap).get(e).image().getImage().getHeight()));
 //					Image image = stringToImageMap.get(e).image().getImage();
 //					int[][] convertedImage = ImageToInt2DArray
@@ -782,8 +789,31 @@ public class SpriteEditScreen extends Screen {
 
 	private void drawSpriteOnScreen(Sprite sprite) {
 
+		spriteNameField.setText(sprite.getName());
+		tagChoicesHolder.getSelectionModel().select(sprite.tag());
+		sprite.actionList().forEach(action -> {
+			addBehaviorToListView(languageResources().getString(trimClassName(action.getClass().getName())), actionsToAdd, actionsAdded);
+		});
+		sprite.componentList().forEach(component -> addBehaviorToListView(languageResources().getString(trimClassName(component.getClass().getName())), componentsToAdd, componentsAdded));
 		// TODO implement
+		if(sprite.getImagePath()!=null) {
+			Image image = DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false);
+			addImageToPane(sprite.getImagePath(),image);
+		}
 
+	}
+	
+	private void addBehaviorToListView(String stringToSwitch, ObservableList<String> start, ObservableList<String> end) {
+		start.remove(stringToSwitch);
+		end.add(stringToSwitch);
+		createdBehaviorParameterMap.put(stringToSwitch, "");
+		
+		
+	}
+	
+	private String trimClassName(String classPath) {
+		String[] split = classPath.split("\\.");
+		return split[split.length - 1];
 	}
 
 }
