@@ -9,24 +9,24 @@ import util.ScriptRunner;
 import gameEngine.Action;
 
 
-public class CustomAction extends Action {
+public class GroovyAction extends Action {
 
     private ScriptRunner scriptEngine;
     private String myExecuteCode;
     private String myStopCode;
     private String myPrepareCode;
 
-    public CustomAction (Sprite sprite) {
+    public GroovyAction (Sprite sprite) {
         super(sprite);
         scriptEngine = new ScriptRunner(Stream.of(sprite).collect(Collectors.toList()));
     }
 
-    public CustomAction (Sprite sprite, KeyCode ... keys) {
+    public GroovyAction (Sprite sprite, KeyCode ... keys) {
         super(sprite, keys);
         scriptEngine = new ScriptRunner(Stream.of(sprite, keys).collect(Collectors.toList()));
     }
 
-    public CustomAction (Sprite sprite, Double val, KeyCode ... keys) {
+    public GroovyAction (Sprite sprite, Double val, KeyCode ... keys) {
         super(sprite, val, keys);
         scriptEngine = new ScriptRunner(Stream.of(sprite, val).collect(Collectors.toList()));
     }

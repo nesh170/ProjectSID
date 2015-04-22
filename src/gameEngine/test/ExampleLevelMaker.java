@@ -5,7 +5,7 @@ import gameEngine.CollisionTable;
 import gameEngine.EngineMathFunctions;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
-import gameEngine.actions.CustomAction;
+import gameEngine.actions.GroovyAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
@@ -193,7 +193,7 @@ public class ExampleLevelMaker extends Application {
         myPlayer.addComponent(new HealthComponent(myPlayer, null));
         myPlayer.addComponent(new VelocityComponent(myPlayer, null));
         myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
-        CustomAction customJump = groovyAction();
+        GroovyAction customJump = groovyAction();
         myPlayer.addAction(customJump);
         Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
         myPlayer.addAction(rma);
@@ -204,8 +204,8 @@ public class ExampleLevelMaker extends Application {
         addProjectile();
     }
 
-    private CustomAction groovyAction () {
-        CustomAction customJump = new CustomAction(myPlayer, 100.0, KeyCode.R);
+    private GroovyAction groovyAction () {
+        GroovyAction customJump = new GroovyAction(myPlayer, 100.0, KeyCode.R);
         customJump.setPrepareCode("println 'GroovyPrep!'");
         customJump.setStopCode("Sprite.transform().reset()");
         customJump.setExecuteCode("println 'GroovyExec!'");
