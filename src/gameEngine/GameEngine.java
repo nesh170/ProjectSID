@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
 import data.DataHandler;
 import resources.constants.INT;
 import javafx.event.EventType;
@@ -15,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
+import levelPlatform.levelPlatformView.LevelPlatformView;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -32,8 +34,10 @@ public class GameEngine extends GameEngineAbstract {
     
     
     public GameEngine(List<Level> levelList) {
+    	
         myLevelList = levelList;
         initializeLevel(0);
+        
     }
     
     @Override
