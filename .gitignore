@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 .DS_Store 
-=======
-.DS_Store
->>>>>>> ae5cb97d3cba80094c50eecac6f75bfa74018040
 *.class
 /bin
 
