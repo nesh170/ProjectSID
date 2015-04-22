@@ -497,7 +497,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void copy() {
-		addSprite(new Sprite(selectedSprite));
+		addSprite(Sprite.makeCopy(selectedSprite));
 	}
 	
 	/**
