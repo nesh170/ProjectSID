@@ -3,6 +3,7 @@ package screen.levelPlatformCapableScreen;
 import gameEngine.Action;
 import gameEngine.Component;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import data.DataHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -352,7 +354,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		sprite.setName(customName);
 		sprite.setTag(tag);
 		
-		imageView.setOnMouseClicked(e -> addSprite(new Sprite(sprite)));
+		imageView.setOnMouseClicked(e -> addSprite(Sprite.makeCopy(sprite)));
 		
 		setForSprite.add(imageView);
 	}
@@ -394,7 +396,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	private void addSpriteToLevelDisplay(Sprite sprite) {
 
-		ImageView imageView = sprite.spriteImage().getImageViewToDisplay();
+		ImageView imageView = new ImageView(imageToAdd);
 
 		levelEditDisplay.addSpriteToDisplay(sprite,imageView);
 
@@ -506,7 +508,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	public void addSprite(Sprite sprite) {
 
 		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage();
+		Point2D spriteSize = spriteToAdd.getSize();
+		imageToAdd = DataHandler.fileToImage(new File(spriteToAdd.getImagePath()),spriteSize.getX(),spriteSize.getY(),false);
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
 
 	}

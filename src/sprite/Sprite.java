@@ -48,6 +48,7 @@ public class Sprite {
 	private String tag;
 	private String collisionTag;
 	private String imagePath;
+	private Point2D size;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
@@ -72,6 +73,10 @@ public class Sprite {
 	 */
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public void setSize(Point2D size) {
+		this.size = size;
 	}
 	
 	public String getImagePath() {
@@ -158,6 +163,10 @@ public class Sprite {
 	
 	public double getY() {
 		return this.y;
+	}
+	
+	public Point2D getSize() {
+		return size;
 	}
 	
 	// Constructor & Helpers

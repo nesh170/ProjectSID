@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -89,7 +90,7 @@ public class SpriteEditScreen extends Screen {
 	private ObservableList<String> componentsToAdd;
 	private ObservableList<String> componentsAdded;
 	private ObservableList<String> imagesAdded;
-
+	
 	private ListView<String> actionsToAddList;
 	private ListView<String> actionsAddedList;
 	private ListView<String> componentsToAddList;
@@ -108,7 +109,7 @@ public class SpriteEditScreen extends Screen {
 	private Map<String, Action> actionMap;
 	private Map<String, Boolean> keyCodesAreVisibleMap;
 	private Map<String, Component> componentMap;
-	private Map<String, ImageView> stringToImageMap;
+	private Map<String, ImageAndFilePair> stringToImageMap;
 	private Map<String, String> behaviorLabelsMap;
 	private Map<String, String> createdBehaviorParameterMap;
 
@@ -574,7 +575,7 @@ public class SpriteEditScreen extends Screen {
 
 						paneForImage.getChildren().clear();
 						paneForImage.getChildren().add(
-								stringToImageMap.get(newSelect));
+								stringToImageMap.get(newSelect).image());
 
 						// Map<String,ImageView> newMap = new HashMap<>();
 						// imagesAdded.clear();
@@ -725,12 +726,13 @@ public class SpriteEditScreen extends Screen {
 
 			File file = DataHandler.chooseFile(new Stage());
 			Image image = DataHandler.fileToImage(file, imageSize, imageSize, true);
+			String filePath = file.getPath();
 			ImageView spriteImageRep = new ImageView(image);
 
 			int currentImageNumber = imagesAdded.size();
 			String imageName = languageResources().getString("ImageName") + currentImageNumber;
 
-			stringToImageMap.put(imageName, spriteImageRep);
+			stringToImageMap.put(imageName, new ImageAndFilePair(spriteImageRep,filePath));
 			imagesAdded.add(imageName);
 
 			if (currentImageNumber == 0) {
@@ -749,12 +751,16 @@ public class SpriteEditScreen extends Screen {
 
 		stringToImageMap.keySet().forEach(
 				e -> {
-					Image image = stringToImageMap.get(e).getImage();
-					int[][] convertedImage = ImageToInt2DArray
-							.convertImageTo2DIntArray(image,
-									(int) image.getWidth(),
-									(int) image.getHeight());
-					editableSprite.spriteImage().addImage(convertedImage);
+					//TODO - need this to take in multiple image paths
+					editableSprite.setImagePath(stringToImageMap.get(e).filePath());
+					editableSprite.setSize(new Point2D((stringToImageMap).get(e).image().getImage().getWidth(),
+														(stringToImageMap).get(e).image().getImage().getHeight()));
+//					Image image = stringToImageMap.get(e).image().getImage();
+//					int[][] convertedImage = ImageToInt2DArray
+//							.convertImageTo2DIntArray(image,
+//									(int) image.getWidth(),
+//									(int) image.getHeight());
+//					editableSprite.spriteImage().addImage(convertedImage);
 				});
 
 		componentMap.keySet().forEach(e -> {
