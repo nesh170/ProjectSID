@@ -3,8 +3,10 @@ package gameEngine.test;
 
 import gameEngine.Action;
 import gameEngine.CollisionTable;
+import gameEngine.EngineMathFunctions;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
+import gameEngine.actions.CustomAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
@@ -15,13 +17,11 @@ import gameEngine.actions.ShootAction;
 import gameEngine.components.HealthComponent;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import data.DataHandler;
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
@@ -87,7 +87,6 @@ public class ExampleLevelMaker extends Application{
 		//Goals:
 		Map<Sprite, Integer> goalMap = new HashMap<>();
 		goalMap.put(myPlayer, 0);
-
 		l.setSprites(mySpriteList);
 		l.setGoalMap(goalMap);
 		System.out.println(players.size());
@@ -185,6 +184,11 @@ public class ExampleLevelMaker extends Application{
 		myPlayer.addComponent(new HealthComponent(myPlayer,null));
 		myPlayer.addComponent(new VelocityComponent(myPlayer, null));
 		myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
+		CustomAction customJump = new CustomAction(myPlayer, 100.0, KeyCode.R);
+		customJump.setPrepareCode("println 'Groovy!'");
+		customJump.setStopCode("println 'Groovy!'");
+		customJump.setExecuteCode("println 'Groovy!'");
+		myPlayer.addAction(customJump);
 		Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
 		myPlayer.addAction(rma);
 		makeJumping(myPlayer, KeyCode.UP, false);
