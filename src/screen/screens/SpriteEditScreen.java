@@ -208,43 +208,22 @@ public class SpriteEditScreen extends Screen {
 
 	//TODO get rid of some duplicated code in this method
 	private void initializeValueBoxListenersForLists() {
-
-		actionsToAddList.getSelectionModel().selectedItemProperty()
-		.addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> ov,
-					String oldSelect, String newSelect) {
-
-				if (newSelect == null || newSelect.isEmpty()) {
-					actionValue.setPromptText("");
-				}
-				else {
-					actionValue.setPromptText(behaviorLabelsMap
-							.get(newSelect));
-				}
-
-			}
-
-		});
-
-		componentsToAddList.getSelectionModel().selectedItemProperty()
-		.addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> ov,
-					String oldSelect, String newSelect) {
-
-				if (newSelect == null || newSelect.isEmpty()) {
-					componentValue.setPromptText("");
-				}
-				else {
-					componentValue.setPromptText(behaviorLabelsMap
-							.get(newSelect));
-				}
-			}
-
-		});
+		
+		actionsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> onAddListener(newValue,actionValue));
+		componentsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> onAddListener(newValue,componentValue));
+				
+	}
+	
+	private void onAddListener(String newSelect, TextField textField) {
+		
+		if (newSelect == null || newSelect.isEmpty()) {
+			textField.setPromptText("");
+		}
+		else {
+			textField.setPromptText(behaviorLabelsMap
+					.get(newSelect));
+		}
+		
 	}
 
 	private void initializeInformationListenersForLists() {
