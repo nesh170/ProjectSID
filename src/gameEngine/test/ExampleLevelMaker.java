@@ -193,9 +193,18 @@ public class ExampleLevelMaker extends Application{
 		myPlayer.addAction(rma);
 		makeJumping(myPlayer, KeyCode.UP, false);
 		makeFallingLanding(myPlayer);
+		makePlayable(myPlayer);
 		myKillAction = new KillAction(myPlayer, 0.0, KeyCode.K);
-		makeBouncing(myPlayer, myTrampolines);
 		addProjectile();
+	}
+
+	private void makePlayable(Sprite sprite) {
+		sprite.addAction(new LeftMotionAction(sprite, SPEED, KeyCode.LEFT));
+		Action rma = new RightMotionAction(sprite, SPEED, KeyCode.RIGHT);
+		sprite.addAction(rma);
+		makeJumping(sprite, KeyCode.UP, false);
+		makeFallingLanding(sprite);
+		makeBouncing(sprite, myTrampolines);
 	}
 
 	private void makeBouncing(Sprite sprite, List<Sprite> trampolines){

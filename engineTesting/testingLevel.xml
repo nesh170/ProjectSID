@@ -1,0 +1,363 @@
+<levelPlatform.level.Level>
+  <width>500</width>
+  <height>500</height>
+  <sprites>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <imagePath>mario.jpg</imagePath>
+      <transform>
+        <myPosition>
+          <x>0.0</x>
+          <y>100.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myRotation>
+        <myDimensions>
+          <width>50.0</width>
+          <height>50.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>textBox</collisionTag>
+      <imagePath>:This sprite wraps around:</imagePath>
+      <transform>
+        <myPosition>
+          <x>150.0</x>
+          <y>220.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>312.0</width>
+          <height>150.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.MotionPathAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <null/>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>0.0</value>
+          <myPoints>
+            <javafx.geometry.Point2D>
+              <x>150.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>200.0</x>
+              <y>350.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>250.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>200.0</x>
+              <y>250.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </myPoints>
+          <myDirection>1</myDirection>
+          <myLastVisitedIndex>0</myLastVisitedIndex>
+          <mySpeed>2.0</mySpeed>
+          <myTolerance>2.0</myTolerance>
+          <wrapsAround>true</wrapsAround>
+        </gameEngine.actions.MotionPathAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
+          <myTerminalVelocity>5.0</myTerminalVelocity>
+          <isGrounded>true</isGrounded>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>motionPathSprite</collisionTag>
+      <imagePath>duke.png</imagePath>
+      <transform>
+        <myPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>50.0</width>
+          <height>50.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>textBox</collisionTag>
+      <imagePath>:This sprite does not:</imagePath>
+      <transform>
+        <myPosition>
+          <x>180.0</x>
+          <y>40.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>264.0</width>
+          <height>150.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.MotionPathAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <null/>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>0.0</value>
+          <myPoints>
+            <javafx.geometry.Point2D>
+              <x>160.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>180.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>200.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>220.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>240.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>260.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>280.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>300.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>320.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>340.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>360.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>380.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>400.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>420.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>440.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>460.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>480.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>500.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>520.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>540.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>560.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>580.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>600.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>620.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>640.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>660.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>680.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>700.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>720.0</x>
+              <y>80.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>740.0</x>
+              <y>120.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </myPoints>
+          <myDirection>1</myDirection>
+          <myLastVisitedIndex>0</myLastVisitedIndex>
+          <mySpeed>5.0</mySpeed>
+          <myTolerance>5.0</myTolerance>
+          <wrapsAround>false</wrapsAround>
+        </gameEngine.actions.MotionPathAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
+          <myTerminalVelocity>5.0</myTerminalVelocity>
+          <isGrounded>true</isGrounded>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>motionPathSprite</collisionTag>
+      <imagePath>duke.png</imagePath>
+      <transform>
+        <myPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>50.0</width>
+          <height>50.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../../actionList/gameEngine.actions.MotionPathAction/myPoints/javafx.geometry.Point2D"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+  </sprites>
+  <playerSpriteList>
+    <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
+  </playerSpriteList>
+  <collisionTable>
+    <myTable/>
+    <tagList/>
+  </collisionTable>
+  <goalMap/>
+</levelPlatform.level.Level>

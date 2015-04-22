@@ -29,7 +29,7 @@ public class Game {
 	public SplashScreen splashScreen() {
 		return splashScreen;
 	}
-
+	
 	public String name() {
 		return name;
 	}
@@ -59,13 +59,21 @@ public class Game {
 	public void addLevel(Level level) {
 		levels.add(level);
 	}
-
+	public void add(int index, Level level) {
+		levels.add(index, level);		
+	}
+	
 	public void setSplash(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
-
+	/**
+	 * This method is for design alternative: when Level has index private instance variable to
+	 * keep track of the ordering of level
+	 * @param levelIndex
+	 */
 	public void removeLevel(int levelIndex) {
 		levels.remove(levelIndex);
+		//rearrange and updates the rest of list levels' levelIndex
 	}
 
 	public void removeSplash() {
@@ -93,7 +101,7 @@ public class Game {
 	 * testing purposes /* do not change for now
 	 */
 	public boolean hasLevel() {
-		return levels.size() == 0;
+		return levels.size() != 0;
 	}
 
 	public int getLevelsSize() {
