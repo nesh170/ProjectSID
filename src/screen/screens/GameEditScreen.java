@@ -78,6 +78,7 @@ import levelPlatform.splashScreen.SplashScreen;
 //TODO list: - disable rest of screen when popup shows
 //- could add only once a draft levelImagerepresnetation when user returns from LevelEditScreen without modifying everything since level is automatically saved
 //- could also add drag and drop functionality to rearrange ordering of list of levels.
+//fix the bug with contextMenu staying in absolute positioni in screen
 public class GameEditScreen extends Screen {
 
 	// Static Variables

@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
  * @author Yongjiao
  *
  */
-public class Animation {
+public class ScreenAnimation {
 	
 	/**
 	 * animates it a node needs to be removed from screen
