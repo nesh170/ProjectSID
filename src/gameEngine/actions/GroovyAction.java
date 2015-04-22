@@ -38,7 +38,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myPrepareCode);
         }
         catch (ScriptException e) {
-            // e.printStackTrace();
+             e.printStackTrace();
         }
 
     }
@@ -49,7 +49,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myExecuteCode);
         }
         catch (ScriptException e) {
-            // e.printStackTrace();
+             e.printStackTrace();
         }
 
     }
@@ -60,7 +60,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myStopCode);
         }
         catch (ScriptException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
