@@ -1,7 +1,7 @@
 package screen.controllers;
 
 import game.Game;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
+import screen.screens.LevelEditScreen;
 import sprite.Sprite;
 import javafx.scene.control.Tab;
 

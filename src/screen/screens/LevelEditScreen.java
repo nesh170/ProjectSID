@@ -1,4 +1,4 @@
-package screen.levelPlatformCapableScreen;
+package screen.screens;
 
 import gameEngine.Action;
 import gameEngine.Component;
