@@ -14,6 +14,7 @@ public class INT {
 	public static final int DEFAULT_LEVEL_DISPLAY_WIDTH = 500;
 	public static final int DEFAULT_LEVEL_DISPLAY_HEIGHT = 400;		
 	public static final int GAMEEDIT_ADD_SIGN_DIM = 150;
+	public static final int INITIAL_SETUP = 2;
 	public static final int LEVEL = 1;
 	public static final int SPLASH = 0;
 	

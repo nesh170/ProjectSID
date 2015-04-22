@@ -222,7 +222,9 @@ public class GameEditScreen extends Screen {
 			
 			b = makeAddSignWhenEmpty("Add New Splash Screen",
 					e -> controller.loadSplashEditScreen(game, this));	
-			splashSP.getChildren().add(b);
+			if(splashSP.getChildren().size() == INT.INITIAL_SETUP) 
+					splashSP.getChildren().add(b);
+			else splashSP.getChildren().set(splashSP.getChildren().size() - 1, b);
 		}
 			
 		else {
