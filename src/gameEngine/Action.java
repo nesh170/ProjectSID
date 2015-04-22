@@ -58,6 +58,10 @@ public abstract class Action {
 		isActive = set;
 	}
 	
+	public void setSprite(Sprite sprite){
+	    mySprite=sprite;
+	}
+	
 	public boolean isActive(){
 		return isActive;
 	}

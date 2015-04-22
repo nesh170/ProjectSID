@@ -234,6 +234,11 @@ public class Sprite {
 		actionList.add(actionToAdd);
 	}
 	
+	public void addActionRuntime (Action action) {
+	        addAction(action);
+	        action.prepare();
+	}
+	
 	/**
 	 * gets Component attached to this sprite
 	 * of a specific type (there should be one
@@ -277,6 +282,5 @@ public class Sprite {
 		return null;
 		
 	}
-	
 	
 }

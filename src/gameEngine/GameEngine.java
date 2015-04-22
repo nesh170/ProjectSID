@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
+import java.util.stream.Collectors;
 import data.DataHandler;
 import resources.constants.INT;
+import sprite.Sprite;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -96,6 +97,14 @@ public class GameEngine extends GameEngineAbstract {
     public String getCurrentLevelinXML () {
         return DataHandler.toXMLString(myCurrentLevel);
     }
+
+    @Override
+    public void addGroovyAction (String spriteTag, Action groovyObject) {
+       myCurrentLevel.addGroovyAction(spriteTag,groovyObject);
+       myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
+    }
+    
+    
 
 
 
