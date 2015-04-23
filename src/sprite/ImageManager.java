@@ -32,6 +32,7 @@ public class ImageManager {
 		if(path.charAt(0) == ':'){ //filename cannot contain : in any system
 			return makeTextFieldImage(path); 
 		}
+		System.out.println(path);
 		Image img = new Image(path);
 		imageMap.put(path, img);
 		return img; 
