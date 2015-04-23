@@ -419,7 +419,8 @@ public class ScreenController {
 				popup.hide();
 			}
 			else {
-				errorHandler.displayError(STRING.ERROR.EMPTY_GAME_NAME);
+				gameName.getStyleClass().add(STRING.CSS.ERROR);
+				gameName.setPromptText(STRING.ERROR.EMPTY_GAME_NAME);
 			}
 		}
 		
