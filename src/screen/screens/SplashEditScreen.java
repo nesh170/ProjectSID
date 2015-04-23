@@ -38,6 +38,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import levelPlatform.splashScreen.SplashScreen;
+import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.controllers.ScreenController;
@@ -260,7 +261,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
 
 			file = fileChooser.showOpenDialog(null);
-			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
+			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
 
 		} catch (Exception ex) {	
 			//TODO Load Default Image
@@ -290,7 +291,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 
 			file = fileChooser.showOpenDialog(null);
-			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
+			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
 
 		} catch (Exception ex) {	
 			//TODO Load Default Image
@@ -389,7 +390,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 	public void trashSplashScreen() {	
-		System.out.println("OH HI THERE");
 		for (ImageView iv : imageViewArray) {
 
 		}
@@ -491,16 +491,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		if(keyCode == KeyCode.RIGHT) {
 			
 			System.out.println("right");
-			imageView.setScaleX(1.4*imageView.getScaleX());
-			imageView.setScaleY(1.4*imageView.getScaleY());
+			imageView.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP*imageView.getScaleX());
+			imageView.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP*imageView.getScaleY());
 			
 		}
 		
 		else if(keyCode == KeyCode.LEFT) {
 			
 			System.out.println("left");
-			imageView.setScaleX(0.8*imageView.getScaleX());
-			imageView.setScaleY(0.8*imageView.getScaleY());
+			imageView.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN*imageView.getScaleX());
+			imageView.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN*imageView.getScaleY());
 			
 		}
 	}
