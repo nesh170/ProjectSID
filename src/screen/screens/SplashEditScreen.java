@@ -491,16 +491,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		if(keyCode == KeyCode.RIGHT) {
 			
 			System.out.println("right");
-			imageView.setScaleX(1.8);
-			imageView.setScaleY(1.8);
+			imageView.setScaleX(1.4*imageView.getScaleX());
+			imageView.setScaleY(1.4*imageView.getScaleY());
 			
 		}
 		
 		else if(keyCode == KeyCode.LEFT) {
 			
 			System.out.println("left");
-			imageView.setScaleX(0.6);
-			imageView.setScaleY(0.6);
+			imageView.setScaleX(0.8*imageView.getScaleX());
+			imageView.setScaleY(0.8*imageView.getScaleY());
 			
 		}
 	}
