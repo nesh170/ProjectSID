@@ -70,6 +70,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private ImageView imageView;
 	private ImageView startButtonImageView;
 	private Text text;
+	private int counter;
 
 	// Getters & Setters
 
@@ -126,9 +127,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		double rectWidth = width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH;
 		double rectHeight = height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT;
-		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, Color.RED);
+		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, Color.WHITE);
 		this.viewableArea().setLeft(displayArea);
 		this.setOnMouseClicked(e -> add(tag, e, displayArea));
+		this.setOnKeyPressed(g -> chooseImage(g));
 		
 	}
 
@@ -309,6 +311,20 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 		
 	}
+	
+	private void chooseImage(KeyEvent e) {
+		KeyCode keyCode = e.getCode();
+		System.out.println("HIHIHIHI");
+		if(keyCode == KeyCode.UP) {
+			imageView = imageViewArray.get(counter);
+			imageView.setOnMousePressed(f -> imageMove(f));
+			if (counter > 0) {
+				counter--;
+				System.out.println(counter);
+			}
+		}
+
+	}
 
 	public void addBackgroundImage() {
 		
@@ -424,6 +440,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			imageView.setOnMousePressed(f -> imageMove(f));
 			
 			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
+			counter++;
+			System.out.println(counter);
 						
 		}
 
