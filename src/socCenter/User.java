@@ -22,7 +22,7 @@ public class User {
 	
 	public User(Integer id, String name, String password){
 		setMyID(id);
-		setMyName(name);
+		setName(name);
 		setPassword(password);
 	}
 	
@@ -40,10 +40,10 @@ public class User {
 		
 	}
 	
-	public String getMyName() {
+	public String getName() {
 		return myName;
 	}
-	public void setMyName(String myName) {
+	public void setName(String myName) {
 		this.myName = myName;
 	}
 	public String getImagePath() {
@@ -52,11 +52,11 @@ public class User {
 	public void setImagePath(String path) {
 		this.myImagePath = path;
 	}
-	public Sprite getMyDefaultSprite() {
+	public Sprite getDefaultSprite() {
 		return myDefaultSprite;
 	}
-	public void setMyDefaultSprite(Sprite myDefaultSprite) {
-		this.myDefaultSprite = myDefaultSprite;
+	public void setDefaultSprite(Sprite defaultSprite) {
+		this.myDefaultSprite = defaultSprite;
 	}
 	
 	public void setAvatar(String path, int width, int height){
