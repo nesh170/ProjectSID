@@ -129,6 +129,7 @@ public class STRING {
 		public static final String BACKDOWN_IMG = "images/GameEdit_Images/back_down.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
+		public static final String IMAGE_FOLDER ="-images";
 			
 	}
 	
