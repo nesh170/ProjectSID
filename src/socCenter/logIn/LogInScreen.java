@@ -1,9 +1,12 @@
 package socCenter.logIn;
 
+import java.util.ResourceBundle;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -36,6 +39,7 @@ public class LogInScreen extends Screen {
 	private LogInScreenController controller;
 	private Popup logInPopup;
 	private Popup createProfilePopup;
+	private ResourceBundle myMessages;
 	
 	//Getters & Setters
 	
@@ -46,6 +50,7 @@ public class LogInScreen extends Screen {
 		configureButtons(width, height);
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 		this.getStyleClass().add("pane");
+		myMessages = ResourceBundle.getBundle("resources/socialButtons");
 	}
 	
 	@Override
@@ -145,7 +150,7 @@ public class LogInScreen extends Screen {
 	     TextField userNameInput = new TextField();
 	     userNameInput.setPromptText("Enter User Name: ");
 	     grid.add(userNameInput, 2, 2 );
-	     TextField passwordInput = new TextField();
+	     PasswordField passwordInput = new PasswordField();
 	     passwordInput.setPromptText("Enter Password");
 	     grid.add(passwordInput, 2, 3 );
 	     HBox popUpHBox = new HBox(100);
@@ -165,10 +170,10 @@ public class LogInScreen extends Screen {
 	     TextField newUserName = new TextField();
 	     newUserName.setPromptText("Enter User Name: ");
 	     grid.add(newUserName, 2, 2 );
-	     TextField newPassWord = new TextField();
+	     PasswordField newPassWord = new PasswordField();
 	     newPassWord.setPromptText("Enter Password");
 	     grid.add(newPassWord, 2, 3 );
-	     TextField reNewPassWord = new TextField();
+	     PasswordField reNewPassWord = new PasswordField();
 	     reNewPassWord.setPromptText("Re-Enter Password");
 	     grid.add(reNewPassWord, 2, 4);
 	     HBox popUpHBox = new HBox(100);
@@ -189,10 +194,12 @@ public class LogInScreen extends Screen {
 	     grid.setHgap(10);
 	     grid.setVgap(20);	
 	     grid.addRow(0, new Text(""));
-	     Label name = new Label(STRING.MAIN_MENU_SCREEN.NAMELABEL);
+	     Label name = new Label( /* myMessages.getString(" */ "User")/*)*/;
 	     grid.add(name, 0, 2, 2, 1);
-	     Label description = new Label(STRING.MAIN_MENU_SCREEN.DESCRIPTIONLABEL);
-	     grid.add(description, 0, 3, 2, 1);
+	     Label password = new Label( /* myMessages.getString(" */ "Password")/*)*/;
+	     grid.add(password, 0, 3, 2, 1);
+	     Label reEnterPassword = new Label( /* myMessages.getString(" */ "rePassword")/*)*/;
+	     grid.add(reEnterPassword, 0, 4, 2, 1);
 	     return grid;
 	     
 	}

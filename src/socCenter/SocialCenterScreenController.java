@@ -259,25 +259,27 @@ public class SocialCenterScreenController {
 		@Override
 		public void createNewProfile(Popup popup) {
 			// TODO Auto-generated method stub
-			
+			popup.show(stage);
 		}
 
 		@Override
 		public void loadUser(Popup popup) {
 			// TODO Auto-generated method stub
-			
+			popup.show(stage);
 		}
 
 		@Override
 		public void logIn(Popup popup, TextField username, TextField password) {
 			// TODO Auto-generated method stub
-			
+			popup.hide();
 		}
 
 		@Override
 		public void createProfile(Popup popup, TextField username,
 				TextField password, TextField rePassWord) {
 			// TODO Auto-generated method stub
+			User newUser = new User(null, null, null);
+			popup.hide();
 			
 		}
 	}
