@@ -16,12 +16,14 @@ public class User {
 	private Integer myID;
 	private String myName;
 	private String myImagePath;
+	private String myPassword; //TODO: make secure (like it even matters)
 	private Sprite myDefaultSprite;
 	private List<User> myFriends;
 	
-	public User(Integer id, String name){
+	public User(Integer id, String name, String password){
 		setMyID(id);
 		setMyName(name);
+		setPassword(password);
 	}
 	
 	//getters, setters
@@ -31,6 +33,13 @@ public class User {
 	public void setMyID(Integer myID) {
 		this.myID = myID;
 	}
+	
+	public void alterPassword(String oldPass, String newPass){
+		
+		if(oldPass == myPassword) setPassword(newPass);
+		
+	}
+	
 	public String getMyName() {
 		return myName;
 	}
@@ -66,6 +75,10 @@ public class User {
 	public void removeFriend(User friendToRemove){
 		myFriends.remove(friendToRemove);
 		friendToRemove.removeFriend(this);
+	}
+	
+	private void setPassword(String pass){
+		myPassword = pass;
 	}
 
 	
