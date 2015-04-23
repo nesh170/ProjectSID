@@ -1,5 +1,6 @@
 package socCenter.logIn;
 
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Popup;
 
@@ -14,7 +15,7 @@ public interface LogInScreenController {
 	
 	public void loadUser(Popup popup);
 	
-	public void logIn(Popup popup, TextField username, TextField password);
+	public void logIn(Popup popup, TextField username, PasswordField password);
 	
-	public void createProfile(Popup popup, TextField username, TextField password, TextField rePassWord);
+	public void createProfile(Popup popup, TextField username, PasswordField password, PasswordField rePassWord);
 }

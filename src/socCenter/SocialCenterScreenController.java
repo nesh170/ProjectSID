@@ -277,8 +277,9 @@ public class SocialCenterScreenController {
 		@Override
 		public void createProfile(Popup popup, TextField username,
 				TextField password, TextField rePassWord) {
-			// TODO Auto-generated method stub
-			User newUser = new User(null, null, null);
+			// TODO
+			//don't use random number for id
+			User newUser = new User(((Double)Math.random()).intValue(), username.getText(), password.getText());
 			popup.hide();
 			
 		}

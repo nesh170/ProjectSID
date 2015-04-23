@@ -36,7 +36,7 @@ public class User {
 	
 	public void alterPassword(String oldPass, String newPass){
 		
-		if(oldPass == myPassword) setPassword(newPass);
+		if(this.validate(oldPass)) setPassword(newPass);
 		
 	}
 	
@@ -79,6 +79,10 @@ public class User {
 	
 	private void setPassword(String pass){
 		myPassword = pass;
+	}
+	
+	public boolean validate(String tryPass){
+		return tryPass == myPassword;
 	}
 
 	
