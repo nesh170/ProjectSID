@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -126,7 +127,7 @@ import util.ErrorHandler;
 
 public class ScreenController {
 	//Testing:
-	private boolean GameEdit_Test = true;
+	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -282,7 +283,7 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		if(GameEdit_Test = true){
+		if(GameEdit_Test){
 		//USED FOR TEST GAMEEDITSCREEN
 		Game g = new Game();
 		for(int i=0; i < 5; i++){
@@ -513,7 +514,9 @@ public class ScreenController {
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
 			game.removeLevel(levelIndex);
-			gameEditScreen.displayLevels(game.levels());
+			Transition pt = gameEditScreen.runAnimationsInParallel(gameEditScreen.trashLevelAnimationFinishedEvent(),
+								gameEditScreen.assignLevelButtonsAnimation());
+			pt.play();
 			
 		}
 

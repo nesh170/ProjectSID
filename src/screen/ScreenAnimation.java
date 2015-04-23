@@ -1,7 +1,12 @@
 package screen;
 
+import resources.constants.INT;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -17,32 +22,11 @@ import javafx.util.Duration;
  * @author Yongjiao
  *
  */
-public class ScreenAnimation extends Application{
-	
-    @Override
-    public void start(final Stage primaryStage) {
-        primaryStage.setTitle("Animation");
-        Group root = new Group();
-        Scene scene = new Scene(root, 400, 300, Color.WHITE);       
-        primaryStage.setScene(scene);
-        
-        Rectangle rect = new Rectangle (100, 40, 100, 100);
-        rect.setArcHeight(50);
-        rect.setArcWidth(50);
-        rect.setFill(Color.VIOLET);
-    
-        TranslateTransition tt = new TranslateTransition(Duration.millis(2000), rect);
-        tt.setByX(200f);
-        tt.setCycleCount((int) 4f);
-        
-        root.getChildren().add(rect);
-        tt.play();
-        primaryStage.show();
-    }
+public class ScreenAnimation{
 	/**
 	 * 
 	 */
-	public static void enlargeButton(Node n){
+	public static void expandButtonWhenMouseOver(Node n){
 		//move methods to here
 	}
 	/**
@@ -54,20 +38,8 @@ public class ScreenAnimation extends Application{
 		
 		
 	}
-	public static void makeTranslateTransition(){
-		Rectangle rect = new Rectangle (100, 40, 100, 100);
-	     rect.setArcHeight(50);
-	     rect.setArcWidth(50);
-	     rect.setFill(Color.VIOLET);
-	 
-	     TranslateTransition tt = new TranslateTransition(Duration.millis(2000), rect);
-	     tt.setByX(200f);
-	     tt.setCycleCount((int)4f);
-	     tt.setAutoReverse(true);
-	 
-	     tt.play();
-	}
 
+	
 	/**
 	 * shakes popup when user did not enter game info or inapproporiate input and ask user to enter again.
 	 * @param args
@@ -85,7 +57,31 @@ public class ScreenAnimation extends Application{
 		//move up button.setTranslateY()?
 	}
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
+	  /*Testing
+		@Override
+	    public void start(final Stage primaryStage) {
+	        primaryStage.setTitle("Animation");
+	        Group root = new Group();
+	        Scene scene = new Scene(root, 400, 300, Color.WHITE);       
+	        primaryStage.setScene(scene);
+	        
+	        Rectangle rect = new Rectangle (100, 40, 100, 100);
+	        rect.setArcHeight(50);
+	        rect.setArcWidth(50);
+	        rect.setFill(Color.VIOLET);
+	    
+	        TranslateTransition tt = new TranslateTransition(Duration.millis(2000), rect);
+	        tt.setByX(200f);
+	        tt.setCycleCount((int) 4f);
+	        
+	        root.getChildren().add(rect);
+	        tt.play();
+	        primaryStage.show();
+	    }
+
+	    public static void main(String[] args) {
+	        Application.launch(args);
+	    }
+	    */
+	
 }

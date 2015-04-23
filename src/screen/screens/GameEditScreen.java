@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javafx.animation.ParallelTransition;
+import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -418,15 +419,7 @@ public class GameEditScreen extends Screen {
 						makeRightClickMenu(
 								e -> controller
 										.loadLevelEditScreen(selectedLevel),
-								//e -> controller.trashLevel(game,selectedIndex, g)
-								new EventHandler<ActionEvent>(){
-									@Override
-									public void handle(ActionEvent e){
-										game.levels().remove(selectedIndex);
-										levelHB.getChildren().get(selectedIndex).setVisible(false);;
-										animatesButtons();
-									}
-								}).show(node,
+								e -> controller.trashLevel(game,selectedIndex, g)).show(node,
 										mouseEvent.getScreenX(), mouseEvent.getScreenY());
 					}
 						
@@ -444,25 +437,31 @@ public class GameEditScreen extends Screen {
 		};
 		
 	}
-	private void animatesButtons(){
-		ArrayList<TranslateTransition>	list = new ArrayList();
+	/**
+	 * assign translate animation to each level button after the one removed by user 
+	 * @return 
+	 */
+	public Transition[] assignLevelButtonsAnimation(){
 		
+		levelHB.getChildren().get(selectedIndex).setVisible(false);		
+		ArrayList<TranslateTransition>	list = new ArrayList();		
 		for(int i = selectedIndex + 1; i < levelHB.getChildren().size(); i++){
 			Node n = levelHB.getChildren().get(i);
 			list.add(assignTranslateTransToNode(n));
-		}
-		
-		TranslateTransition[] animationArray = list.toArray(new TranslateTransition[0]);
-		ParallelTransition pt = new ParallelTransition(animationArray);
-		pt.setOnFinished(new EventHandler<ActionEvent>(){
+		}		
+		return list.toArray(new TranslateTransition[0]);
 
-			@Override
-			public void handle(ActionEvent event) {
-				levelHB.getChildren().remove(selectedIndex);
-				displayLevels(game.levels());
-			}
-		});
-		pt.play();
+	}
+	/**
+	 * runs multiple animations in parallel
+	 * @param onfinished: action event triggered when the parallel animation is finished
+	 * @return parallelTransition
+	 */
+	public ParallelTransition runAnimationsInParallel(EventHandler<ActionEvent> onfinished, Transition... transitions){
+	
+		ParallelTransition pt = new ParallelTransition(transitions);
+		pt.setOnFinished(onfinished);
+		return pt;
 	}
 	
 	private TranslateTransition assignTranslateTransToNode(Node n){
@@ -472,7 +471,6 @@ public class GameEditScreen extends Screen {
 	    		 INT.DEFAULT_LEVEL_DISPLAY_WIDTH );
 	     tt.setCycleCount((int)1f);
 	     tt.setDuration(Duration.seconds(0.5d));
-	     //tt.setOnFinished();
 	     return tt;
 	}
 	
@@ -480,7 +478,18 @@ public class GameEditScreen extends Screen {
 		selectedIndex = index;
 		selectedLevel = game.levels().get(selectedIndex);
 	}
-
+	
+	public EventHandler<ActionEvent> trashLevelAnimationFinishedEvent(){
+		return new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent event) {
+				levelHB.getChildren().remove(selectedIndex);
+				displayLevels(game.levels());
+			}
+		};
+	}
+	
 	
 	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
 
