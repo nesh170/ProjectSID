@@ -14,11 +14,12 @@ public class INT {
 	public static final int DEFAULT_LEVEL_DISPLAY_WIDTH = 500;
 	public static final int DEFAULT_LEVEL_DISPLAY_HEIGHT = 400;		
 	public static final int GAMEEDIT_ADD_SIGN_DIM = 150;
+	public static final int INITIAL_SETUP = 2;
 	public static final int LEVEL = 1;
 	public static final int SPLASH = 0;
 	
 	// SplashEdit
-	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 120;
+	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 40;
 	public static final int SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING = 40;
 	public static final int SPLASH_EDIT_SCREEN_DISPLAY_WIDTH = 1300;
 	public static final int SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT = 637;

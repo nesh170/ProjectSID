@@ -15,6 +15,8 @@ public class STRING {
 		public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
 		public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
 		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
+		public static final String FX_MAIN_MENU_BUTTON = "-fx-background-color: rgba(241, 241, 241, 0.8); -fx-background-radius: 10;";
+		public static final String FX_GAME_EDIT_BUTTON_RADIUS = " -fx-background-radius: 15;";
 		
 	}
 	
@@ -57,6 +59,10 @@ public class STRING {
 	
 	public class REGEX {
 		public static final String ANY_CHAR = ".+";
+	}
+	
+	public class EXT {
+		public static final String XML = ".xml";
 	}
 	
 	public class MAIN_MENU_SCREEN {
@@ -123,6 +129,7 @@ public class STRING {
 		public static final String BACKDOWN_IMG = "images/GameEdit_Images/back_down.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
+		public static final String IMAGE_FOLDER ="-images";
 			
 	}
 	
