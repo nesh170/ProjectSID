@@ -3,6 +3,7 @@ package screen.levelPlatformCapableScreen;
 import gameEngine.Action;
 import gameEngine.Component;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,12 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import data.DataHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -98,6 +101,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private Set<ImageView> premadeEnemies;
 	private Set<ImageView> premadePlayers;
 	private Set<ImageView> premadePowerups;
+	
+	private final static double UNSELECT = 1;
+	private final static double SELECT = 0.4;
 
 
 	// Getters & Setters
@@ -187,9 +193,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		Menu spriteButton = new Menu(STRING.LEVEL_EDIT.ADD_SPRITE,spritePic);
 		MenuItem addSprite = new MenuItem(STRING.LEVEL_EDIT.ADD_SPRITE);
-		spriteButton.getItems().add(addSprite);
+		MenuItem editSprite = new MenuItem(STRING.LEVEL_EDIT.EDIT_SELECTED_SPRITE);
+		spriteButton.getItems().addAll(addSprite,editSprite);
 
-		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, new Sprite()));
+		addSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, null));
+		editSprite.setOnAction(e -> controller.loadSpriteEditScreen(this, selectedSprite));
 		return spriteButton;
 
 	}
@@ -232,7 +240,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 					String oldSelect, String newSelect) {
 				try {
 					if(stringToSpriteMap.containsKey(oldSelect)) {
-						levelEditDisplay.getImage(stringToSpriteMap.get(oldSelect)).setOpacity(1);
+						levelEditDisplay.getImage(stringToSpriteMap.get(oldSelect)).setOpacity(UNSELECT);
 					}
 					/*
 					 * this next line could throw an exception possibly if
@@ -264,7 +272,10 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		// TODO: fix hardcoded string
 
 		Button addSpriteButton = 
-				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this));
+				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this, null));
+		
+		Button editSpriteButton =
+				makeButtonForPane(languageResources().getString("EditSprite"), e-> controller.loadSpriteEditScreen(this, selectedSprite));
 
 		Button returnToGameEditButton = 
 				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
@@ -284,7 +295,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		Button addCollTableButton = 
 				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
 
-		rightButtonBox.getChildren().addAll(addSpriteButton, returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton);
+		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton);
 
 	}
 
@@ -352,7 +363,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		sprite.setName(customName);
 		sprite.setTag(tag);
 		
-		imageView.setOnMouseClicked(e -> addSprite(new Sprite(sprite)));
+		imageView.setOnMouseClicked(e -> addSprite(Sprite.makeCopy(sprite)));
 		
 		setForSprite.add(imageView);
 	}
@@ -368,9 +379,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		double xLocation = e.getX();
 		double yLocation = e.getY();
-
-		sprite.setX(xLocation);
-		sprite.setY(yLocation);
+		
+		sprite.setPosition(new Point2D(xLocation,yLocation));
 
 	}
 
@@ -394,7 +404,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	private void addSpriteToLevelDisplay(Sprite sprite) {
 
-		ImageView imageView = sprite.spriteImage().getImageViewToDisplay();
+		ImageView imageView = new ImageView(imageToAdd);
 
 		levelEditDisplay.addSpriteToDisplay(sprite,imageView);
 
@@ -413,7 +423,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void addWidthLeft() {
 		levelEditDisplay.addWidthLeft();
 		level.sprites().forEach(sprite -> {
-			sprite.setX(sprite.getX() + levelEditDisplay.getSizeToIncrease());
+			Point2D curPosition = sprite.getPosition();
+			sprite.setPosition(new Point2D(curPosition.getX() + levelEditDisplay.getSizeToIncrease(), curPosition.getY()));
 		});
 		addLevelWidth();
 	}
@@ -430,7 +441,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void addHeightUp() {
 		levelEditDisplay.addHeightUp();
 		level.sprites().forEach(sprite -> {
-			sprite.setY(sprite.getY() + levelEditDisplay.getSizeToIncrease());
+			Point2D curPosition = sprite.getPosition();
+			sprite.setPosition(new Point2D(curPosition.getX(), curPosition.getY() + levelEditDisplay.getSizeToIncrease()));
 		});
 		addLevelHeight();
 	}
@@ -482,9 +494,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	
 	private void selectSprite(Sprite sprite) {
 		selectedSprite = sprite;
-		levelEditDisplay.getImage(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
-		levelEditDisplay.setVvalue(selectedSprite.getY()-levelEditDisplay.getHeight()/2);
-		levelEditDisplay.setHvalue(selectedSprite.getX()-levelEditDisplay.getWidth()/2);
+		levelEditDisplay.getImage(selectedSprite).setOpacity(SELECT);
+		levelEditDisplay.setVvalue(selectedSprite.getPosition().getY()-levelEditDisplay.getHeight()/2);
+		levelEditDisplay.setHvalue(selectedSprite.getPosition().getX()-levelEditDisplay.getWidth()/2);
 	}
 	
 	private void delete() {
@@ -506,7 +518,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	public void addSprite(Sprite sprite) {
 
 		spriteToAdd = sprite;
-		imageToAdd = spriteToAdd.spriteImage().getImageViewToDisplay().getImage();
+		Dimension2D spriteSize = spriteToAdd.dimensions();
+		imageToAdd = DataHandler.fileToImage(new File(spriteToAdd.getImagePath()),spriteSize.getWidth(),spriteSize.getHeight(),false);
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
 
 	}
