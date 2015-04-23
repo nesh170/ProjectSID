@@ -11,7 +11,6 @@
       <isActive>true</isActive>
       <collisionTag>platform</collisionTag>
       <imagePath>mushroomPlatform.png</imagePath>
-      <facesLeft>false</facesLeft>
       <transform>
         <myPosition>
           <x>0.0</x>
@@ -42,7 +41,6 @@
       <isActive>true</isActive>
       <collisionTag>platform</collisionTag>
       <imagePath>mushroomPlatform.png</imagePath>
-      <facesLeft>false</facesLeft>
       <transform>
         <myPosition>
           <x>-20.0</x>
@@ -69,7 +67,6 @@
       <isActive>true</isActive>
       <collisionTag>platform</collisionTag>
       <imagePath>mushroomPlatform.png</imagePath>
-      <facesLeft>false</facesLeft>
       <transform>
         <myPosition>
           <x>250.0</x>
@@ -221,7 +218,6 @@
               <isActive>false</isActive>
               <collisionTag>fireMario</collisionTag>
               <imagePath>FireMario.png</imagePath>
-              <facesLeft>false</facesLeft>
               <transform>
                 <myPosition>
                   <x>180.0</x>
@@ -230,7 +226,7 @@
                 </myPosition>
                 <myRotation reference="../../../../../../../sprite.Sprite/transform/myRotation"/>
                 <myDimensions>
-                  <width>40.0</width>
+                  <width>50.0</width>
                   <height>50.0</height>
                   <hash>0</hash>
                 </myDimensions>
@@ -260,8 +256,7 @@
       <emissionList/>
       <isActive>true</isActive>
       <collisionTag>player</collisionTag>
-      <imagePath>mario.png</imagePath>
-      <facesLeft>false</facesLeft>
+      <imagePath>mario.jpg</imagePath>
       <transform>
         <myPosition>
           <x>100.0</x>
@@ -270,7 +265,7 @@
         </myPosition>
         <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
-          <width>40.0</width>
+          <width>50.0</width>
           <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
@@ -289,7 +284,6 @@
       <isActive>true</isActive>
       <collisionTag>flower</collisionTag>
       <imagePath>fireFlower.png</imagePath>
-      <facesLeft>false</facesLeft>
       <transform>
         <myPosition>
           <x>300.0</x>

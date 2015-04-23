@@ -39,15 +39,19 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void execute() {
-		Transform transform1 = mySprites[mySpriteIndex].transform();
-		mySprites[mySpriteIndex].setIsActive(false);
-		int sprite1Index = myPlayerList.indexOf(mySprites[mySpriteIndex]);
+		Sprite sprite1 = mySprites[mySpriteIndex];
 		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
-		int sprite2Index = myPlayerList.indexOf(mySprites[mySpriteIndex]);
-		mySprites[mySpriteIndex].setIsActive(true);
-		mySprites[mySpriteIndex].transform().setPosition(new Point2D(transform1.getPosX(), transform1.getPosY()));
-		transferVelocity(myPlayerList.get(sprite1Index), myPlayerList.get(sprite2Index));
-		switchPlayers(sprite1Index, sprite2Index);
+		Sprite sprite2 = mySprites[mySpriteIndex];
+		sprite1.setIsActive(false);
+		sprite2.setIsActive(true);
+		transferPositionAndDirection(sprite1, sprite2);
+		transferVelocity(sprite1, sprite2);
+		switchPlayers(sprite1, sprite2);
+	}
+
+	private void transferPositionAndDirection(Sprite sprite1, Sprite sprite2) {
+		sprite2.transform().setPosition(new Point2D(sprite1.transform().getPosX(), sprite1.transform().getPosY()));
+		sprite2.setFacesLeft(sprite1.facesLeft());
 	}
 	
 	private void transferVelocity(Sprite sprite1, Sprite sprite2){
@@ -58,11 +62,11 @@ public class SwitchOutAction extends Action{
 		}
 	}
 
-	private void switchPlayers(int sprite1Index, int sprite2Index) {
-		Sprite player1 = myPlayerList.get(sprite1Index);
-		Sprite player2 = myPlayerList.get(sprite2Index);
-		myPlayerList.set(sprite1Index, player2);
-		myPlayerList.set(sprite2Index, player1);
+	private void switchPlayers(Sprite sprite1, Sprite sprite2) {
+		int sprite1Index = myPlayerList.indexOf(sprite1);
+		int sprite2Index = myPlayerList.indexOf(sprite2);
+		myPlayerList.set(sprite1Index, sprite2);
+		myPlayerList.set(sprite2Index, sprite1);
 	}
 
 	@Override

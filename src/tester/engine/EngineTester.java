@@ -78,7 +78,7 @@ public class EngineTester extends Tester {
 
 
 	private Sprite makeSpecialPlayer() {
-		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		fireMario.setImagePath("FireMario.png");
 		fireMario.setCollisionTag("fireMario");
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
@@ -91,9 +91,9 @@ public class EngineTester extends Tester {
 	}
 
 	private Sprite makePlayer() {
-		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
+		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		player.addComponent(new VelocityComponent(player, null));
-		player.setImagePath("mario.jpg");
+		player.setImagePath("mario.png");
 		player.setCollisionTag("player");
 		myPlayerList.add(player);
 		mySpriteList.add(player);

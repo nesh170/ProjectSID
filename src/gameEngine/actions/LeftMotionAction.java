@@ -23,7 +23,7 @@ public class LeftMotionAction extends Action {
 	@Override
 	public void execute() {
 		myVelocityComponent.setVelocityX(-EngineMathFunctions.velocityValueFrame(value));
-
+		mySprite.setFacesLeft(true);
 	}
 
 	@Override
