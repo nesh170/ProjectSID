@@ -1,4 +1,4 @@
-package screen;
+package screen.animationTesting;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.*;
@@ -18,7 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class TransitionTest extends Application {
+public class TransitionExample extends Application {
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -35,14 +35,37 @@ public class TransitionTest extends Application {
         rect.setArcHeight(50);
         rect.setArcWidth(50);
         rect.setFill(Color.VIOLET);
-    
-        TranslateTransition tt = new TranslateTransition(Duration.millis(2000), rect);
-        tt.setByX(200f);
-        tt.setCycleCount((int) 4f);
+
+        final Duration SEC_2 = Duration.millis(2000);
+        final Duration SEC_3 = Duration.millis(3000);
+/*
+        FadeTransition ft = new FadeTransition(SEC_3);
+        ft.setFromValue(1.0f);
+        ft.setToValue(0.3f);
+        ft.setCycleCount((int) 2f);
+        ft.setAutoReverse(true);
+        
+        TranslateTransition tt = new TranslateTransition(SEC_2);
+        tt.setFromX(-100f);
+        tt.setToX(100f);
+        tt.setCycleCount((int) 2f);
         tt.setAutoReverse(true);
         
+        RotateTransition rt = new RotateTransition(SEC_3);
+        rt.setByAngle(180f);
+        rt.setCycleCount((int) 4f);
+        rt.setAutoReverse(true);
+        */
+        ScaleTransition st = new ScaleTransition(SEC_2, rect);
+        st.setByX(1.5f);
+        st.setByY(1.5f);
+        st.setCycleCount((int) 2f);
+        st.setAutoReverse(true);
+
+        //ParallelTransition pt = new ParallelTransition(rect, ft, tt, rt, st);
+        
         root.getChildren().add(rect);
-        tt.play();
+        st.play();
         primaryStage.show();
     }
 }
