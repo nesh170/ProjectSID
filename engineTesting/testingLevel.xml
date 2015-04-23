@@ -3,59 +3,211 @@
   <height>500</height>
   <sprites>
     <sprite.Sprite>
-      <actionList>
-        <gameEngine.actions.SwitchOutAction>
-          <mySprite reference="../../.."/>
-          <isActive>false</isActive>
-          <myKeyCode class="java.util.Arrays$ArrayList">
-            <a class="javafx.scene.input.KeyCode-array">
-              <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
-            </a>
-          </myKeyCode>
-          <runsEveryFrame>false</runsEveryFrame>
-          <value>0.0</value>
-          <mySpriteIndex>0</mySpriteIndex>
-          <mySprites>
-            <sprite.Sprite reference="../../../.."/>
-            <sprite.Sprite>
-              <actionList>
-                <gameEngine.actions.SwitchOutAction reference="../../../.."/>
-              </actionList>
-              <componentList/>
-              <x>0.0</x>
-              <y>0.0</y>
-              <emissionList/>
-              <isActive>false</isActive>
-              <imagePath>star.png</imagePath>
-              <transform>
-                <myPosition>
-                  <x>200.0</x>
-                  <y>100.0</y>
-                  <hash>0</hash>
-                </myPosition>
-                <myRotation>
-                  <x>0.0</x>
-                  <y>0.0</y>
-                  <hash>0</hash>
-                </myRotation>
-                <myDimensions>
-                  <width>50.0</width>
-                  <height>50.0</height>
-                  <hash>0</hash>
-                </myDimensions>
-                <startPosition reference="../myPosition"/>
-                <startRotation reference="../myRotation"/>
-                <startDimensions reference="../myDimensions"/>
-              </transform>
-            </sprite.Sprite>
-          </mySprites>
-        </gameEngine.actions.SwitchOutAction>
-      </actionList>
+      <actionList/>
       <componentList/>
       <x>0.0</x>
       <y>0.0</y>
       <emissionList/>
       <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <transform>
+        <myPosition>
+          <x>0.0</x>
+          <y>300.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myRotation>
+        <myDimensions>
+          <width>200.0</width>
+          <height>30.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <transform>
+        <myPosition>
+          <x>-20.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>20.0</width>
+          <height>200.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.FallAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array"/>
+          </myKeyCode>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>50.0</value>
+        </gameEngine.actions.FallAction>
+        <gameEngine.actions.NormalAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>0.0</value>
+        </gameEngine.actions.NormalAction>
+        <gameEngine.actions.UpMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>-20.0</value>
+          <climbing>false</climbing>
+        </gameEngine.actions.UpMotionAction>
+        <gameEngine.actions.LeftMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>8.0</value>
+        </gameEngine.actions.LeftMotionAction>
+        <gameEngine.actions.RightMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>8.0</value>
+          <velocity>8.0</velocity>
+        </gameEngine.actions.RightMotionAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
+          <myTerminalVelocity>5.0</myTerminalVelocity>
+          <isGrounded>true</isGrounded>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>fireMario</collisionTag>
+      <imagePath>star.png</imagePath>
+      <transform>
+        <myPosition>
+          <x>180.0</x>
+          <y>100.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>50.0</width>
+          <height>50.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.FallAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array"/>
+          </myKeyCode>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>50.0</value>
+        </gameEngine.actions.FallAction>
+        <gameEngine.actions.NormalAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>0.0</value>
+        </gameEngine.actions.NormalAction>
+        <gameEngine.actions.UpMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>-20.0</value>
+          <climbing>false</climbing>
+        </gameEngine.actions.UpMotionAction>
+        <gameEngine.actions.LeftMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>8.0</value>
+        </gameEngine.actions.LeftMotionAction>
+        <gameEngine.actions.RightMotionAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>8.0</value>
+          <velocity>8.0</velocity>
+        </gameEngine.actions.RightMotionAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
+          <myTerminalVelocity>5.0</myTerminalVelocity>
+          <isGrounded>true</isGrounded>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>player</collisionTag>
       <imagePath>mario.jpg</imagePath>
       <transform>
         <myPosition>
@@ -63,26 +215,85 @@
           <y>100.0</y>
           <hash>0</hash>
         </myPosition>
-        <myRotation reference="../../actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/transform/myRotation"/>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <myDimensions>
           <width>50.0</width>
           <height>50.0</height>
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../myPosition"/>
-        <startRotation reference="../../actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/transform/myRotation"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
-    <sprite.Sprite reference="../sprite.Sprite/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
   </sprites>
   <playerSpriteList>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
-    <sprite.Sprite reference="../../sprites/sprite.Sprite/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+    <sprite.Sprite reference="../../sprites/sprite.Sprite[3]"/>
+    <sprite.Sprite reference="../../sprites/sprite.Sprite[4]"/>
   </playerSpriteList>
   <collisionTable>
-    <myTable/>
-    <tagList/>
+    <myTable>
+      <entry>
+        <string>fireMario</string>
+        <map>
+          <entry>
+            <string>platform</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.NormalAction"/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+      <entry>
+        <string>platform</string>
+        <map>
+          <entry>
+            <string>fireMario</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.NormalAction"/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
+            <string>player</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.NormalAction"/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+      <entry>
+        <string>player</string>
+        <map>
+          <entry>
+            <string>platform</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.NormalAction"/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+    </myTable>
+    <tagList>
+      <string>fireMario</string>
+      <string>platform</string>
+      <string>platform</string>
+      <string>fireMario</string>
+      <string>player</string>
+      <string>platform</string>
+      <string>player</string>
+    </tagList>
   </collisionTable>
   <goalMap/>
 </levelPlatform.level.Level>

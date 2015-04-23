@@ -34,7 +34,6 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void execute() {
-		System.out.println("switching");
 		Transform transform1 = mySprites[mySpriteIndex].transform();
 		mySprites[mySpriteIndex].setIsActive(false);
 		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
