@@ -170,7 +170,7 @@ public class PlayerViewController {
 
 	public void initializeGameAttributes() {
 		try {
-			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myGameLevels = DataHandler.getGameFromDir(myGameFolder).levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();

@@ -54,7 +54,6 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.ScreenController;
 import screen.controllers.SpriteEditScreenController;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
 import sprite.Sprite;
 import sprite.SpriteImage;
 import util.ImageToInt2DArray;
