@@ -188,7 +188,6 @@ public class LevelPlatformView extends ScrollPane {
 //            spriteGroup.getChildren().add(player);
         	
             spriteImage = sprite.spriteImage().getImageToDisplay(lengthSidePixel);
-            //spriteImage = sprite.spriteImage(lengthSidePixel).getImageToDisplay(lengthSidePixel);
             spriteImageView = new ImageView(spriteImage);
                         
             //SIDPixelsToFXpixels.translate(spriteImageView, sprite.transform().getPosX(), sprite

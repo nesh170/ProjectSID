@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.*;
 
+import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
@@ -46,10 +47,17 @@ public class Sprite {
 	private String name;
 	private String tag;
 	private String collisionTag;
+	private String imagePath;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
 
+	
+	public static Sprite makeCopy(Sprite toCopy) {
+		String xmlCopy = DataHandler.toXMLString(toCopy);
+		Sprite returnCopy = (Sprite) DataHandler.fromXMLString(xmlCopy);
+		return returnCopy; 
+	}
 	
 	// Getters & Setters
 	/**
@@ -64,6 +72,14 @@ public class Sprite {
 	 */
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	
 	public List<Action> actionList() {
@@ -102,7 +118,7 @@ public class Sprite {
 		return this.tag;
 	}
 	
-	public String collisonTag(){
+	public String collisionTag(){
 		return this.collisionTag;
 	}
 	
@@ -163,10 +179,19 @@ public class Sprite {
 		
 	}
 	
+	@Deprecated
+	/*
+	 * Use static method makeSprite(Sprite toCopy) instead.
+	 */
 	public Sprite (Sprite toCopy) {
-		
+				
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		this.setTag(toCopy.tag());
+		this.setName(toCopy.name);
+		toCopy.actionList().forEach(action -> this.addAction(action));
+		toCopy.componentList().forEach(component -> this.addComponent(component));
+		this.spriteImage = new SpriteImage(toCopy.spriteImage()); 
 		
 	}
 	
@@ -185,6 +210,10 @@ public class Sprite {
 	
 	public void prepareAllActions(){
 		actionList.stream().forEach(action -> action.prepare());
+	}
+	
+	public void prepareImages(){
+		
 	}
 	
 	/**

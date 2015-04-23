@@ -6,10 +6,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -49,11 +53,11 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.factories.ScreenFactory;
-import screen.levelPlatformCapableScreen.GamePlayScreen;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
-import screen.levelPlatformCapableScreen.SplashEditScreen;
 import screen.screens.GameEditScreen;
+import screen.screens.GamePlayScreen;
+import screen.screens.LevelEditScreen;
 import screen.screens.MainMenuScreen;
+import screen.screens.SplashEditScreen;
 import screen.screens.SpriteEditScreen;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
@@ -122,6 +126,8 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
+	//Testing:
+	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -277,11 +283,19 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		tabManager.setDefaultTab(createMainMenuScreen());
-		
-		//USED FOR TEST GAMEEDITSCREEN
-		//createGameEditScreen(null);
-		
+
+		if(!GameEdit_Test)
+			tabManager.setDefaultTab(createMainMenuScreen());
+		else {
+				//USED FOR TEST GAMEEDITSCREEN
+				Game g = new Game();
+				for(int i=0; i < 5; i++){
+					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+					g.addLevel(newLevel);
+					}
+				createGameEditScreen(g);
+			}
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -406,10 +420,19 @@ public class ScreenController {
 		@Override
 		public void confirmToCreateGame(Popup popup, TextField gameName,
 				TextArea des) {
-			Game newGame = new Game(gameName.getText());
-            newGame.setDescription(des.getText());
-            createGameEditScreen(newGame);
-            popup.hide();
+			Pattern currKeyPattern = Pattern.compile(STRING.REGEX.ANY_CHAR);
+			Matcher m = currKeyPattern.matcher(gameName.getText());
+			
+			if (m.matches()) {
+				Game newGame = new Game(gameName.getText());
+				newGame.setDescription(des.getText());
+				createGameEditScreen(newGame);
+				popup.hide();
+			}
+			else {
+				gameName.getStyleClass().add(STRING.CSS.ERROR);
+				gameName.setPromptText(STRING.ERROR.EMPTY_GAME_NAME);
+			}
 		}
 		
 		@Override
@@ -434,12 +457,13 @@ public class ScreenController {
 	}
 	
 	private class GameEditScreenManager implements GameEditScreenController {
-
+		/**TODO: BUG Here: returning is not working when new levels are added.
+		 */
 
 		@Override
 		public void returnToMainMenuScreen(Popup popup) {
+			
 			hidePopup(popup);
-			//MainMenuScreen is singleton
 			Tab gameEditTab = tabManager.getTabSelectionModel().getSelectedItem();	
 			tabManager.removeTabAndChangeSelected(gameEditTab);
 			
@@ -455,63 +479,55 @@ public class ScreenController {
 		public void  showConfirmPopUpWithGame(Game game, Popup popup){
 			popup.show(stage);
 		}	
-		
+		/**
+		 * creates a new level as well as LevelEditScreen for this new level.
+		 * Adds the new level to append to end of levels list in game object.
+		 */
 		@Override
-		public void loadLevelEditScreen(Game game) {
-			//Create new Level, add to end of game
+		public void loadLevelEditScreen(Game game, GameEditScreen gameEditScreen) {
+			
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			createLevelEditScreen(newLevel);
 			game.addLevel(newLevel);
+			createLevelEditScreen(newLevel);
+			gameEditScreen.displayLevels(game.levels());
 			
 		}
-
+		
 		@Override
-		public void loadSplashEditScreen(Game game) {
-			//Create new SplashEditScreen
+		public void loadSplashEditScreen(Game game, GameEditScreen gameEditScreen) {
+			
 			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			createSplashEditScreen(newSplashScreen);
 			game.setSplash(newSplashScreen);
-			
-		}
-		/**
-		 * reloads GameEditScreen, needs to reloads the game to reflect those changes on the screen
-		 * Used when remove is clicked, so that GameEditScreen correctly reflects the removal of level or splash
-		 * 
-		 * OR to addListener() when change happened, use animation to reflect changes instead of refreshes whole screen
-		 * addListener( o-> animationToReduceLevelImage); (use easy method for now)
-		 * @param game
-		 */
-		public void reloadGameEditScreen(Game game){
-			Screen newScreen = screenFactory.createGameEditScreen(game, gameEditScreenManager);
-			
-			tabManager.addTabWithScreenWithStringIdentifier(
-						screenFactory.createGameEditScreen(game, gameEditScreenManager),
-						STRING.GAME_EDIT.GAME_EDIT
-						);
-			tabManager.replaceTab(newScreen);
+			gameEditScreen.displayApproporiateSplashButton();		
 		}
 		
 		@Override
 		public void playGame(Game game) {
+			
 			createGamePlayScreen();
 
 		}
 
 		@Override
-		public void trashLevel(Game game, int levelIndex) {
+		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
 			game.removeLevel(levelIndex);
-			reloadGameEditScreen(game);
+			Transition pt = gameEditScreen.runAnimationsInParallel(gameEditScreen.trashLevelAnimationFinishedEvent(),
+								gameEditScreen.assignLevelButtonsAnimation());
+			pt.play();
+			
 		}
 
 
 		@Override
-		public void trashSplash(Game game) {
+		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			reloadGameEditScreen(game);
+			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
+			
 		}
 
 
@@ -533,9 +549,9 @@ public class ScreenController {
 		
 		private void hidePopup(Popup popup){
 			popup.hide();
-		}
-	
+		}	
 	}
+
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
@@ -565,7 +581,6 @@ public class ScreenController {
 			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			createSpriteEditScreen(levelEditTab, sprite);
-			levelEditScreen.addSprite(sprite);
 			
 		}
 		

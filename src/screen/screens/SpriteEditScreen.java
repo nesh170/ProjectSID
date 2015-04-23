@@ -48,10 +48,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
+import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.ScreenController;
 import screen.controllers.SpriteEditScreenController;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
 import sprite.Sprite;
 import sprite.SpriteImage;
 import util.ImageToInt2DArray;
@@ -129,7 +129,7 @@ public class SpriteEditScreen extends Screen {
 		if (spriteToEdit != null) {
 
 			drawSpriteOnScreen(spriteToEdit);
-			editableSprite = new Sprite(spriteToEdit);
+			editableSprite = Sprite.makeCopy(spriteToEdit);
 
 		}
 
@@ -165,8 +165,8 @@ public class SpriteEditScreen extends Screen {
 				false);
 		keyCodesAreVisibleMap.put(languageResources().getString("NeedCode"),
 				true);
-		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"),
-				false);
+//		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"),
+//				false);
 
 	}
 
@@ -204,6 +204,7 @@ public class SpriteEditScreen extends Screen {
 
 	}
 
+	//TODO get rid of some duplicated code in this method
 	private void initializeValueBoxListenersForLists() {
 
 		actionsToAddList.getSelectionModel().selectedItemProperty()
@@ -362,12 +363,12 @@ public class SpriteEditScreen extends Screen {
 		nameAndTagPane.setAlignment(Pos.CENTER);
 		nameAndTagPane.setVgap(50);
 		nameAndTagPane.setHgap(10);
-		nameAndTagPane.getStyleClass().add("pane");
+		nameAndTagPane.getStyleClass().add(STRING.CSS.PANE);
 
-		Text nameLabel = new Text("Name" + ":"); // TODO do not hardcode "name"
+		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ":"); // TODO do not hardcode "name"
 
 		spriteNameField = new TextField();
-		spriteNameField.setPromptText("Enter the Sprite Name"); // TODO DO NOT
+		spriteNameField.setPromptText(languageResources().getString(STRING.SPRITE_EDIT.SPRITE_PROMPT)); // TODO DO NOT
 		// HARDCODE THIS
 		// STRING
 
@@ -404,13 +405,13 @@ public class SpriteEditScreen extends Screen {
 
 		imageSizeField = new TextField();
 		imageSizeField
-		.setPromptText(languageResources().getString("ImageSize"));
+		.setPromptText(languageResources().getString(languageResources().getString(STRING.SPRITE_EDIT.IMAGE_PROMPT)));
 
 		imageButtonAndSizeText.getChildren()
 		.addAll(imageButton, imageSizeField);
 
 		imagePane.getChildren().add(imageButtonAndSizeText);
-		imagePane.getStyleClass().add("pane");
+		imagePane.getStyleClass().add(STRING.CSS.PANE);
 
 		return imagePane;
 
@@ -434,7 +435,7 @@ public class SpriteEditScreen extends Screen {
 
 		HBox textArea = new HBox();
 
-		textArea.getStyleClass().add("pane");
+		textArea.getStyleClass().add(STRING.CSS.PANE);
 		dataText = new Text(languageResources().getString("DataText"));
 		textArea.getChildren().add(dataText);
 
@@ -448,9 +449,8 @@ public class SpriteEditScreen extends Screen {
 
 		actionTypes.addAll(
 				languageResources().getString("AlwaysRun"),
-				languageResources().getString("NeedCode"), 
-				languageResources().getString("OnCollision"));
-
+				languageResources().getString("NeedCode"));
+				//languageResources().getString("OnCollision")
 		actionTypeBox = new ChoiceBox<String>(actionTypes);
 		actionTypeBox.getSelectionModel().select(0);
 
@@ -522,7 +522,7 @@ public class SpriteEditScreen extends Screen {
 		HBox twoSidedListContainer = new HBox();
 
 		VBox fieldsAndButtons = new VBox();
-		fieldsAndButtons.getStyleClass().add("pane");
+		fieldsAndButtons.getStyleClass().add(STRING.CSS.PANE);
 		fieldsAndButtons.setAlignment(Pos.CENTER);
 		Button add = new Button(addText);
 		add.setOnMouseClicked(onAdd);
@@ -612,6 +612,9 @@ public class SpriteEditScreen extends Screen {
 								.newInstance(editableSprite,
 										Double.parseDouble(actionValue.getText()),
 										keylist);
+				if(!keyCodesAreVisibleMap.get(actionTypeBox.getSelectionModel().getSelectedItem())) {
+					action.runEveryFrame();
+				}
 				actionMap.put(selected, action);
 				actionsToAdd.remove(selected);
 				actionsAdded.add(selected);
@@ -620,13 +623,13 @@ public class SpriteEditScreen extends Screen {
 						+ currentCode.toString() + ", "
 						+ languageResources().getString("Value") + " "
 						+ actionValue.getText());
-				actionValue.getStyleClass().remove("text-field-error");
+				actionValue.getStyleClass().remove(STRING.CSS.ERROR);
 			} catch (InstantiationException | IllegalAccessException
 					| InvocationTargetException | NoSuchMethodException
 					| ClassNotFoundException e1) {
 				System.out.println("Fix your constructors");
 			} catch (NumberFormatException e1) {
-				actionValue.getStyleClass().add("text-field-error");
+				actionValue.getStyleClass().add(STRING.CSS.ERROR);
 			}
 
 			keycodeInputBox.clear();
@@ -670,14 +673,14 @@ public class SpriteEditScreen extends Screen {
 				createdBehaviorParameterMap.put(selected, selected + "-> "
 						+ languageResources().getString("Value") + " "
 						+ componentValue.getText());
-				componentValue.getStyleClass().remove("text-field-error");
+				componentValue.getStyleClass().remove(STRING.CSS.ERROR);
 
 			} catch (InstantiationException | IllegalAccessException
 					| InvocationTargetException | NoSuchMethodException
 					| ClassNotFoundException e1) {
 				System.out.println("Fix your constructors");
 			} catch (NumberFormatException e1) {
-				componentValue.getStyleClass().add("text-field-error");
+				componentValue.getStyleClass().add(STRING.CSS.ERROR);
 			}
 
 			componentValue.clear();
@@ -779,7 +782,7 @@ public class SpriteEditScreen extends Screen {
 	private void saveAndExit() {
 
 		if (spriteNameField.getText().isEmpty()) {
-			spriteNameField.getStyleClass().add("text-field-error");
+			spriteNameField.getStyleClass().add(STRING.CSS.ERROR);
 		}
 
 		else {

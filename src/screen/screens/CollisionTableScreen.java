@@ -2,14 +2,70 @@ package screen.screens;
 
 import gameEngine.CollisionTable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.Reflection;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import levelPlatform.level.Level;
+import resources.ScreenButton;
+import resources.constants.DOUBLE;
+import resources.constants.INT;
+import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
 
 /**
+ * NOTE: I NEED TO REFACTOR THIS CODE 
+ * DO NOT TOUCH YET
+ */
+
+/**
+ * 
+ * Resources:
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/HBox.html
+ * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
+ * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextField.html
+ * 
+ * 
+ * 
  * Visual Design (discussion April 7)
  * 
  * Back-end layout:
@@ -135,20 +191,40 @@ import screen.controllers.CollisionTableScreenController;
  * 
  * Menu and entering text similar to SpriteEditScreen ***
  * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * VERSION 2 - April 16 Group meeting
+ * 
+ * 
+ * Collision table screen has only one text bar with add button
+ * 
+ * 
+ * 
+ * 	[Sprite 1 (active)]		[Sprite 2]		[Direction   v]		[Action  v]		[Value]
+ * 
+ * 	[+]
+ *  
+ * 
+ * 
+ * 
  *
  * @author Anika
  *
  */
 public class CollisionTableScreen extends Screen{
-	
+
 	private CollisionTableScreenController myController;
 	private List<String> levelSprites;
 	private CollisionTable collTable; // TODO: how to get
-	
+	private StackPane tablesDisplay;
+
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
 	}
-	
+
 	/**
 	 * CollisionTableScreen(collisionTableScreenController, width, height, level);
 	 */
@@ -156,20 +232,189 @@ public class CollisionTableScreen extends Screen{
 		super(width, height);
 		myController = controller;
 		levelSprites = sprites;
-		
+		initialize();
 	}
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		// TODO Auto-generated method stub
+
+	}
+
+
+	// HASHMAP of s1 s2 and action and direction
+	private void initialize(){
+		configureLevelDisplay();
+		this.setCenter(tablesDisplay);
+	}
+
+	private void configureLevelDisplay(){
+		//, DisplayLevels(myLevels)
+		tablesDisplay = new StackPane();
+		ScrollPane levelSP = this.displayLevels(this.levelSprites);
+
+		tablesDisplay.getChildren().addAll(levelSP);
+	}
+
+	/**
+	 * display list of levels that are represented by images in parallel 
+	 * @param ObservableList<Level>
+	 */
+	private ScrollPane displayLevels(List<String> levels) { 		
+
+		//TableView<ObservableList> levelTable = new TableView();	
+		ScrollPane sp = configureScrollPane();
+
+
+
+		return sp;
+
+	}
+	
+
+	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
+	{
+		ObservableList<String> options = FXCollections.observableArrayList();
+		ComboBox comboBox = new ComboBox(options);
+		comboBox.getItems().addAll(list);
+		comboBox.setId(id);
+		comboBox.setStyle(style);
+		comboBox.setPromptText(promptText);
+		return comboBox;
+	}
+
+	private ScrollPane configureScrollPane(){
+		ScrollPane sp = new ScrollPane();
+
+		sp.setPannable(true);
+
+	
+		TilePane tile = new TilePane(Orientation.VERTICAL);
+		HBox description = new HBox(800);
+		description.setAlignment(Pos.TOP_CENTER);
+		
+		ImageView titleImage = new ImageView(new Image(STRING.COLLISION_EDIT.COLLISION_SCREEN_TITLE));
+		titleImage.setFitWidth(600);
+		titleImage.setPreserveRatio(true);
+		titleImage.setTranslateX(200);
+		
+		description.getChildren().add(titleImage);
+
+		tile.setPadding(new Insets(25, 25, 25, 25));
+		tile.setVgap(20);
+		tile.setHgap(20);
+		tile.setStyle("-fx-background-color: DAE6F3;");
+		tile.getChildren().add(description);
+
+		for (int i = 0; i < 3; i++)
+		{
+			
+			
+			HBox collisionTable = new HBox(800);
+			collisionTable.setAlignment(Pos.CENTER);
+			collisionTable.setTranslateY(100);
+			collisionTable.setTranslateX(100);
+			
+
+			GridPane collisionSet = new GridPane();
+			collisionSet.setHgap(30);
+			collisionSet.setVgap(30);
+			collisionSet.setPadding(new Insets(0, 50, 0, 50));
+
+			ArrayList<String> sprites = new ArrayList<String>();
+			sprites.add("player"); // TODO: fix from input list
+			sprites.add("enemy");
+			sprites.add("platform");
+			sprites.add("power-up");
+			sprites.add("lava");
+			sprites.add("chocolate");
+			ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", "-fx-font: 20px \"Serif\";", "Active Sprite");
+		
+			collisionSet.add(activeSpriteList, 1, 0); 
+			
+			ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", "-fx-font: 20px \"Serif\";", "Inactive Sprite");
+		
+			collisionSet.add(inactiveSpriteList, 2, 0); 
+			
+			
+			ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
+
+			ComboBox direction = this.createComboBoxFromList(third, "Direction", "-fx-font: 20px \"Serif\";", "Direction");
+			
+			collisionSet.add(direction, 3, 0); 
+
+			
+			ArrayList<String> fourth = new ArrayList<String>();
+			fourth.add("die");
+			fourth.add("move");
+			fourth.add("sigh");
+			fourth.add("groove");
+			
+			ComboBox action = this.createComboBoxFromList(fourth, "Action", "-fx-font: 20px \"Serif\";", "Action");
+
+			collisionSet.add(action, 4, 0); 
+			
+			
+			TextField text = new TextField();
+			text.setPromptText("Value");
+			text.setId("Value");
+			collisionSet.add(text, 5, 0); 
+			
+			
+		
+			action.valueProperty().addListener(new ChangeListener<String>() {
+		           
+		            public void changed(ObservableValue ov, String t, String t1) {                
+		              if (t1.equals("die"))
+		              {
+		            	  text.setDisable(true);
+		              }
+		              else
+		              {
+		            	  text.setDisable(false);
+		              }
+		            }    
+		        });
+			
+			ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
+			collisionSet.add(saveSelection, 6, 0); 
+			
+			saveSelection.setOnMouseClicked(e->saveRow());
+
+			collisionTable.getChildren().add(collisionSet);
+
+
+			tile.getChildren().add(collisionTable);
+
+
+		}
+
+		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
+		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);    // Vertical scroll bar
+		sp.setFitToHeight(true);
+		sp.setFitToWidth(true);
+		sp.setContent(tile);     
+		return sp;
+	}
+	
+	//TODO
+	private void saveRow()
+	{
 		
 	}
 	
-	
-	
-	
-	
-	
-	
+
+
+	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda){
+		ImageView b = new ImageView(new Image(location));
+		b.setFitHeight(80);
+		b.setFitWidth(80);
+		b.setOnMouseClicked(lamda);
+		return b;
+	}	
+
+
+
+
 
 }

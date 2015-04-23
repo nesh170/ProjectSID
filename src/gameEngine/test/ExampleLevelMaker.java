@@ -6,7 +6,7 @@ import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
-import gameEngine.actions.JumpAction;
+import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.NormalAction;
@@ -17,6 +17,7 @@ import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +43,6 @@ public class ExampleLevelMaker extends Application{
 
 	private Sprite myPlayer;
 	private List<Sprite> mySpriteList = new ArrayList<>();
-	private Action myJumpAction;
-	private Action myBounceAction;
-	private Action myNormalAction;
 	private CollisionTable myCT;
 	private Action myKillAction;
 	private Sprite myProjectileTemplate;
@@ -53,6 +51,7 @@ public class ExampleLevelMaker extends Application{
 	private List<Sprite> myEnemyTrampolines = new ArrayList<>();
 	private List<Sprite> myEnemies = new ArrayList<>();
 	private List<Sprite> mySuperTrampolines = new ArrayList<>();
+	private List<Sprite> players;
 
 	private Level makeLevel(){
 		System.out.println("Oh yeah!!!");
@@ -63,7 +62,9 @@ public class ExampleLevelMaker extends Application{
 		myPlayer.setCollisionTag("player");
 		addPlayerComponentsAndActions();
 		mySpriteList.add(myPlayer);
-		Level l = new Level(500, 500, myPlayer);
+		players  = new ArrayList<>();
+		players.add(myPlayer);
+		Level l = new Level(500, 500, players);
 		//set up collisions
 		l.setCollisionTable(myCT);
 		//enemies:
@@ -80,7 +81,7 @@ public class ExampleLevelMaker extends Application{
 		/*//Star:
 		Sprite star = new Sprite(new Point2D(2525.0, 50.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
 		mySpriteList.add(star);
-		setUpImage(star, "star.png", 8, 8);*/
+		s getUpImage(star, "star.png", 8, 8);*/
 		//Images
 		doImages();
 		//Goals:
@@ -89,6 +90,7 @@ public class ExampleLevelMaker extends Application{
 
 		l.setSprites(mySpriteList);
 		l.setGoalMap(goalMap);
+		System.out.println(players.size());
 		return l;
 	}
 
@@ -111,7 +113,9 @@ public class ExampleLevelMaker extends Application{
 
 	private void makeStationaryEnemies() {
 		//Enemy:
-		makeEnemy(660, 160, 30, 30);
+		Sprite enemy = makeEnemy(660, 160, 30, 30);
+		Action enemyKill = new KillAction(enemy, 0.0, (KeyCode) null);
+		applyActionAll(myProjectileTemplate, enemy, enemyKill);
 		makeEnemy(780, 160, 30, 30);
 		makeEnemy(200, 300, 30, 100);
 		//Falling part:
@@ -164,28 +168,34 @@ public class ExampleLevelMaker extends Application{
 		applyActionAll(myPlayer, enemy, myKillAction);
 		mySpriteList.add(enemy);
 		myEnemies.add(enemy);
+		
 		return enemy;
 	}
 
 	private void applyActionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
-		myCT.addActionToMap(sprite1.collisonTag(), enemy.collisonTag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToMap(enemy.collisonTag(), sprite1.collisonTag(), INT.COLLISION_UP, null);
-		myCT.addActionToMap(sprite1.collisonTag(), enemy.collisonTag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToMap(enemy.collisonTag(), sprite1.collisonTag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToMap(sprite1.collisonTag(), enemy.collisonTag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToMap(enemy.collisonTag(), sprite1.collisonTag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
+		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
 	}
 	private void addPlayerComponentsAndActions() {
 		myPlayer.addComponent(new HealthComponent(myPlayer,null));
 		myPlayer.addComponent(new VelocityComponent(myPlayer, null));
-		myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
-		Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
-		myPlayer.addAction(rma);
-		makeJumping(myPlayer, KeyCode.UP, false);
-		makeFallingLanding(myPlayer);
+		makePlayable(myPlayer);
 		myKillAction = new KillAction(myPlayer, 0.0, KeyCode.K);
-		makeBouncing(myPlayer, myTrampolines);
+		addProjectile();
+	}
+
+	private void makePlayable(Sprite sprite) {
+		sprite.addAction(new LeftMotionAction(sprite, SPEED, KeyCode.LEFT));
+		Action rma = new RightMotionAction(sprite, SPEED, KeyCode.RIGHT);
+		sprite.addAction(rma);
+		makeJumping(sprite, KeyCode.UP, false);
+		makeFallingLanding(sprite);
+		makeBouncing(sprite, myTrampolines);
 	}
 
 	private void makeBouncing(Sprite sprite, List<Sprite> trampolines){
@@ -202,13 +212,13 @@ public class ExampleLevelMaker extends Application{
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action bounceAction) {
-		myCT.addActionToMap(sprite.collisonTag(), platform.collisonTag(), INT.COLLISION_UP, bounceAction);
-		myCT.addActionToMap(platform.collisonTag(), sprite.collisonTag(), INT.COLLISION_DOWN, null);
+		myCT.addActionToMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, bounceAction);
+		myCT.addActionToMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, null);
 	}
 
 
 	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
-		Action jumpAction = new JumpAction(sprite, JUMP_SPEED, kc);
+		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
 		if(runsEveryFrame){
 			jumpAction.runEveryFrame();
 		}
@@ -231,7 +241,8 @@ public class ExampleLevelMaker extends Application{
 		//set up projectile template, add to player, along with shoot actions
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,null, myPlayer);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
+				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

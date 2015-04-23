@@ -11,7 +11,6 @@ import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -44,40 +43,40 @@ public class PlayerViewController {
 	public final static double UPDATE_RATE = 120;
 
 	private Timeline myTimeline;
-	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
 	private Media myVideo;
 	private Media myAudio;
-	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
 	private int myLives;
 	private int myHealth;
 	private int myScore;
-	private Scene myScene;
 	private File myGameFolder;
 	private List<Level> myGameLevels;
 	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-	private double[] cameraValue;
 	private Game myGame;
+	private Camera myCamera;
+	private HUD myHUD;
+	private StackPane myTop;
 	
-	public PlayerViewController(ScrollPane pane) {
+	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
+		myCamera = new Camera(pane);
+		myHUD = gameHUD;
 		loadNewChooser();
-		myPause = makePauseScreen();
 	}
 
-	public PlayerViewController(Game game, ScrollPane pane) {
+	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
-		myPause = makePauseScreen();
+		myCamera = new Camera(pane);
+		myHUD = gameHUD;
 		selectGame(game);
 	}
 
 	public void startView() {
-		removePause();
 		myEngine.play(myGameRoot);
 		myTimeline.play();
 	}
@@ -89,46 +88,49 @@ public class PlayerViewController {
 	}
 
 	private void update() {
-		cameraValue = myEngine.update();
+		double[] cameraVals = myEngine.update();
+		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
 	}
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		myGameGroup.getChildren().add(createHUD());
 		myGameRoot.setContent(myGameGroup);
+		// sets focus automatically to root which is receiving key inputs
+		myGameRoot.requestFocus();
 		centerNodeInScrollPane();
 	}
-	
+
 	public void centerNodeInScrollPane() {
-	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
-	    double yCenterPlayer = cameraValue[1];
-	    double yBounds = myGameRoot.getViewportBounds().getHeight();
-	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
-	    double xCenterPlayer = cameraValue[0];
-	    double xBounds = myGameRoot.getViewportBounds().getWidth();
-	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
-	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
+		myCamera.focus();
 	}
 
 	private StackPane makePauseScreen() {
 		StackPane pause = new StackPane();
+		pause.setPrefSize(500, 500);
+		pause.setAlignment(Pos.CENTER);
 		Button startButton = new Button("Resume");
 		startButton.setOnAction(event -> {
+			removePause();
 			startView();
 		});
-		pause.getChildren().add(startButton);
+		pause.getChildren().addAll(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(myWidth - 100);
-		pause.setPrefHeight(myHeight - 50);
 		return pause;
 	}
 
 	private void bringupPause() {
-		myGameRoot.setContent(myPause);
+		StackPane pause = makePauseScreen();
+		myTop.getChildren().add(pause);
+		pause.requestFocus();
 	}
 
+	public void setPauseBase(StackPane pane) {
+		myTop = pane;
+	}
+	
 	private void removePause() {
-		myGameRoot.setContent(myGameGroup);
+		//top pane's only child will be pause menu
+		myTop.getChildren().remove(0);
 	}
 
 	private void setupAnimation() {
@@ -166,12 +168,9 @@ public class PlayerViewController {
 		chooseGame(chooserStage);
 	}
 
-	private void chooseGame(Stage gameChooser) {
-		// find a way to set up a map so we can just have file paths
-		// for games already established so no directory needs to be opened here
-		myGameFolder = DataHandler.chooseDir(gameChooser);
+	public void initializeGameAttributes() {
 		try {
-			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myGameLevels = DataHandler.getGameFromDir(myGameFolder).levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();
@@ -181,7 +180,15 @@ public class PlayerViewController {
 			e.printStackTrace();
 		}
 		myEngine = new GameEngine(myGameLevels);
+	}
+	
+	private void chooseGame(Stage gameChooser) {
+		// find a way to set up a map so we can just have file paths
+		// for games already established so no directory needs to be opened here
+		myGameFolder = DataHandler.chooseDir(gameChooser);
+		initializeGameAttributes();
 		setupAnimation();
+		startView();
 	}
 
 	public void selectGame(Game game) {
@@ -189,22 +196,7 @@ public class PlayerViewController {
 		myGameLevels = game.levels();
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
-	}			
-	
-	public HBox createHUD() {
-		HBox HUDbox = new HBox(myWidth);
-		Text LivesText = new Text("Health:" + myHealth);
-		LivesText.setFont(Font.font("Arial Black", 20));
-		LivesText.setFill(Color.WHITE);
-		Text HealthText = new Text("Lives:" + myLives);
-		HealthText.setFont(Font.font("Arial Black", 20));
-		HealthText.setFill(Color.WHITE);
-		Text ScoreText = new Text("Score" + myScore);
-		ScoreText.setFont(Font.font("Arial Black", 20));
-		ScoreText.setFill(Color.WHITE);
-		HUDbox.getChildren().addAll(LivesText, HealthText, ScoreText);
-		HUDbox.setAlignment(Pos.BOTTOM_CENTER);
-		return HUDbox;
+		startView();
 	}
 
 	public void save() {
@@ -221,6 +213,12 @@ public class PlayerViewController {
 		}
 	}
 
+	public void restart() {
+		stopView();
+		initializeGameAttributes();
+		startView();
+	}
+	
 	public void showTutorial() {
 		// TODO Auto-generated method stub
 		try {

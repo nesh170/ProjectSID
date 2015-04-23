@@ -1,5 +1,6 @@
 package screen.controllers;
 
+import screen.screens.GameEditScreen;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Popup;
@@ -15,19 +16,17 @@ import game.Game;
  */
 public interface GameEditScreenController {
 	
-	public void returnToMainMenuScreen(Popup popup);
-	
+	/**
+	 * Loads a new level edit screen and adds it to a game and the ObservableList in GameEditScreen
+	 * @param game
+	 */
+	void loadLevelEditScreen(Game game, GameEditScreen gameEditScreen);
 	/**
 	 * Loads a new splash edit screen that edits the splash screen
-	 * of the game parameter?
+	 * updates gameEditScreen display
 	 * @param game
 	 */
-	public void loadSplashEditScreen(Game game);
-	/**
-	 * Loads a new level edit screen and adds it to a game
-	 * @param game
-	 */
-	public void loadLevelEditScreen(Game game);
+	void loadSplashEditScreen(Game game, GameEditScreen gameEditScreen);
 	/**
 	 * Loads a new level edit screen with an existing level
 	 * @param level
@@ -39,35 +38,40 @@ public interface GameEditScreenController {
 	 */
 	public void playGame(Game game);
 	/**
-	 * remove the level from list of levels created 
+	 * remove the level from list of levels created and updates gameEditScreen
 	 * @param level
 	 */
-	public void trashLevel(Game game, int levelIndex);
+	public void trashLevel(Game game, int levelIndex, GameEditScreen gameEditScreen);
 	/**
-	 * removes the splash screen from list of splash screen created
-	 * pass in SplashScreen or Game?
+	 * removes the splash screen the game and updates gameEditScreen
 	 */
-	public void trashSplash(Game game);	
+	public void trashSplash(Game game, GameEditScreen gameEditScreen);	
 	
 	/**
 	 * Saves game to XML file
 	 * @param game
 	 */
 	public void saveGame(Game game);
+
 	/**
-	 * Creates a popup menu when back button is clicked, asking user if save or not.
+	 * shows a popup
+	 * @param popup
+	 */
+
+	public void returnToMainMenuScreen(Popup popup);
+	
+	/**
+	 * Shows a pop asking user to save game before return
 	 * @param game
 	 * @param popup
 	 */
-	public void  showConfirmPopUpWithGame(Game game, Popup popup);
+	public void showConfirmPopUpWithGame(Game game, Popup popup);
 	/**
-	 * saves the game before exiting the screen and returns to MainMenu
+	 * saves the game and returns back to main menu screen
 	 * @param game
 	 * @param popup
-	 * @return
 	 */
 	public void saveAndExit(Game game, Popup popup);
-
-
+	
 
 }

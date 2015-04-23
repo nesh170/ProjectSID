@@ -15,6 +15,8 @@ public class STRING {
 		public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
 		public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
 		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
+		public static final String FX_MAIN_MENU_BUTTON = "-fx-background-color: rgba(241, 241, 241, 0.8); -fx-background-radius: 10;";
+		public static final String FX_GAME_EDIT_BUTTON_RADIUS = " -fx-background-radius: 15;";
 		
 	}
 	
@@ -23,6 +25,7 @@ public class STRING {
 		// Errors
 		public static final String CLICK_TO_DISMISS = " (Click to dismiss)";
 		public static final String ILLEGAL_FILE_PATH = "Illegal File Path Error";
+		public static final String EMPTY_GAME_NAME = "Please Enter Game Name";
 		
 	}
 	
@@ -47,6 +50,19 @@ public class STRING {
 		public static final String RELEASED_BUTTON_CSS = "-fx-font: 14 georgia; -fx-text-fill: black;  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 ); -fx-border-width: 2 2 2 2; -fx-border-color: #006652; -fx-background-color: white;";
 		
 		
+	}
+	
+	public class CSS {
+		public static final String ERROR = "text-field-error";
+		public static final String PANE = "pane";
+	}
+	
+	public class REGEX {
+		public static final String ANY_CHAR = ".+";
+	}
+	
+	public class EXT {
+		public static final String XML = ".xml";
 	}
 	
 	public class MAIN_MENU_SCREEN {
@@ -104,13 +120,16 @@ public class STRING {
 		public static final String LEVEL1IMAGE = "images/GameEdit_Images/level1_tmp.PNG";
 		public static final String LEVEL2IMAGE = "images/GameEdit_Images/level2_tmp.PNG";
 		public static final String SPRITEIMAGE = "images/sprite.jpg";
-		public static final String BACK_IMG = "images/GameEdit_Images/back.png";
-		public static final String SPLASH_TMP = "images/sprite.jpg";
+		public static final String SPLASH_TMP = "images/GameEdit_Images/Splash_tmp.PNG";
 		public static final String PLUS_IMG = "images/GameEdit_Images/plus_sign.png";
+		public static final String PLUSDOWN_IMG = "images/GameEdit_Images/plus_sign_down.png";
 		public static final String PLAY_IMG = "images/GameEdit_Images/play.png";
+		public static final String PLAYDOWN_IMG = "images/GameEdit_Images/play_down.png";
+		public static final String BACK_IMG = "images/GameEdit_Images/back.png";
+		public static final String BACKDOWN_IMG = "images/GameEdit_Images/back_down.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
-		
+			
 	}
 	
 	public class LEVEL_EDIT {
@@ -128,13 +147,16 @@ public class STRING {
 		
 		//Sprite Edit Strings
 		public static final String SPRITE_EDIT = "Sprite Edit Screen";
+		public static final String NAME = "Name";
+		public static final String SPRITE_PROMPT = "SpritePrompt";
+		public static final String IMAGE_PROMPT = "ImagePrompt";
 		
 	}
 	
 	public class COLLISION_EDIT {
 		
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
-		
+		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
 	}
 	
 	public class GAME_PLAY {
@@ -153,6 +175,7 @@ public class STRING {
 	
 	//new String[]{"Add Level", "Edit Level", "Add Splash", "Edit Splash", "Remove Level"};
 	public static final Map<String, String> LEVELS_SPLASH_MAP;
+
     static
     {
     	LEVELS_SPLASH_MAP = new HashMap<String, String>();
