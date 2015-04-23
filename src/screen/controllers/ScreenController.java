@@ -125,6 +125,8 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
+	//Testing:
+	private boolean GameEdit_Test = true;
 	
 	// Static Variables
 	
@@ -280,11 +282,18 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		tabManager.setDefaultTab(createMainMenuScreen());
-		
+		if(GameEdit_Test = true){
 		//USED FOR TEST GAMEEDITSCREEN
-		//createGameEditScreen(null);
-		
+		Game g = new Game();
+		for(int i=0; i < 5; i++){
+			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+			g.addLevel(newLevel);
+			}
+		createGameEditScreen(g);
+		}
+		else
+		tabManager.setDefaultTab(createMainMenuScreen());
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -513,7 +522,7 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton();
+			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
 			
 		}
 

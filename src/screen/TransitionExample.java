@@ -38,9 +38,9 @@ public class TransitionExample extends Application {
 
         final Duration SEC_2 = Duration.millis(2000);
         final Duration SEC_3 = Duration.millis(3000);
-
+/*
         FadeTransition ft = new FadeTransition(SEC_3);
-/*        ft.setFromValue(1.0f);
+        ft.setFromValue(1.0f);
         ft.setToValue(0.3f);
         ft.setCycleCount((int) 2f);
         ft.setAutoReverse(true);

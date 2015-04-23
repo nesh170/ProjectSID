@@ -16,6 +16,7 @@ public class STRING {
 		public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
 		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
 		public static final String FX_MAIN_MENU_BUTTON = "-fx-background-color: rgba(241, 241, 241, 0.8); -fx-background-radius: 10;";
+		public static final String FX_GAME_EDIT_BUTTON_RADIUS = " -fx-background-radius: 15;";
 		
 	}
 	

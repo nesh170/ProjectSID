@@ -40,8 +40,6 @@ public class TransitionTest extends Application {
         tt.setByX(200f);
         tt.setCycleCount((int) 4f);
         tt.setAutoReverse(true);
-    
-        tt.play();
         
         root.getChildren().add(rect);
         tt.play();

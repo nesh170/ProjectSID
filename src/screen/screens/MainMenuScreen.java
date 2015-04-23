@@ -136,12 +136,6 @@ public class MainMenuScreen extends Screen {
 		return b;
 	}
 	
-	private void setNodeScale( Node n, double f){
-		n.setScaleX(f);
-		n.setScaleY(f);
-	}
-	
-	
 	private void configurePopUp() {
 		
 		//popup menu for game name		
