@@ -129,7 +129,7 @@ public class SpriteEditScreen extends Screen {
 		if (spriteToEdit != null) {
 
 			drawSpriteOnScreen(spriteToEdit);
-			editableSprite = new Sprite(spriteToEdit);
+			editableSprite = Sprite.makeCopy(spriteToEdit);
 
 		}
 

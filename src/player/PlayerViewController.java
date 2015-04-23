@@ -47,7 +47,6 @@ public class PlayerViewController {
 	private AudioController myAudioController;
 	private Media myVideo;
 	private Media myAudio;
-	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
 	private int myLives;
@@ -61,25 +60,23 @@ public class PlayerViewController {
 	private Game myGame;
 	private Camera myCamera;
 	private HUD myHUD;
+	private StackPane myTop;
 	
 	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
 		myHUD = gameHUD;
 		loadNewChooser();
-		myPause = makePauseScreen();
 	}
 
 	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
 		myHUD = gameHUD;
-		myPause = makePauseScreen();
 		selectGame(game);
 	}
 
 	public void startView() {
-		removePause();
 		myEngine.play(myGameRoot);
 		myTimeline.play();
 	}
@@ -98,34 +95,42 @@ public class PlayerViewController {
 	private void display() {
 		myGameGroup = myEngine.render();
 		myGameRoot.setContent(myGameGroup);
-		//sets focus automatically to root which is receiving key inputs
+		// sets focus automatically to root which is receiving key inputs
 		myGameRoot.requestFocus();
 		centerNodeInScrollPane();
 	}
-	
+
 	public void centerNodeInScrollPane() {
-	    myCamera.focus();
+		myCamera.focus();
 	}
 
 	private StackPane makePauseScreen() {
 		StackPane pause = new StackPane();
+		pause.setPrefSize(500, 500);
+		pause.setAlignment(Pos.CENTER);
 		Button startButton = new Button("Resume");
 		startButton.setOnAction(event -> {
+			removePause();
 			startView();
 		});
-		pause.getChildren().add(startButton);
+		pause.getChildren().addAll(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(myWidth - 100);
-		pause.setPrefHeight(myHeight - 50);
 		return pause;
 	}
 
 	private void bringupPause() {
-		myGameRoot.setContent(myPause);
+		StackPane pause = makePauseScreen();
+		myTop.getChildren().add(pause);
+		pause.requestFocus();
 	}
 
+	public void setPauseBase(StackPane pane) {
+		myTop = pane;
+	}
+	
 	private void removePause() {
-		myGameRoot.setContent(myGameGroup);
+		//top pane's only child will be pause menu
+		myTop.getChildren().remove(0);
 	}
 
 	private void setupAnimation() {
@@ -163,10 +168,7 @@ public class PlayerViewController {
 		chooseGame(chooserStage);
 	}
 
-	private void chooseGame(Stage gameChooser) {
-		// find a way to set up a map so we can just have file paths
-		// for games already established so no directory needs to be opened here
-		myGameFolder = DataHandler.chooseDir(gameChooser);
+	public void initializeGameAttributes() {
 		try {
 			myGameLevels = DataHandler.getGameFromDir(myGameFolder).levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
@@ -178,6 +180,13 @@ public class PlayerViewController {
 			e.printStackTrace();
 		}
 		myEngine = new GameEngine(myGameLevels);
+	}
+	
+	private void chooseGame(Stage gameChooser) {
+		// find a way to set up a map so we can just have file paths
+		// for games already established so no directory needs to be opened here
+		myGameFolder = DataHandler.chooseDir(gameChooser);
+		initializeGameAttributes();
 		setupAnimation();
 		startView();
 	}
@@ -188,7 +197,7 @@ public class PlayerViewController {
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
 		startView();
-	}			
+	}
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
@@ -204,6 +213,12 @@ public class PlayerViewController {
 		}
 	}
 
+	public void restart() {
+		stopView();
+		initializeGameAttributes();
+		startView();
+	}
+	
 	public void showTutorial() {
 		// TODO Auto-generated method stub
 		try {
