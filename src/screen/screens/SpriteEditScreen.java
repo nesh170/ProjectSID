@@ -3,7 +3,6 @@ package screen.screens;
 import gameEngine.Action;
 import gameEngine.Component;
 
-
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
 
 import data.DataHandler;
 import javafx.beans.value.ChangeListener;
@@ -150,15 +148,11 @@ public class SpriteEditScreen extends Screen {
 		createCenterPane();
 		
 		if (spriteToEdit != null) {
-
 			drawSpriteOnScreen(spriteToEdit);
-			editableSprite = Sprite.makeCopy(spriteToEdit);
-
 		}
+		
+		editableSprite = new Sprite();
 
-		else {
-			editableSprite = new Sprite();
-		}
 
 	}
 
@@ -231,27 +225,18 @@ public class SpriteEditScreen extends Screen {
 
 	private void initializeInformationListenersForLists() {
 
-		ChangeListener<String> changeListener = new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> ov,
-					String oldSelect, String newSelect) {
-
-				dataText.setText(createdBehaviorParameterMap.get(newSelect));
-
-			}
-
-		};
-
 		actionsAddedList.setOnMouseEntered(e -> setDataText(actionsAddedList));
-		componentsAddedList
-		.setOnMouseEntered(e -> setDataText(componentsAddedList));
+		componentsAddedList.setOnMouseEntered(e -> setDataText(componentsAddedList));
 
 		actionsAddedList.getSelectionModel().selectedItemProperty()
-		.addListener(changeListener);
+		.addListener((observable, oldSelect, newSelect) -> setDataText(newSelect));
 		componentsAddedList.getSelectionModel().selectedItemProperty()
-		.addListener(changeListener);
+		.addListener((observable, oldSelect, newSelect) -> setDataText(newSelect));
 
+	}
+	
+	private void setDataText(String text) {
+		dataText.setText(createdBehaviorParameterMap.get(text));
 	}
 
 	private void setDataText(ListView<String> listInFocus) {
@@ -439,25 +424,21 @@ public class SpriteEditScreen extends Screen {
 		actionTypeBox.getSelectionModel().select(0);
 
 		actionTypeBox.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldSelect, newSelect) -> setKeycodeInputBoxVisibility(newSelect));
 
-				new ChangeListener<String>() {
+	}
+	
+	private void setKeycodeInputBoxVisibility(String select) {
+		
+		keycodeInputBox.setVisible(
+				keyCodesAreVisibleMap.get(select));
 
-					public void changed(ObservableValue<? extends String> ov, String oldSelect, String newSelect) {
+		if (!keycodeInputBox.isVisible()) {
 
-						keycodeInputBox.setVisible(
-								keyCodesAreVisibleMap.get(newSelect));
-
-						if (!keycodeInputBox.isVisible()) {
-
-							currentCode = KeyCode.UNDEFINED;
-							clearKeycodeInputBox();
-
-						}
-
-					}
-
-				});
-
+			currentCode = KeyCode.UNDEFINED;
+			clearKeycodeInputBox();
+		}
+		
 	}
 
 	private Pane initializeActionPaneBoxes() {
@@ -549,31 +530,14 @@ public class SpriteEditScreen extends Screen {
 		});
 
 		imageListPane.getSelectionModel().selectedItemProperty().addListener(
-
-				new ChangeListener<String>() {
-
-					@Override
-					public void changed(ObservableValue<? extends String> ov, String oldSelect, String newSelect) {
-
-						paneForImage.getChildren().clear();
-						paneForImage.getChildren().add(
-								stringToImageMap.get(newSelect).image());
-
-						// Map<String,ImageView> newMap = new HashMap<>();
-						// imagesAdded.clear();
-						// int counter = 0;
-						// for(String key:stringToImageMap.keySet()) {
-						// String imageName =
-						// languageResources().getString("ImageName")+counter;
-						// newMap.put(imageName,stringToImageMap.get(key));
-						// imagesAdded.add(imageName);
-						// counter++;
-						// }
-						// stringToImageMap = newMap;
-
-					}
-
-				});
+				(observable, oldSelect, newSelect) -> onSelectNewImage(newSelect));
+	}
+	
+	private void onSelectNewImage(String select) {
+		
+		paneForImage.getChildren().clear();
+		paneForImage.getChildren().add(
+				stringToImageMap.get(select).image());
 
 	}
 
@@ -599,14 +563,12 @@ public class SpriteEditScreen extends Screen {
 				if(!keyCodesAreVisibleMap.get(actionTypeBox.getSelectionModel().getSelectedItem())) {
 					action.runEveryFrame();
 				}
-				actionMap.put(selected, action);
-				actionsToAdd.remove(selected);
-				actionsAdded.add(selected);
-				createdBehaviorParameterMap.put(selected, selected + "-> "
+				String parameterMapValue = selected + "-> "
 						+ languageResources().getString("Keycode") + " "
 						+ currentCode.toString() + ", "
 						+ languageResources().getString("Value") + " "
-						+ actionValue.getText());
+						+ actionValue.getText();
+				addBehaviorToListView(action, parameterMapValue, actionsToAdd, actionsAdded, actionMap, true);
 				actionValue.getStyleClass().remove(STRING.CSS.ERROR);
 			} catch (InstantiationException | IllegalAccessException
 					| InvocationTargetException | NoSuchMethodException
@@ -628,10 +590,8 @@ public class SpriteEditScreen extends Screen {
 		String selected = actionsAddedList.getSelectionModel().getSelectedItem();
 
 		if (selected != null) {
-
-			actionsAdded.remove(selected);
-			actionsToAdd.add(selected);
-			actionMap.keySet().remove(selected);
+			
+			addBehaviorToListView(actionMap.get(selected), "", actionsToAdd, actionsAdded, actionMap, false);
 
 		}
 
@@ -651,12 +611,10 @@ public class SpriteEditScreen extends Screen {
 						.forName(classPathMap.get(selected))
 						.getConstructor(Sprite.class, List.class)
 						.newInstance(editableSprite, values);
-				componentMap.put(selected, component);
-				componentsToAdd.remove(selected);
-				componentsAdded.add(selected);
-				createdBehaviorParameterMap.put(selected, selected + "-> "
+				String parameterMapValue = selected + "-> "
 						+ languageResources().getString("Value") + " "
-						+ componentValue.getText());
+						+ componentValue.getText();
+				addBehaviorToListView(component, parameterMapValue, componentsToAdd, componentsAdded, componentMap, true);
 				componentValue.getStyleClass().remove(STRING.CSS.ERROR);
 
 			} catch (InstantiationException | IllegalAccessException
@@ -678,8 +636,7 @@ public class SpriteEditScreen extends Screen {
 
 		if (selected != null) {
 
-			componentsAdded.remove(selected);
-			componentsToAdd.add(selected);
+			addBehaviorToListView(componentMap.get(selected),"",componentsToAdd,componentsAdded,componentMap,false);
 
 		}
 	}
@@ -741,12 +698,6 @@ public class SpriteEditScreen extends Screen {
 					editableSprite.setImagePath(stringToImageMap.get(e).filePath());
 					editableSprite.setDimensions(new Dimension2D((stringToImageMap).get(e).image().getImage().getWidth(),
 														(stringToImageMap).get(e).image().getImage().getHeight()));
-//					Image image = stringToImageMap.get(e).image().getImage();
-//					int[][] convertedImage = ImageToInt2DArray
-//							.convertImageTo2DIntArray(image,
-//									(int) image.getWidth(),
-//									(int) image.getHeight());
-//					editableSprite.spriteImage().addImage(convertedImage);
 				});
 
 		componentMap.keySet().forEach(e -> {
@@ -792,9 +743,9 @@ public class SpriteEditScreen extends Screen {
 		spriteNameField.setText(sprite.getName());
 		tagChoicesHolder.getSelectionModel().select(sprite.tag());
 		sprite.actionList().forEach(action -> {
-			addBehaviorToListView(languageResources().getString(trimClassName(action.getClass().getName())), actionsToAdd, actionsAdded);
+			addBehaviorToListView(action, "", actionsToAdd, actionsAdded, actionMap, true);
 		});
-		sprite.componentList().forEach(component -> addBehaviorToListView(languageResources().getString(trimClassName(component.getClass().getName())), componentsToAdd, componentsAdded));
+		sprite.componentList().forEach(component -> addBehaviorToListView(component, "", componentsToAdd, componentsAdded, componentMap, true));
 		// TODO implement
 		if(sprite.getImagePath()!=null) {
 			Image image = DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false);
@@ -803,12 +754,31 @@ public class SpriteEditScreen extends Screen {
 
 	}
 	
-	private void addBehaviorToListView(String stringToSwitch, ObservableList<String> start, ObservableList<String> end) {
-		start.remove(stringToSwitch);
-		end.add(stringToSwitch);
-		createdBehaviorParameterMap.put(stringToSwitch, "");
-		
-		
+	
+	/**
+	 * 
+	 * @param behavior - Must be an action or component unless a new type of behavior is added 
+	 * @param valueString - This is the string that displays when selecting an added behavior
+	 * @param start - (behavior)ToAdd observable list
+	 * @param end - (behavior)Added obserable list
+	 * @param behaviorMap - Map from a string to a behavior, <String,Behavior> *DO NOT USE ANY OTHER TYPES OF MAPS*
+	 * @param adding - boolean that signifies whether the behavior is being added or removed
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void addBehaviorToListView(Object behavior, String valueString, ObservableList<String> start, ObservableList<String> end, Map behaviorMap, boolean adding) {
+		String stringToSwitch = languageResources().getString(trimClassName(behavior.getClass().getName()));
+		if(adding) {
+			createdBehaviorParameterMap.put(stringToSwitch, valueString);
+			start.remove(stringToSwitch);
+			end.add(stringToSwitch);
+			behaviorMap.put(stringToSwitch, behavior);
+		}
+		else {
+			createdBehaviorParameterMap.remove(stringToSwitch);
+			start.add(stringToSwitch);
+			end.remove(stringToSwitch);
+			behaviorMap.remove(stringToSwitch);
+		}
 	}
 	
 	private String trimClassName(String classPath) {
