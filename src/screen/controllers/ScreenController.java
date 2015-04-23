@@ -283,18 +283,19 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		if(GameEdit_Test){
-		//USED FOR TEST GAMEEDITSCREEN
-		Game g = new Game();
-		for(int i=0; i < 5; i++){
-			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
-					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			g.addLevel(newLevel);
+
+		if(!GameEdit_Test)
+			tabManager.setDefaultTab(createMainMenuScreen());
+		else {
+				//USED FOR TEST GAMEEDITSCREEN
+				Game g = new Game();
+				for(int i=0; i < 5; i++){
+					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+					g.addLevel(newLevel);
+					}
+				createGameEditScreen(g);
 			}
-		createGameEditScreen(g);
-		}
-		else
-		tabManager.setDefaultTab(createMainMenuScreen());
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
