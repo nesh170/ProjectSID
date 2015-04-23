@@ -188,11 +188,18 @@ public class GamePlayer {
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
 			protected Void call () {
-
+			    int counter = 0;
 				while (true) {
 					try {
+					    if(counter ==1000){
 						myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
-						Thread.sleep(100);
+						counter++;
+						System.out.println(counter);
+					    }
+					    else{
+					        counter=0;
+					    }
+						
 					}
 					catch (Exception e) {
 						// TODO Auto-generated catch block
