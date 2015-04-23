@@ -522,6 +522,7 @@ public class ScreenController {
 		public void saveGame(Game game) {
 			
 			File dir = DataHandler.chooseDir(stage);
+			new File(System.getProperty("User.dir")).mkdir();
 			try {
 				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 			} catch (IOException e) {
