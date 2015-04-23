@@ -312,17 +312,17 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void chooseImage(KeyEvent e) {
-		KeyCode keyCode = e.getCode();
+	private void chooseImage(KeyEvent g) {
+		//KeyCode keyCode = g.getCode();
 		System.out.println("HIHIHIHI");
-		if(keyCode == KeyCode.UP) {
+		//if(keyCode == KeyCode.UP) {
 			imageView = imageViewArray.get(counter);
 			imageView.setOnMousePressed(f -> imageMove(f));
 			if (counter > 0) {
 				counter--;
 				System.out.println(counter);
 			}
-		}
+		//}
 
 	}
 
