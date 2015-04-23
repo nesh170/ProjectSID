@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -59,11 +60,11 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.factories.ScreenFactory;
-import screen.levelPlatformCapableScreen.GamePlayScreen;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
-import screen.levelPlatformCapableScreen.SplashEditScreen;
 import screen.screens.GameEditScreen;
+import screen.screens.GamePlayScreen;
+import screen.screens.LevelEditScreen;
 import screen.screens.MainMenuScreen;
+import screen.screens.SplashEditScreen;
 import screen.screens.SpriteEditScreen;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
@@ -132,6 +133,8 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
+	//Testing:
+	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -287,11 +290,19 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		tabManager.setDefaultTab(createMainMenuScreen());
-		
-		//USED FOR TEST GAMEEDITSCREEN
-		//createGameEditScreen(null);
-		
+
+		if(!GameEdit_Test)
+			tabManager.setDefaultTab(createMainMenuScreen());
+		else {
+				//USED FOR TEST GAMEEDITSCREEN
+				Game g = new Game();
+				for(int i=0; i < 5; i++){
+					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+					g.addLevel(newLevel);
+					}
+				createGameEditScreen(g);
+			}
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -511,7 +522,9 @@ public class ScreenController {
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
 			game.removeLevel(levelIndex);
-			gameEditScreen.displayLevels(game.levels());
+			Transition pt = gameEditScreen.runAnimationsInParallel(gameEditScreen.trashLevelAnimationFinishedEvent(),
+								gameEditScreen.assignLevelButtonsAnimation());
+			pt.play();
 			
 		}
 
@@ -520,7 +533,7 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton();
+			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
 			
 		}
 
