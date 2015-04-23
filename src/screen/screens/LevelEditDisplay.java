@@ -144,8 +144,8 @@ public class LevelEditDisplay extends ScrollPane {
 	 */
 	public void addSpriteToDisplay(Sprite sprite, ImageView image) {
 		spriteToImageMap.put(sprite, image);
-		image.setTranslateX(sprite.getX());
-		image.setTranslateY(sprite.getY());
+		image.setTranslateX(sprite.getPosition().getX());
+		image.setTranslateY(sprite.getPosition().getY());
 		content.getChildren().add(image);
 	}
 	

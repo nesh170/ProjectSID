@@ -136,6 +136,7 @@ public class STRING {
 		
 		//Level Edit Screen Buttons, Menus, miscellaneous strings
 		public static final String ADD_SPRITE = "Add New Sprite";
+		public static final String EDIT_SELECTED_SPRITE = "Edit Selected Sprite";
 		public static final String PLATFORMS = "Platforms";
 		public static final String ENEMIES = "Enemies";
 		public static final String PLAYERS = "Players";
