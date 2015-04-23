@@ -15,7 +15,7 @@ public class User {
 	//instance vars
 	private Integer myID;
 	private String myName;
-	private SpriteImage myAvatar;
+	private String myImagePath;
 	private Sprite myDefaultSprite;
 	private List<User> myFriends;
 	
@@ -37,11 +37,11 @@ public class User {
 	public void setMyName(String myName) {
 		this.myName = myName;
 	}
-	public SpriteImage getMyAvatar() {
-		return myAvatar;
+	public String getImagePath() {
+		return myImagePath;
 	}
-	public void setMyAvatar(SpriteImage myAvatar) {
-		this.myAvatar = myAvatar;
+	public void setImagePath(String path) {
+		this.myImagePath = path;
 	}
 	public Sprite getMyDefaultSprite() {
 		return myDefaultSprite;
@@ -53,7 +53,7 @@ public class User {
 	public void setAvatar(String path, int width, int height){
 		Image img = new Image(path);
 		myDefaultSprite.spriteImage().addImage(ImageToInt2DArray.convertImageTo2DIntArray(img, width, height));
-		myAvatar = myDefaultSprite.spriteImage();
+		myImagePath = myDefaultSprite.getImagePath();
 	}
 	
 	
