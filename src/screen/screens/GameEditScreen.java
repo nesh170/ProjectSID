@@ -78,6 +78,7 @@ import levelPlatform.splashScreen.SplashScreen;
 //TODO list: - disable rest of screen when popup shows
 //- could add only once a draft levelImagerepresnetation when user returns from LevelEditScreen without modifying everything since level is automatically saved
 //- could also add drag and drop functionality to rearrange ordering of list of levels.
+//fix the bug with contextMenu staying in absolute positioni in screen
 public class GameEditScreen extends Screen {
 
 	// Static Variables
@@ -204,7 +205,7 @@ public class GameEditScreen extends Screen {
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
 		splashSP.getChildren().addAll(rec);  
-		displayApproporiateSplashButton();	
+		displayApproporiateSplashButton();			
 	}
 	
 	/**
@@ -529,11 +530,18 @@ public class GameEditScreen extends Screen {
 				o -> controller.returnToMainMenuScreen(popup),
 				o -> controller.returnToMainMenuScreen(popup));
 
-		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(),
+		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeTools(),
 				makeGameMenu(), makeTrashMenu());
 
 	}
-
+	private void hideSplashRegion(){
+		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
+		splashDisplay.setVisible(false);
+	}
+	
+	private void showSplashRegion(){
+		splashDisplay.setVisible(true);
+	}
 	private Menu makeLevelMenu() {
 
 		Menu levelMenu = new Menu("Level");
@@ -547,7 +555,16 @@ public class GameEditScreen extends Screen {
 		return levelMenu;
 
 	}
-	
+
+	private Menu makeTools(){
+		Menu tools = new Menu("Tools");
+		MenuItem levelOnly = new MenuItem("hide splash");
+		levelOnly.setOnAction(e -> hideSplashRegion());
+		MenuItem seeAll = new MenuItem("display all");
+		seeAll.setOnAction(e -> showSplashRegion());
+		tools.getItems().addAll(levelOnly, seeAll);
+		return tools;
+	}
 	private Menu makeGameMenu() {
 
 		Menu gameMenu = new Menu("Game");
@@ -557,7 +574,7 @@ public class GameEditScreen extends Screen {
 		return gameMenu;
 		
 	}
-
+	
 	private Menu makeTrashMenu() {
 
 		ImageView trashImage = new ImageView(new Image(STRING.GAME_EDIT.TRASH_ICON));
