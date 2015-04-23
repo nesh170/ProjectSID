@@ -1,5 +1,9 @@
 package socCenter.mainPage;
 
-public class MainPageScreenController extends Object {
+import javafx.stage.Popup;
 
+public interface MainPageScreenController  {
+
+	public abstract void loadUserPopup(Popup popup);
+	
 }

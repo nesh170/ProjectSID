@@ -5,6 +5,8 @@ import screen.Screen;
 
 public class MainPageScreen extends Screen {
 
+	private MainPageScreenController controller;
+	
 	public MainPageScreen(double width, double height) {
 		super(width, height);
 		// TODO Auto-generated constructor stub
