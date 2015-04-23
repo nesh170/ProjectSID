@@ -86,6 +86,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		configureButtons();
 		configureDisplayArea();
 		this.getStyleClass().add("pane");
+		
 	}
 	
 	@Override
@@ -263,6 +264,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			file = fileChooser.showOpenDialog(null);
 			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
 
+			button.setDisable(true);
+			
 		} catch (Exception ex) {	
 			//TODO Load Default Image
 		}
@@ -275,8 +278,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 		this.setOnKeyPressed(e -> resize(startButtonImageView, e, imageCursor));
 
-		button.setDisable(true);
-		
 	}
 	
 	public void addImage() {
@@ -391,13 +392,15 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	public void trashSplashScreen() {	
 		for (ImageView iv : imageViewArray) {
-
+			System.out.println(iv.getId());
 		}
 		//this.remove(startButtonImageView);
 	}
 
 	public void backSplashScreen() {	
+		
 		controller.returnToGameEditScreen();	
+		
 	}
 	
 	private void add(String tag, MouseEvent e, Rectangle rectangle) {
