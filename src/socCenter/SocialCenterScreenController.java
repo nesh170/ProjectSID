@@ -26,6 +26,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
@@ -52,6 +53,7 @@ import screen.factories.ScreenFactory;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import socCenter.logIn.LogInScreenController;
+import socCenter.mainPage.MainPageScreenController;
 import sprite.Sprite;
 import util.ErrorHandler;
 
@@ -78,6 +80,8 @@ public class SocialCenterScreenController {
 	//Factories
 	private ScreenFactory screenFactory;
 	
+	//Data
+	private UserPack userPack;
 	
 	// Getters & Setters (static)
 	
@@ -118,7 +122,7 @@ public class SocialCenterScreenController {
 		this.root = new Group();
 		this.scene = new Scene(root);
 		this.scene.getStylesheets().add("resources/SID.css"); //possibly put this in a string class or properties file?
-		
+				
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
@@ -258,31 +262,40 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void createNewProfile(Popup popup) {
-			// TODO Auto-generated method stub
+
 			popup.show(stage);
 		}
 
 		@Override
 		public void loadUser(Popup popup) {
-			// TODO Auto-generated method stub
+
 			popup.show(stage);
 		}
 
 		@Override
-		public void logIn(Popup popup, TextField username, TextField password) {
-			// TODO Auto-generated method stub
+		public void logIn(Popup popup, TextField username, PasswordField password) {
+
 			popup.hide();
 		}
 
 		@Override
 		public void createProfile(Popup popup, TextField username,
-				TextField password, TextField rePassWord) {
-			// TODO
-			//don't use random number for id
+				PasswordField password, PasswordField rePassWord) {
+	
 			User newUser = new User(((Double)Math.random()).intValue(), username.getText(), password.getText());
 			popup.hide();
 			
 		}
+	}
+	
+	private class MainPageScreenManager implements MainPageScreenController {
+
+		@Override
+		public void loadUserPopup(Popup popup) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 	
 
