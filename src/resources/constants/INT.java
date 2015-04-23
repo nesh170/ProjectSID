@@ -19,7 +19,7 @@ public class INT {
 	public static final int SPLASH = 0;
 	
 	// SplashEdit
-	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 120;
+	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 40;
 	public static final int SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING = 40;
 	public static final int SPLASH_EDIT_SCREEN_DISPLAY_WIDTH = 1300;
 	public static final int SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT = 637;
