@@ -219,7 +219,8 @@ public class GamePlayer {
 				while(true){
 					try{
 						String keyControl = myNetwork.getStringFromClient();
-						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+						@SuppressWarnings("unchecked")
+                        List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
 						myView.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER); //Add code to make another player play
 					}
 					catch(Exception e){
@@ -265,14 +266,16 @@ public class GamePlayer {
 			@Override
 			protected Void call () {
 			    LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+			    Camera camera = new Camera(myGameRoot);
 				while (true) {
 					try {
-						Level level =(Level) DataHandler.fromXMLString(myNetwork.getStringFromServer());
+					        String levelString = myNetwork.getStringFromServer();
+					        System.out.println(levelString);
+						Level level =(Level) DataHandler.fromXMLString(levelString);
 						renderer.setLevel(level);
 						myGameRoot.setContent(renderer.renderLevel());
-						Camera camera = new Camera(myGameRoot);
 						double[] coordinates = level.getNewCameraLocations();
-						camera.focusOn(coordinates[0], coordinates[1]);
+						camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
