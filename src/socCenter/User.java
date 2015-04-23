@@ -60,10 +60,12 @@ public class User {
 	//social
 	public void addFriend(User newFriend){
 		myFriends.add(newFriend);
+		newFriend.addFriend(this);
 	}
 
 	public void removeFriend(User friendToRemove){
 		myFriends.remove(friendToRemove);
+		friendToRemove.removeFriend(this);
 	}
 
 	
