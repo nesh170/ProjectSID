@@ -12,9 +12,9 @@ import gameEngine.Action;
 public class GroovyAction extends Action {
 
     private ScriptRunner scriptEngine;
+    private String myPrepareCode;
     private String myExecuteCode;
     private String myStopCode;
-    private String myPrepareCode;
 
     public GroovyAction (Sprite sprite) {
         super(sprite);
