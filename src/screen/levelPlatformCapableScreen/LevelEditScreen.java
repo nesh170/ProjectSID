@@ -101,6 +101,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private Set<ImageView> premadeEnemies;
 	private Set<ImageView> premadePlayers;
 	private Set<ImageView> premadePowerups;
+	
+	private final static double UNSELECT = 1;
+	private final static double SELECT = 0.4;
 
 
 	// Getters & Setters
@@ -237,7 +240,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 					String oldSelect, String newSelect) {
 				try {
 					if(stringToSpriteMap.containsKey(oldSelect)) {
-						levelEditDisplay.getImage(stringToSpriteMap.get(oldSelect)).setOpacity(1);
+						levelEditDisplay.getImage(stringToSpriteMap.get(oldSelect)).setOpacity(UNSELECT);
 					}
 					/*
 					 * this next line could throw an exception possibly if
@@ -491,7 +494,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	
 	private void selectSprite(Sprite sprite) {
 		selectedSprite = sprite;
-		levelEditDisplay.getImage(selectedSprite).setOpacity(0.4); //magic number? TODO move this number somewhere
+		levelEditDisplay.getImage(selectedSprite).setOpacity(SELECT);
 		levelEditDisplay.setVvalue(selectedSprite.getPosition().getY()-levelEditDisplay.getHeight()/2);
 		levelEditDisplay.setHvalue(selectedSprite.getPosition().getX()-levelEditDisplay.getWidth()/2);
 	}
