@@ -425,14 +425,15 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		}
 
 		else if(tag == "Background Image") {
+			
 			rectangle.setFill(new ImagePattern(imageView.getImage()));
+			
 		}
 		 
 		else if (tag == "Text") {
 			
-//			text = new Text("Well Hi");
-			
 			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
+			
 		}
 
 	}	
@@ -455,48 +456,66 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 
 	private void startButtonMove(MouseEvent f) {
+		
 		startButtonImageView.setOnMouseReleased(e -> placeStartButton(e));
+		
 	}
+	
 	private void imageMove(MouseEvent f) {
 		//TODO be able to pick which image to move, not just most recent
 		imageView.setOnMouseReleased(e -> placeImage(e));
+		
 	}
 
 	private void placeStartButton(MouseEvent e) {
+		
 		startButtonImageView.setX(e.getX());
 		startButtonImageView.setY(e.getY());
 		tag = null;
+		
 	}
 	
 	private void placeImage(MouseEvent e) {
+		
 		imageView.setX(e.getX());
 		imageView.setY(e.getY());
 		tag = null;
+		
 	}
 
 
 	private void resize(ImageView imageView, KeyEvent e, ImageCursor ic) {
+		
 		KeyCode keyCode = e.getCode();
+		
 		if(keyCode == KeyCode.RIGHT) {
+			
 			System.out.println("right");
 			imageView.setScaleX(1.8);
 			imageView.setScaleY(1.8);
+			
 		}
+		
 		else if(keyCode == KeyCode.LEFT) {
+			
 			System.out.println("left");
 			imageView.setScaleX(0.6);
 			imageView.setScaleY(0.6);
+			
 		}
 	}
 
 	private void setLargeButtonSize(Button button) {
+		
 		button.setMaxWidth(width-this.viewableArea().getWidth());
 		button.setPrefHeight(INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT);
 	
 	}
 	
 	private void setSmallButtonSize(Button button) {
+		
 		button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);
+		
 	}
 
 }
