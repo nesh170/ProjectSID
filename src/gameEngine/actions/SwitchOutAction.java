@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.Transform;
+import gameEngine.components.VelocityComponent;
 
 /**
  * This is an action that switches out one sprite for another
@@ -41,13 +42,20 @@ public class SwitchOutAction extends Action{
 		Transform transform1 = mySprites[mySpriteIndex].transform();
 		mySprites[mySpriteIndex].setIsActive(false);
 		int sprite1Index = myPlayerList.indexOf(mySprites[mySpriteIndex]);
-		System.out.println(sprite1Index);
 		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
 		int sprite2Index = myPlayerList.indexOf(mySprites[mySpriteIndex]);
-		System.out.println(sprite2Index);
 		mySprites[mySpriteIndex].setIsActive(true);
 		mySprites[mySpriteIndex].transform().setPosition(new Point2D(transform1.getPosX(), transform1.getPosY()));
+		transferVelocity(myPlayerList.get(sprite1Index), myPlayerList.get(sprite2Index));
 		switchPlayers(sprite1Index, sprite2Index);
+	}
+	
+	private void transferVelocity(Sprite sprite1, Sprite sprite2){
+		VelocityComponent velComponent1 = (VelocityComponent) sprite1.getComponentOfType("VelocityComponent");
+		VelocityComponent velComponent2 = (VelocityComponent) sprite2.getComponentOfType("VelocityComponent");
+		if(velComponent1 != null && velComponent2 != null){
+			velComponent2.setVelocity(velComponent1.getVelocity());
+		}
 	}
 
 	private void switchPlayers(int sprite1Index, int sprite2Index) {
@@ -59,7 +67,6 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
 		
 	}
 

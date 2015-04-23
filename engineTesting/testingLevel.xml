@@ -10,6 +10,7 @@
       <emissionList/>
       <isActive>true</isActive>
       <collisionTag>platform</collisionTag>
+      <imagePath>mushroomPlatform.png</imagePath>
       <transform>
         <myPosition>
           <x>0.0</x>
@@ -39,6 +40,7 @@
       <emissionList/>
       <isActive>true</isActive>
       <collisionTag>platform</collisionTag>
+      <imagePath>mushroomPlatform.png</imagePath>
       <transform>
         <myPosition>
           <x>-20.0</x>
@@ -49,6 +51,32 @@
         <myDimensions>
           <width>20.0</width>
           <height>200.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <imagePath>mushroomPlatform.png</imagePath>
+      <transform>
+        <myPosition>
+          <x>250.0</x>
+          <y>250.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>200.0</width>
+          <height>30.0</height>
           <hash>0</hash>
         </myDimensions>
         <startPosition reference="../myPosition"/>
@@ -143,7 +171,7 @@
                   <isActive>false</isActive>
                   <myKeyCode class="java.util.Arrays$ArrayList">
                     <a class="javafx.scene.input.KeyCode-array">
-                      <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+                      <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
                     </a>
                   </myKeyCode>
                   <runsEveryFrame>false</runsEveryFrame>
@@ -189,7 +217,7 @@
               <emissionList/>
               <isActive>false</isActive>
               <collisionTag>fireMario</collisionTag>
-              <imagePath>star.png</imagePath>
+              <imagePath>FireMario.png</imagePath>
               <transform>
                 <myPosition>
                   <x>180.0</x>
@@ -246,9 +274,35 @@
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
-    <sprite.Sprite reference="../sprite.Sprite[3]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+    <sprite.Sprite reference="../sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+    <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>flower</collisionTag>
+      <imagePath>fireFlower.png</imagePath>
+      <transform>
+        <myPosition>
+          <x>300.0</x>
+          <y>220.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>30.0</width>
+          <height>30.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
   </sprites>
-  <playerSpriteList reference="../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
+  <playerSpriteList reference="../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
   <collisionTable>
     <myTable>
       <entry>
@@ -259,7 +313,7 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -274,7 +328,7 @@
               <null/>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
             </gameEngine.Action-array>
           </entry>
           <entry>
@@ -283,7 +337,7 @@
               <null/>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.NormalAction"/>
             </gameEngine.Action-array>
           </entry>
         </map>
@@ -296,8 +350,31 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[3]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.NormalAction"/>
               <null/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
+            <string>flower</string>
+            <gameEngine.Action-array>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+      <entry>
+        <string>flower</string>
+        <map>
+          <entry>
+            <string>player</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
             </gameEngine.Action-array>
           </entry>
         </map>
@@ -311,6 +388,9 @@
       <string>fireMario</string>
       <string>platform</string>
       <string>fireMario</string>
+      <string>flower</string>
+      <string>flower</string>
+      <string>player</string>
     </tagList>
   </collisionTable>
   <goalMap/>

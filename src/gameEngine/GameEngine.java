@@ -43,7 +43,6 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-       
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));

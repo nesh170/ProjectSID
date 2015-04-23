@@ -7,11 +7,14 @@ import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
 import gameEngine.actions.NormalAction;
 import gameEngine.actions.RightMotionAction;
+import gameEngine.actions.ShootAction;
 import gameEngine.actions.SwitchOutAction;
 import gameEngine.actions.UpMotionAction;
+import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import data.DataHandler;
@@ -49,12 +52,18 @@ public class EngineTester extends Tester {
 	protected void test(Stage stage) {
 		makePlatform(0, 300, 200, 30);
 		makePlatform(-20, 0, 20, 200);
-		
+		makePlatform(250, 250, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
 		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
 		fireMario.addAction(switchOut);
 		player.addAction(switchOut);
+		
+		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
+		fireFlower.setCollisionTag("flower");
+		fireFlower.setImagePath("fireFlower.png");
+		mySpriteList.add(fireFlower);
+		setCollisionAll(player, fireFlower, switchOut);
 		
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);
@@ -67,13 +76,14 @@ public class EngineTester extends Tester {
 		}
 	}
 
+
 	private Sprite makeSpecialPlayer() {
 		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
-		fireMario.setImagePath("star.png");
+		fireMario.setImagePath("FireMario.png");
 		fireMario.setCollisionTag("fireMario");
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
 		makeFallingLanding(fireMario);
-		makeJumping(fireMario, KeyCode.SPACE, false);
+		makeJumping(fireMario, KeyCode.UP, false);
 		makeLeftRighting(fireMario);
 		mySpriteList.add(fireMario);
 		myPlayerList.add(fireMario);
@@ -96,6 +106,15 @@ public class EngineTester extends Tester {
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action action) {
 		myCT.addActionToMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, action);
 		myCT.addActionToMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, action);
+	}
+	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
+		setCollisionUp(sprite1, enemy, action);
+		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
+		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
 	}
 	
 	private void makeFallingLanding(Sprite sprite) {
@@ -121,6 +140,7 @@ public class EngineTester extends Tester {
 	private Sprite makePlatform(double x, double y, double width, double height) {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		platform.setCollisionTag("platform");
+		platform.setImagePath("mushroomPlatform.png");
 		myPlatforms.add(platform);
 		mySpriteList.add(platform);
 		return platform;
