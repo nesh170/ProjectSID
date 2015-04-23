@@ -108,12 +108,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button addStartButton = makeAddStartButton();
 		Button addImage = makeAddImageButton();
 		Button addBackgroundImage = makeAddBackgroundImageButton();
-		Button addText = makeAddTextButton();
+		TextField textField = makeAddTextTextField();
+		Button addText = makeAddTextButton(textField);
 		Button addAnimation = makeAddAnimationButton();
 		Button save = makeSaveButton();
 		Button trash = makeTrashButton();
 		Button back = makeBackButton();
-		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, addAnimation));
+		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
 		this.viewableArea().setTop(back);
 		
@@ -129,12 +130,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, Button addAnimation) {
+	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, Button addAnimation) {
 		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING);
+		VBox addTextVBox = new VBox(40);
+		addTextVBox.getChildren().addAll(addText, textField);
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage, addBackgroundImage,
-				addText, addAnimation);
+				addTextVBox, addAnimation);
 		
 		return allAddButtons;
 		
@@ -182,14 +185,22 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private Button makeAddTextButton() {
+	private Button makeAddTextButton(TextField textField) {
 		
 		Button addText = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
-		addText.setOnMouseClicked(e -> addText());
+		addText.setOnMouseClicked(e -> addText(textField.getText()));
 		
 		return addText;
+		
+	}
+	
+	private TextField makeAddTextTextField() {
+		
+		TextField textField = new TextField();
+		
+		return textField;
 		
 	}
 
@@ -246,7 +257,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			FileChooser fileChooser = new FileChooser();
 			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
 			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
 
 			file = fileChooser.showOpenDialog(null);
 			image = new Image(file.toURI().toString(), 30.0, 30.0, false, false);	
@@ -320,10 +331,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	public void addText() {
-		// TODO Auto-generated method stub
+	public void addText(String textString) {
 		
 		tag = "Text";
+		text = new Text(textString);
 		
 	}
 
@@ -398,7 +409,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 			startButtonImageView.setOnMousePressed(f -> startButtonMove(f));
 			
-			// Node, x, y, "SID Pixel XY or JavaFX?"
 			placeImageViewAtXYIsUsingSIDPixels(startButtonImageView, e.getX(), e.getY(), false);
 			
 		}
@@ -410,7 +420,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			
 			imageView.setOnMousePressed(f -> imageMove(f));
 			
-			// Node, x, y, "SID Pixel XY or JavaFX?"
 			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
 						
 		}
@@ -421,7 +430,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		 
 		else if (tag == "Text") {
 			
-			text = new Text("Well Hi");
+//			text = new Text("Well Hi");
 			
 			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
 		}
@@ -441,9 +450,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		this.getChildren().add(text);
 		text.setX(x);
 		text.setY(y);
-		
-		// TODO Implement
-//		throw new IllegalStateException("unimplemented placeNodeAtXYUsingSIDPixels in SplashEditScreen");
 		
 	}
 
