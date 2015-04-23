@@ -52,7 +52,7 @@ public class EngineTester extends Tester {
 		
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, KeyCode.S);
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
 		fireMario.addAction(switchOut);
 		player.addAction(switchOut);
 		
@@ -73,7 +73,7 @@ public class EngineTester extends Tester {
 		fireMario.setCollisionTag("fireMario");
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
 		makeFallingLanding(fireMario);
-		makeJumping(fireMario, KeyCode.UP, false);
+		makeJumping(fireMario, KeyCode.SPACE, false);
 		makeLeftRighting(fireMario);
 		mySpriteList.add(fireMario);
 		myPlayerList.add(fireMario);
