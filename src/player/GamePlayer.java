@@ -128,7 +128,7 @@ public class GamePlayer {
 	public PlayerMenu getMenu() {
 		return myMenu;
 	}
-	
+
 	public int getLives() {
 		// return myEngine.getLives();
 		return 0;
@@ -188,18 +188,17 @@ public class GamePlayer {
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
 			protected Void call () {
-			    int counter = 0;
+				int counter = 0;
 				while (true) {
 					try {
-					    if(counter ==1000){
-						myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
-						counter++;
-						System.out.println(counter);
-					    }
-					    else{
-					        counter=0;
-					    }
-						
+						if(counter == 1000){
+							myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
+							System.out.println(myView.getCurrentLevelinXML().length());
+							counter = 0;
+						}
+						else{
+							counter++;
+						}
 					}
 					catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -227,7 +226,7 @@ public class GamePlayer {
 					try{
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
-                        List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
 						myView.handleKeyEvent(keyString.get(0),keyString.get(1),INT.LOCAL_PLAYER); //Add code to make another player play
 					}
 					catch(Exception e){
@@ -272,12 +271,12 @@ public class GamePlayer {
 		Task<Void> recvTask = new Task<Void>() {
 			@Override
 			protected Void call () {
-			    LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-			    Camera camera = new Camera(myGameRoot);
+				LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+				Camera camera = new Camera(myGameRoot);
 				while (true) {
 					try {
-					        String levelString = myNetwork.getStringFromServer();
-					        System.out.println(levelString);
+						String levelString = myNetwork.getStringFromServer();
+						System.out.println(levelString);
 						Level level =(Level) DataHandler.fromXMLString(levelString);
 						renderer.setLevel(level);
 						myGameRoot.setContent(renderer.renderLevel());
