@@ -9,6 +9,9 @@ import java.util.List;
 import resources.constants.INT;
 import data.DataHandler;
 import voogasalad.util.network.Network;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
 import levelPlatform.level.EditMode;
@@ -25,6 +28,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GamePlayer {
 
@@ -44,6 +48,7 @@ public class GamePlayer {
 	private int myScore;
 	private PlayerMenu myMenu;
 	private PlayerViewController myView;
+        private Level myLevel;
 
 	private Network myNetwork = new Network();
 
@@ -188,17 +193,10 @@ public class GamePlayer {
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
 			protected Void call () {
-			    int counter = 0;
 				while (true) {
 					try {
-					    if(counter ==1000){
 						myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
-						counter++;
-						System.out.println(counter);
-					    }
-					    else{
-					        counter=0;
-					    }
+						Thread.sleep(100);
 						
 					}
 					catch (Exception e) {
@@ -249,6 +247,12 @@ public class GamePlayer {
 			myGameRoot.setOnKeyPressed(key -> sendEvent(key));
 			myGameRoot.setOnKeyReleased(key -> sendEvent(key));
 			receiveLevels();
+	                   KeyFrame displayFrame = new KeyFrame(
+	                                                           Duration.millis(1000 / FRAME_RATE), e -> display(myLevel));
+	                  Timeline myTimeline = new Timeline();
+	                   myTimeline.setCycleCount(Animation.INDEFINITE);
+	                   myTimeline.getKeyFrames().add(displayFrame);
+	                   myTimeline.play();
 		}
 		catch (Exception e) {
 			System.err.println("Can't start Client");
@@ -270,19 +274,16 @@ public class GamePlayer {
 
 	private void receiveLevels(){
 		Task<Void> recvTask = new Task<Void>() {
-			@Override
+            @Override
 			protected Void call () {
-			    LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-			    Camera camera = new Camera(myGameRoot);
 				while (true) {
 					try {
 					        String levelString = myNetwork.getStringFromServer();
-					        System.out.println(levelString);
-						Level level =(Level) DataHandler.fromXMLString(levelString);
-						renderer.setLevel(level);
-						myGameRoot.setContent(renderer.renderLevel());
-						double[] coordinates = level.getNewCameraLocations();
-						camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
+						myLevel =(Level) DataHandler.fromXMLString(levelString);
+//						renderer.setLevel(level);
+//						myGameRoot.setContent(renderer.renderLevel());
+//						double[] coordinates = level.getNewCameraLocations();
+//						camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 					}
 					catch (Exception e) {
 						e.printStackTrace();
@@ -295,6 +296,17 @@ public class GamePlayer {
 		Thread th = new Thread(recvTask);
 		th.setDaemon(true);
 		th.start();
+
+	        
+	}
+	
+	private void display(Level level){
+	    LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+            Camera camera = new Camera(myGameRoot);
+            renderer.setLevel(level);
+            myGameRoot.setContent(renderer.renderLevel());
+            double[] coordinates = level.getNewCameraLocations();
+            camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 	}
 
 }
