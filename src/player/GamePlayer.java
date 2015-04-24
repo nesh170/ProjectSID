@@ -37,19 +37,19 @@ public class GamePlayer {
 	private HUD myHUD;
 
 	// constructor for testing
-	public GamePlayer(Stage stage, MenuBar bar, ScrollPane pane) {
-		myGameRoot = pane;
-		
-		stage.setScene(myScene);
-	}
-
-	public GamePlayer(Game game, ScrollPane pane) {
-		myGameRoot = pane;
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
-		// myGameRoot.setMaxSize(width, height);
-		myController = new PlayerViewController(game, myGameRoot, myHUD);
-	}
+//	public GamePlayer(Stage stage, MenuBar bar, ScrollPane pane) {
+//		myGameRoot = pane;
+//		
+//		stage.setScene(myScene);
+//	}
+//
+//	public GamePlayer(Game game, ScrollPane pane) {
+//		myGameRoot = pane;
+//		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
+//		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
+//		// myGameRoot.setMaxSize(width, height);
+//		myController = new PlayerViewController(game, myGameRoot, myHUD);
+//	}
 	
 	public GamePlayer(Stage stage) {
 		myView = new PlayerView();
@@ -68,17 +68,7 @@ public class GamePlayer {
 //		myController = new PlayerViewController(myGameRoot, myHUD);
 //	}
 
-	public StackPane createHUD(ScrollPane pane) {
-		StackPane stack = new StackPane();
-		myHUD = new HUD(pane);
-		myHUD.addItem("Lives", 0);
-		myHUD.addItem("Health", 0);
-		myHUD.addItem("Score", 0);
-		stack.getChildren().add(myHUD.getHUDBox());
-		stack.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
-		myController.setPauseBase(stack);
-		return stack;
-	}
+
 
 	public void setupActions(PlayerMenu pMenu) {
 		pMenu.createPlayerMenu(myController);

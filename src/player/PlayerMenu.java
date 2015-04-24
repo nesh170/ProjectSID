@@ -39,11 +39,11 @@ public class PlayerMenu extends MenuBar{
 
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
-			view.stopView();
+			view.pause();
 		});
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			view.startView();
+			view.play();
 			;
 		});
 		MenuItem loadItem = makeMenuItem("Load Game");

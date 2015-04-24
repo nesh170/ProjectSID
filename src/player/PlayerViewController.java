@@ -16,9 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
@@ -59,41 +56,41 @@ public class PlayerViewController {
 	private GameEngine myEngine;
 	private Game myGame;
 	private Camera myCamera;
-	private HUD myHUD;
 	private StackPane myTop;
 	
 	private PlayerView myView;
 	
-	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
-		myGameRoot = pane;
-		myCamera = new Camera(pane);
-		myHUD = gameHUD;
-		loadNewChooser();
-	}
-
-	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
-		myGameRoot = pane;
-		myCamera = new Camera(pane);
-		myHUD = gameHUD;
-		selectGame(game);
-	}
+//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
+//		myGameRoot = pane;
+//		myCamera = new Camera(pane);
+//		myHUD = gameHUD;
+//		loadNewChooser();
+//	}
+//
+//	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
+//		myGameRoot = pane;
+//		myCamera = new Camera(pane);
+//		myHUD = gameHUD;
+//		selectGame(game);
+//	}
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myGameRoot = view.getRoot();
-		myCamera = view.getCamera();
+		myCamera = new Camera(myGameRoot);
 		loadNewChooser();
 	}
 
-	public void startView() {
+	public void play() {
 		myEngine.play(myGameRoot);
 		myTimeline.play();
+		myView.playScreen();
 	}
 
-	public void stopView() {
+	public void pause() {
 		myTimeline.stop();
 		myEngine.pause(myGameRoot);
-		bringupPause();
+		myView.pauseScreen();
 	}
 
 	private void update() {
@@ -113,33 +110,13 @@ public class PlayerViewController {
 		myCamera.focus();
 	}
 
-	private StackPane makePauseScreen() {
-		StackPane pause = new StackPane();
-		pause.setPrefSize(500, 500);
-		pause.setAlignment(Pos.CENTER);
-		Button startButton = new Button("Resume");
-		startButton.setOnAction(event -> {
-			removePause();
-			startView();
-		});
-		pause.getChildren().addAll(startButton);
-		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		return pause;
-	}
-
-	private void bringupPause() {
-		StackPane pause = makePauseScreen();
-		myTop.getChildren().add(pause);
-		pause.requestFocus();
-	}
-
 	public void setPauseBase(StackPane pane) {
 		myTop = pane;
 	}
 	
-	private void removePause() {
+	public void removePause() {
 		//top pane's only child will be pause menu
-		myTop.getChildren().remove(0);
+
 	}
 
 	private void setupAnimation() {
@@ -198,7 +175,7 @@ public class PlayerViewController {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		initializeGameAttributes();
 		setupAnimation();
-		startView();
+		play();
 	}
 
 	public void selectGame(Game game) {
@@ -206,7 +183,7 @@ public class PlayerViewController {
 		myGameLevels = game.levels();
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
-		startView();
+		play();
 	}
 
 	public void save() {
@@ -224,9 +201,9 @@ public class PlayerViewController {
 	}
 
 	public void restart() {
-		stopView();
+		pause();
 		initializeGameAttributes();
-		startView();
+		play();
 	}
 	
 	public void showTutorial() {
