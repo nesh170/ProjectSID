@@ -16,6 +16,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -38,6 +39,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import levelPlatform.splashScreen.SplashScreen;
+import resources.constants.COLOR;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -70,6 +72,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private ImageView imageView;
 	private ImageView startButtonImageView;
 	private Text text;
+	private int counter;
 
 	// Getters & Setters
 
@@ -111,12 +114,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button addImage = makeAddImageButton();
 		Button addBackgroundImage = makeAddBackgroundImageButton();
 		TextField textField = makeAddTextTextField();
-		Button addText = makeAddTextButton(textField);
+		ColorPicker colorPicker = createColorPicker();
+		Button addText = makeAddTextButton(textField, colorPicker);
 		Button addAnimation = makeAddAnimationButton();
 		Button save = makeSaveButton();
 		Button trash = makeTrashButton();
 		Button back = makeBackButton();
-		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, addAnimation));
+		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
 		this.viewableArea().setTop(back);
 		
@@ -126,17 +130,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		double rectWidth = width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH;
 		double rectHeight = height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT;
-		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, Color.RED);
+		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, Color.WHITE);
 		this.viewableArea().setLeft(displayArea);
 		this.setOnMouseClicked(e -> add(tag, e, displayArea));
+		this.setOnKeyPressed(g -> chooseImage(g));
 		
 	}
 
-	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, Button addAnimation) {
+	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, Button addAnimation) {
 		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING);
-		VBox addTextVBox = new VBox(40);
-		addTextVBox.getChildren().addAll(addText, textField);
+		VBox addTextVBox = new VBox(INT.SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT);
+		addTextVBox.getChildren().addAll(addText, textField, colorPicker);
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage, addBackgroundImage,
 				addTextVBox, addAnimation);
@@ -187,12 +192,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private Button makeAddTextButton(TextField textField) {
+	private Button makeAddTextButton(TextField textField, ColorPicker colorPicker) {
 		
 		Button addText = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
-		addText.setOnMouseClicked(e -> addText(textField.getText()));
+		addText.setOnMouseClicked(e -> addText(textField.getText(), colorPicker.getValue()));
 		
 		return addText;
 		
@@ -203,6 +208,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		TextField textField = new TextField();
 		
 		return textField;
+		
+	}
+	
+	private ColorPicker createColorPicker() {
+		
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setMinHeight(INT.SPLASH_EDIT_COLOR_PICKER_HEIGHT);
+		return colorPicker;
 		
 	}
 
@@ -276,7 +289,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = "Start";
 		startButtonImageView = new ImageView(image);
 
-		this.setOnKeyPressed(e -> resize(startButtonImageView, e, imageCursor));
+		this.setOnKeyPressed(e -> resizeImage(startButtonImageView, e, imageCursor));
 
 	}
 	
@@ -305,9 +318,23 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		imageView = new ImageView(image);
 		imageViewArray.add(imageView);
 
-		this.setOnKeyPressed(e -> resize(imageView, e, imageCursor));
+		this.setOnKeyPressed(e -> resizeImage(imageView, e, imageCursor));
 
 		
+	}
+	
+	private void chooseImage(KeyEvent g) {
+		//KeyCode keyCode = g.getCode();
+		System.out.println("HIHIHIHI");
+		//if(keyCode == KeyCode.UP) {
+			imageView = imageViewArray.get(counter);
+			imageView.setOnMousePressed(f -> imageMove(imageView, f));
+			if (counter > 0) {
+				counter--;
+				System.out.println(counter);
+			}
+		//}
+
 	}
 
 	public void addBackgroundImage() {
@@ -333,10 +360,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	public void addText(String textString) {
+	public void addText(String textString, Color color) {
 		
 		tag = "Text";
 		text = new Text(textString);
+		text.fillProperty().setValue(color);
+		
+		this.setOnKeyPressed(e -> resizeText(text, e));
 		
 	}
 
@@ -360,10 +390,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			}
 
 		});
-		comboBox.setMinWidth(150);
-		grid.add(comboBox, 0, 0);
-		grid.setTranslateX(width - 250);
-		grid.setTranslateY(height - 200);
+		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
+		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
+		grid.setTranslateX(width - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X);
+		grid.setTranslateY(height - INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT);
 		this.getChildren().add(grid);
 		
 	}
@@ -421,9 +451,11 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
 			
-			imageView.setOnMousePressed(f -> imageMove(f));
+			imageView.setOnMousePressed(f -> imageMove(imageView, f));
 			
 			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
+			counter++;
+			System.out.println(counter);
 						
 		}
 
@@ -434,6 +466,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		}
 		 
 		else if (tag == "Text") {
+			
+			text.setOnMousePressed(f -> textMove(f));
 			
 			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
 			
@@ -464,10 +498,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void imageMove(MouseEvent f) {
+	private void imageMove(ImageView imageView, MouseEvent f) {
 		//TODO be able to pick which image to move, not just most recent
 		imageView.setOnMouseReleased(e -> placeImage(e));
 		
+	}
+	
+	private void textMove(MouseEvent f) {
+		text.setOnMouseReleased(e -> placeText(e));
 	}
 
 	private void placeStartButton(MouseEvent e) {
@@ -485,9 +523,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = null;
 		
 	}
+	
+	private void placeText(MouseEvent e) {
+		
+		text.setX(e.getX());
+		text.setY(e.getY());
+		tag = null;
+		
+	}
 
-
-	private void resize(ImageView imageView, KeyEvent e, ImageCursor ic) {
+	private void resizeImage(ImageView imageView, KeyEvent e, ImageCursor ic) {
 		
 		KeyCode keyCode = e.getCode();
 		
@@ -506,6 +551,29 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			imageView.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN*imageView.getScaleY());
 			
 		}
+		
+	}
+	
+	private void resizeText(Text text, KeyEvent e) {
+		
+		KeyCode keyCode = e.getCode();
+		
+		if(keyCode == KeyCode.RIGHT) {
+			
+			System.out.println("right");
+			text.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP*text.getScaleX());
+			text.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP*text.getScaleY());
+			
+		}
+		
+		else if(keyCode == KeyCode.LEFT) {
+			
+			System.out.println("left");
+			text.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN*text.getScaleX());
+			text.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN*text.getScaleY());
+			
+		}
+		
 	}
 
 	private void setLargeButtonSize(Button button) {
