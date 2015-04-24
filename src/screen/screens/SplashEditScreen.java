@@ -215,7 +215,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		setLargeButtonSize(addText);
 		
 		
-		addText.setOnMouseClicked(e -> addText(textField.getText(), colorPicker.getValue()));
+		addText.setOnMouseClicked(e -> addText(textField, colorPicker.getValue()));
 		
 		return addText;
 		
@@ -384,10 +384,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		int index = Integer.parseInt(textField.getText()) - 1;
 		//text = texts.get(textNumber);
 //		for(ImageView imageView : imageViewArray) {
-//			if(t.getText().equals(textValue)) {
+//			if() {
 //				text = t;
 //			}
 //		}
+		if(!imageViewArray.get(index).getImage().equals(null)) {
+			imageView = imageViewArray.get(index);
+		}
 
 	}
 
@@ -414,13 +417,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	public void addText(String textString, Color color) {
+	public void addText(TextField textField, Color color) {
 		
 		System.out.println("addText()");
 		
 		tag = "Text";
-		text = new Text(textString);
+		text = new Text(textField.getText());
 		texts.add(text);
+		textField.clear();
 		
 		System.out.println("Text Counter Text is: " + texts.get(counter));
 		
