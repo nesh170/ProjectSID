@@ -393,6 +393,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 			addSpriteToLevelDisplay(spriteToAdd);
 
 			level.sprites().add(spriteToAdd);
+			
+			//TODO Remove sprite from player sprite list as well
+			if(spriteToAdd.tag().equals(tagResources().getString("Player"))) {
+				level.addPlayerSprite(spriteToAdd);
+			}
 			levelEditDisplay.setCursor(Cursor.DEFAULT);
 
 			spriteToAdd = null; 
