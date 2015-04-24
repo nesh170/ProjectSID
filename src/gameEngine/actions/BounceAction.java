@@ -10,13 +10,11 @@ public class BounceAction extends Action {
 
 	public BounceAction(Sprite sprite, Double val, KeyCode... keys) {
 		super(sprite, val, keys);
-		// TODO Auto-generated constructor stub
 	}
 
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
         velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
         velocityComp.setGrounded(false);
