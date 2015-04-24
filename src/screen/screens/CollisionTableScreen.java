@@ -254,14 +254,7 @@ public class CollisionTableScreen extends Screen{
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
 		
-	//	HBox addButtonBox = new HBox(800);
-	//	addButtonBox.setAlignment(Pos.BOTTOM_CENTER);
-	//	ScreenButton addRowButton = new ScreenButton("Add", STRING.BUTTONS.BUTTON_STYLE);
-	//	addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
-	//	addButtonBox.getChildren().add(addRowButton);
-	//	addRowButton.setAlignment(Pos.BOTTOM_CENTER);
-	//	verticalBox.getChildren().add(addRowButton);
-		
+	
 		
 		ScrollPane levelSP = configureScrollPane();
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
@@ -269,7 +262,17 @@ public class CollisionTableScreen extends Screen{
 		verticalBox.getChildren().addAll(levelSP);
 		verticalBox.setVgrow(levelSP, Priority.ALWAYS);
        
+//		HBox addButtonBox = new HBox(800);
+		//	addButtonBox.setAlignment(Pos.BOTTOM_CENTER);
+			ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
+		//	addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
+			addRowButton.setOnMouseClicked(e -> saveAll(levelSP));
 
+		//	addButtonBox.getChildren().add(addRowButton);
+		//	addRowButton.setAlignment(Pos.BOTTOM_CENTER);
+			verticalBox.getChildren().add(addRowButton);
+			
+		
 		tablesDisplay.getChildren().add(verticalBox);
 	}
 
