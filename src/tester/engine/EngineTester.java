@@ -53,11 +53,15 @@ public class EngineTester extends Tester {
 		makePlatform(0, 300, 200, 30);
 		makePlatform(-20, 0, 20, 200);
 		makePlatform(250, 250, 200, 30);
+		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
 		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
 		fireMario.addAction(switchOut);
 		player.addAction(switchOut);
+		
+		//addProjectile(fireMario);
+		Sprite goomba = makeGoomba();
 		
 		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
 		fireFlower.setCollisionTag("flower");
@@ -74,6 +78,19 @@ public class EngineTester extends Tester {
 		catch (Exception e){
 			System.out.println("Oh no!!!");
 		}
+	}
+
+	private Sprite makeGoomba() {
+		Sprite goomba = new Sprite(new Point2D(600.0, 150.0), Point2D.ZERO, new Dimension2D(40.0, 40.0));
+		goomba.addComponent(new VelocityComponent(goomba, null));
+		goomba.setCollisionTag("goomba");
+		makeFallingLanding(goomba);
+		goomba.setImagePath("Goomba.png");
+		Action goombaPath = new MotionPathAction(goomba, 2.0, new Point2D[]{new Point2D(510, 260), new Point2D(650, 260)}, (KeyCode) null);
+		goombaPath.runEveryFrame();
+		goomba.addAction(goombaPath);
+		mySpriteList.add(goomba);
+		return goomba;
 	}
 
 
@@ -107,14 +124,17 @@ public class EngineTester extends Tester {
 		myCT.addActionToMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, action);
 		myCT.addActionToMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, action);
 	}
-	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
-		setCollisionUp(sprite1, enemy, action);
+	private void setCollisionLeftRightDown(Sprite sprite1, Sprite enemy, Action action){
 		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
 		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
 		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
 		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
 		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
 		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
+	}
+	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
+		setCollisionUp(sprite1, enemy, action);
+		setCollisionLeftRightDown(sprite1, enemy, action);
 	}
 	
 	private void makeFallingLanding(Sprite sprite) {
@@ -135,6 +155,17 @@ public class EngineTester extends Tester {
 		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
 		sprite.addAction(jumpAction);
 		return jumpAction;
+	}
+	private void addProjectile(Sprite myPlayer) {
+		//set up projectile template, add to player, along with shoot actions
+		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+		myProjectileTemplate.setCollisionTag("bullet");
+		myProjectileTemplate.setImagePath("fireball.png");
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
+				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
+		myProjectileTemplate.addComponent(projComp);
+		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
+		myPlayer.addAction(shootAction);
 	}
 	
 	private Sprite makePlatform(double x, double y, double width, double height) {

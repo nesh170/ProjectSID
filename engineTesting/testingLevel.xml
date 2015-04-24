@@ -88,6 +88,33 @@
       </transform>
     </sprite.Sprite>
     <sprite.Sprite>
+      <actionList/>
+      <componentList/>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>platform</collisionTag>
+      <imagePath>mushroomPlatform.png</imagePath>
+      <facesLeft>false</facesLeft>
+      <transform>
+        <myPosition>
+          <x>500.0</x>
+          <y>300.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>200.0</width>
+          <height>30.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
+    <sprite.Sprite>
       <actionList>
         <gameEngine.actions.FallAction>
           <mySprite reference="../../.."/>
@@ -279,7 +306,86 @@
         <startDimensions reference="../myDimensions"/>
       </transform>
     </sprite.Sprite>
-    <sprite.Sprite reference="../sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+    <sprite.Sprite reference="../sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+    <sprite.Sprite>
+      <actionList>
+        <gameEngine.actions.FallAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array"/>
+          </myKeyCode>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>50.0</value>
+        </gameEngine.actions.FallAction>
+        <gameEngine.actions.NormalAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <runsEveryFrame>false</runsEveryFrame>
+          <value>0.0</value>
+        </gameEngine.actions.NormalAction>
+        <gameEngine.actions.MotionPathAction>
+          <mySprite reference="../../.."/>
+          <isActive>false</isActive>
+          <myKeyCode class="java.util.Arrays$ArrayList">
+            <a class="javafx.scene.input.KeyCode-array">
+              <null/>
+            </a>
+          </myKeyCode>
+          <runsEveryFrame>true</runsEveryFrame>
+          <value>0.0</value>
+          <myPoints>
+            <javafx.geometry.Point2D>
+              <x>510.0</x>
+              <y>260.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+            <javafx.geometry.Point2D>
+              <x>650.0</x>
+              <y>260.0</y>
+              <hash>0</hash>
+            </javafx.geometry.Point2D>
+          </myPoints>
+          <myDirection>1</myDirection>
+          <myLastVisitedIndex>0</myLastVisitedIndex>
+          <mySpeed>2.0</mySpeed>
+          <myTolerance>2.0</myTolerance>
+          <wrapsAround>false</wrapsAround>
+        </gameEngine.actions.MotionPathAction>
+      </actionList>
+      <componentList>
+        <gameEngine.components.VelocityComponent>
+          <mySprite reference="../../.."/>
+          <isActive>true</isActive>
+          <myVelocity reference="../../../../sprite.Sprite/transform/myRotation"/>
+          <myTerminalVelocity>5.0</myTerminalVelocity>
+          <isGrounded>true</isGrounded>
+        </gameEngine.components.VelocityComponent>
+      </componentList>
+      <x>0.0</x>
+      <y>0.0</y>
+      <emissionList/>
+      <isActive>true</isActive>
+      <collisionTag>goomba</collisionTag>
+      <imagePath>Goomba.png</imagePath>
+      <facesLeft>false</facesLeft>
+      <transform>
+        <myPosition>
+          <x>600.0</x>
+          <y>150.0</y>
+          <hash>0</hash>
+        </myPosition>
+        <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <myDimensions>
+          <width>40.0</width>
+          <height>40.0</height>
+          <hash>0</hash>
+        </myDimensions>
+        <startPosition reference="../myPosition"/>
+        <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+        <startDimensions reference="../myDimensions"/>
+      </transform>
+    </sprite.Sprite>
     <sprite.Sprite>
       <actionList/>
       <componentList/>
@@ -308,7 +414,7 @@
       </transform>
     </sprite.Sprite>
   </sprites>
-  <playerSpriteList reference="../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
+  <playerSpriteList reference="../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
   <collisionTable>
     <myTable>
       <entry>
@@ -319,7 +425,21 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+              <null/>
+            </gameEngine.Action-array>
+          </entry>
+        </map>
+      </entry>
+      <entry>
+        <string>goomba</string>
+        <map>
+          <entry>
+            <string>platform</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
@@ -334,7 +454,16 @@
               <null/>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+            </gameEngine.Action-array>
+          </entry>
+          <entry>
+            <string>goomba</string>
+            <gameEngine.Action-array>
+              <null/>
+              <null/>
+              <null/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
             </gameEngine.Action-array>
           </entry>
           <entry>
@@ -343,7 +472,7 @@
               <null/>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
             </gameEngine.Action-array>
           </entry>
         </map>
@@ -356,17 +485,17 @@
             <gameEngine.Action-array>
               <null/>
               <null/>
-              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.NormalAction"/>
+              <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
               <null/>
             </gameEngine.Action-array>
           </entry>
           <entry>
             <string>flower</string>
             <gameEngine.Action-array>
-              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
-              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
-              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
-              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction"/>
             </gameEngine.Action-array>
           </entry>
         </map>
@@ -380,7 +509,7 @@
               <null/>
               <null/>
               <null/>
-              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.SwitchOutAction"/>
+              <gameEngine.actions.SwitchOutAction reference="../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction"/>
             </gameEngine.Action-array>
           </entry>
         </map>
@@ -394,6 +523,9 @@
       <string>fireMario</string>
       <string>platform</string>
       <string>fireMario</string>
+      <string>goomba</string>
+      <string>platform</string>
+      <string>goomba</string>
       <string>flower</string>
       <string>flower</string>
       <string>player</string>

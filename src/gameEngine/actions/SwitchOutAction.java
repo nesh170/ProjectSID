@@ -6,7 +6,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
-import gameEngine.Transform;
 import gameEngine.components.VelocityComponent;
 
 /**
@@ -33,8 +32,6 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
