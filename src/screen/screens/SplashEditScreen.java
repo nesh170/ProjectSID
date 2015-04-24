@@ -38,6 +38,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import levelPlatform.splashScreen.SplashScreen;
+import resources.constants.COLOR;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -317,7 +318,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		System.out.println("HIHIHIHI");
 		//if(keyCode == KeyCode.UP) {
 			imageView = imageViewArray.get(counter);
-			imageView.setOnMousePressed(f -> imageMove(f));
+			imageView.setOnMousePressed(f -> imageMove(imageView, f));
 			if (counter > 0) {
 				counter--;
 				System.out.println(counter);
@@ -353,6 +354,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		tag = "Text";
 		text = new Text(textString);
+		text.fillProperty().setValue(Color.RED);
 		
 		this.setOnKeyPressed(e -> resizeText(text, e));
 		
@@ -439,7 +441,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
 			
-			imageView.setOnMousePressed(f -> imageMove(f));
+			imageView.setOnMousePressed(f -> imageMove(imageView, f));
 			
 			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
 			counter++;
@@ -484,10 +486,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void imageMove(MouseEvent f) {
+	private void imageMove(ImageView imageView, MouseEvent f) {
 		//TODO be able to pick which image to move, not just most recent
 		imageView.setOnMouseReleased(e -> placeImage(e));
 		
+	}
+	
+	private void textMove(MouseEvent f) {
+		text.setOnMouseReleased(e -> placeText(e));
 	}
 
 	private void placeStartButton(MouseEvent e) {
@@ -502,6 +508,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		imageView.setX(e.getX());
 		imageView.setY(e.getY());
+		tag = null;
+		
+	}
+	
+	private void placeText(MouseEvent e) {
+		
+		text.setX(e.getX());
+		text.setY(e.getY());
 		tag = null;
 		
 	}
