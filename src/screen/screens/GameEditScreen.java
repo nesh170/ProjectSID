@@ -3,12 +3,16 @@ package screen.screens;
 import game.Game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.animation.ParallelTransition;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -65,6 +69,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
+import javafx.util.Duration;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 
@@ -78,6 +83,7 @@ import levelPlatform.splashScreen.SplashScreen;
 //TODO list: - disable rest of screen when popup shows
 //- could add only once a draft levelImagerepresnetation when user returns from LevelEditScreen without modifying everything since level is automatically saved
 //- could also add drag and drop functionality to rearrange ordering of list of levels.
+//fix the bug with contextMenu staying in absolute positioni in screen
 public class GameEditScreen extends Screen {
 
 	// Static Variables
@@ -133,19 +139,9 @@ public class GameEditScreen extends Screen {
 		this.game = game;
 		
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
-		
-		if (GameEditScreen.TESTING) {
 			
-			this.game.setSplash(new SplashScreen(300, 400)); 	// those line tests
-															// weather splash
-															// display area will
-															// change if there is
-															// splash screen in
-															// myGame
+		//System.out.println(this.game);
 			
-			System.out.println(this.game);
-			
-		}
 //		configureLevels();
 		
 		initialize(controller);
@@ -204,7 +200,7 @@ public class GameEditScreen extends Screen {
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
 		splashSP.getChildren().addAll(rec);  
-		displayApproporiateSplashButton();	
+		displayApproporiateSplashButton();			
 	}
 	
 	/**
@@ -222,7 +218,9 @@ public class GameEditScreen extends Screen {
 			
 			b = makeAddSignWhenEmpty("Add New Splash Screen",
 					e -> controller.loadSplashEditScreen(game, this));	
-			splashSP.getChildren().add(b);
+			if(splashSP.getChildren().size() == INT.INITIAL_SETUP) 
+					splashSP.getChildren().add(b);
+			else splashSP.getChildren().set(splashSP.getChildren().size() - 1, b);
 		}
 			
 		else {
@@ -350,7 +348,6 @@ public class GameEditScreen extends Screen {
 
 	private void displayLevelsWhenEmpty() {
 
-		//levelHB.setAlignment(Pos.CENTER);
 		levelHB.getChildren().clear();
 		levelHB.getChildren().addAll(
 				this.makeAddSignWhenEmpty("Add A New Level",
@@ -378,9 +375,14 @@ public class GameEditScreen extends Screen {
 		Button b = new Button();
 		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
+		b.setStyle(STRING.COLORS.FX_GAME_EDIT_BUTTON_RADIUS);
 		b.setGraphic(img);
+		b.setFocusTraversable(false);
+		b.setOnMouseEntered( e -> setNodeScale(b, 1.12));
+		b.setOnMouseExited(e -> setNodeScale(b,1.0));
 		b.setOnMouseClicked(handleDoubleRightClick(b, splashOrLevel, this, index));
 		return b;
+	
 	}
 
 	/**
@@ -396,9 +398,8 @@ public class GameEditScreen extends Screen {
 
 			public void handle(MouseEvent mouseEvent) {
 
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					
-					if (mouseEvent.getClickCount() == 2) {
+				if (mouseEvent.getButton().equals(MouseButton.PRIMARY) && 
+						mouseEvent.getClickCount() == 2)  {					
 						
 						if (splashOrLevel == INT.LEVEL) {
 							configureSelection(index);
@@ -407,9 +408,7 @@ public class GameEditScreen extends Screen {
 							
 						else {
 							controller.loadSplashEditScreen(game, g);
-						}
-							
-					}
+						}						
 					
 				}
 				
@@ -420,17 +419,15 @@ public class GameEditScreen extends Screen {
 						makeRightClickMenu(
 								e -> controller
 										.loadLevelEditScreen(selectedLevel),
-								e -> controller.trashLevel(game,
-										selectedIndex, g)).show(node,
-								mouseEvent.getScreenX(),
-								mouseEvent.getScreenY());
+								e -> controller.trashLevel(game,selectedIndex, g)).show(node,
+										mouseEvent.getScreenX(), mouseEvent.getScreenY());
 					}
 						
 					else {
 						makeRightClickMenu(
 								e -> controller.loadSplashEditScreen(game, g),
 								e -> controller.trashSplash(game, g)).show(node,
-								mouseEvent.getSceneX(), mouseEvent.getSceneY());
+										mouseEvent.getSceneX(), mouseEvent.getSceneY());
 					}
 						
 				}
@@ -439,12 +436,60 @@ public class GameEditScreen extends Screen {
 			
 		};
 		
-	}	
+	}
+	/**
+	 * assign translate animation to each level button after the one removed by user 
+	 * @return 
+	 */
+	public Transition[] assignLevelButtonsAnimation(){
+		
+		levelHB.getChildren().get(selectedIndex).setVisible(false);		
+		ArrayList<TranslateTransition>	list = new ArrayList();		
+		for(int i = selectedIndex + 1; i < levelHB.getChildren().size(); i++){
+			Node n = levelHB.getChildren().get(i);
+			list.add(assignTranslateTransToNode(n));
+		}		
+		return list.toArray(new TranslateTransition[0]);
+
+	}
+	/**
+	 * runs multiple animations in parallel
+	 * @param onfinished: action event triggered when the parallel animation is finished
+	 * @return parallelTransition
+	 */
+	public ParallelTransition runAnimationsInParallel(EventHandler<ActionEvent> onfinished, Transition... transitions){
+	
+		ParallelTransition pt = new ParallelTransition(transitions);
+		pt.setOnFinished(onfinished);
+		return pt;
+	}
+	
+	private TranslateTransition assignTranslateTransToNode(Node n){
+		 
+	     TranslateTransition tt = new TranslateTransition(Duration.millis(2000), n);
+	     tt.setByX(-INT.GAMEEDITSCREEN_LEVEL_DISPLAY_SPACE -
+	    		 INT.DEFAULT_LEVEL_DISPLAY_WIDTH );
+	     tt.setCycleCount((int)1f);
+	     tt.setDuration(Duration.seconds(0.5d));
+	     return tt;
+	}
 	
 	private void configureSelection(int index){
 		selectedIndex = index;
 		selectedLevel = game.levels().get(selectedIndex);
 	}
+	
+	public EventHandler<ActionEvent> trashLevelAnimationFinishedEvent(){
+		return new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent event) {
+				levelHB.getChildren().remove(selectedIndex);
+				displayLevels(game.levels());
+			}
+		};
+	}
+	
 	
 	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
 
@@ -527,11 +572,18 @@ public class GameEditScreen extends Screen {
 				o -> controller.returnToMainMenuScreen(popup),
 				o -> controller.returnToMainMenuScreen(popup));
 
-		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(),
+		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeTools(),
 				makeGameMenu(), makeTrashMenu());
 
 	}
-
+	private void hideSplashRegion(){
+		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
+		splashDisplay.setVisible(false);
+	}
+	
+	private void showSplashRegion(){
+		splashDisplay.setVisible(true);
+	}
 	private Menu makeLevelMenu() {
 
 		Menu levelMenu = new Menu("Level");
@@ -545,7 +597,16 @@ public class GameEditScreen extends Screen {
 		return levelMenu;
 
 	}
-	
+
+	private Menu makeTools(){
+		Menu tools = new Menu("Tools");
+		MenuItem levelOnly = new MenuItem("hide splash");
+		levelOnly.setOnAction(e -> hideSplashRegion());
+		MenuItem seeAll = new MenuItem("display all");
+		seeAll.setOnAction(e -> showSplashRegion());
+		tools.getItems().addAll(levelOnly, seeAll);
+		return tools;
+	}
 	private Menu makeGameMenu() {
 
 		Menu gameMenu = new Menu("Game");
@@ -555,7 +616,7 @@ public class GameEditScreen extends Screen {
 		return gameMenu;
 		
 	}
-
+	
 	private Menu makeTrashMenu() {
 
 		ImageView trashImage = new ImageView(new Image(STRING.GAME_EDIT.TRASH_ICON));
