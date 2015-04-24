@@ -193,7 +193,6 @@ public class GamePlayer {
 					try {
 						if(counter == 1000){
 							myNetwork.sendStringToClient(myView.getCurrentLevelinXML());
-							System.out.println(myView.getCurrentLevelinXML().length());
 							counter = 0;
 						}
 						else{
@@ -205,7 +204,6 @@ public class GamePlayer {
 						e.printStackTrace();
 					}
 				}
-
 			}
 		};
 

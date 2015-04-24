@@ -86,14 +86,12 @@ public class GameEngine extends GameEngineAbstract {
     public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
         KeyCode key = KeyCode.getKeyCode(keyCode);
         if(myControlsMapList.get(playerNumber).containsKey(key)){
-        	System.out.println(myControlsMapList == null);
             KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(keyEventType).accept(myControlsMapList.get(playerNumber).get(key));
         }
     }
 
     @Override
     public String getCurrentLevelinXML () {
-        System.out.println(myCurrentLevel.playerSpriteList().get(0).collisionTag());
         return DataHandler.toXMLString(myCurrentLevel);
     }
 
