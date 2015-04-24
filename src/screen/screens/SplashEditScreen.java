@@ -16,6 +16,7 @@ import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -138,13 +139,22 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, Button addAnimation) {
 		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING);
-		VBox addTextVBox = new VBox(40);
-		addTextVBox.getChildren().addAll(addText, textField);
+		VBox addTextVBox = new VBox(INT.SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT);
+		ColorPicker colorPicker = createColorPicker();
+		addTextVBox.getChildren().addAll(addText, textField, colorPicker);
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage, addBackgroundImage,
 				addTextVBox, addAnimation);
 		
 		return allAddButtons;
+		
+	}
+	
+	private ColorPicker createColorPicker() {
+		
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setMinHeight(INT.SPLASH_EDIT_COLOR_PICKER_HEIGHT);
+		return colorPicker;
 		
 	}
 	
