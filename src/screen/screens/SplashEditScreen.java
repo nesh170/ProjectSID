@@ -331,8 +331,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //				System.out.println(counter);
 //			}
 //		}
-		int textNumber = Integer.parseInt(textCounter.getText()) - 2;
-		text = texts.get(textNumber+1);
+		String textValue = textCounter.getText();
+		//text = texts.get(textNumber);
+		for(Text t : texts) {
+			if(t.getText().equals(textValue)) {
+				text = t;
+			}
+		}
 
 	}
 
