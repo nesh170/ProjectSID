@@ -416,13 +416,7 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 	}
 	
-	//TODO
-	private void saveRow()
-	{
-		//collTable.addActionToMap(type1, type2, direction, toAdd);
-		
-	}
-	
+
 	private void saveAll(ScrollPane sp)
 	{
 		List<Node> children = sp.getChildrenUnmodifiable();
