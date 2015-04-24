@@ -50,6 +50,10 @@ public class PlayerView {
 		return myGameRoot;
 	}
 
+	public Camera getCamera() {
+		return myCamera;
+	}
+
 	//	public PlayerView(ScrollPane scrollPane, PlayerViewController playerController) {
 	//		
 	//		myMenuBar = new PlayerMenu(playerController);

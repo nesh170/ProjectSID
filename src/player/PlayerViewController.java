@@ -81,6 +81,7 @@ public class PlayerViewController {
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myGameRoot = view.getRoot();
+		myCamera = view.getCamera();
 		loadNewChooser();
 	}
 
