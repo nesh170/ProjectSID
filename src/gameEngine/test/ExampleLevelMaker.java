@@ -190,8 +190,6 @@ public class ExampleLevelMaker extends Application {
         myPlayer.addComponent(new HealthComponent(myPlayer, null));
         myPlayer.addComponent(new VelocityComponent(myPlayer, null));
         myPlayer.addAction(new LeftMotionAction(myPlayer, SPEED, KeyCode.LEFT));
-        GroovyAction customJump = groovyAction();
-        myPlayer.addAction(customJump);
         Action rma = new RightMotionAction(myPlayer, SPEED, KeyCode.RIGHT);
         myPlayer.addAction(rma);
         makeJumping(myPlayer, KeyCode.UP, false);
@@ -201,13 +199,7 @@ public class ExampleLevelMaker extends Application {
         addProjectile();
     }
 
-    private GroovyAction groovyAction () {
-        GroovyAction customJump = new GroovyAction(myPlayer, 100.0, KeyCode.R);
-        customJump.setPrepareCode("println 'GroovyPrep!'");
-        customJump.setStopCode("Sprite.transform().reset()");
-        customJump.setExecuteCode("println 'GroovyExec!'");
-        return customJump;
-    }
+
 
     private void makePlayable (Sprite sprite) {
         sprite.addAction(new LeftMotionAction(sprite, SPEED, KeyCode.LEFT));
@@ -268,7 +260,7 @@ public class ExampleLevelMaker extends Application {
         myProjectileTemplate.addComponent(projComp);
         Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
         myPlayer.addAction(shootAction);
-
+        myPlayer.setTag("player");
     }
 
     private Sprite makeNormalPlatform (double x, double y, double width, double height) {

@@ -112,12 +112,17 @@ public class PlayerMenu {
 	}
 	
 	private Menu buildGroovyMenu (PlayerViewController view) {
-	    Menu groovyMenu = new Menu("Groovy");
-	    MenuItem groovyAction = new MenuItem("Add GroovyAction");
-	    GroovyActionMenu actionMenu = new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
-	    groovyAction.setOnAction(event -> actionMenu.setUpGroovyDialog());
-	    groovyMenu.getItems().addAll(groovyAction);
-	    return groovyMenu;
+        Menu groovyMenu = new Menu("Groovy");
+        MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
+        GroovyActionMenu actionMenu =
+                new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
+        groovyActionItem
+                .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
+                                                                   (spriteTag, groovyAction) -> view
+                                                                           .addRuntimeAction(spriteTag,
+                                                                                             groovyAction)));
+        groovyMenu.getItems().addAll(groovyActionItem);
+        return groovyMenu;
 	}
 
 	private Menu buildSoundMenu(PlayerViewController view) {

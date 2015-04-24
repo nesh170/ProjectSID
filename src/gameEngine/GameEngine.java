@@ -1,14 +1,16 @@
 package gameEngine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import data.DataHandler;
 import resources.constants.INT;
-import sprite.Sprite;
 import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -17,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
-import levelPlatform.levelPlatformView.LevelPlatformView;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -107,6 +108,14 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void addGroovyComponent (String spriteTag, Component groovyComponent) {
         myCurrentLevel.addGroovyComponent(spriteTag,groovyComponent);
+    }
+
+    @Override
+    public List<String> getSpriteTagList () {
+        Set<String> spriteTagSet = new HashSet<>();
+        myCurrentLevel.sprites().stream().forEach(sprite -> spriteTagSet.add(sprite.tag()));
+        List<String> spriteTagList = spriteTagSet.stream().collect(Collectors.toList());
+        return Collections.unmodifiableList(spriteTagList);
     }
     
     

@@ -1,8 +1,7 @@
 package gameEngine;
-import sprite.Sprite;
+import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -69,4 +68,9 @@ public abstract class GameEngineAbstract {
      */
     public abstract void addGroovyComponent (String spriteTag, Component groovyComponent);
     
+    /**
+     * Gets a list of sprite tags to be shown on the player
+     * @return
+     */
+    public abstract List<String> getSpriteTagList();
 }

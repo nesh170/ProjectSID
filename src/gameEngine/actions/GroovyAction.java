@@ -1,5 +1,7 @@
 package gameEngine.actions;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.script.ScriptException;
@@ -85,6 +87,10 @@ public class GroovyAction extends Action {
     @Setter(name = "Action.stop()", type = "textBox")
     public void setStopCode (String code) {
         myStopCode = code;
+    }
+    
+    public List<String> getVariableList(){
+        return Collections.unmodifiableList(scriptEngine.getObjectMap().keySet().stream().collect(Collectors.toList()));
     }
 
 }

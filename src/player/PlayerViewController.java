@@ -2,11 +2,10 @@ package player;
 
 import game.Game;
 import gameEngine.GameEngine;
-
+import gameEngine.actions.GroovyAction;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -243,4 +242,12 @@ public class PlayerViewController {
 	public void stopMusic() {
 		myAudioController.stop();
 	}
+	
+	public List<String> getSpriteTagList(){
+	    return myEngine.getSpriteTagList();
+	}
+
+    public void addRuntimeAction (String spriteTag, GroovyAction groovyAction) {
+        myEngine.addGroovyAction(spriteTag, groovyAction);
+    }
 }

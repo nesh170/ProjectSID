@@ -153,6 +153,7 @@ public class Level extends LevelPlatform {
      */
     public void addGroovyAction (String spriteTag, Action groovyAction) {
         List<Sprite> spriteWithTag = sprites().stream().filter(sprite -> sprite.tag().equals(spriteTag)).collect(Collectors.toList());
+        System.out.println(spriteWithTag.size());
         spriteWithTag.stream().forEach(sprite -> handleGroovyAction(sprite,(GroovyAction) groovyAction));
 
     }
