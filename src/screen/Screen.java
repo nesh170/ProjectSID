@@ -16,6 +16,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -232,10 +233,10 @@ public abstract class Screen extends BorderPane {
 	}
 	
 	
-	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
+	protected Button makeButtonForPane(String text, EventHandler<MouseEvent> lambda) {
 
 		Button button = new Button(text);
-		button.setOnAction(lambda);
+		button.setOnMouseClicked(lambda);
 		VBox.setVgrow(button, Priority.NEVER);
 		button.setMinWidth(buttonWidth());
 		

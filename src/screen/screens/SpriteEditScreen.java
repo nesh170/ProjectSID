@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import data.DataHandler;
@@ -80,7 +81,6 @@ public class SpriteEditScreen extends Screen {
 	private StackPane paneForImage;
 	private ListView<String> imageListPane;
 
-	private ResourceBundle tagResources;
 	private ResourceBundle actionResources;
 	private ResourceBundle componentResources;
 	private ResourceBundle behaviorLabels;
@@ -154,6 +154,10 @@ public class SpriteEditScreen extends Screen {
 
 
 	}
+	
+	public void tagsForUse(Set<String> tags) {
+		tagChoicesHolder.setItems(FXCollections.observableArrayList(tags));
+	}
 
 	// All other instance methods
 	private void initializeKeyCodesAreVisibleMap() {
@@ -174,7 +178,6 @@ public class SpriteEditScreen extends Screen {
 		super.initializeRelevantResourceFiles();
 		behaviorLabels = ResourceBundle
 				.getBundle("resources.spritePartProperties.behaviorlabels");
-		tagResources = ResourceBundle.getBundle("resources.TagChoices");
 		actionResources = ResourceBundle
 				.getBundle("resources.spritePartProperties.action");
 		componentResources = ResourceBundle
@@ -333,20 +336,14 @@ public class SpriteEditScreen extends Screen {
 		nameAndTagPane.setHgap(10);
 		nameAndTagPane.getStyleClass().add(STRING.CSS.PANE);
 
-		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ":"); // TODO do not hardcode "name"
+		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ":");
 
 		spriteNameField = new TextField();
-		spriteNameField.setPromptText(languageResources().getString(STRING.SPRITE_EDIT.SPRITE_PROMPT)); // TODO DO NOT
-		// HARDCODE THIS
-		// STRING
+		spriteNameField.setPromptText(languageResources().getString(STRING.SPRITE_EDIT.SPRITE_PROMPT));
 
-		Text tagLabel = new Text("Tag" + ":"); // TODO do not hardcode "tag"
-		ObservableList<String> tagChoices = FXCollections.observableArrayList();
+		Text tagLabel = new Text(languageResources().getString("Tag") + ":");
 
-		tagResources.keySet().forEach(
-				e -> tagChoices.add(tagResources.getString(e)));
-
-		tagChoicesHolder = new ChoiceBox<String>(tagChoices);
+		tagChoicesHolder = new ChoiceBox<String>();
 
 		nameAndTagPane.add(nameLabel, 0, 0);
 		nameAndTagPane.add(spriteNameField, 1, 0);
@@ -690,6 +687,8 @@ public class SpriteEditScreen extends Screen {
 	}
 
 	private void saveSprite() {
+		
+		//TODO don't allow save if name isn't written 
 
 		stringToImageMap.keySet().forEach(
 				e -> {

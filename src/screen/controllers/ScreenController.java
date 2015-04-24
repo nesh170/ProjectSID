@@ -602,13 +602,17 @@ public class ScreenController {
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 			
-			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);
+			SpriteEditScreen spriteEditScreen = (SpriteEditScreen) createSpriteEditScreen(levelEditTab, sprite).getContent();
+			spriteEditScreen.tagsForUse(levelEditScreen.getTags());
 			
 		}
 		
+		/*
+		 * @Deprecated use loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) instead, pass in null if necessary
+		 */
 		@Override
+		@Deprecated 
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
 			
 			Sprite newSprite = new Sprite();
