@@ -3,8 +3,15 @@ import game.Game;
 
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -13,6 +20,7 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -52,11 +60,11 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.factories.ScreenFactory;
-import screen.levelPlatformCapableScreen.GamePlayScreen;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
-import screen.levelPlatformCapableScreen.SplashEditScreen;
 import screen.screens.GameEditScreen;
+import screen.screens.GamePlayScreen;
+import screen.screens.LevelEditScreen;
 import screen.screens.MainMenuScreen;
+import screen.screens.SplashEditScreen;
 import screen.screens.SpriteEditScreen;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
@@ -125,6 +133,8 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
+	//Testing:
+	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -280,11 +290,19 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		tabManager.setDefaultTab(createMainMenuScreen());
-		
-		//USED FOR TEST GAMEEDITSCREEN
-		//createGameEditScreen(null);
-		
+
+		if(!GameEdit_Test)
+			tabManager.setDefaultTab(createMainMenuScreen());
+		else {
+				//USED FOR TEST GAMEEDITSCREEN
+				Game g = new Game();
+				for(int i=0; i < 5; i++){
+					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+					g.addLevel(newLevel);
+					}
+				createGameEditScreen(g);
+			}
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -419,7 +437,8 @@ public class ScreenController {
 				popup.hide();
 			}
 			else {
-				errorHandler.displayError(STRING.ERROR.EMPTY_GAME_NAME);
+				gameName.getStyleClass().add(STRING.CSS.ERROR);
+				gameName.setPromptText(STRING.ERROR.EMPTY_GAME_NAME);
 			}
 		}
 		
@@ -503,7 +522,9 @@ public class ScreenController {
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
 			game.removeLevel(levelIndex);
-			gameEditScreen.displayLevels(game.levels());
+			Transition pt = gameEditScreen.runAnimationsInParallel(gameEditScreen.trashLevelAnimationFinishedEvent(),
+								gameEditScreen.assignLevelButtonsAnimation());
+			pt.play();
 			
 		}
 
@@ -512,7 +533,7 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton();
+			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
 			
 		}
 
@@ -520,9 +541,26 @@ public class ScreenController {
 		@Override
 		public void saveGame(Game game) {
 			
-			File dir = DataHandler.chooseDir(stage);
+			//File dir = DataHandler.chooseDir(stage);
 			try {
-				DataHandler.toXMLFile(game, game.name(), dir.getPath());
+				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
+				File folder = new File(imageFolderName);
+				folder.mkdir();
+				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String[] imagePathSplit = imagePath.split("[\\\\/]");
+					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
+					Path fileCopy = (new File(newImagePath).toPath());
+					FileInputStream in;
+					try {
+						in = new FileInputStream(imagePath);			
+						Files.copy(in, fileCopy);
+					} catch (Exception e) {
+						//do nothing, file already exists but I don't care;
+					}
+					sprite.setImagePath(newImagePath);
+				}));
+				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
@@ -564,13 +602,17 @@ public class ScreenController {
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 			
-			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);
+			SpriteEditScreen spriteEditScreen = (SpriteEditScreen) createSpriteEditScreen(levelEditTab, sprite).getContent();
+			spriteEditScreen.tagsForUse(levelEditScreen.getTags());
 			
 		}
 		
+		/*
+		 * @Deprecated use loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) instead, pass in null if necessary
+		 */
 		@Override
+		@Deprecated 
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
 			
 			Sprite newSprite = new Sprite();
