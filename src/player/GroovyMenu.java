@@ -17,7 +17,7 @@ public abstract class GroovyMenu {
     protected static final String ENTER = "enter";
     protected static final String TAG = "Sprite Tag:";
     protected static final String VARIABLE_LIST = "List Of Variables:";
-    protected static final double MAX_HEIGHT = 50;
+    protected static final double MAX_HEIGHT = 100;
     
     protected VBox myVBox;
     protected Map<Method, TextArea> myTextFieldMap;

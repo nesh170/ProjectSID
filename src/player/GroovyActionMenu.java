@@ -15,12 +15,15 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 
 public class GroovyActionMenu extends GroovyMenu {
 
+    private static final String KEYCODE = "Insert KeyCode";
     private GroovyAction myGroovyAction;
 
     public GroovyActionMenu (GroovyAction groovyAction) {
@@ -32,6 +35,7 @@ public class GroovyActionMenu extends GroovyMenu {
         myTextFieldMap = new HashMap<Method, TextArea>();
         myVBox = new VBox(8);
         setUpVariableList(myGroovyAction.getVariableList());
+        setUpKeyCodeBox();
         setUpChoiceBox(tagList);
         List<Method> methodList =
                 Stream.of(GroovyAction.class.getMethods()).collect(Collectors.toList());
@@ -42,6 +46,19 @@ public class GroovyActionMenu extends GroovyMenu {
                 .forEach(method -> addTextBox(method));
         enterButton(engineMethod);
 
+    }
+    
+    private void setUpKeyCodeBox(){
+        TextField keyInput = new TextField();
+        keyInput.setOnKeyTyped(e -> keyInput.clear());
+        keyInput.setOnKeyReleased(key -> handleKeyCode(keyInput, key.getCode()));
+        myVBox.getChildren().addAll(new Text(KEYCODE), keyInput);
+    }
+
+    private void handleKeyCode (TextField keyInput, KeyCode code) {
+        keyInput.clear();
+        keyInput.setText(code.getName());
+        myGroovyAction.setKeyCode(Stream.of(code).collect(Collectors.toList()));
     }
 
     private void setUpChoiceBox (List<String> tagList) {
@@ -69,6 +86,7 @@ public class GroovyActionMenu extends GroovyMenu {
         TextArea field = new TextArea();
         String fieldName = ((Setter) method.getAnnotations()[0]).name();
         field.setPromptText(fieldName);
+        field.setMaxHeight(MAX_HEIGHT);
         myTextFieldMap.put(method, field);
         box.getChildren().addAll(new Text(fieldName), field);
         myVBox.getChildren().add(box);

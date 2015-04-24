@@ -32,8 +32,8 @@ public class GroovyAction extends Action {
         super(sprite, val, keys);
         scriptEngine = new ScriptRunner(Stream.of(sprite, val).collect(Collectors.toList()));
     }
-    
-    public GroovyAction deepCopy(){
+
+    public GroovyAction deepCopy () {
         GroovyAction copy = new GroovyAction(null);
         copy.setPrepareCode(myPrepareCode);
         copy.setExecuteCode(myExecuteCode);
@@ -48,7 +48,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myPrepareCode);
         }
         catch (ScriptException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
 
     }
@@ -59,7 +59,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myExecuteCode);
         }
         catch (ScriptException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
 
     }
@@ -88,9 +88,11 @@ public class GroovyAction extends Action {
     public void setStopCode (String code) {
         myStopCode = code;
     }
-    
-    public List<String> getVariableList(){
-        return Collections.unmodifiableList(scriptEngine.getObjectMap().keySet().stream().collect(Collectors.toList()));
+
+    public List<String> getVariableList () {
+        return Collections.unmodifiableList(scriptEngine.getObjectMap().keySet().stream()
+                .collect(Collectors.toList()));
     }
+
 
 }

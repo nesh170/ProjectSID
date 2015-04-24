@@ -21,7 +21,7 @@ public abstract class Action {
 	 */
 	protected Sprite mySprite;
 	private boolean isActive;
-	private List<KeyCode> myKeyCode;
+	protected List<KeyCode> myKeyCode;
 	private boolean runsEveryFrame = false;
 	protected double value;
 	
@@ -61,6 +61,11 @@ public abstract class Action {
 	public void setSprite(Sprite sprite){
 	    mySprite=sprite;
 	}
+	
+	public void setKeyCode (List<KeyCode> keys) {
+	    myKeyCode = keys;
+	}
+
 	
 	public boolean isActive(){
 		return isActive;
