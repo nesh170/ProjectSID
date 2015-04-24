@@ -1,5 +1,6 @@
 package tester.engine;
 
+import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
@@ -12,11 +13,9 @@ import gameEngine.actions.SwitchOutAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -65,6 +64,7 @@ public class EngineTester extends Tester {
 		
 		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
 		fireFlower.setCollisionTag("flower");
+		fireFlower.setTag("powerup");
 		fireFlower.setImagePath("fireFlower.png");
 		mySpriteList.add(fireFlower);
 		setCollisionAll(player, fireFlower, switchOut);
@@ -72,8 +72,10 @@ public class EngineTester extends Tester {
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);
 		l.setCollisionTable(myCT);
+		Game game = new Game("TESTGAME");
+		game.addLevel(l);
 		try{
-			DataHandler.toXMLFile(l, "testingLevel.xml", System.getProperty("user.dir")+"/engineTesting");
+			DataHandler.toXMLFile(game, "testingLevel.xml", System.getProperty("user.dir")+"/engineTesting");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -84,6 +86,7 @@ public class EngineTester extends Tester {
 		Sprite goomba = new Sprite(new Point2D(600.0, 150.0), Point2D.ZERO, new Dimension2D(40.0, 40.0));
 		goomba.addComponent(new VelocityComponent(goomba, null));
 		goomba.setCollisionTag("goomba");
+		goomba.setTag("enemy");
 		makeFallingLanding(goomba);
 		goomba.setImagePath("Goomba.png");
 		Action goombaPath = new MotionPathAction(goomba, 2.0, new Point2D[]{new Point2D(510, 260), new Point2D(650, 260)}, (KeyCode) null);
@@ -99,6 +102,7 @@ public class EngineTester extends Tester {
 		fireMario.setImagePath("FireMario.png");
 		fireMario.setCollisionTag("fireMario");
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
+		fireMario.setTag("player");
 		makeFallingLanding(fireMario);
 		makeJumping(fireMario, KeyCode.UP, false);
 		makeLeftRighting(fireMario);
@@ -112,6 +116,7 @@ public class EngineTester extends Tester {
 		player.addComponent(new VelocityComponent(player, null));
 		player.setImagePath("mario.png");
 		player.setCollisionTag("player");
+		player.setTag("player");
 		myPlayerList.add(player);
 		mySpriteList.add(player);
 		makeFallingLanding(player);
@@ -160,6 +165,7 @@ public class EngineTester extends Tester {
 		//set up projectile template, add to player, along with shoot actions
 		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
+		myProjectileTemplate.setTag("bullet");
 		myProjectileTemplate.setImagePath("fireball.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
 				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
@@ -172,6 +178,7 @@ public class EngineTester extends Tester {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		platform.setCollisionTag("platform");
 		platform.setImagePath("mushroomPlatform.png");
+		platform.setTag("platform");
 		myPlatforms.add(platform);
 		mySpriteList.add(platform);
 		return platform;
@@ -181,6 +188,7 @@ public class EngineTester extends Tester {
 		Sprite textSprite = new Sprite(new Point2D(x, y), Point2D.ZERO, new Dimension2D(text.length()*12, 150.0));
 		textSprite.setImagePath(text);
 		textSprite.setCollisionTag("textBox");
+		textSprite.setTag("text");
 		mySpriteList.add(textSprite);
 	}
 	
@@ -201,6 +209,7 @@ public class EngineTester extends Tester {
 		mps.setCollisionTag("motionPathSprite");
 		mps.addAction(mpa);
 		mps.setImagePath("duke.png");
+		mps.setTag("motion");
 		mySpriteList.add(mps);
 	}
 	
@@ -211,6 +220,7 @@ public class EngineTester extends Tester {
 		movingThing.addAction(new RightMotionAction(movingThing, 2.0, KeyCode.RIGHT));
 		movingThing.addAction(new LeftMotionAction(movingThing, 2.0, KeyCode.LEFT));
 		movingThing.setImagePath("duke.png");
+		movingThing.setTag("movingThing");
 		myPlayerList.add(movingThing);
 		mySpriteList.add(movingThing);
 	}
