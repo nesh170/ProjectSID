@@ -467,6 +467,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		 
 		else if (tag == "Text") {
 			
+			text.setOnMousePressed(f -> textMove(f));
+			
 			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
 			
 		}
