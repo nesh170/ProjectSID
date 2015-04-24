@@ -541,15 +541,14 @@ public class ScreenController {
 		@Override
 		public void saveGame(Game game) {
 			
-			File dir = DataHandler.chooseDir(stage);
+			//File dir = DataHandler.chooseDir(stage);
 			try {
-				DataHandler.toXMLFile(game, game.name(), dir.getPath());
 				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
 				File folder = new File(imageFolderName);
 				folder.mkdir();
 				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
 					String imagePath = sprite.getImagePath();
-					String[] imagePathSplit = imagePath.split("/");
+					String[] imagePathSplit = imagePath.split("[\\\\/]");
 					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
 					Path fileCopy = (new File(newImagePath).toPath());
 					FileInputStream in;
@@ -561,6 +560,7 @@ public class ScreenController {
 					}
 					sprite.setImagePath(newImagePath);
 				}));
+				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
