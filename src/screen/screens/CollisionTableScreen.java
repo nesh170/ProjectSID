@@ -433,6 +433,23 @@ public class CollisionTableScreen extends Screen{
 		return true;
 		
 	}
+	
+	private void save (String activeSp, String inactiveSp, String dir, String action, String value)
+	{
+		double valDouble = 0;
+		if (isDouble(value))
+		{
+			valDouble = Double.parseDouble(value);
+		}
+		
+		System.out.println(activeSp);
+		System.out.println(inactiveSp);
+		System.out.println(dir);
+		System.out.println(action);
+		System.out.println(value);
+		
+	//	collTable.addActionToMap(activeSp, inactiveSp, direction, toAdd);
+		
 		
 	/*	List<Node> boxChildren = box.getChildren();
 		System.out.println("got box kids");
