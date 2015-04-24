@@ -1,4 +1,5 @@
 package gameEngine;
+import sprite.Sprite;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -54,5 +55,18 @@ public abstract class GameEngineAbstract {
      * @return the output of XStream from the current level
      */
     public abstract String getCurrentLevelinXML();
+    
+    /**
+     * Adds the groovy action to the level. The groovy action is user defined based on the sprite.
+     * @param groovy
+     */
+    public abstract void addGroovyAction (String spriteTag, Action groovyAction);
+    
+    /**
+     * Adds the groovy component to the level. The groovy component is user defined based on the sprite
+     * @param spriteTag
+     * @param groovyComponent
+     */
+    public abstract void addGroovyComponent (String spriteTag, Component groovyComponent);
     
 }

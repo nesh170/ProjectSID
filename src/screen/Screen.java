@@ -46,7 +46,6 @@ public abstract class Screen extends BorderPane {
 	private double sideBarWidth;
 	private double buttonWidth;
 
-
 	// Getters & Setters
 	/**
 	 * Used in ScreenController addTabWithScreenWithStringIdentifier.
@@ -227,7 +226,12 @@ public abstract class Screen extends BorderPane {
 		imageView.setFitHeight(height);
 
 	}
-
+	protected void setNodeScale( Node n, double f){
+		n.setScaleX(f);
+		n.setScaleY(f);
+	}
+	
+	
 	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
 
 		Button button = new Button(text);

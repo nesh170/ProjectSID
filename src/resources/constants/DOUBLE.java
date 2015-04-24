@@ -43,6 +43,11 @@ public class DOUBLE {
 	public static final double BULLET_SPEED = 35.0;
 
 	//Terminal Velocity fo velocity Component
-        public static final double TERMINAL_VELOCITY = 5;
+    public static final double TERMINAL_VELOCITY = 5;
+        
+    //Splash Edit
+    public static final double SPLASH_EDIT_SCALE_UP = 1.4;
+    public static final double SPLASH_EDIT_SCALE_DOWN = 0.8;
+    public static final double SPLASH_EDIT_DEFAULT_SIZE = 30.0;
 	
 }
