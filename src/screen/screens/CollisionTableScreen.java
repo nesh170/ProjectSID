@@ -309,18 +309,18 @@ public class CollisionTableScreen extends Screen{
 		sprites.add("power-up");
 		sprites.add("lava");
 		sprites.add("chocolate");
-		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", "-fx-font: 15px \"arial\";", "Active Sprite");
+		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", STRING.COLLISION_EDIT.FONT_STYLE, "Active Sprite");
 	
 		collisionSet.add(activeSpriteList, 1, 0); 
 		
-		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", "-fx-font: 15px \"arial\";", "Inactive Sprite");
+		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", STRING.COLLISION_EDIT.FONT_STYLE, "Inactive Sprite");
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
 		
 		ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
 
-		ComboBox direction = this.createComboBoxFromList(third, "Direction","-fx-font: 15px \"arial\";", "Direction");
+		ComboBox direction = this.createComboBoxFromList(third, "Direction",STRING.COLLISION_EDIT.FONT_STYLE, "Direction");
 		
 		collisionSet.add(direction, 3, 0); 
 
@@ -331,7 +331,7 @@ public class CollisionTableScreen extends Screen{
 		fourth.add("sigh");
 		fourth.add("groove");
 		
-		ComboBox action = this.createComboBoxFromList(fourth, "Action", "-fx-font: 15px \"arial\";", "Action");
+		ComboBox action = this.createComboBoxFromList(fourth, "Action", STRING.COLLISION_EDIT.FONT_STYLE, "Action");
 
 		collisionSet.add(action, 4, 0); 
 		
