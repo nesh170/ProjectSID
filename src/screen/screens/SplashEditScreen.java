@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -63,6 +64,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Text text;
 	private List<Text> texts = new ArrayList();
 	private int counter;
+	private TextField textCounter = new TextField();
 
 	// Getters & Setters
 
@@ -112,7 +114,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button back = makeBackButton();
 		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
-		this.viewableArea().setTop(back);
+		HBox hbox = new HBox(40);
+		textCounter.setMinHeight(40);
+		textCounter.setOnAction(g -> chooseText(g));
+		hbox.getChildren().addAll(back, textCounter);
+		//this.viewableArea().setTop(back);
+		this.viewableArea().setTop(hbox);
 		
 	}
 	
@@ -123,7 +130,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, COLOR.DEFAULT_SPLASH_SCREEN_COLOR);
 		this.viewableArea().setLeft(displayArea);
 		this.setOnMouseClicked(e -> add(tag, e, displayArea));
-		this.setOnKeyPressed(g -> chooseText(g));
 		
 	}
 
@@ -314,17 +320,19 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void chooseText(KeyEvent g) {
+	private void chooseText(ActionEvent g) {
 		
-		KeyCode keyCode = g.getCode();
+//		KeyCode keyCode = g.getCode();
 		System.out.println("HIHIHIHI");
-		if(keyCode == KeyCode.UP) {
-			text = texts.get(counter);
-			if (counter > 0) {
-				counter--;
-				System.out.println(counter);
-			}
-		}
+//		if(keyCode == KeyCode.UP) {
+//			text = texts.get(counter);
+//			if (counter > 0) {
+//				counter--;
+//				System.out.println(counter);
+//			}
+//		}
+		int textNumber = Integer.parseInt(textCounter.getText()) - 2;
+		text = texts.get(textNumber+1);
 
 	}
 
