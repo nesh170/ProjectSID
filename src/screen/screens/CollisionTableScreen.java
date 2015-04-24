@@ -54,7 +54,7 @@ import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
 
 /**
- * NOTE: I NEED TO REFACTOR THIS CODE 
+ * NOTE: STILL REFACTORING
  * DO NOT TOUCH YET
  */
 
