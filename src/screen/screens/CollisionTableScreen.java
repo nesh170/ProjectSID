@@ -309,18 +309,19 @@ public class CollisionTableScreen extends Screen{
 		sprites.add("power-up");
 		sprites.add("lava");
 		sprites.add("chocolate");
-		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", STRING.COLLISION_EDIT.FONT_STYLE, "Active Sprite");
+		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
 		collisionSet.add(activeSpriteList, 1, 0); 
 		
-		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", STRING.COLLISION_EDIT.FONT_STYLE, "Inactive Sprite");
+		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
 		
-		ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
+		ArrayList<String> third = new ArrayList<>(Arrays.asList(STRING.COLLISION_EDIT.DIRECTION_UP, STRING.COLLISION_EDIT.DIRECTION_DOWN,
+				STRING.COLLISION_EDIT.DIRECTION_LEFT, STRING.COLLISION_EDIT.DIRECTION_RIGHT));
 
-		ComboBox direction = this.createComboBoxFromList(third, "Direction",STRING.COLLISION_EDIT.FONT_STYLE, "Direction");
+		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
 		collisionSet.add(direction, 3, 0); 
 
@@ -331,14 +332,14 @@ public class CollisionTableScreen extends Screen{
 		fourth.add("sigh");
 		fourth.add("groove");
 		
-		ComboBox action = this.createComboBoxFromList(fourth, "Action", STRING.COLLISION_EDIT.FONT_STYLE, "Action");
+		ComboBox action = this.createComboBoxFromList(fourth, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
 		collisionSet.add(action, 4, 0); 
 		
 		
 		TextField text = new TextField();
-		text.setPromptText("Value");
-		text.setId("Value");
+		text.setPromptText(STRING.COLLISION_EDIT.TEXT_PROMPT);
+		text.setId(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		collisionSet.add(text, 5, 0); 
 		
 		
