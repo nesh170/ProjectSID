@@ -1,5 +1,11 @@
 package player;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,22 +24,36 @@ public class PlayerMenu extends MenuBar{
 		createPlayerMenu(pvc);
 	}
 
-	public void createPlayerMenu(PlayerViewController view) {
-		Menu menuView = new Menu("View");
-		getMenus().add(buildFileMenu(view));
-		getMenus().add(buildGamesMenu(view));
-		getMenus().add(menuView);
-		getMenus().add(buildSoundMenu(view));
-		getMenus().add(buildHelpMenu(view));
-	}
+    public void createPlayerMenu (PlayerViewController view) {
+        List<Method> methodList =
+                Stream.of(PlayerMenu.class.getDeclaredMethods())
+                        .filter(method -> method.getAnnotations().length > 0)
+                        .collect(Collectors.toList());
+        Collections.sort(methodList, (method1, method2) -> ((Integer) ((AddMenuItem) method1
+                .getAnnotation(AddMenuItem.class)).order()).compareTo(((AddMenuItem) method2
+                .getAnnotation(AddMenuItem.class)).order())); //This method sorts the object based on the order given by the annotations
+        methodList.forEach(method -> getMenus().add(handleMenuAddition(method, view)));
+    }
 
-	private MenuItem makeMenuItem(String name) {
+    private Menu handleMenuAddition (Method method, PlayerViewController view) {
+        Menu menuToAdd = new Menu();
+        try {
+            menuToAdd = (Menu) method.invoke(this, view);
+        }
+        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return menuToAdd;
+    }
+
+    private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
 		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
 				+ name.substring(0, 1)));
 		return item;
 	}
 
+	@AddMenuItem(order = 0)
 	private Menu buildFileMenu(PlayerViewController view) {
 		Menu fileMenu = new Menu("File");
 
@@ -59,6 +79,7 @@ public class PlayerMenu extends MenuBar{
 		return fileMenu;
 	}
 
+	@AddMenuItem(order = 1)
 	private Menu buildGamesMenu(PlayerViewController view) {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
@@ -72,6 +93,7 @@ public class PlayerMenu extends MenuBar{
 		return gamesMenu;
 	}
 
+	@AddMenuItem(order = 2)
 	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
@@ -81,6 +103,7 @@ public class PlayerMenu extends MenuBar{
 		return helpMenu;
 	}
 
+	@AddMenuItem(order = 3)
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
