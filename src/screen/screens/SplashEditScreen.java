@@ -390,10 +390,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			}
 
 		});
-		comboBox.setMinWidth(150);
-		grid.add(comboBox, 0, 0);
-		grid.setTranslateX(width - 250);
-		grid.setTranslateY(height - 200);
+		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
+		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
+		grid.setTranslateX(width - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X);
+		grid.setTranslateY(height - INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT);
 		this.getChildren().add(grid);
 		
 	}
