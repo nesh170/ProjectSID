@@ -54,7 +54,7 @@ import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
 
 /**
- * NOTE: I NEED TO REFACTOR THIS CODE 
+ * NOTE: STILL REFACTORING
  * DO NOT TOUCH YET
  */
 
@@ -223,7 +223,7 @@ public class CollisionTableScreen extends Screen{
 	private List<String> levelSprites;
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;
-	private ArrayList<ArrayList<String>> collisionMap;
+	
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
@@ -231,6 +231,9 @@ public class CollisionTableScreen extends Screen{
 
 	/**
 	 * CollisionTableScreen(collisionTableScreenController, width, height, level);
+	 * 
+	 * TODO: need to get passed Sprites from LES so that create action and set action to sprite
+	 * then need to pass collision table the ACTION (not string of action)
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, List<String> sprites) {
 		super(width, height);
@@ -248,17 +251,14 @@ public class CollisionTableScreen extends Screen{
 	
 	// HASHMAP of s1 s2 and action and direction
 	private void initialize(){
-		collisionMap = new ArrayList<ArrayList<String>>();
-		configureLevelDisplay();
+		createVBoxOfCollisionRows();
 		this.setCenter(tablesDisplay);
 	}
 
-	private void configureLevelDisplay(){
+	private void createVBoxOfCollisionRows(){
 		//, DisplayLevels(myLevels)
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
-		
-	
 		
 		ScrollPane levelSP = configureScrollPane();
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
@@ -312,18 +312,19 @@ public class CollisionTableScreen extends Screen{
 		sprites.add("power-up");
 		sprites.add("lava");
 		sprites.add("chocolate");
-		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", "-fx-font: 15px \"arial\";", "Active Sprite");
+		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
 		collisionSet.add(activeSpriteList, 1, 0); 
 		
-		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", "-fx-font: 15px \"arial\";", "Inactive Sprite");
+		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
 		
-		ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
+		ArrayList<String> third = new ArrayList<>(Arrays.asList(STRING.COLLISION_EDIT.DIRECTION_UP, STRING.COLLISION_EDIT.DIRECTION_DOWN,
+				STRING.COLLISION_EDIT.DIRECTION_LEFT, STRING.COLLISION_EDIT.DIRECTION_RIGHT));
 
-		ComboBox direction = this.createComboBoxFromList(third, "Direction","-fx-font: 15px \"arial\";", "Direction");
+		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
 		collisionSet.add(direction, 3, 0); 
 
@@ -334,14 +335,14 @@ public class CollisionTableScreen extends Screen{
 		fourth.add("sigh");
 		fourth.add("groove");
 		
-		ComboBox action = this.createComboBoxFromList(fourth, "Action", "-fx-font: 15px \"arial\";", "Action");
+		ComboBox action = this.createComboBoxFromList(fourth, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
 		collisionSet.add(action, 4, 0); 
 		
 		
 		TextField text = new TextField();
-		text.setPromptText("Value");
-		text.setId("Value");
+		text.setPromptText(STRING.COLLISION_EDIT.TEXT_PROMPT);
+		text.setId(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		collisionSet.add(text, 5, 0); 
 		
 		
@@ -363,7 +364,7 @@ public class CollisionTableScreen extends Screen{
 		ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
 		collisionSet.add(saveSelection, 6, 0); 
 		
-		saveSelection.setOnMouseClicked(e-> this.save((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
+		saveSelection.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
 		collisionTable.getChildren().add(collisionSet);
 		return collisionTable;
 	}
@@ -419,13 +420,7 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 	}
 	
-	//TODO
-	private void saveRow()
-	{
-		//collTable.addActionToMap(type1, type2, direction, toAdd);
-		
-	}
-	
+
 	private void saveAll(ScrollPane sp)
 	{
 		List<Node> children = sp.getChildrenUnmodifiable();
@@ -460,7 +455,7 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
-	private void save (String activeSp, String inactiveSp, String dir, String action, String value)
+	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String value)
 	{
 		double valDouble = 0;
 		if (isDouble(value))
