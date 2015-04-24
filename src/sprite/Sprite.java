@@ -47,6 +47,7 @@ public class Sprite {
 	private String tag;
 	private String collisionTag;
 	private String imagePath;
+	private boolean facesLeft = false;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
@@ -59,6 +60,14 @@ public class Sprite {
 	}
 	
 	// Getters & Setters
+
+	public boolean facesLeft() {
+		return facesLeft;
+	}
+
+	public void setFacesLeft(boolean facesLeft) {
+		this.facesLeft = facesLeft;
+	}
 	/**
 	 * Use SID pixels here
 	 */
@@ -308,8 +317,7 @@ public class Sprite {
 		}
 		
 		return null;
-	}
+		
+	}	
 
-
-	
 }

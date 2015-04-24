@@ -3,8 +3,6 @@ package gameEngine.test;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
-import gameEngine.EngineMathFunctions;
-import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
 import gameEngine.actions.GroovyAction;
 import gameEngine.actions.FallAction;
@@ -29,12 +27,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import resources.constants.DOUBLE;
 import resources.constants.INT;
 import sprite.Sprite;
 import util.ImageToInt2DArray;
 import levelPlatform.level.Level;
-
 
 public class ExampleLevelMaker extends Application {
 

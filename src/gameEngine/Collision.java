@@ -25,9 +25,6 @@ public class Collision {
      * @param sprite2
      **/
     public void handleCollide(Sprite sprite1, Sprite sprite2){
-    	if(sprite1.collisionTag().equals("bullet") || sprite2.collisionTag().equals("bullet")){
-        	System.out.println(sprite1.collisionTag() + " " + sprite2.collisionTag());
-    	}
     	
     	Transform transform1 = sprite1.transform();
     	Transform transform2 = sprite2.transform();

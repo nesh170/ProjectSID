@@ -44,7 +44,6 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
@@ -53,6 +52,8 @@ public class GameEngine extends GameEngineAbstract {
     
     @Override
     public double[] update () {
+    	myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.clear());
+    	myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
         return myCurrentLevel.getNewCameraLocations();

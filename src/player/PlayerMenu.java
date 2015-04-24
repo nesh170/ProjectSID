@@ -30,8 +30,8 @@ public class PlayerMenu {
 		myMenuBar = new MenuBar();
 		HUD hud = new HUD();
 		ScrollPane myGameRoot = new ScrollPane();
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
+		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
 		myGameRoot.setMaxSize(900, 450);
 		myGameRoot.setMinSize(900, 450);
 		PlayerViewController pvc = new PlayerViewController(myGameRoot, hud);
