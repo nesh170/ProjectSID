@@ -72,14 +72,17 @@ public class GroovyAction extends Action {
         }
     }
 
+    @Setter(name = "Action.prepare()", type = "textBox")
     public void setPrepareCode (String code) {
         myPrepareCode = code;
     }
 
+    @Setter(name = "Action.execute()", type = "textBox")
     public void setExecuteCode (String code) {
         myExecuteCode = code;
     }
 
+    @Setter(name = "Action.stop()", type = "textBox")
     public void setStopCode (String code) {
         myStopCode = code;
     }

@@ -1,9 +1,10 @@
 package player;
 
+import gameEngine.actions.GroovyAction;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import sprite.Sprite;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -48,6 +50,7 @@ public class PlayerMenu {
 		menuBar.getMenus().add(menuView);
 		menuBar.getMenus().add(buildSoundMenu(view));
 		menuBar.getMenus().add(buildHelpMenu(view));
+		menuBar.getMenus().add(buildGroovyMenu(view));
 	}
 
 	public void createPlayerMenu(PlayerViewController view) {
@@ -106,6 +109,15 @@ public class PlayerMenu {
 
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
+	}
+	
+	private Menu buildGroovyMenu (PlayerViewController view) {
+	    Menu groovyMenu = new Menu("Groovy");
+	    MenuItem groovyAction = new MenuItem("Add GroovyAction");
+	    GroovyActionMenu actionMenu = new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
+	    groovyAction.setOnAction(event -> actionMenu.setUpGroovyDialog());
+	    
+	    return groovyMenu;
 	}
 
 	private Menu buildSoundMenu(PlayerViewController view) {

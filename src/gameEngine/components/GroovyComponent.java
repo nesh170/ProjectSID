@@ -6,8 +6,8 @@ import java.util.stream.Stream;
 import sprite.Sprite;
 import util.ScriptRunner;
 import gameEngine.Component;
-import gameEngine.actions.GroovyAction;
 import javax.script.ScriptException;
+import jdk.nashorn.internal.objects.annotations.Setter;
 
 
 public class GroovyComponent extends Component {
@@ -53,14 +53,17 @@ public class GroovyComponent extends Component {
         }
     }
 
+    @Setter
     public void setPrepareCode (String code) {
         myPrepareCode = code;
     }
 
+    @Setter
     public void setUpdateCode (String code) {
         myUpdateCode = code;
     }
     
+    @Setter
     public void setSprite (Sprite sprite) {
         mySprite = sprite;
     }
