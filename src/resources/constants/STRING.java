@@ -1,5 +1,6 @@
 package resources.constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -159,6 +160,21 @@ public class STRING {
 		
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
 		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
+		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
+		
+		public static final String DIRECTION_UP = "Above";
+		public static final String DIRECTION_DOWN = "Below";
+		public static final String DIRECTION_LEFT = "Left";
+		public static final String DIRECTION_RIGHT = "Right";
+		
+		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
+		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
+		public static final String COMBO_SPRITE2_NAME = "Sprite Inactive";
+		public static final String COMBO_SPRITE2_TAG = "SpriteInactive";
+		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
+		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
+		public static final String TEXT_PROMPT = "Value";
+
 	}
 	
 	public class GAME_PLAY {
