@@ -25,15 +25,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class GroovyActionMenu {
-    private static final String ENTER = "enter";
-    private static final String TAG = "Sprite Tag:";
-    private static final String VARIABLE_LIST = "List Of Variables:";
+public class GroovyActionMenu extends GroovyMenu {
 
-    private VBox myVBox;
-    private Map<Method, TextArea> myTextFieldMap;
     private GroovyAction myGroovyAction;
-    private String myCurrentSpriteTag;
+
 
     public GroovyActionMenu (GroovyAction groovyAction) {
         myGroovyAction = groovyAction;
