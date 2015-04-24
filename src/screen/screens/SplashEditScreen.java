@@ -278,7 +278,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = "Start";
 		startButtonImageView = new ImageView(image);
 
-		this.setOnKeyPressed(e -> resize(startButtonImageView, e, imageCursor));
+		this.setOnKeyPressed(e -> resizeImage(startButtonImageView, e, imageCursor));
 
 	}
 	
@@ -307,7 +307,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		imageView = new ImageView(image);
 		imageViewArray.add(imageView);
 
-		this.setOnKeyPressed(e -> resize(imageView, e, imageCursor));
+		this.setOnKeyPressed(e -> resizeImage(imageView, e, imageCursor));
 
 		
 	}
@@ -353,6 +353,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		tag = "Text";
 		text = new Text(textString);
+		
+		this.setOnKeyPressed(e -> resizeText(text, e));
 		
 	}
 
@@ -505,7 +507,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 
-	private void resize(ImageView imageView, KeyEvent e, ImageCursor ic) {
+	private void resizeImage(ImageView imageView, KeyEvent e, ImageCursor ic) {
 		
 		KeyCode keyCode = e.getCode();
 		
@@ -524,6 +526,29 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			imageView.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN*imageView.getScaleY());
 			
 		}
+		
+	}
+	
+	private void resizeText(Text text, KeyEvent e) {
+		
+		KeyCode keyCode = e.getCode();
+		
+		if(keyCode == KeyCode.RIGHT) {
+			
+			System.out.println("right");
+			text.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP*text.getScaleX());
+			text.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP*text.getScaleY());
+			
+		}
+		
+		else if(keyCode == KeyCode.LEFT) {
+			
+			System.out.println("left");
+			text.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN*text.getScaleX());
+			text.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN*text.getScaleY());
+			
+		}
+		
 	}
 
 	private void setLargeButtonSize(Button button) {
