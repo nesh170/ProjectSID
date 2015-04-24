@@ -368,6 +368,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 				text = t;
 			}
 		}
+		textField.clear();
 
 	}
 	private void chooseImage(TextField textField) {
@@ -391,6 +392,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		if(!imageViewArray.get(index).getImage().equals(null)) {
 			imageView = imageViewArray.get(index);
 		}
+		textField.clear();
 
 	}
 
