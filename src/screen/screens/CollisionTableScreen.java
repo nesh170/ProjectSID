@@ -231,6 +231,9 @@ public class CollisionTableScreen extends Screen{
 
 	/**
 	 * CollisionTableScreen(collisionTableScreenController, width, height, level);
+	 * 
+	 * TODO: need to get passed Sprites from LES so that create action and set action to sprite
+	 * then need to pass collision table the ACTION (not string of action)
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, List<String> sprites) {
 		super(width, height);
