@@ -416,10 +416,29 @@ public class CollisionTableScreen extends Screen{
 	private void saveRow()
 	{
 		//collTable.addActionToMap(type1, type2, direction, toAdd);
+		
 	}
 	
-	private void saveAll()
+	private void saveAll(ScrollPane sp)
 	{
+		List<Node> children = sp.getChildrenUnmodifiable();
+		System.out.println("got node kids");
+		for (Node each : children)
+		{
+			System.out.println("	for (Node each : children)");
+		//	if (each instanceof HBox)
+			{
+				List<Node> boxChildren = ((HBox) each).getChildren();
+				System.out.println("got box kids");
+				for (Node subEach : boxChildren)
+				{
+					System.out.println(subEach.getTypeSelector());
+				}
+			}
+		}
+		
+	}
+	
 	private boolean isDouble(String val)
 	{
 		try { 
