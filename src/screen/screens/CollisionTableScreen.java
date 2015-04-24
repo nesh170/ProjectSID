@@ -35,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -385,114 +386,41 @@ public class CollisionTableScreen extends Screen{
 		tile.getChildren().add(description);
 
 		for (int i = 0; i < 3; i++)
-		{
-			
-			
-			HBox collisionTable = new HBox(800);
-			collisionTable.setAlignment(Pos.CENTER);
-			collisionTable.setTranslateY(100);
-			collisionTable.setTranslateX(100);
-			
-
-			GridPane collisionSet = new GridPane();
-			collisionSet.setHgap(30);
-			collisionSet.setVgap(30);
-			collisionSet.setPadding(new Insets(0, 50, 0, 50));
-
-			ArrayList<String> sprites = new ArrayList<String>();
-			sprites.add("player"); // TODO: fix from input list
-			sprites.add("enemy");
-			sprites.add("platform");
-			sprites.add("power-up");
-			sprites.add("lava");
-			sprites.add("chocolate");
-			ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", "-fx-font: 20px \"Serif\";", "Active Sprite");
-		
-			collisionSet.add(activeSpriteList, 1, 0); 
-			
-			ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", "-fx-font: 20px \"Serif\";", "Inactive Sprite");
-		
-			collisionSet.add(inactiveSpriteList, 2, 0); 
-			
-			
-			ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
-
-			ComboBox direction = this.createComboBoxFromList(third, "Direction", "-fx-font: 20px \"Serif\";", "Direction");
-			
-			collisionSet.add(direction, 3, 0); 
-
-			
-			ArrayList<String> fourth = new ArrayList<String>();
-			fourth.add("die");
-			fourth.add("move");
-			fourth.add("sigh");
-			fourth.add("groove");
-			
-			ComboBox action = this.createComboBoxFromList(fourth, "Action", "-fx-font: 20px \"Serif\";", "Action");
-
-			collisionSet.add(action, 4, 0); 
-			
-			
-			TextField text = new TextField();
-			text.setPromptText("Value");
-			text.setId("Value");
-			collisionSet.add(text, 5, 0); 
-			
-			
-		
-			action.valueProperty().addListener(new ChangeListener<String>() {
-		           
-		            public void changed(ObservableValue ov, String t, String t1) {                
-		              if (t1.equals("die"))
-		              {
-		            	  text.setDisable(true);
-		              }
-		              else
-		              {
-		            	  text.setDisable(false);
-		              }
-		            }    
-		        });
-			
-			ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
-			collisionSet.add(saveSelection, 6, 0); 
-			
-			saveSelection.setOnMouseClicked(e->saveRow());
-
-			collisionTable.getChildren().add(collisionSet);
-
-
-			tile.getChildren().add(collisionTable);
-
-
+		{		
+			VBox eachRow = this.addTableRow();	
+			tile.getChildren().add(eachRow);
 		}
+		
+		VBox addButtonBox = new VBox(800);
+		addButtonBox.setAlignment(Pos.TOP_LEFT);
+		ScreenButton addRowButton = new ScreenButton("Add", STRING.BUTTONS.BUTTON_STYLE);
+		addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
+		addButtonBox.getChildren().add(addRowButton);
+		tile.getChildren().add(addButtonBox);
+		
+//		addButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
 
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
-		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);    // Vertical scroll bar
-		sp.setFitToHeight(true);
+		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
+	//	sp.setFitToHeight(true);
 		sp.setFitToWidth(true);
-		sp.setContent(tile);     
+		
+		sp.setContent(tile);  
+		
+		
+		
 		return sp;
 	}
 	
 	//TODO
 	private void saveRow()
 	{
+		//collTable.addActionToMap(type1, type2, direction, toAdd);
+	}
+	
+	private void saveAll()
+	{
 		
 	}
 	
-
-
-	private ImageView makeButton(String location, EventHandler<MouseEvent> lamda){
-		ImageView b = new ImageView(new Image(location));
-		b.setFitHeight(80);
-		b.setFitWidth(80);
-		b.setOnMouseClicked(lamda);
-		return b;
-	}	
-
-
-
-
-
 }
