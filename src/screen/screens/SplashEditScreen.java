@@ -114,11 +114,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button back = makeBackButton();
 		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
-		HBox hbox = new HBox(40);
-		textCounter.setMinHeight(40);
-		textCounter.setOnAction(g -> chooseText(g));
-		hbox.getChildren().addAll(back, textCounter);
+
 		//this.viewableArea().setTop(back);
+		HBox hbox = createBackButtonAndTextFields(back);
 		this.viewableArea().setTop(hbox);
 		
 	}
@@ -155,6 +153,29 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
+	private HBox createBackButtonAndTextFields(Button back) {
+		
+		HBox hbox = new HBox(30);
+		HBox imageHBox = new HBox();
+		HBox textHBox = new HBox();
+		
+		Text imageText = new Text("Enter Image Index:");
+		TextField imageTextField = createTextField();
+		Text textText = new Text("Enter Text Content:");
+		TextField textTextField = createTextField();
+		
+		imageHBox.getChildren().addAll(imageText, imageTextField);
+		textHBox.getChildren().addAll(textText, textTextField);
+		imageHBox.setAlignment(Pos.BOTTOM_CENTER);
+		textHBox.setAlignment(Pos.BOTTOM_CENTER);
+		
+		hbox.getChildren().addAll(back, imageHBox, textHBox);
+		hbox.setAlignment(Pos.BOTTOM_LEFT);
+		
+		return hbox;
+		
+	}
+	
 	private Button makeAddStartButton() {
 		
 		Button addStartButton = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_START_BUTTON);
@@ -257,6 +278,15 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		back.setOnMouseClicked(e -> backSplashScreen());
 		
 		return back;
+		
+	}
+	
+	private TextField createTextField() {
+		
+		TextField textField = new TextField();
+		textField.setMinSize(100, 20);
+		//textField.setAlignment(Pos.BOTTOM_CENTER);
+		return textField;
 		
 	}
 	
