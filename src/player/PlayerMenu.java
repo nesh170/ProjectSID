@@ -3,7 +3,6 @@ package player;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,20 +31,20 @@ public class PlayerMenu extends MenuBar{
                         .collect(Collectors.toList());
         Collections.sort(methodList, (method1, method2) -> ((Integer) ((AddMenuItem) method1
                 .getAnnotation(AddMenuItem.class)).order()).compareTo(((AddMenuItem) method2
-                .getAnnotation(AddMenuItem.class)).order()));
+                .getAnnotation(AddMenuItem.class)).order())); //This method sorts the object based on the order given by the annotations
         methodList.forEach(method -> getMenus().add(handleMenuAddition(method, view)));
     }
 
-	private Menu handleMenuAddition (Method method, PlayerViewController view) {
-	    Menu menuToAdd = new Menu();
-	    try {
-	        menuToAdd = (Menu) method.invoke(this, view);
-	    }
-	    catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-	        e.printStackTrace();
-	    }
-	    return menuToAdd;
-	}
+    private Menu handleMenuAddition (Method method, PlayerViewController view) {
+        Menu menuToAdd = new Menu();
+        try {
+            menuToAdd = (Menu) method.invoke(this, view);
+        }
+        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return menuToAdd;
+    }
 
     private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
