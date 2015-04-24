@@ -85,12 +85,14 @@ public class PlayerViewController {
 		myEngine.play(myGameRoot);
 		myTimeline.play();
 		myView.playScreen();
+		myAudioController.play();
 	}
 
 	public void pause() {
 		myTimeline.stop();
 		myEngine.pause(myGameRoot);
 		myView.pauseScreen();
+		myAudioController.pause();
 	}
 
 	private void update() {
