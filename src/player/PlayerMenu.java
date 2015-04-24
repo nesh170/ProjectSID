@@ -114,7 +114,7 @@ public class PlayerMenu {
 	private Menu buildGroovyMenu (PlayerViewController view) {
         Menu groovyMenu = new Menu("Groovy");
         MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
-        GroovyActionMenu actionMenu =
+        GroovyMenu actionMenu =
                 new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
         groovyActionItem
                 .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),

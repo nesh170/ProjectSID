@@ -6,43 +6,29 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 
 public class GroovyActionMenu extends GroovyMenu {
 
     private GroovyAction myGroovyAction;
 
-
     public GroovyActionMenu (GroovyAction groovyAction) {
         myGroovyAction = groovyAction;
     }
 
-    public void setUpGroovyDialog (List<String> tagList, BiConsumer<String, GroovyAction> engineMethod) {
-        Stage stage = new Stage();
-        setUpView(tagList, engineMethod);
-        stage.setScene(new Scene(myVBox));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-    }
-
-    private void setUpView (List<String> tagList, BiConsumer<String, GroovyAction> engineMethod) {
+    @Override
+    protected void setUpView (List<String> tagList, BiConsumer<String, Object> engineMethod) {
         myTextFieldMap = new HashMap<Method, TextArea>();
         myVBox = new VBox(8);
         setUpVariableList(myGroovyAction.getVariableList());
@@ -58,11 +44,6 @@ public class GroovyActionMenu extends GroovyMenu {
 
     }
 
-    private void setUpVariableList (List<String> list) {
-        myVBox.getChildren().addAll(new Text(VARIABLE_LIST));
-        list.stream().forEach(variableName -> myVBox.getChildren().add(new Text(variableName)));;
-    }
-
     private void setUpChoiceBox (List<String> tagList) {
         VBox box = new VBox();
         ChoiceBox<String> spriteTag = new ChoiceBox<>(FXCollections.observableArrayList(tagList));
@@ -76,7 +57,7 @@ public class GroovyActionMenu extends GroovyMenu {
                                          String oldValue,
                                          String newValue) {
                         myCurrentSpriteTag = newValue;
-                        //TODO debug this actions
+                        // TODO debug this actions
                     }
                 });
         myVBox.getChildren().add(box);
@@ -93,13 +74,13 @@ public class GroovyActionMenu extends GroovyMenu {
         myVBox.getChildren().add(box);
     }
 
-    private void enterButton (BiConsumer<String, GroovyAction> engineMethod) {
+    private void enterButton (BiConsumer<String, Object> engineMethod) {
         Button enter = new Button(ENTER);
         enter.setOnAction(e -> handleEnter(engineMethod));
         myVBox.getChildren().add(enter);
     }
 
-    private void handleEnter (BiConsumer<String, GroovyAction> engineMethod) {
+    private void handleEnter (BiConsumer<String, Object> engineMethod) {
         myTextFieldMap.keySet().stream()
                 .forEach(method -> handleMethod(method, myTextFieldMap.get(method).getText()));
         engineMethod.accept(myCurrentSpriteTag, myGroovyAction);

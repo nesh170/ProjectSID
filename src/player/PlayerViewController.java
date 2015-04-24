@@ -1,6 +1,7 @@
 package player;
 
 import game.Game;
+import gameEngine.Action;
 import gameEngine.GameEngine;
 import gameEngine.actions.GroovyAction;
 import java.io.File;
@@ -247,7 +248,7 @@ public class PlayerViewController {
 	    return myEngine.getSpriteTagList();
 	}
 
-    public void addRuntimeAction (String spriteTag, GroovyAction groovyAction) {
-        myEngine.addGroovyAction(spriteTag, groovyAction);
+    public void addRuntimeAction (String spriteTag, Object groovyAction) {
+        myEngine.addGroovyAction(spriteTag, (Action) groovyAction);
     }
 }
