@@ -420,6 +420,19 @@ public class CollisionTableScreen extends Screen{
 	
 	private void saveAll()
 	{
+	private boolean isDouble(String val)
+	{
+		try { 
+			Double.parseDouble(val);
+	    } catch(NumberFormatException e) { 
+	       
+	        return false; 
+	    } catch(NullPointerException e) {
+	        return false;
+	    }
+		return true;
+		
+	}
 		
 	}
 	
