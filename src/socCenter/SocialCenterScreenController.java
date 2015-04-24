@@ -291,7 +291,7 @@ public class SocialCenterScreenController {
 		public void createProfile(Popup popup, TextField username,
 				PasswordField password, PasswordField rePassWord) {
 	
-			User newUser = new User(((Double)Math.random()).intValue(), username.getText(), password.getText());
+			User newUser = new User("", username.getText(), password.getText());
 			popup.hide();
 			
 		}

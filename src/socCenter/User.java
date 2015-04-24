@@ -13,24 +13,24 @@ import util.ImageToInt2DArray;
 public class User {
 	
 	//instance vars
-	private Integer myID;
+	private String myID;
 	private String myName;
 	private String myImagePath;
 	private String myPassword; //TODO: make secure (like it even matters)
 	private Sprite myDefaultSprite;
 	private List<User> myFriends;
 	
-	public User(Integer id, String name, String password){
+	public User(String id, String name, String password){
 		setMyID(id);
 		setName(name);
 		setPassword(password);
 	}
 	
 	//getters, setters
-	public Integer getMyID() {
+	public String getMyID() {
 		return myID;
 	}
-	public void setMyID(Integer myID) {
+	public void setMyID(String myID) {
 		this.myID = myID;
 	}
 	
@@ -65,7 +65,11 @@ public class User {
 		myImagePath = myDefaultSprite.getImagePath();
 	}
 	
-	
+	public String getPass(){
+		//TODO:
+		//figure out security
+		return myPassword;
+	}
 	//social
 	public void addFriend(User newFriend){
 		myFriends.add(newFriend);
