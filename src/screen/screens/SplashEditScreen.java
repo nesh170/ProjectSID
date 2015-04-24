@@ -64,7 +64,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Text text;
 	private List<Text> texts = new ArrayList();
 	private int counter;
-	private TextField textCounter = new TextField();
+	//private TextField textCounter = new TextField();
 
 	// Getters & Setters
 
@@ -114,8 +114,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button back = makeBackButton();
 		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
-
-		//this.viewableArea().setTop(back);
 		HBox hbox = createBackButtonAndTextFields(back);
 		this.viewableArea().setTop(hbox);
 		
@@ -161,8 +159,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		Text imageText = new Text("Enter Image Index:");
 		TextField imageTextField = createTextField();
+		imageTextField.setOnAction(e -> chooseImage(imageTextField));
 		Text textText = new Text("Enter Text Content:");
 		TextField textTextField = createTextField();
+		textTextField.setOnAction(f -> chooseText(textTextField));
 		
 		imageHBox.getChildren().addAll(imageText, imageTextField);
 		textHBox.getChildren().addAll(textText, textTextField);
@@ -284,7 +284,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private TextField createTextField() {
 		
 		TextField textField = new TextField();
-		textField.setMinSize(100, 20);
+		textField.setMinSize(150, 30);
 		//textField.setAlignment(Pos.BOTTOM_CENTER);
 		return textField;
 		
@@ -350,7 +350,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void chooseText(ActionEvent g) {
+	private void chooseText(TextField textField) {
 		
 //		KeyCode keyCode = g.getCode();
 		System.out.println("HIHIHIHI");
@@ -361,13 +361,33 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //				System.out.println(counter);
 //			}
 //		}
-		String textValue = textCounter.getText();
+		String textValue = textField.getText();
 		//text = texts.get(textNumber);
 		for(Text t : texts) {
 			if(t.getText().equals(textValue)) {
 				text = t;
 			}
 		}
+
+	}
+	private void chooseImage(TextField textField) {
+		
+//		KeyCode keyCode = g.getCode();
+//		System.out.println("HIHIHIHI");
+//		if(keyCode == KeyCode.UP) {
+//			text = texts.get(counter);
+//			if (counter > 0) {
+//				counter--;
+//				System.out.println(counter);
+//			}
+//		}
+		int index = Integer.parseInt(textField.getText()) - 1;
+		//text = texts.get(textNumber);
+//		for(ImageView imageView : imageViewArray) {
+//			if(t.getText().equals(textValue)) {
+//				text = t;
+//			}
+//		}
 
 	}
 
