@@ -1,0 +1,26 @@
+<sprite.Sprite>
+  <actionList/>
+  <componentList/>
+  <x>0.0</x>
+  <y>0.0</y>
+  <emissionList/>
+  <isActive>true</isActive>
+  <collisionTag>platform</collisionTag>
+  <facesLeft>false</facesLeft>
+  <transform>
+    <myPosition>
+      <x>0.0</x>
+      <y>0.0</y>
+      <hash>0</hash>
+    </myPosition>
+    <myRotation reference="../myPosition"/>
+    <myDimensions>
+      <width>100.0</width>
+      <height>100.0</height>
+      <hash>0</hash>
+    </myDimensions>
+    <startPosition reference="../myPosition"/>
+    <startRotation reference="../myPosition"/>
+    <startDimensions reference="../myDimensions"/>
+  </transform>
+</sprite.Sprite>
