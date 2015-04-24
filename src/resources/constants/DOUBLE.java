@@ -46,8 +46,8 @@ public class DOUBLE {
     public static final double TERMINAL_VELOCITY = 5;
         
     //Splash Edit
-    public static final double SPLASH_EDIT_SCALE_UP = 1.4;
-    public static final double SPLASH_EDIT_SCALE_DOWN = 0.8;
+    public static final double SPLASH_EDIT_SCALE_UP = 1.2;
+    public static final double SPLASH_EDIT_SCALE_DOWN = 0.9;
     public static final double SPLASH_EDIT_DEFAULT_SIZE = 30.0;
 	
 }
