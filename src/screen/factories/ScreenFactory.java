@@ -110,13 +110,6 @@ public class ScreenFactory {
 		return new GamePlayScreen(gamePlayScreenController, width, height);
 	}
 	
-	//perhaps not permanently here...
-	public Screen createLogInScreen(LogInScreenController logInScreenController){
-		return new LogInScreen(logInScreenController, width, height);
-	}
-	
-	public Screen createMainPageScreen(MainPageScreenController mainPageScreenController){
-		return new MainPageScreen(mainPageScreenController, width, height);
-	}
+
 
 }

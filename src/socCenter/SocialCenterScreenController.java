@@ -50,6 +50,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.factories.ScreenFactory;
+import screen.factories.SocialCenterScreenFactory;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import socCenter.logIn.LogInScreenController;
@@ -79,7 +80,7 @@ public class SocialCenterScreenController {
 	private MainPageScreenManager mainPageScreenManager;
 
 	//Factories
-	private ScreenFactory screenFactory;
+	private SocialCenterScreenFactory screenFactory;
 	
 	//Data
 	private UserPack userPack;
@@ -166,7 +167,7 @@ public class SocialCenterScreenController {
 	}
 	
 	private void configureFactories(double width, double height) {
-		this.screenFactory = new ScreenFactory(width, height);
+		this.screenFactory = new SocialCenterScreenFactory(width, height);
 	}
 	
 	private void configureErrorHandling(Group root) {
