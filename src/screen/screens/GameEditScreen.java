@@ -521,7 +521,6 @@ public class GameEditScreen extends Screen {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Removing " + selectedIndex + "and game level size is :" + game.getLevelsSize());
 				levelHB.getChildren().remove(selectedIndex);
 				displayLevels(game.levels());
 			}
