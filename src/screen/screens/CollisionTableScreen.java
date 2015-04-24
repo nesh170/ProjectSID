@@ -248,16 +248,14 @@ public class CollisionTableScreen extends Screen{
 	
 	// HASHMAP of s1 s2 and action and direction
 	private void initialize(){
-		configureLevelDisplay();
+		createVBoxOfCollisionRows();
 		this.setCenter(tablesDisplay);
 	}
 
-	private void configureLevelDisplay(){
+	private void createVBoxOfCollisionRows(){
 		//, DisplayLevels(myLevels)
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
-		
-	
 		
 		ScrollPane levelSP = configureScrollPane();
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
