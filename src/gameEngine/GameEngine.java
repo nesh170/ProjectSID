@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import data.DataHandler;
 import resources.constants.INT;
 import javafx.event.EventType;
@@ -16,7 +15,6 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
-import levelPlatform.levelPlatformView.LevelPlatformView;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -96,6 +94,16 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public String getCurrentLevelinXML () {
         return DataHandler.toXMLString(myCurrentLevel);
+    }
+
+    @Override
+    public List<String> actionWithKeyCode (int playerNum) {
+        return myCurrentLevel.getActionListInStrings(playerNum);
+    }
+
+    @Override
+    public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
+        myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
     }
 
 
