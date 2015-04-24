@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.*;
 
+import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
@@ -52,6 +53,12 @@ public class Sprite {
 	private SpriteImage spriteImage;
 
 	
+	public static Sprite makeCopy(Sprite toCopy) {
+		String xmlCopy = DataHandler.toXMLString(toCopy);
+		Sprite returnCopy = (Sprite) DataHandler.fromXMLString(xmlCopy);
+		return returnCopy; 
+	}
+	
 	// Getters & Setters
 	/**
 	 * Use SID pixels here
@@ -67,6 +74,14 @@ public class Sprite {
 		this.y = y;
 	}
 	
+	public void setPosition(Point2D pos) {
+		transform.setPosition(pos);
+	}
+	
+	public void setDimensions(Dimension2D dims) {
+		transform.setDimensions(dims);
+	}
+			
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -145,6 +160,11 @@ public class Sprite {
 		return transform.getDimensions();
 	}
 	
+	public Point2D getPosition() {
+		return transform.getPositionPoint();
+	}
+
+	
 	public double getX() {
 		return this.x;
 	}
@@ -152,7 +172,7 @@ public class Sprite {
 	public double getY() {
 		return this.y;
 	}
-	
+		
 	// Constructor & Helpers
 	public Sprite() {
 		this(POINT2D.DEFAULT_POSITION, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
@@ -172,8 +192,12 @@ public class Sprite {
 		
 	}
 	
+	@Deprecated
+	/*
+	 * Use static method makeSprite(Sprite toCopy) instead.
+	 */
 	public Sprite (Sprite toCopy) {
-		
+				
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
 		this.setTag(toCopy.tag());
@@ -280,7 +304,6 @@ public class Sprite {
 		}
 		
 		return null;
-		
 	}
 	
 }

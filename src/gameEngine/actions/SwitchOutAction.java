@@ -1,5 +1,6 @@
 package gameEngine.actions;
 
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
@@ -20,6 +21,9 @@ public class SwitchOutAction extends Action{
 		super(sprites[0], keys);
 		mySprites = sprites;
 		mySpriteIndex = 0;
+		for(int i = 1; i<sprites.length; i ++){
+			sprites[i].setIsActive(false);
+		}
 	}
 
 	@Override
@@ -30,14 +34,12 @@ public class SwitchOutAction extends Action{
 
 	@Override
 	public void execute() {
-		Sprite curSprite = mySprite;
-		mySpriteIndex ++;
-		Sprite nextSprite = mySprites[mySpriteIndex];
-		nextSprite.transform().setPosition(curSprite.transform().getPositionPoint());
-		nextSprite.transform().setRotation(curSprite.transform().getRot());
-		curSprite.transform().setPosition(nextSprite.transform().getPositionPoint());
-		curSprite.transform().setRotation(nextSprite.transform().getRot());
-		mySprite = nextSprite;
+		System.out.println("switching");
+		Transform transform1 = mySprites[mySpriteIndex].transform();
+		mySprites[mySpriteIndex].setIsActive(false);
+		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
+		mySprites[mySpriteIndex].setIsActive(true);
+		mySprites[mySpriteIndex].transform().setPosition(new Point2D(transform1.getPosX(), transform1.getPosY()));
 	}
 
 	@Override
