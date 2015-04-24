@@ -475,10 +475,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 	public void trashSplashScreen() {	
-		for (ImageView iv : imageViewArray) {
-			System.out.println(iv.getId());
-		}
-		//this.remove(startButtonImageView);
+		
+//		this.getChildren().remove(imageView);
+//		this.getChildren().remove(text);
+		
 	}
 
 	public void backSplashScreen() {	
@@ -523,8 +523,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			
 			placeTextAtXYIsUsingSIDPixels(texts.get(counter), e.getX(), e.getY(), false);
 			
-			counter++;
-			
+			counter++;	
 			
 		}
 
@@ -560,7 +559,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void textMove(Text text, MouseEvent f) {
+		
 		text.setOnMouseReleased(e -> placeText(text, e));
+		
 	}
 
 	private void placeStartButton(MouseEvent e) {
