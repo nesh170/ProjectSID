@@ -360,7 +360,7 @@ public class CollisionTableScreen extends Screen{
 		ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
 		collisionSet.add(saveSelection, 6, 0); 
 		
-		saveSelection.setOnMouseClicked(e-> this.save((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
+		saveSelection.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
 		collisionTable.getChildren().add(collisionSet);
 		return collisionTable;
 	}
@@ -457,7 +457,7 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
-	private void save (String activeSp, String inactiveSp, String dir, String action, String value)
+	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String value)
 	{
 		double valDouble = 0;
 		if (isDouble(value))
