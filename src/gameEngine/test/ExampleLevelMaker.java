@@ -1,5 +1,6 @@
 package gameEngine.test;
 
+import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.EngineMathFunctions;
@@ -302,9 +303,11 @@ public class ExampleLevelMaker extends Application {
 
     public static void main (String[] args) {
         ExampleLevelMaker elm = new ExampleLevelMaker();
+        Game game = new Game("mario");
         Level l = elm.makeLevel();
+        game.addLevel(l);
         try {
-            DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir") + "/mario");
+            DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty("user.dir") + "/mario");
         }
         catch (Exception e) {
             System.out.println("Oh no!!!");

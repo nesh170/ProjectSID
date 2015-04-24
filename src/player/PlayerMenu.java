@@ -116,7 +116,7 @@ public class PlayerMenu {
 	    MenuItem groovyAction = new MenuItem("Add GroovyAction");
 	    GroovyActionMenu actionMenu = new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
 	    groovyAction.setOnAction(event -> actionMenu.setUpGroovyDialog());
-	    
+	    groovyMenu.getItems().addAll(groovyAction);
 	    return groovyMenu;
 	}
 
