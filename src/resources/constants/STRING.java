@@ -1,5 +1,6 @@
 package resources.constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ public class STRING {
 		public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
 		public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
 		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
+		public static final String FX_MAIN_MENU_BUTTON = "-fx-background-color: rgba(241, 241, 241, 0.8); -fx-background-radius: 10;";
+		public static final String FX_GAME_EDIT_BUTTON_RADIUS = " -fx-background-radius: 15;";
 		
 	}
 	
@@ -134,6 +137,7 @@ public class STRING {
 		
 		//Level Edit Screen Buttons, Menus, miscellaneous strings
 		public static final String ADD_SPRITE = "Add New Sprite";
+		public static final String EDIT_SELECTED_SPRITE = "Edit Selected Sprite";
 		public static final String PLATFORMS = "Platforms";
 		public static final String ENEMIES = "Enemies";
 		public static final String PLAYERS = "Players";
@@ -155,6 +159,21 @@ public class STRING {
 		
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
 		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
+		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
+		
+		public static final String DIRECTION_UP = "Above";
+		public static final String DIRECTION_DOWN = "Below";
+		public static final String DIRECTION_LEFT = "Left";
+		public static final String DIRECTION_RIGHT = "Right";
+		
+		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
+		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
+		public static final String COMBO_SPRITE2_NAME = "Sprite Inactive";
+		public static final String COMBO_SPRITE2_TAG = "SpriteInactive";
+		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
+		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
+		public static final String TEXT_PROMPT = "Value";
+
 	}
 	
 	public class GAME_PLAY {

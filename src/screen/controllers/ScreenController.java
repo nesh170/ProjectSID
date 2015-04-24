@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -125,6 +127,8 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
+	//Testing:
+	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -280,11 +284,19 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
-		tabManager.setDefaultTab(createMainMenuScreen());
-		
-		//USED FOR TEST GAMEEDITSCREEN
-		//createGameEditScreen(null);
-		
+
+		if(!GameEdit_Test)
+			tabManager.setDefaultTab(createMainMenuScreen());
+		else {
+				//USED FOR TEST GAMEEDITSCREEN
+				Game g = new Game();
+				for(int i=0; i < 5; i++){
+					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
+							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
+					g.addLevel(newLevel);
+					}
+				createGameEditScreen(g);
+			}
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -491,6 +503,7 @@ public class ScreenController {
 			createSplashEditScreen(newSplashScreen);
 			game.setSplash(newSplashScreen);
 			gameEditScreen.displayApproporiateSplashButton();		
+		
 		}
 		
 		@Override
@@ -503,9 +516,10 @@ public class ScreenController {
 		@Override
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
-			game.removeLevel(levelIndex);
-			gameEditScreen.displayLevels(game.levels());
-			
+			game.removeLevel(levelIndex);			
+			SequentialTransition st = gameEditScreen.animatesTrashLevel(
+					gameEditScreen.trashLevelAnimationFinishedEvent());
+			st.play();
 		}
 
 
@@ -513,7 +527,7 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton();
+			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
 			
 		}
 
