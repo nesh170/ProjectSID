@@ -61,7 +61,7 @@ public class LogInScreen extends Screen {
 	private void configureButtons(double width, double height) {
 		
 		StackPane menu = new StackPane();	
-		menu.getChildren().addAll(makeImageView("images/Blue_Devil.png", 300, 540), makeButtons(), makeText("Welcome to SID Social Center"));
+		menu.getChildren().addAll(makeImageView("images/Blue_Devils.png", 300, 540), makeButtons(), makeText("Welcome to SID Social Center"));
 		this.viewableArea().setCenter(menu);
 		
 	}

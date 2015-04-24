@@ -208,6 +208,7 @@ public class SocialCenterScreenController {
 	private void createInitialScreens() {
 		
 		tabManager.setDefaultTab(createLogInScreen());
+		createMainPageScreen();
 		
 		//USED FOR TEST GAMEEDITSCREEN
 		//createGameEditScreen(null);
