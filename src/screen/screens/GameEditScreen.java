@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -49,6 +52,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import resources.ImageViewButton;
 import resources.ScreenButton;
 import javafx.scene.layout.StackPane;
@@ -247,8 +251,7 @@ public class GameEditScreen extends Screen {
 		
 		text.setEffect(r);
 		text.setFont(Font.font("SERIF", FontWeight.BOLD, 30));
-		text.setTranslateY(-300); // ?? uncertain of how offset works but this
-									// works for now
+		text.setTranslateY(-300); 
 		
 		return text;
 		
@@ -442,8 +445,7 @@ public class GameEditScreen extends Screen {
 	 * @return 
 	 */
 	public Transition[] assignLevelButtonsAnimation(){
-		
-		levelHB.getChildren().get(selectedIndex).setVisible(false);		
+		levelHB.getChildren().get(selectedIndex).setVisible(false);
 		ArrayList<TranslateTransition>	list = new ArrayList();		
 		for(int i = selectedIndex + 1; i < levelHB.getChildren().size(); i++){
 			Node n = levelHB.getChildren().get(i);
@@ -453,15 +455,47 @@ public class GameEditScreen extends Screen {
 
 	}
 	/**
+	 * animates the entire level removal process
+	 * @param onfinished
+	 */
+	public SequentialTransition animatesTrashLevel(EventHandler<ActionEvent> onfinished){
+		Transition pt = runAnimationsInParallel(assignLevelButtonsAnimation());
+		SequentialTransition st = new SequentialTransition(animatesTrashPaper(), pt);		
+		st.setOnFinished(onfinished);		
+		return st;		
+	}
+	
+	private Transition animatesTrashPaper(){	
+		//may need to change to Timeline
+		ScaleTransition st =  new ScaleTransition(Duration.millis(2000), 
+				changeToTrashPaper());		
+	    st.setDuration(Duration.seconds(0.19f));
+	    //st.setInterpolator(Interpolator.DISCRETE);
+	    st.setFromX(0);
+	    st.setFromY(0);
+	  //  st.setByX(1.2);
+	   // st.setByY(1.2);
+	    st.setToX(1);
+	    st.setToY(1);
+	    st.setOnFinished(new EventHandler<ActionEvent>(){
+	    	
+			@Override
+			public void handle(ActionEvent event) {
+				levelHB.getChildren().get(selectedIndex).setVisible(false);
+			}
+	    });
+	    return st;
+	}
+	/**
 	 * runs multiple animations in parallel
 	 * @param onfinished: action event triggered when the parallel animation is finished
 	 * @return parallelTransition
 	 */
-	public ParallelTransition runAnimationsInParallel(EventHandler<ActionEvent> onfinished, Transition... transitions){
-	
+	public ParallelTransition runAnimationsInParallel(Transition... transitions){
+		
 		ParallelTransition pt = new ParallelTransition(transitions);
-		pt.setOnFinished(onfinished);
 		return pt;
+		
 	}
 	
 	private TranslateTransition assignTranslateTransToNode(Node n){
@@ -478,12 +512,16 @@ public class GameEditScreen extends Screen {
 		selectedIndex = index;
 		selectedLevel = game.levels().get(selectedIndex);
 	}
-	
+	/**
+	 * Event to happen at end of the entire level removal animation
+	 * @return
+	 */
 	public EventHandler<ActionEvent> trashLevelAnimationFinishedEvent(){
 		return new EventHandler<ActionEvent>(){
 			
 			@Override
 			public void handle(ActionEvent event) {
+				System.out.println("Removing " + selectedIndex + "and game level size is :" + game.getLevelsSize());
 				levelHB.getChildren().remove(selectedIndex);
 				displayLevels(game.levels());
 			}
@@ -506,7 +544,18 @@ public class GameEditScreen extends Screen {
 
 	}
 
-
+	private ImageView changeToTrashPaper(){
+		// not part of animation
+		ImageView img = new ImageView(new Image("images/trash_gas.png"));
+		img.setFitHeight(80);
+		img.setFitWidth(80);	
+		img.setFocusTraversable(false);
+		// THE LINE BELOW REMOVES THE NODE FROM LIST!!
+		//StackPane sp = new StackPane(levelHB.getChildren().get(selectedIndex), img);
+		levelHB.getChildren().add(selectedIndex, 
+				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
+		return img;
+	}
 	private void createPopUp() {   
 		
 	     popup = new Popup();
@@ -555,7 +604,7 @@ public class GameEditScreen extends Screen {
 	private ContextMenu makeRightClickMenu(EventHandler<ActionEvent> toEdit, EventHandler<ActionEvent> toRemove) { // pass in Level
 
 		final ContextMenu rMenu = new ContextMenu();
-		MenuItem edit = new MenuItem("Edit");
+		MenuItem edit = new MenuItem("edit");
 		edit.setOnAction(toEdit);
 		MenuItem remove = new MenuItem("remove");
 		remove.setOnAction(toRemove);
@@ -576,6 +625,7 @@ public class GameEditScreen extends Screen {
 				makeGameMenu(), makeTrashMenu());
 
 	}
+	
 	private void hideSplashRegion(){
 		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
 		splashDisplay.setVisible(false);
@@ -584,6 +634,7 @@ public class GameEditScreen extends Screen {
 	private void showSplashRegion(){
 		splashDisplay.setVisible(true);
 	}
+	
 	private Menu makeLevelMenu() {
 
 		Menu levelMenu = new Menu("Level");
@@ -607,6 +658,7 @@ public class GameEditScreen extends Screen {
 		tools.getItems().addAll(levelOnly, seeAll);
 		return tools;
 	}
+	
 	private Menu makeGameMenu() {
 
 		Menu gameMenu = new Menu("Game");
