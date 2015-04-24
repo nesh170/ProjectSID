@@ -3,13 +3,12 @@ package sprite;
 import gameEngine.Action;
 import gameEngine.Component;
 import gameEngine.Transform;
-
+import gameEngine.components.GroovyComponent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
-
 import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
@@ -263,6 +262,11 @@ public class Sprite {
 	        action.prepare();
 	}
 	
+	public void addComponentRuntime (Component component) {
+	        addComponent(component);
+	        component.prepare();
+	}
+	
 	/**
 	 * gets Component attached to this sprite
 	 * of a specific type (there should be one
@@ -305,5 +309,7 @@ public class Sprite {
 		
 		return null;
 	}
+
+
 	
 }

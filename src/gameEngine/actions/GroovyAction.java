@@ -30,6 +30,14 @@ public class GroovyAction extends Action {
         super(sprite, val, keys);
         scriptEngine = new ScriptRunner(Stream.of(sprite, val).collect(Collectors.toList()));
     }
+    
+    public GroovyAction deepCopy(){
+        GroovyAction copy = new GroovyAction(null);
+        copy.setPrepareCode(myPrepareCode);
+        copy.setExecuteCode(myExecuteCode);
+        copy.setStopCode(myStopCode);
+        return copy;
+    }
 
     @Override
     public void prepare () {

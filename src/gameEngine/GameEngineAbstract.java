@@ -62,4 +62,11 @@ public abstract class GameEngineAbstract {
      */
     public abstract void addGroovyAction (String spriteTag, Action groovyAction);
     
+    /**
+     * Adds the groovy component to the level. The groovy component is user defined based on the sprite
+     * @param spriteTag
+     * @param groovyComponent
+     */
+    public abstract void addGroovyComponent (String spriteTag, Component groovyComponent);
+    
 }

@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import sprite.Sprite;
 import util.ScriptRunner;
 import gameEngine.Component;
+import gameEngine.actions.GroovyAction;
 import javax.script.ScriptException;
 
 
@@ -19,6 +20,13 @@ public class GroovyComponent extends Component {
         super(sprite, valueList);
         scriptEngine = new ScriptRunner(Stream.of(sprite, valueList).collect(Collectors.toList()));
 
+    }
+    
+    public GroovyComponent deepCopy(){
+        GroovyComponent copy = new GroovyComponent(null,myValueList);
+        copy.setPrepareCode(myPrepareCode);
+        copy.setUpdateCode(myUpdateCode);
+        return copy;
     }
 
     @Override
@@ -51,6 +59,10 @@ public class GroovyComponent extends Component {
 
     public void setUpdateCode (String code) {
         myUpdateCode = code;
+    }
+    
+    public void setSprite (Sprite sprite) {
+        mySprite = sprite;
     }
 
 }

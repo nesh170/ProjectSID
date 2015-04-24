@@ -99,9 +99,13 @@ public class GameEngine extends GameEngineAbstract {
     }
 
     @Override
-    public void addGroovyAction (String spriteTag, Action groovyObject) {
-       myCurrentLevel.addGroovyAction(spriteTag,groovyObject);
-       myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
+    public void addGroovyAction (String spriteTag, Action groovyAction) {
+       myCurrentLevel.addGroovyAction(spriteTag,groovyAction);
+    }
+
+    @Override
+    public void addGroovyComponent (String spriteTag, Component groovyComponent) {
+        myCurrentLevel.addGroovyComponent(spriteTag,groovyComponent);
     }
     
     
