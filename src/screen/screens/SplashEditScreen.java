@@ -44,6 +44,11 @@ import sprite.Sprite;
  *
  */
 public class SplashEditScreen extends LevelPlatformCapableScreen {
+	
+	//TODO: Trash Capabilities
+	//TODO: Fix Moving after Resize
+	//TODO: Be Able to Add Fonts to Text
+	//TODO: Animation Stuff
 
 	// Static variables
 
