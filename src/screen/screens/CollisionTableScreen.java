@@ -2,8 +2,10 @@ package screen.screens;
 
 import gameEngine.CollisionTable;
 
+import java.awt.Scrollbar;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
@@ -221,6 +223,7 @@ public class CollisionTableScreen extends Screen{
 	private List<String> levelSprites;
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;
+	private ArrayList<ArrayList<String>> collisionMap;
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
@@ -235,16 +238,17 @@ public class CollisionTableScreen extends Screen{
 		levelSprites = sprites;
 		initialize();
 	}
+	
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		// TODO Auto-generated method stub
 
 	}
-
-
+	
 	// HASHMAP of s1 s2 and action and direction
 	private void initialize(){
+		collisionMap = new ArrayList<ArrayList<String>>();
 		configureLevelDisplay();
 		this.setCenter(tablesDisplay);
 	}
