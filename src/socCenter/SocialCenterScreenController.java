@@ -76,6 +76,7 @@ public class SocialCenterScreenController {
 	private ErrorHandler errorHandler;
 	// Screen Managers
 	private LogInScreenManager logInScreenManager;
+	private MainPageScreenManager mainPageScreenManager;
 
 	//Factories
 	private ScreenFactory screenFactory;
@@ -138,6 +139,7 @@ public class SocialCenterScreenController {
 
 	private void configureScreenManagers() {
 		logInScreenManager = new LogInScreenManager();
+		mainPageScreenManager = new MainPageScreenManager();
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
@@ -242,7 +244,12 @@ public class SocialCenterScreenController {
 	}
 	
 
-	
+	private Tab createMainPageScreen(){
+		return tabManager.addTabWithScreenWithStringIdentifier(
+				screenFactory.createMainPageScreen(mainPageScreenManager),
+				STRING.MAIN_MENU_SCREEN.MAIN_MENU
+				);	
+	}
 
 
 	
@@ -292,6 +299,12 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void loadUserPopup(Popup popup) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void nop() {
 			// TODO Auto-generated method stub
 			
 		}

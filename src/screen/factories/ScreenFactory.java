@@ -24,6 +24,8 @@ import screen.screens.MainMenuScreen;
 import screen.screens.SpriteEditScreen;
 import socCenter.logIn.LogInScreen;
 import socCenter.logIn.LogInScreenController;
+import socCenter.mainPage.MainPageScreen;
+import socCenter.mainPage.MainPageScreenController;
 import sprite.Sprite;
 
 /**
@@ -111,6 +113,10 @@ public class ScreenFactory {
 	//perhaps not permanently here...
 	public Screen createLogInScreen(LogInScreenController logInScreenController){
 		return new LogInScreen(logInScreenController, width, height);
+	}
+	
+	public Screen createMainPageScreen(MainPageScreenController mainPageScreenController){
+		return new MainPageScreen(mainPageScreenController, width, height);
 	}
 
 }

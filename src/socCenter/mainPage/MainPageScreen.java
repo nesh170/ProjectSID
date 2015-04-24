@@ -65,7 +65,7 @@ public class MainPageScreen extends Screen {
 	 * @param controller
 	 *            , width, height, game
 	 */
-	public MainPageScreen(Game game, MainPageScreenController controller, double width, double height) {
+	public MainPageScreen(MainPageScreenController controller, double width, double height) {
 	
 		super(width, height);
 	
@@ -140,16 +140,15 @@ public class MainPageScreen extends Screen {
 	}
 	
 	private Button displayMySplash() {
-		/*
-		ImageView img = game.splashScreen().getLevelPlatformImageView();
-		Button b = getLevelOrSplashButtons(img, INT.SPLASH, 0);
 		
-		return b;*/
+		Button b = new Button();
+		
+		return b;
 		
 	}
 
 	private Text makeText(String s) {
-		/*
+		
 		Text text = new Text(s);
 		Reflection r = new Reflection();
 		
@@ -160,13 +159,13 @@ public class MainPageScreen extends Screen {
 		text.setTranslateY(-300); // ?? uncertain of how offset works but this
 									// works for now
 		
-		return text; */
+		return text; 
 		
 	}
 
 	private Button makeAddSignWhenEmpty(String s, EventHandler<MouseEvent> lamda) {
 		
-		/*
+		
 		ImageView addsign = new ImageView(new Image(STRING.GAME_EDIT.ADD_IMG));
 		
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
@@ -178,7 +177,7 @@ public class MainPageScreen extends Screen {
 				INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 		
 		return b;
-		*/
+		
 	}
 
 	/**
@@ -263,7 +262,7 @@ public class MainPageScreen extends Screen {
 		levelHB.getChildren().clear();
 		levelHB.getChildren().addAll(
 				this.makeAddSignWhenEmpty("Add A New Level",
-						e -> controller.loadLevelEditScreen(game, this)));
+						e -> controller.nop()));
 
 	}
 
@@ -284,8 +283,8 @@ public class MainPageScreen extends Screen {
 	 * @param node
 	 * @return EventHandler<MouseEvent>
 	 */
-	private EventHandler<MouseEvent> handleDoubleRightClick(Node node, int splashOrLevel, 
-			/*GameEditScreen g,*/ int index) {
+	//private EventHandler<MouseEvent> handleDoubleRightClick(Node node, int splashOrLevel, 
+			//*GameEditScreen g,*/ int index) {
 		/*
 		return new EventHandler<MouseEvent>() { // double Click to edit a screen
 
@@ -334,7 +333,7 @@ public class MainPageScreen extends Screen {
 			
 		};*/
 		
-	}	
+	//}	
 	
 	private void configureSelection(int index){
 		selectedIndex = index;
@@ -428,16 +427,15 @@ public class MainPageScreen extends Screen {
 	}
 
 	private Menu makeUserMenu() {
-		/*
+		
 		Menu levelMenu = new Menu("Level");
 		MenuItem addLevel = new MenuItem("Add new Level");
-		addLevel.setOnAction(o -> controller.loadU(game, this));
+		addLevel.setOnAction(o -> controller.nop());
 		MenuItem editLevel = new MenuItem("Edit Level");
-		editLevel.setOnAction(o -> controller.loadLevelEditScreen(game
-				.levels().get(selectedIndex))); // references to the specific
+		editLevel.setOnAction(o -> controller.nop()); // references to the specific
 												// level within a game
 		levelMenu.getItems().addAll(addLevel, editLevel);
-		return levelMenu;*/
+		return levelMenu;
 
 	}
 	
@@ -452,16 +450,16 @@ public class MainPageScreen extends Screen {
 	}
 
 	private Menu makeTrashMenu() {
-		/*
+		
 		ImageView trashImage = new ImageView(new Image(STRING.GAME_EDIT.TRASH_ICON));
 
 		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
 		
 		Menu trashButton = new Menu("", trashImage);
 		MenuItem delete = new MenuItem("Add new Level");
-		delete.setOnAction(o -> controller.trashLevel(game, selectedIndex, this));
+		delete.setOnAction(o -> controller.nop());
 		
-		return trashButton; */
+		return trashButton; 
 
 	}
 
