@@ -62,6 +62,8 @@ public class PlayerViewController {
 	private HUD myHUD;
 	private StackPane myTop;
 	
+	private PlayerView myView;
+	
 	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 		myGameRoot = pane;
 		myCamera = new Camera(pane);
@@ -74,6 +76,12 @@ public class PlayerViewController {
 		myCamera = new Camera(pane);
 		myHUD = gameHUD;
 		selectGame(game);
+	}
+
+	public PlayerViewController(PlayerView view) {
+		myView = view;
+		myGameRoot = view.getRoot();
+		loadNewChooser();
 	}
 
 	public void startView() {

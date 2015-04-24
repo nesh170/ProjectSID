@@ -1,57 +1,30 @@
 package player;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PlayerMenu {
+public class PlayerMenu extends MenuBar{
 
-	private MenuBar myMenuBar;
-	private GamePlayer myPlayer;
-
-	public PlayerMenu(Stage stage) {
-		myMenuBar = new MenuBar();
-		HUD hud = new HUD();
-		ScrollPane myGameRoot = new ScrollPane();
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setMaxSize(900, 450);
-		myGameRoot.setMinSize(900, 450);
-		PlayerViewController pvc = new PlayerViewController(myGameRoot, hud);
+	public PlayerMenu(PlayerViewController pvc) {
 		createPlayerMenu(pvc);
-		myPlayer = new GamePlayer(stage, getBar(), myGameRoot);
-	}
-
-	public PlayerMenu(MenuBar menuBar) {
-		myMenuBar = menuBar;
-	}
-
-	public void createPlayerMenu(MenuBar menuBar, PlayerViewController view) {
-		Menu menuView = new Menu("View");
-		menuBar.getMenus().add(buildFileMenu(view));
-		menuBar.getMenus().add(buildGamesMenu(view));
-		menuBar.getMenus().add(menuView);
-		menuBar.getMenus().add(buildSoundMenu(view));
-		menuBar.getMenus().add(buildHelpMenu(view));
 	}
 
 	public void createPlayerMenu(PlayerViewController view) {
-		createPlayerMenu(myMenuBar, view);
+		Menu menuView = new Menu("View");
+		getMenus().add(buildFileMenu(view));
+		getMenus().add(buildGamesMenu(view));
+		getMenus().add(menuView);
+		getMenus().add(buildSoundMenu(view));
+		getMenus().add(buildHelpMenu(view));
 	}
 
 	private MenuItem makeMenuItem(String name) {
@@ -134,11 +107,6 @@ public class PlayerMenu {
 		Scene allGames = new Scene(vbox, 300, 200);
 		gameChooser.setScene(allGames);
 		return gameChooser;
-	}
-
-
-	public MenuBar getBar() {
-		return myMenuBar;
 	}
 
 }

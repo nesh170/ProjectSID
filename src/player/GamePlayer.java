@@ -25,23 +25,21 @@ public class GamePlayer {
 	public final static double FRAME_RATE = 30;
 	public final static double UPDATE_RATE = 120;
 
+	private PlayerView myView;
+	private PlayerViewController myController;
+	
 	private ScrollPane myGameRoot;
 	private Scene myScene;
-	private BorderPane myBorderPane;
 	private int myLives;
 	private int myHealth;
 	private int myScore;
 	private PlayerMenu myMenu;
-	private PlayerViewController myView;
 	private HUD myHUD;
 
 	// constructor for testing
 	public GamePlayer(Stage stage, MenuBar bar, ScrollPane pane) {
 		myGameRoot = pane;
-		myBorderPane = new BorderPane();
-		myBorderPane.setCenter(myGameRoot);
-		myBorderPane.setTop(bar);
-		myScene = new Scene(myBorderPane, 1200, 600);
+		
 		stage.setScene(myScene);
 	}
 
@@ -50,16 +48,25 @@ public class GamePlayer {
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		// myGameRoot.setMaxSize(width, height);
-		myView = new PlayerViewController(game, myGameRoot, myHUD);
+		myController = new PlayerViewController(game, myGameRoot, myHUD);
 	}
-
-	public GamePlayer(ScrollPane pane) {
-		myGameRoot = pane;
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		// myGameRoot.setMaxSize(width, height);
-		myView = new PlayerViewController(myGameRoot, myHUD);
+	
+	public GamePlayer(Stage stage) {
+		myView = new PlayerView();
+		myController = new PlayerViewController(myView);
+		myView.setController(myController);
+		stage.setScene(myView.getScene());
 	}
+	
+//	public GamePlayer(ScrollPane pane) {
+//		myController = new PlayerViewController();
+//		myView = new PlayerView(myController);
+//		myGameRoot = pane;
+//		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+//		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+//		// myGameRoot.setMaxSize(width, height);
+//		myController = new PlayerViewController(myGameRoot, myHUD);
+//	}
 
 	public StackPane createHUD(ScrollPane pane) {
 		StackPane stack = new StackPane();
@@ -69,12 +76,12 @@ public class GamePlayer {
 		myHUD.addItem("Score", 0);
 		stack.getChildren().add(myHUD.getHUDBox());
 		stack.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
-		myView.setPauseBase(stack);
+		myController.setPauseBase(stack);
 		return stack;
 	}
 
 	public void setupActions(PlayerMenu pMenu) {
-		pMenu.createPlayerMenu(myView);
+		pMenu.createPlayerMenu(myController);
 	}
 
 	public PlayerMenu getMenu() {
