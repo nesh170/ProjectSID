@@ -114,12 +114,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button addImage = makeAddImageButton();
 		Button addBackgroundImage = makeAddBackgroundImageButton();
 		TextField textField = makeAddTextTextField();
-		Button addText = makeAddTextButton(textField);
+		ColorPicker colorPicker = createColorPicker();
+		Button addText = makeAddTextButton(textField, colorPicker);
 		Button addAnimation = makeAddAnimationButton();
 		Button save = makeSaveButton();
 		Button trash = makeTrashButton();
 		Button back = makeBackButton();
-		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, addAnimation));
+		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
 		this.viewableArea().setTop(back);
 		
@@ -136,25 +137,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, Button addAnimation) {
+	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, Button addAnimation) {
 		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING);
 		VBox addTextVBox = new VBox(INT.SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT);
-		ColorPicker colorPicker = createColorPicker();
 		addTextVBox.getChildren().addAll(addText, textField, colorPicker);
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage, addBackgroundImage,
 				addTextVBox, addAnimation);
 		
 		return allAddButtons;
-		
-	}
-	
-	private ColorPicker createColorPicker() {
-		
-		ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setMinHeight(INT.SPLASH_EDIT_COLOR_PICKER_HEIGHT);
-		return colorPicker;
 		
 	}
 	
@@ -200,12 +192,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private Button makeAddTextButton(TextField textField) {
+	private Button makeAddTextButton(TextField textField, ColorPicker colorPicker) {
 		
 		Button addText = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
-		addText.setOnMouseClicked(e -> addText(textField.getText()));
+		addText.setOnMouseClicked(e -> addText(textField.getText(), colorPicker.getValue()));
 		
 		return addText;
 		
@@ -216,6 +208,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		TextField textField = new TextField();
 		
 		return textField;
+		
+	}
+	
+	private ColorPicker createColorPicker() {
+		
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setMinHeight(INT.SPLASH_EDIT_COLOR_PICKER_HEIGHT);
+		return colorPicker;
 		
 	}
 
@@ -360,11 +360,11 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	public void addText(String textString) {
+	public void addText(String textString, Color color) {
 		
 		tag = "Text";
 		text = new Text(textString);
-		text.fillProperty().setValue(Color.RED);
+		text.fillProperty().setValue(color);
 		
 		this.setOnKeyPressed(e -> resizeText(text, e));
 		
@@ -529,7 +529,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = null;
 		
 	}
-
 
 	private void resizeImage(ImageView imageView, KeyEvent e, ImageCursor ic) {
 		
