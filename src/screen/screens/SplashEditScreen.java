@@ -187,6 +187,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button addText = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_TEXT);
 		setLargeButtonSize(addText);
 		
+		
 		addText.setOnMouseClicked(e -> addText(textField.getText(), colorPicker.getValue()));
 		
 		return addText;
@@ -352,12 +353,17 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	public void addText(String textString, Color color) {
 		
+		System.out.println("addText()");
+		
 		tag = "Text";
 		text = new Text(textString);
 		texts.add(text);
+		
+		System.out.println("Text Counter Text is: " + texts.get(counter));
+		
 		text.fillProperty().setValue(color);
 		
-		this.setOnKeyPressed(e -> resizeText(text, e));
+		this.setOnKeyPressed(e -> resizeText(texts.get(counter), e));
 		
 	}
 
@@ -458,13 +464,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		 
 		else if (tag == "Text") {
 			
-			text.setOnKeyTyped(g -> chooseText(g));
+			System.out.println("add()");
+			//text.setOnKeyTyped(g -> chooseText(g));
 			
 			text.setOnMousePressed(f -> textMove(text, f));
 			
-			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
+			placeTextAtXYIsUsingSIDPixels(texts.get(counter), e.getX(), e.getY(), false);
 			
 			counter++;
+			
+			System.out.println(counter);
 			
 		}
 
@@ -479,6 +488,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void placeTextAtXYIsUsingSIDPixels(Text text, double x, double y, boolean isUsingSIDPixels) {
+		
+		System.out.println("placeTextAtXY...");
 
 		this.getChildren().add(text);
 		text.setX(x);
