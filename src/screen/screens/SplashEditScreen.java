@@ -6,22 +6,14 @@ import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,20 +22,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.COLOR;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
-import screen.controllers.ScreenController;
 import screen.controllers.SplashEditScreenController;
 import sprite.Sprite;
 
@@ -68,10 +57,11 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Sprite startButton = new Sprite();
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
-	private List<Sprite> texts = new ArrayList();
+	//private List<Sprite> texts = new ArrayList();
 	private ImageView imageView;
 	private ImageView startButtonImageView;
 	private Text text;
+	private List<Text> texts = new ArrayList();
 	private int counter;
 
 	// Getters & Setters
@@ -130,10 +120,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		double rectWidth = width-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH;
 		double rectHeight = height-(double)INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT;
-		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, Color.WHITE);
+		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, COLOR.DEFAULT_SPLASH_SCREEN_COLOR);
 		this.viewableArea().setLeft(displayArea);
 		this.setOnMouseClicked(e -> add(tag, e, displayArea));
-		this.setOnKeyPressed(g -> chooseImage(g));
+		this.setOnKeyPressed(g -> chooseText(g));
 		
 	}
 
@@ -323,17 +313,17 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void chooseImage(KeyEvent g) {
-		//KeyCode keyCode = g.getCode();
+	private void chooseText(KeyEvent g) {
+		
+		KeyCode keyCode = g.getCode();
 		System.out.println("HIHIHIHI");
-		//if(keyCode == KeyCode.UP) {
-			imageView = imageViewArray.get(counter);
-			imageView.setOnMousePressed(f -> imageMove(imageView, f));
+		if(keyCode == KeyCode.UP) {
+			text = texts.get(counter);
 			if (counter > 0) {
 				counter--;
 				System.out.println(counter);
 			}
-		//}
+		}
 
 	}
 
@@ -364,6 +354,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		tag = "Text";
 		text = new Text(textString);
+		texts.add(text);
 		text.fillProperty().setValue(color);
 		
 		this.setOnKeyPressed(e -> resizeText(text, e));
@@ -454,8 +445,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			imageView.setOnMousePressed(f -> imageMove(imageView, f));
 			
 			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
-			counter++;
-			System.out.println(counter);
+
+			//System.out.println(counter);
 						
 		}
 
@@ -467,9 +458,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		 
 		else if (tag == "Text") {
 			
-			text.setOnMousePressed(f -> textMove(f));
+			text.setOnKeyTyped(g -> chooseText(g));
+			
+			text.setOnMousePressed(f -> textMove(text, f));
 			
 			placeTextAtXYIsUsingSIDPixels(text, e.getX(), e.getY(), false);
+			
+			counter++;
 			
 		}
 
@@ -504,8 +499,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void textMove(MouseEvent f) {
-		text.setOnMouseReleased(e -> placeText(e));
+	private void textMove(Text text, MouseEvent f) {
+		text.setOnMouseReleased(e -> placeText(text, e));
 	}
 
 	private void placeStartButton(MouseEvent e) {
@@ -524,7 +519,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void placeText(MouseEvent e) {
+	private void placeText(Text text, MouseEvent e) {
 		
 		text.setX(e.getX());
 		text.setY(e.getY());
