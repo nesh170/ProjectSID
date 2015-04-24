@@ -251,26 +251,26 @@ public class CollisionTableScreen extends Screen{
 	private void configureLevelDisplay(){
 		//, DisplayLevels(myLevels)
 		tablesDisplay = new StackPane();
-		ScrollPane levelSP = this.displayLevels(this.levelSprites);
+		VBox verticalBox = new VBox();
+		
+	//	HBox addButtonBox = new HBox(800);
+	//	addButtonBox.setAlignment(Pos.BOTTOM_CENTER);
+	//	ScreenButton addRowButton = new ScreenButton("Add", STRING.BUTTONS.BUTTON_STYLE);
+	//	addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
+	//	addButtonBox.getChildren().add(addRowButton);
+	//	addRowButton.setAlignment(Pos.BOTTOM_CENTER);
+	//	verticalBox.getChildren().add(addRowButton);
+		
+		
+		ScrollPane levelSP = configureScrollPane();
+		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
+		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
+		verticalBox.getChildren().addAll(levelSP);
+		verticalBox.setVgrow(levelSP, Priority.ALWAYS);
+       
 
-		tablesDisplay.getChildren().addAll(levelSP);
+		tablesDisplay.getChildren().add(verticalBox);
 	}
-
-	/**
-	 * display list of levels that are represented by images in parallel 
-	 * @param ObservableList<Level>
-	 */
-	private ScrollPane displayLevels(List<String> levels) { 		
-
-		//TableView<ObservableList> levelTable = new TableView();	
-		ScrollPane sp = configureScrollPane();
-
-
-
-		return sp;
-
-	}
-	
 
 	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
 	{
@@ -285,24 +285,25 @@ public class CollisionTableScreen extends Screen{
 
 	private ScrollPane configureScrollPane(){
 		ScrollPane sp = new ScrollPane();
-
 		sp.setPannable(true);
-
 	
-		TilePane tile = new TilePane(Orientation.VERTICAL);
+	
+	//	TilePane tile = new TilePane(Orientation.VERTICAL);
+		VBox tile = new VBox(50);
+		
 		HBox description = new HBox(800);
 		description.setAlignment(Pos.TOP_CENTER);
 		
 		ImageView titleImage = new ImageView(new Image(STRING.COLLISION_EDIT.COLLISION_SCREEN_TITLE));
 		titleImage.setFitWidth(600);
 		titleImage.setPreserveRatio(true);
-		titleImage.setTranslateX(200);
+	//	titleImage.setTranslateX(200);
 		
 		description.getChildren().add(titleImage);
 
-		tile.setPadding(new Insets(25, 25, 25, 25));
-		tile.setVgap(20);
-		tile.setHgap(20);
+		tile.setPadding(new Insets(45, 45, 75, 45));
+	//	tile.setVgap(20);
+	//	tile.setHgap(20);
 		tile.setStyle("-fx-background-color: DAE6F3;");
 		tile.getChildren().add(description);
 
