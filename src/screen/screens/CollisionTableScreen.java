@@ -282,6 +282,83 @@ public class CollisionTableScreen extends Screen{
 		comboBox.setPromptText(promptText);
 		return comboBox;
 	}
+	
+	private VBox addTableRow()
+	{
+		VBox collisionTable = new VBox(800);
+		collisionTable.setAlignment(Pos.CENTER);
+		collisionTable.setTranslateY(50);
+		collisionTable.setTranslateX(100);
+		
+
+		GridPane collisionSet = new GridPane();
+		collisionSet.setHgap(30);
+		collisionSet.setVgap(30);
+		collisionSet.setPadding(new Insets(10, 50, 10, 50));
+		collisionSet.setMaxHeight(50);
+
+		ArrayList<String> sprites = new ArrayList<String>();
+		sprites.add("player"); // TODO: fix from input list
+		sprites.add("enemy");
+		sprites.add("platform");
+		sprites.add("power-up");
+		sprites.add("lava");
+		sprites.add("chocolate");
+		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, "SpriteActive", "-fx-font: 15px \"arial\";", "Active Sprite");
+	
+		collisionSet.add(activeSpriteList, 1, 0); 
+		
+		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, "SpriteInactive", "-fx-font: 15px \"arial\";", "Inactive Sprite");
+	
+		collisionSet.add(inactiveSpriteList, 2, 0); 
+		
+		
+		ArrayList<String> third = new ArrayList<>(Arrays.asList("Above", "Below", "Left", "Right"));
+
+		ComboBox direction = this.createComboBoxFromList(third, "Direction","-fx-font: 15px \"arial\";", "Direction");
+		
+		collisionSet.add(direction, 3, 0); 
+
+		
+		ArrayList<String> fourth = new ArrayList<String>();
+		fourth.add("die");
+		fourth.add("move");
+		fourth.add("sigh");
+		fourth.add("groove");
+		
+		ComboBox action = this.createComboBoxFromList(fourth, "Action", "-fx-font: 15px \"arial\";", "Action");
+
+		collisionSet.add(action, 4, 0); 
+		
+		
+		TextField text = new TextField();
+		text.setPromptText("Value");
+		text.setId("Value");
+		collisionSet.add(text, 5, 0); 
+		
+		
+	
+		action.valueProperty().addListener(new ChangeListener<String>() {
+	           
+	            public void changed(ObservableValue ov, String t, String t1) {                
+	              if (t1.equals("die"))
+	              {
+	            	  text.setDisable(true);
+	              }
+	              else
+	              {
+	            	  text.setDisable(false);
+	              }
+	            }    
+	        });
+		
+		ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
+		collisionSet.add(saveSelection, 6, 0); 
+		
+		saveSelection.setOnMouseClicked(e->saveRow());
+		collisionTable.getChildren().add(collisionSet);
+		return collisionTable;
+	}
 
 	private ScrollPane configureScrollPane(){
 		ScrollPane sp = new ScrollPane();
