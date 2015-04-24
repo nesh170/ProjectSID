@@ -22,8 +22,8 @@ public class PlayerView {
 		myGameRoot = new ScrollPane();
 		myHUD = new HUD();
 
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
+		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
 		myGameRoot.setMaxSize(900, 450);
 		myGameRoot.setMinSize(900, 450);
 
