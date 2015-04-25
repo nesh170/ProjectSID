@@ -63,13 +63,11 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Sprite startButton = new Sprite();
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
-	//private List<Sprite> texts = new ArrayList();
 	private ImageView imageView;
 	private ImageView startButtonImageView;
 	private Text text;
 	private List<Text> texts = new ArrayList();
 	private int counter;
-	//private TextField textCounter = new TextField();
 
 	// Getters & Setters
 
@@ -481,8 +479,42 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	public void trashSplashScreen() {	
 		
-//		this.getChildren().remove(imageView);
-//		this.getChildren().remove(text);
+		String[] options = new String[]{"Start Button",
+	            "Image",
+	            "Text"};
+
+		GridPane grid = new GridPane();
+		final ComboBox<String> comboBox = new ComboBox<String>();
+		comboBox.getItems().addAll(options); 
+		comboBox.getSelectionModel().selectedIndexProperty().addListener(new
+				ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue ov,
+					Number value, Number new_value) {
+					deleteItem(options[new_value.intValue()]);
+					comboBox.hide();
+			}
+
+		});
+		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
+		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
+		grid.setTranslateX(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X);
+		grid.setTranslateY(height - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT);
+		this.getChildren().add(grid);
+		
+	}
+	
+	private void deleteItem(String option) {
+		
+		if(option.equals("Start Button")) {
+			this.getChildren().remove(startButtonImageView);
+		}
+		else if(option.equals("Image")) {
+			this.getChildren().remove(imageView);
+		}
+		else if(option.equals("Text")) {
+			this.getChildren().remove(text);
+		}
 		
 	}
 
