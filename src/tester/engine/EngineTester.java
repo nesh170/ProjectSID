@@ -1,5 +1,6 @@
 package tester.engine;
 
+import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
@@ -72,8 +73,11 @@ public class EngineTester extends Tester {
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);
 		l.setCollisionTable(myCT);
+		Game testGame = new Game("test");
+		testGame.addLevel(l);
+
 		try{
-			DataHandler.toXMLFile(l, "testingLevel.xml", System.getProperty("user.dir")+"/engineTesting");
+			DataHandler.toXMLFile(testGame, "testingGame.xml", System.getProperty("user.dir")+"/engineTesting");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
