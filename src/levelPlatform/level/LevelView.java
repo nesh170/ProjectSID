@@ -96,7 +96,6 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	private Group renderSprite(Sprite sprite) {
-
 		Group spriteGroup = new Group();
 		if (sprite.isActive()) {	
 			// ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
@@ -120,7 +119,6 @@ public class LevelView extends ScrollPane {
 				}   
 				sprite.emissionList().stream()
 				.forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-
 				if (editMode == EditMode.EDIT_MODE_ON) {
 					configureMouseHandlersOnSpriteImageView(spriteImageView);
 				}
