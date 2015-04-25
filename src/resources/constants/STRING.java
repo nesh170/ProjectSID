@@ -182,6 +182,8 @@ public class STRING {
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
 		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
 		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
+		public static final String SAVE_BUTTON_IMG ="images/CollisionTableImages/savedCheckMark.png";
+		public static final String SAVE_BUTTON_PRESSED_IMG ="images/CollisionTableImages/savedCheckMarkPressed.png";
 		
 		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
 		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
