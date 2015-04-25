@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -293,11 +294,11 @@ public class CollisionTableScreen extends Screen{
 		tablesDisplay.getChildren().add(verticalBox);
 	}
 
-	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
+	private ComboBox createComboBoxFromList(String[] list, String id, String style, String promptText)
 	{
 		ObservableList<String> options = FXCollections.observableArrayList();
 		ComboBox comboBox = new ComboBox(options);
-		comboBox.getItems().addAll(list);
+		comboBox.getItems().add(list);
 		comboBox.setId(id);
 		comboBox.setStyle(style);
 		comboBox.setPromptText(promptText);
@@ -318,18 +319,18 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.setPadding(new Insets(10, 50, 10, 50));
 		collisionSet.setMaxHeight(50);
 
-		ArrayList<String> sprites = new ArrayList<String>();
+		/*ArrayList<String> sprites = new ArrayList<String>();
 		sprites.add("player"); // TODO: fix from input list
 		sprites.add("enemy");
 		sprites.add("platform");
 		sprites.add("power-up");
 		sprites.add("lava");
-		sprites.add("chocolate");
-		ComboBox activeSpriteList = this.createComboBoxFromList(sprites, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
+		sprites.add("chocolate");*/
+		ComboBox activeSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
 		collisionSet.add(activeSpriteList, 1, 0); 
 		
-		ComboBox inactiveSpriteList = this.createComboBoxFromList(sprites, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
+		ComboBox inactiveSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
@@ -340,11 +341,17 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.add(direction, 3, 0); 
 
 		
-		ArrayList<String> fourth = new ArrayList<String>();
+		/*ArrayList<String> fourth = new ArrayList<String>();
 		fourth.add("die");
 		fourth.add("move");
 		fourth.add("sigh");
-		fourth.add("groove");
+		fourth.add("groove");*/
+		
+		String[] fourth = new String[4]; // TODO: get action list - to fix
+		fourth[0] = "die";
+		fourth[1] = "move";
+		fourth[2] = "sigh";
+		fourth[3] = "groove";
 		
 		ComboBox action = this.createComboBoxFromList(fourth, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
@@ -480,9 +487,13 @@ public class CollisionTableScreen extends Screen{
 		System.out.println(action);
 		System.out.println(value);
 		
-	//	collTable.addActionToMap(activeSp, inactiveSp, direction, toAdd);
 		
 		
+		
+//		collTable.addActionToMap(activeSp, inactiveSp, directionToIntegerMap.get(dir), toAdd);
+		
+		
+	
 	}
 	
 }
