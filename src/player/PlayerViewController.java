@@ -63,7 +63,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Camera myCamera;
 
 	private PlayerView myView;
-	private Network myNetwork;
+	private Network myNetwork = new Network();
 	
 	private Level myNetworkLevel;
 
@@ -290,7 +290,9 @@ public class PlayerViewController implements GamePlayerInterface {
 	
 	public void startServer () {
 		try {
+		        myTimeline.pause();
 			myNetwork.setUpServer(PORT_NUMBER);
+			myTimeline.play();
 			sendClientLevels();
 			receiveFromClient();
 		}
@@ -353,6 +355,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void startClient () {
 		try {
+		        myTimeline.stop();
 			myNetwork.setUpClient(PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
