@@ -332,24 +332,18 @@ public class CollisionTableScreen extends Screen{
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
-		String[] third = (String[]) this.directionToIntegerMap.keySet().toArray();
+		ArrayList<String> third = new ArrayList<>(this.directionToIntegerMap.keySet());
 
 		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
 		collisionSet.add(direction, 3, 0); 
 
 		
-		/*ArrayList<String> fourth = new ArrayList<String>();
+		ArrayList<String> fourth = new ArrayList<String>();
 		fourth.add("die");
 		fourth.add("move");
 		fourth.add("sigh");
-		fourth.add("groove");*/
-		
-		String[] fourth = new String[4]; // TODO: get action list - to fix
-		fourth[0] = "die";
-		fourth[1] = "move";
-		fourth[2] = "sigh";
-		fourth[3] = "groove";
+		fourth.add("groove");
 		
 		ComboBox action = this.createComboBoxFromList(fourth, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
@@ -488,7 +482,7 @@ public class CollisionTableScreen extends Screen{
 		
 		
 		
-//		collTable.addActionToMap(activeSp, inactiveSp, directionToIntegerMap.get(dir), toAdd);
+	//	collTable.addActionToMap(activeSp, inactiveSp, directionToIntegerMap.get(dir), toAdd);
 		
 		
 	
