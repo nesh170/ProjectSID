@@ -68,4 +68,8 @@ public abstract class Component {
 		return isActive;
 	}
 	
+	public Double getValue() {
+		return myValue;
+	}
+	
 }
