@@ -62,6 +62,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private double width;
 	private double height;
 	private String tag;
+	private int counter;
 
 	// Getters & Setters
 
@@ -356,7 +357,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 			splashEditModel.createImageView(image);
 
-			this.setOnKeyPressed(e -> resizeAndRotate(imageView, e));
+			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
 		} catch (Exception ex) {
 			
 			//NO CATCH
@@ -409,18 +410,22 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	public void addText(TextField textField, Color color, ComboBox fontPicker) {
 		
 		tag = STRING.SPLASH_EDIT_SCREEN.TAG_TEXT;
-		text = new Text(textField.getText());
-		text.fillProperty().setValue(color);
+		//text = new Text(textField.getText());
+		splashEditModel.createText(textField.getText());
+		//text.fillProperty().setValue(color);
+		splashEditModel.colorText(color);
 		
 		if(fontPicker.getValue() != null) {		
-			text.setFont(Font.font(fontPicker.getValue().toString()));
+			//text.setFont(Font.font(fontPicker.getValue().toString()));
+			splashEditModel.fontText(fontPicker);
 		}
 		
-		texts.add(text);
+		//texts.add(text);
+		splashEditModel.addText();
 		
 		textField.clear();
 	
-		this.setOnKeyPressed(e -> resizeAndRotate(texts.get(counter-1), e));
+		this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateText(counter-1, e));
 		
 		counter++;	
 		

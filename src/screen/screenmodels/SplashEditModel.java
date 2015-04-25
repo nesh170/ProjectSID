@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
@@ -28,7 +31,7 @@ public class SplashEditModel {
 
 	private Text text;
 	private List<Text> texts = new ArrayList();
-	private int counter;
+
 
 	public SplashEditModel(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
@@ -40,6 +43,22 @@ public class SplashEditModel {
 
 	public void createImageView(Image image) {
 		imageView = new ImageView(image);
+	}
+	
+	public void createText(String string) {
+		text = new Text(string);
+	}
+	
+	public void colorText(Color color) {
+		text.fillProperty().setValue(color);
+	}
+	
+	public void fontText(ComboBox fontPicker) {
+		text.setFont(Font.font(fontPicker.getValue().toString()));
+	}
+	
+	public void addText() {
+		texts.add(text);
 	}
 	
 	public void selectText(String textValue) {
@@ -64,6 +83,10 @@ public class SplashEditModel {
 	
 	public void resizeAndRotateImage(KeyEvent e) {
 		resizeAndRotate(imageView, e);
+	}
+	
+	public void resizeAndRotateText(int index, KeyEvent e) {
+		resizeAndRotate(texts.get(index), e);
 	}
 	
 	private void resizeAndRotate(Node node, KeyEvent e) {
