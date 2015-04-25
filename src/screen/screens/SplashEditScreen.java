@@ -316,12 +316,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	public void addStartButton(Button button) {
-		
-		File file = null;
-		Image image = null;
-
 		try {
 			
+			File file;
+			Image image;
 			FileChooser fileChooser = new FileChooser();
 			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
 			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
@@ -332,20 +330,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 			button.setDisable(true);
 			
+			ImageCursor imageCursor = new ImageCursor(image);
+			getParent().setCursor(imageCursor);
+
+			tag = STRING.SPLASH_EDIT_SCREEN.TAG_START;
+			startButtonImageView = new ImageView(image);
+
+			this.setOnKeyPressed(e -> resizeAndRotate(startButtonImageView, e));
 		} catch (Exception ex) {	
 			
 			//NO CATCH
 			
 		}
-
-		ImageCursor imageCursor = new ImageCursor(image);
-		getParent().setCursor(imageCursor);
-
-		tag = STRING.SPLASH_EDIT_SCREEN.TAG_START;
-		startButtonImageView = new ImageView(image);
-
-		this.setOnKeyPressed(e -> resizeAndRotate(startButtonImageView, e));
-
 	}
 	
 	public void addImage() {
@@ -408,29 +404,25 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 	public void addBackgroundImage() {
-		
-		File file = null;
-		Image image = null;
-
 		try {
-			
+			File file = null;
+			Image image = null;
 			FileChooser fileChooser = new FileChooser();
 			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
 			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
 			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 
 			file = fileChooser.showOpenDialog(null);
-			image = new Image(file.toURI().toString(), 0, 0, false, false);	
+			image = new Image(file.toURI().toString(), 0, 0, false, false);
+
+			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
+			imageView = new ImageView(image);
 
 		} catch (Exception ex) {	
 			
 			//NO CATCH
 			
 		}
-
-		tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
-		imageView = new ImageView(image);
-		
 	}
 
 	public void addText(TextField textField, Color color, ComboBox fontPicker) {
@@ -501,7 +493,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		// automatic	
 	}
 
-	public void trashSplashScreen() {	
+	private void trashSplashScreen() {	
 		
 		String[] options = new String[]{STRING.SPLASH_EDIT_SCREEN.TRASH_START_BUTTON,
 	            STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE,
@@ -561,7 +553,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 			startButtonImageView.setOnMousePressed(f -> imageViewMove(startButtonImageView, f));
 			
-			placeImageViewAtXYIsUsingSIDPixels(startButtonImageView, e.getX(), e.getY(), false);
+			placeImageViewAtXY(startButtonImageView, e.getX(), e.getY());
 			
 		}
 		
@@ -572,7 +564,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			
 			imageView.setOnMousePressed(f -> imageViewMove(imageView, f));
 			
-			placeImageViewAtXYIsUsingSIDPixels(imageView, e.getX(), e.getY(), false);
+			placeImageViewAtXY(imageView, e.getX(), e.getY());
 						
 		}
 
@@ -586,13 +578,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			
 			text.setOnMousePressed(f -> textMove(text, f));
 			
-			placeTextAtXYIsUsingSIDPixels(texts.get(counter-1), e.getX(), e.getY(), false);
+			placeTextAtXY(texts.get(counter-1), e.getX(), e.getY());
 			
 		}
 
 	}	
 
-	private void placeImageViewAtXYIsUsingSIDPixels(ImageView imageView, double x, double y, boolean isUsingSIDPixels) {
+	private void placeImageViewAtXY(ImageView imageView, double x, double y) {
 
 		this.getChildren().add(imageView);
 		imageView.setX(x);
@@ -600,7 +592,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void placeTextAtXYIsUsingSIDPixels(Text text, double x, double y, boolean isUsingSIDPixels) {
+	private void placeTextAtXY(Text text, double x, double y) {
 
 		this.getChildren().add(text);
 		text.setX(x);
@@ -624,7 +616,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		imageView.setX(e.getX());
 		imageView.setY(e.getY());
-		tag = null;	
+		tag = "";	
 		
 	}
 	
@@ -632,7 +624,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		text.setX(e.getX());
 		text.setY(e.getY());
-		tag = null;
+		tag = "";
 		
 	}
 	
