@@ -12,6 +12,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemyPlatform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1600.0</x>
@@ -41,6 +42,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>0.0</x>
@@ -85,6 +87,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>trampoline</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>600.0</x>
@@ -110,6 +113,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1500.0</x>
@@ -154,6 +158,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>trampoline</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1000.0</x>
@@ -179,6 +184,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1550.0</x>
@@ -223,6 +229,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1600.0</x>
@@ -267,6 +274,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1950.0</x>
@@ -311,6 +319,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>2050.0</x>
@@ -355,6 +364,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>superTrampoline</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>2400.0</x>
@@ -380,6 +390,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>2500.0</x>
@@ -507,17 +518,17 @@
                     <mySprite reference="../../.."/>
                     <myValueList class="java.util.Arrays$ArrayList">
                       <a class="java.lang.Double-array">
-                        <double>5.0</double>
-                        <double>200.0</double>
+                        <double>1.0</double>
+                        <double>400.0</double>
                       </a>
                     </myValueList>
                     <isActive>true</isActive>
                     <myVelocity reference="../../../../../../../sprite.Sprite/transform/myRotation"/>
-                    <myTerminalVelocity>5.0</myTerminalVelocity>
+                    <myTerminalVelocity>1.0</myTerminalVelocity>
                     <isGrounded>true</isGrounded>
                     <myShooter reference="../../../../../.."/>
-                    <myBulletSpeed>5.0</myBulletSpeed>
-                    <mySelfDestructDistance>200.0</mySelfDestructDistance>
+                    <myBulletSpeed>1.0</myBulletSpeed>
+                    <mySelfDestructDistance>400.0</mySelfDestructDistance>
                   </gameEngine.components.ProjectileMotionComponent>
                 </componentList>
                 <x>0.0</x>
@@ -525,6 +536,7 @@
                 <emissionList/>
                 <isActive>true</isActive>
                 <collisionTag>bullet</collisionTag>
+                <facesLeft>false</facesLeft>
                 <transform>
                   <myPosition>
                     <x>0.0</x>
@@ -564,6 +576,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>player</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>0.0</x>
@@ -608,6 +621,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>660.0</x>
@@ -652,6 +666,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>780.0</x>
@@ -696,6 +711,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>200.0</x>
@@ -740,6 +756,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1000.0</x>
@@ -784,6 +801,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1350.0</x>
@@ -828,6 +846,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1200.0</x>
@@ -872,6 +891,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1050.0</x>
@@ -916,6 +936,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1300.0</x>
@@ -960,6 +981,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1200.0</x>
@@ -1004,6 +1026,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1300.0</x>
@@ -1088,6 +1111,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>1700.0</x>
@@ -1144,6 +1168,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>2150.0</x>
@@ -1188,6 +1213,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>enemy</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>-200.0</x>
@@ -1232,6 +1258,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>switch</collisionTag>
+          <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
               <x>2100.0</x>

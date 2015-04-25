@@ -27,6 +27,17 @@ public class INT {
 	public static final int SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT = 100;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH = 150;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT = 50;
+	public static final int SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT = 5;
+	public static final int SPLASH_EDIT_COLOR_PICKER_HEIGHT = 25;
+	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X = 157;
+	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_2X = 330;
+	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH = 150;
+	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT = 50;
+	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION = 0;
+	public static final int SPLASH_EDIT_BACK_BUTTON_HBOX_SPACING = 30;
+	public static final int SPLASH_EDIT_TEXTFIELD_WIDTH = 150;
+	public static final int SPLASH_EDIT_TEXTFIELD_HEIGHT = 30;
+	public static final int SPLASH_EDIT_ROTATE_FACTOR = 15;
 	
 	
 	// Collision table
@@ -36,10 +47,8 @@ public class INT {
 	public static final int DIRECTION = 2;
 	public static final int ACTION = 3;
 	public static final int VALUE = 4;
-	public static final int UP_VALUE = 0;
-	public static final int DOWN_VALUE = 1;
-	public static final int LEFT_VALUE = 2;
-	public static final int RIGHT_VALUE = 3;
+	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG.length();
+	
 	
 	
 	//MainMenu
