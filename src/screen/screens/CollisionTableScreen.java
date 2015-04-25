@@ -222,7 +222,7 @@ import screen.controllers.CollisionTableScreenController;
 public class CollisionTableScreen extends Screen{
 
 	private CollisionTableScreenController myController;
-	private String[] levelSpriteTags;
+	private ArrayList<String> levelSpriteTags;
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;
 	private static Map<String, Integer> directionToIntegerMap;
@@ -241,7 +241,7 @@ public class CollisionTableScreen extends Screen{
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags) {
 		super(width, height);
 		myController = controller;
-		levelSpriteTags = (String[])spriteTags.toArray();
+		levelSpriteTags = new ArrayList<String>(spriteTags);
 		initialize();
 	}
 	
@@ -294,11 +294,15 @@ public class CollisionTableScreen extends Screen{
 		tablesDisplay.getChildren().add(verticalBox);
 	}
 
-	private ComboBox createComboBoxFromList(String[] list, String id, String style, String promptText)
+	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
 	{
 		ObservableList<String> options = FXCollections.observableArrayList();
 		ComboBox comboBox = new ComboBox(options);
-		comboBox.getItems().add(list);
+		
+		for (String element : list)
+		{
+			comboBox.getItems().add(element);
+		}
 		comboBox.setId(id);
 		comboBox.setStyle(style);
 		comboBox.setPromptText(promptText);
@@ -319,13 +323,7 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.setPadding(new Insets(10, 50, 10, 50));
 		collisionSet.setMaxHeight(50);
 
-		/*ArrayList<String> sprites = new ArrayList<String>();
-		sprites.add("player"); // TODO: fix from input list
-		sprites.add("enemy");
-		sprites.add("platform");
-		sprites.add("power-up");
-		sprites.add("lava");
-		sprites.add("chocolate");*/
+	
 		ComboBox activeSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
 		collisionSet.add(activeSpriteList, 1, 0); 
