@@ -509,12 +509,15 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		if(option.equals("Start Button")) {
 			this.getChildren().remove(startButtonImageView);
+			startButtonImageView = null;
 		}
 		else if(option.equals("Image")) {
 			this.getChildren().remove(imageView);
+			imageViewArray.remove(imageView);
 		}
 		else if(option.equals("Text")) {
 			this.getChildren().remove(text);
+			texts.remove(text);
 		}
 		
 	}
