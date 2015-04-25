@@ -15,7 +15,6 @@ public class ParseHandler {
 	public static String APP_ID = "M82RHsJGWvuQQAjCgUms444ujpCWPuJISu5FzZO0";
 	public static String REST_KEY = "Q9ryEswqaCWXBGWMz6DaLwHJtZj49gg5lUU8sTxu";
 	
-	//private ParseObject returnObj;
 	
 	private static void setupParse() {
 		System.out.println("setupParse(): initializing...");
@@ -66,7 +65,7 @@ public class ParseHandler {
 		saveUser(dan);
 		System.out.println(dan.getMyID());
 		
-		User newU = loadUser("dan");
+		User newU = loadUser("Dan");
 		System.out.println(newU.getPass());
 	}
 	/*public User loadUser(String name){

@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import data.ParseHandler;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -209,7 +210,7 @@ public class SocialCenterScreenController {
 	private void createInitialScreens() {
 		
 		tabManager.setDefaultTab(createLogInScreen());
-		createMainPageScreen();
+		
 		
 		//USED FOR TEST GAMEEDITSCREEN
 		//createGameEditScreen(null);
@@ -246,9 +247,9 @@ public class SocialCenterScreenController {
 	}
 	
 
-	private Tab createMainPageScreen(){
+	private Tab createMainPageScreen(User loggedIn){
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createMainPageScreen(mainPageScreenManager),
+				screenFactory.createMainPageScreen(mainPageScreenManager, loggedIn),
 				STRING.MAIN_MENU_SCREEN.MAIN_MENU
 				);	
 	}
@@ -283,7 +284,8 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void logIn(Popup popup, TextField username, PasswordField password) {
-
+			User loggedIn = ParseHandler.loadUser(username.getText());
+			createMainPageScreen(loggedIn);
 			popup.hide();
 		}
 

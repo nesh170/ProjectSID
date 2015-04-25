@@ -35,6 +35,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import socCenter.User;
 
 
 public class MainPageScreen extends Screen {
@@ -43,32 +44,32 @@ public class MainPageScreen extends Screen {
 	// Static Variables
 	private static boolean TESTING = false;		// change this to true to debug, but only push "false"
 	
-	
 	// Instance variables
 	private MainPageScreenController controller;
+	private User loggedInUser;
 	
 	private int selectedIndex;
 	// JavaFX
-	private StackPane levelDisplay;
-	private VBox splashDisplay;
+	private StackPane friendsDisplay;
+	private VBox loggedInDisplay;
 	private Popup popup;
 	private HBox levelHB;
-	private StackPane splashSP;
+	private StackPane loggedSP;
 
 	// Getters & Setters
 
 	
 	// Constructor & Helpers
 	/**
-	 * Set up GameEdit screen from previously created game to re-edit game.
+	 * Set up Main Page screen given user that's logged in
 	 * 
 	 * @param controller
-	 *            , width, height, game
+	 *            , width, height, user
 	 */
-	public MainPageScreen(MainPageScreenController controller, double width, double height) {
+	public MainPageScreen(MainPageScreenController controller, double width, double height, User user) {
 	
 		super(width, height);
-	
+		this.loggedInUser = user;
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 		
 		initialize(controller);
@@ -89,10 +90,10 @@ public class MainPageScreen extends Screen {
 	private void configureButtons() {
 
 		configureLevelDisplay();
-		this.setCenter(levelDisplay);
+		this.setCenter(friendsDisplay);
 
 		configureSplashDisplay();
-		this.setLeft(splashDisplay);
+		this.setLeft(loggedInDisplay);
 		
 		createPopUp();
 	}
@@ -104,17 +105,17 @@ public class MainPageScreen extends Screen {
 	 */
 	private void configureSplashDisplay() {
 
-		splashDisplay = new VBox();		
-		splashSP = new StackPane();
-		splashDisplay.setAlignment(Pos.CENTER);
-		splashDisplay.getChildren().add(splashSP);
+		loggedInDisplay = new VBox();		
+		loggedSP = new StackPane();
+		loggedInDisplay.setAlignment(Pos.CENTER);
+		loggedInDisplay.getChildren().add(loggedSP);
 
-		splashSP.getChildren().addAll(makeText(STRING.GAME_EDIT.SPLASH_SCREEN));
+		loggedSP.getChildren().addAll(makeText(loggedInUser.getName()));
 		
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		splashSP.getChildren().addAll(rec);  
+		loggedSP.getChildren().addAll(rec);  
 		displayApproporiateSplashButton();	
 	}
 	
@@ -194,7 +195,7 @@ public class MainPageScreen extends Screen {
 
 	private void configureLevelDisplay() {
 
-		levelDisplay = new StackPane();
+		friendsDisplay = new StackPane();
 		ScrollPane levelSP = this.createScrollPane();
 
 		/*
@@ -209,19 +210,19 @@ public class MainPageScreen extends Screen {
 		StackPane.setAlignment(addButton, Pos.TOP_RIGHT);
 		
 
-		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG, 
+		/*ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG, 
 				STRING.GAME_EDIT.PLAYDOWN_IMG, 
 				e -> controller.nop());
 		
-		StackPane.setAlignment(play, Pos.TOP_CENTER);
+		StackPane.setAlignment(play, Pos.TOP_CENTER);*/
 
-		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
+		/*ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
 				STRING.GAME_EDIT.BACKDOWN_IMG, 
 				e -> controller.nop());
 		
-		StackPane.setAlignment(back, Pos.TOP_LEFT);
+		StackPane.setAlignment(back, Pos.TOP_LEFT);*/
 
-		levelDisplay.getChildren().addAll(levelSP, back, addButton, play,
+		friendsDisplay.getChildren().addAll(levelSP, addButton,
 				displayNote());
 
 	}

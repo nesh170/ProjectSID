@@ -1,6 +1,7 @@
 package screen.factories;
 
 import screen.Screen;
+import socCenter.User;
 import socCenter.logIn.LogInScreen;
 import socCenter.logIn.LogInScreenController;
 import socCenter.mainPage.MainPageScreen;
@@ -18,7 +19,7 @@ public class SocialCenterScreenFactory extends ScreenFactory {
 		return new LogInScreen(logInScreenController, width, height);
 	}
 	
-	public Screen createMainPageScreen(MainPageScreenController mainPageScreenController){
-		return new MainPageScreen(mainPageScreenController, width, height);
+	public Screen createMainPageScreen(MainPageScreenController mainPageScreenController, User user){
+		return new MainPageScreen(mainPageScreenController, width, height, user);
 	}
 }
