@@ -12,8 +12,9 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
+import org.parse4j.Parse;
+
 import data.DataHandler;
-import data.ParseHandler;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -58,11 +59,14 @@ import socCenter.logIn.LogInScreenController;
 import socCenter.mainPage.MainPageScreenController;
 import sprite.Sprite;
 import util.ErrorHandler;
+import util.ParseHandler;
 
 
 public class SocialCenterScreenController {
 	
 	// Static Variables
+	public static final String APP_ID = "M82RHsJGWvuQQAjCgUms444ujpCWPuJISu5FzZO0";
+	public static final String REST_KEY = "Q9ryEswqaCWXBGWMz6DaLwHJtZj49gg5lUU8sTxu";
 	
 	
 	// Instance Variables
@@ -85,6 +89,9 @@ public class SocialCenterScreenController {
 	
 	//Data
 	private UserPack userPack;
+	private ParseHandler parseHandle;
+	
+	
 	
 	// Getters & Setters (static)
 	
@@ -125,7 +132,9 @@ public class SocialCenterScreenController {
 		this.root = new Group();
 		this.scene = new Scene(root);
 		this.scene.getStylesheets().add("resources/SID.css"); //possibly put this in a string class or properties file?
-				
+		parseHandle = new ParseHandler();
+		Parse.initialize(APP_ID, REST_KEY);
+		
 		configureStageAndRoot(stage, root);
 		configureWidthAndHeight(width, height);
 		configureNewScreenWidthAndHeight(width, height);
@@ -284,7 +293,7 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void logIn(Popup popup, TextField username, PasswordField password) {
-			User loggedIn = ParseHandler.loadUser(username.getText());
+			User loggedIn = parseHandle.loadUser(username.getText());
 			createMainPageScreen(loggedIn);
 			popup.hide();
 		}

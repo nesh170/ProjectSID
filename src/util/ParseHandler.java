@@ -1,4 +1,4 @@
-package data;
+package util;
 
 import java.util.List;
 
@@ -12,18 +12,21 @@ import socCenter.User;
 
 public class ParseHandler {
 	
-	public static String APP_ID = "M82RHsJGWvuQQAjCgUms444ujpCWPuJISu5FzZO0";
-	public static String REST_KEY = "Q9ryEswqaCWXBGWMz6DaLwHJtZj49gg5lUU8sTxu";
+	public static final String APP_ID = "M82RHsJGWvuQQAjCgUms444ujpCWPuJISu5FzZO0";
+	public static final String REST_KEY = "Q9ryEswqaCWXBGWMz6DaLwHJtZj49gg5lUU8sTxu";
 	
+	public ParseHandler(){
+		
+	}
 	
-	private static void setupParse() {
+	private void setupParse() {
 		System.out.println("setupParse(): initializing...");
 		Parse.initialize(APP_ID, REST_KEY);
 		
 	}
 	
-	public static void saveUser(User toSave) {
-		setupParse();
+	public void saveUser(User toSave) {
+		
 		ParseObject user = new ParseObject("User");
 		//.setObjectId(toSave.getName());
 		user.put("userName", toSave.getName());
@@ -40,7 +43,7 @@ public class ParseHandler {
 		
 	}
 	
-	public static User loadUser(String name){
+	public User loadUser(String name){
 		ParseQuery<ParseObject> query  = ParseQuery.getQuery("User");
 		query.whereEqualTo("userName", name);
 		List<ParseObject> users = null;
@@ -60,16 +63,13 @@ public class ParseHandler {
 		
 	}
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		User dan = new User("", "jim", "soshy");
 		saveUser(dan);
 		System.out.println(dan.getMyID());
 		
 		User newU = loadUser("Dan");
 		System.out.println(newU.getPass());
-	}
-	/*public User loadUser(String name){
-		setupParse();
-		
 	}*/
+
 }
