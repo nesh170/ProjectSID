@@ -36,6 +36,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.controllers.SplashEditScreenController;
+import screen.screenmodels.SplashEditModel;
 import sprite.Sprite;
 
 /**
@@ -56,19 +57,11 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	// Instance variables
 	private SplashEditScreenController controller;
-	private SplashScreen splashScreen;
+	private SplashEditModel splashEditModel;
+//	private SplashScreen splashScreen;
 	private double width;
 	private double height;
 	private String tag;
-
-	private Sprite startButton = new Sprite();
-	private List<Sprite> images = new ArrayList();
-	private List<ImageView> imageViewArray = new ArrayList();
-	private ImageView imageView;
-	private ImageView startButtonImageView;
-	private Text text;
-	private List<Text> texts = new ArrayList();
-	private int counter;
 
 	// Getters & Setters
 
@@ -97,7 +90,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void configureSplashScreen(SplashScreen splashScreen, double width, double height) {
 		
-		this.splashScreen = splashScreen;
+		splashEditModel = new SplashEditModel(splashScreen);
 		this.width = width;
 		this.height = height;
 		
@@ -334,9 +327,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			getParent().setCursor(imageCursor);
 
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_START;
-			startButtonImageView = new ImageView(image);
+			splashEditModel.createStartButtonImageView(image);
 
-			this.setOnKeyPressed(e -> resizeAndRotate(startButtonImageView, e));
+			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
 		} catch (Exception ex) {	
 			
 			//NO CATCH
@@ -345,11 +338,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	public void addImage() {
-		
-		File file = null;
-		Image image = null;
-
 		try {
+			File file = null;
+			Image image = null;
 			
 			FileChooser fileChooser = new FileChooser();
 			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
@@ -358,34 +349,27 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 			file = fileChooser.showOpenDialog(null);
 			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
+			
+			ImageCursor imageCursor = new ImageCursor(image);
+			getParent().setCursor(imageCursor);
 
+			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
+			imageView = new ImageView(image);
+			splashEditModel.(imageView);
+
+			this.setOnKeyPressed(e -> resizeAndRotate(imageView, e));
 		} catch (Exception ex) {
 			
 			//NO CATCH
 			
 		}
-		
-		ImageCursor imageCursor = new ImageCursor(image);
-		getParent().setCursor(imageCursor);
-
-		tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
-		imageView = new ImageView(image);
-		imageViewArray.add(imageView);
-
-		this.setOnKeyPressed(e -> resizeAndRotate(imageView, e));
-
-		
 	}
 	
 	private void chooseText(TextField textField) {
 	
 		String textValue = textField.getText();
 		
-		for(Text t : texts) {		
-			if(t.getText().equals(textValue)) {
-				text = t;
-			}
-		}
+		splashEditModel.selectText(textValue);
 		
 		textField.clear();
 
@@ -395,9 +379,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		int index = Integer.parseInt(textField.getText()) - 1;
 
-		if(!imageViewArray.get(index).getImage().equals(null)) {
-			imageView = imageViewArray.get(index);
-		}
+		splashEditModel.selectImage(index);
 		
 		textField.clear();
 
@@ -636,37 +618,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //		
 //	}
 	
-	private void resizeAndRotate(Node node, KeyEvent e) {
-		
-		KeyCode keyCode = e.getCode();
-		
-		if(keyCode == KeyCode.UP) {
-			
-			node.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleX());
-			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleY());
-			
-		}
-		
-		else if(keyCode == KeyCode.DOWN) {
-			
-			node.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleX());
-			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleY());
-			
-		}
-		
-		else if(keyCode == KeyCode.RIGHT) {
-			
-			node.setRotate(node.getRotate() + INT.SPLASH_EDIT_ROTATE_FACTOR);
-			
-		}
-		
-		else if(keyCode == KeyCode.LEFT) {
-			
-			node.setRotate(node.getRotate() - INT.SPLASH_EDIT_ROTATE_FACTOR);
-			
-		}
-		
-	}
 
 	private void setLargeButtonSize(Button button) {
 		
