@@ -27,8 +27,12 @@ public class ParseHandler {
 	}
 	
 	public void saveUser(User toSave) {
-		
-		ParseObject user = new ParseObject("User");
+		ParseObject user;
+		if(isPresent(toSave.getName())) {
+			user = userParseObject(toSave.getName(), toSave.getPass());
+		} else {
+			user = new ParseObject("User");
+		}
 		//.setObjectId(toSave.getName());
 		user.put("userName", toSave.getName());
 		user.put("password", toSave.getPass());
@@ -51,19 +55,10 @@ public class ParseHandler {
 	}
 	
 	public User loadUser(String name, String pass){
-		ParseQuery<ParseObject> query  = ParseQuery.getQuery("User");
-		query.whereEqualTo("userName", name);
-		List<ParseObject> users = null;
-		try {
-			users = query.find();
-
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		String passServer = users.get(0).getString("password");
-		String image = users.get(0).getString("imagePath");
-		String objectId = users.get(0).getObjectId();
+		ParseObject userParse = userParseObject(name, pass);
+		String passServer = userParse.getString("password");
+		String image = userParse.getString("imagePath");
+		String objectId = userParse.getObjectId();
 		User toReturn = new User(objectId, name, passServer, image);
 		if(toReturn.validate(pass)){
 			System.out.println("validated!");
@@ -75,6 +70,37 @@ public class ParseHandler {
 		
 	}
 	
+	private ParseObject userParseObject(String name, String pass) {
+		ParseQuery<ParseObject> query  = ParseQuery.getQuery("User");
+		query.whereEqualTo("userName", name);
+		List<ParseObject> users = null;
+		try {
+			users = query.find();
+
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+		}
+		if(users != null) {
+			return users.get(0);
+		} 
+		else {
+			return null;
+		}
+	}
+	
+	private boolean isPresent(String name) {
+		ParseQuery<ParseObject> query  = ParseQuery.getQuery("User");
+		query.whereEqualTo("userName", name);
+		List<ParseObject> users = null;
+		try {
+			users = query.find();
+
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+		}
+		return (users == null) ? false : true;
+		
+	}
 	/*public static void main(String[] args){
 		User dan = new User("", "jim", "soshy");
 		saveUser(dan);
