@@ -68,6 +68,7 @@ import screen.controllers.CollisionTableScreenController;
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html
  * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextField.html
+ * http://stackoverflow.com/questions/13134983/liststring-to-arrayliststring-conversion-issue
  * 
  * 
  * 
@@ -208,7 +209,7 @@ import screen.controllers.CollisionTableScreenController;
  * 
  * 
  * 
- * 	[Sprite 1 (active)]		[Sprite 2]		[Direction   v]		[Action  v]		[Value]
+ * 	[Sprite 1 (active)]		[Sprite 2]		[Direction   v]		[Action  v]		[Value]		{Save}
  * 
  * 	[+]
  *  
