@@ -29,7 +29,7 @@ public class ShootAction extends Action{
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		AmmoComponent myAmmo = (AmmoComponent) mySprite.getComponentOfType("AmmoComponent");
 		if (myAmmo == null || myAmmo.getAmmoCount() > 0) {
 			Sprite newProjectile = generateClone();

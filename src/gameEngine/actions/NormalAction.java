@@ -18,15 +18,13 @@ public class NormalAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myVelocityComponent.setVelocityY(0.0);
 		myVelocityComponent.setGrounded(true);
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

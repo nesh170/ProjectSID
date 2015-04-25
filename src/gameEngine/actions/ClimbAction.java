@@ -13,7 +13,7 @@ public class ClimbAction extends Action {
 	public void prepare() {}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		UpMotionAction up = (UpMotionAction) mySprite.getActionOfType("UpMotionAction");
 		up.setClimbing(true);
 	}

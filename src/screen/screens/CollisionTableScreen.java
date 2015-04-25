@@ -1,5 +1,6 @@
 package screen.screens;
 
+import gameEngine.Action;
 import gameEngine.CollisionTable;
 
 import java.awt.Scrollbar;
@@ -12,8 +13,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.sun.glass.ui.Cursor;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,7 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.ImageCursor;
@@ -39,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -59,6 +58,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
+import sprite.Sprite;
 
 /**
  * NOTE: STILL REFACTORING
@@ -74,6 +74,8 @@ import screen.controllers.CollisionTableScreenController;
  * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextField.html
  * http://stackoverflow.com/questions/13134983/liststring-to-arrayliststring-conversion-issue
+ * https://docs.oracle.com/javafx/2/api/javafx/scene/ImageCursor.html
+ * 
  * 
  * 
  * 
@@ -267,16 +269,25 @@ public class CollisionTableScreen extends Screen{
 	private void createVBoxOfCollisionRows(){
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
-		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
-		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
+		verticalBox.setStyle(STRING.COLLISION_EDIT.BOTTOM_ROW_STYLE);
+		
+		Image addRowButtonImg = new Image(STRING.COLLISION_EDIT.ADD_BUTTON_IMG);
+		
+		ImageView addRowButton = new ImageView(addRowButtonImg);
+		addRowButton.setPreserveRatio(true);
+		
+		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), 50);
+		
+//		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
+//		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
 		verticalBox.getChildren().addAll(levelSP);
 		verticalBox.setVgrow(levelSP, Priority.ALWAYS);
        
-
-			verticalBox.getChildren().add(addRowButton);
+		addRowButton.setTranslateX(30);
+		verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
@@ -293,6 +304,8 @@ public class CollisionTableScreen extends Screen{
 		}
 		comboBox.setId(id);
 		comboBox.setStyle(style);
+		comboBox.setStyle(STRING.COLLISION_EDIT.TEXT_BOX_STYLE);
+		
 		comboBox.setPromptText(promptText);
 		return comboBox;
 	}
@@ -327,7 +340,7 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.add(direction, 3, 0); 
 		
 		ObservableList<String> actionsToAdd = FXCollections.observableArrayList(ResourceBundle
-				.getBundle("resources.spritePartProperties.action")
+				.getBundle("resources.spritePartProperties.collisionAction")
 				.keySet().stream().map(e -> languageResources().getString(e))
 				.collect(Collectors.toList()));
 		
@@ -346,6 +359,7 @@ public class CollisionTableScreen extends Screen{
 		
 		
 		TextField text = new TextField();
+		text.setStyle(STRING.COLLISION_EDIT.TEXT_BOX_STYLE);
 		text.setPromptText(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		text.setId(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		collisionSet.add(text, 5, 0); 
@@ -355,7 +369,8 @@ public class CollisionTableScreen extends Screen{
 		action.valueProperty().addListener(new ChangeListener<String>() {
 	           
 	            public void changed(ObservableValue ov, String t, String t1) {                
-	              if (t1.equals("die"))
+	              if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
+	            //  if (t1.equals("Kill"))
 	              {
 	            	  text.setDisable(true);
 	              }
@@ -370,19 +385,29 @@ public class CollisionTableScreen extends Screen{
 		Image saveButtonImg = new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_IMG);
 		
 		ImageView saveButton = new ImageView(saveButtonImg);
-		saveButton.setFitWidth(100);
 		saveButton.setPreserveRatio(true);
 		
-		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG));
+		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), 100);
 		saveButton.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
 		collisionSet.add(saveButton, 6, 0); 
 		
+		Image trashButtonImg = new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_IMG);
+		
+		ImageView trashButton = new ImageView(trashButtonImg);
+		trashButton.setPreserveRatio(true);
+		setButtonStyle(trashButton, trashButtonImg, new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_PRESSED_IMG), 70);
+	//	trashButton.setOnMouseClicked(e -> {activeSpriteList.setValue(activeSpriteList.getPromptText());});
+		trashButton.setOnMouseClicked(e -> {collisionTable.getChildren().remove(collisionSet);});
+		collisionSet.add(trashButton, 7, 0); 
+		
 		collisionTable.getChildren().add(collisionSet);
+		
 		return collisionTable;
 	}
 
-	private void setButtonStyle(ImageView button, Image natural, Image pressed)
+	private void setButtonStyle(ImageView button, Image natural, Image pressed, int size)
 	{
+		button.setFitWidth(size);
 		button.setCursor(ImageCursor.HAND);
 		button.setOnMousePressed(e -> button.setImage(pressed));
 		button.setOnMouseReleased(e -> button.setImage(natural));
@@ -390,7 +415,7 @@ public class CollisionTableScreen extends Screen{
 	
 	
 	
-	private ScrollPane configureScrollPane(ScreenButton addCollisionRowButton){
+	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){
 		ScrollPane sp = new ScrollPane();
 		sp.setPannable(true);
 	
@@ -411,7 +436,10 @@ public class CollisionTableScreen extends Screen{
 		tile.setPadding(new Insets(45, 45, 75, 45));
 	//	tile.setVgap(20);
 	//	tile.setHgap(20);
-		tile.setStyle("-fx-background-color: DAE6F3;");
+	//	tile.setStyle("-fx-background-color: DAE6F3;");
+		
+		tile.setStyle(STRING.COLLISION_EDIT.BACKGROUND_STYLE);
+			
 		tile.getChildren().add(description);
 
 		for (int i = 0; i < 3; i++)
@@ -450,6 +478,19 @@ public class CollisionTableScreen extends Screen{
 		return true;
 		
 	}
+	
+/*	private Action createActionFromString(String actionString)
+	{
+		//TODO: create separate class for String-> action (also used for spriteEditScreen
+		Action action = (Action) Class
+				.forName(classPathMap.get(selected))
+				.getConstructor(Sprite.class, Double.class,
+						KeyCode[].class)
+						.newInstance(editableSprite,
+								Double.parseDouble(actionValue.getText()),
+								keylist);
+	//	return action;
+	}*/
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String value)
 	{

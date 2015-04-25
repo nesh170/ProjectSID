@@ -9,9 +9,9 @@ public class LifeComponent extends Component {
 	
 	private int myLives;
 
-	public LifeComponent(Sprite sprite, List<Double> valueList) {
-		super(sprite, valueList);
-		myLives = Math.toIntExact(Math.round(valueList.get(0)));
+	public LifeComponent(Sprite sprite, Double value) {
+		super(sprite, value);
+		myLives = Math.toIntExact(Math.round(value));
 	}
 	
 	public int getLives(){

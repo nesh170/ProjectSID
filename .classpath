@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="parse4j/"/>
 	<classpathentry kind="src" path="/parse4j"/>
 	<classpathentry kind="lib" path="C:/Users/Jul/workspace/parse4j_dependencies-2015-04-23/parse4j dependencies/json-20131018.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/voogasalad_util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

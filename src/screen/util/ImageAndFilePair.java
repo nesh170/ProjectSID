@@ -1,4 +1,4 @@
-package screen.screens;
+package screen.util;
 
 import javafx.scene.image.ImageView;
 

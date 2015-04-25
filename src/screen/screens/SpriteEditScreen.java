@@ -55,6 +55,8 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.ScreenController;
 import screen.controllers.SpriteEditScreenController;
+import screen.screenmodels.SpriteEditModel;
+import screen.util.ImageAndFilePair;
 import sprite.Sprite;
 import sprite.SpriteImage;
 import util.ImageToInt2DArray;
@@ -71,8 +73,7 @@ public class SpriteEditScreen extends Screen {
 	// Instance Variables
 	private SpriteEditScreenController controller;
 	private Tab levelEditScreen;
-
-	private Sprite editableSprite;
+	private SpriteEditModel model;
 
 	private TextField spriteNameField;
 	private TextField imageSizeField;
@@ -84,12 +85,6 @@ public class SpriteEditScreen extends Screen {
 	private ResourceBundle actionResources;
 	private ResourceBundle componentResources;
 	private ResourceBundle behaviorLabels;
-
-	private ObservableList<String> actionsToAdd;
-	private ObservableList<String> actionsAdded;
-	private ObservableList<String> componentsToAdd;
-	private ObservableList<String> componentsAdded;
-	private ObservableList<String> imagesAdded;
 	
 	private ListView<String> actionsToAddList;
 	private ListView<String> actionsAddedList;
@@ -103,15 +98,6 @@ public class SpriteEditScreen extends Screen {
 	private TextField actionValue;
 	private TextField componentValue;
 
-	private KeyCode currentCode = KeyCode.UNDEFINED;
-
-	private Map<String, String> classPathMap;
-	private Map<String, Action> actionMap;
-	private Map<String, Boolean> keyCodesAreVisibleMap;
-	private Map<String, Component> componentMap;
-	private Map<String, ImageAndFilePair> stringToImageMap;
-	private Map<String, String> behaviorLabelsMap;
-	private Map<String, String> createdBehaviorParameterMap;
 
 
 	// Constructors & Helpers
@@ -124,24 +110,19 @@ public class SpriteEditScreen extends Screen {
 	public SpriteEditScreen(SpriteEditScreenController parent, Tab levelEditScreen, double width, double height, Sprite spriteToEdit) {
 
 		super(width, height);
+		
+		initializeRelevantResourceFiles();
+		
+		model = new SpriteEditModel(languageResources(), actionResources, componentResources, behaviorLabels);
 
 		this.levelEditScreen = levelEditScreen;
 		this.controller = parent;
 
-		initializeRelevantResourceFiles();
 		initializeObservableLists();
 		initializeValueBoxListenersForLists();
 		initializeInformationListenersForLists();
-		initializeClassPathMap();
-		initializeKeyCodesAreVisibleMap();
-		initializeBehaviorLabelsMap();
 		// initializeOtherMaps(buttonToListMap,actionMap,componentMap);
-
-		actionMap = new HashMap<>();
-		componentMap = new HashMap<>();
-		stringToImageMap = new HashMap<>();
-		createdBehaviorParameterMap = new HashMap<>();
-
+		
 		createLeftPane();
 		createRightPane();
 		createCenterPane();
@@ -149,8 +130,6 @@ public class SpriteEditScreen extends Screen {
 		if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
 		}
-		
-		editableSprite = new Sprite();
 
 
 	}
@@ -160,17 +139,6 @@ public class SpriteEditScreen extends Screen {
 	}
 
 	// All other instance methods
-	private void initializeKeyCodesAreVisibleMap() {
-
-		keyCodesAreVisibleMap = new HashMap<>();
-		keyCodesAreVisibleMap.put(languageResources().getString("AlwaysRun"),
-				false);
-		keyCodesAreVisibleMap.put(languageResources().getString("NeedCode"),
-				true);
-//		keyCodesAreVisibleMap.put(languageResources().getString("OnCollision"),
-//				false);
-
-	}
 
 	@Override
 	protected void initializeRelevantResourceFiles() {
@@ -188,64 +156,38 @@ public class SpriteEditScreen extends Screen {
 
 	private void initializeObservableLists() {
 
-		actionsToAdd = FXCollections.observableArrayList(actionResources
+		actionsToAddList = new ListView<>(model.setActionsToAdd(FXCollections.observableArrayList(actionResources
 				.keySet().stream().map(e -> languageResources().getString(e))
-				.collect(Collectors.toList()));
-		actionsAdded = FXCollections.observableArrayList();
-		componentsToAdd = FXCollections.observableArrayList(componentResources
+				.collect(Collectors.toList()))));
+		actionsAddedList = new ListView<>(model.setActionsAdded());
+		componentsToAddList = new ListView<>(model.setComponentsToAdd(FXCollections.observableArrayList(componentResources
 				.keySet().stream().map(e -> languageResources().getString(e))
-				.collect(Collectors.toList()));
-		componentsAdded = FXCollections.observableArrayList();
-		imagesAdded = FXCollections.observableArrayList();
-
-		actionsToAddList = new ListView<>(actionsToAdd);
-		actionsAddedList = new ListView<>(actionsAdded);
-		componentsToAddList = new ListView<>(componentsToAdd);
-		componentsAddedList = new ListView<>(componentsAdded);
+				.collect(Collectors.toList()))));
+		componentsAddedList = new ListView<>(model.setComponentsAdded());
 
 	}
 
 	//TODO get rid of some duplicated code in this method
 	private void initializeValueBoxListenersForLists() {
 		
-		actionsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> onAddListener(newValue,actionValue));
-		componentsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> onAddListener(newValue,componentValue));
+		actionsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> model.onAddListener(newValue,actionValue));
+		componentsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> model.onAddListener(newValue,componentValue));
 				
-	}
-	
-	private void onAddListener(String newSelect, TextField textField) {
-		
-		if (newSelect == null || newSelect.isEmpty()) {
-			textField.setPromptText("");
-		}
-		else {
-			textField.setPromptText(behaviorLabelsMap
-					.get(newSelect));
-		}
-		
 	}
 
 	private void initializeInformationListenersForLists() {
 
-		actionsAddedList.setOnMouseEntered(e -> setDataText(actionsAddedList));
-		componentsAddedList.setOnMouseEntered(e -> setDataText(componentsAddedList));
+		actionsAddedList.setOnMouseEntered(e -> dataText.setText(model.setDataText(actionsAddedList)));
+		componentsAddedList.setOnMouseEntered(e -> dataText.setText(model.setDataText(componentsAddedList)));
 
 		actionsAddedList.getSelectionModel().selectedItemProperty()
-		.addListener((observable, oldSelect, newSelect) -> setDataText(newSelect));
+		.addListener((observable, oldSelect, newSelect) -> dataText.setText(model.setDataText(newSelect)));
 		componentsAddedList.getSelectionModel().selectedItemProperty()
-		.addListener((observable, oldSelect, newSelect) -> setDataText(newSelect));
+		.addListener((observable, oldSelect, newSelect) -> dataText.setText(model.setDataText(newSelect)));
 
 	}
 	
-	private void setDataText(String text) {
-		dataText.setText(createdBehaviorParameterMap.get(text));
-	}
 
-	private void setDataText(ListView<String> listInFocus) {
-
-		dataText.setText(createdBehaviorParameterMap.get(listInFocus
-				.getSelectionModel().getSelectedItem()));
-	}
 
 	// @SuppressWarnings("unchecked")
 	// protected void initializeOtherMaps(Map<? extends Object, ? extends
@@ -253,38 +195,11 @@ public class SpriteEditScreen extends Screen {
 	// Arrays.asList(maps).forEach(e -> { e = new HashMap<>(); });
 	// }
 
-	private void initializeClassPathMap() {
-
-		classPathMap = new HashMap<>();
-
-		actionResources.keySet().forEach(
-				e -> classPathMap.put(
-						languageResources().getString(e),
-						actionResources.getString(e)));
-
-		componentResources.keySet().forEach(
-				e -> classPathMap.put(
-						languageResources().getString(e),
-						componentResources.getString(e)));
-
-	}
-
-	private void initializeBehaviorLabelsMap() {
-
-		behaviorLabelsMap = new HashMap<String, String>();
-
-		behaviorLabels.keySet().forEach(
-				e -> behaviorLabelsMap.put(
-						languageResources().getString(e),
-						behaviorLabels.getString(e)));
-
-	}
-
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
 		Menu fileMenu = makeFileMenu(
-				e -> saveSprite(), 
+				e -> model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem()), 
 				e -> exit(),
 				e -> saveAndExit());
 
@@ -426,12 +341,11 @@ public class SpriteEditScreen extends Screen {
 	
 	private void setKeycodeInputBoxVisibility(String select) {
 		
-		keycodeInputBox.setVisible(
-				keyCodesAreVisibleMap.get(select));
+		keycodeInputBox.setVisible(model.getVisibilty(select));
 
 		if (!keycodeInputBox.isVisible()) {
 
-			currentCode = KeyCode.UNDEFINED;
+			model.setCurrentCode(KeyCode.UNDEFINED);
 			clearKeycodeInputBox();
 		}
 		
@@ -511,7 +425,7 @@ public class SpriteEditScreen extends Screen {
 
 	private void initializeImageListPane() {
 
-		imageListPane = new ListView<String>(imagesAdded);
+		imageListPane = new ListView<String>(model.setImagesAdded());
 
 		imageListPane.setOnKeyPressed(e -> {
 
@@ -533,7 +447,7 @@ public class SpriteEditScreen extends Screen {
 		
 		paneForImage.getChildren().clear();
 		paneForImage.getChildren().add(
-				stringToImageMap.get(select).image());
+				model.getSelectedImage(select));
 
 	}
 
@@ -544,27 +458,7 @@ public class SpriteEditScreen extends Screen {
 		if (selected != null) {
 
 			try {
-				KeyCode[] keylist = new KeyCode[1];
-				if (currentCode != null
-						&& !currentCode.equals(KeyCode.UNDEFINED)) {
-					keylist[0] = currentCode;
-				}
-				Action action = (Action) Class
-						.forName(classPathMap.get(selected))
-						.getConstructor(Sprite.class, Double.class,
-								KeyCode[].class)
-								.newInstance(editableSprite,
-										Double.parseDouble(actionValue.getText()),
-										keylist);
-				if(!keyCodesAreVisibleMap.get(actionTypeBox.getSelectionModel().getSelectedItem())) {
-					action.runEveryFrame();
-				}
-				String parameterMapValue = selected + "-> "
-						+ languageResources().getString("Keycode") + " "
-						+ currentCode.toString() + ", "
-						+ languageResources().getString("Value") + " "
-						+ actionValue.getText();
-				addBehaviorToListView(action, parameterMapValue, actionsToAdd, actionsAdded, actionMap, true);
+				model.addAction(selected, actionValue.getText(), actionTypeBox.getSelectionModel().getSelectedItem());
 				actionValue.getStyleClass().remove(STRING.CSS.ERROR);
 			} catch (InstantiationException | IllegalAccessException
 					| InvocationTargetException | NoSuchMethodException
@@ -584,13 +478,7 @@ public class SpriteEditScreen extends Screen {
 	private void removeAction(MouseEvent e) {
 
 		String selected = actionsAddedList.getSelectionModel().getSelectedItem();
-
-		if (selected != null) {
-			
-			addBehaviorToListView(actionMap.get(selected), "", actionsToAdd, actionsAdded, actionMap, false);
-
-		}
-
+		model.removeAction(selected);
 	}
 
 	private void addComponent(MouseEvent e) {
@@ -600,17 +488,8 @@ public class SpriteEditScreen extends Screen {
 		if (selected != null) {
 
 			try {
-
-				List<Double> values = new ArrayList<>();
-				values.add(Double.parseDouble(componentValue.getText()));
-				Component component = (Component) Class
-						.forName(classPathMap.get(selected))
-						.getConstructor(Sprite.class, List.class)
-						.newInstance(editableSprite, values);
-				String parameterMapValue = selected + "-> "
-						+ languageResources().getString("Value") + " "
-						+ componentValue.getText();
-				addBehaviorToListView(component, parameterMapValue, componentsToAdd, componentsAdded, componentMap, true);
+				
+				model.addComponent(selected, componentValue.getText());
 				componentValue.getStyleClass().remove(STRING.CSS.ERROR);
 
 			} catch (InstantiationException | IllegalAccessException
@@ -629,22 +508,17 @@ public class SpriteEditScreen extends Screen {
 	private void removeComponent(MouseEvent e) {
 
 		String selected = componentsAddedList.getSelectionModel().getSelectedItem();
-
-		if (selected != null) {
-
-			addBehaviorToListView(componentMap.get(selected),"",componentsToAdd,componentsAdded,componentMap,false);
-
-		}
+		model.removeComponent(selected);
+		
 	}
-
 	private void clearKeycodeInputBox() {
 		keycodeInputBox.setText("");
 	}
 
 	private void setCurrentKeycode(KeyEvent e) {
 
-		currentCode = e.getCode();
-		keycodeInputBox.setText(currentCode.getName());
+		model.setCurrentCode(e.getCode());
+		keycodeInputBox.setText(e.getCode().getName());
 
 	}
 
@@ -672,52 +546,27 @@ public class SpriteEditScreen extends Screen {
 	
 	private void addImageToPane(String path, Image image) {
 		ImageView spriteImageRep = new ImageView(image);
-
-		int currentImageNumber = imagesAdded.size();
-		String imageName = languageResources().getString("ImageName") + currentImageNumber;
-
-		stringToImageMap.put(imageName, new ImageAndFilePair(spriteImageRep,path));
-		imagesAdded.add(imageName);
-
-		if (currentImageNumber == 0) {
+		
+		model.addImageToList(path, spriteImageRep);
+		if (model.getNumImages() == 1) {
 			paneForImage.getChildren().add(spriteImageRep);
 		}
 
 		imageSizeField.clear();
 	}
 
-	private void saveSprite() {
-		
-		//TODO don't allow save if name isn't written 
 
-		stringToImageMap.keySet().forEach(
-				e -> {
-					//TODO - need this to take in multiple image paths
-					editableSprite.setImagePath(stringToImageMap.get(e).filePath());
-					editableSprite.setDimensions(new Dimension2D((stringToImageMap).get(e).image().getImage().getWidth(),
-														(stringToImageMap).get(e).image().getImage().getHeight()));
-				});
+	private void exit(Sprite sprite) {
 
-		componentMap.keySet().forEach(e -> {
-			editableSprite.addComponent(componentMap.get(e));
-		});
-
-		actionMap.keySet().forEach(e -> {
-			editableSprite.addAction(actionMap.get(e));
-		});
-
-		editableSprite.setName(spriteNameField.getText());
-		editableSprite.setTag(tagChoicesHolder.getSelectionModel().getSelectedItem());
+		controller.returnToSelectedLevel((LevelEditScreen) levelEditScreen.getContent(), levelEditScreen,
+				model.retrieveEditedSprite());
 
 	}
-
+	
 	private void exit() {
+		
+		controller.returnToSelectedLevel((LevelEditScreen) levelEditScreen.getContent(), levelEditScreen);
 
-		LevelEditScreen levelEdit = (LevelEditScreen) levelEditScreen
-				.getContent();
-
-		controller.returnToSelectedLevel(levelEdit, levelEditScreen,
-				editableSprite);
 
 	}
 
@@ -729,8 +578,8 @@ public class SpriteEditScreen extends Screen {
 
 		else {
 
-			saveSprite();
-			exit();
+			model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem());
+			exit(model.retrieveEditedSprite());
 
 		}
 
@@ -740,48 +589,13 @@ public class SpriteEditScreen extends Screen {
 
 		spriteNameField.setText(sprite.getName());
 		tagChoicesHolder.getSelectionModel().select(sprite.tag());
-		sprite.actionList().forEach(action -> {
-			addBehaviorToListView(action, "", actionsToAdd, actionsAdded, actionMap, true);
-		});
-		sprite.componentList().forEach(component -> addBehaviorToListView(component, "", componentsToAdd, componentsAdded, componentMap, true));
+		sprite.actionList().forEach(model.getActionConsumer());
+		sprite.componentList().forEach(model.getComponentConsumer());
 		// TODO implement
 		if(sprite.getImagePath()!=null) {
 			Image image = DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false);
 			addImageToPane(sprite.getImagePath(),image);
 		}
-
 	}
-	
-	
-	/**
-	 * 
-	 * @param behavior - Must be an action or component unless a new type of behavior is added 
-	 * @param valueString - This is the string that displays when selecting an added behavior
-	 * @param start - (behavior)ToAdd observable list
-	 * @param end - (behavior)Added obserable list
-	 * @param behaviorMap - Map from a string to a behavior, <String,Behavior> *DO NOT USE ANY OTHER TYPES OF MAPS*
-	 * @param adding - boolean that signifies whether the behavior is being added or removed
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void addBehaviorToListView(Object behavior, String valueString, ObservableList<String> start, ObservableList<String> end, Map behaviorMap, boolean adding) {
-		String stringToSwitch = languageResources().getString(trimClassName(behavior.getClass().getName()));
-		if(adding) {
-			createdBehaviorParameterMap.put(stringToSwitch, valueString);
-			start.remove(stringToSwitch);
-			end.add(stringToSwitch);
-			behaviorMap.put(stringToSwitch, behavior);
-		}
-		else {
-			createdBehaviorParameterMap.remove(stringToSwitch);
-			start.add(stringToSwitch);
-			end.remove(stringToSwitch);
-			behaviorMap.remove(stringToSwitch);
-		}
-	}
-	
-	private String trimClassName(String classPath) {
-		String[] split = classPath.split("\\.");
-		return split[split.length - 1];
-	}
-
+		
 }

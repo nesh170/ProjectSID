@@ -22,15 +22,13 @@ public class FallAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myVelocityComponent.accelerate(0.0, EngineMathFunctions.accelerationValueFrame(value));
 
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
