@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -223,6 +224,7 @@ public class CollisionTableScreen extends Screen{
 	private String[] levelSpriteTags;
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;
+	private static Map<String, Integer> directionToIntegerMap;
 	
 
 	public CollisionTableScreen(double width, double height) {
@@ -243,16 +245,27 @@ public class CollisionTableScreen extends Screen{
 	}
 	
 
+	
+
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		// TODO Auto-generated method stub
 
 	}
 	
-	// HASHMAP of s1 s2 and action and direction
 	private void initialize(){
 		createVBoxOfCollisionRows();
 		this.setCenter(tablesDisplay);
+		directionToIntegerMap = new HashMap<String, Integer>();
+		populateDirectionMap();
+	}
+	
+	private void populateDirectionMap()
+	{
+		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_UP, INT.UP_VALUE);
+		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_DOWN, INT.DOWN_VALUE);
+		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_LEFT, INT.LEFT_VALUE);
+		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_RIGHT, INT.RIGHT_VALUE);
 	}
 
 	private void createVBoxOfCollisionRows(){
