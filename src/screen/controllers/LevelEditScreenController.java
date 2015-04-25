@@ -4,6 +4,7 @@ import game.Game;
 import screen.screens.LevelEditScreen;
 import sprite.Sprite;
 import javafx.scene.control.Tab;
+import levelPlatform.level.Level;
 
 /**
  * 
@@ -35,6 +36,11 @@ public interface LevelEditScreenController {
 	 * @param level
 	 */
 	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen);
+
+	/**
+	 * Saves the level created in the levelEditScreen
+	 */
+	public void saveLevel(Game game, Level level);
 	
 
 }

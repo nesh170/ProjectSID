@@ -81,9 +81,9 @@ public class ScreenFactory {
 	
 	
 	public Screen createLevelEditScreen(Level level, 
-			LevelEditScreenController levelEditScreenController) {
+			LevelEditScreenController levelEditScreenController, Game game) {
 
-		return new LevelEditScreen(levelEditScreenController, width, height, level);
+		return new LevelEditScreen(levelEditScreenController, game, width, height, level);
 	
 	}
 	
