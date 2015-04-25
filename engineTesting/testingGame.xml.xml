@@ -12,7 +12,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+=======
+          <imagePath>mushroomPlatform.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -43,7 +47,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+=======
+          <imagePath>mushroomPlatform.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -70,7 +78,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+=======
+          <imagePath>mushroomPlatform.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -97,7 +109,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+=======
+          <imagePath>mushroomPlatform.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -249,7 +265,11 @@
                   <emissionList/>
                   <isActive>false</isActive>
                   <collisionTag>fireMario</collisionTag>
+<<<<<<< HEAD
                   <imagePath>engineTesting/FireMario.png</imagePath>
+=======
+                  <imagePath>FireMario.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
                   <facesLeft>false</facesLeft>
                   <transform>
                     <myPosition>
@@ -289,7 +309,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>player</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/mario.png</imagePath>
+=======
+          <imagePath>mario.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -369,7 +393,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>goomba</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/Goomba.png</imagePath>
+=======
+          <imagePath>Goomba.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -396,7 +424,11 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>flower</collisionTag>
+<<<<<<< HEAD
           <imagePath>engineTesting/fireFlower.png</imagePath>
+=======
+          <imagePath>fireFlower.png</imagePath>
+>>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>

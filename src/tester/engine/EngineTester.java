@@ -167,7 +167,7 @@ public class EngineTester extends Tester {
 		myProjectileTemplate.setCollisionTag("bullet");
 		myProjectileTemplate.setImagePath("fireball.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
+				5.0, 200.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

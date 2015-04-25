@@ -13,7 +13,6 @@ import javafx.scene.text.Text;
 
 public class HUD {
 
-	private ScrollPane myPane;
 	private HBox myHUDBox;
 	private String myFont;
 	private double mySize;
@@ -23,9 +22,8 @@ public class HUD {
 	 * Constructor for a HUD that moves with a Scrollpane
 	 */
 	public HUD(ScrollPane pane, HashMap<String, Double> map) {
-		myPane = pane;
 		myHUDMap = map;
-		myHUDBox = new HBox(10);
+		myHUDBox = new HBox();
 		mySize = 20;
 		myFont = "Arial Black";
 		myColor = Color.BLACK;
@@ -37,7 +35,7 @@ public class HUD {
 	
 	public HUD() {
 		myHUDMap = new HashMap<String, Double>();
-		myHUDBox = new HBox(10);
+		myHUDBox = new HBox();
 		mySize = 20;
 		myFont = "Arial Black";
 		myColor = Color.BLACK;

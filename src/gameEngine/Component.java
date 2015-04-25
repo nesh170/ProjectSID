@@ -22,17 +22,17 @@ public abstract class Component {
 	 *  and contains a reference to its sprite
 	 */
 	protected Sprite mySprite;
-	protected List<Double> myValueList;
+	protected Double myValue;
 	private boolean isActive;
 	
 	/** At construction, component knows the
 	 * sprite it is attached to
 	 * @param sprite
 	 */
-	public Component(Sprite sprite, List<Double> valueList){
+	public Component(Sprite sprite, Double value){
 		mySprite = sprite;
 		isActive=true;
-		myValueList=valueList;
+		myValue=value;
 	}
 	
 	/**
