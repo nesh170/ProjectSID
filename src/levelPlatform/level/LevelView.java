@@ -99,8 +99,6 @@ public class LevelView extends ScrollPane {
 		Node background = null;
 		try {
 			ImageView backgroundImageView = new ImageView(myImageManager.getImageForString(aLevel.backgroundPath()));
-			//TODO: adjust size depending on level:
-			System.out.println(aLevel.width() + " " + aLevel.height());
 			backgroundImageView.setFitWidth(aLevel.width());
 			backgroundImageView.setFitHeight(aLevel.height());
 			backgroundImageView.setX(0);
