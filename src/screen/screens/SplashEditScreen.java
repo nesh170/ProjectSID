@@ -477,8 +477,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private void animation(String animation) {
-		
+//	private void animation(String animation) {
+//		
 //		if(animation == "Stars") {
 //			stars();
 //		}
@@ -488,8 +488,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //		else if(animation == "Animation 3") {
 //			//another animation
 //		}
-		
-	}
+//		
+//	}
 
 //	private void stars() {	
 //
@@ -607,13 +607,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		text.setY(y);
 		
 	}
-
-
-//	private void startButtonMove(MouseEvent f) {
-//		
-//		startButtonImageView.setOnMouseReleased(e -> placeImageView(startButtonImageView, e));
-//		
-//	}
 	
 	private void imageViewMove(ImageView imageView, MouseEvent f) {
 
@@ -626,14 +619,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		text.setOnMouseReleased(e -> placeText(text, e));
 		
 	}
-
-//	private void placeStartButton(MouseEvent e) {
-//		
-//		startButtonImageView.setX(e.getX());
-//		startButtonImageView.setY(e.getY());
-//		tag = null;
-//		
-//	}
 	
 	private void placeImageView(ImageView imageView, MouseEvent e) {
 		
@@ -650,44 +635,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = null;
 		
 	}
-
-//	private void resizeImage(ImageView imageView, KeyEvent e, ImageCursor ic) {
+	
+//	private void placeNode(Node node, MouseEvent e) {
 //		
-//		KeyCode keyCode = e.getCode();
-//		
-//		if(keyCode == KeyCode.RIGHT) {
-//			
-//			imageView.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP * imageView.getScaleX());
-//			imageView.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP * imageView.getScaleY());
-//			
-//		}
-//		
-//		else if(keyCode == KeyCode.LEFT) {
-//			
-//			imageView.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN * imageView.getScaleX());
-//			imageView.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN * imageView.getScaleY());
-//			
-//		}
-//		
-//	}
-//	
-//	private void resizeText(Text text, KeyEvent e) {
-//		
-//		KeyCode keyCode = e.getCode();
-//		
-//		if(keyCode == KeyCode.RIGHT) {
-//			
-//			text.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP * text.getScaleX());
-//			text.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP * text.getScaleY());
-//			
-//		}
-//		
-//		else if(keyCode == KeyCode.LEFT) {
-//			
-//			text.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN * text.getScaleX());
-//			text.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN * text.getScaleY());
-//			
-//		}
+//		node.setX(e.getX());
+//		node.setY(e.getY());
+//		tag = null;
 //		
 //	}
 	
