@@ -343,7 +343,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		tag = STRING.SPLASH_EDIT_SCREEN.TAG_START;
 		startButtonImageView = new ImageView(image);
 
-		this.setOnKeyPressed(e -> resize(startButtonImageView, e));
+		this.setOnKeyPressed(e -> resizeAndRotate(startButtonImageView, e));
 
 	}
 	
@@ -376,7 +376,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		//imageView.setId();
 		imageViewArray.add(imageView);
 
-		this.setOnKeyPressed(e -> resize(imageView, e));
+		this.setOnKeyPressed(e -> resizeAndRotate(imageView, e));
 
 		
 	}
@@ -447,7 +447,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		textField.clear();
 	
-		this.setOnKeyPressed(e -> resize(texts.get(counter), e));
+		this.setOnKeyPressed(e -> resizeAndRotate(texts.get(counter), e));
 		
 	}
 
@@ -609,12 +609,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void imageViewMove(ImageView imageView, MouseEvent f) {
+		
+		imageView.setOnKeyPressed(g -> resizeAndRotate(imageView, g));
 
 		imageView.setOnMouseReleased(e -> placeImageView(imageView, e));
 		
 	}
 	
 	private void textMove(Text text, MouseEvent f) {
+		
+		text.setOnKeyPressed(g -> resizeAndRotate(text, g));
 		
 		text.setOnMouseReleased(e -> placeText(text, e));
 		
@@ -626,7 +630,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //		System.out.println(Math.cos(imageView.getRotate()));
 		imageView.setX(e.getX());
 		imageView.setY(e.getY());
-		tag = null;
+		tag = null;	
 		
 	}
 	
@@ -646,7 +650,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //		
 //	}
 	
-	private void resize(Node node, KeyEvent e) {
+	private void resizeAndRotate(Node node, KeyEvent e) {
 		
 		KeyCode keyCode = e.getCode();
 		
@@ -666,13 +670,13 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		else if(keyCode == KeyCode.RIGHT) {
 			
-			node.setRotate(node.getRotate() + 15);
+			node.setRotate(node.getRotate() + INT.SPLASH_EDIT_ROTATE_FACTOR);
 			
 		}
 		
 		else if(keyCode == KeyCode.LEFT) {
 			
-			node.setRotate(node.getRotate() - 15);
+			node.setRotate(node.getRotate() - INT.SPLASH_EDIT_ROTATE_FACTOR);
 			
 		}
 		
