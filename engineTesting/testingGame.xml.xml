@@ -1,7 +1,7 @@
 <game.Game>
   <levels>
     <levelPlatform.level.Level>
-      <width>500</width>
+      <width>900</width>
       <height>500</height>
       <sprites>
         <sprite.Sprite>
@@ -534,6 +534,7 @@
         </tagList>
       </collisionTable>
       <goalMap/>
+      <myBackgroundPath>engineTesting/background.png</myBackgroundPath>
     </levelPlatform.level.Level>
   </levels>
   <name>test</name>
