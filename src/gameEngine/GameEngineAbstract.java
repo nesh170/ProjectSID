@@ -47,9 +47,10 @@ public abstract class GameEngineAbstract {
     /**
      * This method is a helper method for play where it takes in the keyPressed executes the appropriate behavior
      * @param localPlayer 
-     * @param keyPressed
+     * @param keyEventType
+     * @param keyCode
      */
-    public abstract void handleKeyEvent(KeyEvent key, int playerNumber);
+    public abstract void handleKeyEvent(String keyEventType, String keyCode, int playerNumber);
     
     /**
      * Uses The dataHandler class to convert the current level into a String

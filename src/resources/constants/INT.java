@@ -63,6 +63,9 @@ public class INT {
     public static final int COLLISION_UP=2;
     public static final int COLLISION_DOWN=3;
 
+    //Coordinates
+    public static final int X = 1;
+    public static final int Y = 1;
     
 
 	

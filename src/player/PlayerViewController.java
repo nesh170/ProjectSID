@@ -6,15 +6,20 @@ import gameEngine.GameEngine;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 
+import resources.constants.INT;
+import voogasalad.util.network.Network;
 import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.concurrent.Task;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +31,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
+import levelPlatform.level.LevelView;
 import media.AudioController;
 import media.VideoPlayer;
 
@@ -34,6 +41,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
+	public final static int PORT_NUMBER = 52469;
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
@@ -55,6 +63,9 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Camera myCamera;
 
 	private PlayerView myView;
+	private Network myNetwork;
+	
+	private Level myNetworkLevel;
 
 	//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 	//		myGameRoot = pane;
@@ -267,5 +278,143 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void saveGame() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public String getCurrentLevelinXML() {
+		return myEngine.getCurrentLevelinXML();
+	}
+
+	public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
+		myEngine.handleKeyEvent(keyEventType, keyCode, playerNumber);
+	}
+	
+	public void startServer () {
+		try {
+			myNetwork.setUpServer(PORT_NUMBER);
+			sendClientLevels();
+			receiveFromClient();
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void sendClientLevels(){
+		Task<Void> sendTask = new Task<Void>() {
+			@Override
+			protected Void call () {
+
+				while (true) {
+					try {
+						myNetwork.sendStringToClient(getCurrentLevelinXML());
+						Thread.sleep(100);
+					}
+					catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+
+		Thread th = new Thread(sendTask);
+		th.setDaemon(true);
+		th.start();
+	}
+
+
+
+
+	private void receiveFromClient(){
+		Task<Void> taskToReceive = new Task<Void>() {
+
+			@Override
+			protected Void call () throws Exception {
+				while(true){
+					try{
+						String keyControl = myNetwork.getStringFromClient();
+						@SuppressWarnings("unchecked")
+						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+						handleKeyEvent(keyString.get(0),keyString.get(1), INT.LOCAL_PLAYER); //Add code to make another player play
+					}
+					catch(Exception e){
+						System.out.println("Error detector");
+						e.printStackTrace();
+					}
+				}
+			}
+
+		};
+		Thread serverReceiveThread = new Thread(taskToReceive);
+		serverReceiveThread.setDaemon(true);
+		serverReceiveThread.start();
+	}
+
+	public void startClient () {
+		try {
+			myNetwork.setUpClient(PORT_NUMBER);
+			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
+			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
+			receiveLevels();
+			KeyFrame displayFrame = new KeyFrame(
+					Duration.millis(1000 / FRAME_RATE), e -> display(myNetworkLevel));
+			Timeline myTimeline = new Timeline();
+			myTimeline.setCycleCount(Animation.INDEFINITE);
+			myTimeline.getKeyFrames().add(displayFrame);
+			myTimeline.play();
+		}
+		catch (Exception e) {
+			System.err.println("Can't start Client");
+		}
+	}
+
+	private void sendEvent (KeyEvent key) {
+		List<String> keyData = new ArrayList<>();
+		keyData.add(key.getEventType().getName());
+		keyData.add(key.getCode().getName());
+		try {
+			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
+		}
+		catch (Exception e) {
+			System.err.println("Can't send key");
+		}
+	}
+
+	private void receiveLevels(){
+		Task<Void> recvTask = new Task<Void>() {
+			@Override
+			protected Void call () {
+				while (true) {
+					try {
+						String levelString = myNetwork.getStringFromServer();
+						myNetworkLevel =(Level) DataHandler.fromXMLString(levelString);
+						//						renderer.setLevel(level);
+						//						myGameRoot.setContent(renderer.renderLevel());
+						//						double[] coordinates = level.getNewCameraLocations();
+						//						camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+		};
+
+		Thread th = new Thread(recvTask);
+		th.setDaemon(true);
+		th.start();
+
+
+	}
+
+	private void display(Level level){
+		LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+		Camera camera = new Camera(myView.getRoot());
+		renderer.setLevel(level);
+		myView.getRoot().setContent(renderer.renderLevel());
+		double[] coordinates = level.getNewCameraLocations();
+		camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 	}
 }

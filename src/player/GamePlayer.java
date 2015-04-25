@@ -2,6 +2,7 @@ package player;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GamePlayer {
 
@@ -40,6 +41,5 @@ public class GamePlayer {
 	//		// myGameRoot.setMaxSize(width, height);
 	//		myController = new PlayerViewController(myGameRoot, myHUD);
 	//	}
-
 
 }
