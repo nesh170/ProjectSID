@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.sun.glass.ui.Cursor;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -21,7 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.ImageCursor;
@@ -74,6 +72,8 @@ import screen.controllers.CollisionTableScreenController;
  * http://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/TilePane.html
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextField.html
  * http://stackoverflow.com/questions/13134983/liststring-to-arrayliststring-conversion-issue
+ * https://docs.oracle.com/javafx/2/api/javafx/scene/ImageCursor.html
+ * 
  * 
  * 
  * 
@@ -267,17 +267,25 @@ public class CollisionTableScreen extends Screen{
 	private void createVBoxOfCollisionRows(){
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
-		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
-		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
 		verticalBox.setStyle(STRING.COLLISION_EDIT.BOTTOM_ROW_STYLE);
+		
+		Image addRowButtonImg = new Image(STRING.COLLISION_EDIT.ADD_BUTTON_IMG);
+		
+		ImageView addRowButton = new ImageView(addRowButtonImg);
+		addRowButton.setPreserveRatio(true);
+		
+		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), 50);
+		
+//		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
+//		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
 		verticalBox.getChildren().addAll(levelSP);
 		verticalBox.setVgrow(levelSP, Priority.ALWAYS);
        
-
-			verticalBox.getChildren().add(addRowButton);
+		addRowButton.setTranslateX(30);
+		verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
@@ -374,10 +382,9 @@ public class CollisionTableScreen extends Screen{
 		Image saveButtonImg = new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_IMG);
 		
 		ImageView saveButton = new ImageView(saveButtonImg);
-		saveButton.setFitWidth(100);
 		saveButton.setPreserveRatio(true);
 		
-		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG));
+		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), 100);
 		saveButton.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
 		collisionSet.add(saveButton, 6, 0); 
 		
@@ -385,8 +392,9 @@ public class CollisionTableScreen extends Screen{
 		return collisionTable;
 	}
 
-	private void setButtonStyle(ImageView button, Image natural, Image pressed)
+	private void setButtonStyle(ImageView button, Image natural, Image pressed, int size)
 	{
+		button.setFitWidth(size);
 		button.setCursor(ImageCursor.HAND);
 		button.setOnMousePressed(e -> button.setImage(pressed));
 		button.setOnMouseReleased(e -> button.setImage(natural));
@@ -394,7 +402,7 @@ public class CollisionTableScreen extends Screen{
 	
 	
 	
-	private ScrollPane configureScrollPane(ScreenButton addCollisionRowButton){
+	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){
 		ScrollPane sp = new ScrollPane();
 		sp.setPannable(true);
 	
