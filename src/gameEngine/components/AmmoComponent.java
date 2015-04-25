@@ -9,9 +9,9 @@ public class AmmoComponent extends Component {
 	
 	private int myAmmo;
 
-	public AmmoComponent(Sprite sprite, List<Double> valueList) {
-		super(sprite, valueList);
-		myAmmo = Math.toIntExact(Math.round(valueList.get(0)));
+	public AmmoComponent(Sprite sprite, Double value) {
+		super(sprite, value);
+		myAmmo = Math.toIntExact(Math.round(value));
 	}
 	
 	public int getAmmoCount() {
@@ -20,13 +20,11 @@ public class AmmoComponent extends Component {
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	protected void update() {
-		// TODO Auto-generated method stub
 
 	}
 

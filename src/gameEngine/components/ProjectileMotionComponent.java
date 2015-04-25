@@ -12,11 +12,11 @@ public class ProjectileMotionComponent extends VelocityComponent {
 	private double myBulletSpeed;
 	private double mySelfDestructDistance;
 	
-	public ProjectileMotionComponent(Sprite sprite, List<Double> valueList ,Sprite shooter) {
-		super(sprite,valueList);
+	public ProjectileMotionComponent(Sprite sprite, Double speed, Double sdd, Sprite shooter) {
+		super(sprite, null);
 		myShooter = shooter;
-		myBulletSpeed = valueList.get(0);
-		mySelfDestructDistance = valueList.get(1);
+		myBulletSpeed = speed;
+		mySelfDestructDistance = sdd;
 	}
 
 	

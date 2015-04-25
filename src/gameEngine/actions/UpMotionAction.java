@@ -9,6 +9,7 @@ import gameEngine.components.VelocityComponent;
 public class UpMotionAction extends Action {
 	
 	private boolean climbing;
+	private VelocityComponent myVelocityComponent;
 
 	public UpMotionAction(Sprite sprite, Double value, KeyCode... keys) {
 		super(sprite,value,keys);
@@ -20,19 +21,20 @@ public class UpMotionAction extends Action {
 	}
 
 	@Override
-	public void prepare() {}
+	public void prepare() {
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+	}
 	
     @Override
-    public void execute () {
-    	VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+    public void doAction () {
     	if (climbing) {
-    		velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
+    		myVelocityComponent.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
     		climbing = false;
     		return;
     	}
-        if(velocityComp.isGrounded()){
-        	velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
-        	velocityComp.setGrounded(false);
+        if(myVelocityComponent.isGrounded()){
+        	myVelocityComponent.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
+        	myVelocityComponent.setGrounded(false);
         }
      
         

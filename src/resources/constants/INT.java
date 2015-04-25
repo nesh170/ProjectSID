@@ -66,6 +66,7 @@ public class INT {
 
 	//Multiplayer
 	public static final int LOCAL_PLAYER = 0;
+	public static final int SECOND_PLAYER = 1;
 	
 	//Directions
     public static final int COLLISION_LEFT=0;
@@ -73,6 +74,11 @@ public class INT {
     public static final int COLLISION_UP=2;
     public static final int COLLISION_DOWN=3;
 
+    //Coordinates
+    public static final int X = 1;
+    public static final int Y = 1;
+
+    
     
 
 	
