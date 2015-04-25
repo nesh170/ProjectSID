@@ -126,7 +126,7 @@ public class LevelView extends ScrollPane {
 			try{
 				Image spriteImg = myImageManager.getImageForString(sprite.getImagePath());
 				ImageView spriteImageView = null;
-				if(spriteImg !=null && 1==0){
+				if(spriteImg !=null){
 					spriteImageView = new ImageView(spriteImg);
 					if(sprite.facesLeft()) spriteImageView.setScaleX(-1.0);
 					spriteImageView.setX(sprite.transform().getPosX());
