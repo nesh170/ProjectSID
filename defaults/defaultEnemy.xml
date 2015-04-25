@@ -18,6 +18,7 @@
   <emissionList/>
   <isActive>true</isActive>
   <collisionTag>enemy</collisionTag>
+  <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
   <facesLeft>false</facesLeft>
   <transform>
     <myPosition>

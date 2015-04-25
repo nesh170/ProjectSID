@@ -6,6 +6,7 @@
   <emissionList/>
   <isActive>true</isActive>
   <collisionTag>platform</collisionTag>
+  <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Brick_Block.png</imagePath>
   <facesLeft>false</facesLeft>
   <transform>
     <myPosition>

@@ -20,7 +20,6 @@ public class CompoundAction extends Action{
 	public CompoundAction(Sprite sprite) {
 		super(sprite);
 		mySubActions = new ArrayList<Action>();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CompoundAction(Sprite sprite,  KeyCode... keys){
@@ -34,13 +33,10 @@ public class CompoundAction extends Action{
 	
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
 		// Using List version of .forEach() rather than
 		// functional stream() version because we want users to be
 		// able to establish an order. The list implementation
@@ -51,8 +47,6 @@ public class CompoundAction extends Action{
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
