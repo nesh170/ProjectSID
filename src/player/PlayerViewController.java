@@ -40,8 +40,9 @@ import media.VideoPlayer;
 public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
+	public final static double NETWORK_RATE = 15;
 	public final static double UPDATE_RATE = 120;
-	public final static int PORT_NUMBER = 52469;
+	public final static int PORT_NUMBER = 60910;
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
@@ -173,7 +174,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		initializeGameAttributes();
 		setupAnimation();
-		play();
+		//play();
 	}
 
 	public void selectGame(Game game) {
@@ -359,13 +360,13 @@ public class PlayerViewController implements GamePlayerInterface {
 			myNetwork.setUpClient(PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-			receiveLevels();
-			KeyFrame displayFrame = new KeyFrame(
-					Duration.millis(1000 / FRAME_RATE), e -> display(myNetworkLevel));
-			Timeline myTimeline = new Timeline();
-			myTimeline.setCycleCount(Animation.INDEFINITE);
-			myTimeline.getKeyFrames().add(displayFrame);
-			myTimeline.play();
+//			receiveLevels();
+//			KeyFrame displayFrame = new KeyFrame(
+//					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel));
+//			Timeline networkTimeline = new Timeline();
+//			networkTimeline.setCycleCount(Animation.INDEFINITE);
+//			networkTimeline.getKeyFrames().add(displayFrame);
+//			networkTimeline.play();
 		}
 		catch (Exception e) {
 			System.err.println("Can't start Client");
@@ -376,6 +377,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		List<String> keyData = new ArrayList<>();
 		keyData.add(key.getEventType().getName());
 		keyData.add(key.getCode().getName());
+		System.out.println(keyData.get(1));
 		try {
 			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
 		}
