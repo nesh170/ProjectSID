@@ -70,7 +70,8 @@ public abstract class Action {
 	public boolean isActive(){
 		return isActive;
 	}
-	
+	       
+	       
 	/**
 	 * Initialize aspects of specific
 	 * behavior that need to happen at the

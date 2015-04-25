@@ -4,9 +4,9 @@ import javafx.scene.control.ScrollPane;
 
 public class Camera {
 
-	ScrollPane myView;
-	double focusX;
-	double focusY;
+	private ScrollPane myView;
+	private double focusX;
+	private double focusY;
 	
 	public Camera(ScrollPane pane) {
 		myView = pane;

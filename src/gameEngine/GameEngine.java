@@ -118,8 +118,14 @@ public class GameEngine extends GameEngineAbstract {
         return Collections.unmodifiableList(spriteTagList);
     }
     
-    
+    public List<String> actionWithKeyCode (int playerNum) {
+        return myCurrentLevel.getActionListInStrings(playerNum);
+    }
 
+    @Override
+    public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
+        myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
+    }
 
 
 

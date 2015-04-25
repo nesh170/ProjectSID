@@ -1,94 +1,89 @@
 package player;
 
 import gameEngine.actions.GroovyAction;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import sprite.Sprite;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PlayerMenu {
+public class PlayerMenu extends MenuBar{
 
-	private MenuBar myMenuBar;
-	private GamePlayer myPlayer;
 
-	public PlayerMenu(Stage stage) {
-		myMenuBar = new MenuBar();
-		HUD hud = new HUD();
-		ScrollPane myGameRoot = new ScrollPane();
-		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
-		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
-		myGameRoot.setMaxSize(900, 450);
-		myGameRoot.setMinSize(900, 450);
-		PlayerViewController pvc = new PlayerViewController(myGameRoot, hud);
+	public PlayerMenu(PlayerViewController pvc) {
 		createPlayerMenu(pvc);
-		myPlayer = new GamePlayer(stage, getBar(), myGameRoot);
 	}
 
-	public PlayerMenu(MenuBar menuBar) {
-		myMenuBar = menuBar;
-	}
+    public void createPlayerMenu (PlayerViewController view) {
+        List<Method> methodList =
+                Stream.of(PlayerMenu.class.getDeclaredMethods())
+                        .filter(method -> method.getAnnotations().length > 0)
+                        .collect(Collectors.toList());
+        Collections.sort(methodList, (method1, method2) -> ((Integer) ((AddMenuItem) method1
+                .getAnnotation(AddMenuItem.class)).order()).compareTo(((AddMenuItem) method2
+                .getAnnotation(AddMenuItem.class)).order())); //This method sorts the object based on the order given by the annotations
+        methodList.forEach(method -> getMenus().add(handleMenuAddition(method, view)));
+    }
 
-	public void createPlayerMenu(MenuBar menuBar, PlayerViewController view) {
-		Menu menuView = new Menu("View");
-		menuBar.getMenus().add(buildFileMenu(view));
-		menuBar.getMenus().add(buildGamesMenu(view));
-		menuBar.getMenus().add(menuView);
-		menuBar.getMenus().add(buildSoundMenu(view));
-		menuBar.getMenus().add(buildHelpMenu(view));
-		menuBar.getMenus().add(buildGroovyMenu(view));
-	}
+    private Menu handleMenuAddition (Method method, PlayerViewController view) {
+        Menu menuToAdd = new Menu();
+        try {
+            menuToAdd = (Menu) method.invoke(this, view);
+        }
+        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return menuToAdd;
+    }
 
-	public void createPlayerMenu(PlayerViewController view) {
-		createPlayerMenu(myMenuBar, view);
-	}
-
-	private MenuItem makeMenuItem(String name) {
+    private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
 		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
 				+ name.substring(0, 1)));
 		return item;
 	}
 
-	private Menu buildFileMenu(PlayerViewController view) {
+	@AddMenuItem(order = 0)
+	private Menu buildFileMenu(PlayerViewController controller) {
 		Menu fileMenu = new Menu("File");
 
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
-			view.stopView();
+			controller.pause();
 		});
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			view.startView();
+			controller.play();
 			;
 		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
-			System.out.println("write code to load saved game");
+			controller.loadNewChooser();
 		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {
-			view.restart();
+			controller.restart();
 		});
 		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
 				restartItem);
 		return fileMenu;
 	}
 
+	@AddMenuItem(order = 1)
 	private Menu buildGamesMenu(PlayerViewController view) {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
@@ -102,6 +97,7 @@ public class PlayerMenu {
 		return gamesMenu;
 	}
 
+	@AddMenuItem(order = 2)
 	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
@@ -111,20 +107,8 @@ public class PlayerMenu {
 		return helpMenu;
 	}
 	
-	private Menu buildGroovyMenu (PlayerViewController view) {
-        Menu groovyMenu = new Menu("Groovy");
-        MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
-        GroovyMenu actionMenu =
-                new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
-        groovyActionItem
-                .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
-                                                                   (spriteTag, groovyAction) -> view
-                                                                           .addRuntimeAction(spriteTag,
-                                                                                             groovyAction)));
-        groovyMenu.getItems().addAll(groovyActionItem);
-        return groovyMenu;
-	}
 
+	@AddMenuItem(order = 3)
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
@@ -139,6 +123,21 @@ public class PlayerMenu {
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
 	}
+	
+	@AddMenuItem(order = 4)
+	private Menu buildGroovyMenu (PlayerViewController view) {
+	    Menu groovyMenu = new Menu("Groovy");
+	    MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
+	    GroovyMenu actionMenu =
+	            new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
+	    groovyActionItem
+	    .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
+	                                                       (spriteTag, groovyAction) -> view
+	                                                       .addRuntimeAction(spriteTag,
+	                                                                         groovyAction)));
+	    groovyMenu.getItems().addAll(groovyActionItem);
+	    return groovyMenu;
+	}
 
 	private Stage buildGameChooser() {
 		Stage gameChooser = new Stage();
@@ -151,11 +150,6 @@ public class PlayerMenu {
 		Scene allGames = new Scene(vbox, 300, 200);
 		gameChooser.setScene(allGames);
 		return gameChooser;
-	}
-
-
-	public MenuBar getBar() {
-		return myMenuBar;
 	}
 
 }

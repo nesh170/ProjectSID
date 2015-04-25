@@ -7,19 +7,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
-import gameEngine.EngineMathFunctions;
+import java.util.stream.Stream;
 import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import resources.constants.INT;
 import sprite.Sprite;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
 
@@ -173,6 +167,16 @@ public class Level extends LevelPlatform {
         GroovyComponent copy = groovyComponent.deepCopy();
         copy.setSprite(sprite);
         sprite.addComponentRuntime(copy);
+    }
+
+    public List<String> getActionListInStrings (int playerNumber) {
+        List<String> actionName = new ArrayList<>();
+        playerSpriteList().get(playerNumber).actionList().stream().forEach(action -> actionName.add(action.getClass().getSimpleName()));
+        return actionName;
+    }
+    
+    public void setKeyCodeToPlayer(int playerNumber, String actionName, KeyCode key){
+        playerSpriteList().get(playerNumber).getActionOfType(actionName).setKeyCode(Stream.of(key).collect(Collectors.toList()));
     }
 
 }	

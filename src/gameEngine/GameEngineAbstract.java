@@ -2,6 +2,7 @@ package gameEngine;
 import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -73,4 +74,19 @@ public abstract class GameEngineAbstract {
      * @return
      */
     public abstract List<String> getSpriteTagList();
+    
+    /**
+     * Returns a string of the action names with KeyCodes to be modified by the player
+     * @return
+     */
+    public abstract List<String> actionWithKeyCode(int playerNum);
+    
+    /**
+     * Lets you change the keycode of a specific action in the playerNumber.
+     * @param playerNumber
+     * @param actionName
+     * @param key
+     */
+    public abstract void changeKeyCodeInAction(int playerNumber, String actionName, KeyCode key);
+    
 }
