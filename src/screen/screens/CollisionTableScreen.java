@@ -372,7 +372,7 @@ public class CollisionTableScreen extends Screen{
 	            }    
 	        });
 		
-		ScreenButton saveSelection = new ScreenButton("save", STRING.BUTTONS.BUTTON_STYLE);
+		ScreenButton saveSelection = new ScreenButton(STRING.COLLISION_EDIT.SAVE_BUTTON_TEXT, STRING.BUTTONS.BUTTON_STYLE);
 		collisionSet.add(saveSelection, 6, 0); 
 		
 		saveSelection.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
