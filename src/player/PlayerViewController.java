@@ -16,7 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -34,7 +33,7 @@ import levelPlatform.level.Level;
 import media.AudioController;
 import media.VideoPlayer;
 
-public class PlayerViewController {
+public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
@@ -51,7 +50,6 @@ public class PlayerViewController {
 	private int myScore;
 	private File myGameFolder;
 	private List<Level> myGameLevels;
-	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
 	private Game myGame;
@@ -76,21 +74,20 @@ public class PlayerViewController {
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
-		myGameRoot = view.getRoot();
-		myCamera = new Camera(myGameRoot);
+		myCamera = new Camera(myView.getRoot());
 		loadNewChooser();
 	}
 
 	public void play() {
-		myEngine.play(myGameRoot);
 		myTimeline.play();
+		myEngine.play(myView.getRoot());
 		myView.playScreen();
 		myAudioController.play();
 	}
 
 	public void pause() {
 		myTimeline.stop();
-		myEngine.pause(myGameRoot);
+		myEngine.pause(myView.getRoot());
 		myView.pauseScreen();
 		myAudioController.pause();
 	}
@@ -102,14 +99,8 @@ public class PlayerViewController {
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		myGameRoot.setContent(myGameGroup);
-		// sets focus automatically to root which is receiving key inputs
-		myGameRoot.requestFocus();
-		centerNodeInScrollPane();
-	}
-
-	public void centerNodeInScrollPane() {
-		myCamera.focus();
+		myView.display(myGameGroup);
+		myCamera.focus();		
 	}
 
 	public void setPauseBase(StackPane pane) {
@@ -230,5 +221,53 @@ public class PlayerViewController {
 
 	public void stopMusic() {
 		myAudioController.stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getLives() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHighScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void loadNewGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPreferences() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List findGames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveGame() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -92,6 +92,11 @@ public class PlayerView {
 		return myGameRoot;
 	}
 
+	public void display(Group group) {
+		myGameRoot.setContent(group);
+		myGameRoot.requestFocus();
+	}
+
 	//	public PlayerView(ScrollPane scrollPane, PlayerViewController playerController) {
 	//		
 	//		myMenuBar = new PlayerMenu(playerController);
