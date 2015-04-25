@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import data.DataHandler;
 import resources.constants.INT;
 import javafx.event.EventType;
@@ -16,7 +15,6 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
-import levelPlatform.levelPlatformView.LevelPlatformView;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -43,7 +41,6 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
@@ -52,6 +49,8 @@ public class GameEngine extends GameEngineAbstract {
     
     @Override
     public double[] update () {
+    	myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.clear());
+    	myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
         return myCurrentLevel.getNewCameraLocations();
@@ -95,6 +94,16 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public String getCurrentLevelinXML () {
         return DataHandler.toXMLString(myCurrentLevel);
+    }
+
+    @Override
+    public List<String> actionWithKeyCode (int playerNum) {
+        return myCurrentLevel.getActionListInStrings(playerNum);
+    }
+
+    @Override
+    public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
+        myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
     }
 
 

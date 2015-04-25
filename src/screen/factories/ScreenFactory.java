@@ -1,6 +1,7 @@
 package screen.factories;
 
 import java.util.List;
+import java.util.Set;
 
 import game.Game;
 import javafx.scene.control.Tab;
@@ -75,10 +76,10 @@ public class ScreenFactory {
 	 * @param splashEditScreenManager
 	 * @return Screen
 	 */
-	public Screen createCollisionTableScreen(List<String> sprites, 
+	public Screen createCollisionTableScreen(Set<String> spriteTags, 
 			CollisionTableScreenController collisionTableScreenController) {
 
-		return new CollisionTableScreen(collisionTableScreenController, width, height, sprites);
+		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags);
 		
 	}
 	

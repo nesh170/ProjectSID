@@ -1,6 +1,7 @@
 package gameEngine.test;
 
 
+import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.AlterHealthAction;
@@ -90,7 +91,6 @@ public class ExampleLevelMaker extends Application{
 
 		l.setSprites(mySpriteList);
 		l.setGoalMap(goalMap);
-		System.out.println(players.size());
 		return l;
 	}
 
@@ -242,7 +242,7 @@ public class ExampleLevelMaker extends Application{
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
+				Arrays.asList(new Double[]{1.0, 400.0}), myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
@@ -274,8 +274,10 @@ public class ExampleLevelMaker extends Application{
 	public static void main(String[] args){
 		ExampleLevelMaker elm = new ExampleLevelMaker();
 		Level l = elm.makeLevel();
+		Game game = new Game("lolol");
+		game.addLevel(l);
 		try{
-			DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
+			DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");

@@ -26,8 +26,6 @@ public class MotionPathAction extends Action {
 	
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

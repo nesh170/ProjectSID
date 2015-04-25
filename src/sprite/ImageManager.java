@@ -25,15 +25,13 @@ public class ImageManager {
 
 	public Image getImageForString(String path) throws MalformedURLException, IOException{
 		path = System.getProperty("user.dir") + "/" + path;
-		if(path == null){
-			return null;
-		}
 		if(imageMap.containsKey(path)){
 			return imageMap.get(path);
 		}
+		/*
 		if(path.charAt(0) == ':'){ //filename cannot contain : in any system
 			return makeTextFieldImage(path); 
-		}
+		}*/
 		Image img = DataHandler.fileToImage(new File(path));
 		imageMap.put(path, img);
 		return img; 

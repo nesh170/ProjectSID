@@ -35,6 +35,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -93,6 +94,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private final ObservableList<String> listOfEnemies = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfPlayers = FXCollections.observableArrayList();
 	private final ObservableList<String> listOfPowerups = FXCollections.observableArrayList();
+	private final ObservableList<String> listOfOther = FXCollections.observableArrayList();
 	// Maps
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
@@ -101,6 +103,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private Set<ImageView> premadeEnemies;
 	private Set<ImageView> premadePlayers;
 	private Set<ImageView> premadePowerups;
+	//Set of tags
+	private Set<String> tags;
 	
 	private final static double UNSELECT = 1;
 	private final static double SELECT = 0.4;
@@ -117,6 +121,10 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	public Level currentLevel() {
 		return level;
+	}
+	
+	public Set<String> getTags() {
+		return tags;
 	}
 
 
@@ -182,6 +190,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void instantiateMaps() {
 
 		this.stringToSpriteMap = new HashMap<>();
+		this.tags = new HashSet<>();
+		tagResources().keySet().forEach(key -> tags.add(tagResources().getString(key)));
 
 	}
 
@@ -211,6 +221,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),languageResources().getString("AddEnemy"), listOfEnemies, premadeEnemies);
 		TitledPane players = makeTitledPane(languageResources().getString("Player"),languageResources().getString("AddPlayer"), listOfPlayers, premadePlayers);
 		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),languageResources().getString("AddPowerup"), listOfPowerups, premadePowerups);
+		TitledPane other = makeTitledPane(languageResources().getString("Other"),languageResources().getString("AddOther"), listOfOther, new HashSet<ImageView>());
 
 		stringToListMap = new HashMap<>();
 		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
@@ -218,7 +229,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		stringToListMap.put(tagResources().getString("Player"), listOfPlayers);
 		stringToListMap.put(tagResources().getString("Powerup"), listOfPowerups);
 
-		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups);
+		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups,other);
 
 	}
 
@@ -234,30 +245,22 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		/*
 		 * Unsure if I want to use setOnMouseReleased or setOnMouseClicked
 		 */
-		platformListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			public void changed(ObservableValue<? extends String> ov,
-					String oldSelect, String newSelect) {
-				try {
-					if(stringToSpriteMap.containsKey(oldSelect)) {
-						levelEditDisplay.getImage(stringToSpriteMap.get(oldSelect)).setOpacity(UNSELECT);
-					}
-					/*
-					 * this next line could throw an exception possibly if
-					 * the selection model is empty, catch statement is precautionary
-					 */
-					selectSprite(stringToSpriteMap.get(newSelect));
-				}
-
-				catch (IndexOutOfBoundsException | NullPointerException ee) {
-					//do not select any sprites, since no sprites are in the selection model
-				}				
-			}
-			
-		});
+		platformListView.getSelectionModel().selectedItemProperty().addListener((observable,oldSelect,newSelect) -> changeSelection(newSelect));
+		platformListView.setOnMouseReleased(e -> changeSelection(platformListView.getSelectionModel().getSelectedItem()));
 		
 		return new TitledPane(title, titledPaneBox);
 
+	}
+	
+	private void changeSelection(String newSelect) {
+		try {
+			if(stringToSpriteMap.containsKey(selectedSprite.getName())) {
+				levelEditDisplay.getImage(stringToSpriteMap.get(selectedSprite.getName())).setOpacity(UNSELECT);
+			}
+		} catch (NullPointerException e) {
+			//Nothing
+		}
+		selectSprite(stringToSpriteMap.get(newSelect));
 	}
 
 	private void makeButtonsOnRight() {
@@ -293,9 +296,12 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				makeButtonForPane(languageResources().getString("AddHeightDown"), e -> addHeightDown());
 
 		Button addCollTableButton = 
-				makeButtonForPane("Edit collisions", e -> controller.loadCollisionTableScreen(this));
+				makeButtonForPane(languageResources().getString("EditCols"), e -> controller.loadCollisionTableScreen(this));
+		
+		Button addTagType = 
+				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
 
-		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton);
+		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType);
 
 	}
 
@@ -416,7 +422,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		String newSpriteName = UniqueString.makeUniqueKey(stringToSpriteMap.keySet(), sprite.getName());
 		sprite.setName(newSpriteName);
 		stringToSpriteMap.put(sprite.getName(), sprite);
-		stringToListMap.get(sprite.tag()).add(sprite.getName());
+		try {
+			stringToListMap.get(sprite.tag()).add(sprite.getName());
+		} catch (NullPointerException e) {
+			listOfOther.add(sprite.getName());
+		}
 
 	}
 	
@@ -459,6 +469,29 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	
 	private void addLevelHeight() {
 		level.configureWidthAndHeight(level.width(),levelEditDisplay.getSizeToIncrease() +  level.height());
+	}
+	
+	//TODO possible duplicated code here and makeAddSpritePopup
+	private void addTagType(MouseEvent e) {
+		Popup tagTypePopup = new Popup();
+		tagTypePopup.setHideOnEscape(true);
+		tagTypePopup.setAutoHide(true);
+		
+		VBox display = new VBox();		
+		display.alignmentProperty().set(Pos.CENTER);
+		display.getStyleClass().add("pane");
+		TextField addTagHere = new TextField();
+		
+		Button confirmTag = makeButtonForPane(languageResources().getString("Confirm"), ee -> addTagTypeToSet(addTagHere.getText(),tagTypePopup));
+		display.getChildren().addAll(addTagHere,confirmTag);		
+		tagTypePopup.getContent().add(display);
+		tagTypePopup.show(rightButtonBox, e.getSceneX(), e.getSceneY());
+
+	}
+	
+	private void addTagTypeToSet(String tag, Popup popup) {
+		tags.add(tag);
+		popup.hide();
 	}
 	
 	
@@ -537,7 +570,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	 */
 	public List<String> getSpriteTags()
 	{
-		return new ArrayList<String>(stringToSpriteMap.keySet());
+		return new ArrayList<String>(tags);
 
 	}
 

@@ -14,12 +14,14 @@ import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -376,9 +378,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, List<String> sprites) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(sprites, collisionTableScreenManager),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -509,6 +511,7 @@ public class ScreenController {
 			createSplashEditScreen(newSplashScreen);
 			game.setSplash(newSplashScreen);
 			gameEditScreen.displayApproporiateSplashButton();		
+		
 		}
 		
 		@Override
@@ -521,11 +524,10 @@ public class ScreenController {
 		@Override
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
-			game.removeLevel(levelIndex);
-			Transition pt = gameEditScreen.runAnimationsInParallel(gameEditScreen.trashLevelAnimationFinishedEvent(),
-								gameEditScreen.assignLevelButtonsAnimation());
-			pt.play();
-			
+			game.removeLevel(levelIndex);			
+			SequentialTransition st = gameEditScreen.animatesTrashLevel(
+					gameEditScreen.trashLevelAnimationFinishedEvent());
+			st.play();
 		}
 
 
@@ -602,13 +604,17 @@ public class ScreenController {
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 			
-			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);
+			SpriteEditScreen spriteEditScreen = (SpriteEditScreen) createSpriteEditScreen(levelEditTab, sprite).getContent();
+			spriteEditScreen.tagsForUse(levelEditScreen.getTags());
 			
 		}
 		
+		/*
+		 * @Deprecated use loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) instead, pass in null if necessary
+		 */
 		@Override
+		@Deprecated 
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
 			
 			Sprite newSprite = new Sprite();
@@ -623,7 +629,7 @@ public class ScreenController {
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
 			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getSpriteTags());
+			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags());
 
 		}
 		
