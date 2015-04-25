@@ -99,7 +99,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void configureButtons() {
 		
-		Button addStartButton = makeAddStartButton();
+		//Button addStartButton = makeAddStartButton();
 		Button addImage = makeAddImageButton();
 		Button addBackgroundImage = makeAddBackgroundImageButton();
 		TextField textField = makeAddTextTextField();
@@ -112,7 +112,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button back = makeBackButton();
 		HBox hbox = createBackButtonAndTextFields(back);
 		
-		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, fontPicker, addAnimation));
+		this.viewableArea().setRight(createAddButtons(addImage, addBackgroundImage, addText, textField, colorPicker, fontPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
 		this.viewableArea().setTop(hbox);
 		
@@ -130,14 +130,14 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, ComboBox fontPicker, Button addAnimation) {
+	private VBox createAddButtons(Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, ComboBox fontPicker, Button addAnimation) {
 		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING);
 		VBox addTextVBox = new VBox(INT.SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT);
 		
 		addTextVBox.getChildren().addAll(addText, textField, colorPicker, fontPicker);
 		allAddButtons.setAlignment(Pos.CENTER);
-		allAddButtons.getChildren().addAll(addStartButton, addImage, addBackgroundImage, addTextVBox, addAnimation);
+		allAddButtons.getChildren().addAll(addImage, addBackgroundImage, addTextVBox, addAnimation);
 		
 		return allAddButtons;
 		
@@ -180,16 +180,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	private Button makeAddStartButton() {
-		
-		Button addStartButton = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_START_BUTTON);
-		setLargeButtonSize(addStartButton);
-		
-		addStartButton.setOnMouseClicked(e -> addStartButton(addStartButton));
-		
-		return addStartButton;
-		
-	}
+//	private Button makeAddStartButton() {
+//		
+//		Button addStartButton = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_START_BUTTON);
+//		setLargeButtonSize(addStartButton);
+//		
+//		addStartButton.setOnMouseClicked(e -> addStartButton(addStartButton));
+//		
+//		return addStartButton;
+//		
+//	}
 
 	private Button makeAddImageButton() {
 		
@@ -309,47 +309,54 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 	
-	public void addStartButton(Button button) {
-		try {
-			
-			File file;
-			Image image;
-			FileChooser fileChooser = new FileChooser();
-			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-			fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
+//	public void addStartButton(Button button) {
+//		try {
+//			
+//			File file;
+//			Image image;
+//			FileChooser fileChooser = new FileChooser();
+//			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+//			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+//			fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
+//
+//			file = fileChooser.showOpenDialog(null);
+//			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
+//
+//			button.setDisable(true);
+//			
+//			ImageCursor imageCursor = new ImageCursor(image);
+//			getParent().setCursor(imageCursor);
+//
+//			tag = STRING.SPLASH_EDIT_SCREEN.TAG_START;
+//			splashEditModel.createStartButtonImageView(image);
+//
+//			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
+//		} catch (Exception ex) {	
+//			
+//			//NO CATCH
+//			
+//		}
+//	}
+	
+	private Image createImageFromFile(double size) {
+		
+		File file = null;
+		Image image = null;
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 
-			file = fileChooser.showOpenDialog(null);
-			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
-
-			button.setDisable(true);
-			
-			ImageCursor imageCursor = new ImageCursor(image);
-			getParent().setCursor(imageCursor);
-
-			tag = STRING.SPLASH_EDIT_SCREEN.TAG_START;
-			splashEditModel.createStartButtonImageView(image);
-
-			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
-		} catch (Exception ex) {	
-			
-			//NO CATCH
-			
-		}
+		file = fileChooser.showOpenDialog(null);
+		image = new Image(file.toURI().toString(), size, size, false, false);
+		return image;
+		
 	}
 	
 	public void addImage() {
 		try {
-			File file = null;
-			Image image = null;
 			
-			FileChooser fileChooser = new FileChooser();
-			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-			fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
-
-			file = fileChooser.showOpenDialog(null);
-			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
+			Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
 			
 			ImageCursor imageCursor = new ImageCursor(image);
 			getParent().setCursor(imageCursor);
@@ -387,16 +394,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	public void addBackgroundImage() {
 		try {
-			File file = null;
-			Image image = null;
-			FileChooser fileChooser = new FileChooser();
-			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
 
-			file = fileChooser.showOpenDialog(null);
-			image = new Image(file.toURI().toString(), 0, 0, false, false);
-
+			Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
 			splashEditModel.createImageView(image);
 
@@ -574,54 +573,55 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			tag = "";
 			
 			splashEditModel.placeTextAtXY(counter-1, e);
+			this.getChildren().remove(splashEditModel.getText());
 			this.getChildren().add(splashEditModel.getText());
 			
 		}
 
 	}	
 
-	private void placeImageViewAtXY(ImageView imageView, double x, double y) {
-
-
-		imageView.setX(x);
-		imageView.setY(y);
-		
-	}
+//	private void placeImageViewAtXY(ImageView imageView, double x, double y) {
+//
+//
+//		imageView.setX(x);
+//		imageView.setY(y);
+//		
+//	}
+//	
+//	private void placeTextAtXY(Text text, double x, double y) {
+//
+//
+//		text.setX(x);
+//		text.setY(y);
+//		
+//	}
+//	
+//	private void imageViewMove(ImageView imageView, MouseEvent f) {
+//		
+//		imageView.setOnMouseReleased(e -> placeImageView(imageView, e));
+//		
+//	}
+//	
+//	private void textMove(Text text, MouseEvent f) {
+//		
+//		text.setOnMouseReleased(e -> placeText(text, e));
+//		
+//	}
+//	
+//	private void placeImageView(ImageView imageView, MouseEvent e) {
+//		
+//
+//	
+//		
+//	}
 	
-	private void placeTextAtXY(Text text, double x, double y) {
-
-
-		text.setX(x);
-		text.setY(y);
-		
-	}
-	
-	private void imageViewMove(ImageView imageView, MouseEvent f) {
-		
-		imageView.setOnMouseReleased(e -> placeImageView(imageView, e));
-		
-	}
-	
-	private void textMove(Text text, MouseEvent f) {
-		
-		text.setOnMouseReleased(e -> placeText(text, e));
-		
-	}
-	
-	private void placeImageView(ImageView imageView, MouseEvent e) {
-		
-
-	
-		
-	}
-	
-	private void placeText(Text text, MouseEvent e) {
-		
-		text.setX(e.getX());
-		text.setY(e.getY());
-
-		
-	}
+//	private void placeText(Text text, MouseEvent e) {
+//		
+//		text.setX(e.getX());
+//		text.setY(e.getY());
+//
+//		
+//	}
 	
 //	private void placeNode(Node node, MouseEvent e) {
 //		
