@@ -644,9 +644,14 @@ public class ScreenController {
 		@Override
 		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo, Sprite sprite) {
 			
-			tabManager.removeTabAndChangeSelected(switchTo);
+			returnToSelectedLevel(levelEditScreen, switchTo);
 			levelEditScreen.addSprite(sprite);
 			
+		}
+		
+		@Override
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo) {
+			tabManager.removeTabAndChangeSelected(switchTo);
 		}
 		
 	}
