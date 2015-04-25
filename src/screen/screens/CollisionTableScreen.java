@@ -220,7 +220,7 @@ import screen.controllers.CollisionTableScreenController;
 public class CollisionTableScreen extends Screen{
 
 	private CollisionTableScreenController myController;
-	private List<String> levelSprites;
+	private String[] levelSpriteTags;
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;
 	
@@ -235,10 +235,10 @@ public class CollisionTableScreen extends Screen{
 	 * TODO: need to get passed Sprites from LES so that create action and set action to sprite
 	 * then need to pass collision table the ACTION (not string of action)
 	 */
-	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, List<String> sprites) {
+	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags) {
 		super(width, height);
 		myController = controller;
-		levelSprites = sprites;
+		levelSpriteTags = (String[])spriteTags.toArray();
 		initialize();
 	}
 	
