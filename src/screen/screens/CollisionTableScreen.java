@@ -267,8 +267,9 @@ public class CollisionTableScreen extends Screen{
 	private void createVBoxOfCollisionRows(){
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
-		
-		ScrollPane levelSP = configureScrollPane();
+		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
+		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
+		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
 		verticalBox.getChildren().addAll(levelSP);
@@ -282,7 +283,7 @@ public class CollisionTableScreen extends Screen{
 
 		//	addButtonBox.getChildren().add(addRowButton);
 		//	addRowButton.setAlignment(Pos.BOTTOM_CENTER);
-//			verticalBox.getChildren().add(addRowButton);
+			verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
@@ -436,6 +437,8 @@ public class CollisionTableScreen extends Screen{
 		addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
 		addButtonBox.getChildren().add(addRowButton);
 		tile.getChildren().add(addButtonBox);
+		
+		addCollisionRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
 		
 //		addButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
 
