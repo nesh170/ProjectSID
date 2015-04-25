@@ -497,7 +497,7 @@ public class ScreenController {
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			game.addLevel(newLevel);
 			createLevelEditScreen(newLevel);
-			gameEditScreen.displayLevels(game.levels());
+			gameEditScreen.displayLevels();
 			
 		}
 		
