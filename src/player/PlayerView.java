@@ -48,6 +48,17 @@ public class PlayerView {
 		myBorderPane.setTop(myMenuBar);
 		myPauseScreen = makePauseScreen(playerController);
 	}
+	
+//	public StackPane createHUD(ScrollPane pane) {
+//		StackPane stack = new StackPane();
+//		myHUD = new HUD(pane);
+//		myHUD.addItem("Lives", 0);
+//		myHUD.addItem("Health", 0);
+//		myHUD.addItem("Score", 0);
+//		stack.getChildren().add(myHUD.getHUDBox());
+//		StackPane.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+//		return stack;
+//	}
 
 	private StackPane makePauseScreen(PlayerViewController playerController) {
 		StackPane pause = new StackPane();
