@@ -1,6 +1,10 @@
 package player;
 
+import gameEngine.Component;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -19,6 +23,7 @@ public class HUD {
 	private double mySize;
 	private Color myColor;
 	private Map<String, Double> myHUDMap;
+	private List<Component> components = new ArrayList<>();
 	/**
 	 * Constructor for a HUD that moves with a Scrollpane
 	 */
@@ -43,18 +48,8 @@ public class HUD {
 		myColor = Color.BLACK;
 	}
 	
-	/**
-	 * Allows HUD to be moved as the screen moves
-	 */
-	public void updateHUDLocation(Bounds bounds) {
-//		myHUDBox.setTranslateX(bounds.getMinX() + (myPane.getHvalue() * (bounds.getMaxX() - myPane.getWidth())));
-//		myHUDBox.setTranslateY(bounds.getMinY() + (myPane.getVvalue() * (bounds.getMaxY() - myPane.getHeight())));
-		myHUDBox.setTranslateX(-myPane.getViewportBounds().getMinX());
-		myHUDBox.setTranslateY(-myPane.getViewportBounds().getMinY());
-		System.out.println("boundsMinX: " + bounds.getMinX());
-		System.out.println("boundsMinY: " + bounds.getMinY());
-		System.out.println("ViewportMinY: " + myPane.getViewportBounds().getMinY());
-		System.out.println("ViewportMinX: " + myPane.getViewportBounds().getMinX());
+	public void addComponent(Component c) {
+		components.add(c);
 	}
 	
 	public void addItem(String item, double val) {
