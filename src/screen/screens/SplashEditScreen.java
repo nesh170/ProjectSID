@@ -354,8 +354,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			getParent().setCursor(imageCursor);
 
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
-			imageView = new ImageView(image);
-			splashEditModel.(imageView);
+			splashEditModel.createImageView(image);
 
 			this.setOnKeyPressed(e -> resizeAndRotate(imageView, e));
 		} catch (Exception ex) {
@@ -398,7 +397,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			image = new Image(file.toURI().toString(), 0, 0, false, false);
 
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
-			imageView = new ImageView(image);
+			splashEditModel.createImageView(image);
 
 		} catch (Exception ex) {	
 			

@@ -38,6 +38,10 @@ public class SplashEditModel {
 		imageViewArray.add(imageView);
 	}
 
+	public void createImageView(Image image) {
+		imageView = new ImageView(image);
+	}
+	
 	public void selectText(String textValue) {
 		texts.stream()
 		.filter(t -> t.getText().equals(textValue))
@@ -59,7 +63,7 @@ public class SplashEditModel {
 	}
 	
 	public void resizeAndRotateImage(KeyEvent e) {
-		resizeAndRotate()
+		resizeAndRotate(imageView, e);
 	}
 	
 	private void resizeAndRotate(Node node, KeyEvent e) {
