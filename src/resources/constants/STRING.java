@@ -167,6 +167,7 @@ public class STRING {
 		public static final String DIRECTION_LEFT = "Left";
 		public static final String DIRECTION_RIGHT = "Right";
 		
+		
 		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
 		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
 		public static final String COMBO_SPRITE2_NAME = "Sprite Inactive";
@@ -174,6 +175,7 @@ public class STRING {
 		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
 		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
 		public static final String TEXT_PROMPT = "Value";
+		public static final String SAVE_BUTTON_TEXT = "Save";
 
 	}
 	
