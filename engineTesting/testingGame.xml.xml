@@ -1,11 +1,7 @@
 <game.Game>
   <levels>
     <levelPlatform.level.Level>
-<<<<<<< HEAD
       <width>900</width>
-=======
-      <width>500</width>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
       <height>500</height>
       <sprites>
         <sprite.Sprite>
@@ -16,15 +12,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
-=======
-          <imagePath>mushroomPlatform.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -55,15 +43,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
-=======
-          <imagePath>mushroomPlatform.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -90,15 +70,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
-=======
-          <imagePath>mushroomPlatform.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -125,15 +97,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>platform</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
-=======
-          <imagePath>mushroomPlatform.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -285,15 +249,7 @@
                   <emissionList/>
                   <isActive>false</isActive>
                   <collisionTag>fireMario</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
                   <imagePath>engineTesting/FireMario.png</imagePath>
-=======
-                  <imagePath>FireMario.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-                  <imagePath>engineTesting/FireMario.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
                   <facesLeft>false</facesLeft>
                   <transform>
                     <myPosition>
@@ -333,15 +289,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>player</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/mario.png</imagePath>
-=======
-          <imagePath>mario.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/mario.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -421,15 +369,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>goomba</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/Goomba.png</imagePath>
-=======
-          <imagePath>Goomba.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/Goomba.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -456,15 +396,7 @@
           <emissionList/>
           <isActive>true</isActive>
           <collisionTag>flower</collisionTag>
-<<<<<<< HEAD
-<<<<<<< HEAD
           <imagePath>engineTesting/fireFlower.png</imagePath>
-=======
-          <imagePath>fireFlower.png</imagePath>
->>>>>>> 1337eabafcec0f40c80c044fa2632f9921e741c2
-=======
-          <imagePath>engineTesting/fireFlower.png</imagePath>
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
           <facesLeft>false</facesLeft>
           <transform>
             <myPosition>
@@ -602,10 +534,7 @@
         </tagList>
       </collisionTable>
       <goalMap/>
-<<<<<<< HEAD
       <myBackgroundPath>engineTesting/background.png</myBackgroundPath>
-=======
->>>>>>> 205140854aa291e207cdee90eb5958ef3f939590
     </levelPlatform.level.Level>
   </levels>
   <name>test</name>
