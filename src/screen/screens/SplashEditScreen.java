@@ -107,7 +107,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Rectangle displayArea = new Rectangle(rectWidth, rectHeight, COLOR.DEFAULT_SPLASH_SCREEN_COLOR);
 		
 		this.viewableArea().setLeft(displayArea);
-		this.setOnMouseClicked(e -> add(tag, e, displayArea));
+		this.setOnMouseClicked(e -> add(e, displayArea));
 	}
 
 	private VBox createAddButtons(Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, ComboBox fontPicker, Button addAnimation) {	
@@ -202,8 +202,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
 		
 		return comboBox;
-	}
-	
+	}	
 
 	private Button makeAddAnimationButton() {
 		Button addAnimation = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_ANIMATION);
@@ -278,7 +277,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void chooseImage(TextField textField) {	
 		int index = Integer.parseInt(textField.getText()) - 1;
-		splashEditModel.selectImage(index);	
+		splashEditModel.selectImage(index, counter);	
 		textField.clear();
 	}
 
@@ -292,7 +291,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		}
 	}
 
-	public void addText(TextField textField, Color color, ComboBox fontPicker) {		
+	public void addText(TextField textField, Color color, ComboBox fontPicker) {
 		tag = STRING.SPLASH_EDIT_SCREEN.TAG_TEXT;
 		splashEditModel.createText(textField.getText());
 		splashEditModel.colorText(color);
@@ -395,31 +394,26 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		controller.returnToGameEditScreen();		
 	}
 	
-	private void add(String tag, MouseEvent e, Rectangle rectangle) {	
+	private void add(MouseEvent e, Rectangle rectangle) {	
 		if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE) {
 			splashEditModel.addSpriteImageToSpriteList(new Sprite(new Point2D(e.getX(), e.getY())));
-			getParent().setCursor(Cursor.DEFAULT);
-			
-			splashEditModel.getImageView().setOnMousePressed(f -> splashEditModel.imageViewMove(f));
-
-			tag = "";
-			
+			getParent().setCursor(Cursor.DEFAULT);		
+			splashEditModel.getImageView().setOnMousePressed(f -> splashEditModel.imageViewMove(f));		
 			splashEditModel.placeImageViewAtXY(e);
 			this.getChildren().remove(splashEditModel.getImageView());
-			this.getChildren().add(splashEditModel.getImageView());					
+			this.getChildren().add(splashEditModel.getImageView());	
 		}
 		else if(tag == STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE) {	
 			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));		
 		}		 
-		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_TEXT) {		
-			splashEditModel.getText().setOnMousePressed(f -> splashEditModel.textMove(f));
-
-			tag = "";
-			
+		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_TEXT) {
 			splashEditModel.placeTextAtXY(counter-1, e);
 			this.getChildren().remove(splashEditModel.getText());
 			this.getChildren().add(splashEditModel.getText());		
+			splashEditModel.getText().setOnMousePressed(f -> splashEditModel.textMove(f));	
 		}
+
+		tag = "";
 	}	
 
 	private void setLargeButtonSize(Button button) {	

@@ -109,15 +109,25 @@ public class SplashEditModel {
 	}
 	
 	public void selectText(String textValue) {
-		texts.stream()
-		.filter(t -> t.getText().equals(textValue))
-		.forEach(t -> text = t);		
+//		texts.stream()
+//		.filter(t -> t.getText().equals(textValue))
+//		.forEach(t -> text = t);	
+		for (Text t : texts) {
+			if (t.getText().equals(textValue)) {
+				text = t;
+			}
+		}
 	}
 
-	public void selectImage(int index) {
-		imageViewArray.stream()
-		.filter(i -> !i.equals(null))
-		.forEach(i -> imageView = i);
+	public void selectImage(int index, int counter) {
+//		imageViewArray.stream()
+//		.filter(i -> !i.equals(null))
+//		.forEach(i -> imageView = i);
+		for (int i=0; i<counter; i++) {
+			if(imageViewArray.get(i) != null) {
+				imageView = imageViewArray.get(i);
+			}
+		}
 	}
 	
 	public void forEachText(Consumer<Text> consumer) {
