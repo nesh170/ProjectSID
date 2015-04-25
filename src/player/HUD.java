@@ -13,7 +13,6 @@ import javafx.scene.text.Text;
 
 public class HUD {
 
-	private ScrollPane myPane;
 	private HBox myHUDBox;
 	private String myFont;
 	private double mySize;
@@ -23,7 +22,6 @@ public class HUD {
 	 * Constructor for a HUD that moves with a Scrollpane
 	 */
 	public HUD(ScrollPane pane, HashMap<String, Double> map) {
-		myPane = pane;
 		myHUDMap = map;
 		myHUDBox = new HBox();
 		mySize = 20;
@@ -41,20 +39,6 @@ public class HUD {
 		mySize = 20;
 		myFont = "Arial Black";
 		myColor = Color.BLACK;
-	}
-	
-	/**
-	 * Allows HUD to be moved as the screen moves
-	 */
-	public void updateHUDLocation(Bounds bounds) {
-//		myHUDBox.setTranslateX(bounds.getMinX() + (myPane.getHvalue() * (bounds.getMaxX() - myPane.getWidth())));
-//		myHUDBox.setTranslateY(bounds.getMinY() + (myPane.getVvalue() * (bounds.getMaxY() - myPane.getHeight())));
-		myHUDBox.setTranslateX(-myPane.getViewportBounds().getMinX());
-		myHUDBox.setTranslateY(-myPane.getViewportBounds().getMinY());
-		System.out.println("boundsMinX: " + bounds.getMinX());
-		System.out.println("boundsMinY: " + bounds.getMinY());
-		System.out.println("ViewportMinY: " + myPane.getViewportBounds().getMinY());
-		System.out.println("ViewportMinX: " + myPane.getViewportBounds().getMinX());
 	}
 	
 	public void addItem(String item, double val) {
