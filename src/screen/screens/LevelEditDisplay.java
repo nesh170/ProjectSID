@@ -1,9 +1,11 @@
 package screen.screens;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import data.DataHandler;
 import resources.constants.INT;
 import sprite.Sprite;
 import javafx.event.EventHandler;
@@ -35,7 +37,7 @@ public class LevelEditDisplay extends ScrollPane {
 		this();
 		content.setMinWidth(width);
 		content.setMinHeight(height);
-		listOfSprites.forEach(sprite -> addSpriteToDisplay(sprite,sprite.spriteImage().getImageViewToDisplay()));
+		listOfSprites.forEach(sprite -> addSpriteToDisplay(sprite,new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath())))));
 	}
 	
 	
