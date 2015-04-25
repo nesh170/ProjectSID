@@ -20,13 +20,11 @@ public class AmmoComponent extends Component {
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	protected void update() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -37,13 +37,11 @@ public class VelocityComponent extends Component{
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void update() {
-		// TODO Auto-generated method stub
 		frameCalculateVelocity();
 		frameMove();
 	}

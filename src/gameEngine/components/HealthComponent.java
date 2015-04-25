@@ -66,8 +66,7 @@ public class HealthComponent extends Component {
 	
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override

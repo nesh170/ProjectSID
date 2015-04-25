@@ -53,6 +53,7 @@
   <emissionList/>
   <isActive>true</isActive>
   <collisionTag>player</collisionTag>
+  <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/mario.png</imagePath>
   <facesLeft>false</facesLeft>
   <transform>
     <myPosition>
