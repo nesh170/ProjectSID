@@ -283,13 +283,13 @@ public class CollisionTableScreen extends Screen{
        
 //		HBox addButtonBox = new HBox(800);
 		//	addButtonBox.setAlignment(Pos.BOTTOM_CENTER);
-			ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
+		//	ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
 		//	addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
-			addRowButton.setOnMouseClicked(e -> saveAll(levelSP));
+		//	addRowButton.setOnMouseClicked(e -> saveAll(levelSP));
 
 		//	addButtonBox.getChildren().add(addRowButton);
 		//	addRowButton.setAlignment(Pos.BOTTOM_CENTER);
-			verticalBox.getChildren().add(addRowButton);
+		//	verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
@@ -431,26 +431,6 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 	}
 	
-
-	private void saveAll(ScrollPane sp)
-	{
-		List<Node> children = sp.getChildrenUnmodifiable();
-		System.out.println("got node kids");
-		for (Node each : children)
-		{
-			System.out.println("	for (Node each : children)");
-		//	if (each instanceof HBox)
-			{
-				List<Node> boxChildren = ((HBox) each).getChildren();
-				System.out.println("got box kids");
-				for (Node subEach : boxChildren)
-				{
-					System.out.println(subEach.getTypeSelector());
-				}
-			}
-		}
-		
-	}
 	
 	private boolean isDouble(String val)
 	{
