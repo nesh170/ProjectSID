@@ -136,27 +136,10 @@ public class GameEditScreen extends Screen {
 		
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 			
-		//System.out.println(this.game);
-			
-//		configureLevels();
-		
 		initialize(controller);
 
-		
 	}
-/*
-	private void configureLevels() {
-		levels = FXCollections.observableArrayList();
-		levels.addListener(new ListChangeListener<Level>() {
 
-			@Override
-			public void onChanged(
-					javafx.collections.ListChangeListener.Change<? extends Level> listener) {
-				displayLevelsInParallel(game.levels());
-			}
-		});
-	}
-*/
 	/**
 	 * @param controller
 	 */
@@ -591,9 +574,9 @@ public class GameEditScreen extends Screen {
 	private ContextMenu makeRightClickMenu(EventHandler<ActionEvent> toEdit, EventHandler<ActionEvent> toRemove) { // pass in Level
 
 		final ContextMenu rMenu = new ContextMenu();
-		MenuItem edit = new MenuItem("edit");
+		MenuItem edit = new MenuItem("Edit");
 		edit.setOnAction(toEdit);
-		MenuItem remove = new MenuItem("remove");
+		MenuItem remove = new MenuItem("Remove");
 		remove.setOnAction(toRemove);
 		rMenu.getItems().addAll(edit, remove);
 		
@@ -638,9 +621,9 @@ public class GameEditScreen extends Screen {
 
 	private Menu makeTools(){
 		Menu tools = new Menu("Tools");
-		MenuItem levelOnly = new MenuItem("hide splash");
+		MenuItem levelOnly = new MenuItem("Hide splash");
 		levelOnly.setOnAction(e -> hideSplashRegion());
-		MenuItem seeAll = new MenuItem("display all");
+		MenuItem seeAll = new MenuItem("Display all");
 		seeAll.setOnAction(e -> showSplashRegion());
 		tools.getItems().addAll(levelOnly, seeAll);
 		return tools;
