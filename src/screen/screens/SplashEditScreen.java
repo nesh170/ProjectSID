@@ -249,7 +249,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private ComboBox<String> createFontPicker() {
 		
-		String[] fonts = new String[]{STRING.SPLASH_EDIT_SCREEN.TIMES, STRING.SPLASH_EDIT_SCREEN.ARIAL, STRING.SPLASH_EDIT_SCREEN.VERDANA};
+		String[] fonts = new String[]{STRING.SPLASH_EDIT_SCREEN.TIMES, STRING.SPLASH_EDIT_SCREEN.ARIAL, 
+				STRING.SPLASH_EDIT_SCREEN.VERDANA, "Century Gothic", "Marker Felt", "Monotype Corsiva", "Apple Chancery"};
 
 		final ComboBox<String> comboBox = new ComboBox<String>();
 		comboBox.getItems().addAll(fonts); 
@@ -447,7 +448,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		textField.clear();
 	
-		this.setOnKeyPressed(e -> resizeAndRotate(texts.get(counter), e));
+		this.setOnKeyPressed(e -> resizeAndRotate(texts.get(counter-1), e));
+		
+		counter++;	
 		
 	}
 
@@ -584,9 +587,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			
 			text.setOnMousePressed(f -> textMove(text, f));
 			
-			placeTextAtXYIsUsingSIDPixels(texts.get(counter), e.getX(), e.getY(), false);
-			
-			counter++;	
+			placeTextAtXYIsUsingSIDPixels(texts.get(counter-1), e.getX(), e.getY(), false);
 			
 		}
 
@@ -610,7 +611,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void imageViewMove(ImageView imageView, MouseEvent f) {
 		
-		imageView.setOnKeyPressed(g -> resizeAndRotate(imageView, g));
+		
 
 		imageView.setOnMouseReleased(e -> placeImageView(imageView, e));
 		
