@@ -1,5 +1,6 @@
 package screen.screens;
 
+import gameEngine.Action;
 import gameEngine.CollisionTable;
 
 import java.awt.Scrollbar;
@@ -11,7 +12,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -57,6 +58,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
+import sprite.Sprite;
 
 /**
  * NOTE: STILL REFACTORING
@@ -338,7 +340,7 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.add(direction, 3, 0); 
 		
 		ObservableList<String> actionsToAdd = FXCollections.observableArrayList(ResourceBundle
-				.getBundle("resources.spritePartProperties.action")
+				.getBundle("resources.spritePartProperties.collisionAction")
 				.keySet().stream().map(e -> languageResources().getString(e))
 				.collect(Collectors.toList()));
 		
@@ -465,6 +467,19 @@ public class CollisionTableScreen extends Screen{
 		return true;
 		
 	}
+	
+/*	private Action createActionFromString(String actionString)
+	{
+		//TODO: create separate class for String-> action (also used for spriteEditScreen
+		Action action = (Action) Class
+				.forName(classPathMap.get(selected))
+				.getConstructor(Sprite.class, Double.class,
+						KeyCode[].class)
+						.newInstance(editableSprite,
+								Double.parseDouble(actionValue.getText()),
+								keylist);
+	//	return action;
+	}*/
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String value)
 	{
