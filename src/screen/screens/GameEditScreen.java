@@ -385,7 +385,7 @@ public class GameEditScreen extends Screen {
 						
 						if (splashOrLevel == INT.LEVEL) {
 							gameEditModel.configureSelection(index);
-							controller.loadLevelEditScreen(gameEditModel.getSelectedLevel());
+							controller.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getSelectedLevel());
 						}
 							
 						else {
@@ -400,7 +400,7 @@ public class GameEditScreen extends Screen {
 						gameEditModel.configureSelection(index);
 						makeRightClickMenu(
 								e -> controller
-										.loadLevelEditScreen(gameEditModel.getSelectedLevel()),
+										.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getSelectedLevel()),
 								e -> controller.trashLevel(gameEditModel.getGame(), gameEditModel.getSelectedIndex(), g)).show(node,
 										mouseEvent.getScreenX(), mouseEvent.getScreenY());
 					}
@@ -611,7 +611,7 @@ public class GameEditScreen extends Screen {
 		MenuItem addLevel = new MenuItem("Add new Level");
 		addLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), this));
 		MenuItem editLevel = new MenuItem("Edit Level");
-		editLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame()
+		editLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getGame()
 				.levels().get(gameEditModel.getSelectedIndex()))); // references to the specific
 												// level within a game
 		levelMenu.getItems().addAll(addLevel, editLevel);
