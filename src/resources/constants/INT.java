@@ -30,9 +30,13 @@ public class INT {
 	public static final int SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT = 5;
 	public static final int SPLASH_EDIT_COLOR_PICKER_HEIGHT = 25;
 	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X = 157;
+	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_2X = 330;
 	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH = 150;
 	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT = 50;
 	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION = 0;
+	public static final int SPLASH_EDIT_BACK_BUTTON_HBOX_SPACING = 30;
+	public static final int SPLASH_EDIT_TEXTFIELD_WIDTH = 150;
+	public static final int SPLASH_EDIT_TEXTFIELD_HEIGHT = 30;
 	
 	
 	// Collision table
