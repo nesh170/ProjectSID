@@ -293,7 +293,7 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void logIn(Popup popup, TextField username, PasswordField password) {
-			User loggedIn = parseHandle.loadUser(username.getText());
+			User loggedIn = parseHandle.loadUser(username.getText(), password.getText());
 			createMainPageScreen(loggedIn);
 			popup.hide();
 		}
@@ -303,6 +303,8 @@ public class SocialCenterScreenController {
 				PasswordField password, PasswordField rePassWord) {
 	
 			User newUser = new User("", username.getText(), password.getText());
+			parseHandle.saveUser(newUser);
+			createMainPageScreen(newUser);
 			popup.hide();
 			
 		}

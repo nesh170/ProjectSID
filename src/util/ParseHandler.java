@@ -1,6 +1,7 @@
 package util;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.parse4j.Parse;
 import org.parse4j.ParseException;
@@ -43,7 +44,13 @@ public class ParseHandler {
 		
 	}
 	
-	public User loadUser(String name){
+	public Optional<User> loadUserOptional(String name, String pass) {
+		Optional<User> toReturn = Optional.ofNullable(loadUser(name, pass));
+		if(!toReturn.isPresent()) return toReturn;
+		return Optional.empty();
+	}
+	
+	public User loadUser(String name, String pass){
 		ParseQuery<ParseObject> query  = ParseQuery.getQuery("User");
 		query.whereEqualTo("userName", name);
 		List<ParseObject> users = null;
@@ -54,11 +61,13 @@ public class ParseHandler {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String pass = users.get(0).getString("password");
+		String passServer = users.get(0).getString("password");
 		String image = users.get(0).getString("imagePath");
 		String objectId = users.get(0).getObjectId();
-		return new User(objectId, name, pass, image);
+		User toReturn = new User(objectId, name, passServer, image);
 		
+		if(toReturn.validate(pass)) return toReturn;
+		return null;
 		
 		
 	}
