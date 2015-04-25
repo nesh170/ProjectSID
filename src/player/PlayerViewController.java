@@ -41,7 +41,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
-	public final static int PORT_NUMBER = 52469;
+	public final static int PORT_NUMBER = 60910;
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
@@ -173,7 +173,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		initializeGameAttributes();
 		setupAnimation();
-		play();
+		//play();
 	}
 
 	public void selectGame(Game game) {
@@ -290,7 +290,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	
 	public void startServer () {
 		try {
-		        myTimeline.pause();
+		    myTimeline.pause();
 			myNetwork.setUpServer(PORT_NUMBER);
 			myTimeline.play();
 			sendClientLevels();
@@ -325,9 +325,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		th.start();
 	}
 
-
-
-
 	private void receiveFromClient(){
 		Task<Void> taskToReceive = new Task<Void>() {
 
@@ -338,6 +335,7 @@ public class PlayerViewController implements GamePlayerInterface {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
 						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+						System.out.println(keyString.get(1));
 						handleKeyEvent(keyString.get(0),keyString.get(1), INT.LOCAL_PLAYER); //Add code to make another player play
 					}
 					catch(Exception e){
