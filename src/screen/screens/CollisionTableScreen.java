@@ -271,7 +271,6 @@ public class CollisionTableScreen extends Screen{
 	}
 
 	private void createVBoxOfCollisionRows(){
-		//, DisplayLevels(myLevels)
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
 		
