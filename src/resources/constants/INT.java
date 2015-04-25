@@ -34,6 +34,19 @@ public class INT {
 	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT = 50;
 	public static final int SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION = 0;
 	
+	
+	// Collision table
+	// [Sprite 1 (active)]		[Sprite 2]		[Direction   v]		[Action  v]		[Value]
+	public static final int ACTIVE_SPRITE = 0;
+	public static final int INACTIVE_SPRITE = 1;
+	public static final int DIRECTION = 2;
+	public static final int ACTION = 3;
+	public static final int VALUE = 4;
+	
+	
+	
+	
+	
 	//MainMenu
 	public static final int DEFAULT_BUTTON_WIDTH = 100;
 	public static final int DEFAULT_BUTTON_HEIGHT = 50;
