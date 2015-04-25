@@ -1,22 +1,5 @@
 package player;
 
-import game.Game;
-import gameEngine.GameEngine;
-
-import java.io.IOException;
-import java.util.List;
-
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import media.VideoController;
-import media.VideoPlayer;
-import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 

@@ -54,25 +54,25 @@ public class PlayerMenu extends MenuBar{
 	}
 
 	@AddMenuItem(order = 0)
-	private Menu buildFileMenu(PlayerViewController view) {
+	private Menu buildFileMenu(PlayerViewController controller) {
 		Menu fileMenu = new Menu("File");
 
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
-			view.pause();
+			controller.pause();
 		});
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			view.play();
+			controller.play();
 			;
 		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
-			System.out.println("write code to load saved game");
+			controller.loadNewChooser();
 		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {
-			view.restart();
+			controller.restart();
 		});
 		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
 				restartItem);

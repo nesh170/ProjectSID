@@ -17,10 +17,9 @@ public class PlayerView {
 	private ScrollPane myGameRoot;
 	private StackPane myPauseScreen;
 	private HUD myHUD;
-	private Camera myCamera;
 	private PlayerViewController myController;
 	private BorderPane myBorderPane;
-	private StackPane myTop;
+	private StackPane myStackPane;
 
 	public PlayerView() {
 
@@ -32,12 +31,14 @@ public class PlayerView {
 		myGameRoot.setMaxSize(900, 450);
 		myGameRoot.setMinSize(900, 450);
 
-		myCamera = new Camera(myGameRoot);
-
+		myStackPane = new StackPane();
+		
 		myBorderPane = new BorderPane();
 		myBorderPane.setCenter(myGameRoot);
 		
-		myScene = new Scene(myBorderPane, 1200, 600);
+		myStackPane.getChildren().add(myBorderPane);
+		
+		myScene = new Scene(myStackPane, 1200, 600);
 
 	}
 
@@ -75,8 +76,7 @@ public class PlayerView {
 	}
 	
 	public void pauseScreen() {
-		myTop = new StackPane();
-		myTop.getChildren().add(myPauseScreen);
+		myStackPane.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
 	}
 	

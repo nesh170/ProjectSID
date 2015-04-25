@@ -11,13 +11,10 @@ import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -41,6 +38,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
+
 	private Media myVideo;
 	private Media myAudio;
 	private double myWidth;
@@ -48,29 +46,30 @@ public class PlayerViewController implements GamePlayerInterface {
 	private int myLives;
 	private int myHealth;
 	private int myScore;
+	private Game myGame;
+
 	private File myGameFolder;
 	private List<Level> myGameLevels;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-	private Game myGame;
 	private Camera myCamera;
 	private StackPane myTop;
-	
+
 	private PlayerView myView;
-	
-//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
-//		myGameRoot = pane;
-//		myCamera = new Camera(pane);
-//		myHUD = gameHUD;
-//		loadNewChooser();
-//	}
-//
-//	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
-//		myGameRoot = pane;
-//		myCamera = new Camera(pane);
-//		myHUD = gameHUD;
-//		selectGame(game);
-//	}
+
+	//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
+	//		myGameRoot = pane;
+	//		myCamera = new Camera(pane);
+	//		myHUD = gameHUD;
+	//		loadNewChooser();
+	//	}
+	//
+	//	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
+	//		myGameRoot = pane;
+	//		myCamera = new Camera(pane);
+	//		myHUD = gameHUD;
+	//		selectGame(game);
+	//	}
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -106,7 +105,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setPauseBase(StackPane pane) {
 		myTop = pane;
 	}
-	
+
 	public void removePause() {
 		//top pane's only child will be pause menu
 
@@ -161,7 +160,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 		myEngine = new GameEngine(myGameLevels);
 	}
-	
+
 	private void chooseGame(Stage gameChooser) {
 		// find a way to set up a map so we can just have file paths
 		// for games already established so no directory needs to be opened here
@@ -181,7 +180,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-				"mario3.xml" };
+		"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -198,12 +197,16 @@ public class PlayerViewController implements GamePlayerInterface {
 		initializeGameAttributes();
 		play();
 	}
-	
+
 	public void showTutorial() {
 		// TODO Auto-generated method stub
+		myTimeline.pause();
 		try {
 			Stage videoStage = new Stage();
-			videoStage.setOnCloseRequest(event -> playMusic());
+			videoStage.setOnCloseRequest(event -> {
+				playMusic();
+				myTimeline.play();
+			});
 			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -226,7 +229,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -250,13 +253,13 @@ public class PlayerViewController implements GamePlayerInterface {
 	@Override
 	public void loadNewGame() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setPreferences() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -268,6 +271,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	@Override
 	public void saveGame() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
