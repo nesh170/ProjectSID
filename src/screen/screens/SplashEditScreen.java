@@ -249,8 +249,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private ComboBox<String> createFontPicker() {
 		
-		String[] fonts = new String[]{STRING.SPLASH_EDIT_SCREEN.TIMES, STRING.SPLASH_EDIT_SCREEN.ARIAL, 
-				STRING.SPLASH_EDIT_SCREEN.VERDANA, "Century Gothic", "Marker Felt", "Monotype Corsiva", "Apple Chancery"};
+		String[] fonts = new String[]{STRING.SPLASH_EDIT_SCREEN.APPLE_CHANCERY, STRING.SPLASH_EDIT_SCREEN.ARIAL, 
+				STRING.SPLASH_EDIT_SCREEN.CENTURY_GOTHIC, STRING.SPLASH_EDIT_SCREEN.MARKER_FELT,
+				STRING.SPLASH_EDIT_SCREEN.MONOTYPE_CORSIVA, STRING.SPLASH_EDIT_SCREEN.TIMES, STRING.SPLASH_EDIT_SCREEN.VERDANA};
 
 		final ComboBox<String> comboBox = new ComboBox<String>();
 		comboBox.getItems().addAll(fonts); 
