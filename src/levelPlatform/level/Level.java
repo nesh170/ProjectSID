@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import gameEngine.EngineMathFunctions;
 import java.util.HashMap;
 import java.util.List;
@@ -140,6 +141,16 @@ public class Level extends LevelPlatform {
         xyLocations[X] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosX()+playerSpriteList.get(INT.LOCAL_PLAYER).transform().getWidth()/2;
         xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight()/2;
         return xyLocations;
+    }
+
+    public List<String> getActionListInStrings (int playerNumber) {
+        List<String> actionName = new ArrayList<>();
+        playerSpriteList().get(playerNumber).actionList().stream().forEach(action -> actionName.add(action.getClass().getSimpleName()));
+        return actionName;
+    }
+    
+    public void setKeyCodeToPlayer(int playerNumber, String actionName, KeyCode key){
+        playerSpriteList().get(playerNumber).getActionOfType(actionName).setKeyCode(Stream.of(key).collect(Collectors.toList()));
     }
 
 }	

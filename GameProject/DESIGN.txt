@@ -1,9 +1,0 @@
-Super Mario Platforms is a 2D Scrolling Platformer in which Mario must jump from platform
-to platform without falling, in order to reach the pipe at the end of the level which will
-take Mario to fight his arch-nemesis, Bowser. When Mario reaches Bowser, the new challenge
-is not to avoid falling but to jump on the giant turtle's head, thus defeating him. 
-Once Mario does this, the player has won the game.
-The user can make Mario move left and right by using the left and right arrow keys. The user
-can make Mario jump by pressing the space bar. 
-The second mode, boss mode, differs because the screen does not scroll and enemy-fighting is 
-introduced.

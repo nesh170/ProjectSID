@@ -10,7 +10,6 @@ public class NormalAction extends Action {
 	
 	public NormalAction(Sprite sprite) {
 		super(sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

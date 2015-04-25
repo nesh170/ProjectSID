@@ -50,11 +50,11 @@ public class GamePlayScreen extends LevelPlatformCapableScreen {
 		this.gamePlayScreenController = gamePlayScreenController;
 		ScrollPane scroll = new ScrollPane();
 		StackPane base = new StackPane();
-		myPlayer = new GamePlayer(scroll);
-		StackPane top = myPlayer.createHUD(scroll);
+		//myPlayer = new GamePlayer(scroll);
+		//StackPane top = myPlayer.createHUD(scroll);
 		this.setCenter(base);
-		base.getChildren().addAll(scroll, top);
-		myPlayer.setupActions(myMenu);
+		//base.getChildren().addAll(scroll, top);
+		//myPlayer.setupActions(myMenu);
 	}
 
 	public GamePlayScreen(GamePlayScreenController sc, Game game, double width,
@@ -62,15 +62,15 @@ public class GamePlayScreen extends LevelPlatformCapableScreen {
 		super(width, height);
 		ScrollPane scroll = new ScrollPane();
 		viewableArea().setCenter(scroll);
-		myPlayer = new GamePlayer(game, scroll);
-		myPlayer.setupActions(myMenu);
+		//myPlayer = new GamePlayer(game, scroll);
+		//myPlayer.setupActions(myMenu);
 	}
 
 	// GamePlayer specific menuBar
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		PlayerMenu menu = new PlayerMenu(menuBar);
-		myMenu = menu;
+		//PlayerMenu menu = new PlayerMenu(menuBar);
+		//myMenu = menu;
 	}
 
 	// All other instance methods

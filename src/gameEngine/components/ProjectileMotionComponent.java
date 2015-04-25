@@ -23,8 +23,7 @@ public class ProjectileMotionComponent extends VelocityComponent {
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.
-		//TODO: REMOVE HARDCODED SPEED
-		if((mySprite.transform().getPosX() - myShooter.transform().getPosX()) > mySelfDestructDistance){
+		if((myShooter.transform().getPosX() - mySprite.transform().getPosX()) > mySelfDestructDistance){
 			mySprite.setIsActive(false);
 		}
 		setVelocityX(myBulletSpeed);
