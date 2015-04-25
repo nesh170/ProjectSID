@@ -1,5 +1,7 @@
 package player;
 
+import gameEngine.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,6 +19,7 @@ public class HUD {
 	private String myFont;
 	private double mySize;
 	private Color myColor;
+	private Map<String, Component> myComponentMap;
 	private Map<String, Double> myHUDMap;
 	/**
 	 * Constructor for a HUD that moves with a Scrollpane
@@ -41,11 +44,13 @@ public class HUD {
 		myColor = Color.BLACK;
 	}
 	
-	public void addItem(String item, double val) {
+	public void addItem(String item, Component component) {
+		double val = component.getValue();
 		Text text = new Text(item + ": " + val);
 		text.setFont(Font.font(myFont, mySize));
 		text.setFill(myColor);
 		myHUDBox.getChildren().add(text);
+		myComponentMap.put(item, component);
 		myHUDMap.put(item, val);
 	}
 	
@@ -67,7 +72,7 @@ public class HUD {
 	
 	public void updateHUDDisplay() {
 		myHUDBox = new HBox();
-		for (Entry<String, Double> entry : myHUDMap.entrySet()) {
+		for (Entry<String, Component> entry : myComponentMap.entrySet()) {
 			addItem(entry.getKey(), entry.getValue());
 		}
 	}
