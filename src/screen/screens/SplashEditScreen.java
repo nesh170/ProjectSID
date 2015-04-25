@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -375,7 +374,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 		tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 		imageView = new ImageView(image);
-		//imageView.setId();
 		imageViewArray.add(imageView);
 
 		this.setOnKeyPressed(e -> resizeAndRotate(imageView, e));
@@ -612,15 +610,11 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void imageViewMove(ImageView imageView, MouseEvent f) {
 		
-		
-
 		imageView.setOnMouseReleased(e -> placeImageView(imageView, e));
 		
 	}
 	
 	private void textMove(Text text, MouseEvent f) {
-		
-		text.setOnKeyPressed(g -> resizeAndRotate(text, g));
 		
 		text.setOnMouseReleased(e -> placeText(text, e));
 		
@@ -628,8 +622,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void placeImageView(ImageView imageView, MouseEvent e) {
 		
-//		System.out.println(Math.sin(imageView.getRotate()));
-//		System.out.println(Math.cos(imageView.getRotate()));
 		imageView.setX(e.getX());
 		imageView.setY(e.getY());
 		tag = null;	
