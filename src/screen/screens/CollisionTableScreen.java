@@ -269,6 +269,7 @@ public class CollisionTableScreen extends Screen{
 		VBox verticalBox = new VBox();
 		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
 		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
+		verticalBox.setStyle(STRING.COLLISION_EDIT.BOTTOM_ROW_STYLE);
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
@@ -293,6 +294,8 @@ public class CollisionTableScreen extends Screen{
 		}
 		comboBox.setId(id);
 		comboBox.setStyle(style);
+		comboBox.setStyle(STRING.COLLISION_EDIT.TEXT_BOX_STYLE);
+		
 		comboBox.setPromptText(promptText);
 		return comboBox;
 	}
@@ -346,6 +349,7 @@ public class CollisionTableScreen extends Screen{
 		
 		
 		TextField text = new TextField();
+		text.setStyle(STRING.COLLISION_EDIT.TEXT_BOX_STYLE);
 		text.setPromptText(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		text.setId(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		collisionSet.add(text, 5, 0); 
@@ -411,7 +415,10 @@ public class CollisionTableScreen extends Screen{
 		tile.setPadding(new Insets(45, 45, 75, 45));
 	//	tile.setVgap(20);
 	//	tile.setHgap(20);
-		tile.setStyle("-fx-background-color: DAE6F3;");
+	//	tile.setStyle("-fx-background-color: DAE6F3;");
+		
+		tile.setStyle(STRING.COLLISION_EDIT.BACKGROUND_STYLE);
+			
 		tile.getChildren().add(description);
 
 		for (int i = 0; i < 3; i++)
