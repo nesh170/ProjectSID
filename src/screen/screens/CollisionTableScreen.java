@@ -227,9 +227,7 @@ public class CollisionTableScreen extends Screen{
 	private CollisionTableScreenController myController;
 	private ArrayList<String> levelSpriteTags;
 	private CollisionTable collTable; // TODO: how to get
-	private StackPane tablesDisplay;
-	private static Map<String, Integer> directionToIntegerMap;
-	
+	private StackPane tablesDisplay;	
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
@@ -258,19 +256,10 @@ public class CollisionTableScreen extends Screen{
 	}
 	
 	private void initialize(){
-		directionToIntegerMap = new HashMap<String, Integer>();
-		populateDirectionMap();
 		createVBoxOfCollisionRows();
 		this.setCenter(tablesDisplay);
 	}
 	
-	private void populateDirectionMap()
-	{
-		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_UP, INT.UP_VALUE);
-		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_DOWN, INT.DOWN_VALUE);
-		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_LEFT, INT.LEFT_VALUE);
-		directionToIntegerMap.put(STRING.COLLISION_EDIT.DIRECTION_RIGHT, INT.RIGHT_VALUE);
-	}
 
 	private void createVBoxOfCollisionRows(){
 		tablesDisplay = new StackPane();
@@ -334,7 +323,7 @@ public class CollisionTableScreen extends Screen{
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
-		ArrayList<String> third = new ArrayList<>(this.directionToIntegerMap.keySet());
+		ArrayList<String> third = new ArrayList<>(STRING.DIRECTION_TO_INTEGER_MAP.keySet());
 
 		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
@@ -472,7 +461,7 @@ public class CollisionTableScreen extends Screen{
 		
 	
 		
-	//	collTable.addActionToMap(activeSp, inactiveSp, directionToIntegerMap.get(dir), toAdd);
+	//	collTable.addActionToMap(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), toAdd);
 		
 		
 	

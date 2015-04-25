@@ -162,12 +162,6 @@ public class STRING {
 		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
 		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
 		
-		public static final String DIRECTION_UP = "Above";
-		public static final String DIRECTION_DOWN = "Below";
-		public static final String DIRECTION_LEFT = "Left";
-		public static final String DIRECTION_RIGHT = "Right";
-		
-		
 		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
 		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
 		public static final String COMBO_SPRITE2_NAME = "Sprite Inactive";
@@ -206,4 +200,14 @@ public class STRING {
     	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
     }
     
+    public static final Map<String, Integer> DIRECTION_TO_INTEGER_MAP;
+
+    static
+    {
+    	DIRECTION_TO_INTEGER_MAP = new HashMap<String, Integer>();
+    	DIRECTION_TO_INTEGER_MAP.put("Above", INT.COLLISION_UP);
+    	DIRECTION_TO_INTEGER_MAP.put("Below", INT.COLLISION_DOWN);
+    	DIRECTION_TO_INTEGER_MAP.put("Left", INT.COLLISION_LEFT);
+    	DIRECTION_TO_INTEGER_MAP.put("Right", INT.COLLISION_RIGHT);
+    }
 }
