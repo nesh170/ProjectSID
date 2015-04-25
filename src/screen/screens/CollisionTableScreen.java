@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.sun.glass.ui.Cursor;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,6 +24,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -369,15 +372,35 @@ public class CollisionTableScreen extends Screen{
 	            }    
 	        });
 		
-		ScreenButton saveSelection = new ScreenButton(STRING.COLLISION_EDIT.SAVE_BUTTON_TEXT, STRING.BUTTONS.BUTTON_STYLE);
-		collisionSet.add(saveSelection, 6, 0); 
+	//	ScreenButton saveSelection = new ScreenButton(STRING.COLLISION_EDIT.SAVE_BUTTON_TEXT, STRING.BUTTONS.BUTTON_STYLE);
+	//	collisionSet.add(saveSelection, 6, 0); 
 		
-		saveSelection.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
+		Image saveButtonImg = new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_IMG);
+		
+		ImageView saveButton = new ImageView(saveButtonImg);
+		saveButton.setFitWidth(100);
+		saveButton.setPreserveRatio(true);
+		
+		
+		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG));
+		saveButton.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
+	//	saveSelection.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
+		collisionSet.add(saveButton, 6, 0); 
+		
 		collisionTable.getChildren().add(collisionSet);
 		return collisionTable;
 	}
 
-	private ScrollPane configureScrollPane(){
+	private void setButtonStyle(ImageView button, Image natural, Image pressed)
+	{
+		button.setCursor(ImageCursor.HAND);
+		button.setOnMousePressed(e -> button.setImage(pressed));
+		button.setOnMouseReleased(e -> button.setImage(natural));
+	}
+	
+	
+	
+	private ScrollPane configureScrollPane(ScreenButton addCollisionRowButton){
 		ScrollPane sp = new ScrollPane();
 		sp.setPannable(true);
 	
