@@ -23,12 +23,10 @@ public class SplashEditModel {
 
 	private SplashScreen splashScreen;
 
-	//private Sprite startButton = new Sprite();
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
 
 	private ImageView imageView;
-	//private ImageView startButtonImageView;
 
 	private Text text;
 	private List<Text> texts = new ArrayList();
@@ -125,10 +123,6 @@ public class SplashEditModel {
 	public void forEachText(Consumer<Text> consumer) {
 		texts.forEach(consumer);
 	}
-
-//	public void createStartButtonImageView(Image image) {
-//		startButtonImageView = new ImageView(image);
-//	}
 	
 	public void resizeAndRotateImage(KeyEvent e) {
 		resizeAndRotate(imageView, e);

@@ -50,7 +50,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	// Instance variables
 	private SplashEditScreenController controller;
 	private SplashEditModel splashEditModel;
-//	private SplashScreen splashScreen;
 	private double width;
 	private double height;
 	private String tag;
