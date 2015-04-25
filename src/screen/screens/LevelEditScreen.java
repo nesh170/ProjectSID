@@ -570,7 +570,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	 */
 	public List<String> getSpriteTags()
 	{
-		return new ArrayList<String>(stringToSpriteMap.keySet());
+		return new ArrayList<String>(tags);
 
 	}
 
