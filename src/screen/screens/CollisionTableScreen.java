@@ -390,7 +390,17 @@ public class CollisionTableScreen extends Screen{
 		saveButton.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
 		collisionSet.add(saveButton, 6, 0); 
 		
+		Image trashButtonImg = new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_IMG);
+		
+		ImageView trashButton = new ImageView(trashButtonImg);
+		trashButton.setPreserveRatio(true);
+		setButtonStyle(trashButton, trashButtonImg, new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_PRESSED_IMG), 70);
+	//	trashButton.setOnMouseClicked(e -> {activeSpriteList.setValue(activeSpriteList.getPromptText());});
+		trashButton.setOnMouseClicked(e -> {collisionTable.getChildren().remove(collisionSet);});
+		collisionSet.add(trashButton, 7, 0); 
+		
 		collisionTable.getChildren().add(collisionSet);
+		
 		return collisionTable;
 	}
 

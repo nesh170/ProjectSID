@@ -186,6 +186,8 @@ public class STRING {
 		public static final String SAVE_BUTTON_PRESSED_IMG ="images/CollisionTableImages/savedCheckMarkPressed.png";
 		public static final String ADD_BUTTON_IMG ="images/CollisionTableImages/addGreen.png";
 		public static final String ADD_BUTTON_PRESSED_IMG ="images/CollisionTableImages/addCopper.png";
+		public static final String TRASH_BUTTON_IMG ="images/CollisionTableImages/trashRed.png";
+		public static final String TRASH_BUTTON_PRESSED_IMG ="images/CollisionTableImages/trashBlack.png";
 		public static final String BOTTOM_ROW_STYLE = "-fx-background-color: radial-gradient(focus-angle 135deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, purple, gold 75%, salmon);";
 		public static final String TEXT_BOX_STYLE = " -fx-background-color: transparent; -fx-border-color: #000;";
 		public static final String BACKGROUND_STYLE = "-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #e6c9ff, #fffac9);";
@@ -198,7 +200,7 @@ public class STRING {
 		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
 		public static final String TEXT_PROMPT = "Value";
 		public static final String SAVE_BUTTON_TEXT = "Save";
-
+		
 	}
 	
 	public class GAME_PLAY {
