@@ -104,6 +104,10 @@ public class STRING {
 		public static final String TIMES = "Times";
 		public static final String ARIAL = "Arial";
 		public static final String VERDANA = "Verdana";
+		public static final String CENTURY_GOTHIC = "Century Gothic";
+		public static final String MARKER_FELT = "Marker Felt";
+		public static final String MONOTYPE_CORSIVA = "Monotype Corsiva";
+		public static final String APPLE_CHANCERY = "Apple Chancery";
 		public static final String JPG_LONG = "JPG files (*.jpg)";
 		public static final String JPG_SHORT = "*.JPG";
 		public static final String PNG_LONG = "PNG files (*.png)";
