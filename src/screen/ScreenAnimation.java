@@ -23,14 +23,17 @@ import javafx.util.Duration;
  *
  */
 public class ScreenAnimation{
+	
 	/**
 	 * 
 	 */
 	public static void expandButtonWhenMouseOver(Node n){
 		//move methods to here
 	}
+	
 	/**
-	 * animates it a node needs to be removed from screen
+	 * animates it when a node needs to be removed from screen
+	 * adds a gas cloud clipart
 	 * @param n
 	 * @param destination
 	 */

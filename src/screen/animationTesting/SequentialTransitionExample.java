@@ -35,36 +35,54 @@ public class SequentialTransitionExample extends Application {
         rect.setArcHeight(50);
         rect.setArcWidth(50);
         rect.setFill(Color.VIOLET);
-    
+        Rectangle rect2 = new Rectangle (100, 40, 100, 100);
+        rect.setArcHeight(50);
+        rect.setArcWidth(50);
+        rect.setFill(Color.VIOLET);
         final Duration SEC_2 = Duration.millis(2000);
         final Duration SEC_3 = Duration.millis(3000);
     
         PauseTransition pt = new PauseTransition(Duration.millis(1000));
-        FadeTransition ft = new FadeTransition(SEC_3);
+        FadeTransition ft = new FadeTransition(SEC_3, rect2);
         ft.setFromValue(1.0f);
         ft.setToValue(0.3f);
-        ft.setCycleCount((int) 2f);
+        //ft.setCycleCount((int) 2f);
         ft.setAutoReverse(true);
-        TranslateTransition tt = new TranslateTransition(SEC_2);
+        ft.setOnFinished( new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("First Action");
+				
+			}
+        	
+        }
+        		);
+        TranslateTransition tt = new TranslateTransition(SEC_2, rect);
         tt.setFromX(-100f);
         tt.setToX(100f);
-        tt.setCycleCount((int) 2f);
+       // tt.setCycleCount((int) 2f);
         tt.setAutoReverse(true);
-        RotateTransition rt = new RotateTransition(SEC_3);
+        RotateTransition rt = new RotateTransition(SEC_3, rect);
         rt.setByAngle(180f);
-        rt.setCycleCount((int) 4f);
-        rt.setAutoReverse(true);
-        ScaleTransition st = new ScaleTransition(SEC_2);
+       // rt.setCycleCount((int) 4f);
+        rt.setAutoReverse(true);     
+        ScaleTransition st = new ScaleTransition(SEC_2, rect);
         st.setByX(1.5f);
         st.setByY(1.5f);
-        st.setCycleCount((int) 2f);
+        //st.setCycleCount((int) 2f);
         st.setAutoReverse(true);
-    
-        SequentialTransition seqT = new SequentialTransition (rect, pt, ft, tt, rt, st);
-        seqT.play();
+        ParallelTransition ppt = new ParallelTransition(tt, rt, st);
+        SequentialTransition seqT = new SequentialTransition ( ft, ppt);
+        seqT.setOnFinished(new EventHandler<ActionEvent>(){
 
-        
-        root.getChildren().add(rect);
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("What is wrong here???");
+				
+			}
+        });
+        root.getChildren().addAll(rect, rect2);
         seqT.play();
         primaryStage.show();
     }
