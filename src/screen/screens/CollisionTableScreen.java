@@ -255,10 +255,10 @@ public class CollisionTableScreen extends Screen{
 	}
 	
 	private void initialize(){
-		createVBoxOfCollisionRows();
-		this.setCenter(tablesDisplay);
 		directionToIntegerMap = new HashMap<String, Integer>();
 		populateDirectionMap();
+		createVBoxOfCollisionRows();
+		this.setCenter(tablesDisplay);
 	}
 	
 	private void populateDirectionMap()
