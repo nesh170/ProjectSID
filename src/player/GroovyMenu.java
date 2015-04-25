@@ -1,6 +1,7 @@
 package player;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -22,19 +23,22 @@ public abstract class GroovyMenu {
     protected VBox myVBox;
     protected Map<Method, TextArea> myTextFieldMap;
     protected String myCurrentSpriteTag;
+    protected Stage myStage;
     
     public void setUpGroovyDialog (List<String> tagList, BiConsumer<String, Object> engineMethod) {
-        Stage stage = new Stage();
+        myStage = new Stage();
         setUpView(tagList, engineMethod);
-        stage.setScene(new Scene(myVBox));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
+        myStage.setScene(new Scene(myVBox));
+        myStage.initModality(Modality.APPLICATION_MODAL);
+        myStage.show();
     }
     
     protected abstract void setUpView(List<String> tagList, BiConsumer<String, Object> engineMethod);
     
-    protected void setUpVariableList (List<String> list) {
-        ListView listView = new ListView<>(FXCollections.observableArrayList(list));
+    protected void setUpVariableList (List<Object> list) {
+        List<String> listString = new ArrayList<>();
+        list.stream().forEach(strings -> listString.add((String) strings));
+        ListView<String> listView = new ListView<>(FXCollections.observableArrayList(listString));
         listView.setMaxHeight(MAX_HEIGHT);
         myVBox.getChildren().addAll(new Text(VARIABLE_LIST), listView);
     }

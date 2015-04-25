@@ -1,7 +1,7 @@
 package player;
 
 import gameEngine.actions.GroovyAction;
-import gameEngine.actions.Setter;
+import gameEngine.actions.SetterGroovy;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -24,6 +25,7 @@ import javafx.scene.text.Text;
 public class GroovyActionMenu extends GroovyMenu {
 
     private static final String KEYCODE = "Insert KeyCode";
+    private static final String VALUE_FIELD = "Insert Double Value";
     private GroovyAction myGroovyAction;
 
     public GroovyActionMenu (GroovyAction groovyAction) {
@@ -35,6 +37,7 @@ public class GroovyActionMenu extends GroovyMenu {
         myTextFieldMap = new HashMap<Method, TextArea>();
         myVBox = new VBox(8);
         setUpVariableList(myGroovyAction.getVariableList());
+        Spinner<Double> valueField = setUpValueField();
         setUpKeyCodeBox();
         setUpChoiceBox(tagList);
         List<Method> methodList =
@@ -44,10 +47,18 @@ public class GroovyActionMenu extends GroovyMenu {
                 .filter(x -> x.getAnnotations().length != 0)
                 .collect(Collectors.toList())
                 .forEach(method -> addTextBox(method));
-        enterButton(engineMethod);
+        enterButton(engineMethod,valueField);
 
     }
     
+    private Spinner<Double> setUpValueField () {
+        Spinner<Double> valueField = new Spinner<Double>(0.0,Double.MAX_VALUE,0.0);
+        valueField.setEditable(true);
+        valueField.setMaxHeight(MAX_HEIGHT);
+        myVBox.getChildren().addAll(new Text(VALUE_FIELD), valueField);
+        return valueField;
+    }
+
     private void setUpKeyCodeBox(){
         TextField keyInput = new TextField();
         keyInput.setOnKeyTyped(e -> keyInput.clear());
@@ -64,7 +75,6 @@ public class GroovyActionMenu extends GroovyMenu {
     private void setUpChoiceBox (List<String> tagList) {
         VBox box = new VBox();
         ChoiceBox<String> spriteTag = new ChoiceBox<>(FXCollections.observableArrayList(tagList));
-        spriteTag.setValue(tagList.get(0));
         box.getChildren().addAll(new Text(TAG), spriteTag);
         spriteTag.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
@@ -74,9 +84,9 @@ public class GroovyActionMenu extends GroovyMenu {
                                          String oldValue,
                                          String newValue) {
                         myCurrentSpriteTag = newValue;
-                        // TODO debug this actions
                     }
                 });
+        spriteTag.setValue(tagList.get(0));
         myVBox.getChildren().add(box);
 
     }
@@ -84,7 +94,7 @@ public class GroovyActionMenu extends GroovyMenu {
     private void addTextBox (Method method) {
         VBox box = new VBox();
         TextArea field = new TextArea();
-        String fieldName = ((Setter) method.getAnnotations()[0]).name();
+        String fieldName = ((SetterGroovy) method.getAnnotations()[0]).name();
         field.setPromptText(fieldName);
         field.setMaxHeight(MAX_HEIGHT);
         myTextFieldMap.put(method, field);
@@ -92,16 +102,18 @@ public class GroovyActionMenu extends GroovyMenu {
         myVBox.getChildren().add(box);
     }
 
-    private void enterButton (BiConsumer<String, Object> engineMethod) {
+    private void enterButton (BiConsumer<String, Object> engineMethod, Spinner<Double> valueField) {
         Button enter = new Button(ENTER);
-        enter.setOnAction(e -> handleEnter(engineMethod));
+        enter.setOnAction(e -> handleEnter(engineMethod,valueField));
         myVBox.getChildren().add(enter);
     }
 
-    private void handleEnter (BiConsumer<String, Object> engineMethod) {
+    private void handleEnter (BiConsumer<String, Object> engineMethod, Spinner<Double> valueField) {
         myTextFieldMap.keySet().stream()
                 .forEach(method -> handleMethod(method, myTextFieldMap.get(method).getText()));
+        myGroovyAction.setValue(valueField.getValue());
         engineMethod.accept(myCurrentSpriteTag, myGroovyAction);
+        myStage.close();
     }
 
     private void handleMethod (Method method, String text) {

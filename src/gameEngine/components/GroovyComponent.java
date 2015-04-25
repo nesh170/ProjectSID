@@ -1,12 +1,16 @@
 package gameEngine.components;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import sprite.Sprite;
+import util.SIDFunctions;
 import util.ScriptRunner;
 import gameEngine.Component;
+import gameEngine.actions.SetterGroovy;
 import javax.script.ScriptException;
+import data.DataHandler;
 import jdk.nashorn.internal.objects.annotations.Setter;
 
 
@@ -18,20 +22,17 @@ public class GroovyComponent extends Component {
 
     public GroovyComponent (Sprite sprite, List<Double> valueList) {
         super(sprite, valueList);
-        scriptEngine = new ScriptRunner(Stream.of(sprite, valueList).collect(Collectors.toList()));
-
     }
     
     public GroovyComponent deepCopy(){
-        GroovyComponent copy = new GroovyComponent(null,myValueList);
-        copy.setPrepareCode(myPrepareCode);
-        copy.setUpdateCode(myUpdateCode);
-        return copy;
+        String copy = DataHandler.toXMLString(this);
+        return (GroovyComponent) DataHandler.fromXMLString(copy);
     }
 
     @Override
     public void prepare () {
         try {
+            scriptEngine = new ScriptRunner(SIDFunctions.addNoNull(Stream.of(mySprite,myValueList).collect(Collectors.toList())));
             scriptEngine.prepareEngine();
             scriptEngine.evaluateScript(myPrepareCode);
         }
@@ -53,12 +54,12 @@ public class GroovyComponent extends Component {
         }
     }
 
-    @Setter
+    @SetterGroovy(name = "Component.Prepare()", type = "textBox")
     public void setPrepareCode (String code) {
         myPrepareCode = code;
     }
 
-    @Setter
+    @SetterGroovy(name = "Component.Update()", type = "textBox")
     public void setUpdateCode (String code) {
         myUpdateCode = code;
     }
@@ -66,6 +67,10 @@ public class GroovyComponent extends Component {
     @Setter
     public void setSprite (Sprite sprite) {
         mySprite = sprite;
+    }
+    
+    public List<Object> getVariableList () {
+        return Collections.unmodifiableList(SIDFunctions.addNoNull(Stream.of(mySprite.getClass().getSimpleName(),myValueList.getClass().getSimpleName()).collect(Collectors.toList())));
     }
 
 }

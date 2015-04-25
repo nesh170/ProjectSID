@@ -1,6 +1,7 @@
 package player;
 
 import gameEngine.actions.GroovyAction;
+import java.util.ArrayList;
 import java.util.List;
 import sprite.Sprite;
 import java.lang.reflect.InvocationTargetException;
@@ -129,7 +130,7 @@ public class PlayerMenu extends MenuBar{
 	    Menu groovyMenu = new Menu("Groovy");
 	    MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
 	    GroovyMenu actionMenu =
-	            new GroovyActionMenu(new GroovyAction(new Sprite(), KeyCode.R));
+	            new GroovyActionMenu(new GroovyAction(new Sprite(),0.0, KeyCode.R));
 	    groovyActionItem
 	    .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
 	                                                       (spriteTag, groovyAction) -> view

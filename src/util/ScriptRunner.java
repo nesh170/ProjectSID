@@ -34,7 +34,4 @@ public class ScriptRunner {
         myScriptEngine.eval(script);
     }
 
-    public Map<String, Object> getObjectMap () {
-        return Collections.unmodifiableMap(myObjectsMap);
-    }
 }

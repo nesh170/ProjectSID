@@ -48,15 +48,16 @@ public class GameEngine extends GameEngineAbstract {
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
+        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         //TODO: when switching levels, play new song. GameEngine will now have an instance of audio controller
     }
     
     @Override
     public double[] update () {
-    	myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.clear());
-    	myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
+        myControlsMapList.clear();
+        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         return myCurrentLevel.getNewCameraLocations();
     }
 
@@ -102,7 +103,7 @@ public class GameEngine extends GameEngineAbstract {
 
     @Override
     public void addGroovyAction (String spriteTag, Action groovyAction) {
-       myCurrentLevel.addGroovyAction(spriteTag,groovyAction);
+      myCurrentLevel.addGroovyAction(spriteTag,groovyAction);
     }
 
     @Override

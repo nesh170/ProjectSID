@@ -267,12 +267,12 @@ public class Sprite {
 	}
 	
 	public void addActionRuntime (Action action) {
-	        addAction(action);
+	        actionList.add(action);
 	        action.prepare();
 	}
 	
 	public void addComponentRuntime (Component component) {
-	        addComponent(component);
+	        componentList.add(component);
 	        component.prepare();
 	}
 	

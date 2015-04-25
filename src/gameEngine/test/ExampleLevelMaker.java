@@ -4,7 +4,6 @@ import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.BounceAction;
-import gameEngine.actions.GroovyAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
@@ -87,6 +86,8 @@ public class ExampleLevelMaker extends Application {
         // Goals:
         Map<Sprite, Integer> goalMap = new HashMap<>();
         goalMap.put(myPlayer, 0);
+        mySpriteList.forEach(sprite -> sprite.setTag("notNeeded"));
+        players.forEach(sprite -> sprite.setTag("player"));
         l.setSprites(mySpriteList);
         l.setGoalMap(goalMap);
         System.out.println(players.size());
