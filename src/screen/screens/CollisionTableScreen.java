@@ -333,9 +333,7 @@ public class CollisionTableScreen extends Screen{
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
-		
-		ArrayList<String> third = new ArrayList<>(Arrays.asList(STRING.COLLISION_EDIT.DIRECTION_UP, STRING.COLLISION_EDIT.DIRECTION_DOWN,
-				STRING.COLLISION_EDIT.DIRECTION_LEFT, STRING.COLLISION_EDIT.DIRECTION_RIGHT));
+		String[] third = (String[]) this.directionToIntegerMap.keySet().toArray();
 
 		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
