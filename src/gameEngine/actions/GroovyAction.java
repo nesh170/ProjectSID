@@ -17,7 +17,7 @@ public class GroovyAction extends Action {
 
     private ScriptRunner scriptEngine;
     private String myPrepareCode;
-    private String myDoActionCode;
+    private String myExecuteCode;
     private String myStopCode;
 
     public GroovyAction (Sprite sprite) {
@@ -54,7 +54,7 @@ public class GroovyAction extends Action {
     @Override
     public void execute () {
         try {
-            scriptEngine.evaluateScript(myDoActionCode);
+            scriptEngine.evaluateScript(myExecuteCode);
         }
         catch (ScriptException e) {
             e.printStackTrace();
@@ -77,9 +77,9 @@ public class GroovyAction extends Action {
         myPrepareCode = code;
     }
 
-    @SetterGroovy(name = "Action.doAction()", type = "textBox")
-    public void setDoActionCode (String code) {
-        myDoActionCode = code;
+    @SetterGroovy(name = "Action.execute()", type = "textBox")
+    public void setExecuteCode (String code) {
+        myExecuteCode = code;
     }
 
     @SetterGroovy(name = "Action.stop()", type = "textBox")
