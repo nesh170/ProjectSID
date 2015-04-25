@@ -62,6 +62,11 @@ public abstract class Action {
 		return isActive;
 	}
 	
+	public void setKeyCode (List<KeyCode> keys) {
+	    myKeyCode = keys;
+	}
+	       
+	       
 	/**
 	 * Initialize aspects of specific
 	 * behavior that need to happen at the
