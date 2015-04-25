@@ -1,5 +1,6 @@
 package resources.constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ public class STRING {
 		public static final String FX_BACKGROUND_COLOR_PREDICATE = "-fx-background-color: ";
 		public static final String FX_GAME_EDIT_BACKGROUND = "-fx-background-color: rgba(241, 241, 241, 1);";
 		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
+		public static final String FX_MAIN_MENU_BUTTON = "-fx-background-color: rgba(241, 241, 241, 0.8); -fx-background-radius: 10;";
+		public static final String FX_GAME_EDIT_BUTTON_RADIUS = " -fx-background-radius: 15;";
 		
 	}
 	
@@ -50,8 +53,17 @@ public class STRING {
 		
 	}
 	
+	public class CSS {
+		public static final String ERROR = "text-field-error";
+		public static final String PANE = "pane";
+	}
+	
 	public class REGEX {
 		public static final String ANY_CHAR = ".+";
+	}
+	
+	public class EXT {
+		public static final String XML = ".xml";
 	}
 	
 	public class MAIN_MENU_SCREEN {
@@ -118,6 +130,7 @@ public class STRING {
 		public static final String BACKDOWN_IMG = "images/GameEdit_Images/back_down.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
+		public static final String IMAGE_FOLDER ="-images";
 			
 	}
 	
@@ -125,6 +138,7 @@ public class STRING {
 		
 		//Level Edit Screen Buttons, Menus, miscellaneous strings
 		public static final String ADD_SPRITE = "Add New Sprite";
+		public static final String EDIT_SELECTED_SPRITE = "Edit Selected Sprite";
 		public static final String PLATFORMS = "Platforms";
 		public static final String ENEMIES = "Enemies";
 		public static final String PLAYERS = "Players";
@@ -136,6 +150,9 @@ public class STRING {
 		
 		//Sprite Edit Strings
 		public static final String SPRITE_EDIT = "Sprite Edit Screen";
+		public static final String NAME = "Name";
+		public static final String SPRITE_PROMPT = "SpritePrompt";
+		public static final String IMAGE_PROMPT = "ImagePrompt";
 		
 	}
 	
@@ -143,6 +160,23 @@ public class STRING {
 		
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
 		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
+		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
+		
+		public static final String DIRECTION_UP = "Above";
+		public static final String DIRECTION_DOWN = "Below";
+		public static final String DIRECTION_LEFT = "Left";
+		public static final String DIRECTION_RIGHT = "Right";
+		
+		
+		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
+		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
+		public static final String COMBO_SPRITE2_NAME = "Sprite Inactive";
+		public static final String COMBO_SPRITE2_TAG = "SpriteInactive";
+		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
+		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
+		public static final String TEXT_PROMPT = "Value";
+		public static final String SAVE_BUTTON_TEXT = "Save";
+
 	}
 	
 	public class GAME_PLAY {
@@ -161,6 +195,7 @@ public class STRING {
 	
 	//new String[]{"Add Level", "Edit Level", "Add Splash", "Edit Splash", "Remove Level"};
 	public static final Map<String, String> LEVELS_SPLASH_MAP;
+
     static
     {
     	LEVELS_SPLASH_MAP = new HashMap<String, String>();

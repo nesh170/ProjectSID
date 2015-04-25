@@ -14,11 +14,12 @@ public class INT {
 	public static final int DEFAULT_LEVEL_DISPLAY_WIDTH = 500;
 	public static final int DEFAULT_LEVEL_DISPLAY_HEIGHT = 400;		
 	public static final int GAMEEDIT_ADD_SIGN_DIM = 150;
+	public static final int INITIAL_SETUP = 2;
 	public static final int LEVEL = 1;
 	public static final int SPLASH = 0;
 	
 	// SplashEdit
-	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 120;
+	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 40;
 	public static final int SPLASH_EDIT_SCREEN_HORIZONTAL_SPACING = 40;
 	public static final int SPLASH_EDIT_SCREEN_DISPLAY_WIDTH = 1300;
 	public static final int SPLASH_EDIT_SCREEN_DISPLAY_HEIGHT = 637;
@@ -26,6 +27,20 @@ public class INT {
 	public static final int SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT = 100;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH = 150;
 	public static final int SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT = 50;
+	
+	
+	// Collision table
+	// [Sprite 1 (active)]		[Sprite 2]		[Direction   v]		[Action  v]		[Value]
+	public static final int ACTIVE_SPRITE = 0;
+	public static final int INACTIVE_SPRITE = 1;
+	public static final int DIRECTION = 2;
+	public static final int ACTION = 3;
+	public static final int VALUE = 4;
+	public static final int UP_VALUE = 0;
+	public static final int DOWN_VALUE = 1;
+	public static final int LEFT_VALUE = 2;
+	public static final int RIGHT_VALUE = 3;
+	
 	
 	//MainMenu
 	public static final int DEFAULT_BUTTON_WIDTH = 100;
