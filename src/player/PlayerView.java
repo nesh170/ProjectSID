@@ -57,7 +57,6 @@ public class PlayerView {
 		myHUD.addItem("Score", 0);
 		stack.getChildren().add(myHUD.getHUDBox());
 		StackPane.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
-		myController.setPauseBase(stack);
 		return stack;
 	}
 
@@ -70,7 +69,7 @@ public class PlayerView {
 			playerController.removePause();
 			playerController.play();
 		});
-		pause.getChildren().addAll(startButton);
+		pause.getChildren().add(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
@@ -81,7 +80,7 @@ public class PlayerView {
 	}
 	
 	public void playScreen() {
-		//myTop.getChildren().remove(0);
+		myStackPane.getChildren().remove(myPauseScreen);
 	}
 	
 	public Scene getScene() {

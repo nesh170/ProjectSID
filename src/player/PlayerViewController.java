@@ -53,7 +53,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Group myGameGroup;
 	private GameEngine myEngine;
 	private Camera myCamera;
-	private StackPane myTop;
 
 	private PlayerView myView;
 
@@ -100,10 +99,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameGroup = myEngine.render();
 		myView.display(myGameGroup);
 		myCamera.focus();		
-	}
-
-	public void setPauseBase(StackPane pane) {
-		myTop = pane;
 	}
 
 	public void removePause() {
