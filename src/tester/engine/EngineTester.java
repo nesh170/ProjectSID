@@ -70,7 +70,8 @@ public class EngineTester extends Tester {
 		mySpriteList.add(fireFlower);
 		setCollisionAll(player, fireFlower, switchOut);
 		
-		Level l = new Level(500, 500, myPlayerList);
+		Level l = new Level(900, 500, myPlayerList);
+		l.setBackground("engineTesting/background.png");
 		l.setSprites(mySpriteList);
 		l.setCollisionTable(myCT);
 		Game testGame = new Game("test");
