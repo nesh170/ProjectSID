@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -45,6 +46,42 @@ public class SplashEditModel {
 		imageView = new ImageView(image);
 	}
 	
+	public ImageView getImageView() {
+		return imageView;
+	}
+	
+	public void removeImageViewFromImageViewArray() {
+		imageViewArray.remove(imageView);
+	}
+	
+	public void imageViewMove(MouseEvent e) {
+		imageView.setOnMouseReleased(f -> placeImageView(f));
+	}
+	
+	private void placeImageView(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+	}
+	
+	public void placeImageViewAtXY(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+	}
+	
+	public void textMove(MouseEvent e) {
+		text.setOnMouseReleased(f -> placeText(f));
+	}
+	
+	private void placeText(MouseEvent e) {
+		text.setX(e.getX());
+		text.setY(e.getY());
+	}
+	
+	public void placeTextAtXY(int index, MouseEvent e) {
+		texts.get(index).setX(e.getX());
+		texts.get(index).setY(e.getY());
+	}
+	
 	public void createText(String string) {
 		text = new Text(string);
 	}
@@ -59,6 +96,18 @@ public class SplashEditModel {
 	
 	public void addText() {
 		texts.add(text);
+	}
+	
+	public Text getText() {
+		return text;
+	}
+	
+	public void removeTextFromTextArray() {
+		texts.remove(text);
+	}
+	
+	public void addSpriteImageToSpriteList(Sprite sprite) {
+		images.add(sprite);
 	}
 	
 	public void selectText(String textValue) {

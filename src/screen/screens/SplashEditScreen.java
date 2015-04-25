@@ -509,17 +509,17 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void deleteItem(String option) {
 		
-		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_START_BUTTON)) {
-			this.getChildren().remove(startButtonImageView);
-			startButtonImageView = null;
-		}
-		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE)) {
-			this.getChildren().remove(imageView);
-			imageViewArray.remove(imageView);
+//		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_START_BUTTON)) {
+//			this.getChildren().remove(startButtonImageView);
+//			startButtonImageView = null;
+//		}
+		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE)) {
+			this.getChildren().remove(splashEditModel.getImageView());
+			splashEditModel.removeImageViewFromImageViewArray();
 		}
 		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT)) {
-			this.getChildren().remove(text);
-			texts.remove(text);
+			this.getChildren().remove(splashEditModel.getText());
+			splashEditModel.removeTextFromTextArray();
 		}
 		
 	}
@@ -534,37 +534,47 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		if(tag == STRING.SPLASH_EDIT_SCREEN.TAG_START) {		
 			
-			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
-			getParent().setCursor(Cursor.DEFAULT);
-
-			startButtonImageView.setOnMousePressed(f -> imageViewMove(startButtonImageView, f));
-			
-			placeImageViewAtXY(startButtonImageView, e.getX(), e.getY());
+//			startButton = new Sprite(new Point2D(e.getX(), e.getY())); 
+//			getParent().setCursor(Cursor.DEFAULT);
+//
+//			startButtonImageView.setOnMousePressed(f -> imageViewMove(startButtonImageView, f));
+//			
+//			placeImageViewAtXY(startButtonImageView, e.getX(), e.getY());
 			
 		}
 		
 		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE) {
 			
-			images.add(new Sprite(new Point2D(e.getX(), e.getY())));
+			//images.add(new Sprite(new Point2D(e.getX(), e.getY())));
+			splashEditModel.addSpriteImageToSpriteList(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);
 			
-			imageView.setOnMousePressed(f -> imageViewMove(imageView, f));
+			splashEditModel.getImageView().setOnMousePressed(f -> splashEditModel.imageViewMove(f));
+			//this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
+			tag = "";
 			
-			placeImageViewAtXY(imageView, e.getX(), e.getY());
+			splashEditModel.placeImageViewAtXY(e);
+			this.getChildren().remove(splashEditModel.getImageView());
+			this.getChildren().add(splashEditModel.getImageView());
 						
 		}
 
 		else if(tag == STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE) {
 			
-			rectangle.setFill(new ImagePattern(imageView.getImage()));
+			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));
 			
 		}
 		 
 		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_TEXT) {
 			
-			text.setOnMousePressed(f -> textMove(text, f));
+			splashEditModel.getText().setOnMousePressed(f -> splashEditModel.textMove(f));
 			
-			placeTextAtXY(texts.get(counter-1), e.getX(), e.getY());
+			//text.setOnMousePressed(f -> textMove(text, f));
+			
+			tag = "";
+			
+			splashEditModel.placeTextAtXY(counter-1, e);
+			this.getChildren().add(splashEditModel.getText());
 			
 		}
 
@@ -572,7 +582,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	private void placeImageViewAtXY(ImageView imageView, double x, double y) {
 
-		this.getChildren().add(imageView);
+
 		imageView.setX(x);
 		imageView.setY(y);
 		
@@ -580,7 +590,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void placeTextAtXY(Text text, double x, double y) {
 
-		this.getChildren().add(text);
+
 		text.setX(x);
 		text.setY(y);
 		
@@ -600,9 +610,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void placeImageView(ImageView imageView, MouseEvent e) {
 		
-		imageView.setX(e.getX());
-		imageView.setY(e.getY());
-		tag = "";	
+
+	
 		
 	}
 	
@@ -610,7 +619,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		text.setX(e.getX());
 		text.setY(e.getY());
-		tag = "";
+
 		
 	}
 	
