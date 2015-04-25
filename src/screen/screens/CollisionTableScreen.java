@@ -483,24 +483,6 @@ public class CollisionTableScreen extends Screen{
 	//	collTable.addActionToMap(activeSp, inactiveSp, direction, toAdd);
 		
 		
-	/*	List<Node> boxChildren = box.getChildren();
-		System.out.println("got box kids");
-		for (Node each : boxChildren)
-		{
-			if (each instanceof GridPane)
-			{
-				List<Node> paneChildren = ((GridPane) each).getChildren();
-				
-				for(Node node : paneChildren) {
-				
-				if (paneChildren instanceof ComboBox)
-				{
-					System.out.println("is combo");
-				}
-				System.out.println("not combo");
-				}
-			}
-		}*/
 	}
 	
 }
