@@ -358,13 +358,13 @@ public class PlayerViewController implements GamePlayerInterface {
 			myNetwork.setUpClient(PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-//			receiveLevels();
-//			KeyFrame displayFrame = new KeyFrame(
-//					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel));
-//			Timeline networkTimeline = new Timeline();
-//			networkTimeline.setCycleCount(Animation.INDEFINITE);
-//			networkTimeline.getKeyFrames().add(displayFrame);
-//			networkTimeline.play();
+			receiveLevels();
+			KeyFrame displayFrame = new KeyFrame(
+					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel));
+			Timeline networkTimeline = new Timeline();
+			networkTimeline.setCycleCount(Animation.INDEFINITE);
+			networkTimeline.getKeyFrames().add(displayFrame);
+			networkTimeline.play();
 		}
 		catch (Exception e) {
 			System.err.println("Can't start Client");
@@ -375,7 +375,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		List<String> keyData = new ArrayList<>();
 		keyData.add(key.getEventType().getName());
 		keyData.add(key.getCode().getName());
-		System.out.println(keyData.get(1));
 		try {
 			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
 		}
