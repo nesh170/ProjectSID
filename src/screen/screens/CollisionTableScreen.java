@@ -282,13 +282,13 @@ public class CollisionTableScreen extends Screen{
        
 //		HBox addButtonBox = new HBox(800);
 		//	addButtonBox.setAlignment(Pos.BOTTOM_CENTER);
-		//	ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
+//			ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
 		//	addRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
-		//	addRowButton.setOnMouseClicked(e -> saveAll(levelSP));
+//			addRowButton.setOnMouseClicked(e -> saveAll(levelSP));
 
 		//	addButtonBox.getChildren().add(addRowButton);
 		//	addRowButton.setAlignment(Pos.BOTTOM_CENTER);
-		//	verticalBox.getChildren().add(addRowButton);
+//			verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
