@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import levelPlatform.splashScreen.SplashScreen;
@@ -109,14 +110,15 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		Button addBackgroundImage = makeAddBackgroundImageButton();
 		TextField textField = makeAddTextTextField();
 		ColorPicker colorPicker = createColorPicker();
-		Button addText = makeAddTextButton(textField, colorPicker);
+		ComboBox fontPicker = createFontPicker();
+		Button addText = makeAddTextButton(textField, colorPicker, fontPicker);
 		Button addAnimation = makeAddAnimationButton();
 		Button save = makeSaveButton();
 		Button trash = makeTrashButton();
 		Button back = makeBackButton();
 		HBox hbox = createBackButtonAndTextFields(back);
 		
-		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, addAnimation));
+		this.viewableArea().setRight(createAddButtons(addStartButton, addImage, addBackgroundImage, addText, textField, colorPicker, fontPicker, addAnimation));
 		this.viewableArea().setBottom(createSaveAndTrashButtons(save,trash));
 		this.viewableArea().setTop(hbox);
 		
@@ -134,12 +136,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, Button addAnimation) {
+	private VBox createAddButtons(Button addStartButton, Button addImage, Button addBackgroundImage, Button addText, TextField textField, ColorPicker colorPicker, ComboBox fontPicker, Button addAnimation) {
 		
 		VBox allAddButtons = new VBox(INT.SPLASH_EDIT_SCREEN_VERTICAL_SPACING);
 		VBox addTextVBox = new VBox(INT.SPLASH_EDIT_ADD_TEXT_VBOX_HEIGHT);
 		
-		addTextVBox.getChildren().addAll(addText, textField, colorPicker);
+		addTextVBox.getChildren().addAll(addText, textField, colorPicker, fontPicker);
 		allAddButtons.setAlignment(Pos.CENTER);
 		allAddButtons.getChildren().addAll(addStartButton, addImage, addBackgroundImage, addTextVBox, addAnimation);
 		
@@ -217,12 +219,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	private Button makeAddTextButton(TextField textField, ColorPicker colorPicker) {
+	private Button makeAddTextButton(TextField textField, ColorPicker colorPicker, ComboBox fontPicker) {
 		
 		Button addText = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_TEXT);
 		setLargeButtonSize(addText);	
-		
-		addText.setOnMouseClicked(e -> addText(textField, colorPicker.getValue()));
+		//System.out.println(fontPicker.getValue().toString());
+		addText.setOnMouseClicked(e -> addText(textField, colorPicker.getValue(), fontPicker));
 		
 		return addText;
 		
@@ -244,6 +246,34 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		return colorPicker;
 		
 	}
+	
+	private ComboBox createFontPicker() {
+		
+		String[] fonts = new String[]{"Times",
+	            "Arial",
+	            "Verdana"};
+
+		GridPane grid = new GridPane();
+		final ComboBox<String> comboBox = new ComboBox<String>();
+		comboBox.getItems().addAll(fonts); 
+//		comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+//			@Override
+//			public void changed(ObservableValue ov,
+//					Number value, Number new_value) {
+//					animation(fonts[new_value.intValue()]);
+//			}
+//
+//		});
+		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
+//		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
+//		grid.setTranslateX(400);
+//		grid.setTranslateY(800);
+//		this.getChildren().add(grid);
+		
+		return comboBox;
+		
+	}
+	
 
 	private Button makeAddAnimationButton() {
 		
@@ -341,7 +371,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			FileChooser fileChooser = new FileChooser();
 			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
 			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			fileChooser.getExtensionFilters().addAll(extFilterPNG, extFilterJPG);
 
 			file = fileChooser.showOpenDialog(null);
 			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);	
@@ -417,11 +447,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 	}
 
-	public void addText(TextField textField, Color color) {
+	public void addText(TextField textField, Color color, ComboBox fontPicker) {
 		
 		tag = "Text";
 		text = new Text(textField.getText());
 		text.fillProperty().setValue(color);
+		
+		if(fontPicker.getValue() != null) {		
+			text.setFont(Font.font(fontPicker.getValue().toString()));
+		}
+		
 		texts.add(text);
 		
 		textField.clear();
@@ -497,9 +532,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			}
 
 		});
+		
 		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
 		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
-		grid.setTranslateX(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X);
+		grid.setTranslateX(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_2X);
 		grid.setTranslateY(height - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT);
 		this.getChildren().add(grid);
 		
