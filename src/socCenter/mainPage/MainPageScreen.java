@@ -92,7 +92,7 @@ public class MainPageScreen extends Screen {
 		configureLevelDisplay();
 		this.setCenter(friendsDisplay);
 
-		configureSplashDisplay();
+		configureLoggedInDisplay();
 		this.setLeft(loggedInDisplay);
 		
 		createPopUp();
@@ -103,7 +103,7 @@ public class MainPageScreen extends Screen {
 	 * 
 	 * @return
 	 */
-	private void configureSplashDisplay() {
+	private void configureLoggedInDisplay() {
 
 		loggedInDisplay = new VBox();		
 		loggedSP = new StackPane();
@@ -116,7 +116,7 @@ public class MainPageScreen extends Screen {
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
 		loggedSP.getChildren().addAll(rec);  
-		displayApproporiateSplashButton();	
+		displayAppropriateProfileImage();	
 	}
 	
 	/**
@@ -124,7 +124,7 @@ public class MainPageScreen extends Screen {
 	 * on weather current game has splash screen
 	 * @return
 	 */
-	public void displayApproporiateSplashButton(){
+	public void displayAppropriateProfileImage(){
 		Button b = new Button();
 		/*
 		if (!game.hasSplash()) {

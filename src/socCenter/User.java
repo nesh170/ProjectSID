@@ -94,5 +94,8 @@ public class User {
 		return tryPass.equals(myPassword);
 	}
 
+	public boolean equals(User other){
+		return other.getName().equals(this.getName());
+	}
 	
 }
