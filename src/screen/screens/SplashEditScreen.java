@@ -357,6 +357,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 		tag = "Image";
 		imageView = new ImageView(image);
+		//imageView.setId();
 		imageViewArray.add(imageView);
 
 		this.setOnKeyPressed(e -> resizeImage(imageView, e, imageCursor));
@@ -492,7 +493,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			public void changed(ObservableValue ov,
 					Number value, Number new_value) {
 					deleteItem(options[new_value.intValue()]);
-					comboBox.hide();
+					comboBox.setVisible(false);
 			}
 
 		});
