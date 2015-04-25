@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -339,11 +341,19 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.add(direction, 3, 0); 
 
 		
-		ArrayList<String> fourth = new ArrayList<String>();
+		/*ArrayList<String> fourth = new ArrayList<String>();
 		fourth.add("die");
 		fourth.add("move");
 		fourth.add("sigh");
-		fourth.add("groove");
+		fourth.add("groove");*/
+		
+		
+		ObservableList<String> actionsToAdd = FXCollections.observableArrayList(ResourceBundle
+				.getBundle("resources.spritePartProperties.action")
+				.keySet().stream().map(e -> languageResources().getString(e))
+				.collect(Collectors.toList()));
+		
+		ArrayList<String> fourth = new ArrayList<String>(actionsToAdd);
 		
 		ComboBox action = this.createComboBoxFromList(fourth, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
@@ -460,7 +470,7 @@ public class CollisionTableScreen extends Screen{
 		System.out.println(value);
 		
 		
-		
+	
 		
 	//	collTable.addActionToMap(activeSp, inactiveSp, directionToIntegerMap.get(dir), toAdd);
 		
