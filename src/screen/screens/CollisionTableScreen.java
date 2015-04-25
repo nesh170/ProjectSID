@@ -365,9 +365,7 @@ public class CollisionTableScreen extends Screen{
 	              }
 	            }    
 	        });
-		
-	//	ScreenButton saveSelection = new ScreenButton(STRING.COLLISION_EDIT.SAVE_BUTTON_TEXT, STRING.BUTTONS.BUTTON_STYLE);
-	//	collisionSet.add(saveSelection, 6, 0); 
+
 		
 		Image saveButtonImg = new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_IMG);
 		
@@ -375,10 +373,8 @@ public class CollisionTableScreen extends Screen{
 		saveButton.setFitWidth(100);
 		saveButton.setPreserveRatio(true);
 		
-		
 		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG));
 		saveButton.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
-	//	saveSelection.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), (String)direction.getValue(), (String)action.getValue(), (String)(text.getText())));
 		collisionSet.add(saveButton, 6, 0); 
 		
 		collisionTable.getChildren().add(collisionSet);
