@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
 import data.DataHandler;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -510,6 +511,7 @@ public class ScreenController {
 			createSplashEditScreen(newSplashScreen);
 			game.setSplash(newSplashScreen);
 			gameEditScreen.displayApproporiateSplashButton();		
+		
 		}
 		
 		@Override
@@ -522,11 +524,10 @@ public class ScreenController {
 		@Override
 		public void trashLevel(Game game, int levelIndex,GameEditScreen gameEditScreen) {
 			
-			game.removeLevel(levelIndex);
-			Transition pt = gameEditScreen.runAnimationsInParallel(gameEditScreen.trashLevelAnimationFinishedEvent(),
-								gameEditScreen.assignLevelButtonsAnimation());
-			pt.play();
-			
+			game.removeLevel(levelIndex);			
+			SequentialTransition st = gameEditScreen.animatesTrashLevel(
+					gameEditScreen.trashLevelAnimationFinishedEvent());
+			st.play();
 		}
 
 
