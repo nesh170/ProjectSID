@@ -24,7 +24,7 @@ public class ParseHandler {
 		user.add("userName", toSave.getName());
 		user.add("password", toSave.getPass());
 		user.add("imagePath", toSave.getImagePath());
-		toSave.setMyID(user.getObjectId());
+		//toSave.setMyID(user.getObjectId());
 		try {
 			user.save();
 		} catch (ParseException e) {
@@ -36,9 +36,10 @@ public class ParseHandler {
 	
 	public static void main(String[] args){
 		setupParse();
-		User me = new User("E", "f", "dan");
-		saveUser(me);
-		System.out.println(me.getMyID());
+		ParseObject user = new ParseObject("User");
+		user.add("userName", "df");
+		user.add("password", "of");
+		System.out.println("heo");
 	}
 	/*public User loadUser(String name){
 		setupParse();
