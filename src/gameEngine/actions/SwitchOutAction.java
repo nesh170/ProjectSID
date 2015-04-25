@@ -35,7 +35,7 @@ public class SwitchOutAction extends Action{
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		Sprite sprite1 = mySprites[mySpriteIndex];
 		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
 		Sprite sprite2 = mySprites[mySpriteIndex];

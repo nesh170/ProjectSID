@@ -14,7 +14,7 @@ public class BounceAction extends Action {
 
 
 	@Override
-	public void execute() {
+	public void doAction() {
         VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
         velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
         velocityComp.setGrounded(false);

@@ -23,7 +23,7 @@ public class UpMotionAction extends Action {
 	public void prepare() {}
 	
     @Override
-    public void execute () {
+    public void doAction () {
     	VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
     	if (climbing) {
     		velocityComp.setVelocityY(EngineMathFunctions.velocityValueFrame(value));

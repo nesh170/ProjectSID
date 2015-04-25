@@ -29,7 +29,7 @@ public class MotionPathAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 		//myLastVisititedIndex gives most recent point visited
 		//use direction to determine next point, get current point of mySprite

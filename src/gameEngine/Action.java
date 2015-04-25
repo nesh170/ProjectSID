@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import media.MediaManager;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 
@@ -82,10 +83,15 @@ public abstract class Action {
 		}
 	}
 	
+	public void execute(){
+		MediaManager mediaManager = new MediaManager();
+		doAction();
+	}
+	
 	/**
 	 * Executes the behavior based on a keypressed
 	 */
-	public abstract void execute();
+	protected abstract void doAction();
 	
 	/**
 	 * Stops the execution for movements if needed.
