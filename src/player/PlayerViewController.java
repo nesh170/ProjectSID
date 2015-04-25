@@ -2,13 +2,12 @@ package player;
 
 import game.Game;
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-
 import resources.constants.INT;
+import util.DialogUtil;
 import voogasalad.util.network.Network;
 import data.DataHandler;
 import javafx.animation.Animation;
@@ -355,7 +354,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void startClient () {
 		try {
 		        myTimeline.stop();
-			myNetwork.setUpClient(PORT_NUMBER);
+			myNetwork.setUpClient(DialogUtil.setUpDialog(),PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
 			receiveLevels();
