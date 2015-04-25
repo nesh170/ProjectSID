@@ -49,5 +49,7 @@ public class DOUBLE {
     public static final double SPLASH_EDIT_SCALE_UP = 1.2;
     public static final double SPLASH_EDIT_SCALE_DOWN = 0.9;
     public static final double SPLASH_EDIT_DEFAULT_SIZE = 30.0;
+    public static final double SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH = 150.0;
+    public static final double SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT = 100.0;
 	
 }
