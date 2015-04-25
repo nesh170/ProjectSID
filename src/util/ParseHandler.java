@@ -65,9 +65,12 @@ public class ParseHandler {
 		String image = users.get(0).getString("imagePath");
 		String objectId = users.get(0).getObjectId();
 		User toReturn = new User(objectId, name, passServer, image);
-		
-		if(toReturn.validate(pass)) return toReturn;
-		return null;
+		if(toReturn.validate(pass)){
+			System.out.println("validated!");
+			return toReturn;
+		} else {
+			return null;
+		}
 		
 		
 	}

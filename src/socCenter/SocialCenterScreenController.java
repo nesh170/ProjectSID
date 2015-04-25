@@ -294,7 +294,11 @@ public class SocialCenterScreenController {
 		@Override
 		public void logIn(Popup popup, TextField username, PasswordField password) {
 			User loggedIn = parseHandle.loadUser(username.getText(), password.getText());
-			createMainPageScreen(loggedIn);
+			if( loggedIn != null ) {
+				createMainPageScreen(loggedIn);
+			} else {
+				errorHandler.displayError("No such user!");
+			}
 			popup.hide();
 		}
 

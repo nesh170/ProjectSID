@@ -91,7 +91,7 @@ public class User {
 	}
 	
 	public boolean validate(String tryPass){
-		return tryPass == myPassword;
+		return tryPass.equals(myPassword);
 	}
 
 	
