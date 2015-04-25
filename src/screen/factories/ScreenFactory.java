@@ -1,6 +1,7 @@
 package screen.factories;
 
 import java.util.List;
+import java.util.Set;
 
 import game.Game;
 import javafx.scene.control.Tab;
@@ -15,12 +16,12 @@ import screen.controllers.LevelEditScreenController;
 import screen.controllers.MainMenuScreenController;
 import screen.controllers.SplashEditScreenController;
 import screen.controllers.SpriteEditScreenController;
-import screen.levelPlatformCapableScreen.GamePlayScreen;
-import screen.levelPlatformCapableScreen.LevelEditScreen;
-import screen.levelPlatformCapableScreen.SplashEditScreen;
 import screen.screens.CollisionTableScreen;
 import screen.screens.GameEditScreen;
+import screen.screens.GamePlayScreen;
+import screen.screens.LevelEditScreen;
 import screen.screens.MainMenuScreen;
+import screen.screens.SplashEditScreen;
 import screen.screens.SpriteEditScreen;
 import sprite.Sprite;
 
@@ -71,10 +72,10 @@ public class ScreenFactory {
 	 * @param splashEditScreenManager
 	 * @return Screen
 	 */
-	public Screen createCollisionTableScreen(List<String> sprites, 
+	public Screen createCollisionTableScreen(Set<String> spriteTags, 
 			CollisionTableScreenController collisionTableScreenController) {
 
-		return new CollisionTableScreen(collisionTableScreenController, width, height, sprites);
+		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags);
 		
 	}
 	

@@ -1,0 +1,101 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>1016</width>
+      <height>752</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>play</name>
+          <tag>Player</tag>
+          <imagePath>dfa-images/mario.jpg</imagePath>
+          <transform>
+            <myPosition>
+              <x>232.0</x>
+              <y>241.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>50.0</width>
+              <height>50.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition>
+              <x>2.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </startPosition>
+            <startRotation reference="../myRotation"/>
+            <startDimensions>
+              <width>200.0</width>
+              <height>200.0</height>
+              <hash>0</hash>
+            </startDimensions>
+          </transform>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>plat</name>
+          <tag>Platform</tag>
+          <imagePath>dfa-images/Mario Brick.png</imagePath>
+          <transform>
+            <myPosition>
+              <x>246.0</x>
+              <y>303.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>50.0</width>
+              <height>50.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../../../sprite.Sprite/transform/startPosition"/>
+            <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../sprite.Sprite/transform/startDimensions"/>
+          </transform>
+        </sprite.Sprite>
+      </sprites>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <transform>
+            <myPosition reference="../../../../sprites/sprite.Sprite/transform/startPosition"/>
+            <myRotation reference="../../../../sprites/sprite.Sprite/transform/myRotation"/>
+            <myDimensions reference="../../../../sprites/sprite.Sprite/transform/startDimensions"/>
+            <startPosition reference="../../../../sprites/sprite.Sprite/transform/startPosition"/>
+            <startRotation reference="../../../../sprites/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../../sprites/sprite.Sprite/transform/startDimensions"/>
+          </transform>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+  </levels>
+  <name>dfa</name>
+  <description></description>
+</game.Game>

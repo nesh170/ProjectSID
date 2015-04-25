@@ -16,6 +16,7 @@ import java.util.*;
 
 import javax.imageio.ImageIO;
 
+import data.DataHandler;
 import javafx.scene.image.*;
 
 public class ImageManager {
@@ -23,16 +24,15 @@ public class ImageManager {
 	private Map<String, Image> imageMap = new HashMap<>();
 
 	public Image getImageForString(String path) throws MalformedURLException, IOException{
-		if(path == null){
-			return null;
-		}
+		path = System.getProperty("user.dir") + "/" + path;
 		if(imageMap.containsKey(path)){
 			return imageMap.get(path);
 		}
+		/*
 		if(path.charAt(0) == ':'){ //filename cannot contain : in any system
 			return makeTextFieldImage(path); 
-		}
-		Image img = new Image(path);
+		}*/
+		Image img = DataHandler.fileToImage(new File(path));
 		imageMap.put(path, img);
 		return img; 
 	}

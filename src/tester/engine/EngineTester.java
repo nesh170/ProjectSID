@@ -1,5 +1,6 @@
 package tester.engine;
 
+import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
@@ -65,15 +66,18 @@ public class EngineTester extends Tester {
 		
 		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
 		fireFlower.setCollisionTag("flower");
-		fireFlower.setImagePath("fireFlower.png");
+		fireFlower.setImagePath("engineTesting/fireFlower.png");
 		mySpriteList.add(fireFlower);
 		setCollisionAll(player, fireFlower, switchOut);
 		
 		Level l = new Level(500, 500, myPlayerList);
 		l.setSprites(mySpriteList);
 		l.setCollisionTable(myCT);
+		Game testGame = new Game("test");
+		testGame.addLevel(l);
+
 		try{
-			DataHandler.toXMLFile(l, "testingLevel.xml", System.getProperty("user.dir")+"/engineTesting");
+			DataHandler.toXMLFile(testGame, "testingGame.xml", System.getProperty("user.dir")+"/engineTesting");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -85,7 +89,7 @@ public class EngineTester extends Tester {
 		goomba.addComponent(new VelocityComponent(goomba, null));
 		goomba.setCollisionTag("goomba");
 		makeFallingLanding(goomba);
-		goomba.setImagePath("Goomba.png");
+		goomba.setImagePath("engineTesting/Goomba.png");
 		Action goombaPath = new MotionPathAction(goomba, 2.0, new Point2D[]{new Point2D(510, 260), new Point2D(650, 260)}, (KeyCode) null);
 		goombaPath.runEveryFrame();
 		goomba.addAction(goombaPath);
@@ -96,7 +100,7 @@ public class EngineTester extends Tester {
 
 	private Sprite makeSpecialPlayer() {
 		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
-		fireMario.setImagePath("FireMario.png");
+		fireMario.setImagePath("engineTesting/FireMario.png");
 		fireMario.setCollisionTag("fireMario");
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
 		makeFallingLanding(fireMario);
@@ -110,7 +114,7 @@ public class EngineTester extends Tester {
 	private Sprite makePlayer() {
 		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		player.addComponent(new VelocityComponent(player, null));
-		player.setImagePath("mario.png");
+		player.setImagePath("engineTesting/mario.png" );
 		player.setCollisionTag("player");
 		myPlayerList.add(player);
 		mySpriteList.add(player);
@@ -171,7 +175,7 @@ public class EngineTester extends Tester {
 	private Sprite makePlatform(double x, double y, double width, double height) {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
 		platform.setCollisionTag("platform");
-		platform.setImagePath("mushroomPlatform.png");
+		platform.setImagePath("engineTesting/mushroomPlatform.png");
 		myPlatforms.add(platform);
 		mySpriteList.add(platform);
 		return platform;

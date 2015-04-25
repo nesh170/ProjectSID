@@ -16,6 +16,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -45,7 +46,6 @@ public abstract class Screen extends BorderPane {
 	// Sizing
 	private double sideBarWidth;
 	private double buttonWidth;
-
 
 	// Getters & Setters
 	/**
@@ -227,11 +227,16 @@ public abstract class Screen extends BorderPane {
 		imageView.setFitHeight(height);
 
 	}
-
-	protected Button makeButtonForPane(String text, EventHandler<ActionEvent> lambda) {
+	protected void setNodeScale( Node n, double f){
+		n.setScaleX(f);
+		n.setScaleY(f);
+	}
+	
+	
+	protected Button makeButtonForPane(String text, EventHandler<MouseEvent> lambda) {
 
 		Button button = new Button(text);
-		button.setOnAction(lambda);
+		button.setOnMouseClicked(lambda);
 		VBox.setVgrow(button, Priority.NEVER);
 		button.setMinWidth(buttonWidth());
 		
