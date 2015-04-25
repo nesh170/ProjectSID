@@ -26,11 +26,11 @@ public class GameEngine extends GameEngineAbstract {
     private List<Level> myLevelList;
     private Level myCurrentLevel;
     private LevelView myLevelRenderer;
-    private static final Map<EventType<KeyEvent>, Consumer<Action>> KEY_EVENT_TO_ACTION_CONSUMER_MAP;
+    private static final Map<String, Consumer<Action>> KEY_EVENT_TO_ACTION_CONSUMER_MAP;
         static{
             KEY_EVENT_TO_ACTION_CONSUMER_MAP = new HashMap<>();
-            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_PRESSED, action -> action.execute());
-            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_RELEASED, action -> action.stop());
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_PRESSED.getName(), action -> action.execute());
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_RELEASED.getName(), action -> action.stop());
         }
         
     
@@ -80,19 +80,21 @@ public class GameEngine extends GameEngineAbstract {
      */
     @Override
     public void play (Node node) {
-        node.setOnKeyPressed(keyPressed -> handleKeyEvent(keyPressed,INT.LOCAL_PLAYER));
-        node.setOnKeyReleased(keyReleased -> handleKeyEvent(keyReleased,INT.LOCAL_PLAYER));
+        node.setOnKeyPressed(keyPressed -> handleKeyEvent(keyPressed.getEventType().getName(),keyPressed.getCode().getName(),INT.LOCAL_PLAYER));
+        node.setOnKeyReleased(keyReleased -> handleKeyEvent(keyReleased.getEventType().getName(),keyReleased.getCode().getName(),INT.LOCAL_PLAYER));
     }
     
     /**
      * This method is a helper method for play where it takes in the keyPressed executes the appropriate behavior
      * @param localPlayer 
-     * @param keyPressed
+     * @param keyEventType
+     * @param keyCode
      */
     @Override
-    public void handleKeyEvent(KeyEvent key, int playerNumber) {
-        if(myControlsMapList.get(playerNumber).containsKey(key.getCode())){
-            KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(key.getEventType()).accept(myControlsMapList.get(playerNumber).get(key.getCode()));
+    public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
+        KeyCode key = KeyCode.getKeyCode(keyCode);
+        if(myControlsMapList.get(playerNumber).containsKey(key)){
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(keyEventType).accept(myControlsMapList.get(playerNumber).get(key));
         }
     }
 
