@@ -36,6 +36,8 @@ public class INT {
 	public static final int DIRECTION = 2;
 	public static final int ACTION = 3;
 	public static final int VALUE = 4;
+	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG.length();
+	
 	
 	
 	//MainMenu

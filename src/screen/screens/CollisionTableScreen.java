@@ -343,8 +343,15 @@ public class CollisionTableScreen extends Screen{
 				.collect(Collectors.toList()));
 		
 		ArrayList<String> fourth = new ArrayList<String>(actionsToAdd);
+		ArrayList<String> nicerNamedActions = new ArrayList<String>();
 		
-		ComboBox action = this.createComboBoxFromList(fourth, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
+		for (String each : fourth)
+		{
+			String better = each.substring(0, each.length()-INT.ACTION_STRING_LENGTH);
+			nicerNamedActions.add(better);
+		}
+		
+		ComboBox action = this.createComboBoxFromList(nicerNamedActions, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
 		collisionSet.add(action, 4, 0); 
 		
