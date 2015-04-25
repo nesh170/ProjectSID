@@ -369,7 +369,8 @@ public class CollisionTableScreen extends Screen{
 		action.valueProperty().addListener(new ChangeListener<String>() {
 	           
 	            public void changed(ObservableValue ov, String t, String t1) {                
-	              if (t1.equals("die"))
+	              if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
+	            //  if (t1.equals("Kill"))
 	              {
 	            	  text.setDisable(true);
 	              }

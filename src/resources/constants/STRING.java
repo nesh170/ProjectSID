@@ -240,4 +240,16 @@ public class STRING {
     	DIRECTION_TO_INTEGER_MAP.put("Left", INT.COLLISION_LEFT);
     	DIRECTION_TO_INTEGER_MAP.put("Right", INT.COLLISION_RIGHT);
     }
+    
+    public static final ArrayList<String> NO_VALUE_NEEDED_ACTIONS;
+
+    static
+    {
+    	NO_VALUE_NEEDED_ACTIONS = new ArrayList<String>();
+    	NO_VALUE_NEEDED_ACTIONS.add("Kill ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Fall ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Bounce ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Climb ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Switch Out ");
+    }
 }
