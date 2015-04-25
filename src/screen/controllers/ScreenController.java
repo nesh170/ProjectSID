@@ -352,10 +352,10 @@ public class ScreenController {
 		
 	}
 	
-	private Tab createLevelEditScreen(Level level) {
+	private Tab createLevelEditScreen(Game game, Level level) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
+				screenFactory.createLevelEditScreen(level, levelEditScreenManager, game),
 				STRING.LEVEL_EDIT.LEVEL_EDIT
 				);
 	
@@ -477,9 +477,9 @@ public class ScreenController {
 		}
 
 		@Override
-		public void loadLevelEditScreen(Level level) {
+		public void loadLevelEditScreen(Game game, Level level) {
 
-			createLevelEditScreen(level);
+			createLevelEditScreen(game, level);
 			
 		}
 
@@ -496,7 +496,7 @@ public class ScreenController {
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
 			game.addLevel(newLevel);
-			createLevelEditScreen(newLevel);
+			createLevelEditScreen(game, newLevel);
 			gameEditScreen.displayLevels(game.levels());
 			
 		}
@@ -597,6 +597,13 @@ public class ScreenController {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 			tabManager.removeTabAndChangeSelected(levelEditTab);	
 			
+		}
+		
+		@Override
+		public void saveLevel(Game game, Level level) {
+			if(!game.levels().contains(level)) {
+				game.addLevel(level);
+			}
 		}
 
 		@Override
