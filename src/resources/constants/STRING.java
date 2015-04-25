@@ -184,6 +184,8 @@ public class STRING {
 		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
 		public static final String SAVE_BUTTON_IMG ="images/CollisionTableImages/savedCheckMark.png";
 		public static final String SAVE_BUTTON_PRESSED_IMG ="images/CollisionTableImages/savedCheckMarkPressed.png";
+		public static final String ADD_BUTTON_IMG ="images/CollisionTableImages/addGreen.png";
+		public static final String ADD_BUTTON_PRESSED_IMG ="images/CollisionTableImages/addCopper.png";
 		
 		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
 		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
