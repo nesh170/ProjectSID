@@ -1,132 +1,120 @@
 package player;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PlayerMenu {
+public class PlayerMenu extends MenuBar{
 
-	private MenuBar myMenuBar;
-	private PlayerViewController myView;
-	private GamePlayer myPlayer;
-	private List<MenuItem> myCommandItems = new ArrayList<MenuItem>();
-	
-	public PlayerMenu(Stage stage) {
-		myMenuBar = createPlayerMenu();
-		myPlayer = new GamePlayer(stage, getBar());
+	public PlayerMenu(PlayerViewController pvc) {
+		createPlayerMenu(pvc);
 	}
 
-//	public PlayerMenu(double width, double height) {
-//		myPlayer = new GamePlayer(width, height);
-//		myMenuBar = createPlayerMenu();
-//	}
-	
-	public PlayerMenu(MenuBar menuBar) {
-		myMenuBar = menuBar;
-		createPlayerMenu(menuBar);
-	}
-	
-	public MenuBar createPlayerMenu(MenuBar menuBar) {
-		Menu menuView = new Menu("View");
-		menuBar.getMenus().add(buildFileMenu());
-		menuBar.getMenus().add(buildGamesMenu());
-		menuBar.getMenus().add(menuView);
-		menuBar.getMenus().add(buildSoundMenu());
-		menuBar.getMenus().add(buildHelpMenu());
-		return menuBar;
-	}
-	
-	public MenuBar createPlayerMenu() {
-		MenuBar menuBar = new MenuBar();
-		return createPlayerMenu(menuBar);
-	}
+    public void createPlayerMenu (PlayerViewController view) {
+        List<Method> methodList =
+                Stream.of(PlayerMenu.class.getDeclaredMethods())
+                        .filter(method -> method.getAnnotations().length > 0)
+                        .collect(Collectors.toList());
+        Collections.sort(methodList, (method1, method2) -> ((Integer) ((AddMenuItem) method1
+                .getAnnotation(AddMenuItem.class)).order()).compareTo(((AddMenuItem) method2
+                .getAnnotation(AddMenuItem.class)).order())); //This method sorts the object based on the order given by the annotations
+        methodList.forEach(method -> getMenus().add(handleMenuAddition(method, view)));
+    }
 
-	private MenuItem makeMenuItem(String name) {
+    private Menu handleMenuAddition (Method method, PlayerViewController view) {
+        Menu menuToAdd = new Menu();
+        try {
+            menuToAdd = (Menu) method.invoke(this, view);
+        }
+        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return menuToAdd;
+    }
+
+    private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
 		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
 				+ name.substring(0, 1)));
 		return item;
 	}
 
-	private Menu buildFileMenu() {
+	@AddMenuItem(order = 0)
+	private Menu buildFileMenu(PlayerViewController controller) {
 		Menu fileMenu = new Menu("File");
 
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
-			pauseGame();
+			controller.pause();
 		});
-		myCommandItems.add(pauseItem);
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			startGame();
+			controller.play();
+			;
 		});
-		myCommandItems.add(playItem);
-		MenuItem newGameItem = makeMenuItem("New Game");
-		newGameItem.setOnAction(event -> {
-			myView.loadNewChooser();
-		});
-		myCommandItems.add(newGameItem);
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
-			System.out.println("write code to load saved game");
+			controller.loadNewChooser();
 		});
-		myCommandItems.add(loadItem);
-		MenuItem quitItem = makeMenuItem("Quit");
-		quitItem.setOnAction(event -> {
-			System.exit(0);
+		MenuItem restartItem = makeMenuItem("Restart");
+		restartItem.setOnAction(event -> {
+			controller.restart();
 		});
-		myCommandItems.add(quitItem);
-		fileMenu.getItems().addAll(pauseItem, playItem, newGameItem, loadItem,
-				quitItem);
+		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
+				restartItem);
 		return fileMenu;
 	}
 
-	private Menu buildGamesMenu() {
+	@AddMenuItem(order = 1)
+	private Menu buildGamesMenu(PlayerViewController view) {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
 		marioItem.setOnAction(event -> {
 			Text prompt = new Text("Are you sure you want to load a new Game? "
 					+ "Save progress before proceeding.");
-			Stage choose = myView.chooserConfirmationDialog(prompt);
+			Stage choose = view.chooserConfirmationDialog(prompt);
 			choose.show();
 		});
 		gamesMenu.getItems().addAll(marioItem);
 		return gamesMenu;
 	}
-	
-	private Menu buildHelpMenu() {
+
+	@AddMenuItem(order = 2)
+	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
-		tutorialItem.setOnAction(event -> showTutorial());
-		
+		tutorialItem.setOnAction(event -> view.showTutorial());
+
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
 	}
-	
-	private Menu buildSoundMenu() {
+
+	@AddMenuItem(order = 3)
+	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
-		myCommandItems.add(playItem);
-		
+		playItem.setOnAction(event -> view.playMusic());
+
 		MenuItem pauseItem = new MenuItem("Pause");
-		myCommandItems.add(pauseItem);
-		
+		pauseItem.setOnAction(event -> view.pauseMusic());
+
 		MenuItem stopItem = makeMenuItem("Stop");
-		myCommandItems.add(stopItem);
-		
+		stopItem.setOnAction(event -> view.stopMusic());
+
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
 	}
@@ -144,33 +132,4 @@ public class PlayerMenu {
 		return gameChooser;
 	}
 
-	public void startGame() {
-		myPlayer.start();
-	}
-
-	public void pauseGame() {
-		myPlayer.pause();
-	}
-
-	public void loadNewGame() {
-		myPlayer.loadNewGame();
-	}
-
-	public void saveGame() {
-		myPlayer.save();
-	}
-	
-	public void showTutorial() {
-		myPlayer.showTutorial();
-		myPlayer.pauseMusic();
-	}
-	
-	public MenuBar getBar() {
-		return myMenuBar;
-	}
-
-	public List<MenuItem> getCommandItems() {
-		return myCommandItems;
-	}
-	
 }

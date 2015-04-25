@@ -1,7 +1,10 @@
 package gameEngine;
+import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * The GameEngine class is the main class of the game engine. It initializes all the sprites from the XML. It also has an
@@ -41,4 +44,31 @@ public abstract class GameEngineAbstract {
      */
     public abstract void play(Node node);
 
+    /**
+     * This method is a helper method for play where it takes in the keyPressed executes the appropriate behavior
+     * @param localPlayer 
+     * @param keyPressed
+     */
+    public abstract void handleKeyEvent(KeyEvent key, int playerNumber);
+    
+    /**
+     * Uses The dataHandler class to convert the current level into a String
+     * @return the output of XStream from the current level
+     */
+    public abstract String getCurrentLevelinXML();
+    
+    /**
+     * Returns a string of the action names with KeyCodes to be modified by the player
+     * @return
+     */
+    public abstract List<String> actionWithKeyCode(int playerNum);
+    
+    /**
+     * Lets you change the keycode of a specific action in the playerNumber.
+     * @param playerNumber
+     * @param actionName
+     * @param key
+     */
+    public abstract void changeKeyCodeInAction(int playerNumber, String actionName, KeyCode key);
+    
 }

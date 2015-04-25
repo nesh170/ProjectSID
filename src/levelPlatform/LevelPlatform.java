@@ -1,9 +1,13 @@
 package levelPlatform;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import resources.constants.STRING;
 import sprite.Sprite;
 
 /**
@@ -59,7 +63,7 @@ public class LevelPlatform {
 		instantiateLists();
 	}
 	
-	private void configureWidthAndHeight(int width, int height) {
+	public void configureWidthAndHeight(int width, int height) {
 		
 		this.width = width;
 		this.height = height;
@@ -69,8 +73,16 @@ public class LevelPlatform {
 	private void instantiateLists() {
 		this.sprites = new ArrayList<Sprite>();
 	}
-	
-	
+ 	/**
+	 * get an ImageView representation for each level/splash to display on GameEditScreen.
+	 * @return ImageView or Image
+	 */
+	public ImageView getLevelPlatformImageView(){
+		//TODO: implement this method
+		//temporary image to reprsent each level
+		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.LEVEL2IMAGE));
+		return img;
+	}
 	/**
 	 * Calls the prepare method in each sprite.
 	 */
@@ -81,7 +93,14 @@ public class LevelPlatform {
 	
 	public void update(){
 	        sprites.stream().forEach(sprite -> sprite.updateSprite());
+	        addEmissionListToSpriteList();
 	}
+
+    private void addEmissionListToSpriteList () {
+        Set<Sprite> tempSpriteSet = new HashSet<>();
+        sprites.stream().forEach(sprite-> sprite.emissionList().stream().forEach(emissionSprite -> tempSpriteSet.add(emissionSprite)));
+        tempSpriteSet.stream().forEach(emissionSprite -> sprites.add(emissionSprite));
+    }
 
 	
 }

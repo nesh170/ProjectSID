@@ -1,6 +1,5 @@
 package gameEngine.actions;
 
-import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.VelocityComponent;
@@ -11,7 +10,6 @@ public class NormalAction extends Action {
 	
 	public NormalAction(Sprite sprite) {
 		super(sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

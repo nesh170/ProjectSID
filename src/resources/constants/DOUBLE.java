@@ -2,9 +2,14 @@ package resources.constants;
 
 public class DOUBLE {
 
-	// Percentages
-	public static final double NINETY_PERCENT = 0.90;
-
+	public class PERCENT {
+		
+		// Percentages
+		public static final double NINETY_PERCENT = 0.90;
+		public static final double SEVENTY_FIVE_PERCENT = 0.75;
+		public static final double TEN_PERCENT = 0.10;
+		
+	}
 	
 	// Screen
 	public static final double BUTTON_SPACING = 20;
@@ -17,9 +22,9 @@ public class DOUBLE {
 	// Tabs
 	public static final double TAB_HEIGHT = 30.0;
 	// MenuBar
-	public static final double MENU_BAR_HEIGHT = 30.0;
+	public static final double MENU_BAR_HEIGHT = 20.0;
 	// Error Message Width
-	public static final double ERROR_MESSAGE_WIDTH = 200.0;
+	public static final double ERROR_MESSAGE_WIDTH = 400.0;
 	public static final double ERROR_MESSAGE_HEIGHT = 80.0;
 	
 	
@@ -31,13 +36,18 @@ public class DOUBLE {
 	
 	
 	// LevelView
-	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 5.0;
+	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 1.0;
 	
 	// Bullet info
 	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;
 	public static final double BULLET_SPEED = 35.0;
 
 	//Terminal Velocity fo velocity Component
-        public static final double TERMINAL_VELOCITY = 5;
+    public static final double TERMINAL_VELOCITY = 5;
+        
+    //Splash Edit
+    public static final double SPLASH_EDIT_SCALE_UP = 1.4;
+    public static final double SPLASH_EDIT_SCALE_DOWN = 0.8;
+    public static final double SPLASH_EDIT_DEFAULT_SIZE = 30.0;
 	
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import resources.constants.INT;
 import screen.Screen;
+import screen.controllers.CollisionTableScreenController;
 import sprite.Sprite;
 
 /**

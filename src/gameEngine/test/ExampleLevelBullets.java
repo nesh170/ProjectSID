@@ -3,7 +3,7 @@ package gameEngine.test;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
-import gameEngine.actions.JumpAction;
+import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.NormalAction;
@@ -36,7 +36,7 @@ public class ExampleLevelBullets {
 		player.addAction(new LeftMotionAction(player, 2.0, KeyCode.LEFT));
 		Action rma = new RightMotionAction(player, 2.0, KeyCode.RIGHT);
 		player.addAction(rma);
-		Action jumpAction = new JumpAction(player, -6.0, KeyCode.UP);
+		Action jumpAction = new UpMotionAction(player, -6.0, KeyCode.UP);
 		player.addAction(jumpAction);
 		Action gravityAction = new FallAction(player, 10.0);
 		gravityAction.runEveryFrame();
@@ -52,7 +52,9 @@ public class ExampleLevelBullets {
 		spriteList.add(platform);
 		spriteList.add(player);
 		spriteList.add(platform);
-		Level l = new Level(500, 500, player);
+		List<Sprite> players = new ArrayList<>();
+		players.add(player);
+		Level l = new Level(500, 500, players);
 		
 		//set up projectile template
 		Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
@@ -71,8 +73,8 @@ public class ExampleLevelBullets {
 		CollisionTable ct = new CollisionTable();
 		platform.setCollisionTag("platform");
 		player.setCollisionTag("player");
-		ct.addActionToMap(player.collisonTag(), platform.collisonTag(), INT.COLLISION_UP, normalAction);
-		ct.addActionToMap(platform.collisonTag(), player.collisonTag(), INT.COLLISION_DOWN, null);
+		ct.addActionToMap(player.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, normalAction);
+		ct.addActionToMap(platform.collisionTag(), player.collisionTag(), INT.COLLISION_DOWN, null);
 		l.setCollisionTable(ct);
 		
 		Map<Sprite, Integer> goalMap = new HashMap<>();

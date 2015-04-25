@@ -9,21 +9,24 @@ import gameEngine.components.VelocityComponent;
 public class ProjectileMotionComponent extends VelocityComponent {
 
 	private Sprite myShooter;
+	private double myBulletSpeed;
+	private double mySelfDestructDistance;
 	
 	public ProjectileMotionComponent(Sprite sprite, List<Double> valueList ,Sprite shooter) {
 		super(sprite,valueList);
 		myShooter = shooter;
+		myBulletSpeed = valueList.get(0);
+		mySelfDestructDistance = valueList.get(1);
 	}
 
 	
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.
-		//TODO: REMOVE HARDCODED SPEED
-		if((mySprite.transform().getPosX() - myShooter.transform().getPosX()) > DOUBLE.BULLET_SELF_DESTRUCT_DIST){
+		if((myShooter.transform().getPosX() - mySprite.transform().getPosX()) > mySelfDestructDistance){
 			mySprite.setIsActive(false);
 		}
-		setVelocityX(DOUBLE.BULLET_SPEED);
+		setVelocityX(myBulletSpeed);
 
 	}
 

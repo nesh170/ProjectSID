@@ -25,6 +25,7 @@ public class Collision {
      * @param sprite2
      **/
     public void handleCollide(Sprite sprite1, Sprite sprite2){
+    	
     	Transform transform1 = sprite1.transform();
     	Transform transform2 = sprite2.transform();
     	
@@ -59,7 +60,7 @@ public class Collision {
     }
     
     private void handleSprite1(Sprite sprite1, Sprite sprite2, int direction) {
-    	Action a = collideTable.getActionForCollisionAndDirection(sprite1.collisonTag(), sprite2.collisonTag(), direction);
+    	Action a = collideTable.getActionForCollisionAndDirection(sprite1.collisionTag(), sprite2.collisionTag(), direction);
     	if(a != null) a.execute();
 
     }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.*;
 
+import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
@@ -46,12 +47,28 @@ public class Sprite {
 	private String name;
 	private String tag;
 	private String collisionTag;
+	private String imagePath;
+	private boolean facesLeft = false;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
 
 	
+	public static Sprite makeCopy(Sprite toCopy) {
+		String xmlCopy = DataHandler.toXMLString(toCopy);
+		Sprite returnCopy = (Sprite) DataHandler.fromXMLString(xmlCopy);
+		return returnCopy; 
+	}
+	
 	// Getters & Setters
+
+	public boolean facesLeft() {
+		return facesLeft;
+	}
+
+	public void setFacesLeft(boolean facesLeft) {
+		this.facesLeft = facesLeft;
+	}
 	/**
 	 * Use SID pixels here
 	 */
@@ -64,6 +81,22 @@ public class Sprite {
 	 */
 	public void setY(double y) {
 		this.y = y;
+	}
+	
+	public void setPosition(Point2D pos) {
+		transform.setPosition(pos);
+	}
+	
+	public void setDimensions(Dimension2D dims) {
+		transform.setDimensions(dims);
+	}
+			
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 	
 	public List<Action> actionList() {
@@ -102,7 +135,7 @@ public class Sprite {
 		return this.tag;
 	}
 	
-	public String collisonTag(){
+	public String collisionTag(){
 		return this.collisionTag;
 	}
 	
@@ -124,18 +157,22 @@ public class Sprite {
 	
 	public SpriteImage spriteImage() {
 		
-	    //TODO talk to Ruslan about death
-		
 		if (spriteImage == null) {
 			this.spriteImage = new SpriteImage();
 		}
 		
 		return this.spriteImage;
+		
 	}
 		
 	public Dimension2D dimensions() {
 		return transform.getDimensions();
 	}
+	
+	public Point2D getPosition() {
+		return transform.getPositionPoint();
+	}
+
 	
 	public double getX() {
 		return this.x;
@@ -144,7 +181,7 @@ public class Sprite {
 	public double getY() {
 		return this.y;
 	}
-	
+		
 	// Constructor & Helpers
 	public Sprite() {
 		this(POINT2D.DEFAULT_POSITION, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
@@ -154,18 +191,29 @@ public class Sprite {
 		this(coordinate, POINT2D.DEFAULT_ROTATION, DIMENSION2D.DEFAULT_DIMENSIONS);
 	}
 	
-	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension){
+	public Sprite (Point2D coordinate, Point2D rotate, Dimension2D dimension) {
+		
 		this.isActive = true;
 		this.transform = new Transform(coordinate, rotate, dimension);
 		emissionList = new ArrayList<>();
 		actionList = new ArrayList<Action>();
 		componentList = new ArrayList<Component>();
+		
 	}
 	
-	
-	public Sprite (Sprite toCopy){
+	@Deprecated
+	/*
+	 * Use static method makeSprite(Sprite toCopy) instead.
+	 */
+	public Sprite (Sprite toCopy) {
+				
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
 		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		this.setTag(toCopy.tag());
+		this.setName(toCopy.name);
+		toCopy.actionList().forEach(action -> this.addAction(action));
+		toCopy.componentList().forEach(component -> this.addComponent(component));
+		this.spriteImage = new SpriteImage(toCopy.spriteImage()); 
 		
 	}
 	
@@ -184,6 +232,10 @@ public class Sprite {
 	
 	public void prepareAllActions(){
 		actionList.stream().forEach(action -> action.prepare());
+	}
+	
+	public void prepareImages(){
+		
 	}
 	
 	/**
@@ -257,7 +309,6 @@ public class Sprite {
 		
 		return null;
 		
-	}
-	
-	
+	}	
+
 }

@@ -27,6 +27,7 @@ public class RightMotionAction extends Action {
 	public void execute() {
 	    myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 	    myVelocityComponent.setVelocityX(EngineMathFunctions.velocityValueFrame(velocity));
+	    mySprite.setFacesLeft(false);
 	}
 
 	@Override

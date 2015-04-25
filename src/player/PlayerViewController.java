@@ -11,18 +11,10 @@ import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -38,97 +30,80 @@ import levelPlatform.level.Level;
 import media.AudioController;
 import media.VideoPlayer;
 
-public class PlayerViewController {
+public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
 	public final static double UPDATE_RATE = 120;
 
 	private Timeline myTimeline;
-	private Stage myGameChooser;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
+
 	private Media myVideo;
 	private Media myAudio;
-	private StackPane myPause;
 	private double myWidth;
 	private double myHeight;
 	private int myLives;
 	private int myHealth;
 	private int myScore;
-	private Scene myScene;
+	private Game myGame;
+
 	private File myGameFolder;
 	private List<Level> myGameLevels;
-	private ScrollPane myGameRoot;
 	private Group myGameGroup;
 	private GameEngine myEngine;
-	private double[] cameraValue;
-	private Game myGame;
-	
-	public PlayerViewController(ScrollPane pane) {
-		myGameRoot = pane;
+	private Camera myCamera;
+
+	private PlayerView myView;
+
+	//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
+	//		myGameRoot = pane;
+	//		myCamera = new Camera(pane);
+	//		myHUD = gameHUD;
+	//		loadNewChooser();
+	//	}
+	//
+	//	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
+	//		myGameRoot = pane;
+	//		myCamera = new Camera(pane);
+	//		myHUD = gameHUD;
+	//		selectGame(game);
+	//	}
+
+	public PlayerViewController(PlayerView view) {
+		myView = view;
+		myCamera = new Camera(myView.getRoot());
 		loadNewChooser();
-		myPause = makePauseScreen();
 	}
 
-	public PlayerViewController(Game game, ScrollPane pane) {
-		myGameRoot = pane;
-		myPause = makePauseScreen();
-		selectGame(game);
-	}
-
-	public void startView() {
-		removePause();
-		myEngine.play(myGameRoot);
+	public void play() {
 		myTimeline.play();
+		myEngine.play(myView.getRoot());
+		myView.playScreen();
+		myAudioController.play();
 	}
 
-	public void stopView() {
+	public void pause() {
 		myTimeline.stop();
-		myEngine.pause(myGameRoot);
-		bringupPause();
+		myEngine.pause(myView.getRoot());
+		myView.pauseScreen();
+		myAudioController.pause();
 	}
 
 	private void update() {
-		cameraValue = myEngine.update();
+		double[] cameraVals = myEngine.update();
+		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
 	}
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		myGameGroup.getChildren().add(createHUD());
-		myGameRoot.setContent(myGameGroup);
-		centerNodeInScrollPane();
-	}
-	
-	public void centerNodeInScrollPane() {
-	    double yView = myGameRoot.getContent().getBoundsInLocal().getHeight();
-	    double yCenterPlayer = cameraValue[1];
-	    double yBounds = myGameRoot.getViewportBounds().getHeight();
-	    double xView = myGameRoot.getContent().getBoundsInLocal().getWidth();
-	    double xCenterPlayer = cameraValue[0];
-	    double xBounds = myGameRoot.getViewportBounds().getWidth();
-	    myGameRoot.setHvalue(myGameRoot.getHmax() * ((xCenterPlayer - 0.5 * xBounds) / (xView - xBounds)));
-	    myGameRoot.setVvalue(myGameRoot.getVmax() * ((yCenterPlayer - 0.5 * yBounds) / (yView - yBounds)));
+		myView.display(myGameGroup);
+		myCamera.focus();		
 	}
 
-	private StackPane makePauseScreen() {
-		StackPane pause = new StackPane();
-		Button startButton = new Button("Resume");
-		startButton.setOnAction(event -> {
-			startView();
-		});
-		pause.getChildren().add(startButton);
-		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
-		pause.setPrefWidth(myWidth - 100);
-		pause.setPrefHeight(myHeight - 50);
-		return pause;
-	}
+	public void removePause() {
+		//top pane's only child will be pause menu
 
-	private void bringupPause() {
-		myGameRoot.setContent(myPause);
-	}
-
-	private void removePause() {
-		myGameRoot.setContent(myGameGroup);
 	}
 
 	private void setupAnimation() {
@@ -166,12 +141,10 @@ public class PlayerViewController {
 		chooseGame(chooserStage);
 	}
 
-	private void chooseGame(Stage gameChooser) {
-		// find a way to set up a map so we can just have file paths
-		// for games already established so no directory needs to be opened here
-		myGameFolder = DataHandler.chooseDir(gameChooser);
+	public void initializeGameAttributes() {
 		try {
-			myGameLevels = DataHandler.getLevelsFromDir(myGameFolder);
+			myGame = DataHandler.getGameFromDir(myGameFolder);
+			myGameLevels = myGame.levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();
@@ -181,7 +154,15 @@ public class PlayerViewController {
 			e.printStackTrace();
 		}
 		myEngine = new GameEngine(myGameLevels);
+	}
+
+	private void chooseGame(Stage gameChooser) {
+		// find a way to set up a map so we can just have file paths
+		// for games already established so no directory needs to be opened here
+		myGameFolder = DataHandler.chooseDir(gameChooser);
+		initializeGameAttributes();
 		setupAnimation();
+		play();
 	}
 
 	public void selectGame(Game game) {
@@ -189,27 +170,12 @@ public class PlayerViewController {
 		myGameLevels = game.levels();
 		myEngine = new GameEngine(myGameLevels);
 		setupAnimation();
-	}			
-	
-	public HBox createHUD() {
-		HBox HUDbox = new HBox(myWidth);
-		Text LivesText = new Text("Health:" + myHealth);
-		LivesText.setFont(Font.font("Arial Black", 20));
-		LivesText.setFill(Color.WHITE);
-		Text HealthText = new Text("Lives:" + myLives);
-		HealthText.setFont(Font.font("Arial Black", 20));
-		HealthText.setFill(Color.WHITE);
-		Text ScoreText = new Text("Score" + myScore);
-		ScoreText.setFont(Font.font("Arial Black", 20));
-		ScoreText.setFill(Color.WHITE);
-		HUDbox.getChildren().addAll(LivesText, HealthText, ScoreText);
-		HUDbox.setAlignment(Pos.BOTTOM_CENTER);
-		return HUDbox;
+		play();
 	}
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-				"mario3.xml" };
+		"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -221,11 +187,21 @@ public class PlayerViewController {
 		}
 	}
 
+	public void restart() {
+		pause();
+		initializeGameAttributes();
+		play();
+	}
+
 	public void showTutorial() {
 		// TODO Auto-generated method stub
+		myTimeline.pause();
 		try {
 			Stage videoStage = new Stage();
-			videoStage.setOnCloseRequest(event -> playMusic());
+			videoStage.setOnCloseRequest(event -> {
+				playMusic();
+				myTimeline.play();
+			});
 			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -243,5 +219,53 @@ public class PlayerViewController {
 
 	public void stopMusic() {
 		myAudioController.stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int getLives() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHighScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void loadNewGame() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setPreferences() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List findGames() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveGame() {
+		// TODO Auto-generated method stub
+
 	}
 }

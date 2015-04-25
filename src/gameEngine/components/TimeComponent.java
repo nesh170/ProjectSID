@@ -29,8 +29,8 @@ public class TimeComponent extends Component {
 		levelTime -= 1/60;
 		displayTime = (int) Math.round(levelTime);
 		if (levelTime == 0) {
-			HealthComponent health = (HealthComponent) mySprite.getComponentOfType("HealthComponent");
-			health.kill();
+			LifeComponent life = (LifeComponent) mySprite.getComponentOfType("LifeComponent");
+			life.kill();
 		}
 	}
 	

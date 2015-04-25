@@ -11,8 +11,7 @@ import javafx.scene.control.Button;
 public class ScreenButton extends Button {
 	
 	
-	public ScreenButton(String name, String buttonStyle) {
-		
+	public ScreenButton(String name, String buttonStyle) {		
 	
 		this.setText(name);
 		this.setStyle(buttonStyle);
@@ -26,11 +25,11 @@ public class ScreenButton extends Button {
 	 * @author Anika
 	 */
 	private void mouseDown() {
-		this.setStyle(STRING.PRESSED_BUTTON_CSS);
+		this.setStyle(STRING.BUTTONS.PRESSED_BUTTON_CSS);
 	}
 	
 	private void mouseUp() {
-		this.setStyle(STRING.RELEASED_BUTTON_CSS);
+		this.setStyle(STRING.BUTTONS.RELEASED_BUTTON_CSS);
 	}
 	
 	
