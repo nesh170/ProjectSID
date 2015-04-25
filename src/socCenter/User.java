@@ -24,8 +24,13 @@ public class User {
 		setMyID(id);
 		setName(name);
 		setPassword(password);
+		setImagePath("");
 	}
 	
+	public User(String id, String name, String password, String imagePath){
+		this(id, name, password);
+		setImagePath(imagePath);
+	}
 	//getters, setters
 	public String getMyID() {
 		return myID;
@@ -59,11 +64,11 @@ public class User {
 		this.myDefaultSprite = defaultSprite;
 	}
 	
-	public void setAvatar(String path, int width, int height){
+	/*public void setAvatar(String path, int width, int height){
 		Image img = new Image(path);
 		myDefaultSprite.spriteImage().addImage(ImageToInt2DArray.convertImageTo2DIntArray(img, width, height));
 		myImagePath = myDefaultSprite.getImagePath();
-	}
+	}*/
 	
 	public String getPass(){
 		//TODO:
