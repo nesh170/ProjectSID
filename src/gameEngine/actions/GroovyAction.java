@@ -17,7 +17,7 @@ public class GroovyAction extends Action {
 
     private ScriptRunner scriptEngine;
     private String myPrepareCode;
-    private String myExecuteCode;
+    private String myDoActionCode;
     private String myStopCode;
 
     public GroovyAction (Sprite sprite) {
@@ -54,7 +54,7 @@ public class GroovyAction extends Action {
     @Override
     public void execute () {
         try {
-            scriptEngine.evaluateScript(myExecuteCode);
+            scriptEngine.evaluateScript(myDoActionCode);
         }
         catch (ScriptException e) {
             e.printStackTrace();
@@ -77,9 +77,9 @@ public class GroovyAction extends Action {
         myPrepareCode = code;
     }
 
-    @SetterGroovy(name = "Action.execute()", type = "textBox")
-    public void setExecuteCode (String code) {
-        myExecuteCode = code;
+    @SetterGroovy(name = "Action.doAction()", type = "textBox")
+    public void setDoActionCode (String code) {
+        myDoActionCode = code;
     }
 
     @SetterGroovy(name = "Action.stop()", type = "textBox")
@@ -90,6 +90,9 @@ public class GroovyAction extends Action {
     public List<Object> getVariableList () {
         return Collections.unmodifiableList(SIDFunctions.addNoNull(Stream.of(mySprite.getClass().getSimpleName(),value.getClass().getSimpleName(),myKeyCode.get(0).getClass().getSimpleName()).collect(Collectors.toList())));
     }
+
+    @Override
+    protected void doAction () {}
 
 
 }

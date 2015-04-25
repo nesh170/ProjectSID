@@ -16,10 +16,10 @@ public class TowardPlayerMotionComponent extends VelocityComponent {
 	private Sprite playerSprite;
 	private Double speedFactor;
 	
-	public TowardPlayerMotionComponent(Sprite sprite,List<Double> valueList){
-		super(sprite,valueList);
+	public TowardPlayerMotionComponent(Sprite sprite, Double value){
+		super(sprite,value);
 		try{
-		    speedFactor=valueList.get(0);
+		    speedFactor=value;
 		}
 		catch(IndexOutOfBoundsException e){
 		    speedFactor = DOUBLE.DEFAULT_TOWARD_MULTIPLIER;

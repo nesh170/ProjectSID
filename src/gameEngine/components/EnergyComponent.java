@@ -9,9 +9,9 @@ public class EnergyComponent extends Component {
     private double initialEnergy;
     private double currentEnergy;
 
-    public EnergyComponent (Sprite sprite, List<Double> valueList) {
-        super(sprite, valueList);
-        initialEnergy = currentEnergy = valueList.get(0);
+    public EnergyComponent (Sprite sprite, Double value) {
+        super(sprite, value);
+        initialEnergy = currentEnergy = value;
     }
 
     @Override

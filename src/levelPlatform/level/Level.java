@@ -44,6 +44,7 @@ public class Level extends LevelPlatform {
 	private CollisionTable collisionTable;
 	private IntConsumer nextLevelMethod;
 	private Map<Sprite, Integer> goalMap;
+	private String myBackgroundPath;
 
 	// Getters & Setters
 	/**
@@ -59,6 +60,14 @@ public class Level extends LevelPlatform {
 	
 	public void addPlayerSprite(Sprite player){
 	    playerSpriteList.add(player);
+	}
+
+	public String backgroundPath() {
+		return myBackgroundPath;
+	}
+
+	public void setBackground(String backgroundPath) {
+		myBackgroundPath = backgroundPath;
 	}
 
 	public void setSprites(List<Sprite> spriteList){

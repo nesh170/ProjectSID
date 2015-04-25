@@ -64,8 +64,11 @@ public class EngineTester extends Tester {
 		fireFlower.setImagePath("engineTesting/fireFlower.png");
 		mySpriteList.add(fireFlower);
 		setCollisionAll(player, fireFlower, switchOut);
+		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
+		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
 		
-		Level l = new Level(500, 500, myPlayerList);
+		Level l = new Level(900, 500, myPlayerList);
+		l.setBackground("engineTesting/background.png");
 		l.setSprites(mySpriteList);
 		l.setCollisionTable(myCT);
 
@@ -166,7 +169,7 @@ public class EngineTester extends Tester {
 		myProjectileTemplate.setTag("bullet");
 		myProjectileTemplate.setImagePath("fireball.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
+				5.0, 200.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

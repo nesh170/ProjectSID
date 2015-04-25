@@ -20,7 +20,7 @@ public class AlterHealthAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myHealth.increase(value);
 	}
 

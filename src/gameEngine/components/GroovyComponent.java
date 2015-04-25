@@ -20,8 +20,8 @@ public class GroovyComponent extends Component {
     private String myPrepareCode;
     private String myUpdateCode;
 
-    public GroovyComponent (Sprite sprite, List<Double> valueList) {
-        super(sprite, valueList);
+    public GroovyComponent (Sprite sprite, Double value) {
+        super(sprite, value);
     }
     
     public GroovyComponent deepCopy(){
@@ -32,7 +32,7 @@ public class GroovyComponent extends Component {
     @Override
     public void prepare () {
         try {
-            scriptEngine = new ScriptRunner(SIDFunctions.addNoNull(Stream.of(mySprite,myValueList).collect(Collectors.toList())));
+            scriptEngine = new ScriptRunner(SIDFunctions.addNoNull(Stream.of(mySprite,myValue).collect(Collectors.toList())));
             scriptEngine.prepareEngine();
             scriptEngine.evaluateScript(myPrepareCode);
         }
@@ -70,7 +70,7 @@ public class GroovyComponent extends Component {
     }
     
     public List<Object> getVariableList () {
-        return Collections.unmodifiableList(SIDFunctions.addNoNull(Stream.of(mySprite.getClass().getSimpleName(),myValueList.getClass().getSimpleName()).collect(Collectors.toList())));
+        return Collections.unmodifiableList(SIDFunctions.addNoNull(Stream.of(mySprite.getClass().getSimpleName(),myValue.getClass().getSimpleName()).collect(Collectors.toList())));
     }
 
 }
