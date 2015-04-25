@@ -328,14 +328,6 @@ public class CollisionTableScreen extends Screen{
 		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
 		collisionSet.add(direction, 3, 0); 
-
-		
-		/*ArrayList<String> fourth = new ArrayList<String>();
-		fourth.add("die");
-		fourth.add("move");
-		fourth.add("sigh");
-		fourth.add("groove");*/
-		
 		
 		ObservableList<String> actionsToAdd = FXCollections.observableArrayList(ResourceBundle
 				.getBundle("resources.spritePartProperties.action")
