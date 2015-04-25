@@ -622,6 +622,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
 	private void placeImageView(ImageView imageView, MouseEvent e) {
 		
+//		System.out.println(Math.sin(imageView.getRotate()));
+//		System.out.println(Math.cos(imageView.getRotate()));
 		imageView.setX(e.getX());
 		imageView.setY(e.getY());
 		tag = null;
@@ -648,17 +650,29 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		
 		KeyCode keyCode = e.getCode();
 		
-		if(keyCode == KeyCode.RIGHT) {
+		if(keyCode == KeyCode.UP) {
 			
 			node.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleX());
 			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleY());
 			
 		}
 		
-		else if(keyCode == KeyCode.LEFT) {
+		else if(keyCode == KeyCode.DOWN) {
 			
 			node.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleX());
 			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleY());
+			
+		}
+		
+		else if(keyCode == KeyCode.RIGHT) {
+			
+			node.setRotate(node.getRotate() + 15);
+			
+		}
+		
+		else if(keyCode == KeyCode.LEFT) {
+			
+			node.setRotate(node.getRotate() - 15);
 			
 		}
 		
