@@ -36,9 +36,10 @@ public class INT {
 	public static final int DIRECTION = 2;
 	public static final int ACTION = 3;
 	public static final int VALUE = 4;
-	
-	
-	
+	public static final int UP_VALUE = 0;
+	public static final int DOWN_VALUE = 1;
+	public static final int LEFT_VALUE = 2;
+	public static final int RIGHT_VALUE = 3;
 	
 	
 	//MainMenu
