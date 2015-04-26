@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import resources.constants.INT;
 import util.DialogUtil;
+import util.ErrorHandler;
 import voogasalad.util.network.Network;
 import data.DataHandler;
 import javafx.animation.Animation;
@@ -40,6 +41,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public final static double NETWORK_RATE = 15;
 	public final static double UPDATE_RATE = 120;
 	public final static int PORT_NUMBER = 60910;
+        public static final String NETWORK_BROKE = "NETWORK BROKE";
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
@@ -64,6 +66,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Network myNetwork = new Network();
 	
 	private Level myNetworkLevel;
+	private ErrorHandler myErrorHandler;
 
 	//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
 	//		myGameRoot = pane;
@@ -304,9 +307,12 @@ public class PlayerViewController implements GamePlayerInterface {
 			receiveFromClient();
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myErrorHandler.displayError(NETWORK_BROKE);
 		}
+	}
+	
+	public void setErrorHandler (ErrorHandler errorHandler) {
+	    myErrorHandler = errorHandler;
 	}
 
 	private void sendClientLevels(){
@@ -317,11 +323,10 @@ public class PlayerViewController implements GamePlayerInterface {
 				while (true) {
 					try {
 						myNetwork.sendStringToClient(getCurrentLevelinXML());
-						Thread.sleep(100);
+						Thread.sleep(500);
 					}
 					catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					    myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
 			}
@@ -346,8 +351,7 @@ public class PlayerViewController implements GamePlayerInterface {
 						handleKeyEvent(keyString.get(0),keyString.get(1), INT.SECOND_PLAYER); //Add code to make another player play
 					}
 					catch(Exception e){
-						System.out.println("Error detector");
-						e.printStackTrace();
+					    myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
 			}
@@ -365,8 +369,10 @@ public class PlayerViewController implements GamePlayerInterface {
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
 			receiveLevels();
+			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+	                Camera camera = new Camera(myView.getRoot());
 			KeyFrame displayFrame = new KeyFrame(
-					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel));
+					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel, renderer, camera));
 			Timeline networkTimeline = new Timeline();
 			networkTimeline.setCycleCount(Animation.INDEFINITE);
 			networkTimeline.getKeyFrames().add(displayFrame);
@@ -385,7 +391,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
 		}
 		catch (Exception e) {
-			System.err.println("Can't send key");
+		    myErrorHandler.displayError(NETWORK_BROKE);
 		}
 	}
 
@@ -397,13 +403,9 @@ public class PlayerViewController implements GamePlayerInterface {
 					try {
 						String levelString = myNetwork.getStringFromServer();
 						myNetworkLevel =(Level) DataHandler.fromXMLString(levelString);
-						//						renderer.setLevel(level);
-						//						myGameRoot.setContent(renderer.renderLevel());
-						//						double[] coordinates = level.getNewCameraLocations();
-						//						camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 					}
 					catch (Exception e) {
-						e.printStackTrace();
+						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
 
@@ -417,13 +419,16 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	}
 
-	private void display(Level level){
-		LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-		Camera camera = new Camera(myView.getRoot());
+	private void display(Level level, LevelView renderer, Camera camera){
+	    if(level==null){
+	        return;
+	    }
 		renderer.setLevel(level);
 		myView.getRoot().setContent(renderer.renderLevel());
 		double[] coordinates = level.getNewCameraLocations();
 		camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 	}
+
+ 
 
 }
