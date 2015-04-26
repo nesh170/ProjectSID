@@ -83,7 +83,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private LevelEditScreenController controller;
 	private LevelEditModel model;
 	private Game parentGame;
-	private Level level;
 	private LevelEditDisplay levelEditDisplay;
 	private Tab currentGameScreen;
 	// Layout
@@ -102,10 +101,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	// Getters & Setters
 	private void setController(LevelEditScreenController controller) {
 		this.controller = controller;
-	}
-
-	private void setLevel(Level level) {
-		this.level = level;
 	}
 	
 	public Set<String> getTags() {
@@ -154,8 +149,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
-		Menu fileMenu = makeFileMenu(e -> controller.saveLevel(parentGame, model.level()),
-				e -> controller.returnToGameEditScreen(),
+		Menu fileMenu = makeFileMenu(e -> save(),
+				e -> exit(),
 				e -> saveAndExit());
 		Menu addNewSpriteButton = makeAddSpriteButton();
 
@@ -287,9 +282,17 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 	
-	private void saveAndExit() {
+	private void save() {
 		controller.saveLevel(parentGame, model.level());
+	}
+	
+	private void exit() {
 		controller.returnToGameEditScreen();
+	}
+	
+	private void saveAndExit() {
+		save();
+		exit();
 	}
 	
 	private void onLevelScreenRender(Level level) {

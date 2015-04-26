@@ -27,6 +27,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
@@ -92,6 +93,10 @@ public class SpriteEditScreen extends Screen {
 	private ListView<String> componentsAddedList;
 
 	private Text dataText;
+	
+	private CheckBox goalCheck;
+	private TextField goToLevel;
+	private final String defaultGoToLevelValue = "-1";
 
 	private ChoiceBox<String> actionTypeBox;
 	private TextField keycodeInputBox;
@@ -199,7 +204,7 @@ public class SpriteEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
 		Menu fileMenu = makeFileMenu(
-				e -> model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem()), 
+				e -> model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), false, 0), 
 				e -> exit(),
 				e -> saveAndExit());
 
@@ -302,10 +307,11 @@ public class SpriteEditScreen extends Screen {
 		Pane actionPane = initializeActionPaneBoxes();
 		Pane componentPane = initializeComponentPaneBoxes();
 		Node dataPane = createDataPane();
+		Node goalCheckboxPane = createGoalCheckbox();
 
 		VBox actionAndComponentPane = new VBox();
 		actionAndComponentPane.getChildren().addAll(actionPane, componentPane,
-				dataPane);
+				dataPane,goalCheckboxPane);
 
 		return actionAndComponentPane;
 
@@ -321,6 +327,32 @@ public class SpriteEditScreen extends Screen {
 
 		return textArea;
 
+	}
+	
+	private HBox createGoalCheckbox() {
+		HBox goalArea = new HBox();
+		goalArea.getStyleClass().add(STRING.CSS.PANE);
+		goalArea.alignmentProperty().set(Pos.CENTER);
+		goalArea.setSpacing(DOUBLE.BUTTON_SPACING);
+		
+		goalCheck = new CheckBox(languageResources().getString("OnGoal"));
+		goalCheck.selectedProperty().addListener((observable, oldBool, newBool) -> {
+			goToLevel.setVisible(newBool);
+			if(newBool) {
+				goToLevel.clear();
+			}
+			else {
+				goToLevel.setText(defaultGoToLevelValue);
+			}
+		});
+		goToLevel = new TextField();
+		goToLevel.setPromptText("LevelNum");
+		goToLevel.setText(defaultGoToLevelValue);
+		goToLevel.setVisible(false);
+		
+		goalArea.getChildren().addAll(goalCheck,goToLevel);
+		
+		return goalArea;
 	}
 
 	private void initializeActionTypeBox() {
@@ -575,12 +607,15 @@ public class SpriteEditScreen extends Screen {
 		if (spriteNameField.getText().isEmpty()) {
 			spriteNameField.getStyleClass().add(STRING.CSS.ERROR);
 		}
-
+		
 		else {
-
-			model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem());
-			exit(model.retrieveEditedSprite());
-
+			try {
+				model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), goalCheck.isSelected(), Integer.parseInt(goToLevel.getText()));
+				exit(model.retrieveEditedSprite());
+			}
+			catch (NumberFormatException e) {
+				goToLevel.getStyleClass().add(STRING.CSS.ERROR);
+			}
 		}
 
 	}
@@ -591,6 +626,8 @@ public class SpriteEditScreen extends Screen {
 		tagChoicesHolder.getSelectionModel().select(sprite.tag());
 		sprite.actionList().forEach(model.getActionConsumer());
 		sprite.componentList().forEach(model.getComponentConsumer());
+		goalCheck.setSelected(sprite.getGoalToLevel() >= 0);
+		goToLevel.setText("" + sprite.getGoalToLevel());
 		// TODO implement
 		if(sprite.getImagePath()!=null) {
 			Image image = DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false);
