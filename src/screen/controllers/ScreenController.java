@@ -345,10 +345,10 @@ public class ScreenController {
 		
 	}
 	
-	private Tab createSplashEditScreen(SplashScreen splashScreen) {
+	private Tab createSplashEditScreen(SplashScreen splashScreen, Game game) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
+				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager, game),
 				STRING.GAME_EDIT.SPLASH_SCREEN
 				);
 		
@@ -507,7 +507,7 @@ public class ScreenController {
 			
 			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			createSplashEditScreen(newSplashScreen);
+			createSplashEditScreen(newSplashScreen, game);
 			game.setSplash(newSplashScreen);
 			gameEditScreen.displayApproporiateSplashButton();		
 		
@@ -561,6 +561,20 @@ public class ScreenController {
 					}
 					sprite.setImagePath(newImagePath);
 				}));
+				game.splashScreen().sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String[] imagePathSplit = imagePath.split("[\\\\/]");
+					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
+					Path fileCopy = (new File(newImagePath).toPath());
+					FileInputStream in;
+					try {
+						in = new FileInputStream(imagePath);			
+						Files.copy(in, fileCopy);
+					} catch (Exception e) {
+						//do nothing, file already exists but I don't care;
+					}
+					sprite.setImagePath(newImagePath);
+				});
 				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
@@ -586,7 +600,12 @@ public class ScreenController {
 			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
 			tabManager.removeTabAndChangeSelected(splashTab);
 			
-		}		
+		}	
+		
+		@Override
+		public void saveSplashScreen(Game game, SplashScreen splashScreen) {
+			game.setSplash(splashScreen);
+		}
 		
 	}
 	
