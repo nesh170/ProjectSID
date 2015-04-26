@@ -36,7 +36,7 @@ public class CompoundAction extends Action{
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		// Using List version of .forEach() rather than
 		// functional stream() version because we want users to be
 		// able to establish an order. The list implementation

@@ -136,7 +136,7 @@ import util.ErrorHandler;
 
 public class ScreenController {
 	//Testing:
-	private boolean GameEdit_Test = false;
+	private boolean GameEdit_Test = true;
 	
 	// Static Variables
 	
@@ -354,10 +354,10 @@ public class ScreenController {
 		
 	}
 	
-	private Tab createLevelEditScreen(Level level) {
+	private Tab createLevelEditScreen(Game game, Level level) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
+				screenFactory.createLevelEditScreen(level, levelEditScreenManager, game),
 				STRING.LEVEL_EDIT.LEVEL_EDIT
 				);
 	
@@ -479,9 +479,9 @@ public class ScreenController {
 		}
 
 		@Override
-		public void loadLevelEditScreen(Level level) {
+		public void loadLevelEditScreen(Game game, Level level) {
 
-			createLevelEditScreen(level);
+			createLevelEditScreen(game, level);
 			
 		}
 
@@ -497,9 +497,8 @@ public class ScreenController {
 			
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			game.addLevel(newLevel);
-			createLevelEditScreen(newLevel);
-			gameEditScreen.displayLevels(game.levels());
+			createLevelEditScreen(game, newLevel);
+			gameEditScreen.displayLevels();
 			
 		}
 		
@@ -600,6 +599,13 @@ public class ScreenController {
 			tabManager.removeTabAndChangeSelected(levelEditTab);	
 			
 		}
+		
+		@Override
+		public void saveLevel(Game game, Level level) {
+			if(!game.levels().contains(level)) {
+				game.addLevel(level);
+			}
+		}
 
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
@@ -640,9 +646,14 @@ public class ScreenController {
 		@Override
 		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo, Sprite sprite) {
 			
-			tabManager.removeTabAndChangeSelected(switchTo);
+			returnToSelectedLevel(levelEditScreen, switchTo);
 			levelEditScreen.addSprite(sprite);
 			
+		}
+		
+		@Override
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo) {
+			tabManager.removeTabAndChangeSelected(switchTo);
 		}
 		
 	}

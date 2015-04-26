@@ -17,7 +17,7 @@ public class KillAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		//mySprite.setIsActive(false);
 		mySprite.transform().setPosition(Point2D.ZERO);
 	}

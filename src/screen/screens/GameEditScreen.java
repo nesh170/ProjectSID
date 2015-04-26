@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
@@ -63,6 +64,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.GameEditScreenController;
 import screen.controllers.ScreenController;
+import screen.screenmodels.GameEditModel;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
@@ -97,9 +99,8 @@ public class GameEditScreen extends Screen {
 	// Instance variables
 	private GameEditScreenController controller;
 	
-	private Game game;
-	private Level selectedLevel;
-	private int selectedIndex;
+	//private Game game;
+	private GameEditModel gameEditModel;
 	// JavaFX
 	private StackPane levelDisplay;
 	private VBox splashDisplay;
@@ -120,15 +121,6 @@ public class GameEditScreen extends Screen {
 		
 	}
 	*/
-	/**
-	 * add to current game level
-	 * 
-	 * @param level
-	 * @return
-	 */
-	public void setLevel(int index, Level level) {
-		game.setLevel(index, level);
-	}
 	
 	// Constructor & Helpers
 	/**
@@ -140,31 +132,14 @@ public class GameEditScreen extends Screen {
 	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height) {
 	
 		super(width, height);
-		this.game = game;
+		this.gameEditModel = new GameEditModel(game);
 		
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 			
-		//System.out.println(this.game);
-			
-//		configureLevels();
-		
 		initialize(controller);
 
-		
 	}
-/*
-	private void configureLevels() {
-		levels = FXCollections.observableArrayList();
-		levels.addListener(new ListChangeListener<Level>() {
 
-			@Override
-			public void onChanged(
-					javafx.collections.ListChangeListener.Change<? extends Level> listener) {
-				displayLevelsInParallel(game.levels());
-			}
-		});
-	}
-*/
 	/**
 	 * @param controller
 	 */
@@ -197,14 +172,18 @@ public class GameEditScreen extends Screen {
 		splashSP = new StackPane();
 		splashDisplay.setAlignment(Pos.CENTER);
 		splashDisplay.getChildren().add(splashSP);
-
 		splashSP.getChildren().addAll(makeText(STRING.GAME_EDIT.SPLASH_SCREEN));
+		
+		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW , e -> hideSplashRegion());
+		hide.setTranslateX(240);
+		hide.setTranslateY(-350);
 		
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		splashSP.getChildren().addAll(rec);  
-		displayApproporiateSplashButton();			
+		splashSP.getChildren().addAll(rec, hide);  
+		displayApproporiateSplashButton();
+		
 	}
 	
 	/**
@@ -215,13 +194,13 @@ public class GameEditScreen extends Screen {
 	public void displayApproporiateSplashButton(){
 		Button b = new Button();
 		// Testing
-		if (GameEditScreen.TESTING) {
-			System.out.println(game.hasSplash());
-		}
-		if (!game.hasSplash()) {
+//		if (GameEditScreen.TESTING) {
+//			System.out.println(game.hasSplash());
+//		}
+		if (!gameEditModel.hasSplash()) {
 			
 			b = makeAddSignWhenEmpty("Add New Splash Screen",
-					e -> controller.loadSplashEditScreen(game, this));	
+					e -> controller.loadSplashEditScreen(gameEditModel.getGame(), this));	
 			if(splashSP.getChildren().size() == INT.INITIAL_SETUP) 
 					splashSP.getChildren().add(b);
 			else splashSP.getChildren().set(splashSP.getChildren().size() - 1, b);
@@ -235,7 +214,7 @@ public class GameEditScreen extends Screen {
 	
 	private Button displayMySplash() {
 
-		ImageView img = game.splashScreen().getLevelPlatformImageView();
+		ImageView img = gameEditModel.getLevelPlatformImageView();
 		Button b = getLevelOrSplashButtons(img, INT.SPLASH, 0);
 		
 		return b;
@@ -297,28 +276,43 @@ public class GameEditScreen extends Screen {
 				
 		ImageView addButton = makeButton(STRING.GAME_EDIT.PLUS_IMG, 
 				STRING.GAME_EDIT.PLUSDOWN_IMG,
-				e -> controller.loadLevelEditScreen(game, this));
+				e -> controller.loadLevelEditScreen(gameEditModel.getGame(), this));
 		
 		StackPane.setAlignment(addButton, Pos.TOP_RIGHT);
 		
 
 		ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG, 
 				STRING.GAME_EDIT.PLAYDOWN_IMG, 
-				e -> controller.playGame(game));
+				e -> controller.playGame(gameEditModel.getGame()));
 		
 		StackPane.setAlignment(play, Pos.TOP_CENTER);
 
 		ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
 				STRING.GAME_EDIT.BACKDOWN_IMG, 
-				e -> controller.showConfirmPopUpWithGame(game, popup));
+				e -> controller.showConfirmPopUpWithGame(gameEditModel.getGame(), popup));
 		
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
-
+		ImageView img = makeHideShowArrow("images/GameEdit_images/show.png", e -> this.showSplashRegion());
+		img.setTranslateX(-700);
+		img.setTranslateY(-280);
+		img.setVisible(false);
 		levelDisplay.getChildren().addAll(levelSP, back, addButton, play,
-				displayNote());
-
+				displayNote(),img);
+		
 	}
-
+	/**
+	 * makes the arrow button for hiding and showing splash display area: the left region
+	 */
+	private ImageView makeHideShowArrow(String path, EventHandler<MouseEvent> event){
+		
+		ImageView hide = new ImageView(new Image(path));
+		hide.setFitHeight(30);
+		hide.setFitWidth(30);
+		hide.setOnMouseClicked(event);
+		return hide;
+		
+	}
+	
 	private ScrollPane createScrollPane() {
 
 		ScrollPane sp = new ScrollPane();
@@ -326,7 +320,7 @@ public class GameEditScreen extends Screen {
 		sp.setPannable(true);
 		this.levelHB = configureHBox();
 		sp.setContent(levelHB);
-		displayLevels(game.levels());
+		displayLevels();
 		return sp;
 		
 	}
@@ -335,10 +329,10 @@ public class GameEditScreen extends Screen {
 	 * dynamically display most updated list of levels in game or add sign when empty
 	 * @param game.levels()
 	 */
-	public void displayLevels(List<Level> levels) {
+	public void displayLevels() {
 		
 		// TODO:  in replace of ImageView below
-		if (game.hasLevel()) {
+		if (gameEditModel.hasLevel()) {
 			displayLevelsAndReassignPossition();
 		}
 
@@ -354,7 +348,7 @@ public class GameEditScreen extends Screen {
 		levelHB.getChildren().clear();
 		levelHB.getChildren().addAll(
 				this.makeAddSignWhenEmpty("Add A New Level",
-						e -> controller.loadLevelEditScreen(game, this)));
+						e -> controller.loadLevelEditScreen(gameEditModel.getGame(), this)));
 
 	}
 	/**
@@ -363,14 +357,21 @@ public class GameEditScreen extends Screen {
 	 */
 	private void displayLevelsAndReassignPossition() {
 		levelHB.getChildren().clear();
-		int index = 0; 
-		for (Level l: game.levels()) {
-			Button level = getLevelOrSplashButtons(
-					l.getLevelPlatformImageView(), INT.LEVEL, index); //pass in index and set levelIndex
-			levelHB.getChildren().add(level);
-			index++;
-		}
+		int[] index = {0}; 
+		Consumer<Level> addLevelButtons = e -> {
+			addLevelButtons(e, index[0]); 
+			index[0]++;
+			};
+		gameEditModel.forEachLevel(addLevelButtons);
 	}
+	
+	private void addLevelButtons(Level l, int index) {
+		Button level = getLevelOrSplashButtons(
+				l.getLevelPlatformImageView(), INT.LEVEL, index); //pass in index and set levelIndex
+		levelHB.getChildren().add(level);
+		index++;
+	}
+	
 
 	//TODO: change here for different level indexes
 	private Button getLevelOrSplashButtons(ImageView img, int splashOrLevel, int index) {
@@ -405,12 +406,12 @@ public class GameEditScreen extends Screen {
 						mouseEvent.getClickCount() == 2)  {					
 						
 						if (splashOrLevel == INT.LEVEL) {
-							configureSelection(index);
-							controller.loadLevelEditScreen(selectedLevel);
+							gameEditModel.configureSelection(index);
+							controller.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getSelectedLevel());
 						}
 							
 						else {
-							controller.loadSplashEditScreen(game, g);
+							controller.loadSplashEditScreen(gameEditModel.getGame(), g);
 						}						
 					
 				}
@@ -418,18 +419,18 @@ public class GameEditScreen extends Screen {
 				else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
 					
 					if (splashOrLevel == INT.LEVEL) {
-						configureSelection(index);
+						gameEditModel.configureSelection(index);
 						makeRightClickMenu(
 								e -> controller
-										.loadLevelEditScreen(selectedLevel),
-								e -> controller.trashLevel(game,selectedIndex, g)).show(node,
+										.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getSelectedLevel()),
+								e -> controller.trashLevel(gameEditModel.getGame(), gameEditModel.getSelectedIndex(), g)).show(node,
 										mouseEvent.getScreenX(), mouseEvent.getScreenY());
 					}
 						
 					else {
 						makeRightClickMenu(
-								e -> controller.loadSplashEditScreen(game, g),
-								e -> controller.trashSplash(game, g)).show(node,
+								e -> controller.loadSplashEditScreen(gameEditModel.getGame(), g),
+								e -> controller.trashSplash(gameEditModel.getGame(), g)).show(node,
 										mouseEvent.getSceneX(), mouseEvent.getSceneY());
 					}
 						
@@ -445,9 +446,9 @@ public class GameEditScreen extends Screen {
 	 * @return 
 	 */
 	public Transition[] assignLevelButtonsAnimation(){
-		levelHB.getChildren().get(selectedIndex).setVisible(false);
-		ArrayList<TranslateTransition>	list = new ArrayList();		
-		for(int i = selectedIndex + 1; i < levelHB.getChildren().size(); i++){
+		levelHB.getChildren().get(gameEditModel.getSelectedIndex()).setVisible(false);		
+		ArrayList<TranslateTransition>	list = new ArrayList<>();		
+		for(int i = gameEditModel.getSelectedIndex() + 1; i < levelHB.getChildren().size(); i++){
 			Node n = levelHB.getChildren().get(i);
 			list.add(assignTranslateTransToNode(n));
 		}		
@@ -481,7 +482,7 @@ public class GameEditScreen extends Screen {
 	    	
 			@Override
 			public void handle(ActionEvent event) {
-				levelHB.getChildren().get(selectedIndex).setVisible(false);
+				levelHB.getChildren().get(gameEditModel.getSelectedIndex()).setVisible(false);
 			}
 	    });
 	    return st;
@@ -508,21 +509,13 @@ public class GameEditScreen extends Screen {
 	     return tt;
 	}
 	
-	private void configureSelection(int index){
-		selectedIndex = index;
-		selectedLevel = game.levels().get(selectedIndex);
-	}
-	/**
-	 * Event to happen at end of the entire level removal animation
-	 * @return
-	 */
 	public EventHandler<ActionEvent> trashLevelAnimationFinishedEvent(){
 		return new EventHandler<ActionEvent>(){
 			
 			@Override
 			public void handle(ActionEvent event) {
-				levelHB.getChildren().remove(selectedIndex);
-				displayLevels(game.levels());
+				levelHB.getChildren().remove(gameEditModel.getSelectedIndex());
+				displayLevels();
 			}
 		};
 	}
@@ -551,10 +544,13 @@ public class GameEditScreen extends Screen {
 		img.setFocusTraversable(false);
 		// THE LINE BELOW REMOVES THE NODE FROM LIST!!
 		//StackPane sp = new StackPane(levelHB.getChildren().get(selectedIndex), img);
+		int selectedIndex = gameEditModel.getSelectedIndex();
 		levelHB.getChildren().add(selectedIndex, 
 				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
 		return img;
+
 	}
+	
 	private void createPopUp() {   
 		
 	     popup = new Popup();
@@ -570,6 +566,7 @@ public class GameEditScreen extends Screen {
 	}
 	
 	private GridPane configurePopUpLayout(){
+		
 		  GridPane layout = new GridPane();
 		  layout.setAlignment(Pos.CENTER);
 		  layout.setHgap(10);
@@ -581,12 +578,13 @@ public class GameEditScreen extends Screen {
 		  Button back = new Button("back");
 		  buttons.setAlignment(Pos.CENTER);
 		  buttons.getChildren().addAll( back, save);	   
-		  save.setOnMouseClicked(e -> controller.saveAndExit(game, popup));
+		  save.setOnMouseClicked(e -> controller.saveAndExit(gameEditModel.getGame(), popup));
 		  back.setOnMouseClicked(e -> controller.returnToMainMenuScreen(popup));
 		  layout.add(new Label(""), 1, 1, 1,4);
 		  layout.add(doesSave, 1, 5);
 		  layout.add(buttons, 1, 9);
 		 return layout;
+		 
 	}
 	
 	private HBox configureHBox() {
@@ -603,9 +601,9 @@ public class GameEditScreen extends Screen {
 	private ContextMenu makeRightClickMenu(EventHandler<ActionEvent> toEdit, EventHandler<ActionEvent> toRemove) { // pass in Level
 
 		final ContextMenu rMenu = new ContextMenu();
-		MenuItem edit = new MenuItem("edit");
+		MenuItem edit = new MenuItem("Edit");
 		edit.setOnAction(toEdit);
-		MenuItem remove = new MenuItem("remove");
+		MenuItem remove = new MenuItem("Remove");
 		remove.setOnAction(toRemove);
 		rMenu.getItems().addAll(edit, remove);
 		
@@ -616,7 +614,7 @@ public class GameEditScreen extends Screen {
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
-		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game), //change
+		Menu fileMenu = makeFileMenu(o -> controller.saveGame(gameEditModel.getGame()), //change
 				o -> controller.returnToMainMenuScreen(popup),
 				o -> controller.returnToMainMenuScreen(popup));
 
@@ -624,24 +622,43 @@ public class GameEditScreen extends Screen {
 				makeGameMenu(), makeTrashMenu());
 
 	}
-	
+	//borderpane's left and right can overlap with each other!
 	private void hideSplashRegion(){
 		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
 		splashDisplay.setVisible(false);
+		//change to KeyFrame and timeline. That might change it 
+	     TranslateTransition tt = new TranslateTransition(Duration.millis(2000), levelDisplay);
+	     
+	     tt.setByX(-500f);
+	     tt.setCycleCount(1);
+	     tt.setOnFinished( new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event) {
+				 
+				//levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
+			}
+
+	    	 
+	     }
+	    );
+	   // tt.play();	 
+	    levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
 	}
 	
 	private void showSplashRegion(){
 		splashDisplay.setVisible(true);
+		levelDisplay.getChildren().get(5).setVisible(false);
 	}
 	
 	private Menu makeLevelMenu() {
-
+		
 		Menu levelMenu = new Menu("Level");
 		MenuItem addLevel = new MenuItem("Add new Level");
-		addLevel.setOnAction(o -> controller.loadLevelEditScreen(game, this));
+		addLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), this));
 		MenuItem editLevel = new MenuItem("Edit Level");
-		editLevel.setOnAction(o -> controller.loadLevelEditScreen(game
-				.levels().get(selectedIndex))); // references to the specific
+		editLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getGame()
+				.levels().get(gameEditModel.getSelectedIndex()))); // references to the specific
 												// level within a game
 		levelMenu.getItems().addAll(addLevel, editLevel);
 		return levelMenu;
@@ -650,9 +667,9 @@ public class GameEditScreen extends Screen {
 
 	private Menu makeTools(){
 		Menu tools = new Menu("Tools");
-		MenuItem levelOnly = new MenuItem("hide splash");
+		MenuItem levelOnly = new MenuItem("Hide splash");
 		levelOnly.setOnAction(e -> hideSplashRegion());
-		MenuItem seeAll = new MenuItem("display all");
+		MenuItem seeAll = new MenuItem("Display all");
 		seeAll.setOnAction(e -> showSplashRegion());
 		tools.getItems().addAll(levelOnly, seeAll);
 		return tools;
@@ -662,7 +679,7 @@ public class GameEditScreen extends Screen {
 
 		Menu gameMenu = new Menu("Game");
 		MenuItem addPlay = new MenuItem("Play Game");
-		addPlay.setOnAction( o -> controller.playGame(game));
+		addPlay.setOnAction( o -> controller.playGame(gameEditModel.getGame()));
 		gameMenu.getItems().addAll(addPlay);
 		return gameMenu;
 		
@@ -676,7 +693,7 @@ public class GameEditScreen extends Screen {
 		
 		Menu trashButton = new Menu("", trashImage);
 		MenuItem delete = new MenuItem("Add new Level");
-		delete.setOnAction(o -> controller.trashLevel(game, selectedIndex, this));
+		delete.setOnAction(o -> controller.trashLevel(gameEditModel.getGame(), gameEditModel.getSelectedIndex(), this));
 		
 		return trashButton;
 

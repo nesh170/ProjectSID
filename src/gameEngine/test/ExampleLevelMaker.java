@@ -4,7 +4,6 @@ package gameEngine.test;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
-import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
@@ -16,13 +15,11 @@ import gameEngine.actions.ShootAction;
 import gameEngine.components.HealthComponent;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import data.DataHandler;
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
@@ -30,7 +27,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import resources.constants.DOUBLE;
 import resources.constants.INT;
 import sprite.Sprite;
 import util.ImageToInt2DArray;
@@ -242,7 +238,7 @@ public class ExampleLevelMaker extends Application{
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				Arrays.asList(new Double[]{1.0, 400.0}), myPlayer);
+				1.0, 400.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
@@ -292,4 +288,3 @@ public class ExampleLevelMaker extends Application{
 	}
 
 }
-

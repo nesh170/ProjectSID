@@ -31,7 +31,7 @@ public interface GameEditScreenController {
 	 * Loads a new level edit screen with an existing level
 	 * @param level
 	 */
-	public void loadLevelEditScreen(Level level);
+	void loadLevelEditScreen(Game game, Level level);
 	/**
 	 * allow users to test/demo while editing a game
 	 * @param game

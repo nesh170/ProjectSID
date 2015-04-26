@@ -14,7 +14,7 @@ public class AttackAction extends Action {
     }
 
     @Override
-    public void execute () {
+    public void doAction () {
     }
 
     @Override

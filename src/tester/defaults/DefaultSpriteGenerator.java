@@ -1,5 +1,8 @@
 package tester.defaults;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import gameEngine.Action;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
@@ -28,9 +31,16 @@ public class DefaultSpriteGenerator extends Tester{
 	
 	@Override
 	protected void test(Stage stage) {
+		//TODO: refactor
 		Sprite player = makeDefaultPlayer();
 		Sprite enemy = makeDefaultEnemy();
 		Sprite platform = makeDefaultPlatform();
+		Set<Sprite> playerSet = new HashSet<Sprite>();
+		Set<Sprite> enemySet = new HashSet<Sprite>();
+		Set<Sprite> platformSet = new HashSet<Sprite>();
+		playerSet.add(player);
+		enemySet.add(enemy);
+		platformSet.add(platform);
 		try{
 			DataHandler.toXMLFile(player, "defaultPlayer.xml", System.getProperty("user.dir")+"/defaults");
 			DataHandler.toXMLFile(enemy, "defaultEnemy.xml", System.getProperty("user.dir")+"/defaults");
