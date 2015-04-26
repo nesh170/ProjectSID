@@ -18,13 +18,12 @@ public class HealthComponent extends Component {
 	private boolean hasDeath;
 	
 	public HealthComponent(Sprite sprite, Double value){
-		super(sprite, value);
-		try{
-		    myHP = value;
+		super(sprite, value);	
+		if(value == null){
+			myHP = DEFAULT_STARTING_HP;
+		} else {
+			myHP = myValue;
 		}
-		catch(Exception e){
-		    myHP = DEFAULT_STARTING_HP;
-		}		    
 		hasDeath = DEFAULT_DEATH;
 	}
 	

@@ -77,7 +77,13 @@ public class CollisionTable {
 	public void addActionToBigMap(String type1, String type2, int direction, Action toAdd) {
 		if(myBigTable.containsKey(type1)) {
 			if(myBigTable.get(type1).containsKey(type2)) {
-				myBigTable.get(type1).get(type2)[direction].add(toAdd);
+				if(myBigTable.get(type1).get(type2)[direction] != null) {
+					myBigTable.get(type1).get(type2)[direction].add(toAdd);
+				}
+				else {
+					myBigTable.get(type1).get(type2)[direction] = new ArrayList<Action>();
+					myBigTable.get(type1).get(type2)[direction].add(toAdd);
+				}
 			} else {
 				//Using List<?> because can't make array of generic types
 				List<?>[] newActionsLists = new List<?>[4];
