@@ -1,0 +1,74 @@
+<sprite.Sprite>
+  <actionList>
+    <gameEngine.actions.FallAction>
+      <mySprite reference="../../.."/>
+      <isActive>false</isActive>
+      <myKeyCode class="java.util.Arrays$ArrayList">
+        <a class="javafx.scene.input.KeyCode-array">
+          <null/>
+        </a>
+      </myKeyCode>
+      <runsEveryFrame>true</runsEveryFrame>
+      <value>50.0</value>
+    </gameEngine.actions.FallAction>
+    <gameEngine.actions.RightMotionAction>
+      <mySprite reference="../../.."/>
+      <isActive>false</isActive>
+      <myKeyCode class="java.util.Arrays$ArrayList">
+        <a class="javafx.scene.input.KeyCode-array">
+          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+        </a>
+      </myKeyCode>
+      <runsEveryFrame>false</runsEveryFrame>
+      <value>8.0</value>
+      <velocity>8.0</velocity>
+    </gameEngine.actions.RightMotionAction>
+    <gameEngine.actions.LeftMotionAction>
+      <mySprite reference="../../.."/>
+      <isActive>false</isActive>
+      <myKeyCode class="java.util.Arrays$ArrayList">
+        <a class="javafx.scene.input.KeyCode-array">
+          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+        </a>
+      </myKeyCode>
+      <runsEveryFrame>false</runsEveryFrame>
+      <value>8.0</value>
+    </gameEngine.actions.LeftMotionAction>
+    <gameEngine.actions.UpMotionAction>
+      <mySprite reference="../../.."/>
+      <isActive>false</isActive>
+      <myKeyCode class="java.util.Arrays$ArrayList">
+        <a class="javafx.scene.input.KeyCode-array">
+          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+        </a>
+      </myKeyCode>
+      <runsEveryFrame>false</runsEveryFrame>
+      <value>-20.0</value>
+      <climbing>false</climbing>
+    </gameEngine.actions.UpMotionAction>
+  </actionList>
+  <componentList/>
+  <x>0.0</x>
+  <y>0.0</y>
+  <emissionList/>
+  <isActive>true</isActive>
+  <collisionTag>player</collisionTag>
+  <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/mario.png</imagePath>
+  <facesLeft>false</facesLeft>
+  <transform>
+    <myPosition>
+      <x>0.0</x>
+      <y>0.0</y>
+      <hash>0</hash>
+    </myPosition>
+    <myRotation reference="../myPosition"/>
+    <myDimensions>
+      <width>100.0</width>
+      <height>100.0</height>
+      <hash>0</hash>
+    </myDimensions>
+    <startPosition reference="../myPosition"/>
+    <startRotation reference="../myPosition"/>
+    <startDimensions reference="../myDimensions"/>
+  </transform>
+</sprite.Sprite>

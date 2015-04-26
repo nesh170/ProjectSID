@@ -183,11 +183,15 @@ public class STRING {
 		public static final String COLLISION_TABLE_EDIT = "Collision Table Edit Screen";
 		public static final String COLLISION_SCREEN_TITLE ="images/CollisionTableImages/collisionTableTitle.png";
 		public static final String FONT_STYLE = "-fx-font: 15px \"arial\";";
-		
-		public static final String DIRECTION_UP = "Above";
-		public static final String DIRECTION_DOWN = "Below";
-		public static final String DIRECTION_LEFT = "Left";
-		public static final String DIRECTION_RIGHT = "Right";
+		public static final String SAVE_BUTTON_IMG ="images/CollisionTableImages/savedCheckMark.png";
+		public static final String SAVE_BUTTON_PRESSED_IMG ="images/CollisionTableImages/savedCheckMarkPressed.png";
+		public static final String ADD_BUTTON_IMG ="images/CollisionTableImages/addGreen.png";
+		public static final String ADD_BUTTON_PRESSED_IMG ="images/CollisionTableImages/addCopper.png";
+		public static final String TRASH_BUTTON_IMG ="images/CollisionTableImages/trashRed.png";
+		public static final String TRASH_BUTTON_PRESSED_IMG ="images/CollisionTableImages/trashBlack.png";
+		public static final String BOTTOM_ROW_STYLE = "-fx-background-color: radial-gradient(focus-angle 135deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, purple, gold 75%, salmon);";
+		public static final String TEXT_BOX_STYLE = " -fx-background-color: transparent; -fx-border-color: #000;";
+		public static final String BACKGROUND_STYLE = "-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #e6c9ff, #fffac9);";
 		
 		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
 		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
@@ -195,8 +199,18 @@ public class STRING {
 		public static final String COMBO_SPRITE2_TAG = "SpriteInactive";
 		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
 		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
+		public static final String COMBO_SPRITE_SELECT_NAME = "Choose Sprite";
+		public static final String COMBO_SPRITE_SELECT_TAG = "ChooseSprite";
 		public static final String TEXT_PROMPT = "Value";
-
+		public static final String SAVE_BUTTON_TEXT = "Save";
+		public static final String SWITCH_ACTION = "Switch Out ";
+	
+		
+		
+		
+		
+		
+		
 	}
 	
 	public class GAME_PLAY {
@@ -226,4 +240,26 @@ public class STRING {
     	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
     }
     
+    public static final Map<String, Integer> DIRECTION_TO_INTEGER_MAP;
+
+    static
+    {
+    	DIRECTION_TO_INTEGER_MAP = new HashMap<String, Integer>();
+    	DIRECTION_TO_INTEGER_MAP.put("Above", INT.COLLISION_UP);
+    	DIRECTION_TO_INTEGER_MAP.put("Below", INT.COLLISION_DOWN);
+    	DIRECTION_TO_INTEGER_MAP.put("Left", INT.COLLISION_LEFT);
+    	DIRECTION_TO_INTEGER_MAP.put("Right", INT.COLLISION_RIGHT);
+    }
+    
+    public static final ArrayList<String> NO_VALUE_NEEDED_ACTIONS;
+
+    static
+    {
+    	NO_VALUE_NEEDED_ACTIONS = new ArrayList<String>();
+    	NO_VALUE_NEEDED_ACTIONS.add("Kill ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Fall ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Bounce ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Climb ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Switch Out ");
+    }
 }

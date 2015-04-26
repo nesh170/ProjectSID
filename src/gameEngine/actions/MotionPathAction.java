@@ -26,13 +26,11 @@ public class MotionPathAction extends Action {
 	
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 	}
 
 	@Override
-	public void execute() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+	public void doAction() {
 		//myLastVisititedIndex gives most recent point visited
 		//use direction to determine next point, get current point of mySprite
 		Point2D nextPoint = myPoints[(myLastVisitedIndex + myDirection)%myPoints.length];

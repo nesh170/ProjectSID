@@ -44,6 +44,7 @@ public class LevelEditModel {
 	
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
+	private Map<Sprite, Integer> goalMap;
 	
 	private Set<String> tags;
 	
@@ -72,6 +73,8 @@ public class LevelEditModel {
 	
 	private void instantiateMaps() {
 		this.stringToSpriteMap = new HashMap<>();
+		this.goalMap = new HashMap<>();
+		level.setGoalMap(goalMap);
 	}
 	
 	public void changeSelection(String newSelect) {
@@ -122,6 +125,10 @@ public class LevelEditModel {
 			addSpriteToLevelDisplay(spriteToAdd);
 
 			level.sprites().add(spriteToAdd);
+			int toLevel = spriteToAdd.getGoalToLevel();
+			if(toLevel >= 0) {
+				goalMap.put(spriteToAdd, toLevel);
+			}
 			
 			//TODO Remove sprite from player sprite list as well
 			if(spriteToAdd.tag().equals(tagResources.getString("Player"))) {
@@ -225,6 +232,8 @@ public class LevelEditModel {
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
 	}
 
-
+	public void setBackgroundImage(String path) {
+		level.setBackground(path);
+	}
 
 }

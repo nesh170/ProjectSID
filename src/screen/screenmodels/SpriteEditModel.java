@@ -168,7 +168,7 @@ public class SpriteEditModel {
 	}
 
 
-	public void addAction(String selected, String actionValueText, String actionType) throws NumberFormatException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public void addAction(String selected, String actionValueText, String actionType, String soundPath) throws NumberFormatException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		KeyCode[] keylist = new KeyCode[1];
 		if (currentCode != null
 				&& !currentCode.equals(KeyCode.UNDEFINED)) {
@@ -184,6 +184,7 @@ public class SpriteEditModel {
 		if(!keyCodesAreVisibleMap.get(actionType)) {
 			action.runEveryFrame();
 		}
+		action.setSound(soundPath);
 		String parameterMapValue = selected + "-> "
 				+ languageResources.getString("Keycode") + " "
 				+ currentCode.toString() + ", "
@@ -279,7 +280,7 @@ public class SpriteEditModel {
 	
 	}
 	
-	public void saveSprite(String spriteName, String tag) {
+	public void saveSprite(String spriteName, String tag, boolean isGoal, int levelNum) {
 		
 		//TODO don't allow save if name isn't written 
 
@@ -301,7 +302,9 @@ public class SpriteEditModel {
 
 		editableSprite.setName(spriteName);
 		editableSprite.setTag(tag);
-
+		editableSprite.setIsGoal(isGoal, levelNum);
+		
+		
 	}
 
 

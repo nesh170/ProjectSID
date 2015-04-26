@@ -1,26 +1,30 @@
 package tester.engine;
 
+import game.Game;
 import gameEngine.Action;
+import gameEngine.CollisionTable;
+import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
+import gameEngine.actions.NormalAction;
 import gameEngine.actions.RightMotionAction;
+import gameEngine.actions.ShootAction;
 import gameEngine.actions.SwitchOutAction;
+import gameEngine.actions.UpMotionAction;
+import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import levelPlatform.level.Level;
+import resources.constants.INT;
 import sprite.Sprite;
-import sprite.SpriteImage;
 import tester.Tester;
-import util.ImageToInt2DArray;
 
 /**
  * Use this tester to test new features of the Engine without the messiness of ExampleLevelMaker
@@ -30,6 +34,11 @@ public class EngineTester extends Tester {
 	
 	private List<Sprite> mySpriteList = new ArrayList<>();
 	private List<Sprite> myPlayerList = new ArrayList<>();
+	private CollisionTable myCT = new CollisionTable();
+	private List<Sprite> myPlatforms = new ArrayList<>();
+	private static final double GRAVITY = 50.0;
+	private static final double JUMP_SPEED = -20.0;
+	private static final double SPEED = 8.0;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -37,33 +46,150 @@ public class EngineTester extends Tester {
 	
 	@Override
 	protected void test(Stage stage) {
-		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
-		player.setImagePath("mario.jpg");
-		myPlayerList.add(player);
-		mySpriteList.add(player);
-		
-		Sprite switcher2 = new Sprite(new Point2D(200.0, 100.0), Point2D.ZERO, new Dimension2D(50.0, 50.0));
-		switcher2.setImagePath("star.png");
-		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, switcher2}, KeyCode.S);
+		makePlatform(0, 300, 200, 30);
+		makePlatform(-20, 0, 20, 200);
+		makePlatform(250, 250, 200, 30);
+		makePlatform(500, 300, 200, 30);
+		Sprite player = makePlayer();
+		Sprite fireMario = makeSpecialPlayer();
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+		fireMario.addAction(switchOut);
 		player.addAction(switchOut);
-		switcher2.addAction(switchOut);
-		myPlayerList.add(switcher2);
-		mySpriteList.add(switcher2);
 		
-		Level l = new Level(500, 500, myPlayerList);
+		//addProjectile(fireMario);
+		Sprite goomba = makeGoomba();
+		
+		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
+		fireFlower.setCollisionTag("flower");
+		fireFlower.setImagePath("engineTesting/fireFlower.png");
+		mySpriteList.add(fireFlower);
+		setCollisionAll(player, fireFlower, switchOut);
+		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
+		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
+		
+		Level l = new Level(900, 500, myPlayerList);
+		l.setBackground("engineTesting/background.png");
 		l.setSprites(mySpriteList);
+		l.setCollisionTable(myCT);
+
+		Game testGame = new Game("test");
+		testGame.addLevel(l);
+
 		try{
-			DataHandler.toXMLFile(l, "testingLevel.xml", System.getProperty("user.dir")+"/engineTesting");
+			DataHandler.toXMLFile(testGame, "testingGame.xml", System.getProperty("user.dir")+"/engineTesting");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
 		}
 	}
 
+	private Sprite makeGoomba() {
+		Sprite goomba = new Sprite(new Point2D(600.0, 150.0), Point2D.ZERO, new Dimension2D(40.0, 40.0));
+		goomba.addComponent(new VelocityComponent(goomba, null));
+		goomba.setCollisionTag("goomba");
+		goomba.setTag("enemy");
+		makeFallingLanding(goomba);
+		goomba.setImagePath("engineTesting/Goomba.png");
+		Action goombaPath = new MotionPathAction(goomba, 2.0, new Point2D[]{new Point2D(510, 260), new Point2D(650, 260)}, (KeyCode) null);
+		goombaPath.runEveryFrame();
+		goomba.addAction(goombaPath);
+		mySpriteList.add(goomba);
+		return goomba;
+	}
+
+
+	private Sprite makeSpecialPlayer() {
+		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
+		fireMario.setImagePath("engineTesting/FireMario.png");
+		fireMario.setCollisionTag("fireMario");
+		fireMario.addComponent(new VelocityComponent(fireMario, null));
+		fireMario.setTag("player");
+		makeFallingLanding(fireMario);
+		makeJumping(fireMario, KeyCode.UP, false);
+		makeLeftRighting(fireMario);
+		mySpriteList.add(fireMario);
+		myPlayerList.add(fireMario);
+		return fireMario;
+	}
+
+	private Sprite makePlayer() {
+		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
+		player.addComponent(new VelocityComponent(player, null));
+		player.setImagePath("engineTesting/mario.png" );
+		player.setCollisionTag("player");
+		player.setTag("player");
+		myPlayerList.add(player);
+		mySpriteList.add(player);
+		makeFallingLanding(player);
+		makeJumping(player, KeyCode.UP, false);
+		makeLeftRighting(player);
+		return player;
+	}
+
+	private void setCollisionUp(Sprite sprite, Sprite platform, Action action) {
+		myCT.addActionToBigMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, action);
+		myCT.addActionToBigMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, action);
+	}
+	private void setCollisionLeftRightDown(Sprite sprite1, Sprite enemy, Action action){
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
+	}
+	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
+		setCollisionUp(sprite1, enemy, action);
+		setCollisionLeftRightDown(sprite1, enemy, action);
+	}
+	
+	private void makeFallingLanding(Sprite sprite) {
+		Action gravityAction = new FallAction(sprite, GRAVITY);
+		gravityAction.runEveryFrame();
+		sprite.addAction(gravityAction);
+		Action normalAction = new NormalAction(sprite);
+		sprite.addAction(normalAction);
+		for(Sprite platform: myPlatforms){
+			setCollisionUp(sprite, platform, normalAction);
+		}
+	}
+	private void makeLeftRighting(Sprite sprite) {
+		sprite.addAction(new LeftMotionAction(sprite, SPEED, KeyCode.LEFT));
+		sprite.addAction(new RightMotionAction(sprite, SPEED, KeyCode.RIGHT));
+	}
+	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
+		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
+		jumpAction.setSound("engineTesting/sounds/jump.mp3");
+		sprite.addAction(jumpAction);
+		return jumpAction;
+	}
+	private void addProjectile(Sprite myPlayer) {
+		//set up projectile template, add to player, along with shoot actions
+		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+		myProjectileTemplate.setCollisionTag("bullet");
+		myProjectileTemplate.setTag("bullet");
+		myProjectileTemplate.setImagePath("fireball.png");
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
+				5.0, 200.0, myPlayer);
+		myProjectileTemplate.addComponent(projComp);
+		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
+		myPlayer.addAction(shootAction);
+	}
+	
+	private Sprite makePlatform(double x, double y, double width, double height) {
+		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
+		platform.setCollisionTag("platform");
+		platform.setImagePath("engineTesting/mushroomPlatform.png");
+		myPlatforms.add(platform);
+		mySpriteList.add(platform);
+		return platform;
+	}
+	
 	private void makeTextBoxSprite(String text, int x, int y){
 		Sprite textSprite = new Sprite(new Point2D(x, y), Point2D.ZERO, new Dimension2D(text.length()*12, 150.0));
 		textSprite.setImagePath(text);
 		textSprite.setCollisionTag("textBox");
+		textSprite.setTag("text");
 		mySpriteList.add(textSprite);
 	}
 	
@@ -84,6 +210,7 @@ public class EngineTester extends Tester {
 		mps.setCollisionTag("motionPathSprite");
 		mps.addAction(mpa);
 		mps.setImagePath("duke.png");
+		mps.setTag("motion");
 		mySpriteList.add(mps);
 	}
 	
@@ -94,6 +221,7 @@ public class EngineTester extends Tester {
 		movingThing.addAction(new RightMotionAction(movingThing, 2.0, KeyCode.RIGHT));
 		movingThing.addAction(new LeftMotionAction(movingThing, 2.0, KeyCode.LEFT));
 		movingThing.setImagePath("duke.png");
+		movingThing.setTag("movingThing");
 		myPlayerList.add(movingThing);
 		mySpriteList.add(movingThing);
 	}

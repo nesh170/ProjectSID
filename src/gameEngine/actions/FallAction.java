@@ -6,12 +6,12 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-public class FallAction extends Action {
+public class FallAction extends DoubleAction {
 
 	private VelocityComponent myVelocityComponent;
 
 	public FallAction(Sprite sprite, Double gravValue, KeyCode... keys) {
-		super(sprite, keys);
+		super(sprite, gravValue, keys);
 		value = gravValue;
 	}
 
@@ -22,15 +22,13 @@ public class FallAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myVelocityComponent.accelerate(0.0, EngineMathFunctions.accelerationValueFrame(value));
 
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

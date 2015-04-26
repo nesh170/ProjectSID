@@ -17,14 +17,13 @@ public class HealthComponent extends Component {
 	private Double myHP;
 	private boolean hasDeath;
 	
-	public HealthComponent(Sprite sprite, List<Double> valueList){
-		super(sprite, valueList);
-		try{
-		    myHP = valueList.get(0);
+	public HealthComponent(Sprite sprite, Double value){
+		super(sprite, value);	
+		if(value == null){
+			myHP = DEFAULT_STARTING_HP;
+		} else {
+			myHP = myValue;
 		}
-		catch(Exception e){
-		    myHP = DEFAULT_STARTING_HP;
-		}		    
 		hasDeath = DEFAULT_DEATH;
 	}
 	
@@ -66,8 +65,7 @@ public class HealthComponent extends Component {
 	
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override

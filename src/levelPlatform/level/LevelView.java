@@ -1,11 +1,15 @@
 package levelPlatform.level;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.ImageManager;
 import sprite.Sprite;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +49,9 @@ public class LevelView extends ScrollPane {
 	}
 
 	public void setCollisionHandler(){
+	        if(level==null){
+	            return;
+	        }
 		this.collisionHandler = new Collision(level.collisionTable());
 	}
 
@@ -83,11 +90,27 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	public Group renderLevel() {
-
 		Group levelGroup = new Group();
+		Node background = renderBackground(level);
+		levelGroup.getChildren().add(background);
 		level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
 		return levelGroup;
 
+	}
+
+	private Node renderBackground(Level aLevel) {
+		Node background = null;
+		try {
+			ImageView backgroundImageView = new ImageView(myImageManager.getImageForString(aLevel.backgroundPath()));
+			backgroundImageView.setFitWidth(aLevel.width());
+			backgroundImageView.setFitHeight(aLevel.height());
+			backgroundImageView.setX(0);
+			backgroundImageView.setY(0);
+			background = backgroundImageView;
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return background;
 	}
 
 	/**
@@ -96,7 +119,6 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	private Group renderSprite(Sprite sprite) {
-
 		Group spriteGroup = new Group();
 		if (sprite.isActive()) {	
 			// ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
@@ -106,6 +128,7 @@ public class LevelView extends ScrollPane {
 				ImageView spriteImageView = null;
 				if(spriteImg !=null){
 					spriteImageView = new ImageView(spriteImg);
+					if(sprite.facesLeft()) spriteImageView.setScaleX(-1.0);
 					spriteImageView.setX(sprite.transform().getPosX());
 					spriteImageView.setY(sprite.transform().getPosY());
 					spriteImageView.setFitWidth(sprite.transform().getWidth());
@@ -119,7 +142,6 @@ public class LevelView extends ScrollPane {
 				}   
 				sprite.emissionList().stream()
 				.forEach(emission -> spriteGroup.getChildren().add(renderSprite(emission)));
-
 				if (editMode == EditMode.EDIT_MODE_ON) {
 					configureMouseHandlersOnSpriteImageView(spriteImageView);
 				}

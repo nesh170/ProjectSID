@@ -6,7 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-public class LeftMotionAction extends Action {
+public class LeftMotionAction extends DoubleAction {
 
 	private VelocityComponent myVelocityComponent;
 
@@ -21,9 +21,9 @@ public class LeftMotionAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myVelocityComponent.setVelocityX(-EngineMathFunctions.velocityValueFrame(value));
-
+		mySprite.setFacesLeft(true);
 	}
 
 	@Override
