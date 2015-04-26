@@ -223,6 +223,15 @@ import sprite.Sprite;
  * 
  * 
  * 
+ * TODO (25 April 2015)
+ * 
+ * - create map of sprite pairs and actions
+ * - pass map to level edit screen
+ * - user clicks save level -> for each sprite tag, set action; pass list of Actions to 
+ * 		CollisionTable.addActionToMap(String s1, String s2, int direction, List<Action> actions)
+ * 
+ * 
+ * 
  *
  * @author Anika
  *
