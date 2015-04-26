@@ -14,6 +14,7 @@ import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
 import resources.constants.INT;
 import sprite.Sprite;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
 
@@ -129,7 +130,23 @@ public class Level extends LevelPlatform {
     @Override
     public void update(){
         super.update();
+        playerSpriteList.stream().forEach(player -> edgeCheckSprite(player));
         goalMap.keySet().forEach(sprite -> handleGoals(sprite));
+    }
+
+    private void edgeCheckSprite (Sprite sprite) {
+        if(sprite.transform().getPosX()<0){
+            sprite.transform().setPosition(new Point2D(0, sprite.transform().getPosY()));
+        }
+        if(sprite.transform().getPosX()>width()){
+            sprite.transform().setPosition(new Point2D(width(), sprite.transform().getPosY()));
+        }
+        if(sprite.transform().getPosY()<0){
+            sprite.transform().setPosition(new Point2D(sprite.transform().getPosX(), 0));
+        }
+        if(sprite.transform().getPosY()>height()){
+            sprite.transform().setPosition(new Point2D(sprite.transform().getPosX(), height()));
+        }
     }
 
     /**
