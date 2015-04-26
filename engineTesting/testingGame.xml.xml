@@ -126,12 +126,18 @@
               </myKeyCode>
               <runsEveryFrame>true</runsEveryFrame>
               <value>50.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
             </gameEngine.actions.FallAction>
             <gameEngine.actions.NormalAction>
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
               <runsEveryFrame>false</runsEveryFrame>
               <value>0.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
             </gameEngine.actions.NormalAction>
             <gameEngine.actions.UpMotionAction>
               <mySprite reference="../../.."/>
@@ -143,6 +149,10 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>-20.0</value>
+              <soundPath>engineTesting/sounds/jump.mp3</soundPath>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
               <climbing>false</climbing>
             </gameEngine.actions.UpMotionAction>
             <gameEngine.actions.LeftMotionAction>
@@ -155,6 +165,9 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>8.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
             </gameEngine.actions.LeftMotionAction>
             <gameEngine.actions.RightMotionAction>
               <mySprite reference="../../.."/>
@@ -166,6 +179,9 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>8.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
               <velocity>8.0</velocity>
             </gameEngine.actions.RightMotionAction>
             <gameEngine.actions.SwitchOutAction>
@@ -178,6 +194,9 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>0.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
               <mySpriteIndex>0</mySpriteIndex>
               <mySprites>
                 <sprite.Sprite reference="../../../.."/>
@@ -191,12 +210,18 @@
                       </myKeyCode>
                       <runsEveryFrame>true</runsEveryFrame>
                       <value>50.0</value>
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
                     </gameEngine.actions.FallAction>
                     <gameEngine.actions.NormalAction>
                       <mySprite reference="../../.."/>
                       <isActive>false</isActive>
                       <runsEveryFrame>false</runsEveryFrame>
                       <value>0.0</value>
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
                     </gameEngine.actions.NormalAction>
                     <gameEngine.actions.UpMotionAction>
                       <mySprite reference="../../.."/>
@@ -208,6 +233,10 @@
                       </myKeyCode>
                       <runsEveryFrame>false</runsEveryFrame>
                       <value>-20.0</value>
+                      <soundPath>engineTesting/sounds/jump.mp3</soundPath>
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
                       <climbing>false</climbing>
                     </gameEngine.actions.UpMotionAction>
                     <gameEngine.actions.LeftMotionAction>
@@ -220,6 +249,9 @@
                       </myKeyCode>
                       <runsEveryFrame>false</runsEveryFrame>
                       <value>8.0</value>
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
                     </gameEngine.actions.LeftMotionAction>
                     <gameEngine.actions.RightMotionAction>
                       <mySprite reference="../../.."/>
@@ -231,6 +263,9 @@
                       </myKeyCode>
                       <runsEveryFrame>false</runsEveryFrame>
                       <value>8.0</value>
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
                       <velocity>8.0</velocity>
                     </gameEngine.actions.RightMotionAction>
                     <gameEngine.actions.SwitchOutAction reference="../../../.."/>
@@ -319,12 +354,18 @@
               </myKeyCode>
               <runsEveryFrame>true</runsEveryFrame>
               <value>50.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
             </gameEngine.actions.FallAction>
             <gameEngine.actions.NormalAction>
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
               <runsEveryFrame>false</runsEveryFrame>
               <value>0.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
             </gameEngine.actions.NormalAction>
             <gameEngine.actions.MotionPathAction>
               <mySprite reference="../../.."/>
@@ -336,6 +377,9 @@
               </myKeyCode>
               <runsEveryFrame>true</runsEveryFrame>
               <value>0.0</value>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
               <myPoints>
                 <javafx.geometry.Point2D>
                   <x>510.0</x>
