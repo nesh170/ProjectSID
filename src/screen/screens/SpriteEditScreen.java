@@ -36,6 +36,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -45,8 +46,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -78,6 +81,7 @@ public class SpriteEditScreen extends Screen {
 
 	private TextField spriteNameField;
 	private TextField imageSizeField;
+	private TextField soundPath;
 	private ChoiceBox<String> tagChoicesHolder;
 
 	private StackPane paneForImage;
@@ -394,18 +398,51 @@ public class SpriteEditScreen extends Screen {
 				"KeycodePrompt"));
 		keycodeInputBox.setOnKeyReleased(e -> setCurrentKeycode(e));
 		actionValue = new TextField();
+		
+		HBox soundPane = makeAddSoundPane();
+		
 		// actionValue.setPromptText(languageResources().getString("ValuePrompt"));
 
 		HBox actionPane = makeTwoSidedList(actionsToAddList, actionsAddedList,
 				languageResources().getString("AddAction"), languageResources()
 				.getString("RemoveAction"), e -> addAction(e),
 				e -> removeAction(e), actionTypeBox, keycodeInputBox,
-				actionValue);
+				actionValue, soundPane);
 
 		return actionPane;
 
 	}
-
+	
+	private HBox makeAddSoundPane() {
+		HBox soundPane = new HBox();
+		Button select = new Button(languageResources().getString("SelectSound"));
+		Tooltip onSelectHover = new Tooltip(select.getText());
+		select.setOnMouseEntered(e -> onSelectHover.show(select, e.getSceneX(), e.getSceneY()));
+		select.setOnMouseExited(e -> onSelectHover.hide());
+		soundPath = new TextField();
+		soundPath.setEditable(false);
+		select.setOnMouseClicked(e -> setSoundPathText());
+		
+		soundPane.getChildren().addAll(select, soundPath);
+		return soundPane;
+	}
+	
+	private void setSoundPathText() {
+		soundPath.getStyleClass().remove(STRING.CSS.ERROR);
+		try {
+			File file = DataHandler.chooseFile(new Stage());
+			if(file.getName().endsWith(".mp3") || file.getName().endsWith(".m4a")) {
+				soundPath.setText(file.getPath());
+			}
+			else {
+				soundPath.getStyleClass().add(STRING.CSS.ERROR);
+			}
+		} catch (NullPointerException e) {
+			//IDC, do nothing
+		}
+		
+	}
+	
 	private Pane initializeComponentPaneBoxes() {
 
 		componentValue = new TextField();
@@ -424,11 +461,12 @@ public class SpriteEditScreen extends Screen {
 	protected HBox makeTwoSidedList(ListView<String> toAddList,
 			ListView<String> addedList, String addText, String removeText,
 			EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove,
-			Control... userTextFields) {
+			Region... userTextFields) {
 
 		HBox twoSidedListContainer = new HBox();
 
 		VBox fieldsAndButtons = new VBox();
+		fieldsAndButtons.setMaxWidth(Double.MAX_VALUE);
 		fieldsAndButtons.getStyleClass().add(STRING.CSS.PANE);
 		fieldsAndButtons.setAlignment(Pos.CENTER);
 		Button add = new Button(addText);
@@ -437,8 +475,11 @@ public class SpriteEditScreen extends Screen {
 		delete.setOnMouseClicked(onRemove);
 		setPrefButtonWidth(add, delete);
 
-		Arrays.asList(userTextFields).forEach(
-				e -> fieldsAndButtons.getChildren().add(e));
+		Arrays.asList(userTextFields).forEach(e -> {
+			e.setMinWidth(DOUBLE.FIELDS_AND_BUTTONS_WIDTH);
+			e.setMaxWidth(DOUBLE.FIELDS_AND_BUTTONS_WIDTH);
+			fieldsAndButtons.getChildren().add(e);
+		});
 		fieldsAndButtons.getChildren().addAll(add, delete);
 
 		twoSidedListContainer.getChildren().addAll(toAddList, fieldsAndButtons,
@@ -490,7 +531,7 @@ public class SpriteEditScreen extends Screen {
 		if (selected != null) {
 
 			try {
-				model.addAction(selected, actionValue.getText(), actionTypeBox.getSelectionModel().getSelectedItem());
+				model.addAction(selected, actionValue.getText(), actionTypeBox.getSelectionModel().getSelectedItem(), soundPath.getText());
 				actionValue.getStyleClass().remove(STRING.CSS.ERROR);
 			} catch (InstantiationException | IllegalAccessException
 					| InvocationTargetException | NoSuchMethodException
@@ -499,7 +540,8 @@ public class SpriteEditScreen extends Screen {
 			} catch (NumberFormatException e1) {
 				actionValue.getStyleClass().add(STRING.CSS.ERROR);
 			}
-
+			
+			soundPath.clear();
 			keycodeInputBox.clear();
 			actionValue.clear();
 

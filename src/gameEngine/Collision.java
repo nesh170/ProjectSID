@@ -1,6 +1,8 @@
 package gameEngine;
 
 
+import java.util.List;
+
 import gameEngine.components.VelocityComponent;
 import resources.constants.INT;
 import sprite.Sprite;
@@ -32,10 +34,10 @@ public class Collision {
     	
     	double[] tolerances = calculateTolerances(sprite1, sprite2);
     	
-        if(transform1.getRightEdge() <= transform2.getPosX() + tolerances[0]) executeAction(sprite1, sprite2, INT.COLLISION_LEFT);
-        if(transform1.getPosX() >= transform2.getRightEdge() - tolerances[0]) executeAction(sprite1, sprite2, INT.COLLISION_RIGHT);
-        if(transform1.getBottomEdge() <= transform2.getPosY() + tolerances[1]) executeAction(sprite1, sprite2, INT.COLLISION_UP);
-        if(transform1.getPosY() >= transform2.getBottomEdge() - tolerances[1]) executeAction(sprite1, sprite2, INT.COLLISION_DOWN);
+        if(transform1.getRightEdge() <= transform2.getPosX() + tolerances[0]) executeActions(sprite1, sprite2, INT.COLLISION_LEFT);
+        if(transform1.getPosX() >= transform2.getRightEdge() - tolerances[0]) executeActions(sprite1, sprite2, INT.COLLISION_RIGHT);
+        if(transform1.getBottomEdge() <= transform2.getPosY() + tolerances[1]) executeActions(sprite1, sprite2, INT.COLLISION_UP);
+        if(transform1.getPosY() >= transform2.getBottomEdge() - tolerances[1]) executeActions(sprite1, sprite2, INT.COLLISION_DOWN);
     }
 
     private void executeAction(Sprite sprite1, Sprite sprite2, int direction) {
@@ -43,6 +45,10 @@ public class Collision {
     	if(a != null) a.execute();
     }
     
+    private void executeActions(Sprite sprite1, Sprite sprite2, int direction) {
+    	List<Action> actions = collideTable.getActionsForCollisionAndDirection(sprite1.collisionTag(), sprite2.collisionTag(), direction);
+    	if(actions != null) actions.stream().forEach(a -> a.execute());
+    }
     
     private double[] calculateTolerances(Sprite sprite1, Sprite sprite2){
        	VelocityComponent velocity1 = (VelocityComponent) sprite1.getComponentOfType("VelocityComponent");
