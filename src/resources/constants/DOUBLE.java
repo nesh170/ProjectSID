@@ -37,6 +37,7 @@ public class DOUBLE {
 	
 	// LevelView
 	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 1.0;
+	public static final double FIELDS_AND_BUTTONS_WIDTH = 150;
 	
 	// Bullet info
 	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;
@@ -48,7 +49,7 @@ public class DOUBLE {
     //Splash Edit
     public static final double SPLASH_EDIT_SCALE_UP = 1.2;
     public static final double SPLASH_EDIT_SCALE_DOWN = 0.9;
-    public static final double SPLASH_EDIT_DEFAULT_SIZE = 30.0;
+    public static final double SPLASH_EDIT_DEFAULT_SIZE = 200.0;
     public static final double SPLASH_EDIT_SCREEN_LARGE_BUTTON_WIDTH = 150.0;
     public static final double SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT = 100.0;
 	

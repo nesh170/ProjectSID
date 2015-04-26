@@ -13,19 +13,17 @@ import gameEngine.components.AmmoComponent;
  * Action to shoot projectiles.
  * Will always be mapped to key.
  */
-public class ShootAction extends Action{
+public class ShootAction extends TwoSpriteAction{
 	
-	private Sprite myProjectileTemplate;
 	private String bulletString;
 	
 	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
-		super(sprite, keys);
-		myProjectileTemplate = projectile;
+		super(sprite, projectile, keys);
 	}
 
 	@Override
 	public void prepare() {
-        bulletString =  DataHandler.toXMLString(myProjectileTemplate);
+        bulletString =  DataHandler.toXMLString(mySecondSprite);
 	}
 
 	@Override

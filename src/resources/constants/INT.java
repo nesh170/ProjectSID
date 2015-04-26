@@ -14,7 +14,7 @@ public class INT {
 	public static final int DEFAULT_LEVEL_DISPLAY_WIDTH = 500;
 	public static final int DEFAULT_LEVEL_DISPLAY_HEIGHT = 400;		
 	public static final int GAMEEDIT_ADD_SIGN_DIM = 150;
-	public static final int INITIAL_SETUP = 2;
+	public static final int INITIAL_SETUP = 3;
 	public static final int LEVEL = 1;
 	public static final int SPLASH = 0;
 	
@@ -49,6 +49,16 @@ public class INT {
 	public static final int VALUE = 4;
 	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG.length();
 	
+	// Collision Map
+	
+	public static final int DIRECTION_INDEX = 0;
+	public static final int ACTION_INDEX = 1;
+	public static final int VALUE_INDEX = 2;
+	public static final int SWITCH_OPTION_INDEX = 3;
+	
+	
+
+
 	
 	
 	//MainMenu

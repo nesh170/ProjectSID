@@ -6,7 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-public class UpMotionAction extends Action {
+public class UpMotionAction extends DoubleAction {
 	
 	private boolean climbing;
 	private VelocityComponent myVelocityComponent;
