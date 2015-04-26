@@ -16,7 +16,9 @@ import gameEngine.components.VelocityComponent;
 
 public class SwitchOutAction extends MultiSpriteAction{
 	
-
+	/*@Sprite[]
+	@List<Sprites>
+	@KeyCode...*/
 	public SwitchOutAction(Sprite[] sprites, List<Sprite> allPlayers, KeyCode ... keys) {
 		super(sprites, allPlayers, keys);
 		

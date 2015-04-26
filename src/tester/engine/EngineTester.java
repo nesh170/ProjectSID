@@ -34,6 +34,7 @@ public class EngineTester extends Tester {
 	
 	private List<Sprite> mySpriteList = new ArrayList<>();
 	private List<Sprite> myPlayerList = new ArrayList<>();
+	private List<Sprite> myBlocks = new ArrayList<>();
 	private CollisionTable myCT = new CollisionTable();
 	private List<Sprite> myPlatforms = new ArrayList<>();
 	private static final double GRAVITY = 50.0;
@@ -50,6 +51,7 @@ public class EngineTester extends Tester {
 		makePlatform(-20, 0, 20, 200);
 		makePlatform(250, 250, 200, 30);
 		makePlatform(500, 300, 200, 30);
+		makeBlock(350, 150, 100, 100);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
 		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
@@ -81,6 +83,16 @@ public class EngineTester extends Tester {
 		catch (Exception e){
 			System.out.println("Oh no!!!");
 		}
+	}
+
+	private Sprite makeBlock(int x, int y, int width, int height) {
+		Sprite block = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
+		block.setCollisionTag("block");
+		block.setImagePath("engineTesting/mushroomPlatform.png");
+		myBlocks.add(block);
+		mySpriteList.add(block);
+		return block;
+		
 	}
 
 	private Sprite makeGoomba() {
