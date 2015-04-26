@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -22,12 +23,10 @@ public class SplashEditModel {
 
 	private SplashScreen splashScreen;
 
-	private Sprite startButton = new Sprite();
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
 
 	private ImageView imageView;
-	private ImageView startButtonImageView;
 
 	private Text text;
 	private List<Text> texts = new ArrayList();
@@ -43,6 +42,42 @@ public class SplashEditModel {
 
 	public void createImageView(Image image) {
 		imageView = new ImageView(image);
+	}
+	
+	public ImageView getImageView() {
+		return imageView;
+	}
+	
+	public void removeImageViewFromImageViewArray() {
+		imageViewArray.remove(imageView);
+	}
+	
+	public void imageViewMove(MouseEvent e) {
+		imageView.setOnMouseReleased(f -> placeImageView(f));
+	}
+	
+	private void placeImageView(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+	}
+	
+	public void placeImageViewAtXY(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+	}
+	
+	public void textMove(MouseEvent e) {
+		text.setOnMouseReleased(f -> placeText(f));
+	}
+	
+	private void placeText(MouseEvent e) {
+		text.setX(e.getX());
+		text.setY(e.getY());
+	}
+	
+	public void placeTextAtXY(int index, MouseEvent e) {
+		texts.get(index).setX(e.getX());
+		texts.get(index).setY(e.getY());
 	}
 	
 	public void createText(String string) {
@@ -61,24 +96,42 @@ public class SplashEditModel {
 		texts.add(text);
 	}
 	
+	public Text getText() {
+		return text;
+	}
+	
+	public void removeTextFromTextArray() {
+		texts.remove(text);
+	}
+	
+	public void addSpriteImageToSpriteList(Sprite sprite) {
+		images.add(sprite);
+	}
+	
 	public void selectText(String textValue) {
-		texts.stream()
-		.filter(t -> t.getText().equals(textValue))
-		.forEach(t -> text = t);		
+//		texts.stream()
+//		.filter(t -> t.getText().equals(textValue))
+//		.forEach(t -> text = t);	
+		for (Text t : texts) {
+			if (t.getText().equals(textValue)) {
+				text = t;
+			}
+		}
 	}
 
-	public void selectImage(int index) {
-		imageViewArray.stream()
-		.filter(i -> !i.equals(null))
-		.forEach(i -> imageView = i);
+	public void selectImage(int index, int counter) {
+//		imageViewArray.stream()
+//		.filter(i -> !i.equals(null))
+//		.forEach(i -> imageView = i);
+		for (int i=0; i<counter; i++) {
+			if(imageViewArray.get(i) != null) {
+				imageView = imageViewArray.get(i);
+			}
+		}
 	}
 	
 	public void forEachText(Consumer<Text> consumer) {
 		texts.forEach(consumer);
-	}
-
-	public void createStartButtonImageView(Image image) {
-		startButtonImageView = new ImageView(image);
 	}
 	
 	public void resizeAndRotateImage(KeyEvent e) {
