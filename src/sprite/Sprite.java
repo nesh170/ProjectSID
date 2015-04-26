@@ -114,6 +114,10 @@ public class Sprite {
 		return Collections.unmodifiableList(this.emissionList); 
 	}
 	
+	public boolean isText(){
+	    return isText;
+	}
+	
 	public void setIsText(boolean isText) {
 		this.isText = isText;
 	}

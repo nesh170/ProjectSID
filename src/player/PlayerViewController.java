@@ -167,7 +167,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myEngine = new GameEngine(myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
 	}
 
 	private void chooseGame(Stage gameChooser) {
