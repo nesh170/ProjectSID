@@ -282,10 +282,10 @@ public class CollisionTableScreen extends Screen{
 		myController = controller;
 		levelSpriteTags = new ArrayList<String>(spriteTags);
 		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap;
-		initialize();
+		collisionTableMap = new HashMap<SpritePair, ArrayList<String>>();
+		createVBoxOfCollisionRows();
+		this.setCenter(tablesDisplay);
 	}
-	
-
 	
 
 	@Override
@@ -294,12 +294,7 @@ public class CollisionTableScreen extends Screen{
 
 	}
 	
-	private void initialize(){
-		createVBoxOfCollisionRows();
-		this.setCenter(tablesDisplay);
-	}
 	
-
 	private void createVBoxOfCollisionRows(){
 		tablesDisplay = new StackPane();
 		VBox verticalBox = new VBox();
@@ -562,6 +557,8 @@ public class CollisionTableScreen extends Screen{
 								keylist);
 	//	return action;
 	}*/
+	
+	
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
