@@ -4,7 +4,6 @@ import gameEngine.actions.GroovyAction;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import media.MediaManager;
 import media.SoundEffectManager;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
@@ -25,17 +24,13 @@ public abstract class Action {
 	private boolean isActive;
 	protected List<KeyCode> myKeyCode;
 	private boolean runsEveryFrame = false;
-<<<<<<< HEAD
-	protected double value;
+	protected Double value;
 	private String soundPath;
 	private SoundEffectManager soundManager = new SoundEffectManager();
 	
 	public void setSound(String path){
 		soundPath = path;
 	}
-=======
-	protected Double value;
->>>>>>> 16e1b19779e2f39bde03c48d34df48e3a49e1331
 	
 	/** At construction, action knows the
 	 * sprite it is attached to
