@@ -317,7 +317,7 @@ public class PlayerViewController implements GamePlayerInterface {
 				while (true) {
 					try {
 						myNetwork.sendStringToClient(getCurrentLevelinXML());
-						Thread.sleep(100);
+						Thread.sleep(500);
 					}
 					catch (Exception e) {
 						// TODO Auto-generated catch block
