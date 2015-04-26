@@ -38,6 +38,7 @@ public class INT {
 	public static final int SPLASH_EDIT_TEXTFIELD_WIDTH = 150;
 	public static final int SPLASH_EDIT_TEXTFIELD_HEIGHT = 30;
 	public static final int SPLASH_EDIT_ROTATE_FACTOR = 15;
+	public static final int SPLASH_EDIT_OFFSCREEN = 2000;
 	
 	
 	// Collision table
