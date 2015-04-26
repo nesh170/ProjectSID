@@ -1,14 +1,14 @@
 package gameEngine.actions;
 
-import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.VelocityComponent;
+import sprite.Sprite;
 
-public class NormalAction extends Action {
+public class NormalActionX extends Action{
 
 	private VelocityComponent myVelocityComponent;
 	
-	public NormalAction(Sprite sprite) {
+	public NormalActionX(Sprite sprite) {
 		super(sprite);
 	}
 
@@ -19,12 +19,11 @@ public class NormalAction extends Action {
 
 	@Override
 	public void doAction() {
-		myVelocityComponent.setVelocityY(0.0);
-		myVelocityComponent.setGrounded(true);
+		myVelocityComponent.setVelocityX(0.0);
 	}
 
 	@Override
 	public void stop() {
 	}
-
+	
 }
