@@ -6,7 +6,7 @@ import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
-import gameEngine.actions.NormalAction;
+import gameEngine.actions.NormalActionY;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.actions.ShootAction;
 import gameEngine.actions.SwitchOutAction;
@@ -147,7 +147,7 @@ public class EngineTester extends Tester {
 		Action gravityAction = new FallAction(sprite, GRAVITY);
 		gravityAction.runEveryFrame();
 		sprite.addAction(gravityAction);
-		Action normalAction = new NormalAction(sprite);
+		Action normalAction = new NormalActionY(sprite);
 		sprite.addAction(normalAction);
 		for(Sprite platform: myPlatforms){
 			setCollisionUp(sprite, platform, normalAction);
