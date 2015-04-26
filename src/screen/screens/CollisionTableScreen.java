@@ -247,6 +247,30 @@ public class CollisionTableScreen extends Screen{
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
 	}
+	
+	private class SpritePair {
+		
+		private String myFirstSprite;
+		private String mySecondSprite;
+		
+		public void initialize(String sprite1, String sprite2)
+		{
+			myFirstSprite = sprite1;
+			mySecondSprite = sprite2;
+		}
+		
+		public String getFirstSprite()
+		{
+			return myFirstSprite;
+		}
+		
+		public String getSecondSprite()
+		{
+			return mySecondSprite;
+		}
+	
+	}
+	
 
 	/**
 	 * CollisionTableScreen(collisionTableScreenController, width, height, level);
