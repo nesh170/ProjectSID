@@ -624,7 +624,7 @@ public class GameEditScreen extends Screen {
 	}
 	//borderpane's left and right can overlap with each other!
 	private void hideSplashRegion(){
-		//splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
+		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
 		splashDisplay.setVisible(false);
 		//change to KeyFrame and timeline. That might change it 
 	     TranslateTransition tt = new TranslateTransition(Duration.millis(2000), levelDisplay);
@@ -636,14 +636,14 @@ public class GameEditScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				 
-				levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
+				//levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
 			}
 
 	    	 
 	     }
 	    );
-	    tt.play();	 
-	     
+	   // tt.play();	 
+	    levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
 	}
 	
 	private void showSplashRegion(){
