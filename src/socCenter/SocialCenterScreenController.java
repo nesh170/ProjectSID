@@ -331,7 +331,7 @@ public class SocialCenterScreenController {
 		@Override
 		public void loadUserScreen(User loggedIn, User toDisplay) {
 			// TODO Auto-generated method stub
-			
+			System.out.println("loading: " + loggedIn.getName());
 		}
 		
 	}
