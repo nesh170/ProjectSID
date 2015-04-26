@@ -80,6 +80,8 @@ public class ProfileScreen extends Screen {
 	private TextField keycodeInputBox;
 	private TextField actionValue;
 	private TextField componentValue;
+	
+	private User loggedIn;
 
 
 
@@ -606,14 +608,14 @@ public class ProfileScreen extends Screen {
 
 	private void exit(Sprite sprite) {
 
-		controller.returnToMainPage();
+		controller.returnToMainPage(loggedIn);
 		
 
 	}
 	
 	private void exit() {
 		
-		controller.returnToMainPage();
+		controller.returnToMainPage(loggedIn);
 
 
 	}
