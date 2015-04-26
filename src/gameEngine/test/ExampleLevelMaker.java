@@ -170,12 +170,12 @@ public class ExampleLevelMaker extends Application{
 
 	private void applyActionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
 	}
 	private void addPlayerComponentsAndActions() {
 		myPlayer.addComponent(new HealthComponent(myPlayer,null));
@@ -208,8 +208,8 @@ public class ExampleLevelMaker extends Application{
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action bounceAction) {
-		myCT.addActionToMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, bounceAction);
-		myCT.addActionToMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, null);
+		myCT.addActionToBigMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, bounceAction);
+		myCT.addActionToBigMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, null);
 	}
 
 
