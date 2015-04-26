@@ -1,5 +1,6 @@
 package player;
 
+import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -36,8 +37,7 @@ public class PlayerView {
 		myBorderPane = new BorderPane();
 		myBorderPane.setCenter(myGameRoot);
 		
-		myStackPane.getChildren().add(myBorderPane);
-		
+		myStackPane.getChildren().add(myBorderPane); 
 		myScene = new Scene(myStackPane, 1200, 600);
 
 	}
@@ -45,6 +45,9 @@ public class PlayerView {
 	public void setController(PlayerViewController playerController) {
 		myMenuBar = new PlayerMenu(playerController);
 		myController = playerController;
+		Group errorGroup =new Group();
+		myBorderPane.setLeft(errorGroup);
+		myController.setErrorHandler(new ErrorHandler(errorGroup));
 		myBorderPane.setTop(myMenuBar);
 		myPauseScreen = makePauseScreen(playerController);
 	}

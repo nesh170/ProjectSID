@@ -1,6 +1,9 @@
 package tester.defaults;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.lang.reflect.Method;
 import java.util.Set;
 
 import gameEngine.Action;
@@ -15,6 +18,11 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import sprite.Sprite;
 import tester.Tester;
+
+/**
+ * This class exists to create xml files of default sprites (player, enemy, and platform)
+ * These default sprites are used in the authoring environment
+ */
 
 public class DefaultSpriteGenerator extends Tester{
 	
@@ -31,27 +39,25 @@ public class DefaultSpriteGenerator extends Tester{
 	
 	@Override
 	protected void test(Stage stage) {
-		//TODO: refactor
-		Sprite player = makeDefaultPlayer();
-		Sprite enemy = makeDefaultEnemy();
-		Sprite platform = makeDefaultPlatform();
-		Set<Sprite> playerSet = new HashSet<Sprite>();
-		Set<Sprite> enemySet = new HashSet<Sprite>();
-		Set<Sprite> platformSet = new HashSet<Sprite>();
-		playerSet.add(player);
-		enemySet.add(enemy);
-		platformSet.add(platform);
-		try{
-			DataHandler.toXMLFile(player, "defaultPlayer.xml", System.getProperty("user.dir")+"/defaults");
-			DataHandler.toXMLFile(enemy, "defaultEnemy.xml", System.getProperty("user.dir")+"/defaults");
-			DataHandler.toXMLFile(platform, "defaultPlatform.xml", System.getProperty("user.dir")+"/defaults");
-		}
-		catch (Exception e){
-			System.out.println("Oh no!!!");
-		}
+		List<String> spriteTypes = Arrays.asList(new String[] {"Player", "Enemy", "Platform"});
+		spriteTypes.forEach((String type) -> makeDefaultSpriteList(type));
+	}
+	
+	private void makeDefaultSpriteList(String type){
+		try {
+			 Sprite sprite = null;
+			 for(Method method: this.getClass().getDeclaredMethods()){
+				 if(method.toString().endsWith(type + "()")) sprite = (Sprite) method.invoke(this);
+			 }
+			 Set<Sprite> spriteSet = new HashSet<Sprite>();
+			 spriteSet.add(sprite);
+			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty("user.dir")+"/defaults");
+			} catch (Exception e){
+				e.printStackTrace();
+			}
 	}
 
-	private Sprite makeDefaultPlayer() {
+	private Sprite makeDefaultPlayer(){
 		Sprite player = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SIZE));
 		player.setCollisionTag("player");
 		player.setImagePath(System.getProperty("user.dir")+"/defaults/mario.png");
