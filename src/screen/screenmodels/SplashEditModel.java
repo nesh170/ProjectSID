@@ -101,6 +101,10 @@ public class SplashEditModel {
 		return text;
 	}
 	
+	public List<Text> getTexts() {
+		return texts;
+	}
+	
 	public void removeTextFromTextArray() {
 		texts.remove(text);
 	}

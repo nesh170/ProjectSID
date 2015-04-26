@@ -363,15 +363,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		GridPane grid = new GridPane();
 		final ComboBox<String> comboBox = new ComboBox<String>();
 		comboBox.getItems().addAll(options); 
-		comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue ov,
-					Number value, Number new_value) {
-					deleteItem(options[new_value.intValue()]);
-					comboBox.setVisible(false);
-			}
-
-		});
+		comboBox.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> deleteItem(comboBox, options[new_value.intValue()]));
+//		comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+//			@Override
+//			public void changed(ObservableValue ov,
+//					Number value, Number new_value) {
+//					deleteItem(options[new_value.intValue()]);
+//					comboBox.setVisible(false);
+//			}
+//
+//		});
 		
 		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
 		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
@@ -380,15 +381,20 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		this.getChildren().add(grid);	
 	}
 	
-	private void deleteItem(String option) {
+	private void deleteItem(ComboBox comboBox, String option) {
 		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE)) {
 			this.getChildren().remove(splashEditModel.getImageView());
 			splashEditModel.removeImageViewFromImageViewArray();
+			splashEditModel.selectImage(0, counter);
 		}
 		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT)) {
 			this.getChildren().remove(splashEditModel.getText());
 			splashEditModel.removeTextFromTextArray();
-		}	
+			if(!splashEditModel.getTexts().isEmpty()) {
+				splashEditModel.selectText(splashEditModel.getTexts().get(0).getText());
+			}
+		}
+		comboBox.setVisible(false);
 	}
 
 	public void backSplashScreen() {			
