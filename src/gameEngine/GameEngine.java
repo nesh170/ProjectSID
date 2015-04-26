@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
+import levelPlatform.splashScreen.SplashScreen;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -35,13 +36,14 @@ public class GameEngine extends GameEngineAbstract {
         
     
     
-    public GameEngine(List<Level> levelList) {
-    	
+    public GameEngine(SplashScreen splashLevel, List<Level> levelList) {
         myLevelList = levelList;
+        if(splashLevel!=null){
+            myLevelList.add(0, splashLevel);
+        }
         initializeLevel(0);
-        
     }
-    
+
     @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);

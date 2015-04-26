@@ -18,8 +18,9 @@ public class KillAction extends DoubleAction {
 
 	@Override
 	public void doAction() {
-		//mySprite.setIsActive(false);
-		mySprite.transform().setPosition(Point2D.ZERO);
+		mySprite.setIsActive(false);
+		//TODO:why does it reset transform
+		//mySprite.transform().setPosition(Point2D.ZERO);
 	}
 
 	@Override
