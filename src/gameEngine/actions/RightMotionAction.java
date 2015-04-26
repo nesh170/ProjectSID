@@ -6,7 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-public class RightMotionAction extends Action {
+public class RightMotionAction extends DoubleAction {
 
 	private Double velocity;
 	private VelocityComponent myVelocityComponent;
