@@ -55,6 +55,7 @@ import levelPlatform.level.Level;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
+import javafx.stage.Stage;
 import javafx.stage.PopupWindow.AnchorLocation;
 import resources.ImageViewButton;
 import resources.constants.DOUBLE;
@@ -105,6 +106,16 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	
 	public Set<String> getTags() {
 		return tags;
+	}
+	
+	/**
+	 * used for Collision Edit Screen during switch-out action
+	 * @author Anika
+	 * @return map of sprite strings
+	 */
+	public Map<String, ObservableList<String>> getSpriteMap()
+	{
+		return stringToListMap;
 	}
 
 
@@ -247,8 +258,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this, null));
 		
 		Button editSpriteButton =
-				makeButtonForPane(languageResources().getString("EditSprite"), e-> controller.loadSpriteEditScreen(this, model.selectedSprite()));
+				makeButtonForPane(languageResources().getString("EditSprite"), e -> controller.loadSpriteEditScreen(this, model.selectedSprite()));
 
+		Button addBackgroundButton =
+				makeButtonForPane(languageResources().getString("AddBackground"), e -> selectBackgroundImage());
+		
 		Button returnToGameEditButton = 
 				makeButtonForPane(languageResources().getString("Back"), e -> controller.returnToGameEditScreen());
 
@@ -270,13 +284,23 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		Button addTagType = 
 				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
 
-		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType);
+		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, addBackgroundButton, 
+				returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType);
 
+	}
+
+	private void selectBackgroundImage() {
+		File file = DataHandler.chooseFile(new Stage());
+		Image image = DataHandler.fileToImage(file);
+		model.setBackgroundImage(file.getPath());
+		levelEditDisplay.setBackground(image);
+		
 	}
 
 	private void configureLevelEditDisplay(Level level) {
 
-		this.levelEditDisplay = new LevelEditDisplay(level.width(),level.height(),level.sprites());
+		this.levelEditDisplay = new LevelEditDisplay(level.width(),level.height(),level.sprites(),
+				level.backgroundPath());
 		viewableArea().setCenter(levelEditDisplay);
 		levelEditDisplay.getContent().setOnMouseReleased(e -> model.addSpriteToLocation(e));
 

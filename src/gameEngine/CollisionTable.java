@@ -62,7 +62,7 @@ public class CollisionTable {
 			
 		} else {
 			
-			HashMap<String, Action[]> subMap = new HashMap<>();
+			Map<String, Action[]> subMap = new HashMap<>();
 			Action[] newActionList = new Action[4];
 			newActionList[direction] = toAdd;
 			subMap.put(type2, newActionList);
