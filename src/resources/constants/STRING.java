@@ -204,6 +204,12 @@ public class STRING {
 		public static final String TEXT_PROMPT = "Value";
 		public static final String SAVE_BUTTON_TEXT = "Save";
 		public static final String SWITCH_ACTION = "Switch Out ";
+	
+		
+		
+		
+		
+		
 		
 	}
 	
