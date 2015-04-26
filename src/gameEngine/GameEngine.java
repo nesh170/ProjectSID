@@ -98,6 +98,7 @@ public class GameEngine extends GameEngineAbstract {
         if(myControlsMapList.get(playerNumber).containsKey(key)){
             KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(keyEventType).accept(myControlsMapList.get(playerNumber).get(key));
         }
+        getHUDMap();
     }
 
     @Override
@@ -131,6 +132,13 @@ public class GameEngine extends GameEngineAbstract {
     public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
         myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
     }
+
+    @Override
+    public Map<String, Double> getHUDMap () {
+        return myCurrentLevel.getUnmodifiableHUDMap();
+    }
+    
+    
 
 
 
