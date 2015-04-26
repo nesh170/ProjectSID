@@ -198,8 +198,11 @@ public class STRING {
 		public static final String COMBO_SPRITE2_TAG = "SpriteInactive";
 		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
 		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
+		public static final String COMBO_SPRITE_SELECT_NAME = "Choose Sprite";
+		public static final String COMBO_SPRITE_SELECT_TAG = "ChooseSprite";
 		public static final String TEXT_PROMPT = "Value";
 		public static final String SAVE_BUTTON_TEXT = "Save";
+		public static final String SWITCH_ACTION = "Switch Out ";
 		
 	}
 	

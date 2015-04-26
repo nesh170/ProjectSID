@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -378,9 +379,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, Map<String, ObservableList<String>> spriteMap) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, spriteMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -635,7 +636,7 @@ public class ScreenController {
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
 			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags());
+			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
 		}
 		
