@@ -10,7 +10,6 @@ public class NormalAction extends Action {
 	
 	public NormalAction(Sprite sprite) {
 		super(sprite);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -19,15 +18,13 @@ public class NormalAction extends Action {
 	}
 
 	@Override
-	public void execute() {
+	public void doAction() {
 		myVelocityComponent.setVelocityY(0.0);
 		myVelocityComponent.setGrounded(true);
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

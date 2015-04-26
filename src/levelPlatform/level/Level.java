@@ -1,21 +1,20 @@
 package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
+import gameEngine.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
-
-import gameEngine.EngineMathFunctions;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import gameEngine.actions.GroovyAction;
+import gameEngine.components.GroovyComponent;
 import resources.constants.INT;
 import sprite.Sprite;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
 
@@ -46,6 +45,7 @@ public class Level extends LevelPlatform {
 	private CollisionTable collisionTable;
 	private IntConsumer nextLevelMethod;
 	private Map<Sprite, Integer> goalMap;
+	private String myBackgroundPath;
 
 	// Getters & Setters
 	/**
@@ -61,6 +61,14 @@ public class Level extends LevelPlatform {
 	
 	public void addPlayerSprite(Sprite player){
 	    playerSpriteList.add(player);
+	}
+
+	public String backgroundPath() {
+		return myBackgroundPath;
+	}
+
+	public void setBackground(String backgroundPath) {
+		myBackgroundPath = backgroundPath;
 	}
 
 	public void setSprites(List<Sprite> spriteList){
@@ -122,7 +130,23 @@ public class Level extends LevelPlatform {
     @Override
     public void update(){
         super.update();
+        playerSpriteList.stream().forEach(player -> edgeCheckSprite(player));
         goalMap.keySet().forEach(sprite -> handleGoals(sprite));
+    }
+
+    private void edgeCheckSprite (Sprite sprite) {
+        if(sprite.transform().getPosX()<0){
+            sprite.transform().setPosition(new Point2D(0, sprite.transform().getPosY()));
+        }
+        if(sprite.transform().getPosX()>width()){
+            sprite.transform().setPosition(new Point2D(width(), sprite.transform().getPosY()));
+        }
+        if(sprite.transform().getPosY()<0){
+            sprite.transform().setPosition(new Point2D(sprite.transform().getPosX(), 0));
+        }
+        if(sprite.transform().getPosY()>height()){
+            sprite.transform().setPosition(new Point2D(sprite.transform().getPosX(), height()));
+        }
     }
 
     /**
@@ -140,6 +164,43 @@ public class Level extends LevelPlatform {
         xyLocations[X] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosX()+playerSpriteList.get(INT.LOCAL_PLAYER).transform().getWidth()/2;
         xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight()/2;
         return xyLocations;
+    }
+
+    /**
+     * Adds the groovy Action (user defined) into the level
+     * @param spriteTag
+     * @param groovyObject
+     */
+    public void addGroovyAction (String spriteTag, Action groovyAction) {
+        List<Sprite> spriteWithTag = sprites().stream().filter(sprite -> sprite.tag().equals(spriteTag)).collect(Collectors.toList());
+        spriteWithTag.stream().forEach(sprite -> handleGroovyAction(sprite,((GroovyAction) groovyAction)));
+    }
+
+    private void handleGroovyAction (Sprite sprite, GroovyAction groovyAction) {
+        GroovyAction copy = groovyAction.deepCopy();
+        copy.setSprite(sprite);
+        sprite.addActionRuntime(copy);
+    }
+
+    public void addGroovyComponent (String spriteTag, Component groovyComponent) {
+        List<Sprite> spriteWithTag = sprites().stream().filter(sprite -> sprite.tag().equals(spriteTag)).collect(Collectors.toList());
+        spriteWithTag.stream().forEach(sprite -> handleGroovyComponent(sprite,(GroovyComponent) groovyComponent));
+    }
+
+    private void handleGroovyComponent (Sprite sprite, GroovyComponent groovyComponent) {
+        GroovyComponent copy = groovyComponent.deepCopy();
+        copy.setSprite(sprite);
+        sprite.addComponentRuntime(copy);
+    }
+
+    public List<String> getActionListInStrings (int playerNumber) {
+        List<String> actionName = new ArrayList<>();
+        playerSpriteList().get(playerNumber).actionList().stream().forEach(action -> actionName.add(action.getClass().getSimpleName()));
+        return actionName;
+    }
+    
+    public void setKeyCodeToPlayer(int playerNumber, String actionName, KeyCode key){
+        playerSpriteList().get(playerNumber).getActionOfType(actionName).setKeyCode(Stream.of(key).collect(Collectors.toList()));
     }
 
 }	

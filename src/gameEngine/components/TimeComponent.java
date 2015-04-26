@@ -11,10 +11,10 @@ public class TimeComponent extends Component {
 	private double levelTime;
 	private int displayTime;
 
-	public TimeComponent(Sprite sprite, List<Double> valueList) {
-		super(sprite, valueList);
+	public TimeComponent(Sprite sprite, Double value) {
+		super(sprite, value);
 		try{
-		    levelTime = myValueList.get(0);
+		    levelTime = value;
 		}
 		catch(Exception e){
 		    levelTime = DOUBLE.DEFAULT_TIME_LIMIT;

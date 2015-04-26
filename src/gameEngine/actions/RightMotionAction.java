@@ -6,7 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-public class RightMotionAction extends Action {
+public class RightMotionAction extends DoubleAction {
 
 	private Double velocity;
 	private VelocityComponent myVelocityComponent;
@@ -19,15 +19,14 @@ public class RightMotionAction extends Action {
 
 	@Override
 	public void prepare() {
-		
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
 
 	}
 
 	@Override
-	public void execute() {
-	    myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+	public void doAction() {
 	    myVelocityComponent.setVelocityX(EngineMathFunctions.velocityValueFrame(velocity));
-	    System.out.println("right!");
+	    mySprite.setFacesLeft(false);
 	}
 
 	@Override

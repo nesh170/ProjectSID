@@ -37,6 +37,7 @@ public class DOUBLE {
 	
 	// LevelView
 	public static final double DEFAULT_LENGTH_SIDE_PIXEL = 1.0;
+	public static final double FIELDS_AND_BUTTONS_WIDTH = 150;
 	
 	// Bullet info
 	public static final double BULLET_SELF_DESTRUCT_DIST = 1000.0;

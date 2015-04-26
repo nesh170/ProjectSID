@@ -3,13 +3,12 @@ package sprite;
 import gameEngine.Action;
 import gameEngine.Component;
 import gameEngine.Transform;
-
+import gameEngine.components.GroovyComponent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.*;
-
 import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
@@ -48,9 +47,13 @@ public class Sprite {
 	private String tag;
 	private String collisionTag;
 	private String imagePath;
+	private boolean facesLeft = false;
 
 	private Transform transform;
 	private SpriteImage spriteImage;
+	
+	private boolean isGoal;
+	private int toLevel;
 
 	
 	public static Sprite makeCopy(Sprite toCopy) {
@@ -60,6 +63,14 @@ public class Sprite {
 	}
 	
 	// Getters & Setters
+
+	public boolean facesLeft() {
+		return facesLeft;
+	}
+
+	public void setFacesLeft(boolean facesLeft) {
+		this.facesLeft = facesLeft;
+	}
 	/**
 	 * Use SID pixels here
 	 */
@@ -258,6 +269,16 @@ public class Sprite {
 		actionList.add(actionToAdd);
 	}
 	
+	public void addActionRuntime (Action action) {
+	        actionList.add(action);
+	        action.prepare();
+	}
+	
+	public void addComponentRuntime (Component component) {
+	        componentList.add(component);
+	        component.prepare();
+	}
+	
 	/**
 	 * gets Component attached to this sprite
 	 * of a specific type (there should be one
@@ -300,6 +321,20 @@ public class Sprite {
 		
 		return null;
 		
-	}	
+	}
+
+	public void setIsGoal(boolean isGoal, int level) {
+		this.isGoal = isGoal;
+		if(isGoal) {
+			this.toLevel = level;
+		}
+		else{ 
+			this.toLevel = -1;
+		}
+	}
 	
+	public int getGoalToLevel() {
+		return toLevel;
+	}
+
 }

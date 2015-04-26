@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class VideoPlayer {
@@ -23,6 +24,7 @@ public class VideoPlayer {
         
         stage.setScene(scene);
         stage.sizeToScene();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
         stage.setOnCloseRequest(event -> { mediaPlayer.stop(); });
 	}

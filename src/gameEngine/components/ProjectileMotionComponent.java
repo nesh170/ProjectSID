@@ -12,19 +12,18 @@ public class ProjectileMotionComponent extends VelocityComponent {
 	private double myBulletSpeed;
 	private double mySelfDestructDistance;
 	
-	public ProjectileMotionComponent(Sprite sprite, List<Double> valueList ,Sprite shooter) {
-		super(sprite,valueList);
+	public ProjectileMotionComponent(Sprite sprite, Double speed, Double sdd, Sprite shooter) {
+		super(sprite, null);
 		myShooter = shooter;
-		myBulletSpeed = valueList.get(0);
-		mySelfDestructDistance = valueList.get(1);
+		myBulletSpeed = speed;
+		mySelfDestructDistance = sdd;
 	}
 
 	
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.
-		//TODO: REMOVE HARDCODED SPEED
-		if((mySprite.transform().getPosX() - myShooter.transform().getPosX()) > mySelfDestructDistance){
+		if((myShooter.transform().getPosX() - mySprite.transform().getPosX()) > mySelfDestructDistance){
 			mySprite.setIsActive(false);
 		}
 		setVelocityX(myBulletSpeed);
