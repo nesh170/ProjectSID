@@ -141,17 +141,17 @@ public class PlayerMenu{
 		return myMenu;
 	}
 	
-	private Stage buildGameChooser() {
-		Stage gameChooser = new Stage();
-		gameChooser.initModality(Modality.APPLICATION_MODAL);
-		Button mario = new Button("Mario");
-		mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
-		VBox vbox = new VBox(50);
-		vbox.setAlignment(Pos.TOP_CENTER);
-		vbox.getChildren().addAll(new Text("Your Games"), mario);
-		Scene allGames = new Scene(vbox, 300, 200);
-		gameChooser.setScene(allGames);
-		return gameChooser;
-	}
+//	private Stage buildGameChooser() {
+//		Stage gameChooser = new Stage();
+//		gameChooser.initModality(Modality.APPLICATION_MODAL);
+//		Button mario = new Button("Mario");
+//		mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
+//		VBox vbox = new VBox(50);
+//		vbox.setAlignment(Pos.TOP_CENTER);
+//		vbox.getChildren().addAll(new Text("Your Games"), mario);
+//		Scene allGames = new Scene(vbox, 300, 200);
+//		gameChooser.setScene(allGames);
+//		return gameChooser;
+//	}
 
 }
