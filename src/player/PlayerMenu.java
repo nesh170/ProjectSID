@@ -72,6 +72,14 @@ public class PlayerMenu extends MenuBar{
 			controller.play();
 			;
 		});
+		MenuItem saveItem = makeMenuItem("Save");
+		saveItem.setOnAction(event -> {
+			controller.saveGame();
+		});
+		MenuItem saveAsItem = makeMenuItem("Save As");
+		saveAsItem.setOnAction(event -> {
+			controller.saveAs();
+		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			controller.loadNewChooser();
@@ -80,7 +88,7 @@ public class PlayerMenu extends MenuBar{
 		restartItem.setOnAction(event -> {
 			controller.restart();
 		});
-		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
+		fileMenu.getItems().addAll(pauseItem, playItem, saveItem, saveAsItem, loadItem,
 				restartItem);
 		return fileMenu;
 	}
