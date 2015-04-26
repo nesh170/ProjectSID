@@ -6,7 +6,7 @@ import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.HealthComponent;
 
-public class KillAction extends Action {
+public class KillAction extends DoubleAction {
 
 	public KillAction(Sprite sprite, Double val, KeyCode... keys) {
 		super(sprite, val, keys);
