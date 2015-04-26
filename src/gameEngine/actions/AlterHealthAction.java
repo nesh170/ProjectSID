@@ -5,13 +5,13 @@ import javafx.scene.input.KeyCode;
 import gameEngine.Action;
 import gameEngine.components.HealthComponent;
 
-public class AlterHealthAction extends Action {
+public class AlterHealthAction extends DoubleAction {
 
 	private HealthComponent myHealth;
 	
 	
 	public AlterHealthAction(Sprite sprite, Double delta, KeyCode... keys){
-		super(sprite, keys);
+		super(sprite, delta, keys);
 	}
 	@Override
 	public void prepare() {

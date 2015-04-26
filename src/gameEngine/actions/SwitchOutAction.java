@@ -14,20 +14,12 @@ import gameEngine.components.VelocityComponent;
  *
  */
 
-public class SwitchOutAction extends Action{
+public class SwitchOutAction extends MultiSpriteAction{
 	
-	private int mySpriteIndex;
-	private Sprite[] mySprites;
-	private List<Sprite> myPlayerList;
 
 	public SwitchOutAction(Sprite[] sprites, List<Sprite> allPlayers, KeyCode ... keys) {
-		super(sprites[0], keys);
-		mySprites = sprites;
-		mySpriteIndex = 0;
-		for(int i = 1; i<sprites.length; i ++){
-			sprites[i].setIsActive(false);
-		}
-		myPlayerList = allPlayers;
+		super(sprites, allPlayers, keys);
+		
 	}
 
 	@Override
