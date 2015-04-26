@@ -54,7 +54,7 @@ public class Sprite {
 	
 	private boolean isGoal;
 	private int toLevel;
-	private boolean isText;
+	private boolean isText = false;
 
 	
 	public static Sprite makeCopy(Sprite toCopy) {
