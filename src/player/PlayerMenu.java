@@ -1,17 +1,20 @@
 package player;
 
+import gameEngine.actions.GroovyAction;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import sprite.Sprite;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -135,6 +138,40 @@ public class PlayerMenu{
 
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
+	}
+	
+	@AddMenuItem(order = 4)
+	private Menu buildGroovyMenu (PlayerViewController view) {
+	    Menu groovyMenu = new Menu("Groovy");
+	    MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
+	    GroovyMenu actionMenu =
+	            new GroovyActionMenu(new GroovyAction(new Sprite(), 0.0, KeyCode.R));
+	    groovyActionItem
+	    .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
+	                                                       (spriteTag, groovyAction) -> view
+	                                                       .addRuntimeAction(spriteTag,
+	                                                                         groovyAction)));
+	    groovyMenu.getItems().addAll(groovyActionItem);
+	    return groovyMenu;
+	}
+
+	@AddMenuItem(order = 5)
+	private Menu buildNetworksMenu (PlayerViewController view) {
+	    Menu networksMenu = new Menu("Multiplayer");
+	    MenuItem hostItem = new MenuItem("Host Game");
+	    MenuItem joinItem = new MenuItem("Join Game");
+
+	    hostItem.setOnAction(event -> {
+	        view.startServer();
+
+	    });
+
+	    joinItem.setOnAction(event -> {
+	        view.startClient();
+	    });
+
+	    networksMenu.getItems().addAll(hostItem, joinItem);
+	    return networksMenu;
 	}
 
 	protected MenuBar getBar() {
