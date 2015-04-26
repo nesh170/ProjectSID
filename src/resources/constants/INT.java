@@ -49,6 +49,16 @@ public class INT {
 	public static final int VALUE = 4;
 	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG.length();
 	
+	// Collision Map
+	
+	public static final int DIRECTION_INDEX = 0;
+	public static final int ACTION_INDEX = 1;
+	public static final int VALUE_INDEX = 2;
+	public static final int SWITCH_OPTION_INDEX = 3;
+	
+	
+
+
 	
 	
 	//MainMenu
