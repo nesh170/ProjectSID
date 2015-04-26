@@ -112,6 +112,14 @@ public class SplashEditModel {
 		imageView.setX(e.getSceneX());
 		imageView.setY(e.getSceneY());
 	}
+	
+	/**
+	 * used to place imageview off screen
+	 */
+	public void placeImageViewOffScreen() {
+		imageView.setX(5000);
+		imageView.setY(5000);
+	}
 
 	/**
 	 * used to move text
