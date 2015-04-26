@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.function.Consumer;
 import resources.constants.INT;
 import util.DialogUtil;
 import util.ErrorHandler;
@@ -300,11 +302,13 @@ public class PlayerViewController implements GamePlayerInterface {
 	
 	public void startServer () {
 		try {
+		    myEngine.pause(myGameGroup);
 		    myTimeline.pause();
-			myNetwork.setUpServer(PORT_NUMBER);
-			myTimeline.play();
-			sendClientLevels();
-			receiveFromClient();
+		    myNetwork.setUpServer(PORT_NUMBER);
+		    myView.getRoot().setOnKeyPressed(key -> sendEvent(key, event-> handleServerSend(event,key)));
+                    myView.getRoot().setOnKeyReleased(key -> sendEvent(key, event-> handleServerSend(event,key)));
+		    myTimeline.play();
+		    receive( () -> myNetwork.getStringFromClient(), INT.SECOND_PLAYER);
 		}
 		catch (IOException e) {
 			myErrorHandler.displayError(NETWORK_BROKE);
@@ -314,109 +318,83 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setErrorHandler (ErrorHandler errorHandler) {
 	    myErrorHandler = errorHandler;
 	}
+	
+	    private void handleServerSend (String event, KeyEvent key) {
+	        try {
+	            myNetwork.sendStringToClient(event);
+	            myEngine.handleKeyEvent(key.getEventType().getName(), key.getCode().getName(),
+	                                    INT.LOCAL_PLAYER);
+	        }
+	        catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
-	private void sendClientLevels(){
-		Task<Void> sendTask = new Task<Void>() {
-			@Override
-			protected Void call () {
-
-				while (true) {
-					try {
-						myNetwork.sendStringToClient(getCurrentLevelinXML());
-						Thread.sleep(500);
-					}
-					catch (Exception e) {
-					    myErrorHandler.displayError(NETWORK_BROKE);
-					}
-				}
-			}
-		};
-
-		Thread th = new Thread(sendTask);
-		th.setDaemon(true);
-		th.start();
-	}
-
-	private void receiveFromClient(){
-		Task<Void> taskToReceive = new Task<Void>() {
-
-			@Override
-			protected Void call () throws Exception {
-				while(true){
-					try{
-						String keyControl = myNetwork.getStringFromClient();
-						@SuppressWarnings("unchecked")
-						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
-						handleKeyEvent(keyString.get(0),keyString.get(1), INT.SECOND_PLAYER); //Add code to make another player play
-					}
-					catch(Exception e){
-					    myErrorHandler.displayError(NETWORK_BROKE);
-					}
-				}
-			}
-
-		};
-		Thread serverReceiveThread = new Thread(taskToReceive);
-		serverReceiveThread.setDaemon(true);
-		serverReceiveThread.start();
-	}
 
 	public void startClient () {
 		try {
-		        myTimeline.stop();
+		        myEngine.pause(myGameGroup);
+		        myTimeline.pause();
 			myNetwork.setUpClient(DialogUtil.setUpDialog(),PORT_NUMBER);
-			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
-			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-			receiveLevels();
-			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-	                Camera camera = new Camera(myView.getRoot());
-			KeyFrame displayFrame = new KeyFrame(
-					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel, renderer, camera));
-			Timeline networkTimeline = new Timeline();
-			networkTimeline.setCycleCount(Animation.INDEFINITE);
-			networkTimeline.getKeyFrames().add(displayFrame);
-			networkTimeline.play();
+			myView.getRoot().setOnKeyPressed(key -> sendEvent(key, event-> handleClientSend(event,key)));
+			myView.getRoot().setOnKeyReleased(key -> sendEvent(key, event-> handleClientSend(event,key)));
+			myTimeline.play();
+			receive( () -> myNetwork.getStringFromServer(), INT.LOCAL_PLAYER);
+			
 		}
 		catch (Exception e) {
 			System.err.println("Can't start Client");
 		}
 	}
 
-	private void sendEvent (KeyEvent key) {
+    private void handleClientSend (String event, KeyEvent key) {
+        try {
+            myNetwork.sendStringToServer(event);
+            myEngine.handleKeyEvent(key.getEventType().getName(), key.getCode().getName(),
+                                    INT.SECOND_PLAYER);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendEvent (KeyEvent key, Consumer<String> networkMethod) {
 		List<String> keyData = new ArrayList<>();
 		keyData.add(key.getEventType().getName());
 		keyData.add(key.getCode().getName());
 		try {
-			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
+			networkMethod.accept(DataHandler.toXMLString(keyData));
 		}
 		catch (Exception e) {
 		    myErrorHandler.displayError(NETWORK_BROKE);
 		}
 	}
+	
+	       private void receive(Callable<String> receive, int playerNum){
+	                Task<Void> taskToReceive = new Task<Void>() {
 
-	private void receiveLevels(){
-		Task<Void> recvTask = new Task<Void>() {
-			@Override
-			protected Void call () {
-				while (true) {
-					try {
-						String levelString = myNetwork.getStringFromServer();
-						myNetworkLevel =(Level) DataHandler.fromXMLString(levelString);
-					}
-					catch (Exception e) {
-						myErrorHandler.displayError(NETWORK_BROKE);
-					}
-				}
+	                        @Override
+	                        protected Void call () throws Exception {
+	                                while(true){
+	                                        try{
+	                                                String keyControl = receive.call();
+	                                                @SuppressWarnings("unchecked")
+	                                                List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
+	                                                handleKeyEvent(keyString.get(0),keyString.get(1), playerNum); //Add code to make another player play
+	                                        }
+	                                        catch(Exception e){
+	                                            myErrorHandler.displayError(NETWORK_BROKE);
+	                                        }
+	                                }
+	                        }
 
-			}
-		};
+	                };
+	                Thread serverReceiveThread = new Thread(taskToReceive);
+	                serverReceiveThread.setDaemon(true);
+	                serverReceiveThread.start();
+	        }
 
-		Thread th = new Thread(recvTask);
-		th.setDaemon(true);
-		th.start();
-
-
-	}
+	
 
 	private void display(Level level, LevelView renderer, Camera camera){
 	    if(level==null){
