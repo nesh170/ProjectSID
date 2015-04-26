@@ -112,10 +112,9 @@ public class MainPageScreen extends Screen {
 
 		loggedSP.getChildren().addAll(makeText(loggedInUser.getName()));
 		
-		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
-	    rec.setFill(Color.TRANSPARENT);
-		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		loggedSP.getChildren().addAll(rec);  
+	    ImageView recImage = new ImageView(loggedInUser.getImagePath());
+		loggedSP.getChildren().add(recImage);
+		loggedInDisplay.setOnMouseClicked(e -> controller.loadUserScreen(loggedInUser, loggedInUser));
 		displayAppropriateProfileImage();	
 	}
 	

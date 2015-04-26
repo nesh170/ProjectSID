@@ -1,12 +1,14 @@
 package socCenter.mainPage;
 
 import javafx.stage.Popup;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -53,6 +55,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.GameEditScreenController;
 import screen.controllers.ScreenController;
+import socCenter.User;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
@@ -71,5 +74,7 @@ public interface MainPageScreenController  {
 	public abstract void loadUserPopup(Popup popup);
 	
 	public abstract void nop();
+	
+	public abstract void loadUserScreen(User loggedIn, User toDisplay);
 	
 }

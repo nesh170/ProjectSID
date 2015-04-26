@@ -176,12 +176,15 @@ public class LogInScreen extends Screen {
 	     PasswordField reNewPassWord = new PasswordField();
 	     reNewPassWord.setPromptText("Re-Enter Password");
 	     grid.add(reNewPassWord, 2, 4);
+	     TextField imageURL = new TextField();
+	     imageURL.setPromptText("Enter profile image URL");
+	     grid.add(imageURL, 2, 5);
 	     HBox popUpHBox = new HBox(100);
-	     grid.add(popUpHBox, 2, 5);
+	     grid.add(popUpHBox, 2, 6);
 	     Button ok = new Button("create profile");
 	     Button cancel = new Button("cancel");
 	     popUpHBox.getChildren().addAll(cancel, ok);
-	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, newUserName, newPassWord, reNewPassWord));
+	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, newUserName, newPassWord, reNewPassWord, imageURL));
 	     cancel.setOnAction(e -> createProfilePopup.hide());
 	     return grid;
 		

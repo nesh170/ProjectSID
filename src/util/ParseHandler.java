@@ -1,10 +1,12 @@
 package util;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.parse4j.Parse;
 import org.parse4j.ParseException;
+import org.parse4j.ParseFile;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
 import org.parse4j.callback.GetCallback;
@@ -37,6 +39,16 @@ public class ParseHandler {
 		user.put("userName", toSave.getName());
 		user.put("password", toSave.getPass());
 		user.put("imagePath", toSave.getImagePath());
+		//ParseFile image = new ParseFile("img", toSave.getImagePath());
+		/*byte[] data;
+		try {
+			//data = image.getData();
+			//image.save();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		//user.put("image", image);
 		try {
 			user.save();
 		} catch (ParseException e) {
@@ -101,13 +113,6 @@ public class ParseHandler {
 		return (users == null) ? false : true;
 		
 	}
-	/*public static void main(String[] args){
-		User dan = new User("", "jim", "soshy");
-		saveUser(dan);
-		System.out.println(dan.getMyID());
-		
-		User newU = loadUser("Dan");
-		System.out.println(newU.getPass());
-	}*/
+	
 
 }

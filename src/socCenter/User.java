@@ -1,5 +1,6 @@
 package socCenter;
 
+import java.io.File;
 import java.util.List;
 
 import javafx.geometry.Dimension2D;
@@ -19,6 +20,7 @@ public class User {
 	private String myPassword; //TODO: make secure (like it even matters)
 	private Sprite myDefaultSprite;
 	private List<User> myFriends;
+	private File myImage;
 	
 	public User(String id, String name, String password){
 		setMyID(id);
@@ -30,8 +32,13 @@ public class User {
 	public User(String id, String name, String password, String imagePath){
 		this(id, name, password);
 		setImagePath(imagePath);
+		myImage = new File(imagePath);
 	}
 	//getters, setters
+	public File getImage(){
+		return myImage;
+	}
+	
 	public String getMyID() {
 		return myID;
 	}

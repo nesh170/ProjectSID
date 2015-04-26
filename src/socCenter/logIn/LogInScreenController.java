@@ -17,5 +17,5 @@ public interface LogInScreenController {
 	
 	public void logIn(Popup popup, TextField username, PasswordField password);
 	
-	public void createProfile(Popup popup, TextField username, PasswordField password, PasswordField rePassWord);
+	public void createProfile(Popup popup, TextField username, PasswordField password, PasswordField rePassWord, TextField imageURL);
 }

@@ -304,9 +304,9 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void createProfile(Popup popup, TextField username,
-				PasswordField password, PasswordField rePassWord) {
+				PasswordField password, PasswordField rePassWord, TextField imageURL) {
 	
-			User newUser = new User("", username.getText(), password.getText());
+			User newUser = new User("", username.getText(), password.getText(), imageURL.getText());
 			parseHandle.saveUser(newUser);
 			createMainPageScreen(newUser);
 			popup.hide();
@@ -324,6 +324,12 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void nop() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void loadUserScreen(User loggedIn, User toDisplay) {
 			// TODO Auto-generated method stub
 			
 		}
