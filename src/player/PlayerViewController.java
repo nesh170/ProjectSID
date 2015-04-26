@@ -347,7 +347,6 @@ public class PlayerViewController implements GamePlayerInterface {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
 						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
-						System.out.println(keyString.get(1));
 						handleKeyEvent(keyString.get(0),keyString.get(1), INT.SECOND_PLAYER); //Add code to make another player play
 					}
 					catch(Exception e){
