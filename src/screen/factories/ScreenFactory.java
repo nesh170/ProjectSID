@@ -62,9 +62,9 @@ public class ScreenFactory {
 	}
 	
 	public Screen createSplashEditScreen(SplashScreen splashScreen, 
-			SplashEditScreenController splashEditScreenManager) {
+			SplashEditScreenController splashEditScreenManager, Game game) {
 
-		return new SplashEditScreen(splashEditScreenManager, width, height, splashScreen);
+		return new SplashEditScreen(splashEditScreenManager, game, width, height, splashScreen);
 		
 	}
 	

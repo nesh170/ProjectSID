@@ -159,6 +159,7 @@ public class EngineTester extends Tester {
 	}
 	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
 		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
+		jumpAction.setSound("engineTesting/sounds/jump.mp3");
 		sprite.addAction(jumpAction);
 		return jumpAction;
 	}
