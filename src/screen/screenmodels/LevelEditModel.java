@@ -232,4 +232,8 @@ public class LevelEditModel {
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
 	}
 
+	public void setBackgroundImage(String path) {
+		level.setBackground(path);
+	}
+
 }
