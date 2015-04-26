@@ -33,7 +33,7 @@ import sprite.Sprite;
 /**
 /* Screen to create a splash screen
  * 
- * @author Kyle
+ * @author Kyle Milden
  *
  */
 public class SplashEditScreen extends LevelPlatformCapableScreen {
@@ -354,7 +354,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			splashEditModel.addSpriteImageToSpriteList(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);		
 			splashEditModel.getImageView().setOnMousePressed(f -> splashEditModel.imageViewMove(f));		
-			splashEditModel.placeImageViewAtXY(e);
+			splashEditModel.placeImageView(e);
 			this.getChildren().remove(splashEditModel.getImageView());
 			this.getChildren().add(splashEditModel.getImageView());	
 		}
@@ -379,4 +379,5 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private void setSmallButtonSize(Button button) {		
 		button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);	
 	}
+	
 }
