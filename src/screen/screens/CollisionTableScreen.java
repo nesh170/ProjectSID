@@ -326,17 +326,20 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.setMaxHeight(50);
 
 	
-		ComboBox activeSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
+		ComboBox activeSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, 
+				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
 		collisionSet.add(activeSpriteList, 1, 0); 
 		
-		ComboBox inactiveSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
+		ComboBox inactiveSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, 
+				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
 	
 		collisionSet.add(inactiveSpriteList, 2, 0); 
 		
 		ArrayList<String> third = new ArrayList<>(STRING.DIRECTION_TO_INTEGER_MAP.keySet());
 
-		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
+		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,
+				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
 		collisionSet.add(direction, 3, 0); 
 		
@@ -354,33 +357,24 @@ public class CollisionTableScreen extends Screen{
 			nicerNamedActions.add(better);
 		}
 		
-		ComboBox action = this.createComboBoxFromList(nicerNamedActions, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
+		ComboBox action = this.createComboBoxFromList(nicerNamedActions, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, 
+				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
 		collisionSet.add(action, 4, 0); 
 		
-		
+
 		TextField text = new TextField();
 		text.setStyle(STRING.COLLISION_EDIT.TEXT_BOX_STYLE);
 		text.setPromptText(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		text.setId(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		collisionSet.add(text, 5, 0); 
+
+
 		
+		ArrayList<String> optionalSprites = new ArrayList<String>();
+		optionalSprites.add(null);
 		
-	
 		action.valueProperty().addListener(new ChangeListener<String>() {
-	           
-	            public void changed(ObservableValue ov, String t, String t1) {                
-	              if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
-	            //  if (t1.equals("Kill"))
-	              {
-	            	  text.setDisable(true);
-	              }
-	              else
-	              {
-	            	  text.setDisable(false);
-	              }
-	            }    
-	        });
 			public void changed(ObservableValue ov, String t, String t1) {                
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
 					//  if (t1.equals("Kill"))
