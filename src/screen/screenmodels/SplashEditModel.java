@@ -1,9 +1,9 @@
 package screen.screenmodels;
 
+import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -25,6 +25,7 @@ public class SplashEditModel {
 
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
+	private List<Sprite> spriteList = new ArrayList();
 
 	private ImageView imageView;
 
@@ -35,9 +36,18 @@ public class SplashEditModel {
 	public SplashEditModel(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
+	
+	public SplashScreen getSplashScreen() {
+		return splashScreen;
+	}
+	
+	public void saveSplashScreen() {
+		splashScreen.addSprites(spriteList);
+	}
 
-	public void addImageView(ImageView imageView) {
+	public void addImageView() {
 		imageViewArray.add(imageView);
+		spriteList.add(new Sprite(new Point2D(imageView.getX(), imageView.getY())));
 	}
 
 	public void createImageView(Image image) {
@@ -94,10 +104,17 @@ public class SplashEditModel {
 	
 	public void addText() {
 		texts.add(text);
+		Sprite sprite = new Sprite(new Point2D(text.getX(), text.getY()));
+		sprite.setName(text.getText());
+		spriteList.add(sprite);
 	}
 	
 	public Text getText() {
 		return text;
+	}
+	
+	public List<Text> getTexts() {
+		return texts;
 	}
 	
 	public void removeTextFromTextArray() {
@@ -109,25 +126,13 @@ public class SplashEditModel {
 	}
 	
 	public void selectText(String textValue) {
-//		texts.stream()
-//		.filter(t -> t.getText().equals(textValue))
-//		.forEach(t -> text = t);	
-		for (Text t : texts) {
-			if (t.getText().equals(textValue)) {
-				text = t;
-			}
-		}
+		texts.stream()
+		.filter(t -> t.getText().equals(textValue))
+		.forEach(t -> text = t);	
 	}
 
-	public void selectImage(int index, int counter) {
-//		imageViewArray.stream()
-//		.filter(i -> !i.equals(null))
-//		.forEach(i -> imageView = i);
-		for (int i=0; i<counter; i++) {
-			if(imageViewArray.get(i) != null) {
-				imageView = imageViewArray.get(i);
-			}
-		}
+	public void selectImage(int index, int counter) {	
+		imageView = imageViewArray.get(index);
 	}
 	
 	public void forEachText(Consumer<Text> consumer) {

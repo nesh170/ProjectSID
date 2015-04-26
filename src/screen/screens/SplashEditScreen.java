@@ -1,6 +1,9 @@
 package screen.screens;
 
+import game.Game;
+
 import java.io.File;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
@@ -54,16 +57,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private double height;
 	private String tag;
 	private int counter;
+	private Game game;
 
 	// Getters & Setters
 
 
 	// Constructor & Helpers
 
-	public SplashEditScreen(SplashEditScreenController parent, double width, double height, SplashScreen splashScreen) {
+	public SplashEditScreen(SplashEditScreenController parent, Game game, double width, double height, SplashScreen splashScreen) {
 		super(width, height);
 		
 		this.controller = parent;
+		this.game = game;
 		
 		configureSplashScreen(splashScreen, width, height);
 		configureButtons();
@@ -263,6 +268,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 			splashEditModel.createImageView(image);
+			splashEditModel.addImageView();
 			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
 		} catch (Exception ex) {		
 			//NO CATCH		
@@ -307,51 +313,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 	public void addAnimation() {
-		
-//		String[] animations = new String[]{"Stars",
-//	            "Animation 2",
-//	            "Animation 3"};
-//
-//		GridPane grid = new GridPane();
-//		final ComboBox<String> comboBox = new ComboBox<String>();
-//		comboBox.getItems().addAll(animations); 
-//		comboBox.getSelectionModel().selectedIndexProperty().addListener(new
-//				ChangeListener<Number>() {
-//			@Override
-//			public void changed(ObservableValue ov,
-//					Number value, Number new_value) {
-//					animation(animations[new_value.intValue()]);
-//			}
-//
-//		});
-//		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
-//		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
-//		grid.setTranslateX(width - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_X);
-//		grid.setTranslateY(height - INT.SPLASH_EDIT_SCREEN_LARGE_BUTTON_HEIGHT - INT.SPLASH_EDIT_SCREEN_COMBO_BOX_HEIGHT);
-//		this.getChildren().add(grid);
-		
+		//Not Being Implemented
 	}
 	
-//	private void animation(String animation) {
-//		
-//		if(animation == "Stars") {
-//			stars();
-//		}
-//		else if(animation == "Animation 2") {
-//			//another animation
-//		}
-//		else if(animation == "Animation 3") {
-//			//another animation
-//		}
-//		
-//	}
-
-//	private void stars() {	
-//
-//	}
-
 	public void saveSplashScreen() {	
-		// automatic	
+		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
+		splashEditModel.saveSplashScreen();
 	}
 
 	private void trashSplashScreen() {		
@@ -362,16 +329,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		GridPane grid = new GridPane();
 		final ComboBox<String> comboBox = new ComboBox<String>();
 		comboBox.getItems().addAll(options); 
-		comboBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue ov,
-					Number value, Number new_value) {
-					deleteItem(options[new_value.intValue()]);
-					comboBox.setVisible(false);
-			}
-
-		});
-		
+		comboBox.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) -> deleteItem(comboBox, options[new_value.intValue()]));	
 		comboBox.setMinWidth(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH);
 		grid.add(comboBox, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION, INT.SPLASH_EDIT_SCREEN_COMBO_BOX_GRID_LOCATION);
 		grid.setTranslateX(INT.SPLASH_EDIT_SCREEN_COMBO_BOX_WIDTH_2X);
@@ -379,15 +337,20 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		this.getChildren().add(grid);	
 	}
 	
-	private void deleteItem(String option) {
+	private void deleteItem(ComboBox comboBox, String option) {
 		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE)) {
 			this.getChildren().remove(splashEditModel.getImageView());
 			splashEditModel.removeImageViewFromImageViewArray();
+			splashEditModel.selectImage(0, counter);
 		}
 		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT)) {
 			this.getChildren().remove(splashEditModel.getText());
 			splashEditModel.removeTextFromTextArray();
-		}	
+			if(!splashEditModel.getTexts().isEmpty()) {
+				splashEditModel.selectText(splashEditModel.getTexts().get(0).getText());
+			}
+		}
+		comboBox.setVisible(false);
 	}
 
 	public void backSplashScreen() {			
