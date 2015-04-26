@@ -109,14 +109,9 @@ public class SplashEditModel {
 	}
 	
 	public void selectText(String textValue) {
-//		texts.stream()
-//		.filter(t -> t.getText().equals(textValue))
-//		.forEach(t -> text = t);	
-		for (Text t : texts) {
-			if (t.getText().equals(textValue)) {
-				text = t;
-			}
-		}
+		texts.stream()
+		.filter(t -> t.getText().equals(textValue))
+		.forEach(t -> text = t);	
 	}
 
 	public void selectImage(int index, int counter) {
