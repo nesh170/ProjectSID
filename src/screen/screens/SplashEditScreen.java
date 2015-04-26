@@ -4,8 +4,6 @@ import game.Game;
 
 import java.io.File;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -261,9 +259,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		return image;	
 	}
 	
-	public void addImage() {
+	private void addImage() {
 		try {		
-			Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);		
+			Image image = createImageFromFile(200.0);		//DOUBLE.SPLASH_EDIT_DEFAULT_SIZE
 			ImageCursor imageCursor = new ImageCursor(image);
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
@@ -341,7 +339,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE)) {
 			this.getChildren().remove(splashEditModel.getImageView());
 			splashEditModel.removeImageViewFromImageViewArray();
-			splashEditModel.selectImage(0, counter);
+			if(!splashEditModel.getImageViewArray().isEmpty()) {
+				splashEditModel.selectImage(0, counter);
+			}
 		}
 		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT)) {
 			this.getChildren().remove(splashEditModel.getText());
