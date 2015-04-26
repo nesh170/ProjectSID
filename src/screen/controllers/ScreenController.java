@@ -128,7 +128,7 @@ import util.ErrorHandler;
 
 public class ScreenController {
 	//Testing:
-	private boolean GameEdit_Test = false;
+	private boolean GameEdit_Test = true;
 	
 	// Static Variables
 	

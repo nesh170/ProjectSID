@@ -197,14 +197,18 @@ public class GameEditScreen extends Screen {
 		splashSP = new StackPane();
 		splashDisplay.setAlignment(Pos.CENTER);
 		splashDisplay.getChildren().add(splashSP);
-
 		splashSP.getChildren().addAll(makeText(STRING.GAME_EDIT.SPLASH_SCREEN));
+		
+		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW , e -> hideSplashRegion());
+		hide.setTranslateX(240);
+		hide.setTranslateY(-350);
 		
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		splashSP.getChildren().addAll(rec);  
-		displayApproporiateSplashButton();			
+		splashSP.getChildren().addAll(rec, hide);  
+		displayApproporiateSplashButton();
+		
 	}
 	
 	/**
@@ -313,12 +317,27 @@ public class GameEditScreen extends Screen {
 				e -> controller.showConfirmPopUpWithGame(game, popup));
 		
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
-
+		ImageView img = makeHideShowArrow("images/GameEdit_images/show.png", e -> this.showSplashRegion());
+		img.setTranslateX(-700);
+		img.setTranslateY(-280);
+		img.setVisible(false);
 		levelDisplay.getChildren().addAll(levelSP, back, addButton, play,
-				displayNote());
-
+				displayNote(),img);
+		
 	}
-
+	/**
+	 * makes the arrow button for hiding and showing splash display area: the left region
+	 */
+	private ImageView makeHideShowArrow(String path, EventHandler<MouseEvent> event){
+		
+		ImageView hide = new ImageView(new Image(path));
+		hide.setFitHeight(30);
+		hide.setFitWidth(30);
+		hide.setOnMouseClicked(event);
+		return hide;
+		
+	}
+	
 	private ScrollPane createScrollPane() {
 
 		ScrollPane sp = new ScrollPane();
@@ -549,12 +568,12 @@ public class GameEditScreen extends Screen {
 		img.setFitHeight(80);
 		img.setFitWidth(80);	
 		img.setFocusTraversable(false);
-		// THE LINE BELOW REMOVES THE NODE FROM LIST!!
-		//StackPane sp = new StackPane(levelHB.getChildren().get(selectedIndex), img);
 		levelHB.getChildren().add(selectedIndex, 
 				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
 		return img;
+
 	}
+	
 	private void createPopUp() {   
 		
 	     popup = new Popup();
@@ -570,6 +589,7 @@ public class GameEditScreen extends Screen {
 	}
 	
 	private GridPane configurePopUpLayout(){
+		
 		  GridPane layout = new GridPane();
 		  layout.setAlignment(Pos.CENTER);
 		  layout.setHgap(10);
@@ -587,6 +607,7 @@ public class GameEditScreen extends Screen {
 		  layout.add(doesSave, 1, 5);
 		  layout.add(buttons, 1, 9);
 		 return layout;
+		 
 	}
 	
 	private HBox configureHBox() {
@@ -624,14 +645,32 @@ public class GameEditScreen extends Screen {
 				makeGameMenu(), makeTrashMenu());
 
 	}
-	
+	//borderpane's left and right can overlap with each other!
 	private void hideSplashRegion(){
 		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
 		splashDisplay.setVisible(false);
+	     TranslateTransition tt = new TranslateTransition(Duration.millis(2000), levelDisplay);
+	     
+	     tt.setByX(-500f);
+	     tt.setCycleCount(1);
+	     tt.setOnFinished( new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event) {
+				
+			}
+
+	    	 
+	     }
+	    );
+	     levelDisplay.getChildren().get(5).setVisible(true);
+	    // tt.play();	 
+	     
 	}
 	
 	private void showSplashRegion(){
 		splashDisplay.setVisible(true);
+		levelDisplay.getChildren().get(5).setVisible(false);
 	}
 	
 	private Menu makeLevelMenu() {
