@@ -1,9 +1,11 @@
 package screen.factories;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import game.Game;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
@@ -73,9 +75,9 @@ public class ScreenFactory {
 	 * @return Screen
 	 */
 	public Screen createCollisionTableScreen(Set<String> spriteTags, 
-			CollisionTableScreenController collisionTableScreenController) {
+			CollisionTableScreenController collisionTableScreenController, Map<String, ObservableList<String>> spriteMap) {
 
-		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags);
+		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags, spriteMap);
 		
 	}
 	

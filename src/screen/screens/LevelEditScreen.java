@@ -111,6 +111,16 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	public Set<String> getTags() {
 		return tags;
 	}
+	
+	/**
+	 * used for Collision Edit Screen during switch-out action
+	 * @author Anika
+	 * @return map of sprite strings
+	 */
+	public Map<String, ObservableList<String>> getSpriteMap()
+	{
+		return stringToListMap;
+	}
 
 
 	/**
