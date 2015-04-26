@@ -95,11 +95,32 @@ public class STRING {
 		public static final String ADD_BACKGROUND_IMAGE = "Add Background Image";
 		public static final String ADD_TEXT = "Add Text";
 		public static final String ADD_ANIMATION = "Add Animation";
-		
 		public static final String ADD_LEVEL = "Add Level";
 		public static final String EDIT_LEVEL = "Edit Level";
 		public static final String ADD_SPLASH = "Add Splash";
 		public static final String EDIT_SPLASH = "Edit Splash";
+		public static final String ENTER_IMAGE_INDEX = "Enter Image Index:";
+		public static final String ENTER_TEXT_CONTENT = "Enter Text Content:";
+		public static final String TIMES = "Times";
+		public static final String ARIAL = "Arial";
+		public static final String VERDANA = "Verdana";
+		public static final String CENTURY_GOTHIC = "Century Gothic";
+		public static final String MARKER_FELT = "Marker Felt";
+		public static final String MONOTYPE_CORSIVA = "Monotype Corsiva";
+		public static final String APPLE_CHANCERY = "Apple Chancery";
+		public static final String JPG_LONG = "JPG files (*.jpg)";
+		public static final String JPG_SHORT = "*.JPG";
+		public static final String PNG_LONG = "PNG files (*.png)";
+		public static final String PNG_SHORT = "*.PNG";
+		public static final String TAG_START = "Start";
+		public static final String TAG_IMAGE = "Image";
+		public static final String TAG_TEXT = "Text";
+		public static final String TAG_BACKGROUND_IMAGE = "Background Image";
+		public static final String TRASH_START_BUTTON = "Start Button";
+		public static final String TRASH_IMAGE = "Image";
+		public static final String TRASH_TEXT = "Text";
+		
+		
 		
 		// Splash Edit Screen Default Images
 		// TODO: Fix this
@@ -131,6 +152,8 @@ public class STRING {
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
 		public static final String HIDE_ARROW = "images/GameEdit_images/hide.png";	
+		public static final String IMAGE_FOLDER ="-images";
+			
 	}
 	
 	public class LEVEL_EDIT {

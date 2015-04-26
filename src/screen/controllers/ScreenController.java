@@ -3,8 +3,15 @@ import game.Game;
 
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -346,10 +353,10 @@ public class ScreenController {
 		
 	}
 	
-	private Tab createLevelEditScreen(Level level) {
+	private Tab createLevelEditScreen(Game game, Level level) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createLevelEditScreen(level, levelEditScreenManager),
+				screenFactory.createLevelEditScreen(level, levelEditScreenManager, game),
 				STRING.LEVEL_EDIT.LEVEL_EDIT
 				);
 	
@@ -471,9 +478,9 @@ public class ScreenController {
 		}
 
 		@Override
-		public void loadLevelEditScreen(Level level) {
+		public void loadLevelEditScreen(Game game, Level level) {
 
-			createLevelEditScreen(level);
+			createLevelEditScreen(game, level);
 			
 		}
 
@@ -489,9 +496,8 @@ public class ScreenController {
 			
 			Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			game.addLevel(newLevel);
-			createLevelEditScreen(newLevel);
-			gameEditScreen.displayLevels(game.levels());
+			createLevelEditScreen(game, newLevel);
+			gameEditScreen.displayLevels();
 			
 		}
 		
@@ -535,9 +541,26 @@ public class ScreenController {
 		@Override
 		public void saveGame(Game game) {
 			
-			File dir = DataHandler.chooseDir(stage);
+			//File dir = DataHandler.chooseDir(stage);
 			try {
-				DataHandler.toXMLFile(game, game.name(), dir.getPath());
+				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
+				File folder = new File(imageFolderName);
+				folder.mkdir();
+				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String[] imagePathSplit = imagePath.split("[\\\\/]");
+					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
+					Path fileCopy = (new File(newImagePath).toPath());
+					FileInputStream in;
+					try {
+						in = new FileInputStream(imagePath);			
+						Files.copy(in, fileCopy);
+					} catch (Exception e) {
+						//do nothing, file already exists but I don't care;
+					}
+					sprite.setImagePath(newImagePath);
+				}));
+				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
@@ -575,17 +598,28 @@ public class ScreenController {
 			tabManager.removeTabAndChangeSelected(levelEditTab);	
 			
 		}
+		
+		@Override
+		public void saveLevel(Game game, Level level) {
+			if(!game.levels().contains(level)) {
+				game.addLevel(level);
+			}
+		}
 
 		@Override
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) {
 			
-			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createSpriteEditScreen(levelEditTab, sprite);
+			SpriteEditScreen spriteEditScreen = (SpriteEditScreen) createSpriteEditScreen(levelEditTab, sprite).getContent();
+			spriteEditScreen.tagsForUse(levelEditScreen.getTags());
 			
 		}
 		
+		/*
+		 * @Deprecated use loadSpriteEditScreen(LevelEditScreen levelEditScreen, Sprite sprite) instead, pass in null if necessary
+		 */
 		@Override
+		@Deprecated 
 		public void loadSpriteEditScreen(LevelEditScreen levelEditScreen) {
 			
 			Sprite newSprite = new Sprite();
@@ -611,9 +645,14 @@ public class ScreenController {
 		@Override
 		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo, Sprite sprite) {
 			
-			tabManager.removeTabAndChangeSelected(switchTo);
+			returnToSelectedLevel(levelEditScreen, switchTo);
 			levelEditScreen.addSprite(sprite);
 			
+		}
+		
+		@Override
+		public void returnToSelectedLevel(LevelEditScreen levelEditScreen, Tab switchTo) {
+			tabManager.removeTabAndChangeSelected(switchTo);
 		}
 		
 	}
