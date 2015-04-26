@@ -51,6 +51,9 @@ public class Sprite {
 
 	private Transform transform;
 	private SpriteImage spriteImage;
+	
+	private boolean isGoal;
+	private int toLevel;
 
 	
 	public static Sprite makeCopy(Sprite toCopy) {
@@ -318,6 +321,20 @@ public class Sprite {
 		
 		return null;
 		
-	}	
+	}
+
+	public void setIsGoal(boolean isGoal, int level) {
+		this.isGoal = isGoal;
+		if(isGoal) {
+			this.toLevel = level;
+		}
+		else{ 
+			this.toLevel = -1;
+		}
+	}
+	
+	public int getGoalToLevel() {
+		return toLevel;
+	}
 
 }

@@ -52,9 +52,9 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-		/*SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
 		fireMario.addAction(switchOut);
-		player.addAction(switchOut);*/
+		player.addAction(switchOut);
 		
 		//addProjectile(fireMario);
 		Sprite goomba = makeGoomba();
@@ -63,7 +63,7 @@ public class EngineTester extends Tester {
 		fireFlower.setCollisionTag("flower");
 		fireFlower.setImagePath("engineTesting/fireFlower.png");
 		mySpriteList.add(fireFlower);
-		//setCollisionAll(player, fireFlower, switchOut);
+		setCollisionAll(player, fireFlower, switchOut);
 		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
 		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
 		
