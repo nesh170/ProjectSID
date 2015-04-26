@@ -50,7 +50,7 @@ public class ProfileScreen extends Screen {
 
 	// Instance Variables
 	private ProfileScreenController controller;
-	private Tab levelEditScreen;
+	private Tab mainPageScreen;
 	private SpriteEditModel model;
 
 	private TextField spriteNameField;
@@ -86,21 +86,16 @@ public class ProfileScreen extends Screen {
 
 
 	// Constructors & Helpers
-	public ProfileScreen(ProfileScreenController parent, Tab levelEditScreen, double width, double height) {
 
-		this(parent, levelEditScreen, width, height, null);
-
-	}
-
-	public ProfileScreen(ProfileScreenController parent, Tab levelEditScreen, double width, double height, Sprite spriteToEdit) {
+	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height, User loggedIn) {
 
 		super(width, height);
-		
+		this.loggedIn = loggedIn;
 		initializeRelevantResourceFiles();
 		
 		//model = new SpriteEditModel(languageResources(), actionResources, componentResources, behaviorLabels);
 
-		this.levelEditScreen = levelEditScreen;
+		this.mainPageScreen = mainPageScreen;
 		this.controller = parent;
 
 		initializeObservableLists();
@@ -112,9 +107,9 @@ public class ProfileScreen extends Screen {
 		createRightPane();
 		createCenterPane();
 		
-		if (spriteToEdit != null) {
+		/*if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
-		}
+		}*/
 
 
 	}

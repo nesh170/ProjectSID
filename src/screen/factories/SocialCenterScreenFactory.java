@@ -1,11 +1,14 @@
 package screen.factories;
 
+import javafx.scene.control.Tab;
 import screen.Screen;
 import socCenter.User;
 import socCenter.logIn.LogInScreen;
 import socCenter.logIn.LogInScreenController;
 import socCenter.mainPage.MainPageScreen;
 import socCenter.mainPage.MainPageScreenController;
+import socCenter.profileScreen.ProfileScreen;
+import socCenter.profileScreen.ProfileScreenController;
 
 public class SocialCenterScreenFactory extends ScreenFactory {
 	
@@ -21,5 +24,9 @@ public class SocialCenterScreenFactory extends ScreenFactory {
 	
 	public Screen createMainPageScreen(MainPageScreenController mainPageScreenController, User user){
 		return new MainPageScreen(mainPageScreenController, width, height, user);
+	}
+	
+	public Screen createProfileScreen(ProfileScreenController profileScreenController, Tab tab, User user){
+		return new ProfileScreen(profileScreenController, tab,  width, height, user);
 	}
 }
