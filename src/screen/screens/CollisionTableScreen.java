@@ -243,6 +243,7 @@ public class CollisionTableScreen extends Screen{
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;	
 	private Map<String, ObservableList<String>> mapOfSpriteTypesToExistingSpriteStringNames;
+	private Map<SpritePair, ArrayList<String>> collisionTableMap;
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
@@ -572,13 +573,22 @@ public class CollisionTableScreen extends Screen{
 		System.out.println(inactiveSp);
 		System.out.println(dir);
 		System.out.println(action);
-		System.out.println(switchOption); // check is switchOption is 'null'
+		System.out.println(switchOption); // TODO check is switchOption is 'null'
 		System.out.println(value);
 		
+		SpritePair thisSpritePair = new SpritePair();
+		thisSpritePair.initialize(activeSp, inactiveSp);
+		ArrayList<String> actionParameters = new ArrayList<String>();
+		actionParameters.add(dir);
+		actionParameters.add(action);
+		actionParameters.add(value);
+		actionParameters.add(switchOption);
 		
+		collisionTableMap.put(thisSpritePair, actionParameters);
 	
 		
-	//	collTable.addActionToMap(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), toAdd);
+	//	collTable.addActionToMap(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), toAdd); 
+		// -> TO BE DONE FROM LEVEL EDIT SCREEN ON SAVE
 		
 		
 	
