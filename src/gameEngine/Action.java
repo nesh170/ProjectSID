@@ -1,9 +1,9 @@
 package gameEngine;
 
+import gameEngine.actions.GroovyAction;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import media.MediaManager;
 import media.SoundEffectManager;
 import sprite.Sprite;
@@ -23,8 +23,9 @@ public abstract class Action {
 	 */
 	protected Sprite mySprite;
 	private boolean isActive;
-	private List<KeyCode> myKeyCode;
+	protected List<KeyCode> myKeyCode;
 	private boolean runsEveryFrame = false;
+<<<<<<< HEAD
 	protected double value;
 	private String soundPath;
 	private SoundEffectManager soundManager = new SoundEffectManager();
@@ -32,6 +33,9 @@ public abstract class Action {
 	public void setSound(String path){
 		soundPath = path;
 	}
+=======
+	protected Double value;
+>>>>>>> 16e1b19779e2f39bde03c48d34df48e3a49e1331
 	
 	/** At construction, action knows the
 	 * sprite it is attached to
@@ -66,12 +70,21 @@ public abstract class Action {
 		isActive = set;
 	}
 	
-	public boolean isActive(){
-		return isActive;
+	public void setSprite(Sprite sprite){
+	    mySprite=sprite;
 	}
 	
 	public void setKeyCode (List<KeyCode> keys) {
 	    myKeyCode = keys;
+	}
+	
+	public void setValue (double newValue){
+	    value = newValue;
+	}
+
+	
+	public boolean isActive(){
+		return isActive;
 	}
 	       
 	       
@@ -112,11 +125,11 @@ public abstract class Action {
 	 * @param methodMap
 	 */
 	public void setUpKey(Map<KeyCode, Action> controlMap){
-		//TODO: discuss best way to only do this method for certain actions
 		if(myKeyCode != null){
 	    myKeyCode.forEach((KeyCode key)-> controlMap.put(key, this));
 		}
 	}
+	
 	/**
 	 * Call this method for every action that needs to execute every frame. (usually things like gravity)
 	 */
