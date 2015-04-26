@@ -36,7 +36,8 @@ public class SplashEditModel {
 		this.splashScreen = splashScreen;
 	}
 
-	public void addImageView(ImageView imageView) {
+	public void addImageView() {
+		System.out.println("Here");
 		imageViewArray.add(imageView);
 	}
 
@@ -118,7 +119,9 @@ public class SplashEditModel {
 //		imageViewArray.stream()
 //		.filter(i -> !i.equals(null))
 //		.forEach(i -> imageView = i);
-		for (int i=0; i<counter; i++) {
+		System.out.println("YUP");
+		System.out.println(imageViewArray.size());
+		for (int i=0; i<imageViewArray.size(); i++) {
 			if(imageViewArray.get(i) != null) {
 				imageView = imageViewArray.get(i);
 			}

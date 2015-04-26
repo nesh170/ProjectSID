@@ -263,6 +263,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 			splashEditModel.createImageView(image);
+			splashEditModel.addImageView();
 			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
 		} catch (Exception ex) {		
 			//NO CATCH		
