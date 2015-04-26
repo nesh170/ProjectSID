@@ -626,6 +626,8 @@ public class SpriteEditScreen extends Screen {
 		tagChoicesHolder.getSelectionModel().select(sprite.tag());
 		sprite.actionList().forEach(model.getActionConsumer());
 		sprite.componentList().forEach(model.getComponentConsumer());
+		goalCheck.setSelected(sprite.getGoalToLevel() >= 0);
+		goToLevel.setText("" + sprite.getGoalToLevel());
 		// TODO implement
 		if(sprite.getImagePath()!=null) {
 			Image image = DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false);
