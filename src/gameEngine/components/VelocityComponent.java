@@ -23,11 +23,11 @@ public class VelocityComponent extends Component{
 	private double myTerminalVelocity;
 	private boolean isGrounded;
 	
-	public VelocityComponent(Sprite sprite, List<Double> valueList) {
-		super(sprite, valueList);
+	public VelocityComponent(Sprite sprite, Double value) {
+		super(sprite, value);
 		myVelocity = Point2D.ZERO;
 		try{
-		myTerminalVelocity=valueList.get(0);
+		myTerminalVelocity=value;
 		}
 		catch(Exception e){
 		    myTerminalVelocity=DOUBLE.TERMINAL_VELOCITY;
@@ -37,13 +37,11 @@ public class VelocityComponent extends Component{
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void update() {
-		// TODO Auto-generated method stub
 		frameCalculateVelocity();
 		frameMove();
 	}

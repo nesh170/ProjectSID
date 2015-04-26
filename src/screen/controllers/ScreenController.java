@@ -13,7 +13,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -377,9 +379,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, List<String> sprites) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, Map<String, ObservableList<String>> spriteMap) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(sprites, collisionTableScreenManager),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, spriteMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -548,36 +550,37 @@ public class ScreenController {
 				folder.mkdir();
 				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
 					String imagePath = sprite.getImagePath();
-					String[] imagePathSplit = imagePath.split("[\\\\/]");
-					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
-					Path fileCopy = (new File(newImagePath).toPath());
-					FileInputStream in;
-					try {
-						in = new FileInputStream(imagePath);			
-						Files.copy(in, fileCopy);
-					} catch (Exception e) {
-						//do nothing, file already exists but I don't care;
-					}
+					String newImagePath = copyImage(imageFolderName, imagePath);
 					sprite.setImagePath(newImagePath);
 				}));
 				game.splashScreen().sprites().forEach(sprite -> {
 					String imagePath = sprite.getImagePath();
-					String[] imagePathSplit = imagePath.split("[\\\\/]");
-					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
-					Path fileCopy = (new File(newImagePath).toPath());
-					FileInputStream in;
-					try {
-						in = new FileInputStream(imagePath);			
-						Files.copy(in, fileCopy);
-					} catch (Exception e) {
-						//do nothing, file already exists but I don't care;
-					}
+					String newImagePath = copyImage(imageFolderName, imagePath);
 					sprite.setImagePath(newImagePath);
+				});
+				game.levels().forEach(level -> {
+					String imagePath = level.backgroundPath();
+					String newImagePath = copyImage(imageFolderName, imagePath);
+					level.setBackground(newImagePath);
 				});
 				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
+		}
+
+		private String copyImage(String imageFolderName, String imagePath) {
+			String[] imagePathSplit = imagePath.split("[\\\\/]");
+			String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
+			Path fileCopy = (new File(newImagePath).toPath());
+			FileInputStream in;
+			try {
+				in = new FileInputStream(imagePath);			
+				Files.copy(in, fileCopy);
+			} catch (Exception e) {
+				//do nothing, file already exists but I don't care;
+			}
+			return newImagePath;
 		}
 		
 		public void saveAndExit(Game game, Popup popup){
@@ -653,7 +656,7 @@ public class ScreenController {
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
 			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getSpriteTags());
+			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
 		}
 		

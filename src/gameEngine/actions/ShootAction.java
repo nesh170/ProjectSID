@@ -2,37 +2,38 @@ package gameEngine.actions;
 
 import java.io.File;
 import java.io.IOException;
+
 import data.DataHandler;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
+import gameEngine.components.AmmoComponent;
 
 /**
  * Action to shoot projectiles.
  * Will always be mapped to key.
  */
-public class ShootAction extends Action{
+public class ShootAction extends TwoSpriteAction{
 	
-	private Sprite myProjectileTemplate;
 	private String bulletString;
 	
 	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
-		super(sprite, keys);
-		myProjectileTemplate = projectile;
-		// TODO Auto-generated constructor stub
+		super(sprite, projectile, keys);
 	}
 
 	@Override
 	public void prepare() {
-            bulletString =  DataHandler.toXMLString(myProjectileTemplate);
+        bulletString =  DataHandler.toXMLString(mySecondSprite);
 	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		Sprite newProjectile = generateClone();
-		newProjectile.transform().setPosition(mySprite.transform().getPositionPoint());
-		mySprite.addToEmissionList(newProjectile);
+	public void doAction() {
+		AmmoComponent myAmmo = (AmmoComponent) mySprite.getComponentOfType("AmmoComponent");
+		if (myAmmo == null || myAmmo.getAmmoCount() > 0) {
+			Sprite newProjectile = generateClone();
+			newProjectile.transform().setPosition(mySprite.transform().getPositionPoint());
+			mySprite.addToEmissionList(newProjectile);
+		}
 	}
 	
 	private Sprite generateClone(){
@@ -45,9 +46,6 @@ public class ShootAction extends Action{
 	}
 	
 	@Override
-	public void stop() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void stop() {}
 
 }

@@ -1,9 +1,9 @@
 package gameEngine.test;
 
 
+import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
-import gameEngine.actions.AlterHealthAction;
 import gameEngine.actions.BounceAction;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
@@ -15,13 +15,11 @@ import gameEngine.actions.ShootAction;
 import gameEngine.components.HealthComponent;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import data.DataHandler;
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
@@ -29,7 +27,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import resources.constants.DOUBLE;
 import resources.constants.INT;
 import sprite.Sprite;
 import util.ImageToInt2DArray;
@@ -90,7 +87,6 @@ public class ExampleLevelMaker extends Application{
 
 		l.setSprites(mySpriteList);
 		l.setGoalMap(goalMap);
-		System.out.println(players.size());
 		return l;
 	}
 
@@ -174,12 +170,12 @@ public class ExampleLevelMaker extends Application{
 
 	private void applyActionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
 	}
 	private void addPlayerComponentsAndActions() {
 		myPlayer.addComponent(new HealthComponent(myPlayer,null));
@@ -212,8 +208,8 @@ public class ExampleLevelMaker extends Application{
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action bounceAction) {
-		myCT.addActionToMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, bounceAction);
-		myCT.addActionToMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, null);
+		myCT.addActionToBigMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, bounceAction);
+		myCT.addActionToBigMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, null);
 	}
 
 
@@ -242,7 +238,7 @@ public class ExampleLevelMaker extends Application{
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				Arrays.asList(new Double[]{5.0, 200.0}), myPlayer);
+				1.0, 400.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
@@ -274,8 +270,10 @@ public class ExampleLevelMaker extends Application{
 	public static void main(String[] args){
 		ExampleLevelMaker elm = new ExampleLevelMaker();
 		Level l = elm.makeLevel();
+		Game game = new Game("lolol");
+		game.addLevel(l);
 		try{
-			DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
+			DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -290,4 +288,3 @@ public class ExampleLevelMaker extends Application{
 	}
 
 }
-

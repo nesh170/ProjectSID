@@ -1,11 +1,14 @@
 package gameEngine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
-
+import java.util.stream.Collectors;
 import data.DataHandler;
 import resources.constants.INT;
 import javafx.event.EventType;
@@ -16,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
-import levelPlatform.levelPlatformView.LevelPlatformView;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -24,11 +26,11 @@ public class GameEngine extends GameEngineAbstract {
     private List<Level> myLevelList;
     private Level myCurrentLevel;
     private LevelView myLevelRenderer;
-    private static final Map<EventType<KeyEvent>, Consumer<Action>> KEY_EVENT_TO_ACTION_CONSUMER_MAP;
+    private static final Map<String, Consumer<Action>> KEY_EVENT_TO_ACTION_CONSUMER_MAP;
         static{
             KEY_EVENT_TO_ACTION_CONSUMER_MAP = new HashMap<>();
-            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_PRESSED, action -> action.execute());
-            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_RELEASED, action -> action.stop());
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_PRESSED.getName(), action -> action.execute());
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.put(KeyEvent.KEY_RELEASED.getName(), action -> action.stop());
         }
         
     
@@ -43,10 +45,10 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
-        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         myLevelRenderer = new LevelView(myCurrentLevel,EditMode.EDIT_MODE_OFF);
         myCurrentLevel.prepareAllSprites();
         myCurrentLevel.passInitializeLevelMethod(indexForLevel -> initializeLevel(indexForLevel));
+        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         //TODO: when switching levels, play new song. GameEngine will now have an instance of audio controller
     }
     
@@ -54,6 +56,8 @@ public class GameEngine extends GameEngineAbstract {
     public double[] update () {
         myCurrentLevel.update();
         myLevelRenderer.updateCollisions();
+        myControlsMapList.clear();
+        myCurrentLevel.playerSpriteList().forEach(player -> myControlsMapList.add(myCurrentLevel.controlMap(player)));
         return myCurrentLevel.getNewCameraLocations();
     }
 
@@ -76,19 +80,21 @@ public class GameEngine extends GameEngineAbstract {
      */
     @Override
     public void play (Node node) {
-        node.setOnKeyPressed(keyPressed -> handleKeyEvent(keyPressed,INT.LOCAL_PLAYER));
-        node.setOnKeyReleased(keyReleased -> handleKeyEvent(keyReleased,INT.LOCAL_PLAYER));
+        node.setOnKeyPressed(keyPressed -> handleKeyEvent(keyPressed.getEventType().getName(),keyPressed.getCode().getName(),INT.LOCAL_PLAYER));
+        node.setOnKeyReleased(keyReleased -> handleKeyEvent(keyReleased.getEventType().getName(),keyReleased.getCode().getName(),INT.LOCAL_PLAYER));
     }
     
     /**
      * This method is a helper method for play where it takes in the keyPressed executes the appropriate behavior
      * @param localPlayer 
-     * @param keyPressed
+     * @param keyEventType
+     * @param keyCode
      */
     @Override
-    public void handleKeyEvent(KeyEvent key, int playerNumber) {
-        if(myControlsMapList.get(playerNumber).containsKey(key.getCode())){
-            KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(key.getEventType()).accept(myControlsMapList.get(playerNumber).get(key.getCode()));
+    public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
+        KeyCode key = KeyCode.getKeyCode(keyCode);
+        if(myControlsMapList.get(playerNumber).containsKey(key)){
+            KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(keyEventType).accept(myControlsMapList.get(playerNumber).get(key));
         }
     }
 
@@ -97,6 +103,32 @@ public class GameEngine extends GameEngineAbstract {
         return DataHandler.toXMLString(myCurrentLevel);
     }
 
+    @Override
+    public void addGroovyAction (String spriteTag, Action groovyAction) {
+      myCurrentLevel.addGroovyAction(spriteTag,groovyAction);
+    }
+
+    @Override
+    public void addGroovyComponent (String spriteTag, Component groovyComponent) {
+        myCurrentLevel.addGroovyComponent(spriteTag,groovyComponent);
+    }
+
+    @Override
+    public List<String> getSpriteTagList () {
+        Set<String> spriteTagSet = new HashSet<>();
+        myCurrentLevel.sprites().stream().forEach(sprite -> spriteTagSet.add(sprite.tag()));
+        List<String> spriteTagList = spriteTagSet.stream().collect(Collectors.toList());
+        return Collections.unmodifiableList(spriteTagList);
+    }
+    
+    public List<String> actionWithKeyCode (int playerNum) {
+        return myCurrentLevel.getActionListInStrings(playerNum);
+    }
+
+    @Override
+    public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
+        myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
+    }
 
 
 

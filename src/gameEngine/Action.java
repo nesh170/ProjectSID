@@ -1,9 +1,10 @@
 package gameEngine;
 
+import gameEngine.actions.GroovyAction;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
+import media.SoundEffectManager;
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
 
@@ -21,9 +22,15 @@ public abstract class Action {
 	 */
 	protected Sprite mySprite;
 	private boolean isActive;
-	private List<KeyCode> myKeyCode;
+	protected List<KeyCode> myKeyCode;
 	private boolean runsEveryFrame = false;
-	protected double value;
+	protected Double value;
+	private String soundPath;
+	private SoundEffectManager soundManager = new SoundEffectManager();
+	
+	public void setSound(String path){
+		soundPath = path;
+	}
 	
 	/** At construction, action knows the
 	 * sprite it is attached to
@@ -58,10 +65,24 @@ public abstract class Action {
 		isActive = set;
 	}
 	
+	public void setSprite(Sprite sprite){
+	    mySprite=sprite;
+	}
+	
+	public void setKeyCode (List<KeyCode> keys) {
+	    myKeyCode = keys;
+	}
+	
+	public void setValue (double newValue){
+	    value = newValue;
+	}
+
+	
 	public boolean isActive(){
 		return isActive;
 	}
-	
+	       
+	       
 	/**
 	 * Initialize aspects of specific
 	 * behavior that need to happen at the
@@ -77,10 +98,17 @@ public abstract class Action {
 		}
 	}
 	
+	public void execute(){
+		if(soundPath != null){
+			soundManager.playSound(soundPath);
+		}
+		doAction();
+	}
+	
 	/**
 	 * Executes the behavior based on a keypressed
 	 */
-	public abstract void execute();
+	protected abstract void doAction();
 	
 	/**
 	 * Stops the execution for movements if needed.
@@ -92,11 +120,11 @@ public abstract class Action {
 	 * @param methodMap
 	 */
 	public void setUpKey(Map<KeyCode, Action> controlMap){
-		//TODO: discuss best way to only do this method for certain actions
 		if(myKeyCode != null){
 	    myKeyCode.forEach((KeyCode key)-> controlMap.put(key, this));
 		}
 	}
+	
 	/**
 	 * Call this method for every action that needs to execute every frame. (usually things like gravity)
 	 */

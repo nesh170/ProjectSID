@@ -1,7 +1,8 @@
 package gameEngine;
+import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
@@ -45,14 +46,48 @@ public abstract class GameEngineAbstract {
     /**
      * This method is a helper method for play where it takes in the keyPressed executes the appropriate behavior
      * @param localPlayer 
-     * @param keyPressed
+     * @param keyEventType
+     * @param keyCode
      */
-    public abstract void handleKeyEvent(KeyEvent key, int playerNumber);
+    public abstract void handleKeyEvent(String keyEventType, String keyCode, int playerNumber);
     
     /**
      * Uses The dataHandler class to convert the current level into a String
      * @return the output of XStream from the current level
      */
     public abstract String getCurrentLevelinXML();
+    
+    /**
+     * Adds the groovy action to the level. The groovy action is user defined based on the sprite.
+     * @param groovy
+     */
+    public abstract void addGroovyAction (String spriteTag, Action groovyAction);
+    
+    /**
+     * Adds the groovy component to the level. The groovy component is user defined based on the sprite
+     * @param spriteTag
+     * @param groovyComponent
+     */
+    public abstract void addGroovyComponent (String spriteTag, Component groovyComponent);
+    
+    /**
+     * Gets a list of sprite tags to be shown on the player
+     * @return
+     */
+    public abstract List<String> getSpriteTagList();
+    
+    /**
+     * Returns a string of the action names with KeyCodes to be modified by the player
+     * @return
+     */
+    public abstract List<String> actionWithKeyCode(int playerNum);
+    
+    /**
+     * Lets you change the keycode of a specific action in the playerNumber.
+     * @param playerNumber
+     * @param actionName
+     * @param key
+     */
+    public abstract void changeKeyCodeInAction(int playerNumber, String actionName, KeyCode key);
     
 }
