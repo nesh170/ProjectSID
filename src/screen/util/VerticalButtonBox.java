@@ -1,6 +1,7 @@
 package screen.util;
 
 import resources.constants.DOUBLE;
+import resources.constants.STRING;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 
@@ -18,7 +19,7 @@ public class VerticalButtonBox extends VBox {
 		this.setAlignment(Pos.BASELINE_CENTER);
 		this.setFillWidth(false);
 		this.setSpacing(DOUBLE.BUTTON_SPACING);
-		this.getStyleClass().add("pane");
+		this.getStyleClass().add(STRING.CSS.PANE);
 		
 	}
 	

@@ -151,6 +151,7 @@ public class STRING {
 		public static final String BACKDOWN_IMG = "images/GameEdit_Images/back_down.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
+		public static final String HIDE_ARROW = "images/GameEdit_images/hide.png";	
 		public static final String IMAGE_FOLDER ="-images";
 			
 	}
@@ -198,8 +199,11 @@ public class STRING {
 		public static final String COMBO_SPRITE2_TAG = "SpriteInactive";
 		public static final String COMBO_DIRECTION_NAME_AND_TAG = "Direction";
 		public static final String COMBO_ACTION_NAME_AND_TAG = "Action";
+		public static final String COMBO_SPRITE_SELECT_NAME = "Choose Sprite";
+		public static final String COMBO_SPRITE_SELECT_TAG = "ChooseSprite";
 		public static final String TEXT_PROMPT = "Value";
 		public static final String SAVE_BUTTON_TEXT = "Save";
+		public static final String SWITCH_ACTION = "Switch Out ";
 		
 	}
 	

@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -345,10 +346,10 @@ public class ScreenController {
 		
 	}
 	
-	private Tab createSplashEditScreen(SplashScreen splashScreen) {
+	private Tab createSplashEditScreen(SplashScreen splashScreen, Game game) {
 
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager),
+				screenFactory.createSplashEditScreen(splashScreen, splashEditScreenManager, game),
 				STRING.GAME_EDIT.SPLASH_SCREEN
 				);
 		
@@ -378,9 +379,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, Map<String, ObservableList<String>> spriteMap) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, spriteMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -507,7 +508,7 @@ public class ScreenController {
 			
 			SplashScreen newSplashScreen = new SplashScreen(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
 					INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-			createSplashEditScreen(newSplashScreen);
+			createSplashEditScreen(newSplashScreen, game);
 			game.setSplash(newSplashScreen);
 			gameEditScreen.displayApproporiateSplashButton();		
 		
@@ -561,6 +562,20 @@ public class ScreenController {
 					}
 					sprite.setImagePath(newImagePath);
 				}));
+				game.splashScreen().sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String[] imagePathSplit = imagePath.split("[\\\\/]");
+					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
+					Path fileCopy = (new File(newImagePath).toPath());
+					FileInputStream in;
+					try {
+						in = new FileInputStream(imagePath);			
+						Files.copy(in, fileCopy);
+					} catch (Exception e) {
+						//do nothing, file already exists but I don't care;
+					}
+					sprite.setImagePath(newImagePath);
+				});
 				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
@@ -586,7 +601,12 @@ public class ScreenController {
 			Tab splashTab = tabManager.getTabSelectionModel().getSelectedItem();
 			tabManager.removeTabAndChangeSelected(splashTab);
 			
-		}		
+		}	
+		
+		@Override
+		public void saveSplashScreen(Game game, SplashScreen splashScreen) {
+			game.setSplash(splashScreen);
+		}
 		
 	}
 	
@@ -635,7 +655,7 @@ public class ScreenController {
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
 			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags());
+			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
 		}
 		

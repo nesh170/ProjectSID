@@ -127,16 +127,16 @@ public class EngineTester extends Tester {
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action action) {
-		myCT.addActionToMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, action);
-		myCT.addActionToMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, action);
+		myCT.addActionToBigMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, action);
 	}
 	private void setCollisionLeftRightDown(Sprite sprite1, Sprite enemy, Action action){
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
 	}
 	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
@@ -159,6 +159,7 @@ public class EngineTester extends Tester {
 	}
 	private Action makeJumping(Sprite sprite, KeyCode kc, boolean runsEveryFrame) {
 		Action jumpAction = new UpMotionAction(sprite, JUMP_SPEED, kc);
+		jumpAction.setSound("engineTesting/sounds/jump.mp3");
 		sprite.addAction(jumpAction);
 		return jumpAction;
 	}

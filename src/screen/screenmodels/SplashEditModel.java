@@ -1,15 +1,16 @@
 package screen.screenmodels;
 
+import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -22,12 +23,11 @@ public class SplashEditModel {
 
 	private SplashScreen splashScreen;
 
-	private Sprite startButton = new Sprite();
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
+	private List<Sprite> spriteList = new ArrayList();
 
 	private ImageView imageView;
-	private ImageView startButtonImageView;
 
 	private Text text;
 	private List<Text> texts = new ArrayList();
@@ -36,13 +36,58 @@ public class SplashEditModel {
 	public SplashEditModel(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
+	
+	public SplashScreen getSplashScreen() {
+		return splashScreen;
+	}
+	
+	public void saveSplashScreen() {
+		splashScreen.addSprites(spriteList);
+	}
 
-	public void addImageView(ImageView imageView) {
+	public void addImageView() {
 		imageViewArray.add(imageView);
+		spriteList.add(new Sprite(new Point2D(imageView.getX(), imageView.getY())));
 	}
 
 	public void createImageView(Image image) {
 		imageView = new ImageView(image);
+	}
+	
+	public ImageView getImageView() {
+		return imageView;
+	}
+	
+	public void removeImageViewFromImageViewArray() {
+		imageViewArray.remove(imageView);
+	}
+	
+	public void imageViewMove(MouseEvent e) {
+		imageView.setOnMouseReleased(f -> placeImageView(f));
+	}
+	
+	private void placeImageView(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+	}
+	
+	public void placeImageViewAtXY(MouseEvent e) {
+		imageView.setX(e.getX());
+		imageView.setY(e.getY());
+	}
+	
+	public void textMove(MouseEvent e) {
+		text.setOnMouseReleased(f -> placeText(f));
+	}
+	
+	private void placeText(MouseEvent e) {
+		text.setX(e.getX());
+		text.setY(e.getY());
+	}
+	
+	public void placeTextAtXY(int index, MouseEvent e) {
+		texts.get(index).setX(e.getX());
+		texts.get(index).setY(e.getY());
 	}
 	
 	public void createText(String string) {
@@ -59,26 +104,39 @@ public class SplashEditModel {
 	
 	public void addText() {
 		texts.add(text);
+		Sprite sprite = new Sprite(new Point2D(text.getX(), text.getY()));
+		sprite.setName(text.getText());
+		spriteList.add(sprite);
+	}
+	
+	public Text getText() {
+		return text;
+	}
+	
+	public List<Text> getTexts() {
+		return texts;
+	}
+	
+	public void removeTextFromTextArray() {
+		texts.remove(text);
+	}
+	
+	public void addSpriteImageToSpriteList(Sprite sprite) {
+		images.add(sprite);
 	}
 	
 	public void selectText(String textValue) {
 		texts.stream()
 		.filter(t -> t.getText().equals(textValue))
-		.forEach(t -> text = t);		
+		.forEach(t -> text = t);	
 	}
 
-	public void selectImage(int index) {
-		imageViewArray.stream()
-		.filter(i -> !i.equals(null))
-		.forEach(i -> imageView = i);
+	public void selectImage(int index, int counter) {	
+		imageView = imageViewArray.get(index);
 	}
 	
 	public void forEachText(Consumer<Text> consumer) {
 		texts.forEach(consumer);
-	}
-
-	public void createStartButtonImageView(Image image) {
-		startButtonImageView = new ImageView(image);
 	}
 	
 	public void resizeAndRotateImage(KeyEvent e) {
