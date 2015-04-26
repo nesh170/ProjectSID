@@ -172,6 +172,7 @@ public class SplashEditModel {
 		texts.add(text);
 		Sprite sprite = new Sprite(new Point2D(text.getX(), text.getY()));
 		sprite.setName(text.getText());
+		sprite.setIsText(true);
 		spriteList.add(sprite);
 	}
 	
