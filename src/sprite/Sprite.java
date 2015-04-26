@@ -54,6 +54,7 @@ public class Sprite {
 	
 	private boolean isGoal;
 	private int toLevel;
+	private boolean isText;
 
 	
 	public static Sprite makeCopy(Sprite toCopy) {
@@ -111,6 +112,10 @@ public class Sprite {
 	
 	public List<Sprite> emissionList() {
 		return Collections.unmodifiableList(this.emissionList); 
+	}
+	
+	public void setIsText(boolean isText) {
+		this.isText = isText;
 	}
 	
 	
