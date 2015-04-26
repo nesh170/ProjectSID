@@ -182,7 +182,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void selectGame(Game game) {
 		myGame = game;
 		myGameLevels = game.levels();
-		myEngine = new GameEngine(myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
 		setupAnimation();
 		play();
 	}
