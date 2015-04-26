@@ -112,6 +112,14 @@ public class SplashEditModel {
 		imageView.setX(e.getSceneX());
 		imageView.setY(e.getSceneY());
 	}
+	
+	/**
+	 * used to place imageview off screen
+	 */
+	public void placeImageViewOffScreen() {
+		imageView.setX(5000);
+		imageView.setY(5000);
+	}
 
 	/**
 	 * used to move text
@@ -172,6 +180,7 @@ public class SplashEditModel {
 		texts.add(text);
 		Sprite sprite = new Sprite(new Point2D(text.getX(), text.getY()));
 		sprite.setName(text.getText());
+		sprite.setIsText(true);
 		spriteList.add(sprite);
 	}
 	

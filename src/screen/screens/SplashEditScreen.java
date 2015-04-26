@@ -1,7 +1,10 @@
 package screen.screens;
 
 import game.Game;
+import gameEngine.actions.KillAction;
+
 import java.io.File;
+
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -12,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -210,7 +214,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Button makeSaveButton() {
 		Button save = new Button(STRING.SPLASH_EDIT_SCREEN.SAVE);
 		setSmallButtonSize(save);
-		save.setOnMouseClicked(e -> saveSplashScreen());	
+		save.setOnMouseClicked(e -> saveSplashScreen());
 		
 		return save;
 	}
@@ -306,9 +310,16 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		//Not Being Implemented
 	}
 	
-	private void saveSplashScreen() {	
+	private void saveSplashScreen() {
+		splashEditModel.createImageView(null);
+		splashEditModel.placeImageViewOffScreen();
+		splashEditModel.addImageView();
+		Sprite sprite = new Sprite(new Point2D(INT.SPLASH_EDIT_OFFSCREEN, INT.SPLASH_EDIT_OFFSCREEN));
+		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
+		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 		splashEditModel.saveSplashScreen();
+
 	}
 
 	private void trashSplashScreen() {		

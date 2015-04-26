@@ -20,7 +20,8 @@ public class PlayerView {
 	private HUD myHUD;
 	private PlayerViewController myController;
 	private BorderPane myBorderPane;
-	private StackPane myStackPane;
+	private StackPane myBase;
+	private StackPane myTop;
 
 	public PlayerView() {
 
@@ -29,16 +30,17 @@ public class PlayerView {
 
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
-		myGameRoot.setMaxSize(900, 450);
-		myGameRoot.setMinSize(900, 450);
 
-		myStackPane = new StackPane();
+		myBase = new StackPane();
+		myTop = new StackPane();
 		
 		myBorderPane = new BorderPane();
-		myBorderPane.setCenter(myGameRoot);
+		myBorderPane.setCenter(myBase);
 		
-		myStackPane.getChildren().add(myBorderPane); 
-		myScene = new Scene(myStackPane, 1200, 600);
+		myBase.getChildren().addAll(myGameRoot, myTop);
+		
+		myScene = new Scene(myBorderPane, 1200, 600);
+
 
 	}
 
@@ -48,20 +50,10 @@ public class PlayerView {
 		Group errorGroup =new Group();
 		myBorderPane.setLeft(errorGroup);
 		myController.setErrorHandler(new ErrorHandler(errorGroup));
-		myBorderPane.setTop(myMenuBar);
+		myBorderPane.setTop(myMenuBar.getBar());
 		myPauseScreen = makePauseScreen(playerController);
 	}
 	
-//	public StackPane createHUD(ScrollPane pane) {
-//		StackPane stack = new StackPane();
-//		myHUD = new HUD(pane);
-//		myHUD.addItem("Lives", 0);
-//		myHUD.addItem("Health", 0);
-//		myHUD.addItem("Score", 0);
-//		stack.getChildren().add(myHUD.getHUDBox());
-//		StackPane.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
-//		return stack;
-//	}
 
 	private StackPane makePauseScreen(PlayerViewController playerController) {
 		StackPane pause = new StackPane();
@@ -78,12 +70,12 @@ public class PlayerView {
 	}
 	
 	public void pauseScreen() {
-		myStackPane.getChildren().add(myPauseScreen);
+		myTop.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
 	}
 	
 	public void playScreen() {
-		myStackPane.getChildren().remove(myPauseScreen);
+		myTop.getChildren().remove(myPauseScreen);
 	}
 	
 	public Scene getScene() {
@@ -98,18 +90,5 @@ public class PlayerView {
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
 	}
-
-	//	public PlayerView(ScrollPane scrollPane, PlayerViewController playerController) {
-	//		
-	//		myMenuBar = new PlayerMenu(playerController);
-	//		myGameRoot = scrollPane;
-	//		myHUD = new HUD();
-	//		myController = playerController;
-	//		
-	//		myGameRoot.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-	//		myGameRoot.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-	//		myGameRoot.setMaxSize(900, 450);
-	//		myGameRoot.setMinSize(900, 450);
-	//	}
 
 }
