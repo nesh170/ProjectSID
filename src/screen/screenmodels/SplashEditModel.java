@@ -32,7 +32,6 @@ public class SplashEditModel {
 	private Text text;
 	private List<Text> texts = new ArrayList();
 
-
 	public SplashEditModel(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
@@ -67,13 +66,13 @@ public class SplashEditModel {
 	}
 	
 	private void placeImageView(MouseEvent e) {
-		imageView.setX(e.getX());
-		imageView.setY(e.getY());
+		imageView.setX(e.getSceneX());
+		imageView.setY(e.getSceneY());
 	}
 	
 	public void placeImageViewAtXY(MouseEvent e) {
-		imageView.setX(e.getX());
-		imageView.setY(e.getY());
+		imageView.setX(e.getSceneX());
+		imageView.setY(e.getSceneY());
 	}
 	
 	public void textMove(MouseEvent e) {
@@ -81,13 +80,13 @@ public class SplashEditModel {
 	}
 	
 	private void placeText(MouseEvent e) {
-		text.setX(e.getX());
-		text.setY(e.getY());
+		text.setX(e.getSceneX());
+		text.setY(e.getSceneY());
 	}
 	
 	public void placeTextAtXY(int index, MouseEvent e) {
-		texts.get(index).setX(e.getX());
-		texts.get(index).setY(e.getY());
+		texts.get(index).setX(e.getSceneX());
+		texts.get(index).setY(e.getSceneY());
 	}
 	
 	public void createText(String string) {
@@ -147,35 +146,22 @@ public class SplashEditModel {
 		resizeAndRotate(texts.get(index), e);
 	}
 	
-	private void resizeAndRotate(Node node, KeyEvent e) {
-		
+	private void resizeAndRotate(Node node, KeyEvent e) {		
 		KeyCode keyCode = e.getCode();
 		
-		if(keyCode == KeyCode.UP) {
-			
+		if(keyCode == KeyCode.UP) {		
 			node.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleX());
-			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleY());
-			
-		}
-		
-		else if(keyCode == KeyCode.DOWN) {
-			
+			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_UP * node.getScaleY());		
+		}	
+		else if(keyCode == KeyCode.DOWN) {		
 			node.setScaleX(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleX());
-			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleY());
-			
+			node.setScaleY(DOUBLE.SPLASH_EDIT_SCALE_DOWN * node.getScaleY());		
+		}	
+		else if(keyCode == KeyCode.RIGHT) {	
+			node.setRotate(node.getRotate() + INT.SPLASH_EDIT_ROTATE_FACTOR);	
 		}
-		
-		else if(keyCode == KeyCode.RIGHT) {
-			
-			node.setRotate(node.getRotate() + INT.SPLASH_EDIT_ROTATE_FACTOR);
-			
-		}
-		
-		else if(keyCode == KeyCode.LEFT) {
-			
+		else if(keyCode == KeyCode.LEFT) {	
 			node.setRotate(node.getRotate() - INT.SPLASH_EDIT_ROTATE_FACTOR);
-			
 		}
-		
 	}
 }
