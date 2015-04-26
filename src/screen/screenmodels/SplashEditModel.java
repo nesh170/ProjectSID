@@ -1,9 +1,9 @@
 package screen.screenmodels;
 
+import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -25,6 +25,7 @@ public class SplashEditModel {
 
 	private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
+	private List<Sprite> spriteList = new ArrayList();
 
 	private ImageView imageView;
 
@@ -35,10 +36,18 @@ public class SplashEditModel {
 	public SplashEditModel(SplashScreen splashScreen) {
 		this.splashScreen = splashScreen;
 	}
+	
+	public SplashScreen getSplashScreen() {
+		return splashScreen;
+	}
+	
+	public void saveSplashScreen() {
+		splashScreen.addSprites(spriteList);
+	}
 
 	public void addImageView() {
-		System.out.println("Here");
 		imageViewArray.add(imageView);
+		spriteList.add(new Sprite(new Point2D(imageView.getX(), imageView.getY())));
 	}
 
 	public void createImageView(Image image) {
