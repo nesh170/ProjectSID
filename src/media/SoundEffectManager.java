@@ -9,7 +9,16 @@ import javafx.scene.media.MediaPlayer;
 
 public class SoundEffectManager {
 	
+	private static SoundEffectManager sharedInstance;
+	
 	private Map<String, MediaPlayer> mySoundMap = new HashMap<>();
+	
+	public static SoundEffectManager sharedInstance(){
+		if(sharedInstance == null){
+			sharedInstance = new SoundEffectManager();
+		}
+		return sharedInstance;
+	}
 
 	public void playSound(String path){
 		if(mySoundMap.containsKey(path)){
