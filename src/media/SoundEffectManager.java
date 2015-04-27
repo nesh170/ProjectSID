@@ -17,10 +17,14 @@ public class SoundEffectManager {
 			mediaPlayer.seek(mediaPlayer.getStartTime());
 		}
 		else{
-			System.out.println(path);
+			try{
+			System.out.println("The path is: " + path);
 			MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(path).toURI().toString()));
 			mySoundMap.put(path, mediaPlayer);
 			mediaPlayer.play();
+			}
+			catch(Exception e){
+			}
 		}
 	}
 	

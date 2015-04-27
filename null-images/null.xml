@@ -1,0 +1,215 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>500</width>
+      <height>400</height>
+      <sprites/>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>2.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>200.0</width>
+              <height>200.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+    <levelPlatform.level.Level>
+      <width>500</width>
+      <height>400</height>
+      <sprites/>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <myRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+            <startPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+    <levelPlatform.level.Level>
+      <width>500</width>
+      <height>400</height>
+      <sprites/>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <myRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+            <startPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+    <levelPlatform.level.Level>
+      <width>500</width>
+      <height>400</height>
+      <sprites/>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <myRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+            <startPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+    <levelPlatform.level.Level>
+      <width>500</width>
+      <height>400</height>
+      <sprites/>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <myRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+            <startPosition reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../../../levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+  </levels>
+  <splashScreen>
+    <width>500</width>
+    <height>400</height>
+    <sprites/>
+    <playerSpriteList>
+      <sprite.Sprite>
+        <actionList/>
+        <componentList/>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+        <isActive>true</isActive>
+        <facesLeft>false</facesLeft>
+        <transform>
+          <myPosition reference="../../../../../levels/levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+          <myRotation reference="../../../../../levels/levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+          <myDimensions reference="../../../../../levels/levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+          <startPosition reference="../../../../../levels/levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myPosition"/>
+          <startRotation reference="../../../../../levels/levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+          <startDimensions reference="../../../../../levels/levelPlatform.level.Level/playerSpriteList/sprite.Sprite/transform/myDimensions"/>
+        </transform>
+        <isGoal>false</isGoal>
+        <toLevel>0</toLevel>
+        <isText>false</isText>
+      </sprite.Sprite>
+    </playerSpriteList>
+    <collisionTable>
+      <myTable/>
+      <myBigTable/>
+      <tagList/>
+    </collisionTable>
+    <goalMap/>
+    <allImages/>
+  </splashScreen>
+</game.Game>

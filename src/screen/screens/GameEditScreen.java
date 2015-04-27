@@ -90,9 +90,8 @@ import levelPlatform.splashScreen.SplashScreen;
  * @author Anika
  */
 //TODO list: - disable rest of screen when popup shows
-//add a trash paper animation to splash screen removal as well
 //- could also add drag and drop functionality to rearrange ordering of list of levels.
-//fix the bug with contextMenu staying in absolute positioni in screen
+//fix the contextMenu staying in absolute position in screen
 
 public class GameEditScreen extends Screen {
 
@@ -111,6 +110,7 @@ public class GameEditScreen extends Screen {
 	private Popup popup;
 	private HBox levelHB;
 	private StackPane splashSP;
+
 	// Getters & Setters
 	/**
 	 * add a Level to a Game
@@ -125,6 +125,7 @@ public class GameEditScreen extends Screen {
 	}
 	*/
 	
+
 	// Constructor & Helpers
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
@@ -141,6 +142,16 @@ public class GameEditScreen extends Screen {
 			
 		initialize(controller);
 
+	}
+	
+	
+	/***
+	 * Called whenever screen is switched to
+	 */
+	@Override
+	public void rerender() {
+		System.out.println(gameEditModel.getGame().getLevelsSize());
+		displayLevels();
 	}
 
 	/**
@@ -363,6 +374,7 @@ public class GameEditScreen extends Screen {
 			addLevelButtons(e, index[0]); 
 			index[0]++;
 			};
+		System.out.println(gameEditModel.getGame().getLevelsSize());
 		gameEditModel.forEachLevel(addLevelButtons);
 	}
 	

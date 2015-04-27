@@ -9,7 +9,7 @@ import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
-import gameEngine.actions.NormalAction;
+import gameEngine.actions.NormalActionY;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.actions.ShootAction;
 import gameEngine.components.HealthComponent;
@@ -226,7 +226,7 @@ public class ExampleLevelMaker extends Application{
 		Action gravityAction = new FallAction(sprite, GRAVITY);
 		gravityAction.runEveryFrame();
 		sprite.addAction(gravityAction);
-		Action normalAction = new NormalAction(sprite);
+		Action normalAction = new NormalActionY(sprite);
 		sprite.addAction(normalAction);
 		for(Sprite platform: myPlatforms){
 			setCollisionUp(sprite, platform, normalAction);

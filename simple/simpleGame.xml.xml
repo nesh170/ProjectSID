@@ -1,0 +1,55 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>900</width>
+      <height>500</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>Player</tag>
+          <imagePath>engineTesting/fireFlower.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>300.0</width>
+              <height>300.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </sprites>
+      <playerSpriteList>
+        <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+      <myBackgroundPath>engineTesting/background.png</myBackgroundPath>
+    </levelPlatform.level.Level>
+  </levels>
+  <name>test</name>
+</game.Game>
