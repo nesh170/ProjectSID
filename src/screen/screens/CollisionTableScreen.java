@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -37,6 +38,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
+import sprite.Sprite;
 
 
 /**
@@ -214,21 +216,21 @@ public class CollisionTableScreen extends Screen{
 
 	/******* PRIVATE VARIABLES *******
 	 * 
-	 * myController 	 : 	CollisionTableScreenController 	   || Interface class specific to the Collision Table Screen
-	 * levelSpriteTags	 :	ArrayList<String>				   || List of String tags of sprites obtained from Level Edit Screen
-	 * collTable		 :	CollisionTable					   || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
-	 * tablesDisplay	 :	StackPane						   || StackPane used to display VBox and HBoxes of comboboxes 
-	 * collisionTableMap :	Map<SpritePair, ArrayList<String>> || Map of Tag 1, Tag 2 to Action components (direction, action, value...)
+	 * myController 	 : 	CollisionTableScreenController 	   	   || Interface class specific to the Collision Table Screen
+	 * levelSpriteTags	 :	List<String>				           || List of String tags of sprites obtained from Level Edit Screen
+	 * collTable		 :	CollisionTable					       || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
+	 * tablesDisplay	 :	StackPane						       || StackPane used to display VBox and HBoxes of comboboxes 
+	 * collisionTableMap :	Map<String, Map<String, List<String>>> || Map of Tag 1 to Map of Tag 2 to Action components (direction, action, value...)
 	 * 
 	 * mapOfSpriteTypesToExistingSpriteStringNames : Map<String, ObservableList<String>>	|| Map obtained from Level Edit Screen
 	 * 
 	 */
 	private CollisionTableScreenController myController;
-	private ArrayList<String> levelSpriteTags;
+	private List<String> levelSpriteTags;
 	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;	
 	private Map<String, ObservableList<String>> mapOfSpriteTypesToExistingSpriteStringNames;
-	private Map<SpritePair, ArrayList<String>> collisionTableMap;
+	private Map<String, Map<String, List<String>>> collisionTableMap;
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
@@ -243,7 +245,7 @@ public class CollisionTableScreen extends Screen{
 	 * @author anika
 	 *
 	 */
-	private class SpritePair {
+/*	private class SpritePair {
 		
 		private String myFirstSprite;
 		private String mySecondSprite;
@@ -264,7 +266,7 @@ public class CollisionTableScreen extends Screen{
 			return mySecondSprite;
 		}
 	
-	}
+	}*/
 	
 
 	/**
@@ -273,12 +275,16 @@ public class CollisionTableScreen extends Screen{
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags,
 			Map<String, ObservableList<String>> spriteMap) {
+		
 		super(width, height);
+		
 		myController = controller;
+		
 		levelSpriteTags = new ArrayList<String>(spriteTags);
-		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap;
-		collisionTableMap = new HashMap<SpritePair, ArrayList<String>>();
-		createVBoxOfCollisionRows();
+		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap; // map obtained from Level Edit Screen
+		
+		collisionTableMap = new HashMap<String, Map<String, List<String>>>(); // map populated by Collision Table Screen
+		createVBoxOfCollisionRows(); 
 		this.setCenter(tablesDisplay);
 	}
 	
@@ -302,22 +308,20 @@ public class CollisionTableScreen extends Screen{
 		
 		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), 50);
 		
-//		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
-//		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
 		verticalBox.getChildren().addAll(levelSP);
 		verticalBox.setVgrow(levelSP, Priority.ALWAYS);
        
-		addRowButton.setTranslateX(30);
+		addRowButton.setTranslateX(INT.ADD_ROW_BUTTON_OFFSET);
 		verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
 	}
 
-	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
+	private ComboBox createComboBoxFromList(List<String> list, String id, String style, String promptText)
 	{
 		ObservableList<String> options = FXCollections.observableArrayList();
 		ComboBox comboBox = new ComboBox(options);
@@ -336,10 +340,10 @@ public class CollisionTableScreen extends Screen{
 	
 	private VBox addTableRow()
 	{
-		VBox collisionTable = new VBox(800);
+		VBox collisionTable = new VBox(INT.EACH_ROW_VBOX_SIZE);
 		collisionTable.setAlignment(Pos.CENTER);
-		collisionTable.setTranslateY(50);
-		collisionTable.setTranslateX(100);
+		collisionTable.setTranslateY(INT.EACH_ROW_VBOX_OFFSET_Y);
+		collisionTable.setTranslateX(INT.EACH_ROW_VBOX_OFFSET_X);
 		
 
 		GridPane collisionSet = new GridPane();
@@ -540,19 +544,6 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
-/*	private Action createActionFromString(String actionString)
-	{
-		//TODO: create separate class for String-> action (also used for spriteEditScreen
-		Action action = (Action) Class
-				.forName(classPathMap.get(selected))
-				.getConstructor(Sprite.class, Double.class,
-						KeyCode[].class)
-						.newInstance(editableSprite,
-								Double.parseDouble(actionValue.getText()),
-								keylist);
-	//	return action;
-	}*/
-	
 	
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
@@ -570,22 +561,40 @@ public class CollisionTableScreen extends Screen{
 		System.out.println(switchOption); // TODO check is switchOption is 'null'
 		System.out.println(value);
 		
-		SpritePair thisSpritePair = new SpritePair();
+	/*	SpritePair thisSpritePair = new SpritePair();
 		thisSpritePair.initialize(activeSp, inactiveSp);
+		*/
+		
 		ArrayList<String> actionParameters = new ArrayList<String>();
 		actionParameters.add(dir);
 		actionParameters.add(action);
 		actionParameters.add(value);
 		actionParameters.add(switchOption);
 		
-		collisionTableMap.put(thisSpritePair, actionParameters);
+		
+		Map<String, List<String>> activeSpriteMap;
+		
+		if (!(this.collisionTableMap.containsKey(activeSp)))
+		{
+			activeSpriteMap = new HashMap<String, List<String>>();
+		}
+		else
+		{
+			activeSpriteMap = collisionTableMap.get(activeSp);
+		}
+		
+		activeSpriteMap.put(inactiveSp, actionParameters);
+		
+		
+	
+		collisionTableMap.put(activeSp, activeSpriteMap);
 	
 		
 	//	collTable.addActionToMap(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), toAdd); 
 		// -> TO BE DONE FROM LEVEL EDIT SCREEN ON SAVE
 		
 		
-	
 	}
+	
 	
 }

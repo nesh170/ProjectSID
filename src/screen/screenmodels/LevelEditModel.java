@@ -1,6 +1,7 @@
 package screen.screenmodels;
 
 import gameEngine.Action;
+import gameEngine.CollisionTable;
 import gameEngine.Component;
 
 import java.io.File;
@@ -234,6 +235,21 @@ public class LevelEditModel {
 
 	public void setBackgroundImage(String path) {
 		level.setBackground(path);
+	}
+
+	public void updateCollisions(Map<String, Map<String, List<String>>> collisionMap) {
+		collisionMap.keySet().forEach(sprite1 ->
+				stringToSpriteMap.get(stringToListMap.get(sprite1))
+				.addAction(
+						);
+				);
+		
+	}
+	
+	private Action createAction(int direction, String actionName, double value,
+			String switchOptionSpriteName) {
+		if (Class.forName(classPathMap.get(actionName).hasConstructor(Double.class, Integer.class))
+		return new Action(direction, actionName, value, switchOptionSpriteName);
 	}
 
 }
