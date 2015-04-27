@@ -133,6 +133,13 @@ public class GameEngine extends GameEngineAbstract {
         myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
     }
 
+    public List<Component> getDefaultHUDComponents(){
+    	List<Component> components = new ArrayList<Component>();
+    	for(String type: new String[]{"Ammo","Energy","Health","Life","Time"}){
+    		components.add(myCurrentLevel.playerSpriteList().get(0).getComponentOfType(type + "Component"));
+    	}
+    	return components;
+    }
 
 
 }
