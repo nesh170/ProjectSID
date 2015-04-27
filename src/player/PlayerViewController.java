@@ -334,13 +334,11 @@ public class PlayerViewController implements GamePlayerInterface {
 			return;
 		}
 		try {
-			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toURI().toString());
+			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toString());
 		} catch (IOException e) {
-			System.out.println(myGameName);
-			System.out.println(mySaveFolder.toURI().toString());
-			e.printStackTrace();
+			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			resumeExecution();
 			return;
-			//DialogUtil.displayMessage("Save File", "Error in creating save file.");
 		}
 		resumeExecution();
 		return;
