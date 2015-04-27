@@ -96,10 +96,8 @@ public class MainPageScreen extends Screen {
 	}
 
 	/**
-	 * Displays a splash
-	 * 
-	 * @return
-	 */
+	 * shows logged in user avatar
+	 * */
 	private void configureLoggedInDisplay() {
 
 		loggedInDisplay = new VBox();		
