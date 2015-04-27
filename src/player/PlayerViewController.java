@@ -107,6 +107,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	private void update() {
 		double[] cameraVals = myEngine.update();
 		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
+		myView.updateHUD(myEngine.getDefaultHUDComponents());
 	}
 
 	private void display() {

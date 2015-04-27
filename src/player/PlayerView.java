@@ -1,5 +1,9 @@
 package player;
 
+import gameEngine.Component;
+
+import java.util.List;
+
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -122,5 +126,10 @@ public class PlayerView {
 
 	public double findPrefHeight() {
 		return myGameRoot.getHeight();
+	}
+
+	public void updateHUD(List<Component> defaultHUDComponents) {
+		myHUD.updateHUDValues(defaultHUDComponents);
+		
 	}
 }
