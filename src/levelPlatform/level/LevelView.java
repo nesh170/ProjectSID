@@ -133,7 +133,7 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	private Group renderSprite(Sprite sprite) {
-		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
+//		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
 		Group spriteGroup = new Group();
 		if (sprite.isActive()) {	
 			// ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program

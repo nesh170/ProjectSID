@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import resources.constants.INT;
 import util.DialogUtil;
@@ -66,12 +68,15 @@ public class PlayerViewController implements GamePlayerInterface {
 	private int myHealth;
 	private int myScore;
 	private Game myGame;
+	private String myGameName;
 
 	private File myGameFolder;
 	private List<Level> myGameLevels;
 	private Group myGameGroup;
 	private GameEngine myEngine;
 	private Camera myCamera;
+
+	private File mySaveFolder;
 
 	private PlayerView myView;
 	private Network myNetwork;
@@ -162,6 +167,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void initializeGameAttributes() {
 		try {
 			myGame = DataHandler.getGameFromDir(myGameFolder);
+			myGameName = DataHandler.getGameName(myGameFolder);
 			myGameLevels = myGame.levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
@@ -196,7 +202,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-				"mario3.xml" };
+		"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -283,10 +289,103 @@ public class PlayerViewController implements GamePlayerInterface {
 		return null;
 	}
 
+	private void pauseExecution() {		
+		myTimeline.stop();		
+		myEngine.pause(myView.getRoot());		
+		myAudioController.pause();		
+	}		
+
+	private void resumeExecution() {		
+		myTimeline.play();		
+		myEngine.play(myView.getRoot());		
+		myAudioController.play();		
+	}
+	
+	public void loadState()
+	{	
+		pauseExecution();
+		List<File> states;
+
+		try {
+			states = DataHandler.getDirsFromDir(myGameFolder);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File", "Error in loading save file.");
+			resumeExecution();
+			return;
+		}
+
+		if (states == null || states.size() == 0) {
+			DialogUtil.displayMessage("Load File", "No save states available to load.");
+			resumeExecution();
+			return;
+		}
+
+		List<String> stateNames = states.stream().map(file -> file.getName()).collect(Collectors.toList());
+		String chosenState = DialogUtil.choiceDialog("Load File", "Choose a save state.", stateNames);
+		File stateFile = states.stream().filter(file -> file.getName().equals(chosenState)).collect(Collectors.toList()).get(0);
+		try {
+			myGame = DataHandler.getGameFromDir(stateFile);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File", "Cannot load state.");
+			resumeExecution();
+			return;
+		}
+
+		myGameLevels = myGame.levels();
+		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+		setupAnimation();
+		resumeExecution();
+	}
+
 	@Override
 	public void saveGame() {
-		// TODO Auto-generated method stub
 
+		if (mySaveFolder == null) {
+			saveAs();
+		}
+		else {
+			pauseExecution();
+			try {
+				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toString());
+			} catch (IOException e) {
+				DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			}
+			resumeExecution();
+			return;
+		}
+	}
+
+	public void saveAs() {
+		pauseExecution();
+		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
+		if (saveName == null) {
+			DialogUtil.displayMessage("Save File", "File not saved.");
+			resumeExecution();
+			return;
+		}
+		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
+		if (!mySaveFolder.mkdir()) {
+			DialogUtil.displayMessage("Save File", "Error in creating save folder.");
+			resumeExecution();
+			return;
+		}
+		try {
+			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toString());
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			resumeExecution();
+			return;
+		}
+		resumeExecution();
+		return;
+	}
+
+	private String removeXMLExt(String str) {
+		if (str.endsWith(".xml")) {
+			int index = str.indexOf(".xml");
+			return str.substring(0, index);
+		}
+		return str;
 	}
 
 	public String getCurrentLevelinXML() {
@@ -344,10 +443,10 @@ public class PlayerViewController implements GamePlayerInterface {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
 						List<String> keyString = (ArrayList<String>) DataHandler
-								.fromXMLString(keyControl);
+						.fromXMLString(keyControl);
 						handleKeyEvent(keyString.get(0), keyString.get(1),
 								INT.SECOND_PLAYER); // Add code to make another
-													// player play
+						// player play
 					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
