@@ -82,6 +82,12 @@ public class DataHandler {
 		}
 	}
 
+	public static List<File> getDirsFromDir(File folder) throws IOException {
+		return Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.isDirectory())
+				.collect(Collectors.toList());
+	}
+
 	public static String getGameName(File folder) throws IOException {
 		List<File> gameFiles = (List<File>) Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".xml"))
@@ -103,7 +109,8 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff")
 						|| file.toString().endsWith(".gif"))
-						.map(file -> fileToImage(file)).collect(Collectors.toList());
+				.map(file -> fileToImage(file))
+				.collect(Collectors.toList());
 	}
 
 	public static List<Image> getImagesFromDir(File folder, double maxWidth,
