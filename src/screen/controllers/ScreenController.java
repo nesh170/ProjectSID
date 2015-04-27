@@ -548,24 +548,46 @@ public class ScreenController {
 				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
 				File folder = new File(imageFolderName);
 				folder.mkdir();
-				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
-					String imagePath = sprite.getImagePath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
-					sprite.setImagePath(newImagePath);
-				}));
-				game.splashScreen().sprites().forEach(sprite -> {
-					String imagePath = sprite.getImagePath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
-					sprite.setImagePath(newImagePath);
-				});
+				saveLevelSprites(game, imageFolderName);
+				saveLevelBackgrounds(game, imageFolderName);
+				saveSplashScreen(game, imageFolderName);
+
+				DataHandler.toXMLFile(game, game.name(), folder.getPath());
+			} catch (IOException e) {
+				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
+			}
+		}
+		
+		private void saveLevelSprites(Game game, String imageFolderName) {
+			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
+				String imagePath = sprite.getImagePath();
+				String newImagePath = copyImage(imageFolderName, imagePath);
+				sprite.setImagePath(newImagePath);
+			}));
+		}
+		
+		private void saveLevelBackgrounds(Game game, String imageFolderName) {
+			try {
 				game.levels().forEach(level -> {
 					String imagePath = level.backgroundPath();
 					String newImagePath = copyImage(imageFolderName, imagePath);
 					level.setBackground(newImagePath);
 				});
-				DataHandler.toXMLFile(game, game.name(), folder.getPath());
-			} catch (IOException e) {
-				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
+			}
+			catch(Exception e) {
+				
+			}
+		}
+
+		private void saveSplashScreen(Game game, String imageFolderName) {
+			try {
+				game.splashScreen().sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String newImagePath = copyImage(imageFolderName, imagePath);
+					sprite.setImagePath(newImagePath);
+				});
+			} catch (Exception e) {
+				
 			}
 		}
 
