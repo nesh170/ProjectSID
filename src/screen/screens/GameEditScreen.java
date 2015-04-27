@@ -96,8 +96,7 @@ import levelPlatform.splashScreen.SplashScreen;
 public class GameEditScreen extends Screen {
 
 	// Static Variables
-	private static boolean TESTING = false;		// change this to true to debug, but only push "false"
-	
+	private static boolean TESTING = true;		// change this to true to debug, but only push "false"	
 	
 	// Instance variables
 	private GameEditScreenController controller;
@@ -110,7 +109,7 @@ public class GameEditScreen extends Screen {
 	private Popup popup;
 	private HBox levelHB;
 	private StackPane splashSP;
-
+	
 	// Getters & Setters
 	/**
 	 * add a Level to a Game
@@ -146,7 +145,7 @@ public class GameEditScreen extends Screen {
 	
 	
 	/***
-	 * Called whenever screen is switched to
+	 * rerender the non-static region of screen.
 	 */
 	@Override
 	public void rerender() {
