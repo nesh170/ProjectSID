@@ -73,6 +73,8 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Group myGameGroup;
 	private GameEngine myEngine;
 	private Camera myCamera;
+	
+	private File mySaveFolder;
 
 	private PlayerView myView;
 	private Network myNetwork;
@@ -300,17 +302,36 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	@Override
 	public void saveGame() {
-		try {
-			DataHandler.toXMLFile(myGame, myGame.name(), myGameFolder.toURI().toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		if (mySaveFolder == null) {
+			saveAs();
+		}
+		else {
+			try {
+				DataHandler.toXMLFile(myGame, myGame.name(), myGameFolder.toURI().toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void saveAs() {
 		pauseExecution();
 		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
+		if (saveName == null) {
+			DialogUtil.displayMessage("Save File", "File not saved.");
+			resumeExecution();
+			return;
+		}
+		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
+		System.out.println(myGameFolder.getAbsolutePath() + "/" + saveName);
+		if (!mySaveFolder.mkdir()) {
+			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			resumeExecution();
+			return;
+		}
+		
 		resumeExecution();
 //		if (result.isPresent()) {
 //			entered = result.get();
