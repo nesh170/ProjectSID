@@ -435,8 +435,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-	public void updateCollisions(Map<List<String>, List<String>> collisionTable) {
-		model.updateCollisions(collisionTable);
+	public void updateCollisions(Map<String, Map<String, List<String>>> collisionMap) {
+		model.updateCollisions(collisionMap);
 	}
 
 

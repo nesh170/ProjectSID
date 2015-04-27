@@ -237,9 +237,19 @@ public class LevelEditModel {
 		level.setBackground(path);
 	}
 
-	public void updateCollisions(Map<List<String>, List<String>> collisionTable) {
+	public void updateCollisions(Map<String, Map<String, List<String>>> collisionMap) {
+		collisionMap.keySet().forEach(sprite1 ->
+				stringToSpriteMap.get(stringToListMap.get(sprite1))
+				.addAction(
+						);
+				);
 		
-		
+	}
+	
+	private Action createAction(int direction, String actionName, double value,
+			String switchOptionSpriteName) {
+		if (Class.forName(classPathMap.get(actionName).hasConstructor(Double.class, Integer.class))
+		return new Action(direction, actionName, value, switchOptionSpriteName);
 	}
 
 }

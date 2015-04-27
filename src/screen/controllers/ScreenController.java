@@ -705,11 +705,11 @@ public class ScreenController {
 	private class CollisionTableScreenManager implements CollisionTableScreenController {
 
 		@Override
-		public void returnToLevel(Map<List<String>, List<String>> collisionTable, Tab switchTo) {
+		public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo) {
 			tabManager.removeTabAndChangeSelected(switchTo);
 			if (switchTo.getContent() instanceof LevelEditScreen) {
 				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();
-				levelEditScreen.updateCollisions(collisionTable);
+				levelEditScreen.updateCollisions(collisionMap);
 			}
 		}
 		
