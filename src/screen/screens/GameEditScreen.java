@@ -150,7 +150,6 @@ public class GameEditScreen extends Screen {
 	 */
 	@Override
 	public void rerender() {
-		System.out.println(gameEditModel.getGame().getLevelsSize());
 		displayLevels();
 	}
 
@@ -374,7 +373,6 @@ public class GameEditScreen extends Screen {
 			addLevelButtons(e, index[0]); 
 			index[0]++;
 			};
-		System.out.println(gameEditModel.getGame().getLevelsSize());
 		gameEditModel.forEachLevel(addLevelButtons);
 	}
 	

@@ -116,7 +116,6 @@ public class TabManager {
 		singleSelectionModel.select(tab);
 		if (tab.getContent() instanceof Screen) {
 			Screen screen = (Screen) tab.getContent();
-			System.out.println("Rerender");
 			screen.rerender();
 		}
 		
