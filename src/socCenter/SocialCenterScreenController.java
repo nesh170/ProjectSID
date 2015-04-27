@@ -296,9 +296,10 @@ public class SocialCenterScreenController {
 
 		@Override
 		public void createProfile(Popup popup, TextField username,
-				PasswordField password, PasswordField rePassWord, TextField imageURL) {
-	
-			User newUser = new User("", username.getText(), password.getText(), imageURL.getText());
+				PasswordField password, PasswordField rePassWord, TextField imageURL,
+				String defaultImageURL) {
+			String urlToUse = (imageURL.getText() == "") ? (defaultImageURL) : imageURL.getText();
+			User newUser = new User("", username.getText(), password.getText(), urlToUse);
 			parseHandle.saveUser(newUser);
 			createMainPageScreen(newUser);
 			popup.hide();

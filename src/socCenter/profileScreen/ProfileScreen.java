@@ -47,6 +47,7 @@ import screen.controllers.SpriteEditScreenController;
 import screen.screenmodels.SpriteEditModel;
 import screen.screens.LevelEditScreen;
 import socCenter.Avatar;
+import socCenter.DefaultAvatarPack;
 import socCenter.User;
 import socCenter.mainPage.MainPageScreen;
 import sprite.Sprite;
@@ -62,13 +63,14 @@ public class ProfileScreen extends Screen {
 
 	private TextField spriteNameField;
 	private TextField imageSizeField;
-	private Map<String, Avatar> defaultAvatars;
+	private DefaultAvatarPack avPack;
+	/*private Map<String, Avatar> defaultAvatars;*/
 	private ChoiceBox<String> defaultAvatarChoicesHolder;
 
 	private StackPane paneForImage;
 	private ListView<String> imageListPane;
 
-	private ResourceBundle socialResources;
+	private ResourceBundle defaultAvResources;
 
 	
 	private CheckBox goalCheck;
@@ -91,7 +93,8 @@ public class ProfileScreen extends Screen {
 		this.controller = parent;
 		this.isMyProfile = self;
 
-		initializeDefaultAvatarsList();
+		initializeRelevantResourceFiles();
+		initializeAvatarPack();
 		initializeObservableLists();
 		initializeValueBoxListenersForLists();
 		initializeInformationListenersForLists();
@@ -101,7 +104,6 @@ public class ProfileScreen extends Screen {
 		createRightPane();
 		createCenterPane();
 		
-		avatarsForUse();
 		/*if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
 		}*/
@@ -109,8 +111,9 @@ public class ProfileScreen extends Screen {
 
 	}
 	
-	private void avatarsForUse() {
-		defaultAvatarChoicesHolder.setItems(FXCollections.observableArrayList(defaultAvatars.keySet()));
+	private void initializeAvatarPack(){
+		avPack = new DefaultAvatarPack(defaultAvResources);
+		
 	}
 
 	// All other instance methods
@@ -119,21 +122,13 @@ public class ProfileScreen extends Screen {
 	protected void initializeRelevantResourceFiles() {
 
 		super.initializeRelevantResourceFiles();
-		socialResources = ResourceBundle
+		defaultAvResources = ResourceBundle
 				.getBundle("resources.socialCenterProperties.defaultAvatars");
 	
 		// physicsResources =
 		// ResourceBundle.getBundle("resources.spritePartProperties.physics");
 	}
 	
-	private void initializeDefaultAvatarsList(){
-		defaultAvatars = new HashMap<String, Avatar>();
-		for(String key: socialResources.keySet()){
-			Avatar newAvy = new Avatar(key, socialResources.getString(key));
-			defaultAvatars.put(key, newAvy);
-		}
-		
-	}
 
 	private void initializeObservableLists() {
 		/*
@@ -250,7 +245,7 @@ public class ProfileScreen extends Screen {
 
 	private Pane createAddImagePane() {
 
-		defaultAvatarChoicesHolder = new ChoiceBox<String>();
+		defaultAvatarChoicesHolder = avPack.getDefaultAvChoices();
 		
 		StackPane imagePane = new StackPane();
 		VBox.setVgrow(imagePane, Priority.ALWAYS);
@@ -297,7 +292,7 @@ public class ProfileScreen extends Screen {
 
 	private void selectImageFile() {
 		String avName = defaultAvatarChoicesHolder.getSelectionModel().getSelectedItem();
-		Avatar selectedAvy = defaultAvatars.get(avName);
+		Avatar selectedAvy = avPack.getAvatar(avName);
 		Image avatarView = new Image(selectedAvy.getURL());
 		
 		addImageToPane(selectedAvy.getURL(), avatarView);

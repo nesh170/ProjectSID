@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.PasswordField;
@@ -23,6 +24,7 @@ import javafx.stage.Popup;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import socCenter.DefaultAvatarPack;
 
 /** Screen with options for logging in
  * to social center, creating profile.
@@ -40,6 +42,9 @@ public class LogInScreen extends Screen {
 	private Popup logInPopup;
 	private Popup createProfilePopup;
 	private ResourceBundle socialTextProps;
+	private ResourceBundle defaultAvResources;
+	private DefaultAvatarPack avPack;
+	private ChoiceBox<String> defaultAvChoices;
 	
 	//Getters & Setters
 	
@@ -47,6 +52,7 @@ public class LogInScreen extends Screen {
 	public LogInScreen(LogInScreenController controller, double width, double height){
 		super(width, height);
 		initalizeRelevantResourceFiles();
+		initializeDefaultAvatarPack();
 		this.controller = controller;
 		configureButtons(width, height);
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
@@ -56,8 +62,14 @@ public class LogInScreen extends Screen {
 	
 	private void initalizeRelevantResourceFiles(){
 		super.initializeRelevantResourceFiles();
-		socialTextProps = ResourceBundle.getBundle("resources.socialCenterProperties.socialButtons");
-
+		socialTextProps = ResourceBundle
+				.getBundle("resources.socialCenterProperties.socialButtons");
+		defaultAvResources = ResourceBundle
+				.getBundle("resources.socialCenterProperties.defaultAvatars");
+	}
+	
+	private void initializeDefaultAvatarPack(){
+		avPack = new DefaultAvatarPack(defaultAvResources);
 	}
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
@@ -185,12 +197,14 @@ public class LogInScreen extends Screen {
 	     TextField imageURL = new TextField();
 	     imageURL.setPromptText("Enter profile image URL");
 	     grid.add(imageURL, 2, 5);
+	     defaultAvChoices = avPack.getDefaultAvChoices();
+	     grid.add(defaultAvChoices, 2, 6);
 	     HBox popUpHBox = new HBox(100);
-	     grid.add(popUpHBox, 2, 6);
+	     grid.add(popUpHBox, 2, 7);
 	     Button ok = new Button("create profile");
 	     Button cancel = new Button("cancel");
 	     popUpHBox.getChildren().addAll(cancel, ok);
-	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, newUserName, newPassWord, reNewPassWord, imageURL));
+	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, newUserName, newPassWord, reNewPassWord, imageURL, defaultAvChoices.getSelectionModel().getSelectedItem()));
 	     cancel.setOnAction(e -> createProfilePopup.hide());
 	     return grid;
 		
