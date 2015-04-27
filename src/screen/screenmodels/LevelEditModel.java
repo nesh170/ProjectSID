@@ -18,8 +18,6 @@ import java.util.Set;
 
 //import javax.media.jai.IntegerSequence;
 
-import com.sun.org.apache.xml.internal.security.Init;
-
 import data.DataHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
