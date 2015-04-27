@@ -3,6 +3,7 @@ package player;
 import gameEngine.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -78,6 +79,16 @@ public class HUD {
 		for (Entry<String, Component> entry : myComponentMap.entrySet()) {
 			addItem(entry.getKey(), entry.getValue());
 		}
+	}
+
+	public void updateHUDValues(List<Component> defaultHUDComponents) {
+		myComponentMap = new HashMap<String, Component>();
+		for (Component c : defaultHUDComponents) {
+			if (c != null) {
+				myComponentMap.put(c.getHudName(), c);
+			}
+		}
+		updateHUDBox();
 	}
 	
 }

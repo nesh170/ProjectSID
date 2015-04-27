@@ -46,10 +46,10 @@ public class PlayerViewController implements GamePlayerInterface {
 	public final static double UPDATE_RATE = 120;
 	public final static int PORT_NUMBER = 60910;
 	public static final String NETWORK_BROKE = "NETWORK BROKE";
-	
-    private static final String NETWORK = "Network";
-    private static final String IPQUERY = "What is your IP address";
-    
+
+	private static final String NETWORK = "Network";
+	private static final String IPQUERY = "What is your IP address";
+
 	private static final int POPUP_WINDOW_SIZE = 250;
 	private static final String CONNECT_SERVER_STRING = "Connecting to server...";
 	private static final String SERVER_CONNECTED_STRING = "Connected.";
@@ -107,13 +107,14 @@ public class PlayerViewController implements GamePlayerInterface {
 	private void update() {
 		double[] cameraVals = myEngine.update();
 		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
+		myView.updateHUD(myEngine.getDefaultHUDComponents());
 	}
 
 	private void display() {
 		System.out.println("playerViewController.display");
 		myGameGroup = myEngine.render();
 		myView.display(myGameGroup);
-		myCamera.focus();               
+		myCamera.focus();
 	}
 
 	private void setupAnimation() {
@@ -173,7 +174,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			e.printStackTrace();
 		}
 
-		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 	}
 
 	private void chooseGame(Stage gameChooser) {
@@ -244,7 +245,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setBrightness(ColorAdjust ca) {
 		myGameGroup.setEffect(ca);
 	}
-	
+
 	public List<String> getSpriteTagList() {
 		return myEngine.getSpriteTagList();
 	}
@@ -304,26 +305,24 @@ public class PlayerViewController implements GamePlayerInterface {
 			myTimeline.play();
 			sendClientLevels();
 			receiveFromClient();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			myErrorHandler.displayError(NETWORK_BROKE);
 		}
 	}
 
-	public void setErrorHandler (ErrorHandler errorHandler) {
+	public void setErrorHandler(ErrorHandler errorHandler) {
 		myErrorHandler = errorHandler;
 	}
 
-	private void sendClientLevels(){
+	private void sendClientLevels() {
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
-			protected Void call () {
+			protected Void call() {
 				while (true) {
 					try {
 						myNetwork.sendStringToClient(getCurrentLevelinXML());
 						Thread.sleep(500);
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
@@ -335,19 +334,21 @@ public class PlayerViewController implements GamePlayerInterface {
 		th.start();
 	}
 
-	private void receiveFromClient(){
+	private void receiveFromClient() {
 		Task<Void> taskToReceive = new Task<Void>() {
 
 			@Override
-			protected Void call () throws Exception {
-				while(true){
-					try{
+			protected Void call() throws Exception {
+				while (true) {
+					try {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
-						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
-						handleKeyEvent(keyString.get(0),keyString.get(1), INT.SECOND_PLAYER); //Add code to make another player play
-					}
-					catch(Exception e){
+						List<String> keyString = (ArrayList<String>) DataHandler
+								.fromXMLString(keyControl);
+						handleKeyEvent(keyString.get(0), keyString.get(1),
+								INT.SECOND_PLAYER); // Add code to make another
+													// player play
+					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
@@ -359,53 +360,53 @@ public class PlayerViewController implements GamePlayerInterface {
 		serverReceiveThread.start();
 	}
 
-	public void startClient () {
+	public void startClient() {
 		try {
 			myTimeline.stop();
-//			myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
-//			myView.changePopUpText(SERVER_CONNECTED_STRING);
-//			Thread.sleep(2000);
-//			myView.closePopUp();
-			myNetwork.setUpClient(DialogUtil.setUpDialog(NETWORK, IPQUERY),PORT_NUMBER);
+			// myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
+			// myView.changePopUpText(SERVER_CONNECTED_STRING);
+			// Thread.sleep(2000);
+			// myView.closePopUp();
+			myNetwork.setUpClient(DialogUtil.setUpDialog(NETWORK, IPQUERY),
+					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
 			receiveLevels();
 			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
 			Camera camera = new Camera(myView.getRoot());
 			KeyFrame displayFrame = new KeyFrame(
-					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel, renderer, camera));
+					Duration.millis(1000 / NETWORK_RATE), e -> display(
+							myNetworkLevel, renderer, camera));
 			Timeline networkTimeline = new Timeline();
 			networkTimeline.setCycleCount(Animation.INDEFINITE);
 			networkTimeline.getKeyFrames().add(displayFrame);
 			networkTimeline.play();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Can't start Client");
 		}
 	}
 
-	private void sendEvent (KeyEvent key) {
+	private void sendEvent(KeyEvent key) {
 		List<String> keyData = new ArrayList<>();
 		keyData.add(key.getEventType().getName());
 		keyData.add(key.getCode().getName());
 		try {
 			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			myErrorHandler.displayError(NETWORK_BROKE);
 		}
 	}
 
-	private void receiveLevels(){
+	private void receiveLevels() {
 		Task<Void> recvTask = new Task<Void>() {
 			@Override
-			protected Void call () {
+			protected Void call() {
 				while (true) {
 					try {
 						String levelString = myNetwork.getStringFromServer();
-						myNetworkLevel =(Level) DataHandler.fromXMLString(levelString);
-					}
-					catch (Exception e) {
+						myNetworkLevel = (Level) DataHandler
+								.fromXMLString(levelString);
+					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
@@ -419,8 +420,8 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	}
 
-	private void display(Level level, LevelView renderer, Camera camera){
-		if(level==null){
+	private void display(Level level, LevelView renderer, Camera camera) {
+		if (level == null) {
 			return;
 		}
 		renderer.setLevel(level);
