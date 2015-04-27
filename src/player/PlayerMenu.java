@@ -1,14 +1,13 @@
 package player;
 
 import gameEngine.actions.GroovyAction;
-import java.util.ArrayList;
-import java.util.List;
-import sprite.Sprite;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import sprite.Sprite;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,15 +20,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.Dialog;
 
-public class PlayerMenu extends MenuBar{
+public class PlayerMenu{
 
-
+	private MenuBar myMenu;
+	
 	public PlayerMenu(PlayerViewController pvc) {
+		myMenu = new MenuBar();
 		createPlayerMenu(pvc);
 	}
 
+	//Allows PlayerMenu to be initialized before PlayerViewController is set up
+	public PlayerMenu(MenuBar bar) {
+		myMenu = bar;
+	}
+	
     public void createPlayerMenu (PlayerViewController view) {
         List<Method> methodList =
                 Stream.of(PlayerMenu.class.getDeclaredMethods())
@@ -38,7 +43,7 @@ public class PlayerMenu extends MenuBar{
         Collections.sort(methodList, (method1, method2) -> ((Integer) ((AddMenuItem) method1
                 .getAnnotation(AddMenuItem.class)).order()).compareTo(((AddMenuItem) method2
                 .getAnnotation(AddMenuItem.class)).order())); //This method sorts the object based on the order given by the annotations
-        methodList.forEach(method -> getMenus().add(handleMenuAddition(method, view)));
+        methodList.forEach(method -> myMenu.getMenus().add(handleMenuAddition(method, view)));
     }
 
     private Menu handleMenuAddition (Method method, PlayerViewController view) {
@@ -70,7 +75,6 @@ public class PlayerMenu extends MenuBar{
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
 			controller.play();
-			;
 		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
@@ -86,6 +90,17 @@ public class PlayerMenu extends MenuBar{
 	}
 
 	@AddMenuItem(order = 1)
+	private Menu buildPreferencesMenu(PlayerViewController view) {
+		Menu prefMenu = new Menu("Preferences");
+
+		MenuItem prefItem = makeMenuItem("Set Preferences");
+		prefItem.setOnAction(event -> {
+			//view.stopView();
+		});
+		return prefMenu;
+	}
+	
+	@AddMenuItem(order = 2)
 	private Menu buildGamesMenu(PlayerViewController view) {
 		Menu gamesMenu = new Menu("Games");
 		MenuItem marioItem = new MenuItem("Mario");
@@ -99,7 +114,7 @@ public class PlayerMenu extends MenuBar{
 		return gamesMenu;
 	}
 
-	@AddMenuItem(order = 2)
+	@AddMenuItem(order = 3)
 	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
@@ -108,9 +123,8 @@ public class PlayerMenu extends MenuBar{
 		helpMenu.getItems().addAll(tutorialItem);
 		return helpMenu;
 	}
-	
 
-	@AddMenuItem(order = 3)
+	@AddMenuItem(order = 4)
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
@@ -131,7 +145,7 @@ public class PlayerMenu extends MenuBar{
 	    Menu groovyMenu = new Menu("Groovy");
 	    MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
 	    GroovyMenu actionMenu =
-	            new GroovyActionMenu(new GroovyAction(new Sprite(),0.0, KeyCode.R));
+	            new GroovyActionMenu(new GroovyAction(new Sprite(), 0.0, KeyCode.R));
 	    groovyActionItem
 	    .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
 	                                                       (spriteTag, groovyAction) -> view
@@ -142,41 +156,39 @@ public class PlayerMenu extends MenuBar{
 	}
 
 	@AddMenuItem(order = 5)
-	private Menu buildNetworksMenu(PlayerViewController view) {
-		Menu networksMenu = new Menu("Multiplayer");
-		MenuItem hostItem = new MenuItem("Host Game");
-		MenuItem joinItem = new MenuItem("Join Game");
-		
-		hostItem.setOnAction(event -> {
-//			Dialog<String> dialog = new Dialog<>();
-//			dialog.setContentText("You opened port 10000");
-//			dialog.showAndWait();
-			view.startServer();
-			
-		});
-		
-		joinItem.setOnAction(event -> {
-//			Dialog<String> dialog = new Dialog<>();
-//			dialog.setContentText("You joined port 10000");
-//			dialog.showAndWait();
-			view.startClient();
-		});
-		
-		networksMenu.getItems().addAll(hostItem, joinItem);
-		return networksMenu;
+	private Menu buildNetworksMenu (PlayerViewController view) {
+	    Menu networksMenu = new Menu("Multiplayer");
+	    MenuItem hostItem = new MenuItem("Host Game");
+	    MenuItem joinItem = new MenuItem("Join Game");
+
+	    hostItem.setOnAction(event -> {
+	        view.startServer();
+
+	    });
+
+	    joinItem.setOnAction(event -> {
+	        view.startClient();
+	    });
+
+	    networksMenu.getItems().addAll(hostItem, joinItem);
+	    return networksMenu;
 	}
 
-	private Stage buildGameChooser() {
-		Stage gameChooser = new Stage();
-		gameChooser.initModality(Modality.APPLICATION_MODAL);
-		Button mario = new Button("Mario");
-		mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
-		VBox vbox = new VBox(50);
-		vbox.setAlignment(Pos.TOP_CENTER);
-		vbox.getChildren().addAll(new Text("Your Games"), mario);
-		Scene allGames = new Scene(vbox, 300, 200);
-		gameChooser.setScene(allGames);
-		return gameChooser;
+	protected MenuBar getBar() {
+		return myMenu;
 	}
+	
+//	private Stage buildGameChooser() {
+//		Stage gameChooser = new Stage();
+//		gameChooser.initModality(Modality.APPLICATION_MODAL);
+//		Button mario = new Button("Mario");
+//		mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
+//		VBox vbox = new VBox(50);
+//		vbox.setAlignment(Pos.TOP_CENTER);
+//		vbox.getChildren().addAll(new Text("Your Games"), mario);
+//		Scene allGames = new Scene(vbox, 300, 200);
+//		gameChooser.setScene(allGames);
+//		return gameChooser;
+//	}
 
 }

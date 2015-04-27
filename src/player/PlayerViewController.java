@@ -63,7 +63,7 @@ public class PlayerViewController implements GamePlayerInterface {
         private Camera myCamera;
 
         private PlayerView myView;
-        private Network myNetwork = new Network();
+        private Network myNetwork;
         
         private Level myNetworkLevel;
         private ErrorHandler myErrorHandler;
@@ -86,6 +86,7 @@ public class PlayerViewController implements GamePlayerInterface {
                 myView = view;
                 myCamera = new Camera(myView.getRoot());
                 loadNewChooser();
+                myNetwork = new Network();
         }
 
         public void play() {
@@ -108,6 +109,7 @@ public class PlayerViewController implements GamePlayerInterface {
         }
 
         private void display() {
+        		System.out.println("playerViewController.display");
                 myGameGroup = myEngine.render();
                 myView.display(myGameGroup);
                 myCamera.focus();               
@@ -119,6 +121,7 @@ public class PlayerViewController implements GamePlayerInterface {
         }
 
         private void setupAnimation() {
+        		System.out.println("pvc.setUpAnimation");
                 myTimeline = new Timeline();
                 myTimeline.setCycleCount(Animation.INDEFINITE);
                 KeyFrame updateFrame = new KeyFrame(

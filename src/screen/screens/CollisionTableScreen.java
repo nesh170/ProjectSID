@@ -60,10 +60,7 @@ import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
 import sprite.Sprite;
 
-/**
- * NOTE: STILL REFACTORING
- * DO NOT TOUCH YET
- */
+
 
 /**
  * 
