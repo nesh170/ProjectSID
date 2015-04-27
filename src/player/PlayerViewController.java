@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import resources.constants.INT;
 import util.DialogUtil;
@@ -302,7 +303,27 @@ public class PlayerViewController implements GamePlayerInterface {
 		return null;
 	}
 
-	public void loadState() {
+	public void loadState()
+	{	
+		pauseExecution();
+		List<File> states;
+		
+		try {
+			states = DataHandler.getDirsFromDir(myGameFolder);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File", "Error in loading save file.");
+			resumeExecution();
+			return;
+		}
+		
+		if (states == null || states.size() == 0) {
+			DialogUtil.displayMessage("Load File", "No save states available to load.");
+			resumeExecution();
+			return;
+		}
+		
+		List<String> stateNames = states.stream().map(file -> file.getName()).collect(Collectors.toList());
+		
 		
 	}
 	
@@ -313,8 +334,9 @@ public class PlayerViewController implements GamePlayerInterface {
 			saveAs();
 		}
 		else {
+			pauseExecution();
 			try {
-				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toURI().toString());
+				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toString());
 			} catch (IOException e) {
 				DialogUtil.displayMessage("Save File", "Error in creating save file.");
 			}
