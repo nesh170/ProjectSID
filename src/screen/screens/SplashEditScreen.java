@@ -1,11 +1,10 @@
 package screen.screens;
 
 import game.Game;
+import gameEngine.actions.KillAction;
 
 import java.io.File;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -16,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -37,33 +37,28 @@ import sprite.Sprite;
 /**
 /* Screen to create a splash screen
  * 
- * @author Kyle
+ * @author Kyle Milden
  *
  */
 public class SplashEditScreen extends LevelPlatformCapableScreen {
 	
-	//TODO: Trash Capabilities
-	//TODO: Fix Moving after Resize
-	//TODO: Be Able to Add Fonts to Text
-	//TODO: Animation Stuff
-
-	// Static variables
-
-
-	// Instance variables
-	private SplashEditScreenController controller;
-	private SplashEditModel splashEditModel;
 	private double width;
 	private double height;
-	private String tag;
 	private int counter;
 	private Game game;
+	private SplashEditScreenController controller;
+	private SplashEditModel splashEditModel;
+	private String tag;
 
-	// Getters & Setters
-
-
-	// Constructor & Helpers
-
+	/**
+	 * This is the constructor to create a Splash Edit Screen
+	 * 
+	 * @param parent
+	 * @param game
+	 * @param width
+	 * @param height
+	 * @param splashScreen
+	 */
 	public SplashEditScreen(SplashEditScreenController parent, Game game, double width, double height, SplashScreen splashScreen) {
 		super(width, height);
 		
@@ -197,7 +192,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private ComboBox<String> createFontPicker() {
-		
 		String[] fonts = new String[]{STRING.SPLASH_EDIT_SCREEN.APPLE_CHANCERY, STRING.SPLASH_EDIT_SCREEN.ARIAL, 
 				STRING.SPLASH_EDIT_SCREEN.CENTURY_GOTHIC, STRING.SPLASH_EDIT_SCREEN.MARKER_FELT,
 				STRING.SPLASH_EDIT_SCREEN.MONOTYPE_CORSIVA, STRING.SPLASH_EDIT_SCREEN.TIMES, STRING.SPLASH_EDIT_SCREEN.VERDANA};
@@ -220,7 +214,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Button makeSaveButton() {
 		Button save = new Button(STRING.SPLASH_EDIT_SCREEN.SAVE);
 		setSmallButtonSize(save);
-		save.setOnMouseClicked(e -> saveSplashScreen());	
+		save.setOnMouseClicked(e -> saveSplashScreen());
 		
 		return save;
 	}
@@ -261,9 +255,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		return image;	
 	}
 	
-	public void addImage() {
+	private void addImage() {
 		try {		
-			Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);		
+			Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
 			ImageCursor imageCursor = new ImageCursor(image);
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
@@ -287,7 +281,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		textField.clear();
 	}
 
-	public void addBackgroundImage() {
+	private void addBackgroundImage() {
 		try {
 			Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
@@ -297,7 +291,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		}
 	}
 
-	public void addText(TextField textField, Color color, ComboBox fontPicker) {
+	private void addText(TextField textField, Color color, ComboBox fontPicker) {
 		tag = STRING.SPLASH_EDIT_SCREEN.TAG_TEXT;
 		splashEditModel.createText(textField.getText());
 		splashEditModel.colorText(color);
@@ -312,13 +306,20 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		counter++;		
 	}
 
-	public void addAnimation() {
+	private void addAnimation() {
 		//Not Being Implemented
 	}
 	
-	public void saveSplashScreen() {	
+	private void saveSplashScreen() {
+		splashEditModel.createImageView(null);
+		splashEditModel.placeImageViewOffScreen();
+		splashEditModel.addImageView();
+		Sprite sprite = new Sprite(new Point2D(INT.SPLASH_EDIT_OFFSCREEN, INT.SPLASH_EDIT_OFFSCREEN));
+		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
+		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 		splashEditModel.saveSplashScreen();
+
 	}
 
 	private void trashSplashScreen() {		
@@ -341,7 +342,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE)) {
 			this.getChildren().remove(splashEditModel.getImageView());
 			splashEditModel.removeImageViewFromImageViewArray();
-			splashEditModel.selectImage(0, counter);
+			if(!splashEditModel.getImageViewArray().isEmpty()) {
+				splashEditModel.selectImage(0, counter);
+			}
 		}
 		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT)) {
 			this.getChildren().remove(splashEditModel.getText());
@@ -353,7 +356,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		comboBox.setVisible(false);
 	}
 
-	public void backSplashScreen() {			
+	private void backSplashScreen() {			
 		controller.returnToGameEditScreen();		
 	}
 	
@@ -362,7 +365,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			splashEditModel.addSpriteImageToSpriteList(new Sprite(new Point2D(e.getX(), e.getY())));
 			getParent().setCursor(Cursor.DEFAULT);		
 			splashEditModel.getImageView().setOnMousePressed(f -> splashEditModel.imageViewMove(f));		
-			splashEditModel.placeImageViewAtXY(e);
+			splashEditModel.placeImageView(e);
 			this.getChildren().remove(splashEditModel.getImageView());
 			this.getChildren().add(splashEditModel.getImageView());	
 		}
@@ -387,5 +390,5 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private void setSmallButtonSize(Button button) {		
 		button.setMinSize(INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_WIDTH, INT.SPLASH_EDIT_SCREEN_SMALL_BUTTON_HEIGHT);	
 	}
-
+	
 }

@@ -60,7 +60,7 @@ public class Level extends LevelPlatform {
 	}	
 	
 	public void addPlayerSprite(Sprite player){
-	    playerSpriteList.add(player);
+	    playerSpriteList.add(0, player);
 	}
 
 	public String backgroundPath() {

@@ -47,6 +47,13 @@ public class PlayerViewController implements GamePlayerInterface {
 	public final static double UPDATE_RATE = 120;
 	public final static int PORT_NUMBER = 60910;
 	public static final String NETWORK_BROKE = "NETWORK BROKE";
+	
+    private static final String NETWORK = "Network";
+    private static final String IPQUERY = "What is your IP address";
+    
+	private static final int POPUP_WINDOW_SIZE = 250;
+	private static final String CONNECT_SERVER_STRING = "Connecting to server...";
+	private static final String SERVER_CONNECTED_STRING = "Connected.";
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
@@ -68,29 +75,30 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Camera myCamera;
 
 	private PlayerView myView;
-	private Network myNetwork = new Network();
+	private Network myNetwork;
 
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
 
-	//	public PlayerViewController(ScrollPane pane, HUD gameHUD) {
-	//		myGameRoot = pane;
-	//		myCamera = new Camera(pane);
-	//		myHUD = gameHUD;
-	//		loadNewChooser();
-	//	}
+	//      public PlayerViewController(ScrollPane pane, HUD gameHUD) {
+	//              myGameRoot = pane;
+	//              myCamera = new Camera(pane);
+	//              myHUD = gameHUD;
+	//              loadNewChooser();
+	//      }
 	//
-	//	public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
-	//		myGameRoot = pane;
-	//		myCamera = new Camera(pane);
-	//		myHUD = gameHUD;
-	//		selectGame(game);
-	//	}
+	//      public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
+	//              myGameRoot = pane;
+	//              myCamera = new Camera(pane);
+	//              myHUD = gameHUD;
+	//              selectGame(game);
+	//      }
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myCamera = new Camera(myView.getRoot());
 		loadNewChooser();
+		myNetwork = new Network();
 	}
 
 	public void play() {
@@ -113,9 +121,10 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	private void display() {
+		System.out.println("playerViewController.display");
 		myGameGroup = myEngine.render();
 		myView.display(myGameGroup);
-		myCamera.focus();		
+		myCamera.focus();               
 	}
 
 	public void removePause() {
@@ -124,6 +133,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	private void setupAnimation() {
+		System.out.println("pvc.setUpAnimation");
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		KeyFrame updateFrame = new KeyFrame(
@@ -170,7 +180,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		myEngine = new GameEngine(myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
 	}
 
 	private void chooseGame(Stage gameChooser) {
@@ -185,7 +195,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void selectGame(Game game) {
 		myGame = game;
 		myGameLevels = game.levels();
-		myEngine = new GameEngine(myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
 		setupAnimation();
 		play();
 	}
@@ -389,7 +399,11 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void startClient () {
 		try {
 			myTimeline.stop();
-			myNetwork.setUpClient(DialogUtil.setUpDialog(),PORT_NUMBER);
+//			myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
+//			myView.changePopUpText(SERVER_CONNECTED_STRING);
+//			Thread.sleep(2000);
+//			myView.closePopUp();
+			myNetwork.setUpClient(DialogUtil.setUpDialog(NETWORK, IPQUERY),PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
 			receiveLevels();
@@ -440,7 +454,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		th.setDaemon(true);
 		th.start();
 
-
 	}
 
 	private void display(Level level, LevelView renderer, Camera camera){
@@ -452,7 +465,5 @@ public class PlayerViewController implements GamePlayerInterface {
 		double[] coordinates = level.getNewCameraLocations();
 		camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 	}
-
-
 
 }

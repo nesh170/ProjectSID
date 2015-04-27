@@ -166,6 +166,8 @@ public abstract class Screen extends BorderPane {
 		return menuBarWrapper;
 
 	}
+	
+	public void rerender(){}
 
 	protected abstract void addMenuItemsToMenuBar(MenuBar menuBar);
 
