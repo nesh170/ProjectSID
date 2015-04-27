@@ -41,7 +41,7 @@ public class LogInScreen extends Screen {
 	private LogInScreenController controller;
 	private Popup logInPopup;
 	private Popup createProfilePopup;
-	private ResourceBundle socialTextProps;
+	private ResourceBundle socialButtons;
 	private ResourceBundle defaultAvResources;
 	private DefaultAvatarPack avPack;
 	private ChoiceBox<String> defaultAvChoices;
@@ -62,7 +62,7 @@ public class LogInScreen extends Screen {
 	
 	private void initalizeRelevantResourceFiles(){
 		super.initializeRelevantResourceFiles();
-		socialTextProps = ResourceBundle
+		socialButtons = ResourceBundle
 				.getBundle("resources.socialCenterProperties.socialButtons");
 		defaultAvResources = ResourceBundle
 				.getBundle("resources.socialCenterProperties.defaultAvatars");
@@ -166,17 +166,17 @@ public class LogInScreen extends Screen {
 		
 		 GridPane grid = makeLogInGridPane();
 	     TextField userNameInput = new TextField();
-	     userNameInput.setPromptText("Enter User Name: ");
+	     userNameInput.setPromptText(socialButtons.getString("UserPrompt"));
 	     grid.add(userNameInput, 2, 2 );
 	     
 	     PasswordField passwordInput = new PasswordField();
-	     passwordInput.setPromptText("Enter Password");
+	     passwordInput.setPromptText(socialButtons.getString("PasswordPrompt"));
 	     grid.add(passwordInput, 2, 3 );
 	     
 	     HBox popUpHBox = new HBox(100);
 	     grid.add(popUpHBox, 2, 5);
-	     Button ok = new Button("log in");
-	     Button cancel = new Button("cancel");
+	     Button ok = new Button(socialButtons.getString("LogInButton"));
+	     Button cancel = new Button(socialButtons.getString("CancelButton"));
 	     popUpHBox.getChildren().addAll(cancel, ok);
 	     ok.setOnAction(e -> controller.logIn(logInPopup, userNameInput, passwordInput));
 	     cancel.setOnAction(e -> logInPopup.hide());
@@ -190,19 +190,19 @@ public class LogInScreen extends Screen {
 		 GridPane grid = makeCreateProfileGridPane();
 		 
 	     TextField newUserName = new TextField();
-	     newUserName.setPromptText("Enter User Name: ");
+	     newUserName.setPromptText(socialButtons.getString("UserPrompt"));
 	     grid.add(newUserName, 2, 2 );
 	     
 	     PasswordField newPassWord = new PasswordField();
-	     newPassWord.setPromptText("Enter Password");
+	     newPassWord.setPromptText(socialButtons.getString("PasswordPrompt"));
 	     grid.add(newPassWord, 2, 3 );
 	     
 	     PasswordField reNewPassWord = new PasswordField();
-	     reNewPassWord.setPromptText("Re-Enter Password");
+	     reNewPassWord.setPromptText(socialButtons.getString("RePasswordPrompt"));
 	     grid.add(reNewPassWord, 2, 4);
 	     
 	     TextField imageURL = new TextField();
-	     imageURL.setPromptText("Enter profile image URL");
+	     imageURL.setPromptText(socialButtons.getString("URLPrompt"));
 	     grid.add(imageURL, 2, 5);
 	     
 	     defaultAvChoices = avPack.getDefaultAvChoices();
@@ -210,10 +210,15 @@ public class LogInScreen extends Screen {
 	     
 	     HBox popUpHBox = new HBox(100);
 	     grid.add(popUpHBox, 2, 7);
-	     Button ok = new Button("create profile");
-	     Button cancel = new Button("cancel");
+	     Button ok = new Button(socialButtons.getString("CreateProfileButton"));
+	     Button cancel = new Button(socialButtons.getString("CancelButton"));
 	     popUpHBox.getChildren().addAll(cancel, ok);
-	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, newUserName, newPassWord, reNewPassWord, imageURL, defaultAvChoices.getSelectionModel().getSelectedItem()));
+	     
+	
+	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, 
+	    		 newUserName, newPassWord, reNewPassWord, imageURL, 
+	    		 avPack.getAvatar(defaultAvChoices.getSelectionModel()
+	    				 .getSelectedItem()).getURL()));
 	     cancel.setOnAction(e -> createProfilePopup.hide());
 	     
 	     return grid;
@@ -227,9 +232,9 @@ public class LogInScreen extends Screen {
 	     grid.setHgap(10);
 	     grid.setVgap(20);	
 	     grid.addRow(0, new Text(""));
-	     Label name = new Label( socialTextProps.getString("User"));
+	     Label name = new Label( socialButtons.getString("User"));
 	     grid.add(name, 0, 2, 2, 1);
-	     Label password = new Label(socialTextProps.getString("Password"));
+	     Label password = new Label(socialButtons.getString("Password"));
 	     grid.add(password, 0, 3, 2, 1);
 	     return grid;
 	     
@@ -241,11 +246,11 @@ public class LogInScreen extends Screen {
 	     grid.setHgap(10);
 	     grid.setVgap(20);	
 	     grid.addRow(0, new Text(""));
-	     Label name = new Label( socialTextProps.getString("User"));
+	     Label name = new Label( socialButtons.getString("User"));
 	     grid.add(name, 0, 2, 2, 1);
-	     Label password = new Label(socialTextProps.getString("Password"));
+	     Label password = new Label(socialButtons.getString("Password"));
 	     grid.add(password, 0, 3, 2, 1);
-	     Label reEnterPassword = new Label( socialTextProps.getString("rePassword"));
+	     Label reEnterPassword = new Label( socialButtons.getString("rePassword"));
 	     grid.add(reEnterPassword, 0, 4, 2, 1);
 	     return grid;
 	}

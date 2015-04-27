@@ -298,7 +298,7 @@ public class SocialCenterScreenController {
 		public void createProfile(Popup popup, TextField username,
 				PasswordField password, PasswordField rePassWord, TextField imageURL,
 				String defaultImageURL) {
-			String urlToUse = /*imageURL.getText(); == "") ? (defaultImageURL) : imageURL.getText();*/ defaultImageURL;
+			String urlToUse = (imageURL.getText().length() < 2) ? (defaultImageURL) : imageURL.getText();
 			User newUser = new User("", username.getText(), password.getText(), urlToUse);
 			parseHandle.saveUser(newUser);
 			createMainPageScreen(newUser);
