@@ -310,19 +310,15 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void saveAs() {
-		myTimeline.stop();
-		myEngine.pause(myView.getRoot());
-		myAudioController.pause();
-		Dialog<String> dialog = new TextInputDialog();
-		dialog.setTitle("Save Game");
-		dialog.setHeaderText("Name of folder");
-		Optional<String> result = dialog.showAndWait();
-		String entered = null;
-		if (result.isPresent()) {
-			entered = result.get();
-			File dir = new File(myGameFolder.getParent() + "/" + result);
-			dir.mkdir();
-		}
+		pauseExecution();
+		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
+		resumeExecution();
+		DialogUtil.display();
+//		if (result.isPresent()) {
+//			entered = result.get();
+//			File dir = new File(myGameFolder.getParent() + "/" + result);
+//			dir.mkdir();
+//		}
 	}
 
 	public String getCurrentLevelinXML() {
@@ -348,6 +344,18 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void setErrorHandler (ErrorHandler errorHandler) {
 		myErrorHandler = errorHandler;
+	}
+	
+	private void pauseExecution() {
+		myTimeline.stop();
+		myEngine.pause(myView.getRoot());
+		myAudioController.pause();
+	}
+	
+	private void resumeExecution() {
+		myTimeline.play();
+		myEngine.play(myView.getRoot());
+		myAudioController.play();
 	}
 
 	private void sendClientLevels(){
