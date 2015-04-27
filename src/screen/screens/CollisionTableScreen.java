@@ -216,10 +216,10 @@ public class CollisionTableScreen extends Screen{
 
 	/******* PRIVATE VARIABLES *******
 	 * 
-	 * myController 	 : 	CollisionTableScreenController 	   || Interface class specific to the Collision Table Screen
-	 * levelSpriteTags	 :	List<String>				       || List of String tags of sprites obtained from Level Edit Screen
-	 * collTable		 :	CollisionTable					   || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
-	 * tablesDisplay	 :	StackPane						   || StackPane used to display VBox and HBoxes of comboboxes 
+	 * myController 	 : 	CollisionTableScreenController 	   	   || Interface class specific to the Collision Table Screen
+	 * levelSpriteTags	 :	List<String>				           || List of String tags of sprites obtained from Level Edit Screen
+	 * collTable		 :	CollisionTable					       || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
+	 * tablesDisplay	 :	StackPane						       || StackPane used to display VBox and HBoxes of comboboxes 
 	 * collisionTableMap :	Map<String, Map<String, List<String>>> || Map of Tag 1 to Map of Tag 2 to Action components (direction, action, value...)
 	 * 
 	 * mapOfSpriteTypesToExistingSpriteStringNames : Map<String, ObservableList<String>>	|| Map obtained from Level Edit Screen
@@ -542,35 +542,6 @@ public class CollisionTableScreen extends Screen{
 	    }
 		return true;
 		
-	}
-	
-	private Action createActionFromString(String actionString)
-	{
-		//TODO: create separate class for String-> action (also used for spriteEditScreen
-		Action action = (Action) Class
-				.forName(classPathMap.get(selected))
-				.getConstructor(Sprite.class, Double.class,
-						KeyCode[].class)
-						.newInstance(editableSprite,
-								Double.parseDouble(actionValueText),
-								keylist);
-	//	return action;
-	}
-	
-	private void initializeClassPathMap() {
-
-		classPathMap = new HashMap<>();
-
-		actionResources.keySet().forEach(
-				e -> classPathMap.put(
-						languageResources.getString(e),
-						actionResources.getString(e)));
-
-		componentResources.keySet().forEach(
-				e -> classPathMap.put(
-						languageResources.getString(e),
-						componentResources.getString(e)));
-
 	}
 	
 	
