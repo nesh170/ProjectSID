@@ -222,17 +222,6 @@ public class SocialCenterScreenController {
 	private void createInitialScreens() {
 		
 		tabManager.setDefaultTab(createLogInScreen());
-		
-		
-		//USED FOR TEST GAMEEDITSCREEN
-		//createGameEditScreen(null);
-		
-		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
-		//createSplashEditScreen(null);
-		
-		//USED FOR TEST LEVELEDITSCREEN --> No parent gameeditscreen yet,
-		//so there will be no tab to return to, and there should be an error
-		//createLevelEditScreen(null);
 
 	}
 	
@@ -244,11 +233,6 @@ public class SocialCenterScreenController {
 	public void close() {
 		stage.close();
 	}
-
-	public File getFileUsingFileChooser(FileChooser fileChooser) {
-		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
-	}
-
 
 	private Tab createLogInScreen() {
 		

@@ -39,16 +39,7 @@ public class ParseHandler {
 		user.put("userName", toSave.getName());
 		user.put("password", toSave.getPass());
 		user.put("imagePath", toSave.getImagePath());
-		//ParseFile image = new ParseFile("img", toSave.getImagePath());
-		/*byte[] data;
-		try {
-			//data = image.getData();
-			//image.save();
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-		//user.put("image", image);
+		
 		try {
 			user.save();
 		} catch (ParseException e) {

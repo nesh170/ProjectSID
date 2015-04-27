@@ -3,6 +3,9 @@ package socCenter.profileScreen;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,6 +46,7 @@ import screen.Screen;
 import screen.controllers.SpriteEditScreenController;
 import screen.screenmodels.SpriteEditModel;
 import screen.screens.LevelEditScreen;
+import socCenter.Avatar;
 import socCenter.User;
 import socCenter.mainPage.MainPageScreen;
 import sprite.Sprite;
@@ -58,14 +62,14 @@ public class ProfileScreen extends Screen {
 
 	private TextField spriteNameField;
 	private TextField imageSizeField;
-	private ChoiceBox<String> tagChoicesHolder;
+	private Map<String, Avatar> defaultAvatars;
+	private ChoiceBox<String> defaultAvatarChoicesHolder;
 
 	private StackPane paneForImage;
 	private ListView<String> imageListPane;
 
-	private ResourceBundle actionResources;
-	private ResourceBundle componentResources;
-	private ResourceBundle behaviorLabels;
+	private ResourceBundle socialResources;
+
 	
 	private CheckBox goalCheck;
 	private TextField goToLevel;
@@ -86,7 +90,8 @@ public class ProfileScreen extends Screen {
 		this.mainPageScreen = mainPageScreen;
 		this.controller = parent;
 		this.isMyProfile = self;
-		
+
+		initializeDefaultAvatarsList();
 		initializeObservableLists();
 		initializeValueBoxListenersForLists();
 		initializeInformationListenersForLists();
@@ -96,6 +101,7 @@ public class ProfileScreen extends Screen {
 		createRightPane();
 		createCenterPane();
 		
+		avatarsForUse();
 		/*if (spriteToEdit != null) {
 			drawSpriteOnScreen(spriteToEdit);
 		}*/
@@ -103,8 +109,8 @@ public class ProfileScreen extends Screen {
 
 	}
 	
-	public void tagsForUse(Set<String> tags) {
-		tagChoicesHolder.setItems(FXCollections.observableArrayList(tags));
+	private void avatarsForUse() {
+		defaultAvatarChoicesHolder.setItems(FXCollections.observableArrayList(defaultAvatars.keySet()));
 	}
 
 	// All other instance methods
@@ -113,14 +119,20 @@ public class ProfileScreen extends Screen {
 	protected void initializeRelevantResourceFiles() {
 
 		super.initializeRelevantResourceFiles();
-		behaviorLabels = ResourceBundle
-				.getBundle("resources.spritePartProperties.behaviorlabels");
-		actionResources = ResourceBundle
-				.getBundle("resources.spritePartProperties.action");
-		componentResources = ResourceBundle
-				.getBundle("resources.spritePartProperties.component");
+		socialResources = ResourceBundle
+				.getBundle("resources.socialCenterProperties.defaultAvatars");
+	
 		// physicsResources =
 		// ResourceBundle.getBundle("resources.spritePartProperties.physics");
+	}
+	
+	private void initializeDefaultAvatarsList(){
+		defaultAvatars = new HashMap<String, Avatar>();
+		for(String key: socialResources.keySet()){
+			Avatar newAvy = new Avatar(key, socialResources.getString(key));
+			defaultAvatars.put(key, newAvy);
+		}
+		
 	}
 
 	private void initializeObservableLists() {
@@ -168,7 +180,7 @@ public class ProfileScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
 		Menu fileMenu = makeFileMenu(
-				e -> model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), false, 0), 
+				e -> model.saveSprite(spriteNameField.getText(), defaultAvatarChoicesHolder.getSelectionModel().getSelectedItem(), false, 0), 
 				e -> exit(),
 				e -> saveAndExit());
 
@@ -178,7 +190,7 @@ public class ProfileScreen extends Screen {
 
 	private void createLeftPane() {
 
-		Node nameAndTagPane = createNameAndTagPane();
+		Node nameAndTagPane = createNameAndImagePane();
 		Node imagePane = createAddImagePane();
 
 		VBox leftPane = new VBox();
@@ -211,7 +223,7 @@ public class ProfileScreen extends Screen {
 
 	}
 
-	private GridPane createNameAndTagPane() {
+	private GridPane createNameAndImagePane() {
 
 		GridPane nameAndTagPane = new GridPane();
 		VBox.setVgrow(nameAndTagPane, Priority.ALWAYS);
@@ -220,19 +232,17 @@ public class ProfileScreen extends Screen {
 		nameAndTagPane.setHgap(10);
 		nameAndTagPane.getStyleClass().add(STRING.CSS.PANE);
 
-		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ": " + profileUser.getName());
+		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ": ");
 
-		spriteNameField = new TextField();
-		spriteNameField.setPromptText(languageResources().getString(STRING.SPRITE_EDIT.SPRITE_PROMPT));
-
+		Text userName = new Text(profileUser.getName());
 		Text tagLabel = new Text(languageResources().getString("Tag") + ":");
-
-		tagChoicesHolder = new ChoiceBox<String>();
-
+		ImageView profilePic = new ImageView(profileUser.getImagePath());
+		
+	
 		nameAndTagPane.add(nameLabel, 0, 0);
-		nameAndTagPane.add(spriteNameField, 1, 0);
+		nameAndTagPane.add(userName, 1, 0);
 		nameAndTagPane.add(tagLabel, 0, 1);
-		nameAndTagPane.add(tagChoicesHolder, 1, 1);
+		nameAndTagPane.add(profilePic, 1, 1);
 
 		return nameAndTagPane;
 
@@ -240,6 +250,8 @@ public class ProfileScreen extends Screen {
 
 	private Pane createAddImagePane() {
 
+		defaultAvatarChoicesHolder = new ChoiceBox<String>();
+		
 		StackPane imagePane = new StackPane();
 		VBox.setVgrow(imagePane, Priority.ALWAYS);
 		imagePane.setAlignment(Pos.CENTER);
@@ -348,7 +360,7 @@ public class ProfileScreen extends Screen {
 	private void drawSpriteOnScreen(Sprite sprite) {
 
 		spriteNameField.setText(sprite.getName());
-		tagChoicesHolder.getSelectionModel().select(sprite.tag());
+		defaultAvatarChoicesHolder.getSelectionModel().select(sprite.tag());
 		sprite.actionList().forEach(model.getActionConsumer());
 		sprite.componentList().forEach(model.getComponentConsumer());
 		goalCheck.setSelected(sprite.getGoalToLevel() >= 0);
