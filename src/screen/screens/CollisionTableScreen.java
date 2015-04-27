@@ -17,49 +17,26 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.ImageCursor;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import levelPlatform.level.Level;
-import resources.ScreenButton;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
-import sprite.Sprite;
-
 
 
 /**
@@ -235,6 +212,17 @@ import sprite.Sprite;
  */
 public class CollisionTableScreen extends Screen{
 
+	/******* PRIVATE VARIABLES *******
+	 * 
+	 * myController 	 : 	CollisionTableScreenController 	   || Interface class specific to the Collision Table Screen
+	 * levelSpriteTags	 :	ArrayList<String>				   || List of String tags of sprites obtained from Level Edit Screen
+	 * collTable		 :	CollisionTable					   || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
+	 * tablesDisplay	 :	StackPane						   || StackPane used to display VBox and HBoxes of comboboxes 
+	 * collisionTableMap :	Map<SpritePair, ArrayList<String>> || Map of Tag 1, Tag 2 to Action components (direction, action, value...)
+	 * 
+	 * mapOfSpriteTypesToExistingSpriteStringNames : Map<String, ObservableList<String>>	|| Map obtained from Level Edit Screen
+	 * 
+	 */
 	private CollisionTableScreenController myController;
 	private ArrayList<String> levelSpriteTags;
 	private CollisionTable collTable; // TODO: how to get
@@ -246,6 +234,15 @@ public class CollisionTableScreen extends Screen{
 		super(width, height);
 	}
 	
+	/******* PRIVATE CLASS SPRITEPAIR *******
+	 * 
+	 * This inner private class SpritePair is used by the CollisionTableScreen 
+	 * to aid with putting the necessary parameters to Collision Table's 
+	 * addActionToMap(String s1, String s2, int dir, Action action) method
+	 * 
+	 * @author anika
+	 *
+	 */
 	private class SpritePair {
 		
 		private String myFirstSprite;
