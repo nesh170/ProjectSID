@@ -416,7 +416,6 @@ public class CollisionTableScreen extends Screen{
 		action.valueProperty().addListener(new ChangeListener<String>() {
 			public void changed(ObservableValue ov, String t, String t1) {                
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
-					//  if (t1.equals("Kill"))
 				{
 					text.setDisable(true);
 				}
@@ -517,7 +516,7 @@ public class CollisionTableScreen extends Screen{
 		
 		tile.setStyle(STRING.COLLISION_EDIT.BACKGROUND_STYLE);
 			
-		tile.getChildren().add(description);
+		tile.getChildren().add(titleBox);
 
 		for (int i = 0; i < INT.SAMPLE_DISPLAY_NUMBER; i++)
 		{		
