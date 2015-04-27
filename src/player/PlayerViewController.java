@@ -67,6 +67,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	private int myHealth;
 	private int myScore;
 	private Game myGame;
+	private String myGameName;
 
 	private File myGameFolder;
 	private List<Level> myGameLevels;
@@ -308,11 +309,12 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 		else {
 			try {
-				DataHandler.toXMLFile(myGame, myGame.name(), myGameFolder.toURI().toString());
+				DataHandler.toXMLFile(myGame, saveName, mySaveFolder.toURI().toString());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				DialogUtil.displayMessage("Save File", "Error in creating save file.");
 			}
+			resumeExecution();
+			return;
 		}
 	}
 
@@ -325,19 +327,18 @@ public class PlayerViewController implements GamePlayerInterface {
 			return;
 		}
 		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
-		System.out.println(myGameFolder.getAbsolutePath() + "/" + saveName);
 		if (!mySaveFolder.mkdir()) {
 			DialogUtil.displayMessage("Save File", "Error in creating save file.");
 			resumeExecution();
 			return;
 		}
-		
+		try {
+			DataHandler.toXMLFile(myGame, saveName, mySaveFolder.toURI().toString());
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+		}
 		resumeExecution();
-//		if (result.isPresent()) {
-//			entered = result.get();
-//			File dir = new File(myGameFolder.getParent() + "/" + result);
-//			dir.mkdir();
-//		}
+		return;
 	}
 
 	public String getCurrentLevelinXML() {

@@ -52,7 +52,7 @@ public class DataHandler {
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
-	
+
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -63,7 +63,7 @@ public class DataHandler {
 	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
-	
+
 	public static void saveFileToDir(File folder, File file) throws IOException {
 		FileWriter fWriter = new FileWriter(file);
 		fWriter.close();
@@ -82,6 +82,18 @@ public class DataHandler {
 		}
 	}
 
+	public static String getGameName(File folder) throws IOException {
+		List<File> gameFiles = (List<File>) Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.toString().endsWith(".xml"))
+				.collect(Collectors.toList());
+		if (gameFiles.size() != 1) {
+			System.out.println("NOT EXACTLY ONE .XML FILE");
+			return null;
+		} else {
+			return gameFiles.get(0).getName();
+		}
+	}
+
 	public static List<Image> getImagesFromDir(File folder) throws IOException {
 		return Arrays
 				.asList(folder.listFiles())
@@ -91,7 +103,7 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff")
 						|| file.toString().endsWith(".gif"))
-				.map(file -> fileToImage(file)).collect(Collectors.toList());
+						.map(file -> fileToImage(file)).collect(Collectors.toList());
 	}
 
 	public static List<Image> getImagesFromDir(File folder, double maxWidth,
@@ -104,8 +116,8 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff")
 						|| file.toString().endsWith(".gif"))
-				.map(file -> fileToImage(file, maxWidth, maxHeight, preserve))
-				.collect(Collectors.toList());
+						.map(file -> fileToImage(file, maxWidth, maxHeight, preserve))
+						.collect(Collectors.toList());
 	}
 
 	public static List<Level> getLevelsFromDir(File folder) throws IOException {
@@ -129,8 +141,8 @@ public class DataHandler {
 		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".flv")
 						|| file.toString().endsWith(".mp4"))
-				.map(file -> new Media(file.toURI().toString()))
-				.collect(Collectors.toList());
+						.map(file -> new Media(file.toURI().toString()))
+						.collect(Collectors.toList());
 
 		if (videoFiles.size() != 1) {
 			System.out.println("NOT EXACTLY ONE .flv or .mp4 FILE");
@@ -139,13 +151,13 @@ public class DataHandler {
 			return videoFiles.get(0);
 		}
 	}
-	
+
 	public static Media getAudioFromDir(File folder) {
 		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".mp3")
 						|| file.toString().endsWith(".m4a"))
-				.map(file -> new Media(file.toURI().toString()))
-				.collect(Collectors.toList());
+						.map(file -> new Media(file.toURI().toString()))
+						.collect(Collectors.toList());
 
 		if (videoFiles.size() != 1) {
 			System.out.println("NOT EXACTLY ONE .mp3 or .m4a FILE");
@@ -154,7 +166,7 @@ public class DataHandler {
 			return videoFiles.get(0);
 		}
 	}
-	
+
 	public static Image fileToImage(File file) {
 		return new Image(file.toURI().toString());
 	}
