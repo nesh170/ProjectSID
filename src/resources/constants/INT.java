@@ -49,6 +49,16 @@ public class INT {
 	public static final int ACTION = 3;
 	public static final int VALUE = 4;
 	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG.length();
+	public static final int ADD_ROW_BUTTON_OFFSET = 30;
+	
+	public static final int EACH_ROW_VBOX_SIZE = 800;
+	public static final int EACH_ROW_VBOX_OFFSET_Y = 50;
+	public static final int EACH_ROW_VBOX_OFFSET_X = 100;
+//	public static final int 
+//	public static final int
+//	public static final int
+//	public static final int
+	
 	
 	// Collision Map
 	
