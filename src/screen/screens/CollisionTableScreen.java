@@ -308,22 +308,20 @@ public class CollisionTableScreen extends Screen{
 		
 		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), 50);
 		
-//		ScreenButton addRowButton = new ScreenButton("Add2", STRING.BUTTONS.BUTTON_STYLE);
-//		addRowButton.setAlignment(Pos.BOTTOM_CENTER);
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		levelSP.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
 		verticalBox.getChildren().addAll(levelSP);
 		verticalBox.setVgrow(levelSP, Priority.ALWAYS);
        
-		addRowButton.setTranslateX(30);
+		addRowButton.setTranslateX(INT.ADD_ROW_BUTTON_OFFSET);
 		verticalBox.getChildren().add(addRowButton);
 			
 		
 		tablesDisplay.getChildren().add(verticalBox);
 	}
 
-	private ComboBox createComboBoxFromList(ArrayList<String> list, String id, String style, String promptText)
+	private ComboBox createComboBoxFromList(List<String> list, String id, String style, String promptText)
 	{
 		ObservableList<String> options = FXCollections.observableArrayList();
 		ComboBox comboBox = new ComboBox(options);
@@ -342,10 +340,10 @@ public class CollisionTableScreen extends Screen{
 	
 	private VBox addTableRow()
 	{
-		VBox collisionTable = new VBox(800);
+		VBox collisionTable = new VBox(INT.EACH_ROW_VBOX_SIZE);
 		collisionTable.setAlignment(Pos.CENTER);
-		collisionTable.setTranslateY(50);
-		collisionTable.setTranslateX(100);
+		collisionTable.setTranslateY(INT.EACH_ROW_VBOX_OFFSET_Y);
+		collisionTable.setTranslateX(INT.EACH_ROW_VBOX_OFFSET_X);
 		
 
 		GridPane collisionSet = new GridPane();

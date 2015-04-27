@@ -62,6 +62,11 @@ public class INT {
 	
 	// Collision Map
 	
+	// Key: List<String>
+	public static final int FIRST_SPRITE_INDEX = 0;
+	public static final int SECOND_SPRITE_INDEX = 1;
+	
+	// Value: List<String>
 	public static final int DIRECTION_INDEX = 0;
 	public static final int ACTION_INDEX = 1;
 	public static final int VALUE_INDEX = 2;
