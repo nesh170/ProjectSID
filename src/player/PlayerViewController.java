@@ -173,6 +173,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void initializeGameAttributes() {
 		try {
 			myGame = DataHandler.getGameFromDir(myGameFolder);
+			myGameName = DataHandler.getGameName(myGameFolder);
 			myGameLevels = myGame.levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
@@ -309,7 +310,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 		else {
 			try {
-				DataHandler.toXMLFile(myGame, saveName, mySaveFolder.toURI().toString());
+				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toURI().toString());
 			} catch (IOException e) {
 				DialogUtil.displayMessage("Save File", "Error in creating save file.");
 			}
@@ -328,17 +329,29 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
 		if (!mySaveFolder.mkdir()) {
-			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			DialogUtil.displayMessage("Save File", "Error in creating save folder.");
 			resumeExecution();
 			return;
 		}
 		try {
-			DataHandler.toXMLFile(myGame, saveName, mySaveFolder.toURI().toString());
+			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toURI().toString());
 		} catch (IOException e) {
-			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			System.out.println(myGameName);
+			System.out.println(mySaveFolder.toURI().toString());
+			e.printStackTrace();
+			return;
+			//DialogUtil.displayMessage("Save File", "Error in creating save file.");
 		}
 		resumeExecution();
 		return;
+	}
+	
+	private String removeXMLExt(String str) {
+		if (str.endsWith(".xml")) {
+			int index = str.indexOf(".xml");
+			return str.substring(0, index);
+		}
+		return str;
 	}
 
 	public String getCurrentLevelinXML() {
