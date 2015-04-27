@@ -14,6 +14,6 @@ import gameEngine.CollisionTable;
 public interface CollisionTableScreenController {
 
 	// returns to current level
-	public void returnToLevel(Map<List<String>, List<String>> collisionTable, Tab switchTo);
+	public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo);
 	
 }

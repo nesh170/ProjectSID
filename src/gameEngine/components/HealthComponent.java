@@ -9,6 +9,7 @@ import gameEngine.Component;
  * and methods for increasing/decreasing
  * 
  */
+@HUD(name = "Health")
 public class HealthComponent extends Component {
 	
 	private static final Double DEFAULT_STARTING_HP = 50.0;
@@ -25,6 +26,7 @@ public class HealthComponent extends Component {
 			myHP = myValue;
 		}
 		hasDeath = DEFAULT_DEATH;
+		myHUDName = "Health";
 	}
 	
 	//3 setters below will be used in UI when adding this behavior

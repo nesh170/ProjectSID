@@ -33,6 +33,12 @@
             <startRotation reference="../myRotation"/>
             <startDimensions reference="../myDimensions"/>
           </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -78,6 +84,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -104,6 +116,12 @@
             <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
             <startDimensions reference="../myDimensions"/>
           </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -149,6 +167,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -175,6 +199,12 @@
             <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
             <startDimensions reference="../myDimensions"/>
           </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -220,6 +250,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -265,6 +301,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -310,6 +352,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -355,6 +403,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -381,6 +435,12 @@
             <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
             <startDimensions reference="../myDimensions"/>
           </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -426,6 +486,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList>
@@ -439,9 +505,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>8.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.LeftMotionAction>
             <gameEngine.actions.RightMotionAction>
               <mySprite reference="../../.."/>
@@ -453,9 +516,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>8.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
               <velocity>8.0</velocity>
             </gameEngine.actions.RightMotionAction>
             <gameEngine.actions.UpMotionAction>
@@ -468,9 +528,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>-20.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
               <climbing>false</climbing>
             </gameEngine.actions.UpMotionAction>
             <gameEngine.actions.FallAction>
@@ -481,18 +538,12 @@
               </myKeyCode>
               <runsEveryFrame>true</runsEveryFrame>
               <value>50.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.FallAction>
-            <gameEngine.actions.NormalAction>
+            <gameEngine.actions.NormalActionY>
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
               <runsEveryFrame>false</runsEveryFrame>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
-            </gameEngine.actions.NormalAction>
+            </gameEngine.actions.NormalActionY>
             <gameEngine.actions.BounceAction>
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
@@ -503,9 +554,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>-20.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.BounceAction>
             <gameEngine.actions.BounceAction>
               <mySprite reference="../../.."/>
@@ -517,9 +565,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>-70.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.BounceAction>
             <gameEngine.actions.ShootAction>
               <mySprite reference="../../.."/>
@@ -530,10 +575,13 @@
                 </a>
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
+<<<<<<< HEAD
               <soundManager>
                 <mySoundMap/>
               </soundManager>
-              <myProjectileTemplate>
+=======
+>>>>>>> sl
+              <mySecondSprite>
                 <actionList/>
                 <componentList>
                   <gameEngine.components.ProjectileMotionComponent>
@@ -569,13 +617,20 @@
                   <startRotation reference="../../../../../../sprite.Sprite/transform/myRotation"/>
                   <startDimensions reference="../myDimensions"/>
                 </transform>
-              </myProjectileTemplate>
+                <isGoal>false</isGoal>
+                <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+                <isText>false</isText>
+>>>>>>> sl
+              </mySecondSprite>
             </gameEngine.actions.ShootAction>
           </actionList>
           <componentList>
             <gameEngine.components.HealthComponent>
               <mySprite reference="../../.."/>
               <isActive>true</isActive>
+              <myHP>50.0</myHP>
               <hasDeath>true</hasDeath>
             </gameEngine.components.HealthComponent>
             <gameEngine.components.VelocityComponent>
@@ -627,6 +682,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -672,6 +733,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -717,6 +784,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -762,6 +835,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -807,6 +886,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -852,6 +937,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -897,6 +988,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -942,6 +1039,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -987,6 +1090,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1032,6 +1141,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1077,6 +1192,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList>
@@ -1088,9 +1209,6 @@
               </myKeyCode>
               <runsEveryFrame>true</runsEveryFrame>
               <value>50.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.FallAction>
             <gameEngine.actions.BounceAction>
               <mySprite reference="../../.."/>
@@ -1102,9 +1220,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>-20.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.BounceAction>
             <gameEngine.actions.BounceAction>
               <mySprite reference="../../.."/>
@@ -1116,9 +1231,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>-70.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.BounceAction>
           </actionList>
           <componentList>
@@ -1171,6 +1283,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList>
@@ -1184,9 +1302,6 @@
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
               <value>0.0</value>
-              <soundManager>
-                <mySoundMap/>
-              </soundManager>
             </gameEngine.actions.KillAction>
           </actionList>
           <componentList/>
@@ -1231,6 +1346,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1276,6 +1397,12 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1321,24 +1448,34 @@
             <framesSinceLastUpdate>0</framesSinceLastUpdate>
             <currentImageIndex>0</currentImageIndex>
           </spriteImage>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
+          <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
       </sprites>
       <playerSpriteList>
         <sprite.Sprite reference="../../sprites/sprite.Sprite[12]"/>
       </playerSpriteList>
       <collisionTable>
-        <myTable>
+        <myTable/>
+        <myBigTable>
           <entry>
             <string>trampoline</string>
             <map>
               <entry>
                 <string>player</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
                   <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                  <list>
+                    <null/>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1347,39 +1484,107 @@
             <map>
               <entry>
                 <string>bullet</string>
-                <gameEngine.Action-array>
-                  <null/>
-                  <null/>
-                  <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                <list-array>
+                  <list>
+                    <null/>
+                  </list>
+                  <list>
+                    <null/>
+                  </list>
+                  <list>
+                    <null/>
+                  </list>
+                  <list>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
               <entry>
                 <string>enemyPlatform</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
-                  <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction"/>
+                  <list>
+                    <gameEngine.actions.BounceAction reference="../../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction"/>
+                  </list>
                   <null/>
-                </gameEngine.Action-array>
+                </list-array>
               </entry>
               <entry>
                 <string>player</string>
-                <gameEngine.Action-array>
-                  <null/>
-                  <null/>
-                  <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                <list-array>
+                  <list>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                  </list>
+                  <list>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                  </list>
+                  <list>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                  </list>
+                  <list>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
               <entry>
                 <string>superTrampoline</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
-                  <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction[2]"/>
+                  <list>
+                    <gameEngine.actions.BounceAction reference="../../../../../../../../sprites/sprite.Sprite[23]/actionList/gameEngine.actions.BounceAction[2]"/>
+                  </list>
                   <null/>
-                </gameEngine.Action-array>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1388,25 +1593,36 @@
             <map>
               <entry>
                 <string>enemy</string>
-                <gameEngine.Action-array>
-                  <gameEngine.actions.KillAction>
-                    <mySprite reference="../../../../../../../../sprites/sprite.Sprite[13]"/>
-                    <isActive>false</isActive>
-                    <myKeyCode class="java.util.Arrays$ArrayList">
-                      <a class="javafx.scene.input.KeyCode-array">
-                        <null/>
-                      </a>
-                    </myKeyCode>
-                    <runsEveryFrame>false</runsEveryFrame>
-                    <value>0.0</value>
-                    <soundManager>
-                      <mySoundMap/>
-                    </soundManager>
-                  </gameEngine.actions.KillAction>
-                  <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
-                  <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
-                  <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
-                </gameEngine.Action-array>
+                <list-array>
+                  <list>
+                    <gameEngine.actions.KillAction>
+                      <mySprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array">
+                          <null/>
+                        </a>
+                      </myKeyCode>
+                      <runsEveryFrame>false</runsEveryFrame>
+                      <value>0.0</value>
+<<<<<<< HEAD
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
+=======
+>>>>>>> sl
+                    </gameEngine.actions.KillAction>
+                  </list>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                  </list>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                  </list>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                  </list>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1415,12 +1631,14 @@
             <map>
               <entry>
                 <string>enemy</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
                   <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                  <list>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1429,12 +1647,20 @@
             <map>
               <entry>
                 <string>player</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
                   <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                  <list>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1443,61 +1669,145 @@
             <map>
               <entry>
                 <string>trampoline</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
-                  <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction"/>
+                  <list>
+                    <gameEngine.actions.BounceAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction"/>
+                    <gameEngine.actions.BounceAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction"/>
+                  </list>
                   <null/>
-                </gameEngine.Action-array>
+                </list-array>
               </entry>
               <entry>
                 <string>enemy</string>
-                <gameEngine.Action-array>
-                  <gameEngine.actions.KillAction>
-                    <mySprite reference="../../../../../../../../sprites/sprite.Sprite[12]"/>
-                    <isActive>false</isActive>
-                    <myKeyCode class="java.util.Arrays$ArrayList">
-                      <a class="javafx.scene.input.KeyCode-array">
-                        <javafx.scene.input.KeyCode>K</javafx.scene.input.KeyCode>
-                      </a>
-                    </myKeyCode>
-                    <runsEveryFrame>false</runsEveryFrame>
-                    <value>0.0</value>
-                    <soundManager>
-                      <mySoundMap/>
-                    </soundManager>
-                  </gameEngine.actions.KillAction>
-                  <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
-                  <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
-                  <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
-                </gameEngine.Action-array>
+                <list-array>
+                  <list>
+                    <gameEngine.actions.KillAction>
+                      <mySprite reference="../../../../../../../../../sprites/sprite.Sprite[12]"/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array">
+                          <javafx.scene.input.KeyCode>K</javafx.scene.input.KeyCode>
+                        </a>
+                      </myKeyCode>
+                      <runsEveryFrame>false</runsEveryFrame>
+                      <value>0.0</value>
+<<<<<<< HEAD
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
+=======
+>>>>>>> sl
+                    </gameEngine.actions.KillAction>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
+                  </list>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                  </list>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                  </list>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                    <gameEngine.actions.KillAction reference="../../list/gameEngine.actions.KillAction"/>
+                  </list>
+                </list-array>
               </entry>
               <entry>
                 <string>platform</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
-                  <gameEngine.actions.NormalAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                  <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+=======
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
+                  </list>
                   <null/>
-                </gameEngine.Action-array>
+                </list-array>
               </entry>
               <entry>
                 <string>superTrampoline</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
-                  <gameEngine.actions.BounceAction reference="../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction[2]"/>
+                  <list>
+                    <gameEngine.actions.BounceAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.BounceAction[2]"/>
+                  </list>
                   <null/>
-                </gameEngine.Action-array>
+                </list-array>
               </entry>
               <entry>
                 <string>switch</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
-                  <gameEngine.actions.KillAction reference="../../../../../../../sprites/sprite.Sprite[24]/actionList/gameEngine.actions.KillAction"/>
+                  <list>
+                    <gameEngine.actions.KillAction reference="../../../../../../../../sprites/sprite.Sprite[24]/actionList/gameEngine.actions.KillAction"/>
+                  </list>
                   <null/>
-                </gameEngine.Action-array>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1506,21 +1816,25 @@
             <map>
               <entry>
                 <string>enemy</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
                   <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                  <list>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
               <entry>
                 <string>player</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
                   <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                  <list>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
             </map>
           </entry>
@@ -1529,16 +1843,18 @@
             <map>
               <entry>
                 <string>player</string>
-                <gameEngine.Action-array>
+                <list-array>
                   <null/>
                   <null/>
                   <null/>
-                  <null/>
-                </gameEngine.Action-array>
+                  <list>
+                    <null/>
+                  </list>
+                </list-array>
               </entry>
             </map>
           </entry>
-        </myTable>
+        </myBigTable>
         <tagList>
           <string>player</string>
           <string>platform</string>
