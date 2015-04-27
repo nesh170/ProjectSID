@@ -323,8 +323,20 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 		
 		List<String> stateNames = states.stream().map(file -> file.getName()).collect(Collectors.toList());
+		String chosenState = DialogUtil.choiceDialog("Load File", "Choose a save state.", stateNames);
+		File stateFile = states.stream().filter(file -> file.getName().equals(chosenState)).collect(Collectors.toList()).get(0);
+		try {
+			myGame = DataHandler.getGameFromDir(stateFile);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File", "Cannot load state.");
+			resumeExecution();
+			return;
+		}
 		
-		
+		myGameLevels = myGame.levels();
+		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+		setupAnimation();
+		play();
 	}
 	
 	@Override
