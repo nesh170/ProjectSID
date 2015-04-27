@@ -97,6 +97,7 @@ public class LevelView extends ScrollPane {
 		Group levelGroup = new Group();
 		Node background = renderBackground(level);
 		levelGroup.getChildren().add(background);
+		System.out.println(level.playerSpriteList().get(0).getImagePath());
 		List<Sprite> textSpriteList = level.sprites().stream().filter(sprite -> sprite.isText()).collect(Collectors.toList());
 		textSpriteList.stream().forEach(textSprite -> levelGroup.getChildren().add(renderText(textSprite)));
 		List<Sprite> imageSpriteList = level.sprites().stream().filter((sprite -> !sprite.isText())).collect(Collectors.toList());
