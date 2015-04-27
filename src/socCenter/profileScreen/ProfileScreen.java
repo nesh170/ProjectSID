@@ -91,9 +91,6 @@ public class ProfileScreen extends Screen {
 
 		super(width, height);
 		this.loggedIn = loggedIn;
-		initializeRelevantResourceFiles();
-		
-		//model = new SpriteEditModel(languageResources(), actionResources, componentResources, behaviorLabels);
 
 		this.mainPageScreen = mainPageScreen;
 		this.controller = parent;
@@ -135,7 +132,7 @@ public class ProfileScreen extends Screen {
 	}
 
 	private void initializeObservableLists() {
-
+		/*
 		actionsToAddList = new ListView<>(model.setActionsToAdd(FXCollections.observableArrayList(actionResources
 				.keySet().stream().map(e -> languageResources().getString(e))
 				.collect(Collectors.toList()))));
@@ -144,19 +141,19 @@ public class ProfileScreen extends Screen {
 				.keySet().stream().map(e -> languageResources().getString(e))
 				.collect(Collectors.toList()))));
 		componentsAddedList = new ListView<>(model.setComponentsAdded());
-
+		*/
 	}
 
 	//TODO get rid of some duplicated code in this method
 	private void initializeValueBoxListenersForLists() {
-		
+		/*
 		actionsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> model.onAddListener(newValue,actionValue));
 		componentsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> model.onAddListener(newValue,componentValue));
-				
+			*/	
 	}
 
 	private void initializeInformationListenersForLists() {
-
+		/*
 		actionsAddedList.setOnMouseEntered(e -> dataText.setText(model.setDataText(actionsAddedList)));
 		componentsAddedList.setOnMouseEntered(e -> dataText.setText(model.setDataText(componentsAddedList)));
 
@@ -164,7 +161,7 @@ public class ProfileScreen extends Screen {
 		.addListener((observable, oldSelect, newSelect) -> dataText.setText(model.setDataText(newSelect)));
 		componentsAddedList.getSelectionModel().selectedItemProperty()
 		.addListener((observable, oldSelect, newSelect) -> dataText.setText(model.setDataText(newSelect)));
-
+		*/
 	}
 	
 
@@ -279,15 +276,12 @@ public class ProfileScreen extends Screen {
 
 	private VBox createActionAndComponentPane() {
 
-		Pane actionPane = initializeActionPaneBoxes();
-		Pane componentPane = initializeComponentPaneBoxes();
 		Node dataPane = createDataPane();
 		Node goalCheckboxPane = createGoalCheckbox();
 
 		VBox actionAndComponentPane = new VBox();
-		actionAndComponentPane.getChildren().addAll(actionPane, componentPane,
-				dataPane,goalCheckboxPane);
-
+		ImageView ho = new ImageView(loggedIn.getImagePath());
+		actionAndComponentPane.getChildren().add(ho);
 		return actionAndComponentPane;
 
 	}
@@ -331,7 +325,7 @@ public class ProfileScreen extends Screen {
 	}
 
 	private void initializeActionTypeBox() {
-
+		
 		ObservableList<String> actionTypes = FXCollections.observableArrayList();
 
 		actionTypes.addAll(
@@ -358,32 +352,7 @@ public class ProfileScreen extends Screen {
 		
 	}
 
-	private Pane initializeActionPaneBoxes() {
 
-		initializeActionTypeBox();
-
-		keycodeInputBox = new TextField();
-		keycodeInputBox.setOnKeyTyped(e -> clearKeycodeInputBox());
-		keycodeInputBox.setVisible(false);
-		keycodeInputBox.setPromptText(languageResources().getString(
-				"KeycodePrompt"));
-		keycodeInputBox.setOnKeyReleased(e -> setCurrentKeycode(e));
-		actionValue = new TextField();
-		
-		HBox soundPane = makeAddSoundPane();
-		
-		// actionValue.setPromptText(languageResources().getString("ValuePrompt"));
-
-		HBox actionPane = makeTwoSidedList(actionsToAddList, actionsAddedList,
-				languageResources().getString("AddAction"), languageResources()
-				.getString("RemoveAction"), e -> addAction(e),
-				e -> removeAction(e), actionTypeBox, keycodeInputBox,
-				actionValue, soundPane);
-
-		return actionPane;
-
-	}
-	
 	private HBox makeAddSoundPane() {
 		HBox soundPane = new HBox();
 		Button select = new Button(languageResources().getString("SelectSound"));
@@ -414,52 +383,8 @@ public class ProfileScreen extends Screen {
 		
 	}
 	
-	private Pane initializeComponentPaneBoxes() {
 
-		componentValue = new TextField();
-
-		// componentValue.setPromptText(languageResources().getString("ValuePrompt"));
-		HBox componentPane = makeTwoSidedList(componentsToAddList,
-				componentsAddedList,
-				languageResources().getString("AddComponent"),
-				languageResources().getString("RemoveComponent"),
-				e -> addComponent(e), e -> removeComponent(e), componentValue);
-
-		return componentPane;
-
-	}
-
-	protected HBox makeTwoSidedList(ListView<String> toAddList,
-			ListView<String> addedList, String addText, String removeText,
-			EventHandler<MouseEvent> onAdd, EventHandler<MouseEvent> onRemove,
-			Region... userTextFields) {
-
-		HBox twoSidedListContainer = new HBox();
-
-		VBox fieldsAndButtons = new VBox();
-		fieldsAndButtons.setMaxWidth(Double.MAX_VALUE);
-		fieldsAndButtons.getStyleClass().add(STRING.CSS.PANE);
-		fieldsAndButtons.setAlignment(Pos.CENTER);
-		Button add = new Button(addText);
-		add.setOnMouseClicked(onAdd);
-		Button delete = new Button(removeText);
-		delete.setOnMouseClicked(onRemove);
-		setPrefButtonWidth(add, delete);
-
-		Arrays.asList(userTextFields).forEach(e -> {
-			e.setMinWidth(DOUBLE.FIELDS_AND_BUTTONS_WIDTH);
-			e.setMaxWidth(DOUBLE.FIELDS_AND_BUTTONS_WIDTH);
-			fieldsAndButtons.getChildren().add(e);
-		});
-		fieldsAndButtons.getChildren().addAll(add, delete);
-
-		twoSidedListContainer.getChildren().addAll(toAddList, fieldsAndButtons,
-				addedList);
-
-		return twoSidedListContainer;
-
-	}
-
+	
 	private void setPrefButtonWidth(Button... buttons) {
 
 		Arrays.asList(buttons).forEach(
@@ -468,23 +393,8 @@ public class ProfileScreen extends Screen {
 	}
 
 	private void initializeImageListPane() {
-
-		imageListPane = new ListView<String>(model.setImagesAdded());
-
-		imageListPane.setOnKeyPressed(e -> {
-
-			if (e.getCode().equals(KeyCode.DELETE)
-					|| e.getCode().equals(KeyCode.BACK_SPACE)) {
-				// String selected =
-				// imageListPane.getSelectionModel().getSelectedItem();
-				// stringToImageMap.remove(selected);
-				// imagesAdded.remove(selected);
-			}
-
-		});
-
-		imageListPane.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldSelect, newSelect) -> onSelectNewImage(newSelect));
+		imageListPane = new ListView<String>();
+		
 	}
 	
 	private void onSelectNewImage(String select) {
@@ -497,64 +407,19 @@ public class ProfileScreen extends Screen {
 
 	private void addAction(MouseEvent e) {
 
-		String selected = actionsToAddList.getSelectionModel()
-				.getSelectedItem();
-		if (selected != null) {
-
-			try {
-				model.addAction(selected, actionValue.getText(), actionTypeBox.getSelectionModel().getSelectedItem(), soundPath.getText());
-				actionValue.getStyleClass().remove(STRING.CSS.ERROR);
-			} catch (InstantiationException | IllegalAccessException
-					| InvocationTargetException | NoSuchMethodException
-					| ClassNotFoundException e1) {
-				System.out.println("Fix your constructors");
-			} catch (NumberFormatException e1) {
-				actionValue.getStyleClass().add(STRING.CSS.ERROR);
-			}
-			
-			soundPath.clear();
-			keycodeInputBox.clear();
-			actionValue.clear();
-
-		}
 
 	}
 
 	private void removeAction(MouseEvent e) {
 
-		String selected = actionsAddedList.getSelectionModel().getSelectedItem();
-		model.removeAction(selected);
 	}
 
 	private void addComponent(MouseEvent e) {
 
-		String selected = componentsToAddList.getSelectionModel().getSelectedItem();
-
-		if (selected != null) {
-
-			try {
-				
-				model.addComponent(selected, componentValue.getText());
-				componentValue.getStyleClass().remove(STRING.CSS.ERROR);
-
-			} catch (InstantiationException | IllegalAccessException
-					| InvocationTargetException | NoSuchMethodException
-					| ClassNotFoundException e1) {
-				System.out.println("Fix your constructors");
-			} catch (NumberFormatException e1) {
-				componentValue.getStyleClass().add(STRING.CSS.ERROR);
-			}
-
-			componentValue.clear();
-
-		}
 	}
 
 	private void removeComponent(MouseEvent e) {
 
-		String selected = componentsAddedList.getSelectionModel().getSelectedItem();
-		model.removeComponent(selected);
-		
 	}
 	private void clearKeycodeInputBox() {
 		keycodeInputBox.setText("");

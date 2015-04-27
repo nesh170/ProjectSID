@@ -153,6 +153,7 @@ public class SocialCenterScreenController {
 	private void configureScreenManagers() {
 		logInScreenManager = new LogInScreenManager();
 		mainPageScreenManager = new MainPageScreenManager();
+		profileScreenManager = new ProfileScreenManager();
 	}
 
 	private void configureStageAndRoot(Stage stage, Group root) {
