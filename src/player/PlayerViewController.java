@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import resources.constants.INT;
 import util.DialogUtil;
@@ -22,6 +23,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -94,7 +97,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myCamera = new Camera(myView.getRoot());
-		loadNewChooser();
 		myNetwork = new Network();
 	}
 
@@ -298,8 +300,23 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	@Override
 	public void saveGame() {
-		// TODO Auto-generated method stub
+		try {
+			DataHandler.toXMLFile(myGame, myGame.name(), myGameFolder.toURI().toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
+	public void saveAs() {
+		pauseExecution();
+		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
+		resumeExecution();
+//		if (result.isPresent()) {
+//			entered = result.get();
+//			File dir = new File(myGameFolder.getParent() + "/" + result);
+//			dir.mkdir();
+//		}
 	}
 
 	public String getCurrentLevelinXML() {
@@ -325,6 +342,18 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void setErrorHandler (ErrorHandler errorHandler) {
 		myErrorHandler = errorHandler;
+	}
+	
+	private void pauseExecution() {
+		myTimeline.stop();
+		myEngine.pause(myView.getRoot());
+		myAudioController.pause();
+	}
+	
+	private void resumeExecution() {
+		myTimeline.play();
+		myEngine.play(myView.getRoot());
+		myAudioController.play();
 	}
 
 	private void sendClientLevels(){
@@ -430,7 +459,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		Thread th = new Thread(recvTask);
 		th.setDaemon(true);
 		th.start();
-
 
 	}
 

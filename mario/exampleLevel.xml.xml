@@ -35,7 +35,10 @@
           </transform>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -83,7 +86,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -112,7 +118,10 @@
           </transform>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -160,7 +169,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -189,7 +201,10 @@
           </transform>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -237,7 +252,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -285,7 +303,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -333,7 +354,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -381,7 +405,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -410,7 +437,10 @@
           </transform>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -458,7 +488,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList>
@@ -542,6 +575,12 @@
                 </a>
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
+<<<<<<< HEAD
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
+=======
+>>>>>>> sl
               <mySecondSprite>
                 <actionList/>
                 <componentList>
@@ -580,7 +619,10 @@
                 </transform>
                 <isGoal>false</isGoal>
                 <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
                 <isText>false</isText>
+>>>>>>> sl
               </mySecondSprite>
             </gameEngine.actions.ShootAction>
           </actionList>
@@ -642,7 +684,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -690,7 +735,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -738,7 +786,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -786,7 +837,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -834,7 +888,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -882,7 +939,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -930,7 +990,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -978,7 +1041,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1026,7 +1092,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1074,7 +1143,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1122,7 +1194,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList>
@@ -1210,7 +1285,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList>
@@ -1270,7 +1348,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1318,7 +1399,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
         <sprite.Sprite>
           <actionList/>
@@ -1366,7 +1450,10 @@
           </spriteImage>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
+<<<<<<< HEAD
+=======
           <isText>false</isText>
+>>>>>>> sl
         </sprite.Sprite>
       </sprites>
       <playerSpriteList>
@@ -1518,6 +1605,12 @@
                       </myKeyCode>
                       <runsEveryFrame>false</runsEveryFrame>
                       <value>0.0</value>
+<<<<<<< HEAD
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
+=======
+>>>>>>> sl
                     </gameEngine.actions.KillAction>
                   </list>
                   <list>
@@ -1600,6 +1693,12 @@
                       </myKeyCode>
                       <runsEveryFrame>false</runsEveryFrame>
                       <value>0.0</value>
+<<<<<<< HEAD
+                      <soundManager>
+                        <mySoundMap/>
+                      </soundManager>
+=======
+>>>>>>> sl
                     </gameEngine.actions.KillAction>
                     <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
                     <gameEngine.actions.KillAction reference="../gameEngine.actions.KillAction"/>
@@ -1667,6 +1766,15 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
@@ -1674,6 +1782,7 @@
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                   <null/>
                 </list-array>
