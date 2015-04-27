@@ -24,9 +24,7 @@ public class PlayerView {
 	private BorderPane myBorderPane;
 	private StackPane myBase;
 	private StackPane myTop;
-
-	private static final int POPUP_WINDOW_SIZE = 500;
-	private static final String CONNECT_SERVER_STRING = "Connecting to server...";
+	private Stage myPopUp;
 	
 	public PlayerView() {
 
@@ -45,7 +43,7 @@ public class PlayerView {
 		myBase.getChildren().addAll(myGameRoot, myTop);
 		
 		myScene = new Scene(myBorderPane, 1200, 600);
-
+		myPopUp = new Stage();
 
 	}
 
@@ -96,13 +94,26 @@ public class PlayerView {
 		myGameRoot.requestFocus();
 	}
 	
-	public void displayWaitingToConnect() {
-		Stage waitStage = new Stage();
+	public void displayPopUp(String text, int size) {
 		StackPane waitPane = new StackPane();
-		waitPane.getChildren().add(new Text(CONNECT_SERVER_STRING));
-		Scene waitScene = new Scene(waitPane);
-		waitStage.setScene(waitScene);
-		waitStage.show();
+		waitPane.getChildren().add(new Text(text));
+		Scene waitScene = new Scene(waitPane, size, size);
+		myPopUp.setScene(waitScene);
+		myPopUp.show();
+		
+	}
+	
+	public void changePopUpText(String text) {
+		if (myPopUp.isShowing()) {
+			StackPane pane = (StackPane) myPopUp.getScene().getRoot();
+			Text paneText = (Text) pane.getChildren().get(0);
+			paneText.setText(text);
+		}
+	}
+	
+	public void closePopUp() {
+		if (myPopUp.isShowing())
+			myPopUp.close();
 	}
 
 }
