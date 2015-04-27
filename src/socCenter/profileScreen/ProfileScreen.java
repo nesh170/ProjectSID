@@ -44,6 +44,7 @@ import screen.controllers.SpriteEditScreenController;
 import screen.screenmodels.SpriteEditModel;
 import screen.screens.LevelEditScreen;
 import socCenter.User;
+import socCenter.mainPage.MainPageScreen;
 import sprite.Sprite;
 
 public class ProfileScreen extends Screen {
@@ -466,19 +467,13 @@ public class ProfileScreen extends Screen {
 	}
 
 
-	private void exit(Sprite sprite) {
+	private void exit() {
 
-		controller.returnToMainPage(loggedIn);
+		controller.returnToMainPage((MainPageScreen) mainPageScreen.getContent(), mainPageScreen, loggedIn);
 		
 
 	}
 	
-	private void exit() {
-		
-		controller.returnToMainPage(loggedIn);
-
-
-	}
 
 	private void saveAndExit() {
 
@@ -488,8 +483,7 @@ public class ProfileScreen extends Screen {
 		
 		else {
 			try {
-				model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), goalCheck.isSelected(), Integer.parseInt(goToLevel.getText()));
-				exit(model.retrieveEditedSprite());
+				exit();
 			}
 			catch (NumberFormatException e) {
 				goToLevel.getStyleClass().add(STRING.CSS.ERROR);

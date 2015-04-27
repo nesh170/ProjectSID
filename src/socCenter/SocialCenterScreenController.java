@@ -56,6 +56,7 @@ import screen.factories.SocialCenterScreenFactory;
 import screen.tab.TabManager;
 import screen.util.ErrorMessageTextFieldFactory;
 import socCenter.logIn.LogInScreenController;
+import socCenter.mainPage.MainPageScreen;
 import socCenter.mainPage.MainPageScreenController;
 import socCenter.profileScreen.ProfileScreenController;
 import sprite.Sprite;
@@ -90,7 +91,6 @@ public class SocialCenterScreenController {
 	private SocialCenterScreenFactory screenFactory;
 	
 	//Data
-	private UserPack userPack;
 	private ParseHandler parseHandle;
 	
 	
@@ -350,8 +350,8 @@ public class SocialCenterScreenController {
 	private class ProfileScreenManager implements ProfileScreenController {
 
 		@Override
-		public void returnToMainPage(User loggedIn) {
-			createMainPageScreen(loggedIn);
+		public void returnToMainPage(MainPageScreen mainPageScreen, Tab switchTab, User loggedIn) {
+			tabManager.removeTabAndChangeSelected(switchTab);
 			// TODO Auto-generated method stub
 			
 		}
