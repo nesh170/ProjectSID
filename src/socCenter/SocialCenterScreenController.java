@@ -266,9 +266,8 @@ public class SocialCenterScreenController {
 	 * while protecting us from entirely passing in the ScreenController into Screen objects.
 	 * Screen objects use the provided methods in the ScreenController interfaces to 
 	 * perform transitioning, closing, opening, etc. actions
-	 * 
-	 * @author AuthoringEnvironment Team
 	 *
+	 * Emulating the ScreenController used for the authoring environment
 	 */
 	private class LogInScreenManager implements LogInScreenController {
 

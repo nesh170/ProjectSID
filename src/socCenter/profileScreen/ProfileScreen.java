@@ -82,10 +82,10 @@ public class ProfileScreen extends Screen {
 
 	// Constructors & Helpers
 
-	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height, User loggedIn, boolean self) {
+	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height, User profileUser, boolean self) {
 
 		super(width, height);
-		this.profileUser = loggedIn;
+		this.profileUser = profileUser;
 
 		this.mainPageScreen = mainPageScreen;
 		this.controller = parent;
@@ -204,7 +204,7 @@ public class ProfileScreen extends Screen {
 
 		VBox rightPane = new VBox();
 
-		Node actionAndComponentPane = createActionAndComponentPane();
+		Node actionAndComponentPane = createCommentsPane();
 
 		// Node physicsPane = createPhysicsPane();
 		initializeImageListPane();
@@ -261,15 +261,12 @@ public class ProfileScreen extends Screen {
 		imageButtonAndSizeText.setAlignment(Pos.CENTER);
 
 		Button imageButton = new Button();
-		imageButton.setGraphic(new ImageView(new Image("images/addimage.png")));
+		imageButton.setGraphic(new ImageView(new Image("images/save_avatar.png")));
 		imageButton.setOnMouseClicked(e -> selectImageFile());
 
-		imageSizeField = new TextField();
-		imageSizeField
-		.setPromptText(languageResources().getString(languageResources().getString(STRING.SPRITE_EDIT.IMAGE_PROMPT)));
-
+		
 		imageButtonAndSizeText.getChildren()
-		.addAll(imageButton, imageSizeField);
+		.addAll(imageButton, defaultAvatarChoicesHolder);
 
 		imagePane.getChildren().add(imageButtonAndSizeText);
 		imagePane.getStyleClass().add(STRING.CSS.PANE);
@@ -278,12 +275,12 @@ public class ProfileScreen extends Screen {
 
 	}
 
-	private VBox createActionAndComponentPane() {
+	private VBox createCommentsPane() {
 
-		VBox actionAndComponentPane = new VBox();
+		VBox commentsPane = new VBox();
 		ImageView ho = new ImageView(profileUser.getImagePath());
-		actionAndComponentPane.getChildren().add(ho);
-		return actionAndComponentPane;
+		commentsPane.getChildren().add(ho);
+		return commentsPane;
 
 	}
 
@@ -299,7 +296,11 @@ public class ProfileScreen extends Screen {
 
 
 	private void selectImageFile() {
-
+		String avName = defaultAvatarChoicesHolder.getSelectionModel().getSelectedItem();
+		Avatar selectedAvy = defaultAvatars.get(avName);
+		Image avatarView = new Image(selectedAvy.getURL());
+		
+		addImageToPane(selectedAvy.getURL(), avatarView);
 		try {
 
 			int imageSize = INT.DEFAULT_IMAGE_SIZE;
@@ -322,13 +323,9 @@ public class ProfileScreen extends Screen {
 	
 	private void addImageToPane(String path, Image image) {
 		ImageView spriteImageRep = new ImageView(image);
-		
-		model.addImageToList(path, spriteImageRep);
-		if (model.getNumImages() == 1) {
-			paneForImage.getChildren().add(spriteImageRep);
-		}
-
-		imageSizeField.clear();
+		paneForImage.getChildren().clear();
+		paneForImage.getChildren().add(spriteImageRep);
+	
 	}
 
 

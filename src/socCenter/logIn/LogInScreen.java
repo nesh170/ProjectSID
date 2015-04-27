@@ -39,20 +39,26 @@ public class LogInScreen extends Screen {
 	private LogInScreenController controller;
 	private Popup logInPopup;
 	private Popup createProfilePopup;
-	private ResourceBundle myMessages;
+	private ResourceBundle socialTextProps;
 	
 	//Getters & Setters
 	
 	//Constructor & Helpers
 	public LogInScreen(LogInScreenController controller, double width, double height){
 		super(width, height);
+		initalizeRelevantResourceFiles();
 		this.controller = controller;
 		configureButtons(width, height);
 		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
 		this.getStyleClass().add("pane");
-		myMessages = ResourceBundle.getBundle("resources/socialButtons");
+	
 	}
 	
+	private void initalizeRelevantResourceFiles(){
+		super.initializeRelevantResourceFiles();
+		socialTextProps = ResourceBundle.getBundle("resources.socialCenterProperties.socialButtons");
+
+	}
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 		
@@ -146,7 +152,7 @@ public class LogInScreen extends Screen {
 
 	private GridPane configureLogInGridPane() {
 		
-		 GridPane grid = makeGridPane();
+		 GridPane grid = makeLogInGridPane();
 	     TextField userNameInput = new TextField();
 	     userNameInput.setPromptText("Enter User Name: ");
 	     grid.add(userNameInput, 2, 2 );
@@ -166,7 +172,7 @@ public class LogInScreen extends Screen {
 	
 	private GridPane configureCreateProfileGridPane(){
 		
-		 GridPane grid = makeGridPane();
+		 GridPane grid = makeCreateProfileGridPane();
 	     TextField newUserName = new TextField();
 	     newUserName.setPromptText("Enter User Name: ");
 	     grid.add(newUserName, 2, 2 );
@@ -190,21 +196,34 @@ public class LogInScreen extends Screen {
 		
 	}
 	
-	private GridPane makeGridPane() {
+	private GridPane makeLogInGridPane() {
 		
 		 GridPane grid = new GridPane();
 	     grid.setAlignment(Pos.CENTER);
 	     grid.setHgap(10);
 	     grid.setVgap(20);	
 	     grid.addRow(0, new Text(""));
-	     Label name = new Label( /* myMessages.getString(" */ "User")/*)*/;
+	     Label name = new Label( socialTextProps.getString("User"));
 	     grid.add(name, 0, 2, 2, 1);
-	     Label password = new Label( /* myMessages.getString(" */ "Password")/*)*/;
+	     Label password = new Label(socialTextProps.getString("Password"));
 	     grid.add(password, 0, 3, 2, 1);
-	     Label reEnterPassword = new Label( /* myMessages.getString(" */ "rePassword")/*)*/;
-	     grid.add(reEnterPassword, 0, 4, 2, 1);
 	     return grid;
 	     
+	}
+	
+	private GridPane makeCreateProfileGridPane() {
+		 GridPane grid = new GridPane();
+	     grid.setAlignment(Pos.CENTER);
+	     grid.setHgap(10);
+	     grid.setVgap(20);	
+	     grid.addRow(0, new Text(""));
+	     Label name = new Label( socialTextProps.getString("User"));
+	     grid.add(name, 0, 2, 2, 1);
+	     Label password = new Label(socialTextProps.getString("Password"));
+	     grid.add(password, 0, 3, 2, 1);
+	     Label reEnterPassword = new Label( socialTextProps.getString("rePassword"));
+	     grid.add(reEnterPassword, 0, 4, 2, 1);
+	     return grid;
 	}
 	
 }
