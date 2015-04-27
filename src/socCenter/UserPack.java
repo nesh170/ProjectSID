@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.parse4j.Parse;
-import org.parse4j.ParseBatch;
 import org.parse4j.ParseException;
 import org.parse4j.ParseObject;
 
