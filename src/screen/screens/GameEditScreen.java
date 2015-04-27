@@ -112,20 +112,7 @@ public class GameEditScreen extends Screen {
 	private HBox levelHB;
 	private StackPane splashSP;
 	private ImageView addSplashImage;
-	// Getters & Setters
-	/**
-	 * add a Level to a Game
-	 * 
-	 * @return int index of where the inserted Level is
-	 */
-/*	public int addLevel(Level level) {
-		
-		levels.add(level);
-		return levels.indexOf(level);
-		
-	}
-	*/
-	
+
 	// Constructor & Helpers
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
@@ -142,6 +129,16 @@ public class GameEditScreen extends Screen {
 			
 		initialize(controller);
 
+	}
+	
+	
+	/***
+	 * Called whenever screen is switched to
+	 */
+	@Override
+	public void rerender() {
+		System.out.println(gameEditModel.getGame().getLevelsSize());
+		displayLevels();
 	}
 
 	/**
@@ -364,6 +361,7 @@ public class GameEditScreen extends Screen {
 			addLevelButtons(e, index[0]); 
 			index[0]++;
 			};
+		System.out.println(gameEditModel.getGame().getLevelsSize());
 		gameEditModel.forEachLevel(addLevelButtons);
 	}
 	

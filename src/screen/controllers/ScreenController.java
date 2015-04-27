@@ -607,7 +607,7 @@ public class ScreenController {
 		
 		public void saveAndExit(Game game, Popup popup){
 			saveGame(game);
-			hidePopup(popup);
+			returnToMainMenuScreen(popup);
 		}
 		
 		private void hidePopup(Popup popup){

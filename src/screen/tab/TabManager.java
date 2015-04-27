@@ -46,13 +46,13 @@ public class TabManager {
 
 	}
 	
-	public void removeTabAndChangeSelected(Tab selectedNew) {
+	public void removeTabAndChangeSelected(Tab oldTab) {
 		
 		Tab tab = singleSelectionModel.getSelectedItem();
 		tabPane.getTabs().remove(tab);
 		
 		setCorrectTabModifiabilityAndViewability();		
-		singleSelectionModel.select(selectedNew);
+		singleSelectionModel.select(oldTab);
 		
 	}
 	
@@ -94,7 +94,8 @@ public class TabManager {
 			disableTab(tabs.get(i));
 		}
 		
-		enableTab(tabs.get(tabPaneLastIndex));
+		Tab nextTab = tabs.get(tabPaneLastIndex);
+		enableTab(nextTab);
 	
 	}
 	
@@ -113,6 +114,11 @@ public class TabManager {
 		// Selects current, enabled tab
 		// http://stackoverflow.com/questions/6902377/javafx-tabpane-how-to-set-the-selected-tab
 		singleSelectionModel.select(tab);
+		if (tab.getContent() instanceof Screen) {
+			Screen screen = (Screen) tab.getContent();
+			System.out.println("Rerender");
+			screen.rerender();
+		}
 		
 	}
 
