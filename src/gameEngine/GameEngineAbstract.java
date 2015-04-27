@@ -1,9 +1,9 @@
 package gameEngine;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 /**
  * The GameEngine class is the main class of the game engine. It initializes all the sprites from the XML. It also has an
@@ -89,5 +89,11 @@ public abstract class GameEngineAbstract {
      * @param key
      */
     public abstract void changeKeyCodeInAction(int playerNumber, String actionName, KeyCode key);
+    
+    /**
+     * 
+     * @return a map of the components that needs to be displayed
+     */
+    public abstract Map<String, Double> getHUDMap();
     
 }
