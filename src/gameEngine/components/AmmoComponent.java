@@ -12,6 +12,7 @@ public class AmmoComponent extends Component {
 	public AmmoComponent(Sprite sprite, Double value) {
 		super(sprite, value);
 		myAmmo = Math.toIntExact(Math.round(value));
+		myHUDName = "Ammo";
 	}
 	
 	public int getAmmoCount() {

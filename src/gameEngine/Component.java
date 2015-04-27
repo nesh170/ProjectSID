@@ -1,11 +1,6 @@
 package gameEngine;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import sprite.Sprite;
-import javafx.scene.input.KeyCode;
 
 
 /**
@@ -23,7 +18,12 @@ public abstract class Component {
 	 */
 	protected Sprite mySprite;
 	protected Double myValue;
+	protected String myHUDName;
 	private boolean isActive;
+	
+	public String getHudName(){
+		return myHUDName;
+	}
 	
 	/** At construction, component knows the
 	 * sprite it is attached to

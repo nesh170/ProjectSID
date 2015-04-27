@@ -76,15 +76,24 @@ public class PlayerMenu{
 		playItem.setOnAction(event -> {
 			controller.play();
 		});
+		MenuItem saveItem = makeMenuItem("Save");
+		saveItem.setOnAction(event -> {
+			controller.saveGame();
+		});
+		MenuItem saveAsItem = makeMenuItem("Save As");
+		saveAsItem.setOnAction(event -> {
+			controller.saveAs();
+		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			controller.loadNewChooser();
+			controller.play();
 		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {
 			controller.restart();
 		});
-		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
+		fileMenu.getItems().addAll(pauseItem, playItem, saveItem, saveAsItem, loadItem,
 				restartItem);
 		return fileMenu;
 	}
