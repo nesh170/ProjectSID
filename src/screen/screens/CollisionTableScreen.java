@@ -404,8 +404,10 @@ public class CollisionTableScreen extends Screen{
 			nicerNamedActions.add(better);
 		}
 		
-		ComboBox action = this.createComboBoxFromList(nicerNamedActions, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, 
-				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
+		ComboBox action = this.createComboBoxFromList(nicerNamedActions, 
+				STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, 
+				STRING.COLLISION_EDIT.FONT_STYLE, 
+				STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
 		collisionSet.add(action, INT.ACTION_COLUMN, INT.TOP_ROW); 
 		
@@ -443,7 +445,8 @@ public class CollisionTableScreen extends Screen{
 					}
 
 					ComboBox spritesToChooseFrom = createComboBoxFromList(possibleSpritesToSwitchWith, 
-							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_TAG, STRING.COLLISION_EDIT.FONT_STYLE, 
+							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_TAG, 
+							STRING.COLLISION_EDIT.FONT_STYLE, 
 							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_NAME);
 
 					collisionSet.add(spritesToChooseFrom, INT.ACTION_COLUMN, INT.SPRITELIST_ROW); 
