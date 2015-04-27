@@ -26,6 +26,7 @@ public class HealthComponent extends Component {
 			myHP = myValue;
 		}
 		hasDeath = DEFAULT_DEATH;
+		myHUDName = "Health";
 	}
 	
 	//3 setters below will be used in UI when adding this behavior

@@ -70,7 +70,7 @@ public class PlayerMenu{
 		MenuItem openItem = makeMenuItem("Open Game");
 		openItem.setOnAction(event -> {
 			controller.loadNewChooser();
-			controller.play();
+			controller.resume();
 		});
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
@@ -78,7 +78,7 @@ public class PlayerMenu{
 		});
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			controller.play();
+			controller.resume();
 		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {

@@ -27,7 +27,7 @@ public class SwitchOutAction extends MultiSpriteAction{
 	}
 
 	@Override
-	public void doAction() {
+	public void doAction() { // TODO: need to change name to "execute()" in order for CollisionTable to run Action
 		Sprite sprite1 = mySprites[mySpriteIndex];
 		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
 		Sprite sprite2 = mySprites[mySpriteIndex];

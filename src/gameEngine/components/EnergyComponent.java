@@ -12,6 +12,7 @@ public class EnergyComponent extends Component {
     public EnergyComponent (Sprite sprite, Double value) {
         super(sprite, value);
         initialEnergy = currentEnergy = value;
+        myHUDName = "Energy";
     }
 
     @Override

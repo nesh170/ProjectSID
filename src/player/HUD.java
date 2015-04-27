@@ -3,10 +3,12 @@ package player;
 import gameEngine.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javafx.geometry.Bounds;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -30,6 +32,8 @@ public class HUD {
 		mySize = 20;
 		myFont = "Arial Black";
 		myColor = Color.BLACK;
+		Label random = new Label("HELLO ALL lul");
+		myHUDBox.getChildren().add(random);
 	}
 	
 	public HUD(ScrollPane pane) {
@@ -70,11 +74,21 @@ public class HUD {
 		myHUDMap = map;
 	}
 	
-	public void updateHUDDisplay() {
+	public void updateHUDBox() {
 		myHUDBox = new HBox();
 		for (Entry<String, Component> entry : myComponentMap.entrySet()) {
 			addItem(entry.getKey(), entry.getValue());
 		}
+	}
+
+	public void updateHUDValues(List<Component> defaultHUDComponents) {
+		myComponentMap = new HashMap<String, Component>();
+		for (Component c : defaultHUDComponents) {
+			if (c != null) {
+				myComponentMap.put(c.getHudName(), c);
+			}
+		}
+		updateHUDBox();
 	}
 	
 }

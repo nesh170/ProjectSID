@@ -12,6 +12,7 @@ public class LifeComponent extends Component {
 	public LifeComponent(Sprite sprite, Double value) {
 		super(sprite, value);
 		myLives = Math.toIntExact(Math.round(value));
+		myHUDName = "Life";
 	}
 	
 	public int getLives(){
