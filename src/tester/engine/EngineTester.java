@@ -6,7 +6,7 @@ import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
-import gameEngine.actions.NormalAction;
+import gameEngine.actions.NormalActionY;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.actions.ShootAction;
 import gameEngine.actions.SwitchOutAction;
@@ -46,7 +46,7 @@ public class EngineTester extends Tester {
 	
 	@Override
 	protected void test(Stage stage) {
-		makePlatform(0, 300, 200, 30);
+		/*makePlatform(0, 300, 200, 30);
 		makePlatform(-20, 0, 20, 200);
 		makePlatform(250, 250, 200, 30);
 		makePlatform(500, 300, 200, 30);
@@ -57,13 +57,14 @@ public class EngineTester extends Tester {
 		player.addAction(switchOut);
 		
 		//addProjectile(fireMario);
-		Sprite goomba = makeGoomba();
+		Sprite goomba = makeGoomba();*/
 		
-		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
-		fireFlower.setCollisionTag("flower");
+		Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
+		/*fireFlower.setCollisionTag("flower");*/
 		fireFlower.setImagePath("engineTesting/fireFlower.png");
 		mySpriteList.add(fireFlower);
-		setCollisionAll(player, fireFlower, switchOut);
+		myPlayerList.add(fireFlower);
+		//setCollisionAll(player, fireFlower, switchOut);
 		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
 		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
 		
@@ -76,7 +77,7 @@ public class EngineTester extends Tester {
 		testGame.addLevel(l);
 
 		try{
-			DataHandler.toXMLFile(testGame, "testingGame.xml", System.getProperty("user.dir")+"/engineTesting");
+			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty("user.dir")+"/simple");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -147,7 +148,7 @@ public class EngineTester extends Tester {
 		Action gravityAction = new FallAction(sprite, GRAVITY);
 		gravityAction.runEveryFrame();
 		sprite.addAction(gravityAction);
-		Action normalAction = new NormalAction(sprite);
+		Action normalAction = new NormalActionY(sprite);
 		sprite.addAction(normalAction);
 		for(Sprite platform: myPlatforms){
 			setCollisionUp(sprite, platform, normalAction);
