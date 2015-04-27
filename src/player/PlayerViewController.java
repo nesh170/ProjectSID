@@ -302,6 +302,10 @@ public class PlayerViewController implements GamePlayerInterface {
 		return null;
 	}
 
+	public void loadState() {
+		
+	}
+	
 	@Override
 	public void saveGame() {
 		

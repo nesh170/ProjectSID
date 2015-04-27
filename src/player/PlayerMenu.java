@@ -67,7 +67,11 @@ public class PlayerMenu{
 	@AddMenuItem(order = 0)
 	private Menu buildFileMenu(PlayerViewController controller) {
 		Menu fileMenu = new Menu("File");
-
+		MenuItem openItem = makeMenuItem("Open Game");
+		openItem.setOnAction(event -> {
+			controller.loadNewChooser();
+			controller.play();
+		});
 		MenuItem pauseItem = makeMenuItem("Pause Game");
 		pauseItem.setOnAction(event -> {
 			controller.pause();
@@ -76,25 +80,24 @@ public class PlayerMenu{
 		playItem.setOnAction(event -> {
 			controller.play();
 		});
-		MenuItem saveItem = makeMenuItem("Save");
-		saveItem.setOnAction(event -> {
-			controller.saveGame();
-		});
-		MenuItem saveAsItem = makeMenuItem("Save As");
-		saveAsItem.setOnAction(event -> {
-			controller.saveAs();
-		});
-		MenuItem loadItem = makeMenuItem("Load Game");
-		loadItem.setOnAction(event -> {
-			controller.loadNewChooser();
-			controller.play();
-		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {
 			controller.restart();
 		});
-		fileMenu.getItems().addAll(pauseItem, playItem, saveItem, saveAsItem, loadItem,
-				restartItem);
+		MenuItem saveItem = makeMenuItem("Save State");
+		saveItem.setOnAction(event -> {
+			controller.saveGame();
+		});
+		MenuItem saveAsItem = makeMenuItem("Save State As");
+		saveAsItem.setOnAction(event -> {
+			controller.saveAs();
+		});
+		MenuItem loadItem = makeMenuItem("Load State");
+		loadItem.setOnAction(event -> {
+			controller.loadState();
+		});
+		fileMenu.getItems().addAll(openItem, pauseItem, playItem,
+				restartItem, saveItem, saveAsItem, loadItem);
 		return fileMenu;
 	}
 
