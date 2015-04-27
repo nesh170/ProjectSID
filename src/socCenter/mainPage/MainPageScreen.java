@@ -115,38 +115,9 @@ public class MainPageScreen extends Screen {
 	    ImageView recImage = new ImageView(loggedInUser.getImagePath());
 		loggedSP.getChildren().add(recImage);
 		loggedInDisplay.setOnMouseClicked(e -> controller.loadUserScreen(loggedInUser, loggedInUser));
-		displayAppropriateProfileImage();	
 	}
 	
-	/**
-	 * updates the node for splash screen display area depending
-	 * on weather current game has splash screen
-	 * @return
-	 */
-	public void displayAppropriateProfileImage(){
-		Button b = new Button();
-		/*
-		if (!game.hasSplash()) {
-			
-			b = makeAddSignWhenEmpty("Add New Splash Screen",
-					e -> controller.loadSplashEditScreen(game, this));	
-			splashSP.getChildren().add(b);
-		}
-			
-		else {
-			b = displayMySplash();
-			splashSP.getChildren().set(splashSP.getChildren().size() -1, b);
-		}*/
-	}
 	
-	private Button displayMySplash() {
-		
-		Button b = new Button();
-		
-		return b;
-		
-	}
-
 	private Text makeText(String s) {
 		
 		Text text = new Text(s);
@@ -156,51 +127,18 @@ public class MainPageScreen extends Screen {
 		
 		text.setEffect(r);
 		text.setFont(Font.font("SERIF", FontWeight.BOLD, 30));
-		text.setTranslateY(-300); // ?? uncertain of how offset works but this
-									// works for now
+		text.setTranslateY(-300);
+								
 		
 		return text; 
 		
 	}
 
-	private Button makeAddSignWhenEmpty(String s, EventHandler<MouseEvent> lamda) {
-		
-		
-		ImageView addsign = new ImageView(new Image(STRING.GAME_EDIT.ADD_IMG));
-		
-		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
-		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
-		Button b = new Button(s, addsign);
-		b.setContentDisplay(ContentDisplay.TOP);
-		b.setOnMouseClicked(lamda);
-		b.setMinSize(INT.DEFAULT_LEVEL_DISPLAY_WIDTH,
-				INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-		
-		return b;
-		
-	}
-
-	/**
-	 * display a note on editing and removing a level
-	 */
-	private Text displayNote() {
-		
-		Text t = new Text(STRING.GAME_EDIT.NOTE);
-		t.setTranslateY(210);
-		t.setTranslateX(250);
-		return t;
-
-	}
 
 	private void configureLevelDisplay() {
 
 		friendsDisplay = new StackPane();
-		ScrollPane levelSP = this.createScrollPane();
-
-		/*
-		 * using ImageViewButton class to make a blink of image when button is pressed down
-		 * @author Anika, Yongjiao
-		 */
+		ScrollPane friendsSP = this.createScrollPane();
 				
 		ImageView addButton = makeButton(STRING.GAME_EDIT.PLUS_IMG, 
 				STRING.GAME_EDIT.PLUSDOWN_IMG,
@@ -209,20 +147,7 @@ public class MainPageScreen extends Screen {
 		StackPane.setAlignment(addButton, Pos.TOP_RIGHT);
 		
 
-		/*ImageView play = makeButton(STRING.GAME_EDIT.PLAY_IMG, 
-				STRING.GAME_EDIT.PLAYDOWN_IMG, 
-				e -> controller.nop());
-		
-		StackPane.setAlignment(play, Pos.TOP_CENTER);*/
-
-		/*ImageView back = makeButton(STRING.GAME_EDIT.BACK_IMG,
-				STRING.GAME_EDIT.BACKDOWN_IMG, 
-				e -> controller.nop());
-		
-		StackPane.setAlignment(back, Pos.TOP_LEFT);*/
-
-		friendsDisplay.getChildren().addAll(levelSP, addButton,
-				displayNote());
+		friendsDisplay.getChildren().addAll(friendsSP, addButton);
 
 	}
 
@@ -256,15 +181,6 @@ public class MainPageScreen extends Screen {
 	}
 
 
-	private void displayLevelsWhenEmpty() {
-
-		//levelHB.setAlignment(Pos.CENTER);
-		levelHB.getChildren().clear();
-		levelHB.getChildren().addAll(
-				this.makeAddSignWhenEmpty("Add A New Level",
-						e -> controller.nop()));
-
-	}
 
 
 	//TODO: change here for different level indexes
@@ -277,68 +193,7 @@ public class MainPageScreen extends Screen {
 		return b; 
 	}
 
-	/**
-	 * handles mouse event: double left mouse click and right mouse click
-	 * 
-	 * @param node
-	 * @return EventHandler<MouseEvent>
-	 */
-	//private EventHandler<MouseEvent> handleDoubleRightClick(Node node, int splashOrLevel, 
-			//*GameEditScreen g,*/ int index) {
-		/*
-		return new EventHandler<MouseEvent>() { // double Click to edit a screen
 
-			public void handle(MouseEvent mouseEvent) {
-
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					
-					if (mouseEvent.getClickCount() == 2) {
-						
-						if (splashOrLevel == INT.LEVEL) {
-							configureSelection(index);
-							controller.loadLevelEditScreen(selectedLevel);
-						}
-							
-						else {
-							controller.loadSplashEditScreen(game, g);
-						}
-							
-					}
-					
-				}
-				
-				else if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-					
-					if (splashOrLevel == INT.LEVEL) {
-						configureSelection(index);
-						makeRightClickMenu(
-								e -> controller
-										.loadLevelEditScreen(selectedLevel),
-								e -> controller.trashLevel(game,
-										selectedIndex, g)).show(node,
-								mouseEvent.getScreenX(),
-								mouseEvent.getScreenY());
-					}
-						
-					else {
-						makeRightClickMenu(
-								e -> controller.loadSplashEditScreen(game, g),
-								e -> controller.trashSplash(game, g)).show(node,
-								mouseEvent.getSceneX(), mouseEvent.getSceneY());
-					}
-						
-				}
-				
-			}
-			
-		};*/
-		
-	//}	
-	
-	private void configureSelection(int index){
-		selectedIndex = index;
-		/*selectedLevel = game.levels().get(selectedIndex);*/
-	}
 	
 	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
 
@@ -398,32 +253,10 @@ public class MainPageScreen extends Screen {
 
 	}
 	
-	/**
-	 * make a right click menu for editing and removing a level
-	 */
-	private ContextMenu makeRightClickMenu(EventHandler<ActionEvent> toEdit, EventHandler<ActionEvent> toRemove) { // pass in Level
-
-		final ContextMenu rMenu = new ContextMenu();
-		MenuItem edit = new MenuItem("Edit");
-		edit.setOnAction(toEdit);
-		MenuItem remove = new MenuItem("remove");
-		remove.setOnAction(toRemove);
-		rMenu.getItems().addAll(edit, remove);
-		
-		return rMenu;
-		
-	}
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
-		/*
-		Menu fileMenu = makeFileMenu(o -> controller.saveGame(game), //change
-				o -> controller.returnToMainMenuScreen(popup),
-				o -> controller.returnToMainMenuScreen(popup));
 
-		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(),
-				makeGameMenu(), makeTrashMenu());
-		*/
 	}
 
 

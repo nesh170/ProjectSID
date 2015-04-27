@@ -29,9 +29,6 @@ import socCenter.DefaultAvatarPack;
 /** Screen with options for logging in
  * to social center, creating profile.
  * 
- * Some duplicate code from main menu screen, etc for now.
- * Will think about that refactor after an actual
- * model/database is built so we can test
  * @author Emmanuel
  *
  */

@@ -354,6 +354,11 @@ public class SocialCenterScreenController {
 			parseHandle.saveUser(toSave);
 			
 		}
+
+		@Override
+		public void loadPlayerWithAvatar(Image avatarToUse) {
+			//load instance of Player with avatar of profile
+		}
 		
 		
 		

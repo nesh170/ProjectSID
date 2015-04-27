@@ -22,7 +22,7 @@ public class User {
 	private Sprite myDefaultSprite;
 	private List<User> myFriends;
 	private List<String> myComments;
-	private File myImage;
+	private Image myImage;
 	
 	public User(String id, String name, String password){
 		setMyID(id);
@@ -34,12 +34,12 @@ public class User {
 	public User(String id, String name, String password, String imagePath){
 		this(id, name, password);
 		setImagePath(imagePath);
-		myImage = new File(imagePath);
+		myImage = new Image(imagePath);
 		myComments = new ArrayList<String>();
 	}
 	//getters, setters
-	public File getImage(){
-		return myImage;
+	public Image getImage(){
+		return new Image(myImagePath);
 	}
 	
 	public String getMyID() {

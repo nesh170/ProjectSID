@@ -58,12 +58,8 @@ public class ProfileScreen extends Screen {
 	// Instance Variables
 	private ProfileScreenController controller;
 	private Tab mainPageScreen;
-	private SpriteEditModel model;
-	private ProfileModel profileModel;
 	private boolean isMyProfile;
 
-	private TextField spriteNameField;
-	private TextField imageSizeField;
 	private DefaultAvatarPack avPack;
 	private ImageView profilePic;
 	/*private Map<String, Avatar> defaultAvatars;*/
@@ -75,11 +71,6 @@ public class ProfileScreen extends Screen {
 	private ResourceBundle defaultAvResources;
 	private ResourceBundle socialButtons;
 
-	
-	private CheckBox goalCheck;
-	private TextField goToLevel;
-	
-	private TextField keycodeInputBox;
 	
 	private User profileUser;
 
@@ -99,19 +90,13 @@ public class ProfileScreen extends Screen {
 
 		initializeRelevantResourceFiles();
 		initializeAvatarPack();
-		initializeObservableLists();
-		initializeValueBoxListenersForLists();
-		initializeInformationListenersForLists();
+
 		// initializeOtherMaps(buttonToListMap,actionMap,componentMap);
 		
 		createLeftPane();
 		createRightPane();
 		createCenterPane();
 		
-		/*if (spriteToEdit != null) {
-			drawSpriteOnScreen(spriteToEdit);
-		}*/
-
 
 	}
 	
@@ -130,29 +115,15 @@ public class ProfileScreen extends Screen {
 				.getBundle("resources.socialCenterProperties.defaultAvatars");
 		socialButtons = ResourceBundle
 				.getBundle("resources.socialCenterProperties.socialButtons");
-		// physicsResources =
-		// ResourceBundle.getBundle("resources.spritePartProperties.physics");
+	
 	}
 	
-
-	private void initializeObservableLists() {
-
-	}
-
-	private void initializeValueBoxListenersForLists() {
-
-	}
-
-	private void initializeInformationListenersForLists() {
-
-	}
-
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
 		Menu fileMenu = makeFileMenu(
-				e -> model.saveSprite(spriteNameField.getText(), defaultAvatarChoicesHolder.getSelectionModel().getSelectedItem(), false, 0), 
+				e -> controller.loadPlayerWithAvatar(profileUser.getImage()), 
 				e -> exit(),
 				e -> saveAndExit());
 
@@ -232,7 +203,7 @@ public class ProfileScreen extends Screen {
 
 		Button imageButton = new Button();
 		imageButton.setGraphic(new ImageView(new Image("images/save_avatar.png")));
-		imageButton.setOnMouseClicked(e -> saveImageSelection());
+		if(isMyProfile) imageButton.setOnMouseClicked(e -> saveImageSelection());
 
 		
 		imageButtonAndSizeText.getChildren()
@@ -283,13 +254,6 @@ public class ProfileScreen extends Screen {
 
 	}
 	
-	private void addImageToPane(String path, Image image) {
-		ImageView spriteImageRep = new ImageView(image);
-		paneForImage.getChildren().clear();
-		paneForImage.getChildren().add(spriteImageRep);
-	
-	}
-
 
 	private void exit() {
 
@@ -300,19 +264,7 @@ public class ProfileScreen extends Screen {
 	
 
 	private void saveAndExit() {
-
-		if (spriteNameField.getText().isEmpty()) {
-			spriteNameField.getStyleClass().add(STRING.CSS.ERROR);
-		}
-		
-		else {
-			try {
-				exit();
-			}
-			catch (NumberFormatException e) {
-				goToLevel.getStyleClass().add(STRING.CSS.ERROR);
-			}
-		}
+		exit();
 
 	}
 
