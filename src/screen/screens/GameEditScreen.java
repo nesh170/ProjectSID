@@ -111,7 +111,6 @@ public class GameEditScreen extends Screen {
 	private Popup popup;
 	private HBox levelHB;
 	private StackPane splashSP;
-	private ImageView addSplashImage;
 	// Getters & Setters
 	/**
 	 * add a Level to a Game
@@ -177,7 +176,7 @@ public class GameEditScreen extends Screen {
 		splashDisplay.setAlignment(Pos.CENTER);
 		splashDisplay.getChildren().add(splashSP);
 		
-		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW , e -> hideSplashRegion());
+		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW, e -> hideSplashRegion());
 		hide.setTranslateX(240);
 		hide.setTranslateY(-350);
 		hide.managedProperty().bind(hide.visibleProperty());
@@ -242,8 +241,8 @@ public class GameEditScreen extends Screen {
 		
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
-		if(s.equals("Add New Splash Screen"))		
-			addSplashImage = addsign;
+		if(s.equals("Add New Splash Screen")) {
+		}
 		Button b = new Button(s, addsign);
 		b.setContentDisplay(ContentDisplay.TOP);
 		b.setOnMouseClicked(lamda);
@@ -463,30 +462,24 @@ public class GameEditScreen extends Screen {
 	 */
 	public SequentialTransition animatesTrashLevel(EventHandler<ActionEvent> onfinished){
 		Transition pt = runAnimationsInParallel(assignLevelButtonsAnimation());
-		SequentialTransition st = new SequentialTransition(animatesTrashPaper(), pt);		
+		SequentialTransition st = new SequentialTransition(
+				animatesTrashPaper(INT.LEVEL,
+						e ->levelHB.getChildren().get(gameEditModel.getSelectedIndex())
+						.setVisible(false)),pt);		
 		st.setOnFinished(onfinished);		
 		return st;		
 	}
-	
-	private Transition animatesTrashPaper(){	
+
+	public Transition animatesTrashPaper(int splashOrLevel, EventHandler<ActionEvent> onfinished){	
 		//may need to change to Timeline
 		ScaleTransition st =  new ScaleTransition(Duration.millis(2000), 
-				changeToTrashPaper());		
+				changeToTrashPaper(splashOrLevel));		
 	    st.setDuration(Duration.seconds(0.19f));
-	    //st.setInterpolator(Interpolator.DISCRETE);
 	    st.setFromX(0);
 	    st.setFromY(0);
-	  //  st.setByX(1.2);
-	   // st.setByY(1.2);
 	    st.setToX(1);
 	    st.setToY(1);
-	    st.setOnFinished(new EventHandler<ActionEvent>(){
-	    	
-			@Override
-			public void handle(ActionEvent event) {
-				levelHB.getChildren().get(gameEditModel.getSelectedIndex()).setVisible(false);
-			}
-	    });
+	    st.setOnFinished(onfinished);
 	    return st;
 	}
 	/**
@@ -522,6 +515,16 @@ public class GameEditScreen extends Screen {
 		};
 	}
 	
+	public EventHandler<ActionEvent> trashSplashAnimationFinishedEvent(){
+		return new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent event) {
+				splashSP.getChildren().remove(3);
+				displayApproporiateSplashButton();
+			}
+		};
+	}
 	
 	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
 
@@ -538,19 +541,30 @@ public class GameEditScreen extends Screen {
 
 	}
 
-	private ImageView changeToTrashPaper(){
+	private ImageView changeToTrashPaper(int splashOrLevel){
 
-		ImageView img = new ImageView(new Image("images/trash_gas.png"));
-		img.setFitHeight(80);
-		img.setFitWidth(80);	
-		img.setFocusTraversable(false);
+		ImageView img = makeTrashGas();
+		if(splashOrLevel == INT.LEVEL){
 		int selectedIndex = gameEditModel.getSelectedIndex();
-		levelHB.getChildren().add(selectedIndex, 
+			levelHB.getChildren().add(selectedIndex, 
 				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
+		}
+		else{
+			Node toBeRemoved = splashSP.getChildren().get(3);
+			toBeRemoved.setVisible(false);
+			splashSP.getChildren().add(3, new StackPane(toBeRemoved,img));
+		}
 		return img;
 
 	}
 	
+	private ImageView makeTrashGas(){
+		ImageView img = new ImageView(new Image("images/trash_gas.png"));
+		img.setFitHeight(80);
+		img.setFitWidth(80);	
+		img.setFocusTraversable(false);
+		return img;
+	}
 	private void hideSplashRegion(){
 		splashDisplay.setVisible(false);
 		

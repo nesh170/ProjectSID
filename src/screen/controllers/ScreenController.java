@@ -137,7 +137,7 @@ import util.ErrorHandler;
 
 public class ScreenController {
 	//Testing:
-	private boolean GameEdit_Test = false;
+	private boolean GameEdit_Test = true;
 	
 	// Static Variables
 	
@@ -535,8 +535,9 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
-			
+			Transition t = gameEditScreen.animatesTrashPaper(INT.SPLASH,
+					gameEditScreen.trashSplashAnimationFinishedEvent()); //can be replaced to not pass GameEditScreen updates splash display internally
+			t.play();
 		}
 
 
