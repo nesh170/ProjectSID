@@ -266,9 +266,9 @@ public class SocialCenterScreenController {
 				);	
 	}
 
-	private Tab createProfileScreen(Tab mainPageScreenTab, User loggedIn){
+	private Tab createProfileScreen(Tab mainPageScreenTab, User loggedIn, boolean self){
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createProfileScreen(profileScreenManager, mainPageScreenTab, loggedIn),
+				screenFactory.createProfileScreen(profileScreenManager, mainPageScreenTab, loggedIn, self),
 				STRING.MAIN_MENU_SCREEN.MAIN_MENU
 				);
 	}
@@ -341,7 +341,15 @@ public class SocialCenterScreenController {
 		public void loadUserScreen(User loggedIn, User toDisplay) {
 			// TODO Auto-generated method stub
 			Tab currTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createProfileScreen(currTab, loggedIn);
+			createProfileScreen(currTab, loggedIn, loggedIn.equals(toDisplay));
+			System.out.println("loading: " + loggedIn.getName());
+		}
+
+		@Override
+		public void loadMyUserScreen(User loggedIn) {
+			// TODO Auto-generated method stub
+			Tab currTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createProfileScreen(currTab, loggedIn, true);
 			System.out.println("loading: " + loggedIn.getName());
 		}
 		

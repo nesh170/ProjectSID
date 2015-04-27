@@ -26,7 +26,7 @@ public class SocialCenterScreenFactory extends ScreenFactory {
 		return new MainPageScreen(mainPageScreenController, width, height, user);
 	}
 	
-	public Screen createProfileScreen(ProfileScreenController profileScreenController, Tab tab, User user){
-		return new ProfileScreen(profileScreenController, tab,  width, height, user);
+	public Screen createProfileScreen(ProfileScreenController profileScreenController, Tab tab, User user, boolean self){
+		return new ProfileScreen(profileScreenController, tab,  width, height, user, self);
 	}
 }

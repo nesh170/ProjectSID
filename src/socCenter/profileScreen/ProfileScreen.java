@@ -53,10 +53,11 @@ public class ProfileScreen extends Screen {
 	private ProfileScreenController controller;
 	private Tab mainPageScreen;
 	private SpriteEditModel model;
+	private ProfileModel profileModel;
+	private boolean isMyProfile;
 
 	private TextField spriteNameField;
 	private TextField imageSizeField;
-	private TextField soundPath;
 	private ChoiceBox<String> tagChoicesHolder;
 
 	private StackPane paneForImage;
@@ -66,36 +67,26 @@ public class ProfileScreen extends Screen {
 	private ResourceBundle componentResources;
 	private ResourceBundle behaviorLabels;
 	
-	private ListView<String> actionsToAddList;
-	private ListView<String> actionsAddedList;
-	private ListView<String> componentsToAddList;
-	private ListView<String> componentsAddedList;
-
-	private Text dataText;
-	
 	private CheckBox goalCheck;
 	private TextField goToLevel;
-	private final String defaultGoToLevelValue = "-1";
-
-	private ChoiceBox<String> actionTypeBox;
-	private TextField keycodeInputBox;
-	private TextField actionValue;
-	private TextField componentValue;
 	
-	private User loggedIn;
+	private TextField keycodeInputBox;
+	
+	private User profileUser;
 
 
 
 	// Constructors & Helpers
 
-	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height, User loggedIn) {
+	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height, User loggedIn, boolean self) {
 
 		super(width, height);
-		this.loggedIn = loggedIn;
+		this.profileUser = loggedIn;
 
 		this.mainPageScreen = mainPageScreen;
 		this.controller = parent;
-
+		this.isMyProfile = self;
+		
 		initializeObservableLists();
 		initializeValueBoxListenersForLists();
 		initializeInformationListenersForLists();
@@ -229,7 +220,7 @@ public class ProfileScreen extends Screen {
 		nameAndTagPane.setHgap(10);
 		nameAndTagPane.getStyleClass().add(STRING.CSS.PANE);
 
-		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ":");
+		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ": " + profileUser.getName());
 
 		spriteNameField = new TextField();
 		spriteNameField.setPromptText(languageResources().getString(STRING.SPRITE_EDIT.SPRITE_PROMPT));
@@ -277,161 +268,23 @@ public class ProfileScreen extends Screen {
 
 	private VBox createActionAndComponentPane() {
 
-		Node dataPane = createDataPane();
-		Node goalCheckboxPane = createGoalCheckbox();
-
 		VBox actionAndComponentPane = new VBox();
-		ImageView ho = new ImageView(loggedIn.getImagePath());
+		ImageView ho = new ImageView(profileUser.getImagePath());
 		actionAndComponentPane.getChildren().add(ho);
 		return actionAndComponentPane;
 
 	}
 
-	private Node createDataPane() {
-
-		HBox textArea = new HBox();
-
-		textArea.getStyleClass().add(STRING.CSS.PANE);
-		dataText = new Text(languageResources().getString("DataText"));
-		textArea.getChildren().add(dataText);
-
-		return textArea;
-
-	}
-	
-	private HBox createGoalCheckbox() {
-		HBox goalArea = new HBox();
-		goalArea.getStyleClass().add(STRING.CSS.PANE);
-		goalArea.alignmentProperty().set(Pos.CENTER);
-		goalArea.setSpacing(DOUBLE.BUTTON_SPACING);
-		
-		goalCheck = new CheckBox(languageResources().getString("OnGoal"));
-		goalCheck.selectedProperty().addListener((observable, oldBool, newBool) -> {
-			goToLevel.setVisible(newBool);
-			if(newBool) {
-				goToLevel.clear();
-			}
-			else {
-				goToLevel.setText(defaultGoToLevelValue);
-			}
-		});
-		goToLevel = new TextField();
-		goToLevel.setPromptText("LevelNum");
-		goToLevel.setText(defaultGoToLevelValue);
-		goToLevel.setVisible(false);
-		
-		goalArea.getChildren().addAll(goalCheck,goToLevel);
-		
-		return goalArea;
-	}
-
-	private void initializeActionTypeBox() {
-		
-		ObservableList<String> actionTypes = FXCollections.observableArrayList();
-
-		actionTypes.addAll(
-				languageResources().getString("AlwaysRun"),
-				languageResources().getString("NeedCode"));
-				//languageResources().getString("OnCollision")
-		actionTypeBox = new ChoiceBox<String>(actionTypes);
-		actionTypeBox.getSelectionModel().select(0);
-
-		actionTypeBox.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldSelect, newSelect) -> setKeycodeInputBoxVisibility(newSelect));
-
-	}
-	
-	private void setKeycodeInputBoxVisibility(String select) {
-		
-		keycodeInputBox.setVisible(model.getVisibilty(select));
-
-		if (!keycodeInputBox.isVisible()) {
-
-			model.setCurrentCode(KeyCode.UNDEFINED);
-			clearKeycodeInputBox();
-		}
-		
-	}
-
-
-	private HBox makeAddSoundPane() {
-		HBox soundPane = new HBox();
-		Button select = new Button(languageResources().getString("SelectSound"));
-		Tooltip onSelectHover = new Tooltip(select.getText());
-		select.setOnMouseEntered(e -> onSelectHover.show(select, e.getSceneX(), e.getSceneY()));
-		select.setOnMouseExited(e -> onSelectHover.hide());
-		soundPath = new TextField();
-		soundPath.setEditable(false);
-		select.setOnMouseClicked(e -> setSoundPathText());
-		
-		soundPane.getChildren().addAll(select, soundPath);
-		return soundPane;
-	}
-	
-	private void setSoundPathText() {
-		soundPath.getStyleClass().remove(STRING.CSS.ERROR);
-		try {
-			File file = DataHandler.chooseFile(new Stage());
-			if(file.getName().endsWith(".mp3") || file.getName().endsWith(".m4a")) {
-				soundPath.setText(file.getPath());
-			}
-			else {
-				soundPath.getStyleClass().add(STRING.CSS.ERROR);
-			}
-		} catch (NullPointerException e) {
-			//IDC, do nothing
-		}
-		
-	}
-	
-
-	
-	private void setPrefButtonWidth(Button... buttons) {
-
-		Arrays.asList(buttons).forEach(
-				e -> e.setPrefWidth(INT.PREF_BUTTON_WIDTH));
-
-	}
 
 	private void initializeImageListPane() {
 		imageListPane = new ListView<String>();
 		
 	}
 	
-	private void onSelectNewImage(String select) {
-		
-		paneForImage.getChildren().clear();
-		paneForImage.getChildren().add(
-				model.getSelectedImage(select));
-
-	}
-
-	private void addAction(MouseEvent e) {
-
-
-	}
-
-	private void removeAction(MouseEvent e) {
-
-	}
-
-	private void addComponent(MouseEvent e) {
-
-	}
-
-	private void removeComponent(MouseEvent e) {
-
-	}
 	private void clearKeycodeInputBox() {
 		keycodeInputBox.setText("");
 	}
 
-	private void setCurrentKeycode(KeyEvent e) {
-
-		model.setCurrentCode(e.getCode());
-		keycodeInputBox.setText(e.getCode().getName());
-
-	}
 
 	private void selectImageFile() {
 
@@ -469,7 +322,7 @@ public class ProfileScreen extends Screen {
 
 	private void exit() {
 
-		controller.returnToMainPage((MainPageScreen) mainPageScreen.getContent(), mainPageScreen, loggedIn);
+		controller.returnToMainPage((MainPageScreen) mainPageScreen.getContent(), mainPageScreen, profileUser);
 		
 
 	}

@@ -77,4 +77,6 @@ public interface MainPageScreenController  {
 	
 	public abstract void loadUserScreen(User loggedIn, User toDisplay);
 	
+	public abstract void loadMyUserScreen(User loggedIn);
+	
 }
