@@ -96,7 +96,7 @@ import levelPlatform.splashScreen.SplashScreen;
 public class GameEditScreen extends Screen {
 
 	// Static Variables
-	private static boolean TESTING = true;		// change this to true to debug, but only push "false"
+	private static boolean TESTING = false;		// change this to true to debug, but only push "false"
 	
 	
 	// Instance variables
