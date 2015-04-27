@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import resources.constants.INT;
 import util.DialogUtil;
@@ -23,8 +22,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -58,11 +57,11 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
+	private PreferencePane mySettings;
 
 	private Media myVideo;
 	private Media myAudio;
-	private double myWidth;
-	private double myHeight;
+
 	private int myLives;
 	private int myHealth;
 	private int myScore;
@@ -80,38 +79,29 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
 
-	//      public PlayerViewController(ScrollPane pane, HUD gameHUD) {
-	//              myGameRoot = pane;
-	//              myCamera = new Camera(pane);
-	//              myHUD = gameHUD;
-	//              loadNewChooser();
-	//      }
-	//
-	//      public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
-	//              myGameRoot = pane;
-	//              myCamera = new Camera(pane);
-	//              myHUD = gameHUD;
-	//              selectGame(game);
-	//      }
-
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myCamera = new Camera(myView.getRoot());
+		loadNewChooser();
 		myNetwork = new Network();
 	}
 
-	public void play() {
+	@Override
+	public void start() {
+		resume();
+		myAudioController.play();
+	}
+
+	public void resume() {
 		myTimeline.play();
 		myEngine.play(myView.getRoot());
 		myView.playScreen();
-		myAudioController.play();
 	}
 
 	public void pause() {
 		myTimeline.stop();
 		myEngine.pause(myView.getRoot());
 		myView.pauseScreen();
-		myAudioController.pause();
 	}
 
 	private void update() {
@@ -124,11 +114,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameGroup = myEngine.render();
 		myView.display(myGameGroup);
 		myCamera.focus();               
-	}
-
-	public void removePause() {
-		//top pane's only child will be pause menu
-
 	}
 
 	private void setupAnimation() {
@@ -161,6 +146,12 @@ public class PlayerViewController implements GamePlayerInterface {
 		return dialogStage;
 	}
 
+	@Override
+	public void setPreferences() {
+		pause();
+		mySettings.bringUpPreferences();
+	}
+
 	public void loadNewChooser() {
 		Stage chooserStage = new Stage();
 		chooserStage.initModality(Modality.APPLICATION_MODAL);
@@ -175,10 +166,13 @@ public class PlayerViewController implements GamePlayerInterface {
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();
 			myAudioController = new AudioController(new MediaPlayer(myAudio));
+			mySettings = new PreferencePane(myAudioController);
+			mySettings.setController(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
 	}
 
@@ -188,20 +182,20 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		initializeGameAttributes();
 		setupAnimation();
-		//play();
+		// play();
 	}
 
 	public void selectGame(Game game) {
 		myGame = game;
 		myGameLevels = game.levels();
-		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 		setupAnimation();
-		play();
+		start();
 	}
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-		"mario3.xml" };
+				"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -216,7 +210,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void restart() {
 		pause();
 		initializeGameAttributes();
-		play();
+		start();
 	}
 
 	public void showTutorial() {
@@ -247,19 +241,16 @@ public class PlayerViewController implements GamePlayerInterface {
 		myAudioController.stop();
 	}
 
-	public List<String> getSpriteTagList(){
+	public void setBrightness(ColorAdjust ca) {
+		myGameGroup.setEffect(ca);
+	}
+	
+	public List<String> getSpriteTagList() {
 		return myEngine.getSpriteTagList();
 	}
 
-	public void addRuntimeAction (String spriteTag, Object groovyAction) {
+	public void addRuntimeAction(String spriteTag, Object groovyAction) {
 		myEngine.addGroovyAction(spriteTag, (Action) groovyAction);
-	}
-
-
-	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -282,14 +273,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	@Override
 	public void loadNewGame() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setPreferences() {
-		// TODO Auto-generated method stub
-
+		// Implemented with chooseGame method
 	}
 
 	@Override
@@ -300,34 +284,20 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	@Override
 	public void saveGame() {
-		try {
-			DataHandler.toXMLFile(myGame, myGame.name(), myGameFolder.toURI().toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+		// TODO Auto-generated method stub
 
-	public void saveAs() {
-		pauseExecution();
-		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
-		resumeExecution();
-//		if (result.isPresent()) {
-//			entered = result.get();
-//			File dir = new File(myGameFolder.getParent() + "/" + result);
-//			dir.mkdir();
-//		}
 	}
 
 	public String getCurrentLevelinXML() {
 		return myEngine.getCurrentLevelinXML();
 	}
 
-	public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
+	public void handleKeyEvent(String keyEventType, String keyCode,
+			int playerNumber) {
 		myEngine.handleKeyEvent(keyEventType, keyCode, playerNumber);
 	}
 
-	public void startServer () {
+	public void startServer() {
 		try {
 			myTimeline.pause();
 			myNetwork.setUpServer(PORT_NUMBER);
@@ -343,24 +313,11 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setErrorHandler (ErrorHandler errorHandler) {
 		myErrorHandler = errorHandler;
 	}
-	
-	private void pauseExecution() {
-		myTimeline.stop();
-		myEngine.pause(myView.getRoot());
-		myAudioController.pause();
-	}
-	
-	private void resumeExecution() {
-		myTimeline.play();
-		myEngine.play(myView.getRoot());
-		myAudioController.play();
-	}
 
 	private void sendClientLevels(){
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
 			protected Void call () {
-
 				while (true) {
 					try {
 						myNetwork.sendStringToClient(getCurrentLevelinXML());
