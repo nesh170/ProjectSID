@@ -328,8 +328,8 @@ public class ScreenController {
 	public File getFileUsingFileChooser(FileChooser fileChooser) {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
-
-
+	
+	// private
 	private Tab createMainMenuScreen() {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
@@ -615,7 +615,6 @@ public class ScreenController {
 			popup.hide();
 		}	
 	}
-
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
