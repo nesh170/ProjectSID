@@ -205,7 +205,7 @@ public class STRING {
 		public static final String SAVE_BUTTON_TEXT = "Save";
 		public static final String SWITCH_ACTION = "Switch Out ";
 	
-		
+		public static final String ACTION_NAME = "Action";
 		
 		
 		

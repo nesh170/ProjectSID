@@ -358,28 +358,29 @@ public class CollisionTableScreen extends Screen{
 		
 
 		GridPane collisionSet = new GridPane();
-		collisionSet.setHgap(30);
-		collisionSet.setVgap(30);
-		collisionSet.setPadding(new Insets(10, 50, 10, 50));
-		collisionSet.setMaxHeight(50);
+		collisionSet.setHgap(INT.EACH_ROW_GRIDPANE_HGAP);
+		collisionSet.setVgap(INT.EACH_ROW_GRIDPANE_VGAP);
+		collisionSet.setPadding(new Insets(INT.EACH_ROW_GRIDPANE_INSETS_TOPBOTTOM, INT.EACH_ROW_GRIDPANE_INSETS_LEFTRIGHT, 
+				INT.EACH_ROW_GRIDPANE_INSETS_TOPBOTTOM, INT.EACH_ROW_GRIDPANE_INSETS_LEFTRIGHT));
+		collisionSet.setMaxHeight(INT.EACH_ROW_GRIDPANE_MAX_HEIGHT);
 
 	
 		ComboBox activeSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, 
 				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
-		collisionSet.add(activeSpriteList, 1, 0); 
+		collisionSet.add(activeSpriteList, INT.ACTIVESPRITE_COLUMN, INT.TOP_ROW); 
 		
 		ComboBox inactiveSpriteList = this.createComboBoxFromList(levelSpriteTags, STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, 
 				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
 	
-		collisionSet.add(inactiveSpriteList, 2, 0); 
+		collisionSet.add(inactiveSpriteList, INT.INACTIVESPRITE_COLUMN, INT.TOP_ROW); 
 		
 		ArrayList<String> third = new ArrayList<>(STRING.DIRECTION_TO_INTEGER_MAP.keySet());
 
 		ComboBox direction = this.createComboBoxFromList(third, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,
 				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
 		
-		collisionSet.add(direction, 3, 0); 
+		collisionSet.add(direction, INT.DIRECTION_COLUMN, INT.TOP_ROW); 
 		
 		ObservableList<String> actionsToAdd = FXCollections.observableArrayList(ResourceBundle
 				.getBundle("resources.spritePartProperties.collisionAction")
@@ -398,14 +399,14 @@ public class CollisionTableScreen extends Screen{
 		ComboBox action = this.createComboBoxFromList(nicerNamedActions, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, 
 				STRING.COLLISION_EDIT.FONT_STYLE, STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
 
-		collisionSet.add(action, 4, 0); 
+		collisionSet.add(action, INT.ACTION_COLUMN, INT.TOP_ROW); 
 		
 
 		TextField text = new TextField();
 		text.setStyle(STRING.COLLISION_EDIT.TEXT_BOX_STYLE);
 		text.setPromptText(STRING.COLLISION_EDIT.TEXT_PROMPT);
 		text.setId(STRING.COLLISION_EDIT.TEXT_PROMPT);
-		collisionSet.add(text, 5, 0); 
+		collisionSet.add(text, INT.TEXTVAL_COLUMN, INT.TOP_ROW); 
 
 
 		
@@ -438,7 +439,7 @@ public class CollisionTableScreen extends Screen{
 							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_TAG, STRING.COLLISION_EDIT.FONT_STYLE, 
 							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_NAME);
 
-					collisionSet.add(spritesToChooseFrom, 4, 1); 
+					collisionSet.add(spritesToChooseFrom, INT.ACTION_COLUMN, INT.SPRITELIST_ROW); 
 
 					spritesToChooseFrom.valueProperty().addListener(new ChangeListener<String>() {
 
@@ -462,19 +463,19 @@ public class CollisionTableScreen extends Screen{
 		ImageView saveButton = new ImageView(saveButtonImg);
 		saveButton.setPreserveRatio(true);
 		
-		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), 100);
+		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), INT.SAVE_BUTTON_SIZE);
 		saveButton.setOnMouseClicked(e-> this.saveRow((String)activeSpriteList.getValue(), (String)inactiveSpriteList.getValue(), 
 				(String)direction.getValue(), (String)action.getValue(), optionalSprites.get(0), (String)(text.getText())));
-		collisionSet.add(saveButton, 6, 0); 
+		collisionSet.add(saveButton, INT.SAVE_BUTTON_COLUMN, INT.TOP_ROW); 
 		
 		Image trashButtonImg = new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_IMG);
 		
 		ImageView trashButton = new ImageView(trashButtonImg);
 		trashButton.setPreserveRatio(true);
-		setButtonStyle(trashButton, trashButtonImg, new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_PRESSED_IMG), 70);
+		setButtonStyle(trashButton, trashButtonImg, new Image(STRING.COLLISION_EDIT.TRASH_BUTTON_PRESSED_IMG), INT.TRASH_BUTTON_SIZE);
 	//	trashButton.setOnMouseClicked(e -> {activeSpriteList.setValue(activeSpriteList.getPromptText());});
 		trashButton.setOnMouseClicked(e -> {collisionTable.getChildren().remove(collisionSet);});
-		collisionSet.add(trashButton, 7, 0); 
+		collisionSet.add(trashButton, INT.TRASH_BUTTON_COLUMN, INT.TOP_ROW); 
 		
 		collisionTable.getChildren().add(collisionSet);
 		
@@ -491,23 +492,23 @@ public class CollisionTableScreen extends Screen{
 	
 	
 	
-	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){
+	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){ // TODO: magic numbers fix
 		ScrollPane sp = new ScrollPane();
 		sp.setPannable(true);
 	
 	
 	//	TilePane tile = new TilePane(Orientation.VERTICAL);
-		VBox tile = new VBox(50);
+		VBox tile = new VBox(INT.SCROLLPANE_VBOX_SIZE);
 		
-		HBox description = new HBox(800);
-		description.setAlignment(Pos.TOP_CENTER);
+		HBox titleBox = new HBox(INT.SCROLLPANE_TITLEBOX_SIZE);
+		titleBox.setAlignment(Pos.TOP_CENTER);
 		
 		ImageView titleImage = new ImageView(new Image(STRING.COLLISION_EDIT.COLLISION_SCREEN_TITLE));
 		titleImage.setFitWidth(600);
 		titleImage.setPreserveRatio(true);
 	//	titleImage.setTranslateX(200);
 		
-		description.getChildren().add(titleImage);
+		titleBox.getChildren().add(titleImage);
 
 		tile.setPadding(new Insets(45, 45, 75, 45));
 	//	tile.setVgap(20);
@@ -518,7 +519,7 @@ public class CollisionTableScreen extends Screen{
 			
 		tile.getChildren().add(description);
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < INT.SAMPLE_DISPLAY_NUMBER; i++)
 		{		
 			VBox eachRow = this.addTableRow();	
 			tile.getChildren().add(eachRow);
@@ -555,11 +556,6 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
-	private String convertDisplayActionStringToStringStyleOfPropertiesFile(String original)
-	{
-		return (original.replaceAll("\\s", "")) + "Action";
-	}
-	
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
@@ -581,14 +577,10 @@ public class CollisionTableScreen extends Screen{
 		*/
 		
 		
-		
-		
-		String actionNameInStyleOfPropertiesFile = convertDisplayActionStringToStringStyleOfPropertiesFile(action);
-		System.out.println(actionNameInStyleOfPropertiesFile);
-		
+	
 		ArrayList<String> actionParameters = new ArrayList<String>();
 		actionParameters.add(dir);
-		actionParameters.add(actionNameInStyleOfPropertiesFile);
+		actionParameters.add(action.replaceAll("\\s", "") + STRING.COLLISION_EDIT.ACTION_NAME);
 		actionParameters.add(value);
 		actionParameters.add(switchOption);
 		
