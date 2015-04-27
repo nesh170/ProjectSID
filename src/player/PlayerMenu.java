@@ -87,6 +87,7 @@ public class PlayerMenu{
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			controller.loadNewChooser();
+			controller.play();
 		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {

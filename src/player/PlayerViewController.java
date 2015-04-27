@@ -97,7 +97,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myCamera = new Camera(myView.getRoot());
-		loadNewChooser();
 		myNetwork = new Network();
 	}
 
