@@ -544,7 +544,7 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
-/*	private Action createActionFromString(String actionString)
+	private Action createActionFromString(String actionString)
 	{
 		//TODO: create separate class for String-> action (also used for spriteEditScreen
 		Action action = (Action) Class
@@ -552,10 +552,26 @@ public class CollisionTableScreen extends Screen{
 				.getConstructor(Sprite.class, Double.class,
 						KeyCode[].class)
 						.newInstance(editableSprite,
-								Double.parseDouble(actionValue.getText()),
+								Double.parseDouble(actionValueText),
 								keylist);
 	//	return action;
-	}*/
+	}
+	
+	private void initializeClassPathMap() {
+
+		classPathMap = new HashMap<>();
+
+		actionResources.keySet().forEach(
+				e -> classPathMap.put(
+						languageResources.getString(e),
+						actionResources.getString(e)));
+
+		componentResources.keySet().forEach(
+				e -> classPathMap.put(
+						languageResources.getString(e),
+						componentResources.getString(e)));
+
+	}
 	
 	
 	
