@@ -26,7 +26,6 @@ public abstract class Action {
 	private boolean runsEveryFrame = false;
 	protected Double value;
 	private String soundPath;
-	private SoundEffectManager soundManager = new SoundEffectManager();
 	
 	public void setSound(String path){
 		soundPath = path;
@@ -99,7 +98,7 @@ public abstract class Action {
 	}
 	
 	public void execute(){
-		soundManager.playSound(soundPath);
+		SoundEffectManager.sharedInstance().playSound(soundPath);
 		doAction();
 	}
 	
