@@ -9,6 +9,7 @@ import gameEngine.Component;
  * and methods for increasing/decreasing
  * 
  */
+@HUD(name = "Health")
 public class HealthComponent extends Component {
 	
 	private static final Double DEFAULT_STARTING_HP = 50.0;
