@@ -544,6 +544,10 @@ public class CollisionTableScreen extends Screen{
 		
 	}
 	
+	private String convertDisplayActionStringToStringStyleOfPropertiesFile(String original)
+	{
+		return (original.replaceAll("\\s", "")) + "Action";
+	}
 	
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
@@ -565,9 +569,15 @@ public class CollisionTableScreen extends Screen{
 		thisSpritePair.initialize(activeSp, inactiveSp);
 		*/
 		
+		
+		
+		
+		String actionNameInStyleOfPropertiesFile = convertDisplayActionStringToStringStyleOfPropertiesFile(action);
+		System.out.println(actionNameInStyleOfPropertiesFile);
+		
 		ArrayList<String> actionParameters = new ArrayList<String>();
 		actionParameters.add(dir);
-		actionParameters.add(action);
+		actionParameters.add(actionNameInStyleOfPropertiesFile);
 		actionParameters.add(value);
 		actionParameters.add(switchOption);
 		
