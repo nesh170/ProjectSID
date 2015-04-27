@@ -10,6 +10,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PlayerView {
 
@@ -23,6 +25,9 @@ public class PlayerView {
 	private StackPane myBase;
 	private StackPane myTop;
 
+	private static final int POPUP_WINDOW_SIZE = 500;
+	private static final String CONNECT_SERVER_STRING = "Connecting to server...";
+	
 	public PlayerView() {
 
 		myGameRoot = new ScrollPane();
@@ -89,6 +94,15 @@ public class PlayerView {
 	public void display(Group group) {
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
+	}
+	
+	public void displayWaitingToConnect() {
+		Stage waitStage = new Stage();
+		StackPane waitPane = new StackPane();
+		waitPane.getChildren().add(new Text(CONNECT_SERVER_STRING));
+		Scene waitScene = new Scene(waitPane);
+		waitStage.setScene(waitScene);
+		waitStage.show();
 	}
 
 }
