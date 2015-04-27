@@ -313,7 +313,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		pauseExecution();
 		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
 		resumeExecution();
-		DialogUtil.display();
 //		if (result.isPresent()) {
 //			entered = result.get();
 //			File dir = new File(myGameFolder.getParent() + "/" + result);
