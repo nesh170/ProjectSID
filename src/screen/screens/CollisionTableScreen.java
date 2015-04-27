@@ -234,6 +234,15 @@ public class CollisionTableScreen extends Screen{
 		super(width, height);
 	}
 	
+	/******* PRIVATE CLASS SPRITEPAIR *******
+	 * 
+	 * This inner private class SpritePair is used by the CollisionTableScreen 
+	 * to aid with putting the necessary parameters to Collision Table's 
+	 * addActionToMap(String s1, String s2, int dir, Action action) method
+	 * 
+	 * @author anika
+	 *
+	 */
 	private class SpritePair {
 		
 		private String myFirstSprite;
