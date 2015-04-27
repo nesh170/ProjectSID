@@ -48,11 +48,9 @@ public class MainPageScreen extends Screen {
 	private MainPageScreenController controller;
 	private User loggedInUser;
 	
-	private int selectedIndex;
 	// JavaFX
 	private StackPane friendsDisplay;
 	private VBox loggedInDisplay;
-	private Popup popup;
 	private HBox levelHB;
 	private StackPane loggedSP;
 
@@ -95,7 +93,6 @@ public class MainPageScreen extends Screen {
 		configureLoggedInDisplay();
 		this.setLeft(loggedInDisplay);
 		
-		createPopUp();
 	}
 
 	/**
@@ -139,15 +136,9 @@ public class MainPageScreen extends Screen {
 
 		friendsDisplay = new StackPane();
 		ScrollPane friendsSP = this.createScrollPane();
-				
-		ImageView addButton = makeButton(STRING.GAME_EDIT.PLUS_IMG, 
-				STRING.GAME_EDIT.PLUSDOWN_IMG,
-				e -> controller.nop());
-		
-		StackPane.setAlignment(addButton, Pos.TOP_RIGHT);
 		
 
-		friendsDisplay.getChildren().addAll(friendsSP, addButton);
+		friendsDisplay.getChildren().addAll(friendsSP);
 
 	}
 
@@ -183,67 +174,10 @@ public class MainPageScreen extends Screen {
 
 
 
-	//TODO: change here for different level indexes
-	private Button getLevelOrSplashButtons(ImageView img, int splashOrLevel, int index) {
-
-		Button b = new Button();
-		img.setFitHeight(INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-		img.setFitWidth(INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
-		b.setGraphic(img);
-		return b; 
-	}
 
 
-	
-	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
-
-		ImageView b = new ImageView(new Image(locUp));
-		b.setFitHeight(80);
-		b.setFitWidth(80);
-		b.setOnMouseClicked(lamda);
-		
-		// added by anika
-		b.setOnMousePressed(e -> b.setImage(new Image(locDown)));
-		b.setOnMouseReleased(e -> b.setImage(new Image(locUp)));
-
-		return b;
-
-	}
 
 
-	private void createPopUp() {   
-		
-	     popup = new Popup();
-	     popup.setAutoFix(false);
-	     popup.setHideOnEscape(true);
-	     popup.setX(500);
-	     popup.setY(250);
-	     ImageView img = makeImageView(STRING.MAIN_MENU_SCREEN.POPUP,
-	    		 300, INT.DEFAULT_LEVEL_DISPLAY_WIDTH);
-	     GridPane layout = configurePopUpLayout();
-	     popup.getContent().addAll(img, layout);
-	     
-	}
-	
-	private GridPane configurePopUpLayout(){
-		  GridPane layout = new GridPane();
-		  layout.setAlignment(Pos.CENTER);
-		  layout.setHgap(10);
-		  layout.setVgap(20);
-		  Text doesSave = new Text(STRING.GAME_EDIT.POPUP_SAVE);
-		  doesSave.setStyle(STRING.GAME_EDIT.FONT_POPUP);
-		  HBox buttons= new HBox(150);
-		  Button save = new Button("save");
-		  Button back = new Button("back");
-		  buttons.setAlignment(Pos.CENTER);
-		  buttons.getChildren().addAll( back, save);	   
-		  save.setOnMouseClicked(e -> controller.nop());
-		  back.setOnMouseClicked(e -> controller.nop());
-		  layout.add(new Label(""), 1, 1, 1,4);
-		  layout.add(doesSave, 1, 5);
-		  layout.add(buttons, 1, 9);
-		 return layout;
-	}
 	
 	private HBox configureHBox() {
 
