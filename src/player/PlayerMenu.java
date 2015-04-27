@@ -7,7 +7,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import sid.SIDSocial;
 import sprite.Sprite;
+import util.DialogUtil;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -107,8 +109,9 @@ public class PlayerMenu{
 
 		MenuItem prefItem = makeMenuItem("Set Preferences");
 		prefItem.setOnAction(event -> {
-			//view.stopView();
+			view.openPreference();
 		});
+		prefMenu.getItems().add(prefItem);
 		return prefMenu;
 	}
 	
@@ -184,6 +187,27 @@ public class PlayerMenu{
 
 	    networksMenu.getItems().addAll(hostItem, joinItem);
 	    return networksMenu;
+	}
+	
+	@AddMenuItem(order = 6)
+	private Menu buildSocialMenu(PlayerViewController view){
+	    Menu socialMenu = new Menu("Social Center");
+	    MenuItem openSocial = new MenuItem("Open");
+	    SIDSocial socialCenter = new SIDSocial();
+            openSocial.setOnAction(event -> {try {
+                view.pause();
+                Stage socialStage = new Stage();
+                socialCenter.start(socialStage);
+                socialStage.setOnCloseRequest(close -> {
+                    socialStage.close();
+                    view.resume();
+                });
+            }
+            catch (Exception e) {
+                DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
+            }});
+            socialMenu.getItems().add(openSocial);
+            return socialMenu;
 	}
 
 	protected MenuBar getBar() {
