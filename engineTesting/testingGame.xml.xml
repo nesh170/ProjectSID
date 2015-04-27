@@ -142,14 +142,22 @@
                 <mySoundMap/>
               </soundManager>
             </gameEngine.actions.FallAction>
+<<<<<<< HEAD
+            <gameEngine.actions.NormalAction>
+=======
             <gameEngine.actions.NormalActionY>
+>>>>>>> sl
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
               <runsEveryFrame>false</runsEveryFrame>
               <soundManager>
                 <mySoundMap/>
               </soundManager>
+<<<<<<< HEAD
+            </gameEngine.actions.NormalAction>
+=======
             </gameEngine.actions.NormalActionY>
+>>>>>>> sl
             <gameEngine.actions.UpMotionAction>
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
@@ -224,14 +232,22 @@
                         <mySoundMap/>
                       </soundManager>
                     </gameEngine.actions.FallAction>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction>
+=======
                     <gameEngine.actions.NormalActionY>
+>>>>>>> sl
                       <mySprite reference="../../.."/>
                       <isActive>false</isActive>
                       <runsEveryFrame>false</runsEveryFrame>
                       <soundManager>
                         <mySoundMap/>
                       </soundManager>
+<<<<<<< HEAD
+                    </gameEngine.actions.NormalAction>
+=======
                     </gameEngine.actions.NormalActionY>
+>>>>>>> sl
                     <gameEngine.actions.UpMotionAction>
                       <mySprite reference="../../.."/>
                       <isActive>false</isActive>
@@ -373,14 +389,22 @@
                 <mySoundMap/>
               </soundManager>
             </gameEngine.actions.FallAction>
+<<<<<<< HEAD
+            <gameEngine.actions.NormalAction>
+=======
             <gameEngine.actions.NormalActionY>
+>>>>>>> sl
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
               <runsEveryFrame>false</runsEveryFrame>
               <soundManager>
                 <mySoundMap/>
               </soundManager>
+<<<<<<< HEAD
+            </gameEngine.actions.NormalAction>
+=======
             </gameEngine.actions.NormalActionY>
+>>>>>>> sl
             <gameEngine.actions.MotionPathAction>
               <mySprite reference="../../.."/>
               <isActive>false</isActive>
@@ -492,10 +516,17 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                   <null/>
                 </list-array>
@@ -511,10 +542,17 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                   <null/>
                 </list-array>
@@ -531,10 +569,17 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                 </list-array>
               </entry>
@@ -545,10 +590,17 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                 </list-array>
               </entry>
@@ -559,10 +611,17 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                 </list-array>
               </entry>
@@ -577,10 +636,17 @@
                   <null/>
                   <null/>
                   <list>
+<<<<<<< HEAD
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+                    <gameEngine.actions.NormalAction reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalAction"/>
+=======
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
                     <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
+>>>>>>> sl
                   </list>
                   <null/>
                 </list-array>

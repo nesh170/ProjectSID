@@ -63,6 +63,11 @@ public class DataHandler {
 	public static File[] getFilesFromDir(File folder) {
 		return folder.listFiles();
 	}
+	
+	public static void saveFileToDir(File folder, File file) throws IOException {
+		FileWriter fWriter = new FileWriter(file);
+		fWriter.close();
+	}
 
 	public static Game getGameFromDir(File folder) throws IOException {
 		List<Game> games = Arrays.asList(folder.listFiles()).stream()

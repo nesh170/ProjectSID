@@ -2,6 +2,7 @@ package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.Component;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
+import gameEngine.components.HUD;
 import resources.constants.INT;
 import sprite.Sprite;
 import javafx.geometry.Point2D;
@@ -202,5 +204,20 @@ public class Level extends LevelPlatform {
     public void setKeyCodeToPlayer(int playerNumber, String actionName, KeyCode key){
         playerSpriteList().get(playerNumber).getActionOfType(actionName).setKeyCode(Stream.of(key).collect(Collectors.toList()));
     }
+
+    public Map<String, Double> getUnmodifiableHUDMap () {
+        Map<String, Double> HUDMap = new HashMap<>();
+        playerSpriteList
+                .get(INT.LOCAL_PLAYER)
+                .componentList()
+                .stream()
+                .filter(comp -> comp.getClass().getAnnotation(HUD.class) != null)
+                .forEach(component -> HUDMap.put((component.getClass().getAnnotation(HUD.class).name()), component.getValue()));
+        return Collections.unmodifiableMap(HUDMap);
+    }
+
+
+
+
 
 }	

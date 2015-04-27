@@ -3,13 +3,14 @@ package player;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PlayerView {
 
@@ -22,7 +23,8 @@ public class PlayerView {
 	private BorderPane myBorderPane;
 	private StackPane myBase;
 	private StackPane myTop;
-
+	private Stage myPopUp;
+	
 	public PlayerView() {
 
 		myGameRoot = new ScrollPane();
@@ -40,7 +42,7 @@ public class PlayerView {
 		myBase.getChildren().addAll(myGameRoot, myTop);
 		
 		myScene = new Scene(myBorderPane, 1200, 600);
-
+		myPopUp = new Stage();
 
 	}
 
@@ -89,6 +91,28 @@ public class PlayerView {
 	public void display(Group group) {
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
+	}
+	
+	public void displayPopUp(String text, int size) {
+		StackPane waitPane = new StackPane();
+		waitPane.getChildren().add(new Text(text));
+		Scene waitScene = new Scene(waitPane, size, size);
+		myPopUp.setScene(waitScene);
+		myPopUp.show();
+		
+	}
+	
+	public void changePopUpText(String text) {
+		if (myPopUp.isShowing()) {
+			StackPane pane = (StackPane) myPopUp.getScene().getRoot();
+			Text paneText = (Text) pane.getChildren().get(0);
+			paneText.setText(text);
+		}
+	}
+	
+	public void closePopUp() {
+		if (myPopUp.isShowing())
+			myPopUp.close();
 	}
 
 }

@@ -19,6 +19,7 @@ public class TimeComponent extends Component {
 		catch(Exception e){
 		    levelTime = DOUBLE.DEFAULT_TIME_LIMIT;
 		}
+		myHUDName = "Time";
 	}
 
 	@Override

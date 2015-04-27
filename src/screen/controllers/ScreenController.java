@@ -1,5 +1,6 @@
 package screen.controllers;
 import game.Game;
+import gameEngine.CollisionTable;
 
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
@@ -327,8 +328,8 @@ public class ScreenController {
 	public File getFileUsingFileChooser(FileChooser fileChooser) {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
-
-
+	
+	// private
 	private Tab createMainMenuScreen() {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
@@ -615,7 +616,6 @@ public class ScreenController {
 		}	
 	}
 
-
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
 		@Override
@@ -677,8 +677,8 @@ public class ScreenController {
 		 * @param levelEditScreen
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
-			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
 		}
 		
@@ -704,9 +704,12 @@ public class ScreenController {
 	private class CollisionTableScreenManager implements CollisionTableScreenController {
 
 		@Override
-		public void returnToLevel() {
-			// TODO Auto-generated method stub
-			
+		public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo) {
+			tabManager.removeTabAndChangeSelected(switchTo);
+			if (switchTo.getContent() instanceof LevelEditScreen) {
+				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();
+				levelEditScreen.updateCollisions(collisionMap);
+			}
 		}
 		
 	}

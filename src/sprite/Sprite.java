@@ -275,7 +275,9 @@ public class Sprite {
 	}
 	
 	public void addAction(Action actionToAdd){
-		actionList.add(actionToAdd);
+		if (actionToAdd != null) {
+			actionList.add(actionToAdd);
+		}
 	}
 	
 	public void addActionRuntime (Action action) {
