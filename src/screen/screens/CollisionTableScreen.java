@@ -216,10 +216,10 @@ public class CollisionTableScreen extends Screen{
 
 	/******* PRIVATE VARIABLES *******
 	 * 
-	 * myController 	 : 	CollisionTableScreenController 	   || Interface class specific to the Collision Table Screen
-	 * levelSpriteTags	 :	List<String>				       || List of String tags of sprites obtained from Level Edit Screen
-	 * collTable		 :	CollisionTable					   || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
-	 * tablesDisplay	 :	StackPane						   || StackPane used to display VBox and HBoxes of comboboxes 
+	 * myController 	 : 	CollisionTableScreenController 	   	   || Interface class specific to the Collision Table Screen
+	 * levelSpriteTags	 :	List<String>				           || List of String tags of sprites obtained from Level Edit Screen
+	 * collTable		 :	CollisionTable					       || Collision Table class. CTS calls addActionToMap(s1, s2, dir, action)
+	 * tablesDisplay	 :	StackPane						       || StackPane used to display VBox and HBoxes of comboboxes 
 	 * collisionTableMap :	Map<String, Map<String, List<String>>> || Map of Tag 1 to Map of Tag 2 to Action components (direction, action, value...)
 	 * 
 	 * mapOfSpriteTypesToExistingSpriteStringNames : Map<String, ObservableList<String>>	|| Map obtained from Level Edit Screen
