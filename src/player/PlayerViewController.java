@@ -529,4 +529,8 @@ public class PlayerViewController implements GamePlayerInterface {
 		camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 	}
 
+    public void openPreference () {
+        mySettings.bringUpPreferences();
+    }
+
 }
