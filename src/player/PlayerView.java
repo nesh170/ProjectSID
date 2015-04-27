@@ -26,7 +26,7 @@ public class PlayerView {
 	private StackPane myBase;
 	private StackPane myTop;
 	private Stage myPopUp;
-	
+
 	public PlayerView() {
 
 		myGameRoot = new ScrollPane();
@@ -41,9 +41,9 @@ public class PlayerView {
 		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
 		myBorderPane.setCenter(myBase);
-		
+
 		myBase.getChildren().addAll(myGameRoot, myTop);
-		
+
 		myScene = new Scene(myBorderPane, 1200, 600);
 		myPopUp = new Stage();
 
@@ -52,13 +52,12 @@ public class PlayerView {
 	public void setController(PlayerViewController playerController) {
 		myMenuBar = new PlayerMenu(playerController);
 		myController = playerController;
-		Group errorGroup =new Group();
+		Group errorGroup = new Group();
 		myBorderPane.setLeft(errorGroup);
 		myController.setErrorHandler(new ErrorHandler(errorGroup));
 		myBorderPane.setTop(myMenuBar.getBar());
 		myPauseScreen = makePauseScreen(playerController);
 	}
-	
 
 	private StackPane makePauseScreen(PlayerViewController playerController) {
 		StackPane pause = new StackPane();
@@ -72,16 +71,16 @@ public class PlayerView {
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
-	
+
 	public void pauseScreen() {
 		myTop.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
 	}
-	
+
 	public void playScreen() {
 		myTop.getChildren().remove(myPauseScreen);
 	}
-	
+
 	public Scene getScene() {
 		return myScene;
 	}
@@ -94,16 +93,16 @@ public class PlayerView {
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
 	}
-	
+
 	public void displayPopUp(String text, int size) {
 		StackPane waitPane = new StackPane();
 		waitPane.getChildren().add(new Text(text));
 		Scene waitScene = new Scene(waitPane, size, size);
 		myPopUp.setScene(waitScene);
 		myPopUp.show();
-		
+
 	}
-	
+
 	public void changePopUpText(String text) {
 		if (myPopUp.isShowing()) {
 			StackPane pane = (StackPane) myPopUp.getScene().getRoot();
@@ -111,7 +110,7 @@ public class PlayerView {
 			paneText.setText(text);
 		}
 	}
-	
+
 	public void closePopUp() {
 		if (myPopUp.isShowing())
 			myPopUp.close();
@@ -120,7 +119,7 @@ public class PlayerView {
 	public double findPrefWidth() {
 		return myGameRoot.getWidth();
 	}
-	
+
 	public double findPrefHeight() {
 		return myGameRoot.getHeight();
 	}
