@@ -3,10 +3,12 @@ package player;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -35,7 +37,8 @@ public class PlayerView {
 
 		myBase = new StackPane();
 		myTop = new StackPane();
-		
+		myTop.getChildren().add(myHUD.getHUDBox());
+		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
 		myBorderPane.setCenter(myBase);
 		
@@ -59,12 +62,11 @@ public class PlayerView {
 
 	private StackPane makePauseScreen(PlayerViewController playerController) {
 		StackPane pause = new StackPane();
-		pause.setPrefSize(500, 500);
 		pause.setAlignment(Pos.CENTER);
 		Button startButton = new Button("Resume");
 		startButton.setOnAction(event -> {
-			playerController.removePause();
-			playerController.play();
+			playScreen();
+			playerController.resume();
 		});
 		pause.getChildren().add(startButton);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
@@ -115,4 +117,11 @@ public class PlayerView {
 			myPopUp.close();
 	}
 
+	public double findPrefWidth() {
+		return myGameRoot.getWidth();
+	}
+	
+	public double findPrefHeight() {
+		return myGameRoot.getHeight();
+	}
 }

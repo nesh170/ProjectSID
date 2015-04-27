@@ -74,38 +74,30 @@ public class PlayerMenu{
 		});
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
-			controller.play();
-		});
-		MenuItem saveItem = makeMenuItem("Save");
-		saveItem.setOnAction(event -> {
-			controller.saveGame();
-		});
-		MenuItem saveAsItem = makeMenuItem("Save As");
-		saveAsItem.setOnAction(event -> {
-			controller.saveAs();
+			controller.resume();
 		});
 		MenuItem loadItem = makeMenuItem("Load Game");
 		loadItem.setOnAction(event -> {
 			controller.loadNewChooser();
-			controller.play();
 		});
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {
 			controller.restart();
 		});
-		fileMenu.getItems().addAll(pauseItem, playItem, saveItem, saveAsItem, loadItem,
+		fileMenu.getItems().addAll(pauseItem, playItem, loadItem,
 				restartItem);
 		return fileMenu;
 	}
 
 	@AddMenuItem(order = 1)
-	private Menu buildPreferencesMenu(PlayerViewController view) {
+	private Menu buildPreferencesMenu(PlayerViewController controller) {
 		Menu prefMenu = new Menu("Preferences");
 
 		MenuItem prefItem = makeMenuItem("Set Preferences");
 		prefItem.setOnAction(event -> {
-			//view.stopView();
+			controller.setPreferences();
 		});
+		prefMenu.getItems().add(prefItem);
 		return prefMenu;
 	}
 	
