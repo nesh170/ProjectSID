@@ -99,9 +99,7 @@ public abstract class Action {
 	}
 	
 	public void execute(){
-		if(soundPath != null){
-			soundManager.playSound(soundPath);
-		}
+		soundManager.playSound(soundPath);
 		doAction();
 	}
 	
