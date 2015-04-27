@@ -2,6 +2,7 @@ package screen.screens;
 
 import game.Game;
 import gameEngine.Action;
+import gameEngine.CollisionTable;
 import gameEngine.Component;
 
 import java.io.File;
@@ -432,6 +433,10 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	{
 		return new ArrayList<String>(tags);
 
+	}
+
+	public void updateCollisions(Map<List<String>, List<String>> collisionTable) {
+		model.updateCollisions(collisionTable);
 	}
 
 

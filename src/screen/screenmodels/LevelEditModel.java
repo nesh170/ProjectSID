@@ -1,6 +1,7 @@
 package screen.screenmodels;
 
 import gameEngine.Action;
+import gameEngine.CollisionTable;
 import gameEngine.Component;
 
 import java.io.File;
@@ -234,6 +235,11 @@ public class LevelEditModel {
 
 	public void setBackgroundImage(String path) {
 		level.setBackground(path);
+	}
+
+	public void updateCollisions(Map<List<String>, List<String>> collisionTable) {
+		
+		
 	}
 
 }
