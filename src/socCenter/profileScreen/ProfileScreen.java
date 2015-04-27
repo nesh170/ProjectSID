@@ -23,6 +23,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -64,6 +65,7 @@ public class ProfileScreen extends Screen {
 	private TextField spriteNameField;
 	private TextField imageSizeField;
 	private DefaultAvatarPack avPack;
+	private ImageView profilePic;
 	/*private Map<String, Avatar> defaultAvatars;*/
 	private ChoiceBox<String> defaultAvatarChoicesHolder;
 
@@ -71,6 +73,7 @@ public class ProfileScreen extends Screen {
 	private ListView<String> imageListPane;
 
 	private ResourceBundle defaultAvResources;
+	private ResourceBundle socialButtons;
 
 	
 	private CheckBox goalCheck;
@@ -84,7 +87,8 @@ public class ProfileScreen extends Screen {
 
 	// Constructors & Helpers
 
-	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height, User profileUser, boolean self) {
+	public ProfileScreen(ProfileScreenController parent, Tab mainPageScreen, double width, double height,
+			User profileUser, User loggedIn, boolean self) {
 
 		super(width, height);
 		this.profileUser = profileUser;
@@ -124,52 +128,25 @@ public class ProfileScreen extends Screen {
 		super.initializeRelevantResourceFiles();
 		defaultAvResources = ResourceBundle
 				.getBundle("resources.socialCenterProperties.defaultAvatars");
-	
+		socialButtons = ResourceBundle
+				.getBundle("resources.socialCenterProperties.socialButtons");
 		// physicsResources =
 		// ResourceBundle.getBundle("resources.spritePartProperties.physics");
 	}
 	
 
 	private void initializeObservableLists() {
-		/*
-		actionsToAddList = new ListView<>(model.setActionsToAdd(FXCollections.observableArrayList(actionResources
-				.keySet().stream().map(e -> languageResources().getString(e))
-				.collect(Collectors.toList()))));
-		actionsAddedList = new ListView<>(model.setActionsAdded());
-		componentsToAddList = new ListView<>(model.setComponentsToAdd(FXCollections.observableArrayList(componentResources
-				.keySet().stream().map(e -> languageResources().getString(e))
-				.collect(Collectors.toList()))));
-		componentsAddedList = new ListView<>(model.setComponentsAdded());
-		*/
+
 	}
 
-	//TODO get rid of some duplicated code in this method
 	private void initializeValueBoxListenersForLists() {
-		/*
-		actionsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> model.onAddListener(newValue,actionValue));
-		componentsToAddList.getSelectionModel().selectedItemProperty().addListener((observable,oldValue,newValue) -> model.onAddListener(newValue,componentValue));
-			*/	
+
 	}
 
 	private void initializeInformationListenersForLists() {
-		/*
-		actionsAddedList.setOnMouseEntered(e -> dataText.setText(model.setDataText(actionsAddedList)));
-		componentsAddedList.setOnMouseEntered(e -> dataText.setText(model.setDataText(componentsAddedList)));
 
-		actionsAddedList.getSelectionModel().selectedItemProperty()
-		.addListener((observable, oldSelect, newSelect) -> dataText.setText(model.setDataText(newSelect)));
-		componentsAddedList.getSelectionModel().selectedItemProperty()
-		.addListener((observable, oldSelect, newSelect) -> dataText.setText(model.setDataText(newSelect)));
-		*/
 	}
-	
 
-
-	// @SuppressWarnings("unchecked")
-	// protected void initializeOtherMaps(Map<? extends Object, ? extends
-	// Object>... maps) {
-	// Arrays.asList(maps).forEach(e -> { e = new HashMap<>(); });
-	// }
 
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
@@ -230,14 +207,12 @@ public class ProfileScreen extends Screen {
 		Text nameLabel = new Text(languageResources().getString(STRING.SPRITE_EDIT.NAME) + ": ");
 
 		Text userName = new Text(profileUser.getName());
-		Text tagLabel = new Text(languageResources().getString("Tag") + ":");
-		ImageView profilePic = new ImageView(profileUser.getImagePath());
+		profilePic = new ImageView(profileUser.getImagePath());
 		
 	
 		nameAndTagPane.add(nameLabel, 0, 0);
-		nameAndTagPane.add(userName, 1, 0);
-		nameAndTagPane.add(tagLabel, 0, 1);
-		nameAndTagPane.add(profilePic, 1, 1);
+		nameAndTagPane.add(userName, 1, 0);;
+		nameAndTagPane.add(profilePic, 0, 1);
 
 		return nameAndTagPane;
 
@@ -257,7 +232,7 @@ public class ProfileScreen extends Screen {
 
 		Button imageButton = new Button();
 		imageButton.setGraphic(new ImageView(new Image("images/save_avatar.png")));
-		imageButton.setOnMouseClicked(e -> selectImageFile());
+		imageButton.setOnMouseClicked(e -> saveImageSelection());
 
 		
 		imageButtonAndSizeText.getChildren()
@@ -270,11 +245,22 @@ public class ProfileScreen extends Screen {
 
 	}
 
-	private VBox createCommentsPane() {
+	private GridPane createCommentsPane() {
 
-		VBox commentsPane = new VBox();
-		ImageView ho = new ImageView(profileUser.getImagePath());
-		commentsPane.getChildren().add(ho);
+		GridPane commentsPane = new GridPane();
+		VBox.setVgrow(commentsPane, Priority.ALWAYS);
+		commentsPane.setAlignment(Pos.CENTER);
+		commentsPane.setVgap(50);
+		commentsPane.setHgap(5);
+		commentsPane.getStyleClass().add(STRING.CSS.PANE);
+		
+		TextField commentArea = new TextField();
+		commentsPane.add(commentArea, 0, 0);
+		
+		Button submitComment = new Button(socialButtons.getString("SubmitComment"));
+		submitComment.setOnAction(e -> profileUser.addComment(commentArea.getText()));
+		commentsPane.add(submitComment, 1, 0);
+		
 		return commentsPane;
 
 	}
@@ -285,34 +271,15 @@ public class ProfileScreen extends Screen {
 		
 	}
 	
-	private void clearKeycodeInputBox() {
-		keycodeInputBox.setText("");
-	}
-
-
-	private void selectImageFile() {
+	private void saveImageSelection() {
 		String avName = defaultAvatarChoicesHolder.getSelectionModel().getSelectedItem();
 		Avatar selectedAvy = avPack.getAvatar(avName);
-		Image avatarView = new Image(selectedAvy.getURL());
+		Image avatarImage = new Image(selectedAvy.getURL());
 		
-		addImageToPane(selectedAvy.getURL(), avatarView);
-		try {
 
-			int imageSize = INT.DEFAULT_IMAGE_SIZE;
-
-			if (imageSizeField.getText() != ""
-					&& imageSizeField.getText().matches("^[0-9]+$")) {
-				imageSize = Integer.parseInt(imageSizeField.getText());
-			}
-
-			File file = DataHandler.chooseFile(new Stage());
-			Image image = DataHandler.fileToImage(file, imageSize, imageSize, true);
-			String filePath = file.getPath();
-			addImageToPane(filePath,image);
-
-		} catch (NullPointerException e) {
-			// do nothing
-		}
+		profileUser.setImagePath(selectedAvy.getURL());
+		controller.saveChanges(profileUser);
+		profilePic.setImage(avatarImage);
 
 	}
 	
@@ -326,7 +293,7 @@ public class ProfileScreen extends Screen {
 
 	private void exit() {
 
-		controller.returnToMainPage((MainPageScreen) mainPageScreen.getContent(), mainPageScreen, profileUser);
+		controller.returnToMainPage((MainPageScreen) mainPageScreen.getContent(), mainPageScreen);
 		
 
 	}
@@ -349,20 +316,6 @@ public class ProfileScreen extends Screen {
 
 	}
 
-	private void drawSpriteOnScreen(Sprite sprite) {
-
-		spriteNameField.setText(sprite.getName());
-		defaultAvatarChoicesHolder.getSelectionModel().select(sprite.tag());
-		sprite.actionList().forEach(model.getActionConsumer());
-		sprite.componentList().forEach(model.getComponentConsumer());
-		goalCheck.setSelected(sprite.getGoalToLevel() >= 0);
-		goToLevel.setText("" + sprite.getGoalToLevel());
-		// TODO implement
-		if(sprite.getImagePath()!=null) {
-			Image image = DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false);
-			addImageToPane(sprite.getImagePath(),image);
-		}
-	}
 		
 }
 

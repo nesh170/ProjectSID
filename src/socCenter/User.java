@@ -1,6 +1,7 @@
 package socCenter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.geometry.Dimension2D;
@@ -20,6 +21,7 @@ public class User {
 	private String myPassword; //TODO: make secure (like it even matters)
 	private Sprite myDefaultSprite;
 	private List<User> myFriends;
+	private List<String> myComments;
 	private File myImage;
 	
 	public User(String id, String name, String password){
@@ -33,6 +35,7 @@ public class User {
 		this(id, name, password);
 		setImagePath(imagePath);
 		myImage = new File(imagePath);
+		myComments = new ArrayList<String>();
 	}
 	//getters, setters
 	public File getImage(){
@@ -88,6 +91,9 @@ public class User {
 		newFriend.addFriend(this);
 	}
 
+	public void addComment(String comment) {
+		if(!(comment == null)) myComments.add(comment);
+	}
 	public void removeFriend(User friendToRemove){
 		myFriends.remove(friendToRemove);
 		friendToRemove.removeFriend(this);

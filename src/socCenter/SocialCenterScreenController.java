@@ -250,9 +250,9 @@ public class SocialCenterScreenController {
 				);	
 	}
 
-	private Tab createProfileScreen(Tab mainPageScreenTab, User loggedIn, boolean self){
+	private Tab createProfileScreen(Tab mainPageScreenTab, User profileUser, User loggedIn, boolean self){
 		return tabManager.addTabWithScreenWithStringIdentifier(
-				screenFactory.createProfileScreen(profileScreenManager, mainPageScreenTab, loggedIn, self),
+				screenFactory.createProfileScreen(profileScreenManager, mainPageScreenTab, profileUser, loggedIn, self),
 				STRING.MAIN_MENU_SCREEN.MAIN_MENU
 				);
 	}
@@ -298,7 +298,7 @@ public class SocialCenterScreenController {
 		public void createProfile(Popup popup, TextField username,
 				PasswordField password, PasswordField rePassWord, TextField imageURL,
 				String defaultImageURL) {
-			String urlToUse = (imageURL.getText() == "") ? (defaultImageURL) : imageURL.getText();
+			String urlToUse = /*imageURL.getText(); == "") ? (defaultImageURL) : imageURL.getText();*/ defaultImageURL;
 			User newUser = new User("", username.getText(), password.getText(), urlToUse);
 			parseHandle.saveUser(newUser);
 			createMainPageScreen(newUser);
@@ -325,15 +325,15 @@ public class SocialCenterScreenController {
 		public void loadUserScreen(User loggedIn, User toDisplay) {
 			// TODO Auto-generated method stub
 			Tab currTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createProfileScreen(currTab, loggedIn, loggedIn.equals(toDisplay));
+			createProfileScreen(currTab, toDisplay, loggedIn, loggedIn.equals(toDisplay));
 			System.out.println("loading: " + loggedIn.getName());
 		}
 
 		@Override
 		public void loadMyUserScreen(User loggedIn) {
-			// TODO Auto-generated method stub
+	
 			Tab currTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createProfileScreen(currTab, loggedIn, true);
+			createProfileScreen(currTab, loggedIn, loggedIn, true);
 			System.out.println("loading: " + loggedIn.getName());
 		}
 		
@@ -342,11 +342,19 @@ public class SocialCenterScreenController {
 	private class ProfileScreenManager implements ProfileScreenController {
 
 		@Override
-		public void returnToMainPage(MainPageScreen mainPageScreen, Tab switchTab, User loggedIn) {
+		public void returnToMainPage(MainPageScreen mainPageScreen, Tab switchTab) {
 			tabManager.removeTabAndChangeSelected(switchTab);
-			// TODO Auto-generated method stub
+			
 			
 		}
+
+		@Override
+		public void saveChanges(User toSave) {
+			
+			parseHandle.saveUser(toSave);
+			
+		}
+		
 		
 		
 	}

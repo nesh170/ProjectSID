@@ -168,9 +168,11 @@ public class LogInScreen extends Screen {
 	     TextField userNameInput = new TextField();
 	     userNameInput.setPromptText("Enter User Name: ");
 	     grid.add(userNameInput, 2, 2 );
+	     
 	     PasswordField passwordInput = new PasswordField();
 	     passwordInput.setPromptText("Enter Password");
 	     grid.add(passwordInput, 2, 3 );
+	     
 	     HBox popUpHBox = new HBox(100);
 	     grid.add(popUpHBox, 2, 5);
 	     Button ok = new Button("log in");
@@ -178,6 +180,7 @@ public class LogInScreen extends Screen {
 	     popUpHBox.getChildren().addAll(cancel, ok);
 	     ok.setOnAction(e -> controller.logIn(logInPopup, userNameInput, passwordInput));
 	     cancel.setOnAction(e -> logInPopup.hide());
+	     
 	     return grid;
 	     
 	}
@@ -185,20 +188,26 @@ public class LogInScreen extends Screen {
 	private GridPane configureCreateProfileGridPane(){
 		
 		 GridPane grid = makeCreateProfileGridPane();
+		 
 	     TextField newUserName = new TextField();
 	     newUserName.setPromptText("Enter User Name: ");
 	     grid.add(newUserName, 2, 2 );
+	     
 	     PasswordField newPassWord = new PasswordField();
 	     newPassWord.setPromptText("Enter Password");
 	     grid.add(newPassWord, 2, 3 );
+	     
 	     PasswordField reNewPassWord = new PasswordField();
 	     reNewPassWord.setPromptText("Re-Enter Password");
 	     grid.add(reNewPassWord, 2, 4);
+	     
 	     TextField imageURL = new TextField();
 	     imageURL.setPromptText("Enter profile image URL");
 	     grid.add(imageURL, 2, 5);
+	     
 	     defaultAvChoices = avPack.getDefaultAvChoices();
 	     grid.add(defaultAvChoices, 2, 6);
+	     
 	     HBox popUpHBox = new HBox(100);
 	     grid.add(popUpHBox, 2, 7);
 	     Button ok = new Button("create profile");
@@ -206,6 +215,7 @@ public class LogInScreen extends Screen {
 	     popUpHBox.getChildren().addAll(cancel, ok);
 	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, newUserName, newPassWord, reNewPassWord, imageURL, defaultAvChoices.getSelectionModel().getSelectedItem()));
 	     cancel.setOnAction(e -> createProfilePopup.hide());
+	     
 	     return grid;
 		
 	}

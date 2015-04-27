@@ -6,7 +6,8 @@ import socCenter.mainPage.MainPageScreen;
 
 public interface ProfileScreenController {
 
-	public abstract void returnToMainPage(MainPageScreen mainPageScreen, Tab switchTab, User loggedIn);
+	public abstract void returnToMainPage(MainPageScreen mainPageScreen, Tab switchTab);
 	
+	public abstract void saveChanges(User toSave);
 	
 }

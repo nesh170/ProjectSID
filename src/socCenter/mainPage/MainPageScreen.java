@@ -426,42 +426,7 @@ public class MainPageScreen extends Screen {
 		*/
 	}
 
-	private Menu makeUserMenu() {
-		
-		Menu levelMenu = new Menu("Level");
-		MenuItem addLevel = new MenuItem("Add new Level");
-		addLevel.setOnAction(o -> controller.nop());
-		MenuItem editLevel = new MenuItem("Edit Level");
-		editLevel.setOnAction(o -> controller.nop()); // references to the specific
-												// level within a game
-		levelMenu.getItems().addAll(addLevel, editLevel);
-		return levelMenu;
 
-	}
-	
-	private Menu makeGameMenu() {
-
-		Menu gameMenu = new Menu("Game");
-		MenuItem addPlay = new MenuItem("Play Game");
-		addPlay.setOnAction( o -> controller.nop());
-		gameMenu.getItems().addAll(addPlay);
-		return gameMenu;
-		
-	}
-
-	private Menu makeTrashMenu() {
-		
-		ImageView trashImage = new ImageView(new Image(STRING.GAME_EDIT.TRASH_ICON));
-
-		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
-		
-		Menu trashButton = new Menu("", trashImage);
-		MenuItem delete = new MenuItem("Add new Level");
-		delete.setOnAction(o -> controller.nop());
-		
-		return trashButton; 
-
-	}
 
 
 }

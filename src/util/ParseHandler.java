@@ -22,12 +22,6 @@ public class ParseHandler {
 		
 	}
 	
-	private void setupParse() {
-		System.out.println("setupParse(): initializing...");
-		Parse.initialize(APP_ID, REST_KEY);
-		
-	}
-	
 	public void saveUser(User toSave) {
 		ParseObject user;
 		if(isPresent(toSave.getName())) {
