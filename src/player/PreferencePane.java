@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class PreferencePane {
 
+	private static final double SLIDERVAL_TO_DOUBLE = .1;
 	private static final double DEFAULT_WIDTH = 800;
 	private static final double DEFAULT_HEIGHT = 500;
 	private static final double MIN_SETTING = 0;
@@ -88,7 +89,7 @@ public class PreferencePane {
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {
-				myController.setBrightness((10 - newVal.doubleValue())*.1);
+				myController.setBrightness((10 - newVal.doubleValue())*SLIDERVAL_TO_DOUBLE);
 			}
 		});
 		return slider;
@@ -99,7 +100,7 @@ public class PreferencePane {
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {
-				myAudioController.setVol(newVal.doubleValue());
+				myAudioController.setVol(newVal.doubleValue()*SLIDERVAL_TO_DOUBLE);
 			}
 		});
 
