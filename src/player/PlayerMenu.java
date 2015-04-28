@@ -23,43 +23,55 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PlayerMenu{
+/**
+ * Sets up menu at top of Player
+ *
+ * @author James, Le
+ */
+public class PlayerMenu {
 
 	private MenuBar myMenu;
-	
+
 	public PlayerMenu(PlayerViewController pvc) {
 		myMenu = new MenuBar();
 		createPlayerMenu(pvc);
 	}
 
-	//Allows PlayerMenu to be initialized before PlayerViewController is set up
 	public PlayerMenu(MenuBar bar) {
 		myMenu = bar;
 	}
-	
-    public void createPlayerMenu (PlayerViewController view) {
-        List<Method> methodList =
-                Stream.of(PlayerMenu.class.getDeclaredMethods())
-                        .filter(method -> method.getAnnotations().length > 0)
-                        .collect(Collectors.toList());
-        Collections.sort(methodList, (method1, method2) -> ((Integer) ((AddMenuItem) method1
-                .getAnnotation(AddMenuItem.class)).order()).compareTo(((AddMenuItem) method2
-                .getAnnotation(AddMenuItem.class)).order())); //This method sorts the object based on the order given by the annotations
-        methodList.forEach(method -> myMenu.getMenus().add(handleMenuAddition(method, view)));
-    }
 
-    private Menu handleMenuAddition (Method method, PlayerViewController view) {
-        Menu menuToAdd = new Menu();
-        try {
-            menuToAdd = (Menu) method.invoke(this, view);
-        }
-        catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return menuToAdd;
-    }
+	/**
+	 * Order and add MenuItems to the TopBar menu of the BorderPane
+	 * 
+	 * @param view
+	 */
+	public void createPlayerMenu(PlayerViewController view) {
+		List<Method> methodList = Stream
+				.of(PlayerMenu.class.getDeclaredMethods())
+				.filter(method -> method.getAnnotations().length > 0)
+				.collect(Collectors.toList());
+		Collections.sort(methodList,
+				(method1, method2) -> ((Integer) ((AddMenuItem) method1
+						.getAnnotation(AddMenuItem.class)).order())
+						.compareTo(((AddMenuItem) method2
+								.getAnnotation(AddMenuItem.class)).order()));
+		methodList.forEach(method -> myMenu.getMenus().add(
+				handleMenuAddition(method, view)));
+	}
 
-    private MenuItem makeMenuItem(String name) {
+	private Menu handleMenuAddition(Method method, PlayerViewController view) {
+		Menu menuToAdd = new Menu();
+		try {
+			menuToAdd = (Menu) method.invoke(this, view);
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return menuToAdd;
+	}
+
+	private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
 		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
 				+ name.substring(0, 1)));
@@ -98,8 +110,8 @@ public class PlayerMenu{
 		loadItem.setOnAction(event -> {
 			controller.loadState();
 		});
-		fileMenu.getItems().addAll(openItem, pauseItem, playItem,
-				restartItem, saveItem, saveAsItem, loadItem);
+		fileMenu.getItems().addAll(openItem, pauseItem, playItem, restartItem,
+				saveItem, saveAsItem, loadItem);
 		return fileMenu;
 	}
 
@@ -114,22 +126,8 @@ public class PlayerMenu{
 		prefMenu.getItems().add(prefItem);
 		return prefMenu;
 	}
-	
-	@AddMenuItem(order = 2)
-	private Menu buildGamesMenu(PlayerViewController view) {
-		Menu gamesMenu = new Menu("Games");
-		MenuItem marioItem = new MenuItem("Mario");
-		marioItem.setOnAction(event -> {
-			Text prompt = new Text("Are you sure you want to load a new Game? "
-					+ "Save progress before proceeding.");
-			Stage choose = view.chooserConfirmationDialog(prompt);
-			choose.show();
-		});
-		gamesMenu.getItems().addAll(marioItem);
-		return gamesMenu;
-	}
 
-	@AddMenuItem(order = 3)
+	@AddMenuItem(order = 2)
 	private Menu buildHelpMenu(PlayerViewController view) {
 		Menu helpMenu = new Menu("Help");
 		MenuItem tutorialItem = new MenuItem("Tutorial");
@@ -139,7 +137,7 @@ public class PlayerMenu{
 		return helpMenu;
 	}
 
-	@AddMenuItem(order = 4)
+	@AddMenuItem(order = 3)
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
@@ -154,77 +152,64 @@ public class PlayerMenu{
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		return soundMenu;
 	}
-	
+
 	@AddMenuItem(order = 4)
-	private Menu buildGroovyMenu (PlayerViewController view) {
-	    Menu groovyMenu = new Menu("Groovy");
-	    MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
-	    GroovyMenu actionMenu =
-	            new GroovyActionMenu(new GroovyAction(new Sprite(), 0.0, KeyCode.R));
-	    groovyActionItem
-	    .setOnAction(event -> actionMenu.setUpGroovyDialog(view.getSpriteTagList(),
-	                                                       (spriteTag, groovyAction) -> view
-	                                                       .addRuntimeAction(spriteTag,
-	                                                                         groovyAction)));
-	    groovyMenu.getItems().addAll(groovyActionItem);
-	    return groovyMenu;
+	private Menu buildGroovyMenu(PlayerViewController view) {
+		Menu groovyMenu = new Menu("Groovy");
+		MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
+		GroovyMenu actionMenu = new GroovyActionMenu(new GroovyAction(
+				new Sprite(), 0.0, KeyCode.R));
+		groovyActionItem.setOnAction(event -> actionMenu.setUpGroovyDialog(view
+				.getSpriteTagList(), (spriteTag, groovyAction) -> view
+				.addRuntimeAction(spriteTag, groovyAction)));
+		groovyMenu.getItems().addAll(groovyActionItem);
+		return groovyMenu;
 	}
 
 	@AddMenuItem(order = 5)
-	private Menu buildNetworksMenu (PlayerViewController view) {
-	    Menu networksMenu = new Menu("Multiplayer");
-	    MenuItem hostItem = new MenuItem("Host Game");
-	    MenuItem joinItem = new MenuItem("Join Game");
+	private Menu buildNetworksMenu(PlayerViewController view) {
+		Menu networksMenu = new Menu("Multiplayer");
+		MenuItem hostItem = new MenuItem("Host Game");
+		MenuItem joinItem = new MenuItem("Join Game");
 
-	    hostItem.setOnAction(event -> {
-	        view.startServer();
+		hostItem.setOnAction(event -> {
+			view.startServer();
 
-	    });
+		});
 
-	    joinItem.setOnAction(event -> {
-	        view.startClient();
-	    });
+		joinItem.setOnAction(event -> {
+			view.startClient();
+		});
 
-	    networksMenu.getItems().addAll(hostItem, joinItem);
-	    return networksMenu;
+		networksMenu.getItems().addAll(hostItem, joinItem);
+		return networksMenu;
 	}
-	
+
 	@AddMenuItem(order = 6)
-	private Menu buildSocialMenu(PlayerViewController view){
-	    Menu socialMenu = new Menu("Social Center");
-	    MenuItem openSocial = new MenuItem("Open");
-	    SIDSocial socialCenter = new SIDSocial();
-            openSocial.setOnAction(event -> {try {
-                view.pause();
-                Stage socialStage = new Stage();
-                socialCenter.start(socialStage);
-                socialStage.setOnCloseRequest(close -> {
-                    socialStage.close();
-                    view.resume();
-                });
-            }
-            catch (Exception e) {
-                DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
-            }});
-            socialMenu.getItems().add(openSocial);
-            return socialMenu;
+	private Menu buildSocialMenu(PlayerViewController view) {
+		Menu socialMenu = new Menu("Social Center");
+		MenuItem openSocial = new MenuItem("Open");
+		SIDSocial socialCenter = new SIDSocial();
+		openSocial.setOnAction(event -> {
+			try {
+				view.pause();
+				Stage socialStage = new Stage();
+				socialCenter.start(socialStage);
+				socialStage.setOnCloseRequest(close -> {
+					socialStage.close();
+					view.resume();
+				});
+			} catch (Exception e) {
+				DialogUtil
+						.displayMessage("ERROR", "FAILED TO INITIALIZE STAGE");
+			}
+		});
+		socialMenu.getItems().add(openSocial);
+		return socialMenu;
 	}
 
 	protected MenuBar getBar() {
 		return myMenu;
 	}
-	
-//	private Stage buildGameChooser() {
-//		Stage gameChooser = new Stage();
-//		gameChooser.initModality(Modality.APPLICATION_MODAL);
-//		Button mario = new Button("Mario");
-//		mario.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00); -fx-background-radius: 3,2,2,2;");
-//		VBox vbox = new VBox(50);
-//		vbox.setAlignment(Pos.TOP_CENTER);
-//		vbox.getChildren().addAll(new Text("Your Games"), mario);
-//		Scene allGames = new Scene(vbox, 300, 200);
-//		gameChooser.setScene(allGames);
-//		return gameChooser;
-//	}
 
 }
