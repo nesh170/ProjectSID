@@ -9,6 +9,11 @@ public class Avatar {
 		this.myURL = URL;
 		this.myName = name;
 	}
+	
+	public Avatar(User user){
+		this.myURL = user.getImagePath();
+		this.myName = user.getName();
+	}
 	public String getURL() {
 		return myURL;
 	}
