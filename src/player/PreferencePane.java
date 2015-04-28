@@ -22,7 +22,7 @@ public class PreferencePane {
 	private static final double MIN_SETTING = 0;
 	private static final double MAX_SETTING = 10;
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
-	private static final double DEFAULT_MUSIC_VOL = 5;
+	private static final double DEFAULT_MUSIC_VOL = 10;
 	private static final double DEFAULT_BRIGHTNESS = 10;
 	private static final Color TEXT_COLOR = Color.WHITE;
 

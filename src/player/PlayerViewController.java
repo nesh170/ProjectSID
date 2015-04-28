@@ -249,6 +249,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void setBrightness(double val) {
+		System.out.println("called pvc");
 		myView.setBrightness(val);
 	}
 

@@ -81,7 +81,8 @@ public class PlayerView {
 
 	private StackPane makeBrightnessScreen() {
 		StackPane bright = new StackPane();
-		bright.setStyle("-fx-background-color: rgba(0, 0, 0, 0); -fx-background-radius: 10;");
+		bright.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
+		bright.setOpacity(0);
 		myBrightness = bright;
 		return bright;
 	}
