@@ -3,6 +3,7 @@ package player;
 import gameEngine.Component;
 import java.util.List;
 import java.util.Map;
+import socCenter.Avatar;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
@@ -89,10 +91,11 @@ public class PlayerView {
 		return pause;
 	}
 	
-	public void addAvatarToPause(String av){
+	public void addAvatarToPause(Avatar avatar){
 	       myAvatarBox.getChildren().removeIf(node -> !Button.class.equals(node.getClass()));
-	       ImageView image = new ImageView(av);
-	       myAvatarBox.getChildren().addAll(image);
+	       VBox avatarImageHolder = new VBox();
+	       avatarImageHolder.getChildren().addAll(new ImageView(avatar.getURL()),new Text(avatar.getName()));
+	       myAvatarBox.getChildren().addAll(avatarImageHolder);
 	}
 
 	private StackPane makeBrightnessScreen() {

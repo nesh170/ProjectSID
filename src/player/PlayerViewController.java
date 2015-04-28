@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import resources.constants.INT;
+import socCenter.Avatar;
 import util.DialogUtil;
 import util.ErrorHandler;
 import voogasalad.util.network.Network;
@@ -538,7 +539,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		mySettings.bringUpPreferences();
 	}
 
-    public void setSocialImagePath (String av) {
+    public void setSocialAvatar (Avatar av) {
             myView.addAvatarToPause(av);
     }
 
