@@ -170,7 +170,9 @@ public class MainPageScreen extends Screen {
 	}
 
 
-
+	public String userURL(){
+		return loggedInUser.getImagePath();
+	}
 
 
 

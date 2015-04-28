@@ -68,5 +68,8 @@ public class SIDSocial extends Application{
 		stage.show();
 	}
 	
+	public String getAv(){
+		return screenController.getAv();
+	}
 	
 }

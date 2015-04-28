@@ -93,6 +93,9 @@ public class SocialCenterScreenController {
 	//Data
 	private ParseHandler parseHandle;
 	
+	private MainPageScreen loggedInScr;
+	private String imgToReturnURL;
+	
 	
 	
 	// Getters & Setters (static)
@@ -127,6 +130,13 @@ public class SocialCenterScreenController {
 		stage.getScene().setCursor(imageCursor);
 	}
 	
+	public String getAv(){
+		if(loggedInScr != null) {
+			return loggedInScr.userURL();
+		} else {
+			return null;
+		}
+	}
 	
 	// Constructors & Helpers
 	public SocialCenterScreenController(Stage stage, double width, double height) {
@@ -287,7 +297,8 @@ public class SocialCenterScreenController {
 		public void logIn(Popup popup, TextField username, PasswordField password) {
 			User loggedIn = parseHandle.loadUser(username.getText(), password.getText());
 			if( loggedIn != null ) {
-				createMainPageScreen(loggedIn);
+				loggedInScr = (MainPageScreen) createMainPageScreen(loggedIn).getContent();
+				//createMainPageScreen(loggedIn);
 			} else {
 				errorHandler.displayError("No such user!");
 			}
