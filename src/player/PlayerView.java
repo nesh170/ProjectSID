@@ -1,9 +1,8 @@
 package player;
 
 import gameEngine.Component;
-
 import java.util.List;
-
+import java.util.Map;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -13,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -82,6 +82,11 @@ public class PlayerView {
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
+	
+	public void addAvatarToPause(String av){
+	        ImageView avatar = new ImageView(av);
+	        
+	}
 
 	private StackPane makeBrightnessScreen() {
 		StackPane bright = new StackPane();
@@ -109,6 +114,7 @@ public class PlayerView {
 	}
 
 	public void display(Group group) {
+	        myHUD.renderHUD();
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
 	}
@@ -135,14 +141,9 @@ public class PlayerView {
 			myPopUp.close();
 	}
 
-	public void updateHUD(List<Component> defaultHUDComponents) {
-		myHUD.updateHUDValues(defaultHUDComponents);
+	public void updateHUD(Map<String, Double> hudMap) {
+		myHUD.updateHUDValues(hudMap);
 	}
-
-	public void applyColorAdjustment(Node node, ColorAdjust effect) {
-		node.setEffect(effect);
-	}
-
 	public void setBrightness(double val) {
 		myBrightness.setOpacity(val);
 	}

@@ -3,13 +3,11 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
 import resources.constants.INT;
 import util.DialogUtil;
 import util.ErrorHandler;
@@ -84,6 +82,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
+        private String mySocialImagePath;
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -112,11 +111,12 @@ public class PlayerViewController implements GamePlayerInterface {
 	private void update() {
 		double[] cameraVals = myEngine.update();
 		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
-		myView.updateHUD(myEngine.getDefaultHUDComponents());
+		myView.updateHUD(myEngine.getHUDMap());
 	}
 
 	private void display() {
 		myGameGroup = myEngine.render();
+		
 		myView.display(myGameGroup);
 		myCamera.focus();
 	}
@@ -407,7 +407,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			myTimeline.pause();
 			myNetwork.setUpServer(PORT_NUMBER);
 			myTimeline.play();
-			// sendClientLevels();
+			sendClientLevels();
 			receiveFromClient();
 		} catch (IOException e) {
 			myErrorHandler.displayError(NETWORK_BROKE);
@@ -475,16 +475,16 @@ public class PlayerViewController implements GamePlayerInterface {
 					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-			// receiveLevels();
-			// LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-			// Camera camera = new Camera(myView.getRoot());
-			// KeyFrame displayFrame = new KeyFrame(
-			// Duration.millis(1000 / NETWORK_RATE), e -> display(
-			// myNetworkLevel, renderer, camera));
-			// Timeline networkTimeline = new Timeline();
-			// networkTimeline.setCycleCount(Animation.INDEFINITE);
-			// networkTimeline.getKeyFrames().add(displayFrame);
-			// networkTimeline.play();
+//			receiveLevels();
+//			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+//			Camera camera = new Camera(myView.getRoot());
+//			KeyFrame displayFrame = new KeyFrame(
+//					Duration.millis(1000 / NETWORK_RATE), e -> display(
+//							myNetworkLevel, renderer, camera));
+//			Timeline networkTimeline = new Timeline();
+//			networkTimeline.setCycleCount(Animation.INDEFINITE);
+//			networkTimeline.getKeyFrames().add(displayFrame);
+//			networkTimeline.play();
 		} catch (Exception e) {
 			System.err.println("Can't start Client");
 		}
@@ -537,5 +537,10 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void openPreference() {
 		mySettings.bringUpPreferences();
 	}
+
+    public void setSocialImagePath (String av) {
+            mySocialImagePath = av;
+            
+    }
 
 }
