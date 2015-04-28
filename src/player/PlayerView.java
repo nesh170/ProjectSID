@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -76,13 +78,13 @@ public class PlayerView {
 	private StackPane makePauseScreen(PlayerViewController playerController) {
 		StackPane pause = new StackPane();
 		pause.setAlignment(Pos.CENTER);
-		myAvatarBox.getChildren().add(pause);
 		Button startButton = new Button("Resume");
 		startButton.setOnAction(event -> {
 			playScreen();
 			playerController.resume();
 		});
-		pause.getChildren().addAll(startButton, myAvatarBox);
+		myAvatarBox.getChildren().add(startButton);
+		pause.getChildren().addAll(myAvatarBox);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
@@ -90,7 +92,7 @@ public class PlayerView {
 	public void addAvatarToPause(String av){
 	       myAvatarBox.getChildren().removeIf(node -> !Button.class.equals(node.getClass()));
 	       ImageView image = new ImageView(av);
-	       myAvatarBox.getChildren().add(image);
+	       myAvatarBox.getChildren().addAll(image);
 	}
 
 	private StackPane makeBrightnessScreen() {
