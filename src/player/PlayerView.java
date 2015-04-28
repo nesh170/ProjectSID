@@ -12,13 +12,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TabPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Holds objects that are to be displayed and seen by the user
+ * 
+ * @author James, Le
+ */
 public class PlayerView {
 
 	private Scene myScene;
@@ -86,7 +90,7 @@ public class PlayerView {
 		myBrightness = bright;
 		return bright;
 	}
-	
+
 	public void pauseScreen() {
 		myTop.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
@@ -132,15 +136,15 @@ public class PlayerView {
 	}
 
 	public void updateHUD(List<Component> defaultHUDComponents) {
-		myHUD.updateHUDValues(defaultHUDComponents);		
+		myHUD.updateHUDValues(defaultHUDComponents);
 	}
 
 	public void applyColorAdjustment(Node node, ColorAdjust effect) {
 		node.setEffect(effect);
 	}
-	
+
 	public void setBrightness(double val) {
 		myBrightness.setOpacity(val);
 	}
-	
+
 }
