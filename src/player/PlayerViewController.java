@@ -87,7 +87,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myCamera = new Camera(myView.getRoot());
-		loadNewChooser();
 		myNetwork = new Network();
 	}
 
@@ -247,8 +246,8 @@ public class PlayerViewController implements GamePlayerInterface {
 		myAudioController.stop();
 	}
 
-	public void setBrightness(ColorAdjust ca) {
-		myGameGroup.setEffect(ca);
+	public void setBrightness(double val) {
+		myView.setBrightness(val);
 	}
 
 	public List<String> getSpriteTagList() {
@@ -460,7 +459,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void startClient() {
 		try {
-			myTimeline.stop();
+			//myTimeline.stop();
 			// myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
 			// myView.changePopUpText(SERVER_CONNECTED_STRING);
 			// Thread.sleep(2000);

@@ -199,6 +199,7 @@ public class PlayerMenu{
                 Stage socialStage = new Stage();
                 socialCenter.start(socialStage);
                 socialStage.setOnCloseRequest(close -> {
+                	System.out.println(socialCenter.getAv());
                     socialStage.close();
                     view.resume();
                 });

@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -28,6 +29,7 @@ public class PlayerView {
 	private BorderPane myBorderPane;
 	private StackPane myBase;
 	private StackPane myTop;
+	private StackPane myBrightness;
 	private Stage myPopUp;
 
 	public PlayerView() {
@@ -40,6 +42,7 @@ public class PlayerView {
 
 		myBase = new StackPane();
 		myTop = new StackPane();
+		myTop.getChildren().add(makeBrightnessScreen());
 		myTop.getChildren().add(myHUD.getHUDBox());
 		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
@@ -75,6 +78,14 @@ public class PlayerView {
 		return pause;
 	}
 
+	private StackPane makeBrightnessScreen() {
+		StackPane bright = new StackPane();
+		bright.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
+		bright.setOpacity(0);
+		myBrightness = bright;
+		return bright;
+	}
+	
 	public void pauseScreen() {
 		myTop.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
@@ -120,16 +131,23 @@ public class PlayerView {
 			myPopUp.close();
 	}
 
-	public double findPrefWidth() {
-		return myGameRoot.getWidth();
+	public void updateHUD(List<Component> defaultHUDComponents) {
+		myHUD.updateHUDValues(defaultHUDComponents);		
 	}
 
-	public double findPrefHeight() {
-		return myGameRoot.getHeight();
+	public void applyColorAdjustment(Node node, ColorAdjust effect) {
+		node.setEffect(effect);
 	}
+<<<<<<< HEAD
 
 	public void updateHUD(Map<String, Double> hudMap) {
 		myHUD.updateHUDValues(hudMap);
 		
+=======
+	
+	public void setBrightness(double val) {
+		myBrightness.setOpacity(val);
+>>>>>>> 4a1a3728fee99b52d236c793d35ef4c9f4d1b2db
 	}
+	
 }
