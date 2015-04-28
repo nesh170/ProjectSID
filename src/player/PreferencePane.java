@@ -22,7 +22,7 @@ public class PreferencePane {
 	private static final double MAX_SETTING = 10;
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
 	private static final double DEFAULT_MUSIC_VOL = 5;
-	private static final double DEFAULT_BRIGHTNESS = 5;
+	private static final double DEFAULT_BRIGHTNESS = 10;
 	private static final Color TEXT_COLOR = Color.WHITE;
 
 	private PlayerViewController myController;
@@ -88,8 +88,7 @@ public class PreferencePane {
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {
-				ca.setBrightness(newVal.doubleValue());
-				myController.setBrightness(ca);
+				myController.setBrightness((10 - newVal.doubleValue())*.1);
 			}
 		});
 		return slider;

@@ -242,8 +242,8 @@ public class PlayerViewController implements GamePlayerInterface {
 		myAudioController.stop();
 	}
 
-	public void setBrightness(ColorAdjust ca) {
-		myGameGroup.setEffect(ca);
+	public void setBrightness(double val) {
+		myView.setBrightness(val);
 	}
 
 	public List<String> getSpriteTagList() {

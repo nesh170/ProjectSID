@@ -46,7 +46,7 @@ public class EngineTester extends Tester {
 	
 	@Override
 	protected void test(Stage stage) {
-		/*makePlatform(0, 300, 200, 30);
+		makePlatform(0, 300, 200, 30);
 		makePlatform(-20, 0, 20, 200);
 		makePlatform(250, 250, 200, 30);
 		makePlatform(500, 300, 200, 30);
@@ -57,13 +57,13 @@ public class EngineTester extends Tester {
 		player.addAction(switchOut);
 		
 		//addProjectile(fireMario);
-		Sprite goomba = makeGoomba();*/
+		Sprite goomba = makeGoomba();
 		
-		Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
+//		Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
 		/*fireFlower.setCollisionTag("flower");*/
-		fireFlower.setImagePath("engineTesting/fireFlower.png");
-		mySpriteList.add(fireFlower);
-		myPlayerList.add(fireFlower);
+//		fireFlower.setImagePath("engineTesting/fireFlower.png");
+//		mySpriteList.add(fireFlower);
+//		myPlayerList.add(fireFlower);
 		//setCollisionAll(player, fireFlower, switchOut);
 		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
 		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
