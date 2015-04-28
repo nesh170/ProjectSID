@@ -14,7 +14,10 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -36,11 +39,13 @@ public class PlayerView {
 	private StackPane myTop;
 	private StackPane myBrightness;
 	private Stage myPopUp;
+	private HBox myAvatarBox;
 
 	public PlayerView() {
 
 		myGameRoot = new ScrollPane();
 		myHUD = new HUD();
+		myAvatarBox = new HBox();
 
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
@@ -78,14 +83,16 @@ public class PlayerView {
 			playScreen();
 			playerController.resume();
 		});
-		pause.getChildren().add(startButton);
+		myAvatarBox.getChildren().add(startButton);
+		pause.getChildren().addAll(myAvatarBox);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
 	
 	public void addAvatarToPause(String av){
-	        ImageView avatar = new ImageView(av);
-	        
+	       myAvatarBox.getChildren().removeIf(node -> !Button.class.equals(node.getClass()));
+	       ImageView image = new ImageView(av);
+	       myAvatarBox.getChildren().addAll(image);
 	}
 
 	private StackPane makeBrightnessScreen() {

@@ -52,11 +52,11 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-//		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-//		fireMario.addAction(switchOut);
-//		player.addAction(switchOut);
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+		fireMario.addAction(switchOut);
+		player.addAction(switchOut);
 //		
-		//addProjectile(fireMario);
+		addProjectile(fireMario);
 		Sprite goomba = makeGoomba();
 		
 
@@ -102,6 +102,8 @@ public class EngineTester extends Tester {
 		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		fireMario.setImagePath("engineTesting/FireMario.png");
 		fireMario.setTag("fireMario");
+                Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+                
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
 		makeFallingLanding(fireMario);
 		makeJumping(fireMario, KeyCode.UP, false);

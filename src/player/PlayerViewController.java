@@ -539,8 +539,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
     public void setSocialImagePath (String av) {
-            mySocialImagePath = av;
-            
+            myView.addAvatarToPause(av);
     }
 
 }
