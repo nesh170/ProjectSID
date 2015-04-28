@@ -59,6 +59,7 @@ public class EngineTester extends Tester {
 		//addProjectile(fireMario);
 		Sprite goomba = makeGoomba();
 		
+
 		//Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
 		/*fireFlower.setCollisionTag("flower");*/
 //		fireFlower.setImagePath("engineTesting/fireFlower.png");

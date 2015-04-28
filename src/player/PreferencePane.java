@@ -16,13 +16,14 @@ import javafx.stage.Stage;
 
 public class PreferencePane {
 
+	private static final double SLIDERVAL_TO_DOUBLE = .1;
 	private static final double DEFAULT_WIDTH = 800;
 	private static final double DEFAULT_HEIGHT = 500;
 	private static final double MIN_SETTING = 0;
 	private static final double MAX_SETTING = 10;
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
-	private static final double DEFAULT_MUSIC_VOL = 5;
-	private static final double DEFAULT_BRIGHTNESS = 5;
+	private static final double DEFAULT_MUSIC_VOL = 10;
+	private static final double DEFAULT_BRIGHTNESS = 10;
 	private static final Color TEXT_COLOR = Color.WHITE;
 
 	private PlayerViewController myController;
@@ -63,7 +64,7 @@ public class PreferencePane {
 		grid.add(brightness, 2, 1);
 		grid.add(makeSettingSlider(DEFAULT_SETTING), 1, 1);
 		grid.add(makeMusicControl(myVolume), 1, 2);
-		grid.add(makeSettingSlider(myBrightness), 3, 1);
+		grid.add(makeBrightnessControl(myBrightness), 3, 1);
 		AV.setContent(grid);
 		return AV;
 	}
@@ -82,14 +83,12 @@ public class PreferencePane {
 		return slider;
 	}
 
-	private Slider makeBrightnessSlider(double defaultVal) {
-		Slider slider = new Slider(MIN_SETTING, MAX_SETTING, defaultVal);
-		ColorAdjust ca = new ColorAdjust();
+	private Slider makeBrightnessControl(double brightness) {
+		Slider slider = makeSettingSlider(brightness);
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {
-				ca.setBrightness(newVal.doubleValue());
-				myController.setBrightness(ca);
+				myController.setBrightness((10 - newVal.doubleValue())*SLIDERVAL_TO_DOUBLE);
 			}
 		});
 		return slider;
@@ -100,7 +99,7 @@ public class PreferencePane {
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {
-				myAudioController.setVol(newVal.doubleValue());
+				myAudioController.setVol(newVal.doubleValue()*SLIDERVAL_TO_DOUBLE);
 			}
 		});
 
