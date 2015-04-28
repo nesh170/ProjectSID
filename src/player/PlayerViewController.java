@@ -116,14 +116,12 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	private void display() {
-		System.out.println("playerViewController.display");
 		myGameGroup = myEngine.render();
 		myView.display(myGameGroup);
 		myCamera.focus();
 	}
 
 	private void setupAnimation() {
-		System.out.println("pvc.setUpAnimation");
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		KeyFrame updateFrame = new KeyFrame(
