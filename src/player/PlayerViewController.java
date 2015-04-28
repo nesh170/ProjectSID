@@ -3,14 +3,11 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
 import resources.constants.INT;
 import util.DialogUtil;
 import util.ErrorHandler;
@@ -24,8 +21,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,12 +30,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 import media.AudioController;
 import media.VideoPlayer;
 
+/**
+ * Controls the classes that affect the view of the player
+ * 
+ * @author James, Le
+ */
 public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
@@ -83,6 +82,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
+        private String mySocialImagePath;
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -174,7 +174,6 @@ public class PlayerViewController implements GamePlayerInterface {
 			mySettings = new PreferencePane(myAudioController);
 			mySettings.setController(this);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -182,8 +181,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	private void chooseGame(Stage gameChooser) {
-		// find a way to set up a map so we can just have file paths
-		// for games already established so no directory needs to be opened here
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		initializeGameAttributes();
 		setupAnimation();
@@ -200,7 +197,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-		"mario3.xml" };
+				"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -287,40 +284,45 @@ public class PlayerViewController implements GamePlayerInterface {
 		return null;
 	}
 
-	private void pauseExecution() {		
-		myTimeline.stop();		
-		myEngine.pause(myView.getRoot());		
-		myAudioController.pause();		
-	}		
-
-	private void resumeExecution() {		
-		myTimeline.play();		
-		myEngine.play(myView.getRoot());		
-		myAudioController.play();		
+	private void pauseExecution() {
+		myTimeline.stop();
+		myEngine.pause(myView.getRoot());
+		myAudioController.pause();
 	}
-	
-	public void loadState()
-	{	
+
+	private void resumeExecution() {
+		myTimeline.play();
+		myEngine.play(myView.getRoot());
+		myAudioController.play();
+	}
+
+	public void loadState() {
 		pauseExecution();
 		List<File> states;
 
 		try {
 			states = DataHandler.getDirsFromDir(myGameFolder);
 		} catch (IOException e) {
-			DialogUtil.displayMessage("Load File", "Error in loading save file.");
+			DialogUtil.displayMessage("Load File",
+					"Error in loading save file.");
 			resumeExecution();
 			return;
 		}
 
 		if (states == null || states.size() == 0) {
-			DialogUtil.displayMessage("Load File", "No save states available to load.");
+			DialogUtil.displayMessage("Load File",
+					"No save states available to load.");
 			resumeExecution();
 			return;
 		}
 
-		List<String> stateNames = states.stream().map(file -> file.getName()).collect(Collectors.toList());
-		String chosenState = DialogUtil.choiceDialog("Load File", "Choose a save state.", stateNames);
-		File stateFile = states.stream().filter(file -> file.getName().equals(chosenState)).collect(Collectors.toList()).get(0);
+		List<String> stateNames = states.stream().map(file -> file.getName())
+				.collect(Collectors.toList());
+		String chosenState = DialogUtil.choiceDialog("Load File",
+				"Choose a save state.", stateNames);
+		File stateFile = states.stream()
+				.filter(file -> file.getName().equals(chosenState))
+				.collect(Collectors.toList()).get(0);
 		try {
 			myGame = DataHandler.getGameFromDir(stateFile);
 		} catch (IOException e) {
@@ -330,7 +332,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 
 		myGameLevels = myGame.levels();
-		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 		setupAnimation();
 		resumeExecution();
 	}
@@ -340,13 +342,14 @@ public class PlayerViewController implements GamePlayerInterface {
 
 		if (mySaveFolder == null) {
 			saveAs();
-		}
-		else {
+		} else {
 			pauseExecution();
 			try {
-				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toString());
+				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
+						mySaveFolder.toString());
 			} catch (IOException e) {
-				DialogUtil.displayMessage("Save File", "Error in creating save file.");
+				DialogUtil.displayMessage("Save File",
+						"Error in creating save file.");
 			}
 			resumeExecution();
 			return;
@@ -355,7 +358,8 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void saveAs() {
 		pauseExecution();
-		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
+		String saveName = DialogUtil.setUpDialog("Save File",
+				"Please enter the name of the log to save");
 		if (saveName == null) {
 			DialogUtil.displayMessage("Save File", "File not saved.");
 			resumeExecution();
@@ -363,14 +367,17 @@ public class PlayerViewController implements GamePlayerInterface {
 		}
 		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
 		if (!mySaveFolder.mkdir()) {
-			DialogUtil.displayMessage("Save File", "Error in creating save folder.");
+			DialogUtil.displayMessage("Save File",
+					"Error in creating save folder.");
 			resumeExecution();
 			return;
 		}
 		try {
-			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName), mySaveFolder.toString());
+			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
+					mySaveFolder.toString());
 		} catch (IOException e) {
-			DialogUtil.displayMessage("Save File", "Error in creating save file.");
+			DialogUtil.displayMessage("Save File",
+					"Error in creating save file.");
 			resumeExecution();
 			return;
 		}
@@ -400,7 +407,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			myTimeline.pause();
 			myNetwork.setUpServer(PORT_NUMBER);
 			myTimeline.play();
-			//sendClientLevels();
+			sendClientLevels();
 			receiveFromClient();
 		} catch (IOException e) {
 			myErrorHandler.displayError(NETWORK_BROKE);
@@ -441,7 +448,7 @@ public class PlayerViewController implements GamePlayerInterface {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
 						List<String> keyString = (ArrayList<String>) DataHandler
-						.fromXMLString(keyControl);
+								.fromXMLString(keyControl);
 						handleKeyEvent(keyString.get(0), keyString.get(1),
 								INT.SECOND_PLAYER); // Add code to make another
 						// player play
@@ -459,7 +466,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void startClient() {
 		try {
-			//myTimeline.stop();
+			// myTimeline.stop();
 			// myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
 			// myView.changePopUpText(SERVER_CONNECTED_STRING);
 			// Thread.sleep(2000);
@@ -527,8 +534,13 @@ public class PlayerViewController implements GamePlayerInterface {
 		camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
 	}
 
-    public void openPreference () {
-        mySettings.bringUpPreferences();
+	public void openPreference() {
+		mySettings.bringUpPreferences();
+	}
+
+    public void setSocialImagePath (String av) {
+            mySocialImagePath = av;
+            
     }
 
 }

@@ -228,7 +228,7 @@ public class Level extends LevelPlatform {
                 return (Double) methodList.get(0).invoke(component);
             }
             catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                DialogUtil.displayMessage("ERROR", "UNABLE TO DISPLAY HUD");
+                DialogUtil.displayMessage("ERROR", component.getClass().getName());
             }
         }
         return 0.0;
