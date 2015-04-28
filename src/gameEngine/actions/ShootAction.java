@@ -1,12 +1,8 @@
 package gameEngine.actions;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import data.DataHandler;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
-import gameEngine.Action;
 import gameEngine.components.AmmoComponent;
 
 /**
@@ -43,7 +39,8 @@ public class ShootAction extends TwoSpriteAction{
 		return (Sprite) DataHandler.fromXMLString(bulletString);
 	}
 	
-	private void addProjectileMotion(Sprite proj){
+	@SuppressWarnings("unused")
+    private void addProjectileMotion(Sprite proj){
 		//make MotionComponent subclass,
 		//attach to sprite.
 	}
