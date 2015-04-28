@@ -189,7 +189,7 @@ public class PlayerMenu {
                 Stage socialStage = new Stage();
                 socialCenter.start(socialStage);
                 socialStage.setOnCloseRequest(close -> {
-                	view.setSocialImagePath(socialCenter.getAv());
+                	//view.setSocialAvatar(socialCenter.getAv()); /TODO: uncomment this to when the social center returns an avatar
                     socialStage.close();
                     view.resume();
                 });
