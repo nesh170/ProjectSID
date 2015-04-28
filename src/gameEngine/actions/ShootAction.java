@@ -2,7 +2,7 @@ package gameEngine.actions;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 import data.DataHandler;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
@@ -15,7 +15,8 @@ import gameEngine.components.AmmoComponent;
  */
 public class ShootAction extends TwoSpriteAction{
 	
-	private String bulletString;
+	private static final Double OUT_OF_BOUNDS = null;
+    private String bulletString;
 	
 	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
 		super(sprite, projectile, keys);
@@ -23,7 +24,7 @@ public class ShootAction extends TwoSpriteAction{
 
 	@Override
 	public void prepare() {
-        bulletString =  DataHandler.toXMLString(mySecondSprite);
+            bulletString =  DataHandler.toXMLString(mySecondSprite);
 	}
 
 	@Override
@@ -31,7 +32,9 @@ public class ShootAction extends TwoSpriteAction{
 		AmmoComponent myAmmo = (AmmoComponent) mySprite.getComponentOfType("AmmoComponent");
 		if (myAmmo == null || myAmmo.getAmmoCount() > 0) {
 			Sprite newProjectile = generateClone();
+			newProjectile.addAction(new OutOfBoundsAction(newProjectile, OUT_OF_BOUNDS));
 			newProjectile.transform().setPosition(mySprite.transform().getPositionPoint());
+			newProjectile.prepareAllActions();
 			mySprite.addToEmissionList(newProjectile);
 		}
 	}
