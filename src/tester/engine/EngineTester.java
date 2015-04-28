@@ -52,14 +52,15 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-		fireMario.addAction(switchOut);
-		player.addAction(switchOut);
-		
+//		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+//		fireMario.addAction(switchOut);
+//		player.addAction(switchOut);
+//		
 		//addProjectile(fireMario);
 		Sprite goomba = makeGoomba();
 		
-//		Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
+
+		//Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
 		/*fireFlower.setCollisionTag("flower");*/
 //		fireFlower.setImagePath("engineTesting/fireFlower.png");
 //		mySpriteList.add(fireFlower);
@@ -68,7 +69,7 @@ public class EngineTester extends Tester {
 		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
 		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
 		
-		Level l = new Level(900, 500, myPlayerList);
+		Level l = new Level(1200, 600, myPlayerList);
 		l.setBackground("engineTesting/background.png");
 		l.setSprites(mySpriteList);
 		l.setCollisionTable(myCT);

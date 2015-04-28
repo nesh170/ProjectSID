@@ -87,7 +87,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	public PlayerViewController(PlayerView view) {
 		myView = view;
 		myCamera = new Camera(myView.getRoot());
-		loadNewChooser();
 		myNetwork = new Network();
 	}
 
@@ -116,14 +115,12 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	private void display() {
-		System.out.println("playerViewController.display");
 		myGameGroup = myEngine.render();
 		myView.display(myGameGroup);
 		myCamera.focus();
 	}
 
 	private void setupAnimation() {
-		System.out.println("pvc.setUpAnimation");
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		KeyFrame updateFrame = new KeyFrame(
@@ -249,7 +246,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void setBrightness(double val) {
-		System.out.println("called pvc");
 		myView.setBrightness(val);
 	}
 

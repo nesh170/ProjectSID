@@ -64,7 +64,7 @@ public class PreferencePane {
 		grid.add(brightness, 2, 1);
 		grid.add(makeSettingSlider(DEFAULT_SETTING), 1, 1);
 		grid.add(makeMusicControl(myVolume), 1, 2);
-		grid.add(makeSettingSlider(myBrightness), 3, 1);
+		grid.add(makeBrightnessControl(myBrightness), 3, 1);
 		AV.setContent(grid);
 		return AV;
 	}
@@ -83,9 +83,8 @@ public class PreferencePane {
 		return slider;
 	}
 
-	private Slider makeBrightnessSlider(double defaultVal) {
-		Slider slider = new Slider(MIN_SETTING, MAX_SETTING, defaultVal);
-		ColorAdjust ca = new ColorAdjust();
+	private Slider makeBrightnessControl(double brightness) {
+		Slider slider = makeSettingSlider(brightness);
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {

@@ -65,7 +65,6 @@ public class GameEngine extends GameEngineAbstract {
 
     @Override
     public Group render () {
-    	System.out.println("GameEngine.render");
         return myLevelRenderer.renderLevel();
     }
 
