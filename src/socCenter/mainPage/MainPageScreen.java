@@ -35,6 +35,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import socCenter.Avatar;
 import socCenter.User;
 
 
@@ -174,6 +175,9 @@ public class MainPageScreen extends Screen {
 		return loggedInUser.getImagePath();
 	}
 
+	public Avatar userAvatar(){
+		return new Avatar(loggedInUser);
+	}
 
 
 

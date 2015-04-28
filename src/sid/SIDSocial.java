@@ -1,6 +1,7 @@
 package sid;
 
 import screen.controllers.ScreenController;
+import socCenter.Avatar;
 import socCenter.SocialCenterScreenController;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -68,8 +69,8 @@ public class SIDSocial extends Application{
 		stage.show();
 	}
 	
-	public String getAv(){
-		return screenController.getAv();
+	public Avatar getAvatar(){
+		return screenController.getAvatar();
 	}
 	
 }
