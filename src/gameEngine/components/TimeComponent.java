@@ -1,11 +1,10 @@
 package gameEngine.components;
 
-import java.util.List;
-
 import resources.constants.DOUBLE;
 import sprite.Sprite;
 import gameEngine.Component;
 
+@HUDInterface(name = "Time")
 public class TimeComponent extends Component {
 	
 	private double levelTime;
@@ -19,7 +18,6 @@ public class TimeComponent extends Component {
 		catch(Exception e){
 		    levelTime = DOUBLE.DEFAULT_TIME_LIMIT;
 		}
-		myHUDName = "Time";
 	}
 
 	@Override
@@ -35,8 +33,9 @@ public class TimeComponent extends Component {
 		}
 	}
 	
-	public int getDisplayTime() {
-		return displayTime;
+	@HUDGetter
+	public Double getDisplayTime() {
+		return displayTime+0.0;
 	}
 
 }

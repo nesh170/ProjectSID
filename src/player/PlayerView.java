@@ -1,9 +1,8 @@
 package player;
 
 import gameEngine.Component;
-
 import java.util.List;
-
+import java.util.Map;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -94,6 +93,7 @@ public class PlayerView {
 	}
 
 	public void display(Group group) {
+	        myHUD.renderHUD();
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
 	}
@@ -128,8 +128,8 @@ public class PlayerView {
 		return myGameRoot.getHeight();
 	}
 
-	public void updateHUD(List<Component> defaultHUDComponents) {
-		myHUD.updateHUDValues(defaultHUDComponents);
+	public void updateHUD(Map<String, Double> hudMap) {
+		myHUD.updateHUDValues(hudMap);
 		
 	}
 }

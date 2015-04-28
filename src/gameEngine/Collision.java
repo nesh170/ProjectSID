@@ -41,7 +41,8 @@ public class Collision {
     }
     
     private void executeActions(Sprite sprite1, Sprite sprite2, int direction) {
-    	List<Action> actions = collideTable.getActionsForCollisionAndDirection(sprite1.collisionTag(), sprite2.collisionTag(), direction);
+        //Talked to leo and changed it from cllision tags to tag
+    	List<Action> actions = collideTable.getActionsForCollisionAndDirection(sprite1.tag(), sprite2.tag(), direction);
     	if(actions != null) actions.stream().forEach(a -> a.execute());
     }
     
