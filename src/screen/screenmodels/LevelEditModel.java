@@ -16,9 +16,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.media.jai.IntegerSequence;
-
-import com.sun.org.apache.xml.internal.security.Init;
+//import javax.media.jai.IntegerSequence;
 
 import data.DataHandler;
 import javafx.collections.FXCollections;

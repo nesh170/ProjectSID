@@ -25,6 +25,10 @@ import screen.screens.LevelEditScreen;
 import screen.screens.MainMenuScreen;
 import screen.screens.SplashEditScreen;
 import screen.screens.SpriteEditScreen;
+import socCenter.logIn.LogInScreen;
+import socCenter.logIn.LogInScreenController;
+import socCenter.mainPage.MainPageScreen;
+import socCenter.mainPage.MainPageScreenController;
 import sprite.Sprite;
 
 /**
@@ -108,5 +112,7 @@ public class ScreenFactory {
 	public Screen createGamePlayScreen(GamePlayScreenController gamePlayScreenController) {
 		return new GamePlayScreen(gamePlayScreenController, width, height);
 	}
+	
+
 
 }
