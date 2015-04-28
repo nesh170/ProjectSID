@@ -458,7 +458,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void startClient() {
 		try {
-			myTimeline.stop();
+			//myTimeline.stop();
 			// myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
 			// myView.changePopUpText(SERVER_CONNECTED_STRING);
 			// Thread.sleep(2000);
@@ -478,6 +478,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			networkTimeline.getKeyFrames().add(displayFrame);
 			networkTimeline.play();
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.err.println("Can't start Client");
 		}
 	}
