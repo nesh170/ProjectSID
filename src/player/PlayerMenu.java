@@ -186,26 +186,25 @@ public class PlayerMenu {
 	}
 
 	@AddMenuItem(order = 6)
-	private Menu buildSocialMenu(PlayerViewController view) {
-		Menu socialMenu = new Menu("Social Center");
-		MenuItem openSocial = new MenuItem("Open");
-		SIDSocial socialCenter = new SIDSocial();
-		openSocial.setOnAction(event -> {
-			try {
-				view.pause();
-				Stage socialStage = new Stage();
-				socialCenter.start(socialStage);
-				socialStage.setOnCloseRequest(close -> {
-					socialStage.close();
-					view.resume();
-				});
-			} catch (Exception e) {
-				DialogUtil
-						.displayMessage("ERROR", "FAILED TO INITIALIZE STAGE");
-			}
-		});
-		socialMenu.getItems().add(openSocial);
-		return socialMenu;
+	private Menu buildSocialMenu(PlayerViewController view){
+	    Menu socialMenu = new Menu("Social Center");
+	    MenuItem openSocial = new MenuItem("Open");
+	    SIDSocial socialCenter = new SIDSocial();
+            openSocial.setOnAction(event -> {try {
+                view.pause();
+                Stage socialStage = new Stage();
+                socialCenter.start(socialStage);
+                socialStage.setOnCloseRequest(close -> {
+                	System.out.println(socialCenter.getAv());
+                    socialStage.close();
+                    view.resume();
+                });
+            }
+            catch (Exception e) {
+                DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
+            }});
+            socialMenu.getItems().add(openSocial);
+            return socialMenu;
 	}
 
 	protected MenuBar getBar() {
