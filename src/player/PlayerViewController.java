@@ -478,7 +478,6 @@ public class PlayerViewController implements GamePlayerInterface {
 			networkTimeline.getKeyFrames().add(displayFrame);
 			networkTimeline.play();
 		} catch (Exception e) {
-			e.printStackTrace();
 			System.err.println("Can't start Client");
 		}
 	}
