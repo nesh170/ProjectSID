@@ -9,6 +9,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +19,10 @@ import java.util.Set;
 
 //import javax.media.jai.IntegerSequence;
 
+
+
 import data.DataHandler;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Dimension2D;
@@ -45,6 +49,9 @@ public class LevelEditModel {
 	
 	private Sprite spriteToAdd;
 	private Sprite selectedSprite;
+	private ObjectProperty<Cursor> waitingSpriteCursor;
+	
+	private Set<Sprite> waitingSpriteSet;
 	
 	private Image imageToAdd;
 	
@@ -63,13 +70,13 @@ public class LevelEditModel {
 	private final static double UNSELECT = 1.0;
 
 
-	public LevelEditModel(LevelEditDisplay levelEditDisplay, Level level, Set<String> tags, ResourceBundle languageResources, ResourceBundle tagResources) {
+	public LevelEditModel(LevelEditDisplay levelEditDisplay, ObjectProperty<Cursor> waitingSpriteCursor, Level level, Set<String> tags, ResourceBundle languageResources, ResourceBundle tagResources) {
 		this.levelEditDisplay = levelEditDisplay;
 		this.level = level;
 		this.tags = tags;
 		this.languageResources = languageResources;
 		this.tagResources = tagResources;
-		
+		this.waitingSpriteCursor = waitingSpriteCursor;
 		instantiateMaps();
 	}
 	
@@ -85,6 +92,7 @@ public class LevelEditModel {
 	private void instantiateMaps() {
 		this.stringToSpriteMap = new HashMap<>();
 		this.goalMap = new HashMap<>();
+		this.waitingSpriteSet = new HashSet<>();
 		level.setGoalMap(goalMap);
 		initializeClassPathMap();
 	}
@@ -149,22 +157,54 @@ public class LevelEditModel {
 			addSpriteToLevelDisplay(spriteToAdd);
 
 			level.sprites().add(spriteToAdd);
-			int toLevel = spriteToAdd.getGoalToLevel();
-			if(toLevel >= 0) {
-				goalMap.put(spriteToAdd, toLevel);
-			}
-			
+			addToGoalMap(spriteToAdd);			
 			//TODO Remove sprite from player sprite list as well
 			if(spriteToAdd.tag().equals(tagResources.getString("Player"))) {
 				level.addPlayerSprite(spriteToAdd);
 			}
-			levelEditDisplay.setCursor(Cursor.DEFAULT);
+			clearCursors();
 
-			spriteToAdd = null; 
-			imageToAdd = null;
-
+			clearSpriteToAdd();
 		}
 
+	}
+	
+	public void addSpriteToWaitingList() {
+		
+		if(spriteToAdd != null && imageToAdd!=null) {
+			
+			waitingSpriteSet.add(spriteToAdd);
+			makeSpriteNameUnique(spriteToAdd, stringToSpriteMap.keySet());
+			addToGoalMap(spriteToAdd);
+			
+			clearCursors();
+			
+			clearSpriteToAdd();
+		}
+		
+	}
+	
+	private void clearSpriteToAdd() {
+		
+		spriteToAdd = null; 
+		imageToAdd = null;
+
+	}
+	
+	private void clearCursors() {
+		
+		waitingSpriteCursor.set(Cursor.DEFAULT);
+		levelEditDisplay.setCursor(Cursor.DEFAULT);
+		
+	}
+	
+	private void addToGoalMap(Sprite sprite) {
+		
+		int toLevel = sprite.getGoalToLevel();
+		if(toLevel >= 0) {
+			goalMap.put(sprite, toLevel);
+		}
+		
 	}
 
 	private void addSpriteToLevelDisplay(Sprite sprite) {
@@ -172,9 +212,8 @@ public class LevelEditModel {
 		ImageView imageView = new ImageView(imageToAdd);
 
 		levelEditDisplay.addSpriteToDisplay(sprite,imageView);
-
-		String newSpriteName = UniqueString.makeUniqueKey(stringToSpriteMap.keySet(), sprite.getName());
-		sprite.setName(newSpriteName);
+		
+		makeSpriteNameUnique(sprite, stringToSpriteMap.keySet());
 		stringToSpriteMap.put(sprite.getName(), sprite);
 		try {
 			stringToListMap.get(sprite.tag()).add(sprite.getName());
@@ -182,6 +221,11 @@ public class LevelEditModel {
 			stringToListMap.get(languageResources.getString("Other")).add(sprite.getName());
 		}
 
+	}
+	
+	private void makeSpriteNameUnique(Sprite sprite, Collection<String> collection) {
+		String newSpriteName = UniqueString.makeUniqueKey(collection, sprite.getName());
+		sprite.setName(newSpriteName);
 	}
 	
 	public void addWidthLeft() {
@@ -254,6 +298,7 @@ public class LevelEditModel {
 		Dimension2D spriteSize = spriteToAdd.dimensions();
 		imageToAdd = DataHandler.fileToImage(new File(spriteToAdd.getImagePath()),spriteSize.getWidth(),spriteSize.getHeight(),false);
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
+		waitingSpriteCursor.set(new ImageCursor(imageToAdd));
 	}
 
 	public void setBackgroundImage(String path) {
