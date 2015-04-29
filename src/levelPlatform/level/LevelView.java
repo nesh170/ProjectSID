@@ -92,8 +92,6 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	public Group renderLevel() {
-		System.out.println("renderLevel");
-		System.out.println(level.sprites().size());
 		Group levelGroup = new Group();
 		Node background = renderBackground(level);
 		levelGroup.getChildren().add(background);
@@ -132,11 +130,9 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	private Group renderSprite(Sprite sprite) {
-		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
+//		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
 		Group spriteGroup = new Group();
 		if (sprite.isActive()) {	
-			// ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
-			// ImageView spriteImageView = null;
 			try{
 				Image spriteImg = myImageManager.getImageForString(sprite.getImagePath());
 				ImageView spriteImageView = null;

@@ -1,6 +1,5 @@
 package gameEngine;
 
-import gameEngine.actions.GroovyAction;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,8 @@ public abstract class Action {
 	private boolean runsEveryFrame = false;
 	protected Double value;
 	private String soundPath;
-	private SoundEffectManager soundManager = new SoundEffectManager();
+	//TODO: delete and fix sound effect bug:
+	private SoundEffectManager soundManager;
 	
 	public void setSound(String path){
 		soundPath = path;
@@ -99,7 +99,7 @@ public abstract class Action {
 	}
 	
 	public void execute(){
-		soundManager.playSound(soundPath);
+		SoundEffectManager.sharedInstance().playSound(soundPath);
 		doAction();
 	}
 	

@@ -1,12 +1,8 @@
 package gameEngine.actions;
 
-import java.io.File;
-import java.io.IOException;
-
 import data.DataHandler;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
-import gameEngine.Action;
 import gameEngine.components.AmmoComponent;
 
 /**
@@ -14,8 +10,8 @@ import gameEngine.components.AmmoComponent;
  * Will always be mapped to key.
  */
 public class ShootAction extends TwoSpriteAction{
-	
-	private String bulletString;
+
+    private String bulletString;
 	
 	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
 		super(sprite, projectile, keys);
@@ -23,7 +19,7 @@ public class ShootAction extends TwoSpriteAction{
 
 	@Override
 	public void prepare() {
-        bulletString =  DataHandler.toXMLString(mySecondSprite);
+            bulletString =  DataHandler.toXMLString(mySecondSprite);
 	}
 
 	@Override
@@ -32,6 +28,7 @@ public class ShootAction extends TwoSpriteAction{
 		if (myAmmo == null || myAmmo.getAmmoCount() > 0) {
 			Sprite newProjectile = generateClone();
 			newProjectile.transform().setPosition(mySprite.transform().getPositionPoint());
+			newProjectile.prepareAllActions();
 			mySprite.addToEmissionList(newProjectile);
 		}
 	}
@@ -40,7 +37,8 @@ public class ShootAction extends TwoSpriteAction{
 		return (Sprite) DataHandler.fromXMLString(bulletString);
 	}
 	
-	private void addProjectileMotion(Sprite proj){
+	@SuppressWarnings("unused")
+    private void addProjectileMotion(Sprite proj){
 		//make MotionComponent subclass,
 		//attach to sprite.
 	}

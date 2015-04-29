@@ -41,7 +41,7 @@ public class GameEngine extends GameEngineAbstract {
         if(splashLevel!=null){
             myLevelList.add(0, splashLevel);
         }
-        initializeLevel(1);
+        initializeLevel(0);
     }
 
     @Override
@@ -65,7 +65,6 @@ public class GameEngine extends GameEngineAbstract {
 
     @Override
     public Group render () {
-    	System.out.println("GameEngine.render");
         return myLevelRenderer.renderLevel();
     }
 
@@ -99,6 +98,7 @@ public class GameEngine extends GameEngineAbstract {
         if(myControlsMapList.get(playerNumber).containsKey(key)){
             KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(keyEventType).accept(myControlsMapList.get(playerNumber).get(key));
         }
+        getHUDMap();
     }
 
     @Override
@@ -131,6 +131,19 @@ public class GameEngine extends GameEngineAbstract {
     @Override
     public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
         myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
+    }
+
+    @Override
+    public Map<String, Double> getHUDMap () {
+        return myCurrentLevel.getUnmodifiableHUDMap();
+    }
+    
+    public List<Component> getDefaultHUDComponents(){
+    	List<Component> components = new ArrayList<Component>();
+    	for(String type: new String[]{"Ammo","Energy","Health","Life","Time"}){
+    		components.add(myCurrentLevel.playerSpriteList().get(0).getComponentOfType(type + "Component"));
+    	}
+    	return components;
     }
 
 

@@ -1,9 +1,9 @@
 package gameEngine.components;
 
-import java.util.List;
 import sprite.Sprite;
 import gameEngine.Component;
 
+@HUDInterface(name = "Energy")
 public class EnergyComponent extends Component {
     
     private double initialEnergy;
@@ -27,6 +27,7 @@ public class EnergyComponent extends Component {
         }
     }
     
+    @HUDGetter
     public double getEnergy() {
         return currentEnergy;
     }

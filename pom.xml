@@ -34,6 +34,16 @@
             <systemPath>${java.home}/lib/ext/jfxrt.jar</systemPath>
             <scope>system</scope>
         </dependency>
+        <dependency>
+            <groupId>duke-compsci308-spring2015.voogasalad_util</groupId> 
+            <artifactId>voogasalad_util</artifactId> 
+            <version>master-SNAPSHOT</version> 
+        </dependency>
+        <dependency>
+        	<groupId>com.github.thiagolocatelli</groupId>
+        	<artifactId>parse4j</artifactId>
+        	<version>1.4</version>
+        </dependency>
     </dependencies>
 
     <build>
