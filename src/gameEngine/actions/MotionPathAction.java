@@ -6,6 +6,7 @@ import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.VelocityComponent;
 
+@ActionName(DisplayName = "Custom Path")
 public class MotionPathAction extends Action {
 	
 	private Point2D[] myPoints;

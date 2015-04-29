@@ -169,7 +169,7 @@ public class EngineTester extends Tester {
 		myProjectileTemplate.setTag("bullet");
 		myProjectileTemplate.setImagePath("engineTesting/Mario Brick.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				0.1, 400.0, myPlayer);
+				0.1, 100.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

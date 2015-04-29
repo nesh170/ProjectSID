@@ -4,6 +4,7 @@ import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 
+@ActionName(DisplayName = "Two Sprite")
 public class TwoSpriteAction extends Action {
 
 	protected Sprite mySecondSprite;

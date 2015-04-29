@@ -12,6 +12,7 @@ import gameEngine.Action;
  * Can be tied to key, or used as collision response
  *
  */
+@ActionName(DisplayName = "Compound")
 public class CompoundAction extends Action{
 	
 	/** List of sub-actions to be executed (in order) as compound action */

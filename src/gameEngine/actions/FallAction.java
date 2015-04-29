@@ -6,6 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
+@ActionName(DisplayName = "Gravity")
 public class FallAction extends DoubleAction {
 
 	private VelocityComponent myVelocityComponent;

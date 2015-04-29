@@ -4,6 +4,7 @@ import gameEngine.Action;
 import gameEngine.components.VelocityComponent;
 import sprite.Sprite;
 
+@ActionName(DisplayName = "NormalX")
 public class NormalActionX extends Action{
 
 	private VelocityComponent myVelocityComponent;

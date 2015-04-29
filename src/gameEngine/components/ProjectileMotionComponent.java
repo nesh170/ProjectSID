@@ -1,6 +1,7 @@
 package gameEngine.components;
 
 import sprite.Sprite;
+import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
 public class ProjectileMotionComponent extends VelocityComponent {
@@ -23,7 +24,15 @@ public class ProjectileMotionComponent extends VelocityComponent {
 		if((-myShooter.transform().getPosX() + mySprite.transform().getPosX()) > mySelfDestructDistance){
 			mySprite.setIsActive(false);
 		}
-		setVelocityX(myBulletSpeed);
+		if(myShooter.facesLeft()){
+		    System.out.println("LEFt");
+	            setVelocityX(-EngineMathFunctions.velocityValueFrame(myBulletSpeed));
+	        }
+	        else{
+	            System.out.println("Right");
+	            setVelocityX(EngineMathFunctions.velocityValueFrame(myBulletSpeed));
+	        }
+	        
 
 	}
 

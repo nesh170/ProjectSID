@@ -3,6 +3,7 @@ package gameEngine.actions;
 import sprite.Sprite;
 import gameEngine.Action;
 
+@ActionName(DisplayName = "Climb")
 public class ClimbAction extends Action {
 
 	public ClimbAction(Sprite sprite) {
