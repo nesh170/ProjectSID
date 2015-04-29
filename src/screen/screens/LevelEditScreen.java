@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 
 import data.DataHandler;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -48,6 +50,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -79,23 +82,28 @@ import util.UniqueString;
 public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	// Static Variables
-
+	private static final String DEFAULT_PLAYER_PATH = "defaults/defaultPlayer.xml.xml";
+	private static final String DEFAULT_ENEMY_PATH = "defaults/defaultEnemy.xml.xml";
+	private static final String DEFAULT_PLATFORM_PATH = "defaults/defaultPlatform.xml.xml";
+	private static final String HIDDEN_SPRITE_PATH = "images/hiddenSprite.png";
 
 	// Instance Variables
 	private LevelEditScreenController controller;
 	private LevelEditModel model;
 	private Game parentGame;
 	private LevelEditDisplay levelEditDisplay;
+	private VBox paneForWaitingSprites;
+	private ListView<String> listViewOfWaitingSprites;
 	private Tab currentGameScreen;
 	// Layout
 	private VerticalButtonBox rightButtonBox;
 	
 	private Map<String,ObservableList<String>> stringToListMap;
 	
-	private Set<ImageView> premadePlatforms;
-	private Set<ImageView> premadeEnemies;
-	private Set<ImageView> premadePlayers;
-	private Set<ImageView> premadePowerups;
+	private Set<Sprite> premadePlatforms;
+	private Set<Sprite> premadeEnemies;
+	private Set<Sprite> premadePlayers;
+	private Set<Sprite> premadePowerups;
 		
 	//Set of tags
 	private Set<String> tags;
@@ -152,9 +160,13 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		this.setOnMouseEntered(e -> onLevelScreenRender(level));
 		this.setOnKeyPressed(e -> checkForKeyPressed(e));
 		
-		model = new LevelEditModel(levelEditDisplay, level, tags, languageResources(), tagResources());
-		model.setUpListMapping(stringToListMap);
-
+		makeModel(level);
+		
+	}
+	
+	private void makeModel(Level level) {
+		model = new LevelEditModel(levelEditDisplay, paneForWaitingSprites.cursorProperty(), level, tags, stringToListMap, languageResources(), tagResources());
+		listViewOfWaitingSprites.setItems(model.setWaitingSpritesList());
 	}
 
 
@@ -212,8 +224,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		TitledPane enemies = makeTitledPane(languageResources().getString("Enemy"),languageResources().getString("AddEnemy"), listOfEnemies, premadeEnemies);
 		TitledPane players = makeTitledPane(languageResources().getString("Player"),languageResources().getString("AddPlayer"), listOfPlayers, premadePlayers);
 		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),languageResources().getString("AddPowerup"), listOfPowerups, premadePowerups);
-		TitledPane other = makeTitledPane(languageResources().getString("Other"),languageResources().getString("AddOther"), listOfOther, new HashSet<ImageView>());
-
+		TitledPane other = makeTitledPane(languageResources().getString("Other"),languageResources().getString("AddOther"), listOfOther, new HashSet<Sprite>());
+		TitledPane waitingSprites = makePaneForWaitingSprites(other.widthProperty());
+		
 		stringToListMap = new HashMap<>();
 		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
 		stringToListMap.put(tagResources().getString("Enemy"), listOfEnemies);
@@ -221,11 +234,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		stringToListMap.put(tagResources().getString("Powerup"), listOfPowerups);
 		stringToListMap.put(languageResources().getString("Other"), listOfOther);
 
-		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups,other);
+		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups,other,waitingSprites);
 
 	}
 
-	private TitledPane makeTitledPane(String title, String addSpriteTitle, ObservableList<String> content, Set<ImageView> premade) {
+	private TitledPane makeTitledPane(String title, String addSpriteTitle, ObservableList<String> content, Set<Sprite> premade) {
 
 		VBox titledPaneBox = new VBox();
 		titledPaneBox.setAlignment(Pos.CENTER);
@@ -252,12 +265,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 		this.viewableArea().setRight(rightButtonBox);
 
-		//added by Anika
-		// TODO: fix hardcoded string
-
 		Button addSpriteButton = 
 				makeButtonForPane(languageResources().getString("AddSprite"), e -> controller.loadSpriteEditScreen(this, null));
-		
+				
 		Button editSpriteButton =
 				makeButtonForPane(languageResources().getString("EditSprite"), e -> controller.loadSpriteEditScreen(this, model.selectedSprite()));
 
@@ -284,10 +294,30 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		
 		Button addTagType = 
 				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
-
+				
 		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, addBackgroundButton, 
 				returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType);
 
+	}
+	
+	private TitledPane makePaneForWaitingSprites(ReadOnlyDoubleProperty widthProperty) {
+		
+		paneForWaitingSprites = new VBox();
+		paneForWaitingSprites.setOnMouseEntered(e -> makeTooltip(paneForWaitingSprites, e.getSceneX(), e.getSceneY(), languageResources().getString("OnWaitingSpriteHover")));
+		paneForWaitingSprites.setAlignment(Pos.CENTER);
+		
+		listViewOfWaitingSprites = new ListView<String>();	
+		listViewOfWaitingSprites.setOnMouseClicked(e -> model.addSpriteToWaitingList());
+		
+		paneForWaitingSprites.getChildren().addAll(listViewOfWaitingSprites);
+		
+		return new TitledPane(languageResources().getString("WaitingSprites"), paneForWaitingSprites);
+	}
+	
+	private void makeTooltip(Node onThisNode, double x, double y, String text) {
+		Tooltip tooltip = new Tooltip(text);
+		tooltip.show(onThisNode, x, y);	
+		onThisNode.setOnMouseExited(e -> tooltip.hide());
 	}
 
 	private void selectBackgroundImage() {
@@ -351,7 +381,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	 * -Leo
 	 * 
 	 */
-	private void makeAddSpritePopup(Button button, Set<ImageView> premade) {
+	private void makeAddSpritePopup(Button button, Set<Sprite> premade) {
 		Popup newSpriteDisplay = new Popup();
 		newSpriteDisplay.setHideOnEscape(true);
 		newSpriteDisplay.setAutoHide(true);
@@ -359,7 +389,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		VBox display = new VBox();
 		display.getStyleClass().add("pane");
 		display.setSpacing(DOUBLE.BUTTON_SPACING);
-		premade.forEach(image -> display.getChildren().add(image));
+		premade.forEach(sprite -> {
+			ImageView image = new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false));
+			image.setOnMouseClicked(e -> addSprite(Sprite.makeCopy(sprite)));
+			display.getChildren().add(image);
+		});
 		
 		newSpriteDisplay.getContent().add(display);
 		
@@ -388,34 +422,25 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	private void makePremadePowerupSet() {
 		//TODO add extra premades
-		
 		premadePowerups = new HashSet<>();
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	private void makePremadeEnemySet() {
-		//TODO add extra premades
-
-		premadeEnemies = new HashSet<>();
-		
+		premadeEnemies = (Set<Sprite>) DataHandler.fromXMLFile(new File(DEFAULT_ENEMY_PATH));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void makePremadePlayerSet() {
-		//TODO add extra premades
-
-		premadePlayers = new HashSet<>();
-		
+		premadePlayers = (Set<Sprite>) DataHandler.fromXMLFile(new File(DEFAULT_PLAYER_PATH));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void makePremadePlatformSet() {
-		//TODO add extra premades
-
-		premadePlatforms = new HashSet<>();
-
+		premadePlatforms = (Set<Sprite>) DataHandler.fromXMLFile(new File(DEFAULT_PLATFORM_PATH));
 	}
-
-	
-	
+		
 	/**
 	 * add a sprite to the level edit screen
 	 */
