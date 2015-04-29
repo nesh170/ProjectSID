@@ -90,6 +90,13 @@ public abstract class GameEngineAbstract {
      */
     public abstract Map<String, Double> getHUDMap();
 
+    /**
+     * Gets the map of string to keycode
+     * @param playerNumber
+     * @return
+     */
+    public abstract Map<String, KeyCode> getActionKeyCodeMap (int playerNumber);
+
 
     
 }
