@@ -205,7 +205,7 @@ public class STRING {
 		public static final String SAVE_BUTTON_TEXT = "Save";
 		public static final String SWITCH_ACTION = "Switch Out ";
 	
-		
+		public static final String ACTION_NAME = "Action";
 		
 		
 		
@@ -240,6 +240,7 @@ public class STRING {
     	LEVELS_SPLASH_MAP.put("REMOVE_LEVEL", "Remove Level");
     }
     
+    // used by Level Edit Model to populate CollisionTable
     public static final Map<String, Integer> DIRECTION_TO_INTEGER_MAP;
 
     static
@@ -258,7 +259,6 @@ public class STRING {
     	NO_VALUE_NEEDED_ACTIONS = new ArrayList<String>();
     	NO_VALUE_NEEDED_ACTIONS.add("Kill ");
     	NO_VALUE_NEEDED_ACTIONS.add("Fall ");
-    	NO_VALUE_NEEDED_ACTIONS.add("Bounce ");
     	NO_VALUE_NEEDED_ACTIONS.add("Climb ");
     	NO_VALUE_NEEDED_ACTIONS.add("Switch Out ");
     }

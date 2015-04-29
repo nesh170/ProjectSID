@@ -1,9 +1,12 @@
 package screen.screenmodels;
 
 import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -282,6 +285,10 @@ public class SplashEditModel {
 		else if(keyCode == KeyCode.LEFT) {	
 			node.setRotate(node.getRotate() - INT.SPLASH_EDIT_ROTATE_FACTOR);
 		}
+	}
+
+	public void setGoalMap(Map<Sprite, Integer> goalMap) {
+		splashScreen.setGoalMap(goalMap);		
 	}
 	
 }

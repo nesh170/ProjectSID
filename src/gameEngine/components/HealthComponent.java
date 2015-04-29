@@ -1,6 +1,5 @@
 package gameEngine.components;
 
-import java.util.List;
 import sprite.Sprite;
 import gameEngine.Component;
 
@@ -9,6 +8,7 @@ import gameEngine.Component;
  * and methods for increasing/decreasing
  * 
  */
+@HUDInterface(name = "Health")
 public class HealthComponent extends Component {
 	
 	private static final Double DEFAULT_STARTING_HP = 50.0;
@@ -39,6 +39,7 @@ public class HealthComponent extends Component {
 	}
 	
 	/** get health points */
+	@HUDGetter
 	public Double getHealth(){
 		return myHP;
 	}

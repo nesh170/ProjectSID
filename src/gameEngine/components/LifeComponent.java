@@ -1,10 +1,9 @@
 package gameEngine.components;
 
-import java.util.List;
-
 import sprite.Sprite;
 import gameEngine.Component;
 
+@HUDInterface(name = "Life")
 public class LifeComponent extends Component {
 	
 	private int myLives;
@@ -14,6 +13,7 @@ public class LifeComponent extends Component {
 		myLives = Math.toIntExact(Math.round(value));
 	}
 	
+	@HUDGetter
 	public int getLives(){
 		return myLives;
 	}

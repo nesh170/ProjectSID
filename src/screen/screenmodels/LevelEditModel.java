@@ -1,9 +1,13 @@
 package screen.screenmodels;
 
 import gameEngine.Action;
+import gameEngine.CollisionTable;
 import gameEngine.Component;
+import gameEngine.actions.MultiSpriteAction;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+
+//import javax.media.jai.IntegerSequence;
 
 import data.DataHandler;
 import javafx.collections.FXCollections;
@@ -21,8 +27,11 @@ import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
+import resources.constants.INT;
+import resources.constants.STRING;
 import screen.screens.LevelEditDisplay;
 import sprite.Sprite;
 import util.ImageToInt2DArray;
@@ -41,6 +50,8 @@ public class LevelEditModel {
 	
 	private ResourceBundle languageResources;
 	private ResourceBundle tagResources;
+	
+	private Map<String, String> classPathMap;
 	
 	private Map<String,ObservableList<String>> stringToListMap;
 	private Map<String,Sprite> stringToSpriteMap;
@@ -75,6 +86,19 @@ public class LevelEditModel {
 		this.stringToSpriteMap = new HashMap<>();
 		this.goalMap = new HashMap<>();
 		level.setGoalMap(goalMap);
+		initializeClassPathMap();
+	}
+	
+	private void initializeClassPathMap() {
+
+		classPathMap = new HashMap<>();
+
+		ResourceBundle actionResources = ResourceBundle
+				.getBundle("resources.spritePartProperties.action");
+		actionResources.keySet().forEach(
+				e -> classPathMap.put(
+						languageResources.getString(e),
+						actionResources.getString(e)));;
 	}
 	
 	public void changeSelection(String newSelect) {
@@ -234,6 +258,63 @@ public class LevelEditModel {
 
 	public void setBackgroundImage(String path) {
 		level.setBackground(path);
+	}
+
+	/**
+	 * from the collision table screen -> map of sprite 1, map of sprite 2 and action components
+	 * pair programming - april 27 - michael, anika
+	 * @param collisionMap
+	 */
+	public void updateCollisions(Map<String, Map<String, List<String>>> collisionMap) {
+		collisionMap.keySet().forEach(sprite1 ->
+				innerLoop(sprite1, collisionMap.get(sprite1)));
+
+		
+	}
+	
+	private void innerLoop(String sprite1, Map<String, List<String>> innerMap) {
+		innerMap.keySet().forEach(sprite2 ->
+			addSpriteAction(sprite1, sprite2, innerMap.get(sprite2)));
+	}
+	
+	private void addSpriteAction(String sprite1, String sprite2,
+			List<String> list) {
+		stringToSpriteMap.get(stringToListMap.get(sprite1))
+		.addAction(createAction(sprite1,
+				STRING.DIRECTION_TO_INTEGER_MAP.get((list.get(INT.DIRECTION_INDEX))),
+				list.get(INT.ACTION_INDEX),
+				Double.parseDouble(list.get(INT.VALUE_INDEX)),
+				list.get(INT.SWITCH_OPTION_INDEX)));
+	}
+
+	private Action createAction(String activeSprite, int direction, String actionName, double value,
+			String switchOptionSpriteName) {
+		try {
+			Class<Action> actionClass = (Class<Action>) Class.forName(classPathMap.get(actionName));
+			Constructor<Action> constructor;
+			// switch out action
+			if ((constructor = actionClass.getConstructor(Sprite[].class, List.class, KeyCode[].class)) != null) {
+				// switchOptionSpriteName = sprites to switch to
+				// level.getSpritesWithTag("player") = list of sprites 
+				// null = no keycode needed (from collision table so doesn't trigger on keycode)
+				Sprite[] sprites = {stringToSpriteMap.get(switchOptionSpriteName)};
+				return constructor.newInstance(sprites, level.getSpritesWithTag("player"), null);
+			}
+			else if ((constructor = actionClass.getConstructor(Sprite.class, Double.class, KeyCode[].class)) != null) {
+				// parameters: active sprite, double value
+				// example: alter health, bounce, fall
+				return constructor.newInstance(stringToSpriteMap.get(activeSprite), value, null);
+			}
+			else if ((constructor = actionClass.getConstructor(Sprite.class, KeyCode[].class)) != null) {
+				// parameter: sprite to kill or active sprite; example: kill action; compound action
+				return constructor.newInstance(stringToSpriteMap.get(activeSprite), value, null);
+			}
+		}
+		catch (Exception e) {
+			
+		}
+		return null;
+		
 	}
 
 }

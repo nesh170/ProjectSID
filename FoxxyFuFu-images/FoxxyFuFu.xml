@@ -1,0 +1,218 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>1448</width>
+      <height>998</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.BounceAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <null/>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>true</runsEveryFrame>
+              <value>-30.0</value>
+              <soundPath></soundPath>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
+            </gameEngine.actions.BounceAction>
+            <gameEngine.actions.LeftMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>8.0</value>
+              <soundPath></soundPath>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
+            </gameEngine.actions.LeftMotionAction>
+            <gameEngine.actions.FallAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <null/>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>true</runsEveryFrame>
+              <value>20.0</value>
+              <soundPath></soundPath>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
+            </gameEngine.actions.FallAction>
+            <gameEngine.actions.RightMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>8.0</value>
+              <soundPath></soundPath>
+              <soundManager>
+                <mySoundMap/>
+              </soundManager>
+              <velocity>8.0</velocity>
+            </gameEngine.actions.RightMotionAction>
+          </actionList>
+          <componentList>
+            <gameEngine.components.VelocityComponent>
+              <mySprite reference="../../.."/>
+              <myValue>50.0</myValue>
+              <isActive>true</isActive>
+              <myVelocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <hash>0</hash>
+              </myVelocity>
+              <myTerminalVelocity>50.0</myTerminalVelocity>
+              <isGrounded>true</isGrounded>
+            </gameEngine.components.VelocityComponent>
+          </componentList>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>Foxxay</name>
+          <tag>Player</tag>
+          <imagePath>FoxxyFuFu-images/tails.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>223.0</x>
+              <y>195.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>39.0</width>
+              <height>50.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition>
+              <x>2.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </startPosition>
+            <startRotation reference="../myRotation"/>
+            <startDimensions>
+              <width>200.0</width>
+              <height>200.0</height>
+              <hash>0</hash>
+            </startDimensions>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </sprites>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition reference="../../../../sprites/sprite.Sprite/transform/startPosition"/>
+            <myRotation reference="../../../../sprites/sprite.Sprite/transform/myRotation"/>
+            <myDimensions reference="../../../../sprites/sprite.Sprite/transform/startDimensions"/>
+            <startPosition reference="../../../../sprites/sprite.Sprite/transform/startPosition"/>
+            <startRotation reference="../../../../sprites/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../../sprites/sprite.Sprite/transform/startDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
+      </playerSpriteList>
+      <collisionTable>
+        <myTable/>
+        <myBigTable/>
+        <tagList/>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+  </levels>
+  <splashScreen>
+    <width>500</width>
+    <height>400</height>
+    <sprites/>
+    <playerSpriteList>
+      <sprite.Sprite>
+        <actionList/>
+        <componentList/>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+        <isActive>true</isActive>
+        <facesLeft>false</facesLeft>
+        <transform>
+          <myPosition reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/startPosition"/>
+          <myRotation reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/myRotation"/>
+          <myDimensions reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/startDimensions"/>
+          <startPosition reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/startPosition"/>
+          <startRotation reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/myRotation"/>
+          <startDimensions reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/startDimensions"/>
+        </transform>
+        <isGoal>false</isGoal>
+        <toLevel>0</toLevel>
+        <isText>false</isText>
+      </sprite.Sprite>
+    </playerSpriteList>
+    <collisionTable>
+      <myTable/>
+      <myBigTable/>
+      <tagList/>
+    </collisionTable>
+    <goalMap/>
+    <allImages>
+      <sprite.Sprite>
+        <actionList/>
+        <componentList/>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+        <isActive>true</isActive>
+        <facesLeft>false</facesLeft>
+        <transform>
+          <myPosition>
+            <x>5000.0</x>
+            <y>5000.0</y>
+            <hash>0</hash>
+          </myPosition>
+          <myRotation reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/myRotation"/>
+          <myDimensions reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/startDimensions"/>
+          <startPosition reference="../myPosition"/>
+          <startRotation reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/myRotation"/>
+          <startDimensions reference="../../../../../levels/levelPlatform.level.Level/sprites/sprite.Sprite/transform/startDimensions"/>
+        </transform>
+        <isGoal>false</isGoal>
+        <toLevel>0</toLevel>
+        <isText>false</isText>
+      </sprite.Sprite>
+    </allImages>
+  </splashScreen>
+  <name>FoxxyFuFu</name>
+  <description></description>
+</game.Game>

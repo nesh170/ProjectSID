@@ -1,5 +1,6 @@
 package screen.controllers;
 import game.Game;
+import gameEngine.CollisionTable;
 
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
@@ -62,6 +63,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenAnimation;
 import screen.factories.ScreenFactory;
 import screen.screens.GameEditScreen;
 import screen.screens.GamePlayScreen;
@@ -327,8 +329,8 @@ public class ScreenController {
 	public File getFileUsingFileChooser(FileChooser fileChooser) {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
-
-
+	
+	// private
 	private Tab createMainMenuScreen() {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
@@ -440,6 +442,7 @@ public class ScreenController {
 				popup.hide();
 			}
 			else {
+				ScreenAnimation.shakePopUpWhenError(popup);
 				gameName.getStyleClass().add(STRING.CSS.ERROR);
 				gameName.setPromptText(STRING.ERROR.EMPTY_GAME_NAME);
 			}
@@ -481,7 +484,7 @@ public class ScreenController {
 
 		@Override
 		public void loadLevelEditScreen(Game game, Level level) {
-
+			
 			createLevelEditScreen(game, level);
 			
 		}
@@ -535,8 +538,9 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
-			
+			Transition t = gameEditScreen.animatesTrashPaper(INT.SPLASH,
+					gameEditScreen.trashSplashAnimationFinishedEvent()); //can be replaced to not pass GameEditScreen updates splash display internally
+			t.play();
 		}
 
 
@@ -548,24 +552,46 @@ public class ScreenController {
 				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
 				File folder = new File(imageFolderName);
 				folder.mkdir();
-				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
-					String imagePath = sprite.getImagePath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
-					sprite.setImagePath(newImagePath);
-				}));
-				game.splashScreen().sprites().forEach(sprite -> {
-					String imagePath = sprite.getImagePath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
-					sprite.setImagePath(newImagePath);
-				});
+				saveLevelSprites(game, imageFolderName);
+				saveLevelBackgrounds(game, imageFolderName);
+				saveSplashScreen(game, imageFolderName);
+
+				DataHandler.toXMLFile(game, game.name(), folder.getPath());
+			} catch (IOException e) {
+				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
+			}
+		}
+		
+		private void saveLevelSprites(Game game, String imageFolderName) {
+			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
+				String imagePath = sprite.getImagePath();
+				String newImagePath = copyImage(imageFolderName, imagePath);
+				sprite.setImagePath(newImagePath);
+			}));
+		}
+		
+		private void saveLevelBackgrounds(Game game, String imageFolderName) {
+			try {
 				game.levels().forEach(level -> {
 					String imagePath = level.backgroundPath();
 					String newImagePath = copyImage(imageFolderName, imagePath);
 					level.setBackground(newImagePath);
 				});
-				DataHandler.toXMLFile(game, game.name(), folder.getPath());
-			} catch (IOException e) {
-				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
+			}
+			catch(Exception e) {
+				
+			}
+		}
+
+		private void saveSplashScreen(Game game, String imageFolderName) {
+			try {
+				game.splashScreen().sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String newImagePath = copyImage(imageFolderName, imagePath);
+					sprite.setImagePath(newImagePath);
+				});
+			} catch (Exception e) {
+				
 			}
 		}
 
@@ -585,14 +611,13 @@ public class ScreenController {
 		
 		public void saveAndExit(Game game, Popup popup){
 			saveGame(game);
-			hidePopup(popup);
+			returnToMainMenuScreen(popup);
 		}
 		
 		private void hidePopup(Popup popup){
 			popup.hide();
 		}	
 	}
-
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
@@ -655,8 +680,8 @@ public class ScreenController {
 		 * @param levelEditScreen
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
-			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
 		}
 		
@@ -682,9 +707,12 @@ public class ScreenController {
 	private class CollisionTableScreenManager implements CollisionTableScreenController {
 
 		@Override
-		public void returnToLevel() {
-			// TODO Auto-generated method stub
-			
+		public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo) {
+			tabManager.removeTabAndChangeSelected(switchTo);
+			if (switchTo.getContent() instanceof LevelEditScreen) {
+				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();
+				levelEditScreen.updateCollisions(collisionMap);
+			}
 		}
 		
 	}
