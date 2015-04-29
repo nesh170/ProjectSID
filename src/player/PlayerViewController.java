@@ -185,8 +185,11 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void chooseGame(Stage gameChooser) {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
-		initializeGameAttributes();
-		setupAnimation();
+		if (myGameFolder != null) {
+			myView.enableButtonItems();
+			initializeGameAttributes();
+			setupAnimation();
+		}
 		// play();
 	}
 

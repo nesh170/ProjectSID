@@ -219,4 +219,8 @@ public class PlayerMenu {
 				.equals("Open Game"))
 				.forEach(item -> item.setDisable(true));
 	}
+
+	public void enableFileMenu() {
+		myMenu.getMenus().get(0).getItems().stream().forEach(item -> item.setDisable(false));
+	}
 }
