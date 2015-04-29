@@ -92,7 +92,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private LevelEditModel model;
 	private Game parentGame;
 	private LevelEditDisplay levelEditDisplay;
-	private Pane paneForWaitingSprites;
+	private VBox paneForWaitingSprites;
+	private ListView<String> listViewOfWaitingSprites;
 	private Tab currentGameScreen;
 	// Layout
 	private VerticalButtonBox rightButtonBox;
@@ -159,9 +160,13 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		this.setOnMouseEntered(e -> onLevelScreenRender(level));
 		this.setOnKeyPressed(e -> checkForKeyPressed(e));
 		
-		model = new LevelEditModel(levelEditDisplay, paneForWaitingSprites.cursorProperty(), level, tags, languageResources(), tagResources());
-		model.setUpListMapping(stringToListMap);
-
+		makeModel(level);
+		
+	}
+	
+	private void makeModel(Level level) {
+		model = new LevelEditModel(levelEditDisplay, paneForWaitingSprites.cursorProperty(), level, tags, stringToListMap, languageResources(), tagResources());
+		listViewOfWaitingSprites.setItems(model.setWaitingSpritesList());
 	}
 
 
@@ -220,7 +225,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		TitledPane players = makeTitledPane(languageResources().getString("Player"),languageResources().getString("AddPlayer"), listOfPlayers, premadePlayers);
 		TitledPane powerups = makeTitledPane(languageResources().getString("Powerup"),languageResources().getString("AddPowerup"), listOfPowerups, premadePowerups);
 		TitledPane other = makeTitledPane(languageResources().getString("Other"),languageResources().getString("AddOther"), listOfOther, new HashSet<Sprite>());
-
+		TitledPane waitingSprites = makePaneForWaitingSprites(other.widthProperty());
+		
 		stringToListMap = new HashMap<>();
 		stringToListMap.put(tagResources().getString("Platform"), listOfPlatforms);
 		stringToListMap.put(tagResources().getString("Enemy"), listOfEnemies);
@@ -228,7 +234,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		stringToListMap.put(tagResources().getString("Powerup"), listOfPowerups);
 		stringToListMap.put(languageResources().getString("Other"), listOfOther);
 
-		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups,other);
+		paneForSprites.getChildren().addAll(platforms,enemies,players,powerups,other,waitingSprites);
 
 	}
 
@@ -290,20 +296,22 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
 				
 		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, addBackgroundButton, 
-				returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType, makePaneForWaitingSprites(addTagType.widthProperty()));
+				returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType);
 
 	}
 	
-	private Pane makePaneForWaitingSprites(ReadOnlyDoubleProperty widthProperty) {
-		paneForWaitingSprites = new Pane();
-		paneForWaitingSprites.setOnMouseEntered(e -> makeTooltip(paneForWaitingSprites, e.getSceneX(), e.getSceneY(), languageResources().getString("OnWaitingSpriteHover")));
-		ImageView icon = new ImageView(new Image(HIDDEN_SPRITE_PATH));
-		icon.setPreserveRatio(true);
-		icon.fitWidthProperty().bind(widthProperty);
-		paneForWaitingSprites.getChildren().add(icon);
-		paneForWaitingSprites.setOnMouseClicked(e -> model.addSpriteToWaitingList());
+	private TitledPane makePaneForWaitingSprites(ReadOnlyDoubleProperty widthProperty) {
 		
-		return paneForWaitingSprites;
+		paneForWaitingSprites = new VBox();
+		paneForWaitingSprites.setOnMouseEntered(e -> makeTooltip(paneForWaitingSprites, e.getSceneX(), e.getSceneY(), languageResources().getString("OnWaitingSpriteHover")));
+		paneForWaitingSprites.setAlignment(Pos.CENTER);
+		
+		listViewOfWaitingSprites = new ListView<String>();	
+		listViewOfWaitingSprites.setOnMouseClicked(e -> model.addSpriteToWaitingList());
+		
+		paneForWaitingSprites.getChildren().addAll(listViewOfWaitingSprites);
+		
+		return new TitledPane(languageResources().getString("WaitingSprites"), paneForWaitingSprites);
 	}
 	
 	private void makeTooltip(Node onThisNode, double x, double y, String text) {
@@ -432,9 +440,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private void makePremadePlatformSet() {
 		premadePlatforms = (Set<Sprite>) DataHandler.fromXMLFile(new File(DEFAULT_PLATFORM_PATH));
 	}
-
-	
-	
+		
 	/**
 	 * add a sprite to the level edit screen
 	 */

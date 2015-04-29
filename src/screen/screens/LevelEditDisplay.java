@@ -44,7 +44,12 @@ public class LevelEditDisplay extends ScrollPane {
 		this();
 		content.setMinWidth(width);
 		content.setMinHeight(height);
-		listOfSprites.forEach(sprite -> addSpriteToDisplay(sprite,new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath())))));
+//		listOfSprites.forEach(sprite -> {
+//			ImageView image = new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath())));
+//			image.setFitWidth(sprite.transform().getWidth());
+//			image.setFitHeight(sprite.transform().getHeight());
+//			addSpriteToDisplay(sprite, image);
+//		});
 		try {
 			setBackground(DataHandler.fileToImage(new File(backgroundPath)));
 		}
