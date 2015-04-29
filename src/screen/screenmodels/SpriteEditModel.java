@@ -236,11 +236,10 @@ public class SpriteEditModel {
 
 
 	public void addComponent(String selected, String componentValueText) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		List<Double> values = new ArrayList<>();
-		values.add(Double.parseDouble(componentValueText));
+		Double values = Double.parseDouble(componentValueText);
 		Component component = (Component) Class
 				.forName(classPathMap.get(selected))
-				.getConstructor(Sprite.class, List.class)
+				.getConstructor(Sprite.class, Double.class)
 				.newInstance(editableSprite, values);
 		String parameterMapValue = selected + "-> "
 				+ languageResources.getString("Value") + " "
