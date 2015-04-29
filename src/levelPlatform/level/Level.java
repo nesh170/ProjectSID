@@ -9,9 +9,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import gameEngine.actions.ActionName;
 import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
 import gameEngine.components.HUDGetter;
@@ -198,14 +200,18 @@ public class Level extends LevelPlatform {
         sprite.addComponentRuntime(copy);
     }
 
-    public List<String> getActionListInStrings (int playerNumber) {
-        List<String> actionName = new ArrayList<>();
-        playerSpriteList().get(playerNumber).actionList().stream().forEach(action -> actionName.add(action.getClass().getSimpleName()));
-        return actionName;
-    }
-    
-    public void setKeyCodeToPlayer(int playerNumber, String actionName, KeyCode key){
-        playerSpriteList().get(playerNumber).getActionOfType(actionName).setKeyCode(Stream.of(key).collect(Collectors.toList()));
+    public Map<String,Consumer<KeyCode>> getActionChangeKeyCodeMethod (int playerNumber) {
+        Map<String, Consumer<KeyCode>> actionKeyCodeMethodMap = new HashMap<>();
+        playerSpriteList
+                .get(playerNumber)
+                .actionList()
+                .stream()
+                .filter(act -> act.keycode()!=null)
+                .forEach(action -> actionKeyCodeMethodMap
+                                 .put(action.getClass().getAnnotation(ActionName.class).displayName(), (Keycode) -> action
+                                         .setKeyCode(Stream.of(Keycode)
+                                                 .collect(Collectors.toList()))));
+        return actionKeyCodeMethodMap;
     }
 
     public Map<String, Double> getUnmodifiableHUDMap () {

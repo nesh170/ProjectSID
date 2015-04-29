@@ -3,13 +3,13 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
 import resources.constants.INT;
 import socCenter.Avatar;
 import util.DialogUtil;
@@ -252,8 +252,8 @@ public class PlayerViewController implements GamePlayerInterface {
 		myView.setDim(val);
 	}
 	
-	public void changeKeySetup(KeyCode key, String action) {
-		myEngine.changeKeyCodeInAction(0, action, key);
+	public Map<String,Consumer<KeyCode>> getKeySetup() {
+		return myEngine.getActionToChangeKeyCodeConsumerMap(INT.LOCAL_PLAYER);
 	}
 	
 	public List<String> getSpriteTagList() {
