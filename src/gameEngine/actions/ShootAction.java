@@ -10,7 +10,7 @@ import gameEngine.components.AmmoComponent;
  * Will always be mapped to key.
  */
 
-@ActionName(DisplayName = "Shoot")
+@ActionName(displayName = "Shoot")
 public class ShootAction extends TwoSpriteAction{
 
     private String bulletString;

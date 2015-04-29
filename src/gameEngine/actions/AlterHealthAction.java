@@ -5,7 +5,7 @@ import javafx.scene.input.KeyCode;
 import gameEngine.Action;
 import gameEngine.components.HealthComponent;
 
-@ActionName(DisplayName = "AlterHealth")
+@ActionName(displayName = "AlterHealth")
 public class AlterHealthAction extends DoubleAction {
 
 	private HealthComponent myHealth;

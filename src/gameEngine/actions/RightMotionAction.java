@@ -6,7 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-@ActionName(DisplayName = "Right")
+@ActionName(displayName = "Right")
 public class RightMotionAction extends DoubleAction {
 
 	private Double velocity;

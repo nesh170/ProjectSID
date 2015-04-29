@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 
-@ActionName(DisplayName = "Blank")
+@ActionName(displayName = "Blank")
 public class BlankAction extends Action {
 
 	public BlankAction(Sprite sprite, KeyCode[] keys) {

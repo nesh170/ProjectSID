@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import gameEngine.actions.ActionName;
 import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
 import gameEngine.components.HUDGetter;
@@ -207,7 +208,7 @@ public class Level extends LevelPlatform {
                 .stream()
                 .filter(act -> act.keycode()!=null)
                 .forEach(action -> actionKeyCodeMethodMap
-                                 .put(action.getClass().getSimpleName(), (Keycode) -> action
+                                 .put(action.getClass().getAnnotation(ActionName.class).displayName(), (Keycode) -> action
                                          .setKeyCode(Stream.of(Keycode)
                                                  .collect(Collectors.toList()))));
         return actionKeyCodeMethodMap;

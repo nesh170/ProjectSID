@@ -6,7 +6,7 @@ import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
-@ActionName(DisplayName = "Jump")
+@ActionName(displayName = "Jump")
 public class UpMotionAction extends DoubleAction {
 	
 	private boolean climbing;
