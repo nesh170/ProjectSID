@@ -40,7 +40,7 @@ public class ScreenAnimation{
 		Timeline t = new Timeline();
 		double naturalLocation = popup.getX();
 		
-		System.out.println("location is "+ naturalLocation);	
+		//System.out.println("location is "+ naturalLocation);	
 		DoubleProperty x = new SimpleDoubleProperty(naturalLocation);	
 		x.addListener((obs, oldX, newX) -> popup.setX(newX.doubleValue()));
 		t.getKeyFrames().addAll(				
