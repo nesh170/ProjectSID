@@ -268,6 +268,10 @@ public class SplashEditModel {
 		return imageViewArray;
 	}
 	
+	public void setBackgroundImage(String path) {
+		splashScreen.setBackground(path);
+	}
+	
 	private void resizeAndRotate(Node node, KeyEvent e) {		
 		KeyCode keyCode = e.getCode();
 		

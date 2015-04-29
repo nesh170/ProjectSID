@@ -321,6 +321,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 		goalMap.put(sprite, 0);
+		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.saveSplashScreen();
 	}
 
@@ -372,7 +373,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			this.getChildren().add(splashEditModel.getImageView());	
 		}
 		else if(tag == STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE) {	
-			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));		
+			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));	
+			//splashEditModel.setBackgroundImage(splash);
 		}		 
 		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_TEXT) {
 			splashEditModel.placeTextAtXY(counter-1, e);
