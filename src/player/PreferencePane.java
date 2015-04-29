@@ -39,6 +39,8 @@ public class PreferencePane {
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
 	private static final double DEFAULT_MUSIC_VOL = 10;
 	private static final double DEFAULT_BRIGHTNESS = 5;
+	private static final double AVTAB_CENTER = 500;
+	private static final double SLIDER_SIZE = 250;
 	
 	private PlayerViewController myController;
 	private Stage myContainer;
@@ -67,7 +69,7 @@ public class PreferencePane {
 		myAV = new Tab("Audiovisual");
 		VBox container = new VBox(20);
 		container.setAlignment(Pos.CENTER);
-		HBox titles = new HBox(300);
+		HBox titles = new HBox(AVTAB_CENTER);
 		titles.getChildren().addAll(new Label("Audio"),
 				new Label("Visual"));
 		titles.setAlignment(Pos.TOP_CENTER);
@@ -79,7 +81,12 @@ public class PreferencePane {
 		brightness.getChildren().addAll(new Label("Game Brightness"),
 				makeBrightnessControl(myBrightness));
 		brightness.setAlignment(Pos.CENTER_RIGHT);
-		container.getChildren().addAll(titles, music, brightness, makeButtonBox());
+		HBox row = new HBox(AVTAB_CENTER-SLIDER_SIZE);
+		row.setAlignment(Pos.CENTER);
+		row.getChildren().addAll(music, brightness);
+		HBox buttons = makeButtonBox();
+		buttons.setAlignment(Pos.BOTTOM_CENTER);
+		container.getChildren().addAll(titles, row, buttons);
 		myAV.setContent(container);
 	}
 
@@ -137,9 +144,10 @@ public class PreferencePane {
 		container.getChildren().add(titles);
 		for (String key : myKeyMap.keySet()) {
 			HBox hbox = new HBox(50);
-			hbox.getChildren().addAll(new Label(key), 
-					makeKeyField(myKeyMap.get(key)));
+			TextField field = makeKeyField(myKeyMap.get(key));
+			hbox.getChildren().addAll(new Label(key), field);
 			container.getChildren().add(hbox);
+			hbox.setAlignment(Pos.CENTER);
 		}
 		HBox buttons = makeButtonBox();
 		buttons.setAlignment(Pos.BOTTOM_CENTER);
