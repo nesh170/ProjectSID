@@ -15,7 +15,7 @@ public class DialogUtil {
 	 * Sets up a dialog box and returns a string
 	 * @return
 	 */
-	public static String setUpDialog (String title, String header)
+	public static String inputDialog (String title, String header)
 	{
 		Dialog<String> dialog = new TextInputDialog();
 		setTitleAndHeader(dialog, title, header);
