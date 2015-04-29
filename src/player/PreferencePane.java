@@ -89,7 +89,8 @@ public class PreferencePane {
 		grid.add(makeKeyField(myUpAction), 3, 1);
 		grid.add(makeKeyField(myRightAction), 3, 2);
 		grid.add(makeKeyField(myLeftAction), 3, 3);
-		grid.add(makeCloseButton(), 2, 1);
+		grid.add(makeCloseButton(), 1, 2);
+		grid.add(makeSaveButton(), 3, 2);
 		controls.setContent(grid);
 		return controls;
 	}
@@ -109,10 +110,20 @@ public class PreferencePane {
 		return container;
 	}
 	
+	private Button makeSaveButton() {
+		Button save = new Button("Save Changes");
+		save.setOnAction(e -> savePreferences());
+		return save;
+	}
+	
 	private Button makeCloseButton() {
-		Button close = new Button("Accept");
+		Button close = new Button("Close");
 		close.setOnAction(e -> closePreferences());
 		return close;
+	}
+	
+	private void savePreferences() {
+		
 	}
 	
 	private Slider makeBrightnessControl(double brightness) {
