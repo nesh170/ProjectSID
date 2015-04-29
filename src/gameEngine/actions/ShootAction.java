@@ -10,8 +10,7 @@ import gameEngine.components.AmmoComponent;
  * Will always be mapped to key.
  */
 public class ShootAction extends TwoSpriteAction{
-	
-	private static final Double OUT_OF_BOUNDS = null;
+
     private String bulletString;
 	
 	public ShootAction(Sprite sprite,  Sprite projectile, KeyCode... keys) {
@@ -28,7 +27,6 @@ public class ShootAction extends TwoSpriteAction{
 		AmmoComponent myAmmo = (AmmoComponent) mySprite.getComponentOfType("AmmoComponent");
 		if (myAmmo == null || myAmmo.getAmmoCount() > 0) {
 			Sprite newProjectile = generateClone();
-			newProjectile.addAction(new OutOfBoundsAction(newProjectile, OUT_OF_BOUNDS));
 			newProjectile.transform().setPosition(mySprite.transform().getPositionPoint());
 			newProjectile.prepareAllActions();
 			mySprite.addToEmissionList(newProjectile);

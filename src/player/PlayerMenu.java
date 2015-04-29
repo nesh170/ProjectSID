@@ -10,17 +10,11 @@ import java.util.stream.Stream;
 import sid.SIDSocial;
 import sprite.Sprite;
 import util.DialogUtil;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -195,7 +189,7 @@ public class PlayerMenu {
                 Stage socialStage = new Stage();
                 socialCenter.start(socialStage);
                 socialStage.setOnCloseRequest(close -> {
-                	System.out.println(socialCenter.getAv());
+                	view.setSocialAvatar(socialCenter.getAvatar()); //TODO: uncomment this to when the social center returns an avatar
                     socialStage.close();
                     view.resume();
                 });

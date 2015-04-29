@@ -2,7 +2,8 @@ package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.Component;
-import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,9 +14,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
-import gameEngine.components.HUD;
+import gameEngine.components.HUDGetter;
+import gameEngine.components.HUDInterface;
 import resources.constants.INT;
 import sprite.Sprite;
+import util.DialogUtil;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import levelPlatform.LevelPlatform;
@@ -211,9 +214,24 @@ public class Level extends LevelPlatform {
                 .get(INT.LOCAL_PLAYER)
                 .componentList()
                 .stream()
-                .filter(comp -> comp.getClass().getAnnotation(HUD.class) != null)
-                .forEach(component -> HUDMap.put((component.getClass().getAnnotation(HUD.class).name()), component.getValue()));
+                .filter(comp -> comp.getClass().getAnnotation(HUDInterface.class) != null)
+                .forEach(component -> HUDMap.put((component.getClass().getAnnotation(HUDInterface.class).name()), getRightValueFromComponent(component)));
         return Collections.unmodifiableMap(HUDMap);
+    }
+
+    private Double getRightValueFromComponent (Component component) {
+        List<Method> methodList = Stream.of(component.getClass().getMethods()).filter(methods -> methods.getAnnotation(HUDGetter.class)!=null).collect(Collectors.toList());
+        System.out.println(methodList.size());
+        if(methodList.size()>0){
+            try {
+                System.out.println(methodList.get(0).getName());
+                return (Double) methodList.get(0).invoke(component);
+            }
+            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                DialogUtil.displayMessage("ERROR", component.getClass().getName());
+            }
+        }
+        return 0.0;
     }
 
 

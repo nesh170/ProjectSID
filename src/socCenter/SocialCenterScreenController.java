@@ -138,6 +138,13 @@ public class SocialCenterScreenController {
 		}
 	}
 	
+	public Avatar getAvatar(){
+		if(loggedInScr != null){
+			return loggedInScr.userAvatar();
+		} else {
+			return null;
+		}
+	}
 	// Constructors & Helpers
 	public SocialCenterScreenController(Stage stage, double width, double height) {
 		

@@ -1,9 +1,9 @@
 package player;
 
 import gameEngine.Component;
-
 import java.util.List;
-
+import java.util.Map;
+import socCenter.Avatar;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -13,8 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -34,20 +39,24 @@ public class PlayerView {
 	private BorderPane myBorderPane;
 	private StackPane myBase;
 	private StackPane myTop;
-	private StackPane myBrightness;
+	private StackPane myBright;
+	private StackPane myDim;
 	private Stage myPopUp;
+	private HBox myAvatarBox;
 
 	public PlayerView() {
 
 		myGameRoot = new ScrollPane();
 		myHUD = new HUD();
+		myAvatarBox = new HBox();
 
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
 
 		myBase = new StackPane();
 		myTop = new StackPane();
-		myTop.getChildren().add(makeBrightnessScreen());
+		myTop.getChildren().add(makeBrightScreen());
+		myTop.getChildren().add(makeDimScreen());
 		myTop.getChildren().add(myHUD.getHUDBox());
 		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
@@ -78,19 +87,35 @@ public class PlayerView {
 			playScreen();
 			playerController.resume();
 		});
-		pause.getChildren().add(startButton);
+		myAvatarBox.getChildren().add(startButton);
+		pause.getChildren().addAll(myAvatarBox);
 		pause.setStyle("-fx-background-color: rgba(184, 184, 184, 0.25); -fx-background-radius: 10;");
 		return pause;
 	}
+	
+	public void addAvatarToPause(Avatar avatar){
+	       myAvatarBox.getChildren().removeIf(node -> !Button.class.equals(node.getClass()));
+	       VBox avatarImageHolder = new VBox();
+	       avatarImageHolder.getChildren().addAll(new ImageView(avatar.getURL()),new Text(avatar.getName()));
+	       myAvatarBox.getChildren().addAll(avatarImageHolder);
+	}
 
-	private StackPane makeBrightnessScreen() {
+	private StackPane makeBrightScreen() {
 		StackPane bright = new StackPane();
 		bright.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
 		bright.setOpacity(0);
-		myBrightness = bright;
+		myBright = bright;
 		return bright;
 	}
 
+	private StackPane makeDimScreen() {
+		StackPane dim = new StackPane();
+		dim.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
+		dim.setOpacity(0);
+		myDim = dim;
+		return dim;
+	}
+	
 	public void pauseScreen() {
 		myTop.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
@@ -109,6 +134,7 @@ public class PlayerView {
 	}
 
 	public void display(Group group) {
+	        myHUD.renderHUD();
 		myGameRoot.setContent(group);
 		myGameRoot.requestFocus();
 	}
@@ -135,16 +161,11 @@ public class PlayerView {
 			myPopUp.close();
 	}
 
-	public void updateHUD(List<Component> defaultHUDComponents) {
-		myHUD.updateHUDValues(defaultHUDComponents);
+	public void updateHUD(Map<String, Double> hudMap) {
+		myHUD.updateHUDValues(hudMap);
 	}
-
-	public void applyColorAdjustment(Node node, ColorAdjust effect) {
-		node.setEffect(effect);
-	}
-
 	public void setBrightness(double val) {
-		myBrightness.setOpacity(val);
+		myBright.setOpacity(val);
 	}
 
 }

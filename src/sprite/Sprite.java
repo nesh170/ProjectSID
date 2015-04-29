@@ -261,6 +261,7 @@ public class Sprite {
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());
 			actionList.stream().forEach(action -> action.update());
+			emissionList.removeIf(removeSprite -> !removeSprite.isActive);
 			emissionList.stream().forEach(proj -> proj.updateSprite());
 		}
 	}

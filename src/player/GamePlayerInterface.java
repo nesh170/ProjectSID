@@ -16,21 +16,6 @@ public interface GamePlayerInterface {
 	void pause();
 	
 	/**
-	 * Get lives from engine
-	 */
-	int getLives();
-	
-	/**
-	 * Get health from engine
-	 */
-	int getHealth();
-	
-	/**
-	 * Loads high score.
-	 */
-	int getHighScore();
-	
-	/**
 	 * Calls GameLoader to select a game to play. 
 	 */
 	void loadNewGame();

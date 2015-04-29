@@ -52,11 +52,11 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-//		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-//		fireMario.addAction(switchOut);
-//		player.addAction(switchOut);
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+		fireMario.addAction(switchOut);
+		player.addAction(switchOut);
 //		
-		//addProjectile(fireMario);
+		addProjectile(fireMario);
 		Sprite goomba = makeGoomba();
 		
 
@@ -66,8 +66,6 @@ public class EngineTester extends Tester {
 //		mySpriteList.add(fireFlower);
 //		myPlayerList.add(fireFlower);
 		//setCollisionAll(player, fireFlower, switchOut);
-		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
-		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
 		
 		Level l = new Level(1200, 600, myPlayerList);
 		l.setBackground("engineTesting/background.png");
@@ -88,7 +86,7 @@ public class EngineTester extends Tester {
 	private Sprite makeGoomba() {
 		Sprite goomba = new Sprite(new Point2D(600.0, 150.0), Point2D.ZERO, new Dimension2D(40.0, 40.0));
 		goomba.addComponent(new VelocityComponent(goomba, null));
-		goomba.setCollisionTag("goomba");
+		goomba.setTag("goomba");
 		goomba.setTag("enemy");
 		makeFallingLanding(goomba);
 		goomba.setImagePath("engineTesting/Goomba.png");
@@ -103,9 +101,10 @@ public class EngineTester extends Tester {
 	private Sprite makeSpecialPlayer() {
 		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		fireMario.setImagePath("engineTesting/FireMario.png");
-		fireMario.setCollisionTag("fireMario");
+		fireMario.setTag("fireMario");
+                Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+                
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
-		fireMario.setTag("player");
 		makeFallingLanding(fireMario);
 		makeJumping(fireMario, KeyCode.UP, false);
 		makeLeftRighting(fireMario);
@@ -118,7 +117,6 @@ public class EngineTester extends Tester {
 		Sprite player = new Sprite(new Point2D(100.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		player.addComponent(new VelocityComponent(player, null));
 		player.setImagePath("engineTesting/mario.png" );
-		player.setCollisionTag("player");
 		player.setTag("player");
 		myPlayerList.add(player);
 		mySpriteList.add(player);
@@ -129,16 +127,16 @@ public class EngineTester extends Tester {
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action action) {
-		myCT.addActionToBigMap(sprite.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, action);
-		myCT.addActionToBigMap(platform.collisionTag(), sprite.collisionTag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(sprite.tag(), platform.tag(), INT.COLLISION_UP, action);
+		myCT.addActionToBigMap(platform.tag(), sprite.tag(), INT.COLLISION_DOWN, action);
 	}
 	private void setCollisionLeftRightDown(Sprite sprite1, Sprite enemy, Action action){
-		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_UP, null);
-		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToBigMap(sprite1.collisionTag(), enemy.collisionTag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToBigMap(enemy.collisionTag(), sprite1.collisionTag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_UP, null);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_RIGHT, action);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_LEFT, null);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_LEFT, action);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_RIGHT, null);
 	}
 	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
@@ -167,12 +165,11 @@ public class EngineTester extends Tester {
 	}
 	private void addProjectile(Sprite myPlayer) {
 		//set up projectile template, add to player, along with shoot actions
-		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-		myProjectileTemplate.setCollisionTag("bullet");
+		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(20, 20));
 		myProjectileTemplate.setTag("bullet");
-		myProjectileTemplate.setImagePath("fireball.png");
+		myProjectileTemplate.setImagePath("engineTesting/Mario Brick.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				5.0, 200.0, myPlayer);
+				0.1, 400.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
@@ -180,7 +177,7 @@ public class EngineTester extends Tester {
 	
 	private Sprite makePlatform(double x, double y, double width, double height) {
 		Sprite platform = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
-		platform.setCollisionTag("platform");
+		platform.setTag("platform");
 		platform.setImagePath("engineTesting/mushroomPlatform.png");
 		myPlatforms.add(platform);
 		mySpriteList.add(platform);
@@ -190,7 +187,7 @@ public class EngineTester extends Tester {
 	private void makeTextBoxSprite(String text, int x, int y){
 		Sprite textSprite = new Sprite(new Point2D(x, y), Point2D.ZERO, new Dimension2D(text.length()*12, 150.0));
 		textSprite.setImagePath(text);
-		textSprite.setCollisionTag("textBox");
+		textSprite.setTag("textBox");
 		textSprite.setTag("text");
 		mySpriteList.add(textSprite);
 	}
@@ -209,7 +206,7 @@ public class EngineTester extends Tester {
 		MotionPathAction mpa = new MotionPathAction(mps, speed, points, (KeyCode) null);
 		if(wrapsAround) mpa.wrapAround();
 		mpa.runEveryFrame();
-		mps.setCollisionTag("motionPathSprite");
+		mps.setTag("motionPathSprite");
 		mps.addAction(mpa);
 		mps.setImagePath("duke.png");
 		mps.setTag("motion");

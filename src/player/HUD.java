@@ -27,11 +27,8 @@ public class HUD {
 	 * Constructor for a HUD that moves with a Scrollpane
 	 */
 	public HUD(ScrollPane pane, HashMap<String, Double> map) {
+	        this();
 		myHUDMap = map;
-		myHUDBox = new HBox();
-		mySize = 20;
-		myFont = "Arial Black";
-		myColor = Color.BLACK;
 		Label random = new Label("HELLO ALL lul");
 		myHUDBox.getChildren().add(random);
 	}
@@ -41,21 +38,23 @@ public class HUD {
 	}
 	
 	public HUD() {
-		myHUDMap = new HashMap<String, Double>();
-		myHUDBox = new HBox();
-		mySize = 20;
-		myFont = "Arial Black";
-		myColor = Color.BLACK;
+                myHUDMap = new HashMap<String, Double>();
+                myHUDBox = new HBox();
+                mySize = 20;
+                myFont = "Arial Black";
+                myColor = Color.BLACK;
 	}
 	
-	public void addItem(String item, Component component) {
-		double val = component.getValue();
-		Text text = new Text(item + ": " + val);
+	private void addItem(String item, Double value) {
+		Text text = new Text(item + ": " + value);
 		text.setFont(Font.font(myFont, mySize));
 		text.setFill(myColor);
 		myHUDBox.getChildren().add(text);
-		myComponentMap.put(item, component);
-		myHUDMap.put(item, val);
+	}
+	
+	public void renderHUD(){
+	    myHUDBox.getChildren().clear();
+	    myHUDMap.forEach((name,value) -> addItem(name, value));
 	}
 	
 	public HBox getHUDBox() {
@@ -69,26 +68,9 @@ public class HUD {
 	public void changeSize(double size) {
 		mySize = size;
 	}
-	
-	public void changeMap(HashMap<String, Double> map) {
-		myHUDMap = map;
-	}
-	
-	public void updateHUDBox() {
-		myHUDBox = new HBox();
-		for (Entry<String, Component> entry : myComponentMap.entrySet()) {
-			addItem(entry.getKey(), entry.getValue());
-		}
-	}
 
-	public void updateHUDValues(List<Component> defaultHUDComponents) {
-		myComponentMap = new HashMap<String, Component>();
-		for (Component c : defaultHUDComponents) {
-			if (c != null) {
-				myComponentMap.put(c.getHudName(), c);
-			}
-		}
-		updateHUDBox();
+	public void updateHUDValues(Map<String, Double> map) {
+		myHUDMap = map;
 	}
 	
 }
