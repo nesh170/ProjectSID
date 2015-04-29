@@ -78,7 +78,8 @@ public class PreferencePane {
 		grid.add(makeSettingSlider(DEFAULT_SETTING), 1, 1);
 		grid.add(makeMusicControl(myMusicVolume), 1, 2);
 		grid.add(makeBrightnessControl(myBrightness), 4, 1);
-		grid.add(makeCloseButton(), 2, 1);
+		grid.add(makeCloseButton(), 1, 3);
+		grid.add(makeSaveButton(), 3, 3);
 		AV.setContent(grid);
 		return AV;
 	}
