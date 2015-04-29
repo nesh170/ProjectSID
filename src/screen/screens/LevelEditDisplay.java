@@ -77,9 +77,13 @@ public class LevelEditDisplay extends ScrollPane {
 	 */
 	public void setContentMinSize(Level level) {
 		
-		content.setMinSize(this.getWidth(), this.getHeight());
-		level.configureWidthAndHeight((int) this.getWidth(), (int) this.getHeight());
-		
+		if(!level.sprites().isEmpty()) {
+			content.setMinSize(level.width(), level.height());
+		}
+		else {
+			content.setMinSize(this.getWidth(), this.getHeight());
+			level.configureWidthAndHeight((int) this.getWidth(), (int) this.getHeight());
+		}		
 	}
 		
 	/*
