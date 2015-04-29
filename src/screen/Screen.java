@@ -93,7 +93,7 @@ public abstract class Screen extends BorderPane {
 		configureMenuBar(width);
 		configureBackgroundColor();
 		initializeRelevantResourceFiles();
-
+		
 	}
 	
 	protected ImageView makeImageView(String s, int height, int width) {
