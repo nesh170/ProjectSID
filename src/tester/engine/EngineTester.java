@@ -4,6 +4,7 @@ import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
+import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
 import gameEngine.actions.NormalActionY;
@@ -13,9 +14,13 @@ import gameEngine.actions.SwitchOutAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -47,35 +52,28 @@ public class EngineTester extends Tester {
 	
 	@Override
 	protected void test(Stage stage) {
-		makePlatform(0, 300, 200, 30);
-		makePlatform(-20, 0, 20, 200);
-		makePlatform(250, 250, 200, 30);
-		makePlatform(500, 300, 200, 30);
-		makeBlock(350, 150, 100, 100);
-		Sprite player = makePlayer();
-		Sprite fireMario = makeSpecialPlayer();
-		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-		fireMario.addAction(switchOut);
-		player.addAction(switchOut);
+		Sprite splashPlayer = new Sprite(new Point2D(100, 100),Point2D.ZERO,new Dimension2D(100, 100));
+		List<Sprite> splashSprites = new ArrayList<>();
+		List<Sprite> newPlayerList = new ArrayList<Sprite>();
+		newPlayerList.add(splashPlayer);
+		splashSprites.add(splashPlayer);
+		Level l0 = new Level(900,500,newPlayerList);
+		l0.setSprites(splashSprites);
+		Action killAction = new KillAction(splashPlayer, 0.0, KeyCode.ENTER);
+		splashPlayer.addAction(killAction);
+		Map<Sprite, Integer> goalMap = new HashMap<>();
+		goalMap.put(splashPlayer, 1);
+		l0.setGoalMap(goalMap);
+		l0.setBackground("engineTesting/mario.png");
 		
-		//addProjectile(fireMario);
-		Sprite goomba = makeGoomba();
-		
-		Sprite fireFlower = new Sprite(new Point2D(300.0, 220.0), Point2D.ZERO, new Dimension2D(30.0, 30.0));
-		fireFlower.setCollisionTag("flower");
-		fireFlower.setImagePath("engineTesting/fireFlower.png");
-		mySpriteList.add(fireFlower);
-		setCollisionAll(player, fireFlower, switchOut);
-		mySpriteList.stream().forEach(sprite -> sprite.setTag("notPlayer"));
-		myPlayerList.stream().forEach(sprite -> sprite.setTag("Player"));
-		
-		Level l = new Level(900, 500, myPlayerList);
-		l.setBackground("engineTesting/background.png");
-		l.setSprites(mySpriteList);
-		l.setCollisionTable(myCT);
+		Level l1 = new Level(900, 500, myPlayerList);
+		l1.setBackground("engineTesting/background.png");
+		l1.setSprites(mySpriteList);
+		l1.setCollisionTable(myCT);
 
 		Game testGame = new Game("test");
-		testGame.addLevel(l);
+		testGame.addLevel(l0);
+		testGame.addLevel(l1);
 
 		try{
 			DataHandler.toXMLFile(testGame, "testingGame.xml", System.getProperty("user.dir")+"/engineTesting");
