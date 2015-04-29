@@ -165,11 +165,11 @@ public class EngineTester extends Tester {
 	}
 	private void addProjectile(Sprite myPlayer) {
 		//set up projectile template, add to player, along with shoot actions
-		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
+		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(20, 20));
 		myProjectileTemplate.setTag("bullet");
-		myProjectileTemplate.setImagePath("fireball.png");
+		myProjectileTemplate.setImagePath("engineTesting/Mario Brick.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				5.0, 200.0, myPlayer);
+				0.1, 400.0, myPlayer);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

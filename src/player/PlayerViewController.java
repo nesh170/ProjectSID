@@ -50,11 +50,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public static final String NETWORK_BROKE = "NETWORK BROKE";
 
 	private static final String NETWORK = "Network";
-	private static final String IPQUERY = "What is your IP address";
-
-	private static final int POPUP_WINDOW_SIZE = 250;
-	private static final String CONNECT_SERVER_STRING = "Connecting to server...";
-	private static final String SERVER_CONNECTED_STRING = "Connected.";
+	private static final String IPQUERY = "What is the IP address you would like to connect to?";
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
@@ -64,9 +60,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Media myVideo;
 	private Media myAudio;
 
-	private int myLives;
-	private int myHealth;
-	private int myScore;
 	private Game myGame;
 	private String myGameName;
 
@@ -98,9 +91,14 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void resume() {
+	    try{
 		myTimeline.play();
 		myEngine.play(myView.getRoot());
 		myView.playScreen();
+	    }
+	    catch(NullPointerException e){
+	        DialogUtil.displayMessage("ERROR", "Unable to resume ):");
+	    }
 	}
 
 	public void pause() {
@@ -174,8 +172,9 @@ public class PlayerViewController implements GamePlayerInterface {
 			myAudioController = new AudioController(new MediaPlayer(myAudio));
 			mySettings = new PreferencePane(myAudioController);
 			mySettings.setController(this);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException | NullPointerException e) {
+			DialogUtil.displayMessage("ERROR", "Invalid Game Folder ):");
+			System.exit(0);
 		}
 
 		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
@@ -203,9 +202,8 @@ public class PlayerViewController implements GamePlayerInterface {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
 						myGameFolder.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IOException | NullPointerException e) {
+				DialogUtil.displayMessage("ERROR", "Cannot Save ):");
 			}
 		}
 	}
@@ -227,8 +225,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			});
 			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    DialogUtil.displayMessage("ERROR", "Cannot Open Video ):");
 		}
 	}
 
@@ -254,35 +251,6 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void addRuntimeAction(String spriteTag, Object groovyAction) {
 		myEngine.addGroovyAction(spriteTag, (Action) groovyAction);
-	}
-
-	@Override
-	public int getLives() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getHighScore() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void loadNewGame() {
-		// Implemented with chooseGame method
-	}
-
-	@Override
-	public List findGames() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private void pauseExecution() {
@@ -359,7 +327,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void saveAs() {
 		pauseExecution();
-		String saveName = DialogUtil.setUpDialog("Save File",
+		String saveName = DialogUtil.inputDialog("Save File",
 				"Please enter the name of the log to save");
 		if (saveName == null) {
 			DialogUtil.displayMessage("Save File", "File not saved.");
@@ -472,7 +440,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			// myView.changePopUpText(SERVER_CONNECTED_STRING);
 			// Thread.sleep(2000);
 			// myView.closePopUp();
-			myNetwork.setUpClient(DialogUtil.setUpDialog(NETWORK, IPQUERY),
+			myNetwork.setUpClient(DialogUtil.inputDialog(NETWORK, IPQUERY),
 					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
@@ -541,6 +509,18 @@ public class PlayerViewController implements GamePlayerInterface {
 
     public void setSocialAvatar (Avatar av) {
             myView.addAvatarToPause(av);
+    }
+
+    @Override
+    public void loadNewGame () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public List<Game> findGames () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

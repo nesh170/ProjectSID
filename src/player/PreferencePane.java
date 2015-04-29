@@ -1,5 +1,7 @@
 package player;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import media.AudioController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +13,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -104,9 +107,17 @@ public class PreferencePane {
 	}
 
 	private TextField makeKeyField(String item) {
-		TextField container = new TextField(item);
+	        TextField container = new TextField(item);
+	        container.setOnKeyTyped(e -> container.clear());
+	        container.setOnKeyReleased(key -> handleKeyCode(container, key.getCode()));
 		container.setAlignment(Pos.CENTER);
 		return container;
+	}
+	
+	private void handleKeyCode (TextField keyInput, KeyCode code) {
+	    keyInput.clear();
+	    keyInput.setText(code.getName());
+	    //TODO you can get your keycodes in here
 	}
 	
 	private Button makeCloseButton() {
