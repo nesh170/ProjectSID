@@ -62,6 +62,7 @@ public class SplashEditModel {
 	 */
 	public void saveSplashScreen() {
 		splashScreen.addSprites(spriteList);
+		splashScreen.setSprites(spriteList);
 	}
 
 	/**
@@ -70,6 +71,10 @@ public class SplashEditModel {
 	public void addImageView() {
 		imageViewArray.add(imageView);
 		spriteList.add(new Sprite(new Point2D(imageView.getX(), imageView.getY())));
+	}
+	
+	public void setSprites(Sprite sprite) {
+		spriteList.add(sprite);
 	}
 
 	/**
@@ -270,6 +275,10 @@ public class SplashEditModel {
 	
 	public void setBackgroundImage(String path) {
 		splashScreen.setBackground(path);
+	}
+	
+	public void setPlayerSprite(Sprite sprite) {
+		splashScreen.addPlayerSprite(sprite);
 	}
 	
 	private void resizeAndRotate(Node node, KeyEvent e) {		
