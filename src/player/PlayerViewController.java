@@ -300,6 +300,12 @@ public class PlayerViewController implements GamePlayerInterface {
 				.collect(Collectors.toList());
 		String chosenState = DialogUtil.choiceDialog("Load File",
 				"Choose a save state.", stateNames);
+		
+		if (chosenState == null) {
+			resumeExecution();
+			return;
+		}
+		
 		File stateFile = states.stream()
 				.filter(file -> file.getName().equals(chosenState))
 				.collect(Collectors.toList()).get(0);
