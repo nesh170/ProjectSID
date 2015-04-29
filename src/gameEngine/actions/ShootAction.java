@@ -9,6 +9,8 @@ import gameEngine.components.AmmoComponent;
  * Action to shoot projectiles.
  * Will always be mapped to key.
  */
+
+@ActionName(displayName = "Shoot")
 public class ShootAction extends TwoSpriteAction{
 
     private String bulletString;
