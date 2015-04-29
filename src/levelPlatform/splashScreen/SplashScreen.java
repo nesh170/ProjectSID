@@ -21,11 +21,20 @@ public class SplashScreen extends Level {
 	//private List<Sprite> sprites = new ArrayList();
 	private Map<Sprite, Integer> goalMap;
 	private IntConsumer nextLevelMethod;
+	//private List<Sprite> playerSpriteList;
 	
 	// Constructor & Helpers
-	public SplashScreen(int width, int height) {
+	public SplashScreen(int width, int height, List<Sprite> player) {
+		super(width, height, player);
+		//playerSpriteList = player;
 		
+	    goalMap = new HashMap<>();
+	}
+	
+	public SplashScreen(int width, int height) {
 		super(width, height);
+		//playerSpriteList = player;
+		
 	    goalMap = new HashMap<>();
 	}
 
@@ -35,6 +44,10 @@ public class SplashScreen extends Level {
 		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.SPLASH_TMP));
 		return img;
 	}
+	
+//	public void addPlayerSprite(Sprite player){
+//	    playerSpriteList.add(0, player);
+//	}
 	
 	public void addSprites(List<Sprite> images) {
 		sprites = images;
@@ -51,9 +64,9 @@ public class SplashScreen extends Level {
     }
 	
 	 private void handleGoals (Sprite sprite) {
-	        if(!sprite.isActive()){
+		 if(!sprite.isActive()){
 	            nextLevelMethod.accept(goalMap.get(sprite));
-	        }
+	     }
 	 }
 	
 	
