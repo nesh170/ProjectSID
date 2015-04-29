@@ -112,7 +112,7 @@ public class Level extends LevelPlatform {
 		super(width, height);
 		collisionTable = new CollisionTable();
 		this.playerSpriteList=new ArrayList<>();
-	        goalMap = new HashMap<>();
+	    goalMap = new HashMap<>();
 		if (playerSpriteList != null){
 			this.playerSpriteList=playerSpriteList;
 			prepareAllSprites();

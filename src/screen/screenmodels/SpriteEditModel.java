@@ -279,7 +279,7 @@ public class SpriteEditModel {
 	
 	}
 	
-	public void saveSprite(String spriteName, String tag, boolean isGoal, int levelNum) {
+	public void saveSprite(String spriteName, String tag, boolean inactive, boolean isGoal, int levelNum) {
 		
 		//TODO don't allow save if name isn't written 
 
@@ -302,6 +302,7 @@ public class SpriteEditModel {
 		editableSprite.setName(spriteName);
 		editableSprite.setTag(tag);
 		editableSprite.setIsGoal(isGoal, levelNum);
+		editableSprite.setIsActive(!inactive);
 		
 		
 	}
