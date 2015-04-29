@@ -57,18 +57,6 @@ public class SplashScreen extends Level {
 		this.goalMap = goalMap;
 	}
 	
-	@Override
-    public void update(){
-        super.update();
-        goalMap.keySet().forEach(sprite -> handleGoals(sprite));
-    }
-	
-	 private void handleGoals (Sprite sprite) {
-		 if(!sprite.isActive()){
-	            nextLevelMethod.accept(goalMap.get(sprite));
-	     }
-	 }
-	
 	
 	
 }
