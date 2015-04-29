@@ -27,6 +27,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import levelPlatform.level.Level;
+import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import sprite.Sprite;
 import tester.Tester;
@@ -57,7 +58,7 @@ public class EngineTester extends Tester {
 		List<Sprite> newPlayerList = new ArrayList<Sprite>();
 		newPlayerList.add(splashPlayer);
 		splashSprites.add(splashPlayer);
-		Level l0 = new Level(900,500,newPlayerList);
+		SplashScreen l0 = new SplashScreen(900,500,newPlayerList);
 		l0.setSprites(splashSprites);
 		Action killAction = new KillAction(splashPlayer, 0.0, KeyCode.ENTER);
 		splashPlayer.addAction(killAction);

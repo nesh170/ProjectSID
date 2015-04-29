@@ -100,7 +100,8 @@ public class PlayerViewController implements GamePlayerInterface {
 		myView.playScreen();
 	    }
 	    catch(NullPointerException e){
-	        DialogUtil.displayMessage("ERROR", "Unable to resume ):");
+	        e.printStackTrace();
+	    	//DialogUtil.displayMessage("ERROR", "Unable to resume ):");
 	    }
 	}
 
