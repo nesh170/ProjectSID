@@ -1,6 +1,6 @@
 package screen.collisionTableScreen;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayList;
 
 import javafx.geometry.Pos;
@@ -146,7 +146,7 @@ import sprite.Sprite;
 public class CollisionTableScreen extends Screen{
 	
 	private CollisionTableScreenController myController;
-	private ArrayList<Sprite> gameSprites;
+	private List<Sprite> gameSprites;
 
 	public CollisionTableScreen(CollisionTableScreenController screenController, double width, double height) {
 		super(width, height);

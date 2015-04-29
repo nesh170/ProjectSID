@@ -206,12 +206,26 @@ public class Level extends LevelPlatform {
                 .get(playerNumber)
                 .actionList()
                 .stream()
-                .filter(act -> act.keycode()!=null)
+                .filter(act -> act.keycode() != null)
                 .forEach(action -> actionKeyCodeMethodMap
-                                 .put(action.getClass().getAnnotation(ActionName.class).displayName(), (Keycode) -> action
+                                 .put(action.getClass().getAnnotation(ActionName.class)
+                                         .displayName(), (Keycode) -> action
                                          .setKeyCode(Stream.of(Keycode)
                                                  .collect(Collectors.toList()))));
         return actionKeyCodeMethodMap;
+    }
+    
+    public Map<String,KeyCode> getActionKeyCodeMap (int playerNumber) {
+        Map<String, KeyCode> actionKeyCodeMap = new HashMap<>();
+        playerSpriteList
+        .get(playerNumber)
+        .actionList()
+        .stream()
+        .filter(act -> act.keycode() != null)
+        .forEach(action -> actionKeyCodeMap
+                         .put(action.getClass().getAnnotation(ActionName.class)
+                                 .displayName(), action.keycode().get(0)));
+        return actionKeyCodeMap;
     }
 
     public Map<String, Double> getUnmodifiableHUDMap () {
@@ -221,14 +235,19 @@ public class Level extends LevelPlatform {
                 .componentList()
                 .stream()
                 .filter(comp -> comp.getClass().getAnnotation(HUDInterface.class) != null)
-                .forEach(component -> HUDMap.put((component.getClass().getAnnotation(HUDInterface.class).name()), getRightValueFromComponent(component)));
+                .forEach(component -> HUDMap.put((component.getClass()
+                                                         .getAnnotation(HUDInterface.class).name()),
+                                                 getRightValueFromComponent(component)));
         return Collections.unmodifiableMap(HUDMap);
     }
 
     private Double getRightValueFromComponent (Component component) {
-        List<Method> methodList = Stream.of(component.getClass().getMethods()).filter(methods -> methods.getAnnotation(HUDGetter.class)!=null).collect(Collectors.toList());
+        List<Method> methodList =
+                Stream.of(component.getClass().getMethods())
+                        .filter(methods -> methods.getAnnotation(HUDGetter.class) != null)
+                        .collect(Collectors.toList());
         System.out.println(methodList.size());
-        if(methodList.size()>0){
+        if (methodList.size() > 0) {
             try {
                 System.out.println(methodList.get(0).getName());
                 return (Double) methodList.get(0).invoke(component);

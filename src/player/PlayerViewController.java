@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 import media.AudioController;
@@ -300,6 +301,12 @@ public class PlayerViewController implements GamePlayerInterface {
 				.collect(Collectors.toList());
 		String chosenState = DialogUtil.choiceDialog("Load File",
 				"Choose a save state.", stateNames);
+		
+		if (chosenState == null) {
+			resumeExecution();
+			return;
+		}
+		
 		File stateFile = states.stream()
 				.filter(file -> file.getName().equals(chosenState))
 				.collect(Collectors.toList()).get(0);
@@ -455,16 +462,16 @@ public class PlayerViewController implements GamePlayerInterface {
 					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-//			receiveLevels();
-//			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-//			Camera camera = new Camera(myView.getRoot());
-//			KeyFrame displayFrame = new KeyFrame(
-//					Duration.millis(1000 / NETWORK_RATE), e -> display(
-//							myNetworkLevel, renderer, camera));
-//			Timeline networkTimeline = new Timeline();
-//			networkTimeline.setCycleCount(Animation.INDEFINITE);
-//			networkTimeline.getKeyFrames().add(displayFrame);
-//			networkTimeline.play();
+			receiveLevels();
+			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+			Camera camera = new Camera(myView.getRoot());
+			KeyFrame displayFrame = new KeyFrame(
+					Duration.millis(1000 / NETWORK_RATE), e -> display(
+							myNetworkLevel, renderer, camera));
+			Timeline networkTimeline = new Timeline();
+			networkTimeline.setCycleCount(Animation.INDEFINITE);
+			networkTimeline.getKeyFrames().add(displayFrame);
+			networkTimeline.play();
 		} catch (Exception e) {
 			System.err.println("Can't start Client");
 		}
