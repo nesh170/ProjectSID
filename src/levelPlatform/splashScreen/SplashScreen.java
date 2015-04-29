@@ -15,7 +15,7 @@ public class SplashScreen extends Level {
 	
 	
 	// Instance Variables
-	private List<Sprite> allImages = new ArrayList();
+	//private List<Sprite> sprites = new ArrayList();
 	
 	// Constructor & Helpers
 	public SplashScreen(int width, int height) {
@@ -26,13 +26,12 @@ public class SplashScreen extends Level {
 
 	@Override
 	public ImageView getLevelPlatformImageView(){
-		//TODO: implement this method
-		//temporary image to reprsent each level
+		//temporary image to represent each level
 		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.SPLASH_TMP));
 		return img;
 	}
 	
 	public void addSprites(List<Sprite> images) {
-		allImages = images;
+		sprites = images;
 	}
 }
