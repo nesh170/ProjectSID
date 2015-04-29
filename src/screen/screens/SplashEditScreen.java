@@ -290,6 +290,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
 			splashEditModel.createImageView(image);
+			splashEditModel.setBackgroundImage(image.toString());
 		} catch (Exception ex) {			
 			//NO CATCH			
 		}
