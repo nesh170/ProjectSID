@@ -127,6 +127,11 @@ public class GameEngine extends GameEngineAbstract {
     public Map<String,Consumer<KeyCode>> getActionToChangeKeyCodeConsumerMap (int playerNumber) {
         return Collections.unmodifiableMap(myCurrentLevel.getActionChangeKeyCodeMethod(playerNumber));
     }
+    
+    @Override
+    public Map<String,KeyCode> getActionKeyCodeMap (int playerNumber) {
+        return Collections.unmodifiableMap(myCurrentLevel.getActionKeyCodeMap(playerNumber));
+    }
 
     @Override
     public Map<String, Double> getHUDMap () {
