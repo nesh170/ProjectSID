@@ -244,10 +244,14 @@ public class PlayerViewController implements GamePlayerInterface {
 		myAudioController.stop();
 	}
 
-	public void setBrightness(double val) {
-		myView.setBrightness(val);
+	public void setBright(double val) {
+		myView.setBright(val);
 	}
 
+	public void setDim(double val) {
+		myView.setDim(val);
+	}
+	
 	public void changeKeySetup(KeyCode key, String action) {
 		myEngine.changeKeyCodeInAction(0, action, key);
 	}

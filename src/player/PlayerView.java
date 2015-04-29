@@ -100,7 +100,7 @@ public class PlayerView {
 	       myAvatarBox.getChildren().addAll(avatarImageHolder);
 	}
 
-	private StackPane makeBrightScreen() {
+	private StackPane makeDimScreen() {
 		StackPane bright = new StackPane();
 		bright.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
 		bright.setOpacity(0);
@@ -108,9 +108,9 @@ public class PlayerView {
 		return bright;
 	}
 
-	private StackPane makeDimScreen() {
+	private StackPane makeBrightScreen() {
 		StackPane dim = new StackPane();
-		dim.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
+		dim.setStyle("-fx-background-color: rgba(255, 255, 255); -fx-background-radius: 10;");
 		dim.setOpacity(0);
 		myDim = dim;
 		return dim;
@@ -164,8 +164,13 @@ public class PlayerView {
 	public void updateHUD(Map<String, Double> hudMap) {
 		myHUD.updateHUDValues(hudMap);
 	}
-	public void setBrightness(double val) {
+	
+	public void setBright(double val) {
 		myBright.setOpacity(val);
 	}
 
+	public void setDim(double val) {
+		myDim.setOpacity(val);
+	}
+	
 }

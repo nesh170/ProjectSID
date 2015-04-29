@@ -36,7 +36,7 @@ public class PreferencePane {
 	private static final double MAX_SETTING = 10;
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
 	private static final double DEFAULT_MUSIC_VOL = 10;
-	private static final double DEFAULT_BRIGHTNESS = 10;
+	private static final double DEFAULT_BRIGHTNESS = 5;
 	private static final String DEFAULT_UP_KEY = "up";
 	private static final String DEFAULT_RIGHT_KEY = "right";
 	private static final String DEFAULT_LEFT_KEY = "left";
@@ -159,7 +159,9 @@ public class PreferencePane {
 		slider.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldVal, Number newVal) {
-				myController.setBrightness((10 - newVal.doubleValue())
+				myController.setDim((newVal.doubleValue() - 5)
+						* SLIDERVAL_TO_DOUBLE);
+				myController.setBright((-1*newVal.doubleValue() + 5)
 						* SLIDERVAL_TO_DOUBLE);
 			}
 		});
