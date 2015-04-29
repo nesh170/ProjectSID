@@ -18,8 +18,10 @@
     <y>0.0</y>
     <emissionList/>
     <isActive>true</isActive>
+    <name>default Enemy</name>
+    <tag>Enemy</tag>
     <collisionTag>enemy</collisionTag>
-    <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
+    <imagePath>/Users/Leo/Documents/workspace308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
     <facesLeft>false</facesLeft>
     <transform>
       <myPosition>
@@ -37,5 +39,8 @@
       <startRotation reference="../myPosition"/>
       <startDimensions reference="../myDimensions"/>
     </transform>
+    <isGoal>false</isGoal>
+    <toLevel>-1</toLevel>
+    <isText>false</isText>
   </sprite.Sprite>
 </set>
