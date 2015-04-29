@@ -319,7 +319,6 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 		splashEditModel.saveSplashScreen();
-
 	}
 
 	private void trashSplashScreen() {		
