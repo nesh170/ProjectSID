@@ -39,7 +39,8 @@ public class PlayerView {
 	private BorderPane myBorderPane;
 	private StackPane myBase;
 	private StackPane myTop;
-	private StackPane myBrightness;
+	private StackPane myBright;
+	private StackPane myDim;
 	private Stage myPopUp;
 	private HBox myAvatarBox;
 
@@ -54,7 +55,8 @@ public class PlayerView {
 
 		myBase = new StackPane();
 		myTop = new StackPane();
-		myTop.getChildren().add(makeBrightnessScreen());
+		myTop.getChildren().add(makeBrightScreen());
+		myTop.getChildren().add(makeDimScreen());
 		myTop.getChildren().add(myHUD.getHUDBox());
 		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
@@ -98,14 +100,22 @@ public class PlayerView {
 	       myAvatarBox.getChildren().addAll(avatarImageHolder);
 	}
 
-	private StackPane makeBrightnessScreen() {
+	private StackPane makeDimScreen() {
 		StackPane bright = new StackPane();
 		bright.setStyle("-fx-background-color: rgba(0, 0, 0); -fx-background-radius: 10;");
 		bright.setOpacity(0);
-		myBrightness = bright;
+		myBright = bright;
 		return bright;
 	}
 
+	private StackPane makeBrightScreen() {
+		StackPane dim = new StackPane();
+		dim.setStyle("-fx-background-color: rgba(255, 255, 255); -fx-background-radius: 10;");
+		dim.setOpacity(0);
+		myDim = dim;
+		return dim;
+	}
+	
 	public void pauseScreen() {
 		myTop.getChildren().add(myPauseScreen);
 		myPauseScreen.requestFocus();
@@ -154,8 +164,13 @@ public class PlayerView {
 	public void updateHUD(Map<String, Double> hudMap) {
 		myHUD.updateHUDValues(hudMap);
 	}
-	public void setBrightness(double val) {
-		myBrightness.setOpacity(val);
+	
+	public void setBright(double val) {
+		myBright.setOpacity(val);
 	}
 
+	public void setDim(double val) {
+		myDim.setOpacity(val);
+	}
+	
 }

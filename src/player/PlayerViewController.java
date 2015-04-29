@@ -3,11 +3,13 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
 import resources.constants.INT;
 import socCenter.Avatar;
 import util.DialogUtil;
@@ -22,6 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -241,10 +244,18 @@ public class PlayerViewController implements GamePlayerInterface {
 		myAudioController.stop();
 	}
 
-	public void setBrightness(double val) {
-		myView.setBrightness(val);
+	public void setBright(double val) {
+		myView.setBright(val);
 	}
 
+	public void setDim(double val) {
+		myView.setDim(val);
+	}
+	
+	public void changeKeySetup(KeyCode key, String action) {
+		myEngine.changeKeyCodeInAction(0, action, key);
+	}
+	
 	public List<String> getSpriteTagList() {
 		return myEngine.getSpriteTagList();
 	}
