@@ -176,6 +176,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			mySettings = new PreferencePane(myAudioController);
 			mySettings.setController(this);
 		} catch (IOException | NullPointerException e) {
+			e.printStackTrace();
 			DialogUtil.displayMessage("ERROR", "Invalid Game Folder ):");
 			System.exit(0);
 		}
@@ -187,7 +188,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
 		initializeGameAttributes();
 		setupAnimation();
-		// play();
 	}
 
 	public void selectGame(Game game) {
