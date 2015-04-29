@@ -4,6 +4,7 @@ import game.Game;
 import gameEngine.actions.KillAction;
 
 import java.io.File;
+import java.util.Map;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -49,6 +50,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private SplashEditScreenController controller;
 	private SplashEditModel splashEditModel;
 	private String tag;
+	private Map<Sprite, Integer> goalMap;
 
 	/**
 	 * This is the constructor to create a Splash Edit Screen
@@ -318,6 +320,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
+		goalMap.put(sprite, 0);
 		splashEditModel.saveSplashScreen();
 	}
 
