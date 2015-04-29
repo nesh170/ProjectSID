@@ -39,7 +39,7 @@ public class PreferencePane {
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
 	private static final double DEFAULT_MUSIC_VOL = 10;
 	private static final double DEFAULT_BRIGHTNESS = 5;
-
+	
 	private PlayerViewController myController;
 	private Stage myContainer;
 	private Scene myScene;
@@ -67,7 +67,7 @@ public class PreferencePane {
 		myAV = new Tab("Audiovisual");
 		VBox container = new VBox(20);
 		container.setAlignment(Pos.CENTER);
-		HBox titles = new HBox(50);
+		HBox titles = new HBox(300);
 		titles.getChildren().addAll(new Label("Audio"),
 				new Label("Visual"));
 		titles.setAlignment(Pos.TOP_CENTER);
@@ -85,9 +85,6 @@ public class PreferencePane {
 
 	private void makeControlsTab() {
 		myControls = new Tab("Controls");	
-		VBox container = new VBox(20);
-		regenerateControlFields(container);
-		myControls.setContent(container);
 	}
 
 	private Slider makeSettingSlider(double defaultVal) {
@@ -186,7 +183,9 @@ public class PreferencePane {
 	}
 
 	public void bringUpPreferences() {
-		regenerateControlFields(new VBox(20));
+		VBox vbox = new VBox(20);
+		regenerateControlFields(vbox);
+		myControls.setContent(vbox);
 		myContainer.show();
 	}
 
