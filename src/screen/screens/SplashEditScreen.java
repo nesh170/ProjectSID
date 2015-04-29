@@ -4,6 +4,7 @@ import game.Game;
 import gameEngine.actions.KillAction;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javafx.geometry.Point2D;
@@ -71,6 +72,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		configureButtons();
 		configureDisplayArea();
 		this.getStyleClass().add(STRING.CSS.PANE);
+		goalMap = new HashMap<Sprite, Integer>();
 	}
 	
 	@Override
@@ -320,7 +322,9 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
-		goalMap.put(sprite, 0);
+		goalMap.put(sprite, 1);
+		splashEditModel.setPlayerSprite(sprite);
+		splashEditModel.setSprites(sprite);
 		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.saveSplashScreen();
 	}
