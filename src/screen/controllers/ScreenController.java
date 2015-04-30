@@ -139,8 +139,6 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
-	//Testing:
-	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -296,19 +294,10 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
+		tabManager.setDefaultTab(createMainMenuScreen());
 
-		if(!GameEdit_Test)
-			tabManager.setDefaultTab(createMainMenuScreen());
-		else {
-				//USED FOR TEST GAMEEDITSCREEN
-				Game g = new Game();
-				for(int i=0; i < 5; i++){
-					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
-							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-					g.addLevel(newLevel);
-					}
-				createGameEditScreen(g);
-			}
+		//createGameEditScreen(g);
+	
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -565,9 +554,9 @@ public class ScreenController {
 				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				
 				saveLevelSprites(game, gameFolderName);
+				saveGameSound(game, gameFolderName);
 				saveLevelBackgrounds(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				saveSplashScreen(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
-				saveGameSound(game, gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
 				
 				DataHandler.toXMLFile(game, game.name(), gameFolder.getPath());
 			} catch (IOException e) {
@@ -622,10 +611,10 @@ public class ScreenController {
 				
 			}
 		}
-		private void saveGameSound(Game game, String soundFolderName){
+		private void saveGameSound(Game game, String gameFolderName){
 			try {
 				String soundPath = game.gameSoundPath();
-				String newSoundPath = copyFile(soundFolderName, soundPath);
+				String newSoundPath = copyFile(gameFolderName, soundPath);
 				game.setSoundPath(newSoundPath);
 
 			} catch (Exception e) {
