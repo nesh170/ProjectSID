@@ -26,6 +26,8 @@ import levelPlatform.level.Level;
 public class DataHandler {
 
 	public static final String USER_DIR = "user.dir";
+	private static final String DATA_ERRTITLE = "Data Handler";
+	private static final String XML_ERRMSG = "Not exactly one xml file.";
 	
 	private static final XStream XSTREAM = new XStream(new DomDriver());
 
@@ -77,7 +79,7 @@ public class DataHandler {
 				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 		System.out.println(games.size());
 		if (games.size() != 1) {
-			System.out.println("PROBLEM?");
+			DialogUtil.displayMessage(DATA_ERRTITLE, XML_ERRMSG);
 			return null;
 		} else {
 			return games.get(0);
@@ -90,7 +92,7 @@ public class DataHandler {
 				.map(file -> fromXMLFile(file))
 				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 		if (games.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .XML FILE");
+			DialogUtil.displayMessage(DATA_ERRTITLE, XML_ERRMSG);
 			return null;
 		} else {
 			return games.get(0);
@@ -108,7 +110,7 @@ public class DataHandler {
 				.filter(file -> file.toString().endsWith(".xml"))
 				.collect(Collectors.toList());
 		if (gameFiles.size() != 1) {
-			DialogUtil.displayMessage("Data Handler", "Not exactly one xml file.");
+			DialogUtil.displayMessage(DATA_ERRTITLE, XML_ERRMSG);
 			return null;
 		} else {
 			return gameFiles.get(0).getName();
