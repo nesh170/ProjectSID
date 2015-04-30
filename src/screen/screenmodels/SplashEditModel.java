@@ -76,7 +76,7 @@ public class SplashEditModel {
 	}
 	
 	public void setSprites(Sprite sprite) {
-		spriteList.add(sprite);
+		//spriteList.add(sprite);
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class SplashEditModel {
 	 * @param sprite
 	 */
 	public void addSpriteImageToSpriteList(Sprite sprite) {
-		spriteList.add(sprite);
+		//spriteList.add(sprite);
 	}
 	
 	/**
