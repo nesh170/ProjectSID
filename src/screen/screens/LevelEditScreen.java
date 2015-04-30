@@ -391,7 +391,9 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		display.getStyleClass().add("pane");
 		display.setSpacing(DOUBLE.BUTTON_SPACING);
 		premade.forEach(sprite -> {
-			ImageView image = new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath()), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false));
+			String newImagePath = System.getProperty("user.dir") + sprite.getImagePath();
+			sprite.setImagePath(newImagePath);
+			ImageView image = new ImageView(DataHandler.fileToImage(new File(newImagePath), sprite.dimensions().getWidth(), sprite.dimensions().getHeight(), false));
 			image.setOnMouseClicked(e -> addSprite(Sprite.makeCopy(sprite)));
 			display.getChildren().add(image);
 		});

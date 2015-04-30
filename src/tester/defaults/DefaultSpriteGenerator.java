@@ -65,7 +65,7 @@ public class DefaultSpriteGenerator extends Tester{
 	private Sprite makeDefaultPlayer(){
 		Sprite player = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SIZE));
 		player.setCollisionTag("player");
-		player.setImagePath(System.getProperty("user.dir")+"/defaults/mario.png");
+		player.setImagePath("/defaults/mario.png");
 		player.addComponent(new VelocityComponent(player, 50.0));
 		makeFalling(player);
 		player.addAction(new RightMotionAction(player, DEFAULT_SPEED, KeyCode.RIGHT));
@@ -76,7 +76,7 @@ public class DefaultSpriteGenerator extends Tester{
 
 	private Sprite makeDefaultEnemy() {
 		Sprite enemy = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_ENEMY_SIZE, DEFAULT_ENEMY_SIZE));
-		enemy.setImagePath(System.getProperty("user.dir")+"/defaults/Goomba.png");
+		enemy.setImagePath("/defaults/Goomba.png");
 		enemy.setCollisionTag("enemy");
 		enemy.addComponent(new VelocityComponent(enemy, 50.0));
 		makeFalling(enemy);
@@ -85,7 +85,7 @@ public class DefaultSpriteGenerator extends Tester{
 
 	private Sprite makeDefaultPlatform() {
 		Sprite platform = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLATFORM_SIZE, DEFAULT_PLATFORM_SIZE));
-		platform.setImagePath(System.getProperty("user.dir")+"/defaults/Brick_Block.png");
+		platform.setImagePath("/defaults/Brick_Block.png");
 		platform.setCollisionTag("platform");
 		return platform;
 	}

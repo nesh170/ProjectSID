@@ -9,7 +9,7 @@
     <name>default Platform</name>
     <tag>Platform</tag>
     <collisionTag>platform</collisionTag>
-    <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Brick_Block.png</imagePath>
+    <imagePath>/defaults/Brick_Block.png</imagePath>
     <facesLeft>false</facesLeft>
     <transform>
       <myPosition>
