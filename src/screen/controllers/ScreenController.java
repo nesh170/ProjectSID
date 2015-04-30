@@ -512,7 +512,7 @@ public class ScreenController {
 		@Override
 		public void playGame(Game game) {
 			
-			createGamePlayScreen();
+			createGamePlayScreen(game);
 
 		}
 

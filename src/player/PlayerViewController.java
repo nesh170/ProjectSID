@@ -176,7 +176,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void chooseGame(Stage gameChooser) {
 
-		File dir = new File(System.getProperty("user.dir"));
+		File dir = new File(System.getProperty(DataHandler.USER_DIR));
 		List<File> children = null;
 
 		try {
@@ -222,6 +222,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void restart() {
+		myAudioController.stop();
 		pause();
 		initializeGameAttributes();
 		start();

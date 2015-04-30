@@ -56,7 +56,7 @@ public class DefaultSpriteGenerator extends Tester{
 			 spriteSet.add(sprite);
 			 sprite.setIsActive(true);
 			 sprite.setIsGoal(false, -1);
-			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty("user.dir")+"/defaults");
+			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty(DataHandler.USER_DIR)+"/defaults");
 			} catch (Exception e){
 				 DialogUtil.displayMessage("Error in Default Sprite Creation", "Sprite Creation");
 			}
