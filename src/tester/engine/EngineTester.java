@@ -76,7 +76,7 @@ public class EngineTester extends Tester {
 		testGame.addLevel(l);
 
 		try{
-			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty("user.dir")+"/simple");
+			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty(DataHandler.USER_DIR)+"/simple");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
