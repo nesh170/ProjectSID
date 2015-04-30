@@ -1,7 +1,5 @@
 package player;
 
-import gameEngine.Component;
-import java.util.List;
 import java.util.Map;
 import socCenter.Avatar;
 import util.ErrorHandler;
@@ -54,7 +52,7 @@ public class PlayerView {
 		myTop.getChildren().add(makeBrightScreen());
 		myTop.getChildren().add(makeDimScreen());
 		myTop.getChildren().add(myHUD.getHUDBox());
-		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+		myHUD.getHUDBox().setAlignment(Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
 		myBorderPane.setCenter(myBase);
 

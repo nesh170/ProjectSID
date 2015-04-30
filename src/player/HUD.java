@@ -1,13 +1,9 @@
 package player;
 
-import gameEngine.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -15,13 +11,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Displays relevant game data (Lives, Health, etc.) on the screen
+ * @author James
+ *
+ */
 public class HUD {
 
 	private HBox myHUDBox;
 	private String myFont;
 	private double mySize;
 	private Color myColor;
-	private Map<String, Component> myComponentMap;
 	private Map<String, Double> myHUDMap;
 	/**
 	 * Constructor for a HUD that moves with a Scrollpane
