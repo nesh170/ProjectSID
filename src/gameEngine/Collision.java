@@ -41,7 +41,7 @@ public class Collision {
     }
     
     private void executeAction(Sprite sprite1, Sprite sprite2, int direction){
-    	Action toRun = collideTable.getActionsForCollisionAndDirectionAndSprite(sprite1.tag(), sprite2.tag(), direction, sprite1);
+    	Action toRun = collideTable.getActionForCollisionDirectionAndSprite(sprite1.tag(), sprite2.tag(), direction, sprite1);
     	if(toRun != null) toRun.execute();
     }
     

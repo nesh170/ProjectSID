@@ -459,7 +459,6 @@
       </sprites>
       <playerSpriteList reference="../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
       <collisionTable>
-        <myTable/>
         <myBigTable>
           <entry>
             <string>fireMario</string>

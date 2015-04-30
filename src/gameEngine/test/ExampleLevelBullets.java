@@ -73,8 +73,8 @@ public class ExampleLevelBullets {
 		CollisionTable ct = new CollisionTable();
 		platform.setCollisionTag("platform");
 		player.setCollisionTag("player");
-		ct.addActionToMap(player.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, normalAction);
-		ct.addActionToMap(platform.collisionTag(), player.collisionTag(), INT.COLLISION_DOWN, null);
+		ct.addActionToBigMap(player.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, normalAction, player);
+		ct.addActionToBigMap(platform.collisionTag(), player.collisionTag(), INT.COLLISION_DOWN, null, platform);
 		l.setCollisionTable(ct);
 		
 		Map<Sprite, Integer> goalMap = new HashMap<>();
