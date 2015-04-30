@@ -235,6 +235,19 @@ public class CollisionTableScreen extends Screen{
 	 * 								List<String> = {"Above", "Switch-out", null, "fireMario"}
 	 * 
 	 * 
+	 * DESIGN CHANGE: April 29
+	 * 
+	 * collisionTableMap :	Map<String, Map<String, List<List<String>>>> 
+	 * 										|| Map of Tag 1 to Map of Tag 2 to Direction List of Action components (action, value...)
+	 * 
+	 *   			example: String1 = "player"
+	 * 					 Inner Map: String2 = "enemy"
+	 * 								List<String> 	= index: above: {"Alter Health", "-1"}
+	 * 												= index: below: {"die"}
+	 * 
+	 * 			example: String1 = "player"
+	 * 					 Inner Map: String2 = "power-up"
+	 * 								List<String> 	= index: left: {"Switch-out", null, "fireMario"}
 	 * 
 	 */
 	private CollisionTableScreenController myController;
