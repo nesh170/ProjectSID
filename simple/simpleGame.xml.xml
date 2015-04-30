@@ -1,44 +1,16 @@
 <game.Game>
   <levels>
-<<<<<<< HEAD
-    <levelPlatform.splashScreen.SplashScreen>
-      <width>900</width>
-      <height>500</height>
-      <sprites>
-        <sprite.Sprite>
-          <actionList>
-            <gameEngine.actions.KillAction>
-              <mySprite reference="../../.."/>
-              <isActive>false</isActive>
-              <myKeyCode class="java.util.Arrays$ArrayList">
-                <a class="javafx.scene.input.KeyCode-array">
-                  <javafx.scene.input.KeyCode>ENTER</javafx.scene.input.KeyCode>
-                </a>
-              </myKeyCode>
-              <runsEveryFrame>false</runsEveryFrame>
-              <value>0.0</value>
-            </gameEngine.actions.KillAction>
-          </actionList>
-=======
     <levelPlatform.level.Level>
       <width>1200</width>
       <height>600</height>
       <sprites>
         <sprite.Sprite>
           <actionList/>
->>>>>>> cb87199355770b665fb31279aa1ddd5b93ab7907
           <componentList/>
           <x>0.0</x>
           <y>0.0</y>
           <emissionList/>
           <isActive>true</isActive>
-<<<<<<< HEAD
-          <facesLeft>false</facesLeft>
-          <transform>
-            <myPosition>
-              <x>100.0</x>
-              <y>100.0</y>
-=======
           <tag>platform</tag>
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
           <facesLeft>false</facesLeft>
@@ -46,7 +18,6 @@
             <myPosition>
               <x>0.0</x>
               <y>300.0</y>
->>>>>>> cb87199355770b665fb31279aa1ddd5b93ab7907
               <hash>0</hash>
             </myPosition>
             <myRotation>
@@ -55,13 +26,8 @@
               <hash>0</hash>
             </myRotation>
             <myDimensions>
-<<<<<<< HEAD
-              <width>100.0</width>
-              <height>100.0</height>
-=======
               <width>200.0</width>
               <height>30.0</height>
->>>>>>> cb87199355770b665fb31279aa1ddd5b93ab7907
               <hash>0</hash>
             </myDimensions>
             <startPosition reference="../myPosition"/>
@@ -72,32 +38,6 @@
           <toLevel>0</toLevel>
           <isText>false</isText>
         </sprite.Sprite>
-<<<<<<< HEAD
-      </sprites>
-      <playerSpriteList>
-        <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
-      </playerSpriteList>
-      <collisionTable>
-        <myTable/>
-        <myBigTable/>
-        <tagList/>
-      </collisionTable>
-      <goalMap defined-in="levelPlatform.level.Level"/>
-      <myBackgroundPath>engineTesting/mario.png</myBackgroundPath>
-      <goalMap>
-        <entry>
-          <sprite.Sprite reference="../../../sprites/sprite.Sprite"/>
-          <int>1</int>
-        </entry>
-      </goalMap>
-    </levelPlatform.splashScreen.SplashScreen>
-    <levelPlatform.level.Level>
-      <width>900</width>
-      <height>500</height>
-      <sprites/>
-      <playerSpriteList>
-=======
->>>>>>> cb87199355770b665fb31279aa1ddd5b93ab7907
         <sprite.Sprite>
           <actionList/>
           <componentList/>
@@ -105,27 +45,6 @@
           <y>0.0</y>
           <emissionList/>
           <isActive>true</isActive>
-<<<<<<< HEAD
-          <facesLeft>false</facesLeft>
-          <transform>
-            <myPosition>
-              <x>2.0</x>
-              <y>0.0</y>
-              <hash>0</hash>
-            </myPosition>
-            <myRotation>
-              <x>0.0</x>
-              <y>0.0</y>
-              <hash>0</hash>
-            </myRotation>
-            <myDimensions>
-              <width>200.0</width>
-              <height>200.0</height>
-              <hash>0</hash>
-            </myDimensions>
-            <startPosition reference="../myPosition"/>
-            <startRotation reference="../myRotation"/>
-=======
           <tag>platform</tag>
           <imagePath>engineTesting/mushroomPlatform.png</imagePath>
           <facesLeft>false</facesLeft>
@@ -531,20 +450,12 @@
             </myDimensions>
             <startPosition reference="../myPosition"/>
             <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
->>>>>>> cb87199355770b665fb31279aa1ddd5b93ab7907
             <startDimensions reference="../myDimensions"/>
           </transform>
           <isGoal>false</isGoal>
           <toLevel>0</toLevel>
           <isText>false</isText>
         </sprite.Sprite>
-<<<<<<< HEAD
-      </playerSpriteList>
-      <collisionTable>
-        <myTable/>
-        <myBigTable/>
-        <tagList/>
-=======
       </sprites>
       <playerSpriteList reference="../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
       <collisionTable>
@@ -555,17 +466,19 @@
             <map>
               <entry>
                 <string>platform</string>
-                <list-array>
-                  <null/>
-                  <null/>
-                  <list>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                  </list>
-                  <null/>
-                </list-array>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
               </entry>
             </map>
           </entry>
@@ -574,17 +487,19 @@
             <map>
               <entry>
                 <string>platform</string>
-                <list-array>
-                  <null/>
-                  <null/>
-                  <list>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                  </list>
-                  <null/>
-                </list-array>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[7]"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
               </entry>
             </map>
           </entry>
@@ -593,45 +508,51 @@
             <map>
               <entry>
                 <string>fireMario</string>
-                <list-array>
-                  <null/>
-                  <null/>
-                  <null/>
-                  <list>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
-                  </list>
-                </list-array>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
               </entry>
               <entry>
                 <string>enemy</string>
-                <list-array>
-                  <null/>
-                  <null/>
-                  <null/>
-                  <list>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
-                  </list>
-                </list-array>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[7]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
               </entry>
               <entry>
                 <string>player</string>
-                <list-array>
-                  <null/>
-                  <null/>
-                  <null/>
-                  <list>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                  </list>
-                </list-array>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
               </entry>
             </map>
           </entry>
@@ -640,17 +561,19 @@
             <map>
               <entry>
                 <string>platform</string>
-                <list-array>
-                  <null/>
-                  <null/>
-                  <list>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                    <gameEngine.actions.NormalActionY reference="../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
-                  </list>
-                  <null/>
-                </list-array>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[5]"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[5]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
               </entry>
             </map>
           </entry>
@@ -662,12 +585,9 @@
           <string>player</string>
           <string>fireMario</string>
           <string>platform</string>
-          <string>fireMario</string>
           <string>enemy</string>
           <string>platform</string>
-          <string>enemy</string>
         </tagList>
->>>>>>> cb87199355770b665fb31279aa1ddd5b93ab7907
       </collisionTable>
       <goalMap/>
       <myBackgroundPath>engineTesting/background.png</myBackgroundPath>
