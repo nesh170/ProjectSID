@@ -168,8 +168,7 @@ public class EngineTester extends Tester {
 		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(20, 20));
 		myProjectileTemplate.setTag("bullet");
 		myProjectileTemplate.setImagePath("engineTesting/mario.png");
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				0.5, 400.0);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,0.5);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
