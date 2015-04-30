@@ -11,6 +11,7 @@ import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.actions.UpMotionAction;
+import gameEngine.components.VelocityComponent;
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -65,6 +66,7 @@ public class DefaultSpriteGenerator extends Tester{
 		Sprite player = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SIZE));
 		player.setCollisionTag("player");
 		player.setImagePath(System.getProperty("user.dir")+"/defaults/mario.png");
+		player.addComponent(new VelocityComponent(player, 50.0));
 		makeFalling(player);
 		player.addAction(new RightMotionAction(player, DEFAULT_SPEED, KeyCode.RIGHT));
 		player.addAction(new LeftMotionAction(player, DEFAULT_SPEED, KeyCode.LEFT));

@@ -21,7 +21,7 @@
     <name>default Enemy</name>
     <tag>Enemy</tag>
     <collisionTag>enemy</collisionTag>
-    <imagePath>/Users/Leo/Documents/workspace308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
+    <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
     <facesLeft>false</facesLeft>
     <transform>
       <myPosition>

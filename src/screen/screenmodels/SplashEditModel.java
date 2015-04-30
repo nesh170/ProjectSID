@@ -32,7 +32,7 @@ import levelPlatform.splashScreen.SplashScreen;
 public class SplashEditModel {
 
 	private SplashScreen splashScreen;
-	private List<Sprite> images = new ArrayList();
+	//private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
 	private List<Sprite> spriteList = new ArrayList();
 	private ImageView imageView;
@@ -225,7 +225,7 @@ public class SplashEditModel {
 	 * @param sprite
 	 */
 	public void addSpriteImageToSpriteList(Sprite sprite) {
-		images.add(sprite);
+		spriteList.add(sprite);
 	}
 	
 	/**

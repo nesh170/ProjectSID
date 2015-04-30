@@ -332,18 +332,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void saveSplashScreen() {
-		splashEditModel.createImageView(null);
-		splashEditModel.placeImageViewOffScreen();
-		splashEditModel.addImageView(null);
+		//splashEditModel.createImageView(null);
+		//splashEditModel.placeImageViewOffScreen();
+		//splashEditModel.addImageView(null);
 		Sprite sprite = new Sprite(new Point2D(INT.SPLASH_EDIT_OFFSCREEN, INT.SPLASH_EDIT_OFFSCREEN));
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
-		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 		goalMap.put(sprite, 1);
 		splashEditModel.setPlayerSprite(sprite);
 		splashEditModel.setSprites(sprite);
 		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.saveSplashScreen();
+		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 	}
 
 	private void trashSplashScreen() {		
