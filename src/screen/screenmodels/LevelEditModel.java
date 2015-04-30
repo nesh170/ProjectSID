@@ -303,10 +303,15 @@ public class LevelEditModel {
 	}
 	
 	private void selectSprite(Sprite sprite) {
-		selectedSprite = sprite;
-		levelEditDisplay.getImage(selectedSprite).setOpacity(SELECT);
-		levelEditDisplay.setVvalue(selectedSprite.getPosition().getY()-levelEditDisplay.getHeight()/2);
-		levelEditDisplay.setHvalue(selectedSprite.getPosition().getX()-levelEditDisplay.getWidth()/2);
+		try {
+			selectedSprite = sprite;
+			levelEditDisplay.getImage(selectedSprite).setOpacity(SELECT);
+			levelEditDisplay.setVvalue(selectedSprite.getPosition().getY()-levelEditDisplay.getHeight()/2);
+			levelEditDisplay.setHvalue(selectedSprite.getPosition().getX()-levelEditDisplay.getWidth()/2);
+		}
+		catch (NullPointerException e) {
+			//nothing is there to select
+		}
 	}
 	
 	public void delete() {
