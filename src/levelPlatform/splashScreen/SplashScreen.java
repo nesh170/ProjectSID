@@ -1,11 +1,8 @@
 package levelPlatform.splashScreen;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.IntConsumer;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import resources.constants.STRING;
@@ -19,8 +16,8 @@ public class SplashScreen extends Level {
 	
 	// Instance Variables
 	//private List<Sprite> sprites = new ArrayList();
-	private Map<Sprite, Integer> goalMap;
-	private IntConsumer nextLevelMethod;
+	@SuppressWarnings("unused")
+    private IntConsumer nextLevelMethod;
 	//private List<Sprite> playerSpriteList;
 	
 	// Constructor & Helpers
@@ -28,14 +25,14 @@ public class SplashScreen extends Level {
 		super(width, height, player);
 		//playerSpriteList = player;
 		
-	    goalMap = new HashMap<>();
+	    //goalMap = new HashMap<>();
 	}
 	
 	public SplashScreen(int width, int height) {
 		super(width, height);
 		//playerSpriteList = player;
 		
-	    goalMap = new HashMap<>();
+	    //goalMap = new HashMap<>();
 	}
 
 	@Override

@@ -1,0 +1,207 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>1012</width>
+      <height>768</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.FallAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <null/>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>true</runsEveryFrame>
+              <value>30.0</value>
+              <soundPath></soundPath>
+            </gameEngine.actions.FallAction>
+          </actionList>
+          <componentList>
+            <gameEngine.components.VelocityComponent>
+              <mySprite reference="../../.."/>
+              <myValue>50.0</myValue>
+              <isActive>true</isActive>
+              <myVelocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <hash>0</hash>
+              </myVelocity>
+              <myTerminalVelocity>50.0</myTerminalVelocity>
+              <isGrounded>true</isGrounded>
+            </gameEngine.components.VelocityComponent>
+          </componentList>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>Goomba</name>
+          <tag>Player</tag>
+          <imagePath>CollisionTable-images/8Bit-Goomba.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>366.0</x>
+              <y>187.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>49.0</width>
+              <height>49.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition>
+              <x>2.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </startPosition>
+            <startRotation reference="../myRotation"/>
+            <startDimensions>
+              <width>200.0</width>
+              <height>200.0</height>
+              <hash>0</hash>
+            </startDimensions>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>Brick</name>
+          <tag>Platform</tag>
+          <imagePath>CollisionTable-images/Mario Brick.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>365.0</x>
+              <y>265.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>50.0</width>
+              <height>50.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../../../sprite.Sprite/transform/startPosition"/>
+            <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../../../sprite.Sprite/transform/startDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </sprites>
+      <playerSpriteList>
+        <sprite.Sprite reference="../../sprites/sprite.Sprite"/>
+      </playerSpriteList>
+      <collisionTable>
+        <myBigTable>
+          <entry>
+            <string>Player</string>
+            <map>
+              <entry>
+                <string>Platform</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <gameEngine.actions.BounceAction>
+                        <mySprite reference="../../../../../../../../../../sprites/sprite.Sprite"/>
+                        <isActive>false</isActive>
+                        <myKeyCode class="java.util.Arrays$ArrayList">
+                          <a class="javafx.scene.input.KeyCode-array">
+                            <javafx.scene.input.KeyCode>AMPERSAND</javafx.scene.input.KeyCode>
+                          </a>
+                        </myKeyCode>
+                        <runsEveryFrame>false</runsEveryFrame>
+                        <value>0.0</value>
+                        <myVelocityComponent reference="../../../../../../../../../../sprites/sprite.Sprite/componentList/gameEngine.components.VelocityComponent"/>
+                      </gameEngine.actions.BounceAction>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+        </myBigTable>
+        <tagList>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+          <string>Player</string>
+          <string>Platform</string>
+        </tagList>
+        <collisionMap>
+          <collisonMap>
+            <entry>
+              <string>Player</string>
+              <map>
+                <entry>
+                  <string>Platform</string>
+                  <list>
+                    <list/>
+                    <list/>
+                    <list>
+                      <string>Bounce Action</string>
+                      <string>0</string>
+                      <null/>
+                    </list>
+                    <list/>
+                  </list>
+                </entry>
+              </map>
+            </entry>
+          </collisonMap>
+        </collisionMap>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+  </levels>
+  <name>CollisionTable</name>
+  <description></description>
+</game.Game>

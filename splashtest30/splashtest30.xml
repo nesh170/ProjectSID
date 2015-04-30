@@ -1,0 +1,173 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>1448</width>
+      <height>997</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>default Platform</name>
+          <tag>Platform</tag>
+          <collisionTag>platform</collisionTag>
+          <imagePath>splashtest30/images/Brick_Block.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>156.0</x>
+              <y>164.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>100.0</width>
+              <height>100.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myRotation"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </sprites>
+      <playerSpriteList/>
+      <collisionTable>
+        <myBigTable/>
+        <tagList/>
+        <collisionMap>
+          <collisonMap/>
+        </collisionMap>
+      </collisionTable>
+      <goalMap/>
+    </levelPlatform.level.Level>
+  </levels>
+  <splashScreen>
+    <width>500</width>
+    <height>400</height>
+    <sprites>
+      <sprite.Sprite>
+        <actionList/>
+        <componentList/>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+        <isActive>true</isActive>
+        <imagePath>splashtest30/images/Knuckles.jpg</imagePath>
+        <facesLeft>false</facesLeft>
+        <transform>
+          <myPosition>
+            <x>45.0</x>
+            <y>68.0</y>
+            <hash>0</hash>
+          </myPosition>
+          <myRotation>
+            <x>0.0</x>
+            <y>0.0</y>
+            <hash>0</hash>
+          </myRotation>
+          <myDimensions>
+            <width>200.0</width>
+            <height>200.0</height>
+            <hash>0</hash>
+          </myDimensions>
+          <startPosition reference="../myPosition"/>
+          <startRotation reference="../myRotation"/>
+          <startDimensions reference="../myDimensions"/>
+        </transform>
+        <isGoal>false</isGoal>
+        <toLevel>0</toLevel>
+        <isText>false</isText>
+      </sprite.Sprite>
+      <sprite.Sprite>
+        <actionList/>
+        <componentList/>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+        <isActive>true</isActive>
+        <facesLeft>false</facesLeft>
+        <transform>
+          <myPosition>
+            <x>244.0</x>
+            <y>243.0</y>
+            <hash>0</hash>
+          </myPosition>
+          <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+          <myDimensions reference="../../../sprite.Sprite/transform/myDimensions"/>
+          <startPosition reference="../myPosition"/>
+          <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+          <startDimensions reference="../../../sprite.Sprite/transform/myDimensions"/>
+        </transform>
+        <isGoal>false</isGoal>
+        <toLevel>0</toLevel>
+        <isText>false</isText>
+      </sprite.Sprite>
+      <sprite.Sprite>
+        <actionList>
+          <gameEngine.actions.KillAction>
+            <mySprite reference="../../.."/>
+            <isActive>false</isActive>
+            <myKeyCode class="java.util.Arrays$ArrayList">
+              <a class="javafx.scene.input.KeyCode-array">
+                <javafx.scene.input.KeyCode>ENTER</javafx.scene.input.KeyCode>
+              </a>
+            </myKeyCode>
+            <runsEveryFrame>false</runsEveryFrame>
+            <value>0.0</value>
+          </gameEngine.actions.KillAction>
+        </actionList>
+        <componentList/>
+        <x>0.0</x>
+        <y>0.0</y>
+        <emissionList/>
+        <isActive>true</isActive>
+        <facesLeft>false</facesLeft>
+        <transform>
+          <myPosition>
+            <x>2000.0</x>
+            <y>2000.0</y>
+            <hash>0</hash>
+          </myPosition>
+          <myRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+          <myDimensions reference="../../../sprite.Sprite/transform/myDimensions"/>
+          <startPosition reference="../myPosition"/>
+          <startRotation reference="../../../sprite.Sprite/transform/myRotation"/>
+          <startDimensions reference="../../../sprite.Sprite/transform/myDimensions"/>
+        </transform>
+        <isGoal>false</isGoal>
+        <toLevel>0</toLevel>
+        <isText>false</isText>
+      </sprite.Sprite>
+      <sprite.Sprite reference="../sprite.Sprite[3]"/>
+    </sprites>
+    <playerSpriteList>
+      <sprite.Sprite reference="../../sprites/sprite.Sprite[3]"/>
+    </playerSpriteList>
+    <collisionTable>
+      <myBigTable/>
+      <tagList/>
+      <collisionMap>
+        <collisonMap/>
+      </collisionMap>
+    </collisionTable>
+    <goalMap>
+      <entry>
+        <sprite.Sprite reference="../../../sprites/sprite.Sprite[3]"/>
+        <int>1</int>
+      </entry>
+    </goalMap>
+  </splashScreen>
+  <name>splashtest30</name>
+  <description></description>
+</game.Game>

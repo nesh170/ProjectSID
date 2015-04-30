@@ -54,7 +54,7 @@ public class Level extends LevelPlatform {
 	private List<Sprite> playerSpriteList;
 	private CollisionTable collisionTable;
 	private IntConsumer nextLevelMethod;
-	private Map<Sprite, Integer> goalMap;
+	protected Map<Sprite, Integer> goalMap;
 	private String myBackgroundPath;
 
 	// Getters & Setters

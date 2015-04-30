@@ -18,7 +18,7 @@ public class STRING {
 		public static final String FX_RED_BACKGROUND = "-fx-background-color: red;";
 		public static final String FX_MAIN_MENU_BUTTON = "-fx-background-color: rgba(241, 241, 241, 0.8); -fx-background-radius: 10;";
 		public static final String FX_GAME_EDIT_BUTTON_RADIUS = " -fx-background-radius: 15;";
-		
+		public static final String RECTANGLE_COLOR = "-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;";
 	}
 	
 	public class ERROR {
@@ -134,13 +134,30 @@ public class STRING {
 		//GameEdit Screen
 		public static final String GAME_EDIT = "Game Edit";
 		public static final String SPLASH_SCREEN = "Splash Screen";
+		public static final String EDIT = "Edit";
+		public static final String IMAGE_FOLDER ="images";
+		public static final String SOUND_FOLDER ="sound-effects";
+		public static final String SELECTMUSIC = "SelectMusic";
+		public static final String ADD_NEW_SPLASH = "Add New Splash Screen";
+		public static final String ADD_NEW_LEVEL = "Add A New Level";
+		public static final String TRASH_GAS = "images/trash_gas.png";
+		public static final String REMOVE = "Remove";
+		public static final String ADD_LEVEL = "Add New Level";
+		public static final String EDIT_LEVEL = "Edit Level";
+		public static final String HIDE_SPLASH = "Hide Splash";
+		public static final String DISPLAY_ALL = "Display All";
+		public static final String PLAY = "Play Game";
+		public static final String LEVEL = "Level";
+		public static final String TOOLS = "Tools";
+		public static final String GAME = "Game";
+		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
+		
 		public static final String NOTE = "* Note: Double Left Click to Edit Level/Splash, Right click to remove/edit";
 		public static final String FONT_POPUP = "-fx-font: 18 serif;";
 		//GameEdit: image path
 		public static final String ADD_IMG ="images/GameEdit_Images/addsplash.png";
 		public static final String TRASH_ICON = "images/GameEdit_Images/trashicon.png";
-		public static final String LEVEL1IMAGE = "images/GameEdit_Images/level1_tmp.PNG";
-		public static final String LEVEL2IMAGE = "images/GameEdit_Images/level2_tmp.PNG";
+		public static final String LEVEL2IMAGE = "images/GameEdit_Images/newlevel_tmp.PNG";
 		public static final String SPRITEIMAGE = "images/sprite.jpg";
 		public static final String SPLASH_TMP = "images/GameEdit_Images/Splash_tmp.PNG";
 		public static final String PLUS_IMG = "images/GameEdit_Images/plus_sign.png";
@@ -150,11 +167,10 @@ public class STRING {
 		public static final String BACK_IMG = "images/GameEdit_Images/back.png";
 		public static final String BACKDOWN_IMG = "images/GameEdit_Images/back_down.png";
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
-		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
 		public static final String HIDE_ARROW = "images/GameEdit_images/hide.png";	
-		public static final String IMAGE_FOLDER ="images";
-		public static final String SOUND_FOLDER ="sound-effects";
 		public static final String SHOW_ARROW = "images/GameEdit_images/show.png";
+		public static final String HIDENOTE = "Hide splash display";
+		public static final String SHOWNOTE = "Show splash display";
 			
 	}
 	

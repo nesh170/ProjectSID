@@ -1,0 +1,403 @@
+<game.Game>
+  <levels>
+    <levelPlatform.level.Level>
+      <width>1016</width>
+      <height>722</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>default Platform</name>
+          <tag>Platform</tag>
+          <collisionTag>platform</collisionTag>
+          <imagePath>nullpointersounds/images/Brick_Block.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>223.0</x>
+              <y>319.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>100.0</width>
+              <height>100.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myRotation"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>default Platform0</name>
+          <tag>Platform</tag>
+          <collisionTag>platform</collisionTag>
+          <imagePath>nullpointersounds/images/Brick_Block.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>322.0</x>
+              <y>320.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>100.0</width>
+              <height>100.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myRotation"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>default Platform1</name>
+          <tag>Platform</tag>
+          <collisionTag>platform</collisionTag>
+          <imagePath>nullpointersounds/images/Brick_Block.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>422.0</x>
+              <y>320.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>100.0</width>
+              <height>100.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myRotation"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.LeftMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>10.0</value>
+              <soundPath>nullpointersounds/sound-effects/jump.mp3</soundPath>
+              <myVelocityComponent>
+                <mySprite reference="../../../.."/>
+                <myValue>20.0</myValue>
+                <isActive>true</isActive>
+                <myVelocity>
+                  <x>0.0</x>
+                  <y>0.0</y>
+                  <hash>0</hash>
+                </myVelocity>
+                <myTerminalVelocity>20.0</myTerminalVelocity>
+                <isGrounded>true</isGrounded>
+              </myVelocityComponent>
+            </gameEngine.actions.LeftMotionAction>
+            <gameEngine.actions.RightMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>10.0</value>
+              <soundPath>nullpointersounds/sound-effects/jump.mp3</soundPath>
+              <velocity>10.0</velocity>
+              <myVelocityComponent reference="../../gameEngine.actions.LeftMotionAction/myVelocityComponent"/>
+            </gameEngine.actions.RightMotionAction>
+            <gameEngine.actions.ShootAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <mySecondSprite>
+                <actionList>
+                  <gameEngine.actions.ShootAction reference="../../.."/>
+                </actionList>
+                <componentList>
+                  <gameEngine.components.ProjectileMotionComponent>
+                    <mySprite reference="../../.."/>
+                    <isActive>true</isActive>
+                    <myVelocity>
+                      <x>0.0</x>
+                      <y>0.0</y>
+                      <hash>0</hash>
+                    </myVelocity>
+                    <myTerminalVelocity>5.0</myTerminalVelocity>
+                    <isGrounded>true</isGrounded>
+                    <myBulletSpeed>15.0</myBulletSpeed>
+                  </gameEngine.components.ProjectileMotionComponent>
+                </componentList>
+                <x>0.0</x>
+                <y>0.0</y>
+                <emissionList/>
+                <isActive>true</isActive>
+                <name>bul1</name>
+                <tag>bullet</tag>
+                <imagePath>nullpointersounds/images/8Bit-Goomba.png</imagePath>
+                <facesLeft>false</facesLeft>
+                <transform>
+                  <myPosition>
+                    <x>2.0</x>
+                    <y>0.0</y>
+                    <hash>0</hash>
+                  </myPosition>
+                  <myRotation>
+                    <x>0.0</x>
+                    <y>0.0</y>
+                    <hash>0</hash>
+                  </myRotation>
+                  <myDimensions>
+                    <width>49.0</width>
+                    <height>49.0</height>
+                    <hash>0</hash>
+                  </myDimensions>
+                  <startPosition reference="../myPosition"/>
+                  <startRotation reference="../myRotation"/>
+                  <startDimensions>
+                    <width>200.0</width>
+                    <height>200.0</height>
+                    <hash>0</hash>
+                  </startDimensions>
+                </transform>
+                <isGoal>false</isGoal>
+                <toLevel>-1</toLevel>
+                <isText>false</isText>
+              </mySecondSprite>
+              <bulletString>&lt;sprite.Sprite&gt;
+  &lt;actionList&gt;
+    &lt;gameEngine.actions.ShootAction&gt;
+      &lt;mySprite&gt;
+        &lt;actionList&gt;
+          &lt;gameEngine.actions.LeftMotionAction&gt;
+            &lt;mySprite reference=&quot;../../..&quot;/&gt;
+            &lt;isActive&gt;false&lt;/isActive&gt;
+            &lt;myKeyCode class=&quot;java.util.Arrays$ArrayList&quot;&gt;
+              &lt;a class=&quot;javafx.scene.input.KeyCode-array&quot;&gt;
+                &lt;javafx.scene.input.KeyCode&gt;LEFT&lt;/javafx.scene.input.KeyCode&gt;
+              &lt;/a&gt;
+            &lt;/myKeyCode&gt;
+            &lt;runsEveryFrame&gt;false&lt;/runsEveryFrame&gt;
+            &lt;value&gt;10.0&lt;/value&gt;
+            &lt;soundPath&gt;nullpointersounds/sound-effects/jump.mp3&lt;/soundPath&gt;
+            &lt;myVelocityComponent&gt;
+              &lt;mySprite reference=&quot;../../../..&quot;/&gt;
+              &lt;myValue&gt;20.0&lt;/myValue&gt;
+              &lt;isActive&gt;true&lt;/isActive&gt;
+              &lt;myVelocity&gt;
+                &lt;x&gt;0.0&lt;/x&gt;
+                &lt;y&gt;0.0&lt;/y&gt;
+                &lt;hash&gt;0&lt;/hash&gt;
+              &lt;/myVelocity&gt;
+              &lt;myTerminalVelocity&gt;20.0&lt;/myTerminalVelocity&gt;
+              &lt;isGrounded&gt;true&lt;/isGrounded&gt;
+            &lt;/myVelocityComponent&gt;
+          &lt;/gameEngine.actions.LeftMotionAction&gt;
+          &lt;gameEngine.actions.RightMotionAction&gt;
+            &lt;mySprite reference=&quot;../../..&quot;/&gt;
+            &lt;isActive&gt;false&lt;/isActive&gt;
+            &lt;myKeyCode class=&quot;java.util.Arrays$ArrayList&quot;&gt;
+              &lt;a class=&quot;javafx.scene.input.KeyCode-array&quot;&gt;
+                &lt;javafx.scene.input.KeyCode&gt;RIGHT&lt;/javafx.scene.input.KeyCode&gt;
+              &lt;/a&gt;
+            &lt;/myKeyCode&gt;
+            &lt;runsEveryFrame&gt;false&lt;/runsEveryFrame&gt;
+            &lt;value&gt;10.0&lt;/value&gt;
+            &lt;soundPath&gt;nullpointersounds/sound-effects/jump.mp3&lt;/soundPath&gt;
+            &lt;velocity&gt;10.0&lt;/velocity&gt;
+            &lt;myVelocityComponent reference=&quot;../../gameEngine.actions.LeftMotionAction/myVelocityComponent&quot;/&gt;
+          &lt;/gameEngine.actions.RightMotionAction&gt;
+          &lt;gameEngine.actions.ShootAction reference=&quot;../../..&quot;/&gt;
+        &lt;/actionList&gt;
+        &lt;componentList&gt;
+          &lt;gameEngine.components.VelocityComponent reference=&quot;../../actionList/gameEngine.actions.LeftMotionAction/myVelocityComponent&quot;/&gt;
+        &lt;/componentList&gt;
+        &lt;x&gt;0.0&lt;/x&gt;
+        &lt;y&gt;0.0&lt;/y&gt;
+        &lt;emissionList/&gt;
+        &lt;isActive&gt;true&lt;/isActive&gt;
+        &lt;name&gt;player1&lt;/name&gt;
+        &lt;tag&gt;Player&lt;/tag&gt;
+        &lt;imagePath&gt;nullpointersounds/images/Shadow.png&lt;/imagePath&gt;
+        &lt;facesLeft&gt;false&lt;/facesLeft&gt;
+        &lt;transform&gt;
+          &lt;myPosition&gt;
+            &lt;x&gt;278.0&lt;/x&gt;
+            &lt;y&gt;168.0&lt;/y&gt;
+            &lt;hash&gt;0&lt;/hash&gt;
+          &lt;/myPosition&gt;
+          &lt;myRotation&gt;
+            &lt;x&gt;0.0&lt;/x&gt;
+            &lt;y&gt;0.0&lt;/y&gt;
+            &lt;hash&gt;0&lt;/hash&gt;
+          &lt;/myRotation&gt;
+          &lt;myDimensions&gt;
+            &lt;width&gt;126.0&lt;/width&gt;
+            &lt;height&gt;150.0&lt;/height&gt;
+            &lt;hash&gt;0&lt;/hash&gt;
+          &lt;/myDimensions&gt;
+          &lt;startPosition&gt;
+            &lt;x&gt;2.0&lt;/x&gt;
+            &lt;y&gt;0.0&lt;/y&gt;
+            &lt;hash&gt;0&lt;/hash&gt;
+          &lt;/startPosition&gt;
+          &lt;startRotation reference=&quot;../myRotation&quot;/&gt;
+          &lt;startDimensions&gt;
+            &lt;width&gt;200.0&lt;/width&gt;
+            &lt;height&gt;200.0&lt;/height&gt;
+            &lt;hash&gt;0&lt;/hash&gt;
+          &lt;/startDimensions&gt;
+        &lt;/transform&gt;
+        &lt;isGoal&gt;false&lt;/isGoal&gt;
+        &lt;toLevel&gt;-1&lt;/toLevel&gt;
+        &lt;isText&gt;false&lt;/isText&gt;
+      &lt;/mySprite&gt;
+      &lt;isActive&gt;false&lt;/isActive&gt;
+      &lt;myKeyCode class=&quot;java.util.Arrays$ArrayList&quot;&gt;
+        &lt;a class=&quot;javafx.scene.input.KeyCode-array&quot;&gt;
+          &lt;javafx.scene.input.KeyCode&gt;SPACE&lt;/javafx.scene.input.KeyCode&gt;
+        &lt;/a&gt;
+      &lt;/myKeyCode&gt;
+      &lt;runsEveryFrame&gt;false&lt;/runsEveryFrame&gt;
+      &lt;mySecondSprite reference=&quot;../../..&quot;/&gt;
+    &lt;/gameEngine.actions.ShootAction&gt;
+  &lt;/actionList&gt;
+  &lt;componentList&gt;
+    &lt;gameEngine.components.ProjectileMotionComponent&gt;
+      &lt;mySprite reference=&quot;../../..&quot;/&gt;
+      &lt;isActive&gt;true&lt;/isActive&gt;
+      &lt;myVelocity reference=&quot;../../../actionList/gameEngine.actions.ShootAction/mySprite/actionList/gameEngine.actions.LeftMotionAction/myVelocityComponent/myVelocity&quot;/&gt;
+      &lt;myTerminalVelocity&gt;5.0&lt;/myTerminalVelocity&gt;
+      &lt;isGrounded&gt;true&lt;/isGrounded&gt;
+      &lt;myBulletSpeed&gt;15.0&lt;/myBulletSpeed&gt;
+    &lt;/gameEngine.components.ProjectileMotionComponent&gt;
+  &lt;/componentList&gt;
+  &lt;x&gt;0.0&lt;/x&gt;
+  &lt;y&gt;0.0&lt;/y&gt;
+  &lt;emissionList/&gt;
+  &lt;isActive&gt;true&lt;/isActive&gt;
+  &lt;name&gt;bul1&lt;/name&gt;
+  &lt;tag&gt;bullet&lt;/tag&gt;
+  &lt;imagePath&gt;nullpointersounds/images/8Bit-Goomba.png&lt;/imagePath&gt;
+  &lt;facesLeft&gt;false&lt;/facesLeft&gt;
+  &lt;transform&gt;
+    &lt;myPosition reference=&quot;../../actionList/gameEngine.actions.ShootAction/mySprite/transform/startPosition&quot;/&gt;
+    &lt;myRotation reference=&quot;../../actionList/gameEngine.actions.ShootAction/mySprite/transform/myRotation&quot;/&gt;
+    &lt;myDimensions&gt;
+      &lt;width&gt;49.0&lt;/width&gt;
+      &lt;height&gt;49.0&lt;/height&gt;
+      &lt;hash&gt;0&lt;/hash&gt;
+    &lt;/myDimensions&gt;
+    &lt;startPosition reference=&quot;../../actionList/gameEngine.actions.ShootAction/mySprite/transform/startPosition&quot;/&gt;
+    &lt;startRotation reference=&quot;../../actionList/gameEngine.actions.ShootAction/mySprite/transform/myRotation&quot;/&gt;
+    &lt;startDimensions reference=&quot;../../actionList/gameEngine.actions.ShootAction/mySprite/transform/startDimensions&quot;/&gt;
+  &lt;/transform&gt;
+  &lt;isGoal&gt;false&lt;/isGoal&gt;
+  &lt;toLevel&gt;-1&lt;/toLevel&gt;
+  &lt;isText&gt;false&lt;/isText&gt;
+&lt;/sprite.Sprite&gt;</bulletString>
+            </gameEngine.actions.ShootAction>
+          </actionList>
+          <componentList>
+            <gameEngine.components.VelocityComponent reference="../../actionList/gameEngine.actions.LeftMotionAction/myVelocityComponent"/>
+          </componentList>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <name>player1</name>
+          <tag>Player</tag>
+          <imagePath>nullpointersounds/images/Shadow.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>715.7952755905349</x>
+              <y>168.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../actionList/gameEngine.actions.ShootAction/mySecondSprite/transform/myRotation"/>
+            <myDimensions>
+              <width>126.0</width>
+              <height>150.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../../actionList/gameEngine.actions.ShootAction/mySecondSprite/transform/myPosition"/>
+            <startRotation reference="../../actionList/gameEngine.actions.ShootAction/mySecondSprite/transform/myRotation"/>
+            <startDimensions reference="../../actionList/gameEngine.actions.ShootAction/mySecondSprite/transform/startDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>-1</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </sprites>
+      <waitingSprites>
+        <sprite.Sprite reference="../../sprites/sprite.Sprite[4]/actionList/gameEngine.actions.ShootAction/mySecondSprite"/>
+      </waitingSprites>
+      <playerSpriteList>
+        <sprite.Sprite reference="../../sprites/sprite.Sprite[4]"/>
+      </playerSpriteList>
+      <collisionTable>
+        <myBigTable/>
+        <tagList/>
+        <collisionMap>
+          <collisonMap/>
+        </collisionMap>
+      </collisionTable>
+      <nextLevelMethod class="null"/>
+      <goalMap/>
+    </levelPlatform.level.Level>
+  </levels>
+  <name>nullpointersounds</name>
+  <description></description>
+</game.Game>

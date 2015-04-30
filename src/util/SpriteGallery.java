@@ -3,8 +3,6 @@ package util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,9 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class SpriteGallery {
@@ -26,7 +22,8 @@ public class SpriteGallery {
 	private static final int DEFAULT_HEIGHT = 500;
 	
 	private ClickableImage mySelection;	
-	private String myFolderPath;
+	@SuppressWarnings("unused")
+    private String myFolderPath;
 	
 	public SpriteGallery(Stage primaryStage, String filePath) {
 		myFolderPath = filePath;
@@ -104,7 +101,7 @@ public class SpriteGallery {
 			//add implement draggable mouseEventHandlers here
 			//add ability to click image
 		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
+			 DialogUtil.displayMessage("Error Image Creation", "Image Creation");
 		}
 		return new ClickableImage(imageView, this);
 	}

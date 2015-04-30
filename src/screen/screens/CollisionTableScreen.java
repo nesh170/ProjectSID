@@ -597,19 +597,6 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 	}
 	
-	
-	private double parseDouble(String val)
-	{
-		try { 
-			return Double.parseDouble(val);
-	    } catch(NumberFormatException e) { 
-	       
-	        return 0; 
-	    } catch(NullPointerException e) {
-	        return 0;
-	    }
-	}
-	
 	/*private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
 	{
 		Map<String, List<List<String>>> activeSpriteMap;
@@ -642,52 +629,13 @@ public class CollisionTableScreen extends Screen{
 	
 	private void saveRowAndAddToCollisionTableMap(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
-		double valDouble = parseDouble(value);
-		
-		
-	/*	SpritePair thisSpritePair = new SpritePair();
-		thisSpritePair.initialize(activeSp, inactiveSp);
-		*/
-		
 	
 		List<String> actionParameters = new ArrayList<String>();
-	//	actionParameters.add(dir);
-		actionParameters.add(action.replaceAll("\\s", ""));
+		actionParameters.add(action);
 		actionParameters.add(value);
-		
 	
 		collisionTableMap.put(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
 		
-		
-		
 	}
-/*	
-	private void testingMap()
-	{
-		for (String s1 : collisionTableMap.keySet())
-		{
-			Map<String, List<List<String>>> innerMap = collisionTableMap.get(s1);
-				
-			for (String s2 : innerMap.keySet())
-			{
-				List<List<String>> directionList = innerMap.get(s2);
-				
-				for (int i = 0; i < 4; i++)
-				{
-					List<String> actionList = directionList.get(i);
-					
-					System.out.print(s1 + "   " + s2 + "   " + i + " :  " + "action List = size = " + actionList.size() + " ");
-					for (String each : actionList)
-					{
-						System.out.print(each + "  ");
-					}
-					System.out.println();
-				}
-				System.out.println();
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}*/
 	
 }

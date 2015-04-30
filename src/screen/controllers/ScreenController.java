@@ -139,8 +139,6 @@ import util.ErrorHandler;
  */
 
 public class ScreenController {
-	//Testing:
-	private boolean GameEdit_Test = false;
 	
 	// Static Variables
 	
@@ -296,19 +294,10 @@ public class ScreenController {
 
 	private void createInitialScreens() {
 		
+		tabManager.setDefaultTab(createMainMenuScreen());
 
-		if(!GameEdit_Test)
-			tabManager.setDefaultTab(createMainMenuScreen());
-		else {
-				//USED FOR TEST GAMEEDITSCREEN
-				Game g = new Game();
-				for(int i=0; i < 5; i++){
-					Level newLevel = new Level(INT.DEFAULT_LEVEL_DISPLAY_WIDTH, 
-							INT.DEFAULT_LEVEL_DISPLAY_HEIGHT);
-					g.addLevel(newLevel);
-					}
-				createGameEditScreen(g);
-			}
+		//createGameEditScreen(g);
+	
 		//USED FOR TEST SPLASHEDITSCREEN //DO NOT REMOVE //@AUTHOR KYLE
 		//createSplashEditScreen(null);
 		
@@ -471,6 +460,7 @@ public class ScreenController {
 		}
 	}
 	
+
 	private class GameEditScreenManager implements GameEditScreenController {
 		/**TODO: BUG Here: returning is not working when new levels are added.
 		 */
@@ -522,7 +512,7 @@ public class ScreenController {
 		@Override
 		public void playGame(Game game) {
 			
-			createGamePlayScreen();
+			createGamePlayScreen(game);
 
 		}
 
@@ -553,20 +543,15 @@ public class ScreenController {
 			try {
 				
 				String gameFolderName = game.name();
-//				File folder = new File(gameFolderName);
-//				folder.mkdir();
-//				File soundFolder = new File(folder.getPath() + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
-//				soundFolder.mkdir();
-//				File imageFolder = new File(folder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
-//				imageFolder.mkdir();
 				File gameFolder = makeFolder(gameFolderName);
 				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
 				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				
-				saveLevelSprites(game, gameFolderName);
+				saveLevel(game, gameFolderName);
+				saveGameSound(game, gameFolderName);
 				saveLevelBackgrounds(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				saveSplashScreen(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
-
+				
 				DataHandler.toXMLFile(game, game.name(), gameFolder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
@@ -579,21 +564,34 @@ public class ScreenController {
 			return folder;
 		}
 		
-		private void saveLevelSprites(Game game, String gameFolderName) {
-			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
-				String imagePath = sprite.getImagePath();
-				String newImagePath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER, imagePath);
-				sprite.setImagePath(newImagePath);
+		private void saveLevel(Game game, String gameFolderName) {
+			game.levels().forEach(level -> {
+				level.sprites().forEach(sprite -> saveLevelSprites(sprite, gameFolderName));
+				level.waitingSprites().forEach(sprite -> saveLevelSprites(sprite, gameFolderName));
+			});
+		}
+		
+		private void saveLevelSprites(Sprite sprite, String gameFolderName) {
+			
+			String imagePath = sprite.getImagePath();
+			String newImagePath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER, imagePath);
+			sprite.setImagePath(newImagePath);
+			
+			sprite.actionList().forEach(action -> {
 				
-				sprite.actionList().forEach(action -> {
+				try{
 					
 					String soundPath = action.getSoundPath();
 					String newSoundPath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER, soundPath);
 					action.setSound(newSoundPath);
-				});
+
+				}
 				
-				
-			}));
+				catch (NullPointerException e) {
+					//don't add the sound
+				}
+			});
+			
 		}
 				
 		private void saveLevelBackgrounds(Game game, String imageFolderName) {
@@ -616,6 +614,16 @@ public class ScreenController {
 					String newImagePath = copyFile(imageFolderName, imagePath);
 					sprite.setImagePath(newImagePath);
 				});
+			} catch (Exception e) {
+				
+			}
+		}
+		private void saveGameSound(Game game, String gameFolderName){
+			try {
+				String soundPath = game.gameSoundPath();
+				String newSoundPath = copyFile(gameFolderName, soundPath);
+				game.setSoundPath(newSoundPath);
+
 			} catch (Exception e) {
 				
 			}
@@ -739,7 +747,6 @@ public class ScreenController {
 			tabManager.removeTabAndChangeSelected(switchTo);
 			if (switchTo.getContent() instanceof LevelEditScreen) {
 				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();
-				levelEditScreen.updateCollisions(collisionMap);
 			}
 		}
 		
@@ -747,6 +754,11 @@ public class ScreenController {
 	
 	private class GamePlayScreenManager implements GamePlayScreenController {
 
+		@Override
+		public void createLevelsError() {
+			errorHandler.displayError("Game you are loading has no levels.");
+		}
+		
 		@Override
 		public void returnToMainMenuScreen() {
 			

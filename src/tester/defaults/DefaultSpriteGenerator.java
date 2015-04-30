@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.lang.reflect.Method;
 import java.util.Set;
-
 import gameEngine.Action;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
@@ -19,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import sprite.Sprite;
 import tester.Tester;
+import util.DialogUtil;
 
 /**
  * This class exists to create xml files of default sprites (player, enemy, and platform)
@@ -56,16 +56,17 @@ public class DefaultSpriteGenerator extends Tester{
 			 spriteSet.add(sprite);
 			 sprite.setIsActive(true);
 			 sprite.setIsGoal(false, -1);
-			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty("user.dir")+"/defaults");
+			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty(DataHandler.USER_DIR)+"/defaults");
 			} catch (Exception e){
-				e.printStackTrace();
+				 DialogUtil.displayMessage("Error in Default Sprite Creation", "Sprite Creation");
 			}
 	}
 
-	private Sprite makeDefaultPlayer(){
+	@SuppressWarnings("unused")
+    private Sprite makeDefaultPlayer(){
 		Sprite player = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SIZE));
 		player.setCollisionTag("player");
-		player.setImagePath(System.getProperty("user.dir")+"/defaults/mario.png");
+		player.setImagePath("/defaults/mario.png");
 		player.addComponent(new VelocityComponent(player, 50.0));
 		makeFalling(player);
 		player.addAction(new RightMotionAction(player, DEFAULT_SPEED, KeyCode.RIGHT));
@@ -74,18 +75,20 @@ public class DefaultSpriteGenerator extends Tester{
 		return player;
 	}
 
-	private Sprite makeDefaultEnemy() {
+	@SuppressWarnings("unused")
+    private Sprite makeDefaultEnemy() {
 		Sprite enemy = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_ENEMY_SIZE, DEFAULT_ENEMY_SIZE));
-		enemy.setImagePath(System.getProperty("user.dir")+"/defaults/Goomba.png");
+		enemy.setImagePath("/defaults/Goomba.png");
 		enemy.setCollisionTag("enemy");
 		enemy.addComponent(new VelocityComponent(enemy, 50.0));
 		makeFalling(enemy);
 		return enemy;
 	}
 
-	private Sprite makeDefaultPlatform() {
+	@SuppressWarnings("unused")
+    private Sprite makeDefaultPlatform() {
 		Sprite platform = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLATFORM_SIZE, DEFAULT_PLATFORM_SIZE));
-		platform.setImagePath(System.getProperty("user.dir")+"/defaults/Brick_Block.png");
+		platform.setImagePath("/defaults/Brick_Block.png");
 		platform.setCollisionTag("platform");
 		return platform;
 	}

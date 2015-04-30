@@ -12,12 +12,11 @@ public class CollisionTable {
 
 	
 	private Map<String, Map<String, List<Map<Sprite, Action>>>> myBigTable;
-	private List<Action> availableActions;
 	private List<String> tagList;
 
 	
 	private CollisionMap collisionMap;
-	
+	private static final int MAX_SIZE = 5;
 
 
 	public CollisionTable(){
@@ -44,7 +43,7 @@ public class CollisionTable {
 			} else {
 				
 				List<Map<Sprite,Action>> newList = new ArrayList<Map<Sprite,Action>>();
-				while(newList.size() < 5) newList.add(new HashMap<>());
+				while(newList.size() < MAX_SIZE) newList.add(new HashMap<>());
 				myBigTable.get(type1).put(type2, newList);
 				Map<Sprite,Action> newMap = new HashMap<Sprite, Action>();
 				myBigTable.get(type1).get(type2).add(direction, newMap);
@@ -74,8 +73,12 @@ public class CollisionTable {
 	
 
 	public Action getActionForCollisionDirectionAndSprite(String type1, String type2, int direction, Sprite spr){
-		if (tagList.contains(type1) && myBigTable.get(type1).containsKey(type2) && myBigTable.get(type1).get(type2).get(direction).containsKey(spr)) {
-			return (myBigTable.get(type1).get(type2).get(direction).get(spr));
+		try {
+			if (tagList.contains(type1) && myBigTable.get(type1).containsKey(type2) && myBigTable.get(type1).get(type2).get(direction).containsKey(spr)) {
+				return (myBigTable.get(type1).get(type2).get(direction).get(spr));
+			}
+		} catch (Exception e) {
+			//Action Doesn't Exist
 		}
 		return null;
 	}

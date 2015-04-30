@@ -1,13 +1,13 @@
 package levelPlatform.level;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.ImageManager;
 import sprite.Sprite;
+import util.DialogUtil;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -119,7 +119,7 @@ public class LevelView extends ScrollPane {
 			backgroundImageView.setY(0);
 			background = backgroundImageView;
 		} catch (Exception e){
-			e.printStackTrace();
+			 DialogUtil.displayMessage("Error Image Rendering", "Image Rendering");
 		}
 		return background;
 	}
@@ -157,7 +157,7 @@ public class LevelView extends ScrollPane {
 
 			}
 			catch (Exception e){
-				e.printStackTrace();
+				 DialogUtil.displayMessage("Error Sprite Rendering", "Sprite Rendering");
 			}
 		return spriteGroup;
 

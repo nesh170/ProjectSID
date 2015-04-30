@@ -6,13 +6,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import resources.constants.STRING;
+import util.DialogUtil;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -26,6 +25,10 @@ import levelPlatform.level.Level;
 
 public class DataHandler {
 
+	public static final String USER_DIR = "user.dir";
+	private static final String DATA_ERRTITLE = "Data Handler";
+	private static final String XML_ERRMSG = "Not exactly one xml file.";
+	
 	private static final XStream XSTREAM = new XStream(new DomDriver());
 
 	public static void toXMLFile(Object obj, String filename, String filePath)
@@ -48,14 +51,14 @@ public class DataHandler {
 	}
 	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		directoryChooser.setInitialDirectory(new File(System.getProperty(USER_DIR)));
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
 
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		fileChooser.setInitialDirectory(new File(System.getProperty(USER_DIR)));
 		fileChooser.setTitle("Select File");
 		return fileChooser.showOpenDialog(stage);
 	}
@@ -76,20 +79,20 @@ public class DataHandler {
 				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 		System.out.println(games.size());
 		if (games.size() != 1) {
-			System.out.println("PROBLEM?");
+			DialogUtil.displayMessage(DATA_ERRTITLE, XML_ERRMSG);
 			return null;
 		} else {
 			return games.get(0);
 		}
 	}
-	
+
 	public static Game getGameFromDir(File folder) throws IOException {
 		List<Game> games = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".xml"))
 				.map(file -> fromXMLFile(file))
 				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
 		if (games.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .XML FILE");
+			DialogUtil.displayMessage(DATA_ERRTITLE, XML_ERRMSG);
 			return null;
 		} else {
 			return games.get(0);
@@ -107,7 +110,7 @@ public class DataHandler {
 				.filter(file -> file.toString().endsWith(".xml"))
 				.collect(Collectors.toList());
 		if (gameFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .XML FILE");
+			DialogUtil.displayMessage(DATA_ERRTITLE, XML_ERRMSG);
 			return null;
 		} else {
 			return gameFiles.get(0).getName();
@@ -123,8 +126,8 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff")
 						|| file.toString().endsWith(".gif"))
-				.map(file -> fileToImage(file))
-				.collect(Collectors.toList());
+						.map(file -> fileToImage(file))
+						.collect(Collectors.toList());
 	}
 
 	public static List<Image> getImagesFromDir(File folder, double maxWidth,
@@ -148,16 +151,6 @@ public class DataHandler {
 				.map(obj -> Level.class.cast(obj)).collect(Collectors.toList());
 	}
 
-	public static Image URLToImage(String url) {
-		try {
-			URL checkValidURL = new URL(url);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			System.out.println(url + " is not valid.");
-		}
-		return new Image(url);
-	}
-
 	public static Media getVideoFromDir(File folder) {
 		List<Media> videoFiles = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".flv")
@@ -165,8 +158,7 @@ public class DataHandler {
 						.map(file -> new Media(file.toURI().toString()))
 						.collect(Collectors.toList());
 
-		if (videoFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .flv or .mp4 FILE");
+		if (videoFiles.size() == 0) {
 			return null;
 		} else {
 			return videoFiles.get(0);
@@ -180,8 +172,7 @@ public class DataHandler {
 						.map(file -> new Media(file.toURI().toString()))
 						.collect(Collectors.toList());
 
-		if (videoFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .mp3 or .m4a FILE");
+		if (videoFiles.size() == 0) {
 			return null;
 		} else {
 			return videoFiles.get(0);

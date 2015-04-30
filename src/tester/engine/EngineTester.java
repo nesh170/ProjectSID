@@ -14,7 +14,6 @@ import gameEngine.actions.UpMotionAction;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
@@ -57,7 +56,8 @@ public class EngineTester extends Tester {
 		player.addAction(switchOut);
 //		
 		addProjectile(fireMario);
-		Sprite goomba = makeGoomba();
+		@SuppressWarnings("unused")
+        Sprite goomba = makeGoomba();
 		
 
 		//Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
@@ -76,7 +76,7 @@ public class EngineTester extends Tester {
 		testGame.addLevel(l);
 
 		try{
-			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty("user.dir")+"/simple");
+			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty(DataHandler.USER_DIR)+"/simple");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -102,6 +102,7 @@ public class EngineTester extends Tester {
 		Sprite fireMario = new Sprite(new Point2D(180.0, 100.0), Point2D.ZERO, new Dimension2D(40.0, 50.0));
 		fireMario.setImagePath("engineTesting/FireMario.png");
 		fireMario.setTag("fireMario");
+                @SuppressWarnings("unused")
                 Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
                 
 		fireMario.addComponent(new VelocityComponent(fireMario, null));
@@ -138,7 +139,8 @@ public class EngineTester extends Tester {
 		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_LEFT, action, sprite1);
 		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_RIGHT, null, enemy);
 	}
-	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
+	@SuppressWarnings("unused")
+    private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
 		setCollisionLeftRightDown(sprite1, enemy, action);
 	}
@@ -168,8 +170,7 @@ public class EngineTester extends Tester {
 		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(20, 20));
 		myProjectileTemplate.setTag("bullet");
 		myProjectileTemplate.setImagePath("engineTesting/mario.png");
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				0.5, 400.0);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,0.5);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
@@ -184,7 +185,8 @@ public class EngineTester extends Tester {
 		return platform;
 	}
 	
-	private void makeTextBoxSprite(String text, int x, int y){
+	@SuppressWarnings("unused")
+    private void makeTextBoxSprite(String text, int x, int y){
 		Sprite textSprite = new Sprite(new Point2D(x, y), Point2D.ZERO, new Dimension2D(text.length()*12, 150.0));
 		textSprite.setImagePath(text);
 		textSprite.setTag("textBox");
@@ -192,7 +194,8 @@ public class EngineTester extends Tester {
 		mySpriteList.add(textSprite);
 	}
 	
-	private Point2D[] makeZigZagPath(int numLines, int horSpace, int verSpace, int xStart, int yStart) {
+	@SuppressWarnings("unused")
+    private Point2D[] makeZigZagPath(int numLines, int horSpace, int verSpace, int xStart, int yStart) {
 		Point2D[] zigZagPath = new Point2D[numLines];
 		for(int i = 0; i<zigZagPath.length; i++){
 			zigZagPath[i] = new Point2D(xStart + horSpace*i, yStart + (i%2)*verSpace);
@@ -200,7 +203,8 @@ public class EngineTester extends Tester {
 		return zigZagPath;
 	}
 
-	private void makeMotionPathSprite(Point2D[] points, double speed, boolean wrapsAround) {
+	@SuppressWarnings("unused")
+    private void makeMotionPathSprite(Point2D[] points, double speed, boolean wrapsAround) {
 		Sprite mps = new Sprite(points[0], Point2D.ZERO, new Dimension2D(50.0, 50.0));
 		mps.addComponent(new VelocityComponent(mps, null));
 		MotionPathAction mpa = new MotionPathAction(mps, speed, points, (KeyCode) null);
@@ -214,7 +218,8 @@ public class EngineTester extends Tester {
 	}
 	
 
-	private void makeMovingThing(int i) {
+	@SuppressWarnings("unused")
+    private void makeMovingThing(int i) {
 		Sprite movingThing = new Sprite(new Point2D(0.0, i), Point2D.ZERO, new Dimension2D(15.0, 15.0));
 		movingThing.addComponent(new VelocityComponent(movingThing, null));
 		movingThing.addAction(new RightMotionAction(movingThing, 2.0, KeyCode.RIGHT));
