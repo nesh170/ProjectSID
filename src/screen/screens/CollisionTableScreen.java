@@ -425,16 +425,9 @@ public class CollisionTableScreen extends Screen{
 		action.valueProperty().addListener(new ChangeListener<String>() {
 			
 			public void changed(ObservableValue ov, String t, String t1) {     
-				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
-				{
-					text.setDisable(true);
-				}
-				else
-				{
-					text.setDisable(false);
-				}
-
-
+				
+				text.setDisable(STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1));
+				
 				if (t1.equals(STRING.COLLISION_EDIT.SWITCH_ACTION))
 				{
 					List<String> possibleSpritesToSwitchWith = new LinkedList<String>();
@@ -504,22 +497,18 @@ public class CollisionTableScreen extends Screen{
 	private void setPathAnimationtoTitleImage(ImageView title)
 	{
 		Path path = new Path();
-		path.getElements().add(new MoveTo(0,100));
-		path.getElements().add(new LineTo(300, 100));
+		path.getElements().add(new MoveTo(INT.TITLE_ANI_MOVE_START,INT.TITLE_ANI_MOVE_END));
+		path.getElements().add(new LineTo(INT.TITLE_ANI_LINE_START, INT.TITLE_ANI_LINE_END));
 		PathTransition pathTransition = new PathTransition();
-		pathTransition.setDuration(Duration.millis(2000));
+		pathTransition.setDuration(Duration.millis(INT.TITLE_ANI_DURATION));
 		pathTransition.setPath(path);
 		pathTransition.setNode(title);
 		pathTransition.play();
 	}
 	
-	private void addToolTip(Node button, double xLocation, double yLocation, String textToDisplay) {
-		Tooltip tooltip = new Tooltip(textToDisplay);
-		tooltip.show(button, xLocation, yLocation);	
-		button.setOnMouseExited(e -> tooltip.hide());
-	}
+
 	
-	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){ // TODO: magic numbers fix
+	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){ 
 		ScrollPane sp = new ScrollPane();
 		sp.setPannable(true);
 	
@@ -529,14 +518,17 @@ public class CollisionTableScreen extends Screen{
 		titleBox.setAlignment(Pos.TOP_CENTER);
 		
 		ImageView titleImage = new ImageView(new Image(STRING.COLLISION_EDIT.COLLISION_SCREEN_TITLE));
-		titleImage.setFitWidth(600);
+		titleImage.setFitWidth(INT.TITLE_IMAGE_SIZE);
 		titleImage.setPreserveRatio(true);
 		
 		setPathAnimationtoTitleImage(titleImage);
 		
 		titleBox.getChildren().add(titleImage);
 
-		tile.setPadding(new Insets(45, 45, 75, 45));
+		tile.setPadding(new Insets(INT.SCROLLPANE_INSETS_TOP, 
+				INT.SCROLLPANE_INSETS_RIGHT, 
+				INT.SCROLLPANE_INSETS_BOTTOM, 
+				INT.SCROLLPANE_INSETS_LEFT));
 
 		
 		tile.setStyle(STRING.COLLISION_EDIT.BACKGROUND_STYLE);

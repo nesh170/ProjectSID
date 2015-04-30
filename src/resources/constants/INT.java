@@ -1,5 +1,11 @@
 package resources.constants;
 
+import javafx.animation.PathTransition;
+import javafx.geometry.Insets;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.util.Duration;
+
 public class INT {
 
 	public static final int FRAMERATE = 30;
@@ -80,8 +86,25 @@ public class INT {
 	
 	public static final int SCROLLPANE_VBOX_SIZE = 50;
 	public static final int SCROLLPANE_TITLEBOX_SIZE = 800;
+	public static final int TITLE_IMAGE_SIZE = 600;
 	
-	// Collision Map: Map<String, Map<String, List<String>>>
+	public static final int SCROLLPANE_INSETS_TOP = 45;
+	public static final int SCROLLPANE_INSETS_RIGHT = 45;
+	public static final int SCROLLPANE_INSETS_BOTTOM = 75;
+	public static final int SCROLLPANE_INSETS_LEFT = 45;
+	
+	
+	public static final int TITLE_ANI_MOVE_START = 0;
+	public static final int TITLE_ANI_MOVE_END = 100;
+	public static final int TITLE_ANI_LINE_START = 300;
+	public static final int TITLE_ANI_LINE_END = 100;
+	public static final int TITLE_ANI_DURATION = 2000;
+	
+	
+	
+	
+	
+	// Collision Map
 	
 	public static final int ACTION_INDEX = 0; // removed direction from list
 	public static final int VALUE_INDEX = 1;
