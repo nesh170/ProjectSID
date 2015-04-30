@@ -6,6 +6,7 @@ import gameEngine.GameEngine;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -281,43 +282,50 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void loadState() {
 		pauseExecution();
-		List<File> states;
-
-		try {
-			states = DataHandler.getDirsFromDir(myGameFolder);
-		} catch (IOException e) {
-			DialogUtil.displayMessage("Load File",
-					"Error in loading save file.");
-			resumeExecution();
-			return;
-		}
-
-		if (states == null || states.size() == 0) {
-			DialogUtil.displayMessage("Load File",
-					"No save states available to load.");
-			resumeExecution();
-			return;
-		}
-
-		List<String> stateNames = states.stream().map(file -> file.getName())
-				.collect(Collectors.toList());
-		String chosenState = DialogUtil.choiceDialog("Load File",
-				"Choose a save state.", stateNames);
+//		List<File> states;
+//
+//		try {
+//			states = DataHandler.getDirsFromDir(myGameFolder);
+//		} catch (IOException e) {
+//			DialogUtil.displayMessage("Load File",
+//					"Error in loading save file.");
+//			resumeExecution();
+//			return;
+//		}
+//
+//		if (states == null || states.size() == 0) {
+//			DialogUtil.displayMessage("Load File",
+//					"No save states available to load.");
+//			resumeExecution();
+//			return;
+//		}
+//
+//		List<String> stateNames = states.stream().map(file -> file.getName())
+//				.collect(Collectors.toList());
+//		String chosenState = DialogUtil.choiceDialog("Load File",
+//				"Choose a save state.", stateNames);
+//		
+//		if (chosenState == null) {
+//			resumeExecution();
+//			return;
+//		}
+//		
+//		File stateFile = states.stream()
+//				.filter(file -> file.getName().equals(chosenState))
+//				.collect(Collectors.toList()).get(0);
+//		try {
+//			myGame = DataHandler.getGameFromDir(stateFile);
+//		} catch (IOException e) {
+//			DialogUtil.displayMessage("Load File", "Cannot load state.");
+//			resumeExecution();
+//			return;
+//		}
 		
-		if (chosenState == null) {
-			resumeExecution();
-			return;
-		}
-		
-		File stateFile = states.stream()
-				.filter(file -> file.getName().equals(chosenState))
-				.collect(Collectors.toList()).get(0);
 		try {
-			myGame = DataHandler.getGameFromDir(stateFile);
+			myGame = DataHandler.getTestFromFolder(myGameFolder);
 		} catch (IOException e) {
-			DialogUtil.displayMessage("Load File", "Cannot load state.");
-			resumeExecution();
-			return;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		myGameLevels = myGame.levels();
@@ -347,29 +355,37 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void saveAs() {
 		pauseExecution();
-		String saveName = DialogUtil.inputDialog("Save File",
-				"Please enter the name of the log to save");
-		if (saveName == null) {
-			DialogUtil.displayMessage("Save File", "File not saved.");
-			resumeExecution();
-			return;
-		}
-		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
-		if (!mySaveFolder.mkdir()) {
-			DialogUtil.displayMessage("Save File",
-					"Error in creating save folder.");
-			resumeExecution();
-			return;
-		}
+//		String saveName = DialogUtil.inputDialog("Save File",
+//				"Please enter the name of the log to save");
+//		if (saveName == null) {
+//			DialogUtil.displayMessage("Save File", "File not saved.");
+//			resumeExecution();
+//			return;
+//		}
+//		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
+//		if (!mySaveFolder.mkdir()) {
+//			DialogUtil.displayMessage("Save File",
+//					"Error in creating save folder.");
+//			resumeExecution();
+//			return;
+//		}
+//		try {
+//			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
+//					mySaveFolder.toString());
+//		} catch (IOException e) {
+//			DialogUtil.displayMessage("Save File",
+//					"Error in creating save file.");
+//			resumeExecution();
+//			return;
+//		}
+		
 		try {
-			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
-					mySaveFolder.toString());
+			DataHandler.toXMLFile(myGame, "testGame", myGameFolder.toString());
 		} catch (IOException e) {
-			DialogUtil.displayMessage("Save File",
-					"Error in creating save file.");
-			resumeExecution();
-			return;
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		resumeExecution();
 		return;
 	}
