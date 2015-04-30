@@ -39,6 +39,7 @@ public interface LevelEditScreenController {
 	 * that occur during interactions between sprites
 	 * @author Anika
 	 * @param level
+	 * @return 
 	 */
 	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String,ObservableList<String>> stringToListMap);
 
