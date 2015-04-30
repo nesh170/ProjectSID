@@ -1,6 +1,5 @@
 package gameEngine.components;
 
-import java.util.List;
 import javafx.geometry.Point2D;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
