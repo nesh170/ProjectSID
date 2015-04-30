@@ -38,7 +38,7 @@ public class ParseHandler {
 			user.save();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 DialogUtil.displayMessage("Error in Saving User", "Saving User");
 		}
 		
 		toSave.setMyID(user.getObjectId());

@@ -17,6 +17,7 @@ public class INT {
 	public static final int INITIAL_SETUP = 4;
 	public static final int LEVEL = 1;
 	public static final int SPLASH = 0;
+	public static final int TRANSLATE_INDEX = 0;
 	
 	// SplashEdit
 	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 40;
@@ -82,13 +83,9 @@ public class INT {
 	
 	// Collision Map: Map<String, Map<String, List<String>>>
 	
-	public static final int DIRECTION_INDEX = 0;
-	public static final int ACTION_INDEX = 1;
-	public static final int VALUE_INDEX = 2;
-	public static final int SWITCH_OPTION_INDEX = 3;
-	
-	
-
+	public static final int ACTION_INDEX = 0; // removed direction from list
+	public static final int VALUE_INDEX = 1;
+	public static final int SWITCH_OPTION_INDEX = 2;
 
 	
 	
@@ -117,8 +114,9 @@ public class INT {
     public static final int NUM_DIRECTIONS = 4;
 
     //Coordinates
-    public static final int X = 1;
+    public static final int X = 0;
     public static final int Y = 1;
+
 
     
     

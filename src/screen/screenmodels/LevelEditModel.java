@@ -22,7 +22,6 @@ import java.util.Set;
 
 
 
-
 import data.DataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
@@ -344,7 +343,8 @@ public class LevelEditModel {
 	 * pair programming - april 27 - michael, anika
 	 * @param collisionMap
 	 */
-	public void updateCollisions(CollisionMap collisionMap) {
+	public void updateCollisions() {
+		CollisionMap collisionMap = level.collisionMap();
 		level.collisionTable().clear();
 	//	collisionMap.keySet().forEach(outerTag ->);
 		
@@ -402,35 +402,102 @@ public class LevelEditModel {
 
 	
 	private Action createAction(Sprite sprite1, List<String> paramList) {
-		String actionName = paramList.get(INT.ACTION_INDEX);
-		double value = parseDouble(paramList.get(INT.VALUE_INDEX));
-		Sprite switchOut = stringToSpriteMap.get(paramList.get(INT.SWITCH_OPTION_INDEX));
+		try {
+			String actionName = paramList.get(INT.ACTION_INDEX);
+			double value = parseDouble(paramList.get(INT.VALUE_INDEX));
+			Sprite switchOut = null;
+			try {
+				switchOut = stringToSpriteMap.get(paramList.get(INT.SWITCH_OPTION_INDEX));
+			} catch (Exception e) {
+				//No Sprite Needed
+			}
+			return constructAction(sprite1, actionName, value, switchOut);
+		} catch (Exception e) {
+			//No Action to Create
+			System.out.println("No action");
+		}
+		
+		return null;
+		
+	}
+
+	private Action constructAction(Sprite sprite1, String actionName, double value, Sprite switchOut) {
+		Action returnAction = null;
 		try {
 			Class<Action> actionClass = (Class<Action>) Class.forName(classPathMap.get(actionName));
 			Constructor<Action> constructor;
 			// switch out action
-			if ((constructor = actionClass.getConstructor(Sprite[].class, List.class, KeyCode[].class)) != null) {
-				// switchOptionSpriteName = sprites to switch to
-				// level.getSpritesWithTag("player") = list of sprites 
-				// null = no keycode needed (from collision table so doesn't trigger on keycode)
-				Sprite[] sprites = {switchOut};
-				return constructor.newInstance(sprites, level.getSpritesWithTag("player"), null);
+			Action switchOutAction;
+			if ((switchOutAction = trySwitchOut(switchOut, actionClass)) != null) {
+				returnAction = switchOutAction;
 			}
-			else if ((constructor = actionClass.getConstructor(Sprite.class, Double.class, KeyCode[].class)) != null) {
-				// parameters: active sprite, double value
-				// example: alter health, bounce, fall
-				return constructor.newInstance(stringToSpriteMap.get(sprite1), value, null);
+			Action doubleAction;
+			if ((doubleAction = trySingleDouble(actionClass, sprite1, value)) != null) {
+				returnAction = doubleAction;
 			}
-			else if ((constructor = actionClass.getConstructor(Sprite.class, KeyCode[].class)) != null) {
-				// parameter: sprite to kill or active sprite; example: kill action; compound action
-				return constructor.newInstance(stringToSpriteMap.get(sprite1), value, null);
+			Action noDoubleAction;
+			if ((noDoubleAction = tryNoDouble(actionClass, sprite1)) != null) {
+				returnAction = noDoubleAction;
 			}
+			returnAction.prepare();
 		}
 		catch (Exception e) {
-			
+			//No Action to Construct
+		}
+		return returnAction;
+	}
+
+	private Action tryNoDouble(Class<Action> actionClass,
+			Sprite sprite1) {
+		try {
+			KeyCode[] someArray = {KeyCode.AMPERSAND};
+			return actionClass.getConstructor(Sprite.class, KeyCode[].class)
+			.newInstance(sprite1, someArray);
+		}
+		catch (Exception e) {
+			//Wrong Constructor
 		}
 		return null;
+	}
+
+	private Action trySingleDouble(Class<Action> actionClass, Sprite sprite1, double value) {
+		Action actionToGet = null;
 		
+		try {
+			KeyCode[] someArray = {KeyCode.AMPERSAND};
+			actionToGet = actionClass.getConstructor(Sprite.class, Double.class, KeyCode[].class)
+			.newInstance(sprite1, value, someArray);
+		}
+		catch (Exception e) {
+			//Wrong Constructor
+		}
+		return actionToGet;
+	}
+
+	private Action trySwitchOut(Sprite switchOut, Class<Action> actionClass)
+			throws InstantiationException, IllegalAccessException,
+			InvocationTargetException {
+		Constructor<Action> constructor;
+		try {
+			KeyCode[] someArray = {KeyCode.AMPERSAND};
+			constructor = actionClass.getConstructor(Sprite[].class, Double.class, KeyCode[].class);
+			Sprite[] sprites = {switchOut};
+			return constructor.newInstance(sprites, level.getSpritesWithTag("player"), someArray);
+		}
+		catch (NoSuchMethodException e) {
+			//Wrong Constructor
+		}
+		return null;
+	}
+
+	private Constructor<Action> tryConstructor(Class<Action> actionClass, Class[] classes) {
+		try {
+			return actionClass.getConstructor(classes);
+		}
+		catch (NoSuchMethodException e) {
+			//Wrong Constructor
+		}
+		return null;
 	}
 
 	private double parseDouble(String string) {

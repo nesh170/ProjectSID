@@ -73,6 +73,7 @@ public class CollisionTable {
 	
 
 	public Action getActionForCollisionDirectionAndSprite(String type1, String type2, int direction, Sprite spr){
+		//TODO: Add Try Catch
 		if (tagList.contains(type1) && myBigTable.get(type1).containsKey(type2) && myBigTable.get(type1).get(type2).get(direction).containsKey(spr)) {
 			return (myBigTable.get(type1).get(type2).get(direction).get(spr));
 		}

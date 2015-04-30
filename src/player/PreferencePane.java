@@ -2,8 +2,6 @@ package player;
 
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import media.AudioController;
 import javafx.beans.value.ChangeListener;
@@ -55,6 +53,17 @@ public class PreferencePane {
 
 	public PreferencePane(AudioController ac) {
 		myAudioController = ac;
+		setupDefaults();
+		myView = new TabPane();
+		myContainer = new Stage();
+		makeAVTab();
+		makeControlsTab();
+		myView.getTabs().addAll(myAV, myControls);
+		myScene = new Scene(myView, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		myContainer.setScene(myScene);
+	}
+	
+	public PreferencePane() {
 		setupDefaults();
 		myView = new TabPane();
 		myContainer = new Stage();
@@ -178,13 +187,18 @@ public class PreferencePane {
 
 	private Slider makeMusicControl(double volume) {
 		Slider slider = makeSettingSlider(volume);
-		slider.valueProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue<? extends Number> ov,
-					Number oldVal, Number newVal) {
-				myAudioController.setVol(newVal.doubleValue()
-						* SLIDERVAL_TO_DOUBLE);
-			}
-		});
+		if (myAudioController != null) {
+			slider.valueProperty().addListener(new ChangeListener<Number>() {
+				public void changed(ObservableValue<? extends Number> ov,
+						Number oldVal, Number newVal) {
+					myAudioController.setVol(newVal.doubleValue()
+							* SLIDERVAL_TO_DOUBLE);
+				}
+			});
+		}
+		else {
+			slider.setDisable(true);
+		}
 
 		return slider;
 	}

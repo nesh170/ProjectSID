@@ -1,8 +1,5 @@
 package player;
 
-import java.util.List;
-
-import javafx.stage.Stage;
 
 public interface GamePlayerInterface {
 	/**
@@ -24,11 +21,6 @@ public interface GamePlayerInterface {
 	 * Set preferences for specific games. 
 	 */
 	void setPreferences();
-	
-	/**
-	 * Enable showing possible games to be played. 
-	 */
-	List findGames();
 	
 	/**
 	 * Saves current game being played. 
