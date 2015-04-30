@@ -157,8 +157,7 @@ public class STRING {
 		//GameEdit: image path
 		public static final String ADD_IMG ="images/GameEdit_Images/addsplash.png";
 		public static final String TRASH_ICON = "images/GameEdit_Images/trashicon.png";
-		public static final String LEVEL1IMAGE = "images/GameEdit_Images/level1_tmp.PNG";
-		public static final String LEVEL2IMAGE = "images/GameEdit_Images/level2_tmp.PNG";
+		public static final String LEVEL2IMAGE = "images/GameEdit_Images/newlevel_tmp.PNG";
 		public static final String SPRITEIMAGE = "images/sprite.jpg";
 		public static final String SPLASH_TMP = "images/GameEdit_Images/Splash_tmp.PNG";
 		public static final String PLUS_IMG = "images/GameEdit_Images/plus_sign.png";
