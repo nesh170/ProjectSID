@@ -53,10 +53,10 @@ public class CollisionTable {
 			}
 		} else {
 			
-			HashMap<String, List<Map<Sprite,Action>>> subMap = new HashMap<>();
+			Map<String, List<Map<Sprite,Action>>> subMap = new HashMap<>();
 			
 			List<Map<Sprite,Action>> newActionLists = new ArrayList<>();
-			while(newActionLists.size() < 5) newActionLists.add(new HashMap<>());
+			while(newActionLists.size() < MAX_SIZE) newActionLists.add(new HashMap<>());
 
 			Map<Sprite, Action> currActionMap = new HashMap<>();
 			currActionMap.put(spr, toAdd);
