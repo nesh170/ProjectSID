@@ -70,8 +70,6 @@ public class PlayerMenu {
 
 	private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
-		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
-				+ name.substring(0, 1)));
 		return item;
 	}
 
@@ -205,6 +203,7 @@ public class PlayerMenu {
 			DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
 		}});
 		socialMenu.getItems().add(openSocial);
+		toggleMenuItems(socialMenu, true);
 		return socialMenu;
 	}
 
