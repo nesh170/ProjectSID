@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 public class PlayerMenu {
 
 	private MenuBar myMenu;
+	private Menu mySoundMenu;
 
 	public PlayerMenu(PlayerViewController pvc) {
 		myMenu = new MenuBar();
@@ -146,6 +147,7 @@ public class PlayerMenu {
 
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
 		toggleMenuItems(soundMenu, true, "Join Game");
+		mySoundMenu = soundMenu;
 		return soundMenu;
 	}
 
@@ -219,5 +221,9 @@ public class PlayerMenu {
 	public void enableAll() {
 		myMenu.getMenus().stream()
 		.forEach(item -> toggleMenuItems(item, false));
+	}
+
+	public void disableSoundItems() {
+		toggleMenuItems(mySoundMenu, true);
 	}
 }

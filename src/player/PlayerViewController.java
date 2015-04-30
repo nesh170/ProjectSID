@@ -165,9 +165,17 @@ public class PlayerViewController implements GamePlayerInterface {
 			myGameName = DataHandler.getGameName(myGameFolder);
 			myGameLevels = myGame.levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
+			if (myAudio != null) {
+				myAudioController = new AudioController(new MediaPlayer(myAudio));
+				mySettings = new PreferencePane(myAudioController);
+			}
+			else {
+				mySettings = new PreferencePane();
+				myView.disableSoundMenu();
+			}
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
-			myAudioController = new AudioController(new MediaPlayer(myAudio));
-			mySettings = new PreferencePane(myAudioController);
+			if (myVideo != null)
+				myVideoPlayer = new VideoPlayer();
 			mySettings.setController(this);
 		} catch (IOException | NullPointerException e) {
 			DialogUtil.displayMessage("ERROR", "Invalid Game Folder ):");
@@ -217,14 +225,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameFolder = children.stream()
 				.filter(file -> file.getName().equals(choice))
 				.collect(Collectors.toList()).get(0);
-
-		try {
-			myGame = DataHandler.getGameFromDir(myGameFolder);
-		} catch (IOException e) {
-			DialogUtil.displayMessage("Load Game", "Cannot find game.");
-			myGameFolder = null;
-			return;
-		}
 
 		myView.enableButtonItems();
 		initializeGameAttributes();
