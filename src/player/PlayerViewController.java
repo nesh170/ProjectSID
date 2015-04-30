@@ -449,11 +449,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void startClient() {
 		try {
 			String ipAddress = DialogUtil.inputDialog(NETWORK, IPQUERY);
-			//myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
-			//Thread.sleep(1000);
 			myNetwork.setUpClient(ipAddress, PORT_NUMBER);
-			//myView.changePopUpText(SERVER_CONNECTED_STRING);
-			//Thread.sleep(2000);
 			myView.closePopUp();
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
