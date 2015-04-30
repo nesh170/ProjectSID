@@ -4,7 +4,6 @@ import gameEngine.Action;
 import gameEngine.CollisionTable;
 
 import java.awt.Scrollbar;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,6 +38,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
+import screen.screenmodels.CollisionMap;
 import sprite.Sprite;
 
 
@@ -235,29 +235,14 @@ public class CollisionTableScreen extends Screen{
 	 * 								List<String> = {"Above", "Switch-out", null, "fireMario"}
 	 * 
 	 * 
-	 * DESIGN CHANGE: April 29
-	 * 
-	 * collisionTableMap :	Map<String, Map<String, List<List<String>>>> 
-	 * 										|| Map of Tag 1 to Map of Tag 2 to Direction List of Action components (action, value...)
-	 * 
-	 *   			example: String1 = "player"
-	 * 					 Inner Map: String2 = "enemy"
-	 * 								List<String> 	= index: above: {"Alter Health", "-1"}
-	 * 												= index: below: {"die"}
-	 * 
-	 * 			example: String1 = "player"
-	 * 					 Inner Map: String2 = "power-up"
-	 * 								List<String> 	= index: left: {"Switch-out", null, "fireMario"}
 	 * 
 	 */
 	private CollisionTableScreenController myController;
 	private List<String> levelSpriteTags;
-	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;	
 	private Map<String, ObservableList<String>> mapOfSpriteTypesToExistingSpriteStringNames;
-	//private Map<String, Map<String, List<String>>> collisionTableMap;
-	private Map<String, Map<String, List<List<String>>>> collisionTableMap;
-	
+	private CollisionMap collisionTableMap;
+
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
 	}
@@ -300,16 +285,15 @@ public class CollisionTableScreen extends Screen{
 	 * 
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags,
-			Map<String, ObservableList<String>> spriteMap) {
+			CollisionMap collisionTableMap) {
 		
 		super(width, height);
 		
 		myController = controller;
 		
 		levelSpriteTags = new LinkedList<String>(spriteTags);
-		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap; // map obtained from Level Edit Screen
 		
-		collisionTableMap = new HashMap<String, Map<String, List<List<String>>>>(); // map populated by Collision Table Screen
+		this.collisionTableMap = collisionTableMap;
 		createVBoxOfCollisionRows(); 
 		this.setCenter(tablesDisplay);
 	}
@@ -411,8 +395,8 @@ public class CollisionTableScreen extends Screen{
 		
 		for (String each : fourth)
 		{
-		//	String better = each.substring(0, each.length()-INT.ACTION_STRING_LENGTH);
-			nicerNamedActions.add(each);
+			String better = each.substring(0, each.length()-INT.ACTION_STRING_LENGTH);
+			nicerNamedActions.add(better);
 		}
 		
 		ComboBox<String> action = this.createComboBoxFromList(nicerNamedActions, 
@@ -435,7 +419,6 @@ public class CollisionTableScreen extends Screen{
 		optionalSprites.add(null);
 		
 		action.valueProperty().addListener(new ChangeListener<String>() {
-			
 			public void changed(ObservableValue ov, String t, String t1) {                
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
 				{
@@ -576,40 +559,17 @@ public class CollisionTableScreen extends Screen{
 	    }
 	}
 	
-	private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
-	{
-		Map<String, List<List<String>>> activeSpriteMap;
-		if (!(this.collisionTableMap.containsKey(activeSpriteTag)))
-		{
-			activeSpriteMap = new HashMap<String, List<List<String>>>();
-		}
-		else
-		{
-			activeSpriteMap = collisionTableMap.get(activeSpriteTag);
-		}
-		return activeSpriteMap;
-	}
-	
-	private List<List<String>> getOrInstantiateDirectionListOfActions(Map<String, List<List<String>>> activeSpMap, String inactiveSprite)
-	{
-		List<List<String>> actionList;
-		
-		if (!(activeSpMap.containsKey(inactiveSprite)))
-		{
-			actionList = new ArrayList<List<String>>();
-		}
-		else
-		{
-			actionList = activeSpMap.get(inactiveSprite);
-		}
-		
-		return actionList;
-	}
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
 		double valDouble = parseDouble(value);
 		
+		System.out.println(activeSp);
+		System.out.println(inactiveSp);
+		System.out.println(dir);
+		System.out.println(action);
+		System.out.println(switchOption); // TODO check is switchOption is 'null'
+		System.out.println(value);
 		
 	/*	SpritePair thisSpritePair = new SpritePair();
 		thisSpritePair.initialize(activeSp, inactiveSp);
@@ -618,24 +578,35 @@ public class CollisionTableScreen extends Screen{
 		
 	
 		List<String> actionParameters = new LinkedList<String>();
-	//	actionParameters.add(dir);
+		actionParameters.add(dir);
 		actionParameters.add(action.replaceAll("\\s", "") + STRING.COLLISION_EDIT.ACTION_NAME);
 		actionParameters.add(value);
 		actionParameters.add(switchOption);
 		
 		
-		Map<String, List<List<String>>> activeSpriteMap = this.getOrInstantiateActiveSpriteMap(activeSp);
+		Map<String, List<String>> activeSpriteMap;
 		
-
-		List<List<String>> actionList = this.getOrInstantiateDirectionListOfActions(activeSpriteMap, inactiveSp);
+		if (!(this.collisionTableMap.containsKey(activeSp)))
+		{
+			activeSpriteMap = new HashMap<String, List<String>>();
+		}
+		else
+		{
+			activeSpriteMap = collisionTableMap.get(activeSp);
+		}
+		
+		activeSpriteMap.put(inactiveSp, actionParameters);
+		
 		
 	
-		actionList.set(STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
-		
-		activeSpriteMap.put(inactiveSp, actionList);
 		collisionTableMap.put(activeSp, activeSpriteMap);
 	
-	
+		
+	//	collTable.addActionToMap(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), toAdd); 
+		// -> TO BE DONE FROM LEVEL EDIT SCREEN ON SAVE
+		
+		
 	}
-
+	
+	
 }
