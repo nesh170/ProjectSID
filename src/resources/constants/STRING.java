@@ -170,6 +170,8 @@ public class STRING {
 		public static final String TRASH_IMG = "images/GameEdit_Images/trash_sign.png";
 		public static final String HIDE_ARROW = "images/GameEdit_images/hide.png";	
 		public static final String SHOW_ARROW = "images/GameEdit_images/show.png";
+		public static final String HIDENOTE = "Hide splash display";
+		public static final String SHOWNOTE = "Show splash display";
 			
 	}
 	

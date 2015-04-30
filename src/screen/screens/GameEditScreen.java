@@ -169,6 +169,9 @@ public class GameEditScreen extends Screen {
 		splashDisplay.getChildren().add(splashSP);
 		
 		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW, e -> hideSplashRegion());
+		Tooltip onSelectHover = new Tooltip(STRING.GAME_EDIT.HIDENOTE);
+		hide.setOnMouseEntered(e -> onSelectHover.show(hide, e.getSceneX(), e.getSceneY()));
+		hide.setOnMouseExited(e -> onSelectHover.hide());
 		hide.setTranslateX(240);
 		hide.setTranslateY(-350);
 		hide.managedProperty().bind(hide.visibleProperty());
@@ -318,6 +321,9 @@ public class GameEditScreen extends Screen {
 		
 		
 		ImageView img = makeHideShowArrow(STRING.GAME_EDIT.SHOW_ARROW, e -> this.showSplashRegion());
+		Tooltip onSelectHover = new Tooltip(STRING.GAME_EDIT.SHOWNOTE);
+		img.setOnMouseEntered(e -> onSelectHover.show(img, e.getSceneX(), e.getSceneY()));
+		img.setOnMouseExited(e -> onSelectHover.hide());
 		img.setTranslateX(-700);
 		img.setTranslateY(-280);
 		img.setVisible(false);
@@ -727,11 +733,7 @@ public class GameEditScreen extends Screen {
 		Menu levelMenu = new Menu(STRING.GAME_EDIT.LEVEL);
 		MenuItem addLevel = new MenuItem(STRING.GAME_EDIT.ADD_LEVEL);
 		addLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), this));
-		MenuItem editLevel = new MenuItem(STRING.GAME_EDIT.EDIT_LEVEL);
-		editLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getGame()
-				.levels().get(gameEditModel.getSelectedIndex()))); // references to the specific
-												// level within a game
-		levelMenu.getItems().addAll(addLevel, editLevel);
+		levelMenu.getItems().addAll(addLevel);
 		return levelMenu;
 
 	}
