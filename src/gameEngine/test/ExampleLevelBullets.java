@@ -58,7 +58,7 @@ public class ExampleLevelBullets {
 		
 		//set up projectile template
 		Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp,null, null, player);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp,null, null);
 		Action rma2 = new RightMotionAction(projTemp, 2.0, (KeyCode)null);
 		
 		projTemp.addComponent(projComp);
@@ -73,8 +73,8 @@ public class ExampleLevelBullets {
 		CollisionTable ct = new CollisionTable();
 		platform.setCollisionTag("platform");
 		player.setCollisionTag("player");
-		ct.addActionToMap(player.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, normalAction);
-		ct.addActionToMap(platform.collisionTag(), player.collisionTag(), INT.COLLISION_DOWN, null);
+		ct.addActionToBigMap(player.collisionTag(), platform.collisionTag(), INT.COLLISION_UP, normalAction, player);
+		ct.addActionToBigMap(platform.collisionTag(), player.collisionTag(), INT.COLLISION_DOWN, null, platform);
 		l.setCollisionTable(ct);
 		
 		Map<Sprite, Integer> goalMap = new HashMap<>();

@@ -13,29 +13,43 @@
         <value>50.0</value>
       </gameEngine.actions.FallAction>
     </actionList>
-    <componentList/>
+    <componentList>
+      <gameEngine.components.VelocityComponent>
+        <mySprite reference="../../.."/>
+        <myValue>50.0</myValue>
+        <isActive>true</isActive>
+        <myVelocity>
+          <x>0.0</x>
+          <y>0.0</y>
+          <hash>0</hash>
+        </myVelocity>
+        <myTerminalVelocity>50.0</myTerminalVelocity>
+        <isGrounded>true</isGrounded>
+      </gameEngine.components.VelocityComponent>
+    </componentList>
     <x>0.0</x>
     <y>0.0</y>
     <emissionList/>
     <isActive>true</isActive>
+    <name>default Enemy</name>
+    <tag>Enemy</tag>
     <collisionTag>enemy</collisionTag>
     <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
     <facesLeft>false</facesLeft>
     <transform>
-      <myPosition>
-        <x>0.0</x>
-        <y>0.0</y>
-        <hash>0</hash>
-      </myPosition>
-      <myRotation reference="../myPosition"/>
+      <myPosition reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+      <myRotation reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>
       <myDimensions>
         <width>100.0</width>
         <height>100.0</height>
         <hash>0</hash>
       </myDimensions>
-      <startPosition reference="../myPosition"/>
-      <startRotation reference="../myPosition"/>
+      <startPosition reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>
+      <startRotation reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>
       <startDimensions reference="../myDimensions"/>
     </transform>
+    <isGoal>false</isGoal>
+    <toLevel>-1</toLevel>
+    <isText>false</isText>
   </sprite.Sprite>
 </set>

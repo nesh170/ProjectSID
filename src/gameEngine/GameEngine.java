@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import data.DataHandler;
 import resources.constants.INT;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -42,6 +41,7 @@ public class GameEngine extends GameEngineAbstract {
             myLevelList.add(0, splashLevel);
         }
         initializeLevel(0);
+        //initializeLevel(1);
     }
 
     @Override
@@ -123,14 +123,15 @@ public class GameEngine extends GameEngineAbstract {
         List<String> spriteTagList = spriteTagSet.stream().collect(Collectors.toList());
         return Collections.unmodifiableList(spriteTagList);
     }
-    
-    public List<String> actionWithKeyCode (int playerNum) {
-        return myCurrentLevel.getActionListInStrings(playerNum);
-    }
 
     @Override
-    public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
-        myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
+    public Map<String,Consumer<KeyCode>> getActionToChangeKeyCodeConsumerMap (int playerNumber) {
+        return Collections.unmodifiableMap(myCurrentLevel.getActionChangeKeyCodeMethod(playerNumber));
+    }
+    
+    @Override
+    public Map<String,KeyCode> getActionKeyCodeMap (int playerNumber) {
+        return Collections.unmodifiableMap(myCurrentLevel.getActionKeyCodeMap(playerNumber));
     }
 
     @Override

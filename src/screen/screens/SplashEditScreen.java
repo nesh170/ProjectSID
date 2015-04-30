@@ -4,6 +4,8 @@ import game.Game;
 import gameEngine.actions.KillAction;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -49,6 +51,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private SplashEditScreenController controller;
 	private SplashEditModel splashEditModel;
 	private String tag;
+	private Map<Sprite, Integer> goalMap;
 
 	/**
 	 * This is the constructor to create a Splash Edit Screen
@@ -69,6 +72,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		configureButtons();
 		configureDisplayArea();
 		this.getStyleClass().add(STRING.CSS.PANE);
+		goalMap = new HashMap<Sprite, Integer>();
 	}
 	
 	@Override
@@ -157,7 +161,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Button makeAddImageButton() {
 		Button addImage = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_IMAGE);
 		setLargeButtonSize(addImage);
-		addImage.setOnMouseClicked(e -> addImage());
+		addImage.setOnMouseClicked(e -> addImage(e));
 		
 		return addImage;
 	}
@@ -242,28 +246,36 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		return textField;	
 	}
 	
-	private Image createImageFromFile(double size) {	
-		File file = null;
-		Image image = null;
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-		file = fileChooser.showOpenDialog(null);
-		image = new Image(file.toURI().toString(), size, size, false, false);
-		
-		return image;	
-	}
+//	private Image createImageFromFile(double size) {	
+//		File file = null;
+//		Image image = null;
+//		FileChooser fileChooser = new FileChooser();
+//		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+//		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+//		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+//		file = fileChooser.showOpenDialog(null);
+//		image = new Image(file.toURI().toString(), size, size, false, false);
+//		
+//		return image;	
+//	}
 	
-	private void addImage() {
-		try {		
-			Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
+	private void addImage(MouseEvent e) {
+		try {	
+			File file = null;
+			Image image = null;
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			file = fileChooser.showOpenDialog(null);
+			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);
+			//Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
 			ImageCursor imageCursor = new ImageCursor(image);
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 			splashEditModel.createImageView(image);
-			splashEditModel.addImageView();
-			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
+			splashEditModel.addImageView(e, file.getPath());
+			this.setOnKeyPressed(ee -> splashEditModel.resizeAndRotateImage(ee));
 		} catch (Exception ex) {		
 			//NO CATCH		
 		}
@@ -283,9 +295,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	private void addBackgroundImage() {
 		try {
-			Image image = createImageFromFile(0);
+			File file = null;
+			Image image = null;
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			file = fileChooser.showOpenDialog(null);
+			image = new Image(file.toURI().toString(), width, height, false, false);
+			//Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
 			splashEditModel.createImageView(image);
+			splashEditModel.setBackgroundImage(file.getPath());
 		} catch (Exception ex) {			
 			//NO CATCH			
 		}
@@ -311,15 +332,19 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void saveSplashScreen() {
-		splashEditModel.createImageView(null);
-		splashEditModel.placeImageViewOffScreen();
-		splashEditModel.addImageView();
+		//splashEditModel.createImageView(null);
+		//splashEditModel.placeImageViewOffScreen();
+		//splashEditModel.addImageView(null);
+
 		Sprite sprite = new Sprite(new Point2D(INT.SPLASH_EDIT_OFFSCREEN, INT.SPLASH_EDIT_OFFSCREEN));
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
-		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
+		goalMap.put(sprite, 1);
+		splashEditModel.setPlayerSprite(sprite);
+		splashEditModel.setSprites(sprite);
+		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.saveSplashScreen();
-
+		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 	}
 
 	private void trashSplashScreen() {		
@@ -370,7 +395,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			this.getChildren().add(splashEditModel.getImageView());	
 		}
 		else if(tag == STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE) {	
-			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));		
+			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));	
+			//splashEditModel.setBackgroundImage(splash);
 		}		 
 		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_TEXT) {
 			splashEditModel.placeTextAtXY(counter-1, e);

@@ -94,14 +94,8 @@ import levelPlatform.splashScreen.SplashScreen;
 //fix the contextMenu staying in absolute position in screen
 
 public class GameEditScreen extends Screen {
-
-	// Static Variables
-	private static boolean TESTING = true;		// change this to true to debug, but only push "false"	
 	
-	// Instance variables
 	private GameEditScreenController controller;
-	
-	//private Game game;
 	private GameEditModel gameEditModel;
 	// JavaFX
 	private StackPane levelDisplay;
@@ -109,20 +103,6 @@ public class GameEditScreen extends Screen {
 	private Popup popup;
 	private HBox levelHB;
 	private StackPane splashSP;
-	
-	// Getters & Setters
-	/**
-	 * add a Level to a Game
-	 * 
-	 * @return int index of where the inserted Level is
-	 */
-/*	public int addLevel(Level level) {
-		
-		levels.add(level);
-		return levels.indexOf(level);
-		
-	}
-	*/
 	
 
 	// Constructor & Helpers
@@ -135,10 +115,8 @@ public class GameEditScreen extends Screen {
 	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height) {
 	
 		super(width, height);
-		this.gameEditModel = new GameEditModel(game);
-		
-		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
-			
+		this.gameEditModel = new GameEditModel(game);	
+		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);			
 		initialize(controller);
 
 	}
@@ -302,10 +280,13 @@ public class GameEditScreen extends Screen {
 				e -> controller.showConfirmPopUpWithGame(gameEditModel.getGame(), popup));
 		
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
-		ImageView img = makeHideShowArrow("images/GameEdit_images/show.png", e -> this.showSplashRegion());
+		
+		
+		ImageView img = makeHideShowArrow(STRING.GAME_EDIT.SHOW_ARROW, e -> this.showSplashRegion());
 		img.setTranslateX(-700);
 		img.setTranslateY(-280);
 		img.setVisible(false);
+		
 		levelDisplay.getChildren().addAll(levelSP, back, addButton, play,
 				displayNote(),img);
 		
@@ -348,8 +329,7 @@ public class GameEditScreen extends Screen {
 
 		else {
 			displayLevelsWhenEmpty();
-		}
-		
+		}		
 	}
 
 
@@ -626,6 +606,7 @@ public class GameEditScreen extends Screen {
 		double width = rec.getWidth();
 		if(width == 500){
 			t.stop();
+			
 			splashSP.getChildren().get(3).setVisible(true);
 			splashSP.getChildren().get(2).setVisible(true);
 			splashSP.getChildren().get(1).setVisible(true);
@@ -700,7 +681,7 @@ public class GameEditScreen extends Screen {
 
 		Menu fileMenu = makeFileMenu(o -> controller.saveGame(gameEditModel.getGame()), //change
 				o -> controller.returnToMainMenuScreen(popup),
-				o -> controller.returnToMainMenuScreen(popup));
+				o -> controller.saveAndExit(gameEditModel.getGame(), popup));
 
 		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeTools(),
 				makeGameMenu(), makeTrashMenu());

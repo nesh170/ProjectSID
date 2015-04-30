@@ -84,28 +84,37 @@ public class PlayerMenu {
 		pauseItem.setOnAction(event -> {
 			controller.pause();
 		});
+
 		MenuItem playItem = makeMenuItem("Resume Game");
 		playItem.setOnAction(event -> {
 			controller.resume();
 		});
+
 		MenuItem restartItem = makeMenuItem("Restart");
 		restartItem.setOnAction(event -> {
 			controller.restart();
 		});
+
 		MenuItem saveItem = makeMenuItem("Save State");
 		saveItem.setOnAction(event -> {
 			controller.saveGame();
 		});
+
 		MenuItem saveAsItem = makeMenuItem("Save State As");
 		saveAsItem.setOnAction(event -> {
 			controller.saveAs();
 		});
+
 		MenuItem loadItem = makeMenuItem("Load State");
 		loadItem.setOnAction(event -> {
 			controller.loadState();
 		});
+
 		fileMenu.getItems().addAll(openItem, pauseItem, playItem, restartItem,
 				saveItem, saveAsItem, loadItem);
+
+		disableFileMenuItems(fileMenu);
+
 		return fileMenu;
 	}
 
@@ -181,28 +190,37 @@ public class PlayerMenu {
 
 	@AddMenuItem(order = 6)
 	private Menu buildSocialMenu(PlayerViewController view){
-	    Menu socialMenu = new Menu("Social Center");
-	    MenuItem openSocial = new MenuItem("Open");
-	    SIDSocial socialCenter = new SIDSocial();
-            openSocial.setOnAction(event -> {try {
-                view.pause();
-                Stage socialStage = new Stage();
-                socialCenter.start(socialStage);
-                socialStage.setOnCloseRequest(close -> {
-                	view.setSocialAvatar(socialCenter.getAvatar()); //TODO: uncomment this to when the social center returns an avatar
-                    socialStage.close();
-                    view.resume();
-                });
-            }
-            catch (Exception e) {
-                DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
-            }});
-            socialMenu.getItems().add(openSocial);
-            return socialMenu;
-	}
-
+		Menu socialMenu = new Menu("Social Center");
+		MenuItem openSocial = new MenuItem("Open");
+		SIDSocial socialCenter = new SIDSocial();
+		openSocial.setOnAction(event -> {try {
+			view.pause();
+			Stage socialStage = new Stage();
+			socialCenter.start(socialStage);
+			socialStage.setOnCloseRequest(close -> {
+				view.setSocialAvatar(socialCenter.getAvatar()); //TODO: uncomment this to when the social center returns an avatar
+				socialStage.close();
+				view.resume();
+			});
+		}
+		catch (Exception e) {
+			DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
+		}});
+		socialMenu.getItems().add(openSocial);
+		return socialMenu;
+}
+	
 	protected MenuBar getBar() {
 		return myMenu;
 	}
 
+	private void disableFileMenuItems(Menu fileMenu) {
+		fileMenu.getItems().stream().filter(item -> !item.getText()
+				.equals("Open Game"))
+				.forEach(item -> item.setDisable(true));
+	}
+
+	public void enableFileMenu() {
+		myMenu.getMenus().get(0).getItems().stream().forEach(item -> item.setDisable(false));
+	}
 }

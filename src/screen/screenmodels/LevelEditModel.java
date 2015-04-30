@@ -9,6 +9,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Set;
 
 
 import data.DataHandler;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Dimension2D;
@@ -43,11 +45,20 @@ import levelPlatform.level.Level;
 
 public class LevelEditModel {
 	
+	// Static Variables
+	private final static double SELECT = 0.4;
+	private final static double UNSELECT = 1.0;
+	
+	
+	// Instance Variables
 	private Level level;
 	private LevelEditDisplay levelEditDisplay;
 	
 	private Sprite spriteToAdd;
 	private Sprite selectedSprite;
+	private ObjectProperty<Cursor> waitingSpriteCursor;
+	
+	private ObservableList<String> waitingSpriteSet;
 	
 	private Image imageToAdd;
 	
@@ -62,18 +73,16 @@ public class LevelEditModel {
 	
 	private Set<String> tags;
 	
-	private final static double SELECT = 0.4;
-	private final static double UNSELECT = 1.0;
-
-
-	public LevelEditModel(LevelEditDisplay levelEditDisplay, Level level, Set<String> tags, ResourceBundle languageResources, ResourceBundle tagResources) {
-		this.levelEditDisplay = levelEditDisplay;
-		this.level = level;
-		this.tags = tags;
-		this.languageResources = languageResources;
-		this.tagResources = tagResources;
-		
-		instantiateMaps();
+	
+	// Getters & Setters
+	// public
+	public CollisionMap getCollisionMap() {
+		return level.collisionMap();
+	}
+	
+	public ObservableList<String> setWaitingSpritesList() {
+		waitingSpriteSet = FXCollections.observableArrayList();
+		return waitingSpriteSet;
 	}
 	
 	public Sprite selectedSprite() {
@@ -84,6 +93,32 @@ public class LevelEditModel {
 		return level;
 	}
 	
+	// private 
+	
+	
+	// Constructor & Helpers
+	public LevelEditModel(LevelEditDisplay levelEditDisplay, ObjectProperty<Cursor> waitingSpriteCursor, Level level, Set<String> tags, Map<String,ObservableList<String>> map, ResourceBundle languageResources, ResourceBundle tagResources) {
+		
+		// private setter calls plz
+		this.levelEditDisplay = levelEditDisplay;
+		this.level = level;
+		this.tags = tags;
+		this.languageResources = languageResources;
+		this.tagResources = tagResources;
+		this.waitingSpriteCursor = waitingSpriteCursor;
+		this.stringToListMap = map;
+		
+		instantiateMaps();
+		
+		level.sprites().forEach(sprite -> {
+			
+			ImageView image = new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath())));
+			image.setFitWidth(sprite.transform().getWidth());
+			image.setFitHeight(sprite.transform().getHeight());
+			addSpriteToLevelDisplay(sprite, image);
+			
+		});
+	}
 	
 	private void instantiateMaps() {
 		this.stringToSpriteMap = new HashMap<>();
@@ -91,7 +126,10 @@ public class LevelEditModel {
 		level.setGoalMap(goalMap);
 		initializeClassPathMap();
 	}
-	
+		
+	// All other instance methods
+	// public
+	// private
 	private void initializeClassPathMap() {
 
 		classPathMap = new HashMap<>();
@@ -114,11 +152,7 @@ public class LevelEditModel {
 		}
 		selectSprite(stringToSpriteMap.get(newSelect));
 	}
-	
-	public void setUpListMapping(Map<String,ObservableList<String>> map) {
-		stringToListMap = map;
-	}
-		
+			
 //	private void makeSpriteForPremadeSet(String imagePath, String customName, String tag, List<Action> actions, List<Component> components, Set<ImageView> setForSprite) {
 //		Image image = new Image(imagePath);
 //		ImageView imageView = new ImageView(image);
@@ -149,42 +183,81 @@ public class LevelEditModel {
 
 			configureSpriteXYFromClick(e, spriteToAdd);
 
-			addSpriteToLevelDisplay(spriteToAdd);
+			addSpriteToLevelDisplay(spriteToAdd, new ImageView(imageToAdd));
 
 			level.sprites().add(spriteToAdd);
-			int toLevel = spriteToAdd.getGoalToLevel();
-			if(toLevel >= 0) {
-				goalMap.put(spriteToAdd, toLevel);
-			}
-			
+			addToGoalMap(spriteToAdd);			
 			//TODO Remove sprite from player sprite list as well
 			if(spriteToAdd.tag().equals(tagResources.getString("Player"))) {
 				level.addPlayerSprite(spriteToAdd);
 			}
-			levelEditDisplay.setCursor(Cursor.DEFAULT);
+			clearCursors();
 
-			spriteToAdd = null; 
-			imageToAdd = null;
-
+			clearSpriteToAdd();
 		}
 
 	}
+	
+	public void addSpriteToWaitingList() {
+		
+		if(spriteToAdd != null && imageToAdd!=null) {
+			
+			waitingSpriteSet.add(spriteToAdd.getName());
+			makeSpriteNameUnique(spriteToAdd, stringToSpriteMap.keySet());
+			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
+			addToGoalMap(spriteToAdd);
+			
+			clearCursors();
+			clearSpriteToAdd();
+		}
+		
+	}
+	
+	private void clearSpriteToAdd() {
+		
+		spriteToAdd = null; 
+		imageToAdd = null;
 
-	private void addSpriteToLevelDisplay(Sprite sprite) {
+	}
+	
+	private void clearCursors() {
+		
+		waitingSpriteCursor.set(Cursor.DEFAULT);
+		levelEditDisplay.setCursor(Cursor.DEFAULT);
+		
+	}
+	
+	private void addToGoalMap(Sprite sprite) {
+		
+		int toLevel = sprite.getGoalToLevel();
+		if(toLevel >= 0) {
+			goalMap.put(sprite, toLevel);
+		}
+		
+	}
 
-		ImageView imageView = new ImageView(imageToAdd);
+	private void addSpriteToLevelDisplay(Sprite sprite, ImageView imageView) {
+
+//		ImageView imageView = new ImageView(imageToAdd);
 
 		levelEditDisplay.addSpriteToDisplay(sprite,imageView);
-
-		String newSpriteName = UniqueString.makeUniqueKey(stringToSpriteMap.keySet(), sprite.getName());
-		sprite.setName(newSpriteName);
+		
+		makeSpriteNameUnique(sprite, stringToSpriteMap.keySet());
 		stringToSpriteMap.put(sprite.getName(), sprite);
+		addSpriteToAppropriateList(sprite);
+	}
+	
+	private void addSpriteToAppropriateList(Sprite sprite) {
 		try {
 			stringToListMap.get(sprite.tag()).add(sprite.getName());
 		} catch (NullPointerException e) {
 			stringToListMap.get(languageResources.getString("Other")).add(sprite.getName());
 		}
-
+	}
+	
+	private void makeSpriteNameUnique(Sprite sprite, Collection<String> collection) {
+		String newSpriteName = UniqueString.makeUniqueKey(collection, sprite.getName());
+		sprite.setName(newSpriteName);
 	}
 	
 	public void addWidthLeft() {
@@ -257,6 +330,7 @@ public class LevelEditModel {
 		Dimension2D spriteSize = spriteToAdd.dimensions();
 		imageToAdd = DataHandler.fileToImage(new File(spriteToAdd.getImagePath()),spriteSize.getWidth(),spriteSize.getHeight(),false);
 		levelEditDisplay.setCursor(new ImageCursor(imageToAdd));
+		waitingSpriteCursor.set(new ImageCursor(imageToAdd));
 	}
 
 	public void setBackgroundImage(String path) {
@@ -295,13 +369,16 @@ public class LevelEditModel {
 	 
 	
 	private void constructActionForEachSprite(String sprite1Tag,
-			String sprite2Tag, List<String> list) {
+			String sprite2Tag, List<List<String>> directionList) {
 		
 		for (Sprite sprite1: getSpritesFromTag(sprite1Tag)) {
-			level.collisionTable().addActionToBigMap(
-					sprite1Tag, sprite2Tag, 
-					STRING.DIRECTION_TO_INTEGER_MAP.get(list.get(INT.DIRECTION_INDEX)), 
-					createAction(sprite1, list));
+			for (int whichDir = 0; whichDir < INT.NUM_DIRECTIONS; whichDir++)
+			{
+				List<String> specificActionList = directionList.get(whichDir);
+				level.collisionTable().addActionToBigMap(
+						sprite1Tag, sprite2Tag, whichDir, createAction(sprite1, specificActionList), sprite1);			
+			}
+			
 		}
 	}
 
@@ -344,10 +421,6 @@ public class LevelEditModel {
 		} catch(Exception e) {
 			return 0;
 		}
-	}
-
-	public CollisionMap getCollisionMap() {
-		return level.collisionMap();
 	}
 
 }

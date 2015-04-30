@@ -34,16 +34,15 @@ public class Collision {
     	
     	double[] tolerances = calculateTolerances(sprite1, sprite2);
     	
-        if(transform1.getRightEdge() <= transform2.getPosX() + tolerances[0]) executeActions(sprite1, sprite2, INT.COLLISION_LEFT);
-        if(transform1.getPosX() >= transform2.getRightEdge() - tolerances[0]) executeActions(sprite1, sprite2, INT.COLLISION_RIGHT);
-        if(transform1.getBottomEdge() <= transform2.getPosY() + tolerances[1]) executeActions(sprite1, sprite2, INT.COLLISION_UP);
-        if(transform1.getPosY() >= transform2.getBottomEdge() - tolerances[1]) executeActions(sprite1, sprite2, INT.COLLISION_DOWN);
+        if(transform1.getRightEdge() <= transform2.getPosX() + tolerances[0]) executeAction(sprite1, sprite2, INT.COLLISION_LEFT);
+        if(transform1.getPosX() >= transform2.getRightEdge() - tolerances[0]) executeAction(sprite1, sprite2, INT.COLLISION_RIGHT);
+        if(transform1.getBottomEdge() <= transform2.getPosY() + tolerances[1]) executeAction(sprite1, sprite2, INT.COLLISION_UP);
+        if(transform1.getPosY() >= transform2.getBottomEdge() - tolerances[1]) executeAction(sprite1, sprite2, INT.COLLISION_DOWN);
     }
     
-    private void executeActions(Sprite sprite1, Sprite sprite2, int direction) {
-        //Talked to leo and changed it from cllision tags to tag
-    	List<Action> actions = collideTable.getActionsForCollisionAndDirection(sprite1.tag(), sprite2.tag(), direction);
-    	if(actions != null) actions.stream().forEach(a -> a.execute());
+    private void executeAction(Sprite sprite1, Sprite sprite2, int direction){
+    	Action toRun = collideTable.getActionForCollisionDirectionAndSprite(sprite1.tag(), sprite2.tag(), direction, sprite1);
+    	if(toRun != null) toRun.execute();
     }
     
     private double[] calculateTolerances(Sprite sprite1, Sprite sprite2){

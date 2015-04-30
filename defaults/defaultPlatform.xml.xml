@@ -6,6 +6,8 @@
     <y>0.0</y>
     <emissionList/>
     <isActive>true</isActive>
+    <name>default Platform</name>
+    <tag>Platform</tag>
     <collisionTag>platform</collisionTag>
     <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Brick_Block.png</imagePath>
     <facesLeft>false</facesLeft>
@@ -25,5 +27,8 @@
       <startRotation reference="../myPosition"/>
       <startDimensions reference="../myDimensions"/>
     </transform>
+    <isGoal>false</isGoal>
+    <toLevel>-1</toLevel>
+    <isText>false</isText>
   </sprite.Sprite>
 </set>

@@ -1,9 +1,12 @@
 package screen.screenmodels;
 
 import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
@@ -29,7 +32,7 @@ import levelPlatform.splashScreen.SplashScreen;
 public class SplashEditModel {
 
 	private SplashScreen splashScreen;
-	private List<Sprite> images = new ArrayList();
+	//private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
 	private List<Sprite> spriteList = new ArrayList();
 	private ImageView imageView;
@@ -59,14 +62,21 @@ public class SplashEditModel {
 	 */
 	public void saveSplashScreen() {
 		splashScreen.addSprites(spriteList);
+		splashScreen.setSprites(spriteList);
 	}
 
 	/**
 	 * add an imageview to the array of images
 	 */
-	public void addImageView() {
+	public void addImageView(MouseEvent e, String path) {
 		imageViewArray.add(imageView);
-		spriteList.add(new Sprite(new Point2D(imageView.getX(), imageView.getY())));
+		Sprite sprite = new Sprite(new Point2D(e.getX(), e.getY()));
+		sprite.setImagePath(path);
+		spriteList.add(sprite);
+	}
+	
+	public void setSprites(Sprite sprite) {
+		spriteList.add(sprite);
 	}
 
 	/**
@@ -215,7 +225,7 @@ public class SplashEditModel {
 	 * @param sprite
 	 */
 	public void addSpriteImageToSpriteList(Sprite sprite) {
-		images.add(sprite);
+		spriteList.add(sprite);
 	}
 	
 	/**
@@ -265,6 +275,14 @@ public class SplashEditModel {
 		return imageViewArray;
 	}
 	
+	public void setBackgroundImage(String path) {
+		splashScreen.setBackground(path);
+	}
+	
+	public void setPlayerSprite(Sprite sprite) {
+		splashScreen.addPlayerSprite(sprite);
+	}
+	
 	private void resizeAndRotate(Node node, KeyEvent e) {		
 		KeyCode keyCode = e.getCode();
 		
@@ -282,6 +300,10 @@ public class SplashEditModel {
 		else if(keyCode == KeyCode.LEFT) {	
 			node.setRotate(node.getRotate() - INT.SPLASH_EDIT_ROTATE_FACTOR);
 		}
+	}
+
+	public void setGoalMap(Map<Sprite, Integer> goalMap) {
+		splashScreen.setGoalMap(goalMap);		
 	}
 	
 }

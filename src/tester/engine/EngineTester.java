@@ -127,16 +127,16 @@ public class EngineTester extends Tester {
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action action) {
-		myCT.addActionToBigMap(sprite.tag(), platform.tag(), INT.COLLISION_UP, action);
-		myCT.addActionToBigMap(platform.tag(), sprite.tag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(sprite.tag(), platform.tag(), INT.COLLISION_UP, action, sprite);
+		myCT.addActionToBigMap(platform.tag(), sprite.tag(), INT.COLLISION_DOWN, action, platform);
 	}
 	private void setCollisionLeftRightDown(Sprite sprite1, Sprite enemy, Action action){
-		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_UP, null);
-		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_DOWN, action, sprite1);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_UP, null, enemy);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_RIGHT, action, sprite1);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_LEFT, null, enemy);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_LEFT, action, sprite1);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_RIGHT, null, enemy);
 	}
 	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
@@ -167,9 +167,9 @@ public class EngineTester extends Tester {
 		//set up projectile template, add to player, along with shoot actions
 		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(20, 20));
 		myProjectileTemplate.setTag("bullet");
-		myProjectileTemplate.setImagePath("engineTesting/Mario Brick.png");
+		myProjectileTemplate.setImagePath("engineTesting/mario.png");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				0.1, 400.0, myPlayer);
+				0.5, 400.0);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

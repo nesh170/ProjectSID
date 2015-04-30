@@ -94,7 +94,7 @@ public class GroovyActionMenu extends GroovyMenu {
     private void addTextBox (Method method) {
         VBox box = new VBox();
         TextArea field = new TextArea();
-        String fieldName = ((SetterGroovy) method.getAnnotations()[0]).name();
+        String fieldName = method.getAnnotation(SetterGroovy.class).name();
         field.setPromptText(fieldName);
         field.setMaxHeight(MAX_HEIGHT);
         myTextFieldMap.put(method, field);

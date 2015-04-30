@@ -11,6 +11,7 @@ import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.actions.UpMotionAction;
+import gameEngine.components.VelocityComponent;
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -50,7 +51,11 @@ public class DefaultSpriteGenerator extends Tester{
 				 if(method.toString().endsWith(type + "()")) sprite = (Sprite) method.invoke(this);
 			 }
 			 Set<Sprite> spriteSet = new HashSet<Sprite>();
+			 sprite.setTag(type);
+			 sprite.setName("default "+type);
 			 spriteSet.add(sprite);
+			 sprite.setIsActive(true);
+			 sprite.setIsGoal(false, -1);
 			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty("user.dir")+"/defaults");
 			} catch (Exception e){
 				e.printStackTrace();
@@ -61,6 +66,7 @@ public class DefaultSpriteGenerator extends Tester{
 		Sprite player = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SIZE));
 		player.setCollisionTag("player");
 		player.setImagePath(System.getProperty("user.dir")+"/defaults/mario.png");
+		player.addComponent(new VelocityComponent(player, 50.0));
 		makeFalling(player);
 		player.addAction(new RightMotionAction(player, DEFAULT_SPEED, KeyCode.RIGHT));
 		player.addAction(new LeftMotionAction(player, DEFAULT_SPEED, KeyCode.LEFT));
@@ -72,6 +78,7 @@ public class DefaultSpriteGenerator extends Tester{
 		Sprite enemy = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_ENEMY_SIZE, DEFAULT_ENEMY_SIZE));
 		enemy.setImagePath(System.getProperty("user.dir")+"/defaults/Goomba.png");
 		enemy.setCollisionTag("enemy");
+		enemy.addComponent(new VelocityComponent(enemy, 50.0));
 		makeFalling(enemy);
 		return enemy;
 	}
