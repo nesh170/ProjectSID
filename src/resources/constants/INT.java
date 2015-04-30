@@ -115,7 +115,7 @@ public class INT {
     public static final int NUM_DIRECTIONS = 4;
 
     //Coordinates
-    public static final int X = 1;
+    public static final int X = 0;
     public static final int Y = 1;
 
 
