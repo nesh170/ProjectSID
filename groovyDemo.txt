@@ -1,0 +1,23 @@
+Groovy Actions:
+
+Reset
+Prepare:
+println 'reset';
+
+Execute:
+Sprite.transform().reset();
+
+Stop:
+println 'no Stop method'
+
+Dash
+Prepare:
+println 'dash';
+vel = Sprite.getComponentOfType("VelocityComponent");
+
+Execute:
+vel.setVelocity(100,20);
+
+Stop:
+vel.setVelocity(0,0);
+
