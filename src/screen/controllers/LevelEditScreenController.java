@@ -7,6 +7,7 @@ import game.Game;
 import screen.screenmodels.CollisionMap;
 import screen.screens.LevelEditScreen;
 import sprite.Sprite;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
 import levelPlatform.level.Level;
 
@@ -39,7 +40,7 @@ public interface LevelEditScreenController {
 	 * @author Anika
 	 * @param level
 	 */
-	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap);
+	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String,ObservableList<String>> stringToListMap);
 
 	/**
 	 * Saves the level created in the levelEditScreen

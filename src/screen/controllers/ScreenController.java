@@ -382,9 +382,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, CollisionMap collisionTableMap) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, collisionTableMap),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, collisionTableMap, spriteMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -681,9 +681,9 @@ public class ScreenController {
 		 * @author Anika
 		 * @param levelEditScreen
 		 */
-		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap) {
+		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), collisionTableMap);
+			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), collisionTableMap, spriteMap);
 
 		}
 		

@@ -81,9 +81,9 @@ public class ScreenFactory {
 	 * @return Screen
 	 */
 	public Screen createCollisionTableScreen(Set<String> spriteTags, 
-			CollisionTableScreenController collisionTableScreenController, CollisionMap collisionTableMap) {
+			CollisionTableScreenController collisionTableScreenController, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
 
-		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags, collisionTableMap);
+		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags, collisionTableMap, spriteMap);
 		
 	}
 	
