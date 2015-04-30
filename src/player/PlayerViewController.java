@@ -189,40 +189,52 @@ public class PlayerViewController implements GamePlayerInterface {
 				.collect(Collectors.toList());
 		return games.size() > 0;
 	}
-	
+
 	private void chooseGame(Stage gameChooser) {
 
 		File dir = new File(System.getProperty("user.dir"));
 		List<File> children = null;
-		
+
 		try {
 			children = DataHandler.getDirsFromDir(dir);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			DialogUtil.displayMessage("Load Game", "Problem with reading games.");
 		}
-		
-		children.stream().filter(dir -> {
-			dir.listFiles()
-		
+
+		children = children.stream()
+				.filter(folder -> isGame(folder))
+				.collect(Collectors.toList());
+		dir.listFiles();
+
 		if (children.size() == 0) {
 			DialogUtil.displayMessage("Load Game", "No games available to play.");
 			return;
 		}
 		
-		DialogUtil.choiceDialog("Load Game", "Select a game to play.", children);
-		
-		File stateFile = states.stream()
-				.filter(file -> file.getName().equals(chosenState))
+		List<String> gameNames = children.stream().map(file -> file.getName())
+				.collect(Collectors.toList());
+		String choice = DialogUtil.choiceDialog("Load Game", "Select a game to play.", gameNames);
+
+		if (choice == null) {
+			return;
+		}
+
+		myGameFolder = children.stream()
+				.filter(file -> file.getName().equals(choice))
 				.collect(Collectors.toList()).get(0);
 		
+		try {
+			myGame = DataHandler.getGameFromDir(myGameFolder);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load Game", "Cannot find game.");
+			myGameFolder = null;
+			return;
+		}
 		
-//		myGameFolder = DataHandler.chooseDir(gameChooser);
-//		if (myGameFolder != null) {
-//			myView.enableButtonItems();
-//			initializeGameAttributes();
-//			setupAnimation();
-//		}
+		myView.enableButtonItems();
+		initializeGameAttributes();
+		setupAnimation();
+		
 	}
 
 	public void selectGame(Game game) {
