@@ -19,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import sprite.Sprite;
 import tester.Tester;
+import util.DialogUtil;
 
 /**
  * This class exists to create xml files of default sprites (player, enemy, and platform)
@@ -58,7 +59,7 @@ public class DefaultSpriteGenerator extends Tester{
 			 sprite.setIsGoal(false, -1);
 			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty("user.dir")+"/defaults");
 			} catch (Exception e){
-				e.printStackTrace();
+				 DialogUtil.displayMessage("Error in Default Sprite Creation", "Sprite Creation");
 			}
 	}
 

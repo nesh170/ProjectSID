@@ -597,7 +597,6 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 	}
 	
-	
 	/*private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
 	{
 		Map<String, List<List<String>>> activeSpriteMap;

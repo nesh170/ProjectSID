@@ -104,7 +104,7 @@ public class SpriteGallery {
 			//add implement draggable mouseEventHandlers here
 			//add ability to click image
 		} catch (FileNotFoundException ex) {
-			ex.printStackTrace();
+			 DialogUtil.displayMessage("Error Image Creation", "Image Creation");
 		}
 		return new ClickableImage(imageView, this);
 	}

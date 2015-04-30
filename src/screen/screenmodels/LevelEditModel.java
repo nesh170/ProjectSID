@@ -468,7 +468,6 @@ public class LevelEditModel {
 		}
 		catch (Exception e) {
 			//Wrong Constructor
-			e.printStackTrace();
 		}
 		return actionToGet;
 	}

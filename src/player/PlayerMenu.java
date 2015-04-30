@@ -63,7 +63,7 @@ public class PlayerMenu {
 			menuToAdd = (Menu) method.invoke(this, view);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
-			e.printStackTrace();
+			 DialogUtil.displayMessage("Error Menu Creation", "Menu Creation");
 		}
 		return menuToAdd;
 	}
