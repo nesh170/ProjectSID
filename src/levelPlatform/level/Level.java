@@ -2,6 +2,7 @@ package levelPlatform.level;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.Component;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,11 +13,13 @@ import java.util.Map;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import gameEngine.actions.GroovyAction;
 import gameEngine.components.GroovyComponent;
 import gameEngine.components.HUDGetter;
 import gameEngine.components.HUDInterface;
 import resources.constants.INT;
+import screen.screenmodels.CollisionMap;
 import sprite.Sprite;
 import util.DialogUtil;
 import javafx.geometry.Point2D;
@@ -233,6 +236,10 @@ public class Level extends LevelPlatform {
         }
         return 0.0;
     }
+
+	public CollisionMap collisionMap() {
+		return collisionTable.getMap();
+	}
 
 
 

@@ -65,6 +65,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenAnimation;
 import screen.factories.ScreenFactory;
+import screen.screenmodels.CollisionMap;
 import screen.screens.GameEditScreen;
 import screen.screens.GamePlayScreen;
 import screen.screens.LevelEditScreen;
@@ -381,9 +382,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, Map<String, ObservableList<String>> spriteMap) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, CollisionMap collisionTableMap) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, spriteMap),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, collisionTableMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -679,9 +680,9 @@ public class ScreenController {
 		 * @author Anika
 		 * @param levelEditScreen
 		 */
-		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
+		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap) {
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
+			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), collisionTableMap);
 
 		}
 		
@@ -707,7 +708,7 @@ public class ScreenController {
 	private class CollisionTableScreenManager implements CollisionTableScreenController {
 
 		@Override
-		public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo) {
+		public void returnToLevel(CollisionMap collisionMap, Tab switchTo) {
 			tabManager.removeTabAndChangeSelected(switchTo);
 			if (switchTo.getContent() instanceof LevelEditScreen) {
 				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();

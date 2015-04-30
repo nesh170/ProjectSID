@@ -38,6 +38,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
+import screen.screenmodels.CollisionMap;
 import sprite.Sprite;
 
 
@@ -238,10 +239,9 @@ public class CollisionTableScreen extends Screen{
 	 */
 	private CollisionTableScreenController myController;
 	private List<String> levelSpriteTags;
-	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;	
 	private Map<String, ObservableList<String>> mapOfSpriteTypesToExistingSpriteStringNames;
-	private Map<String, Map<String, List<String>>> collisionTableMap;
+	private CollisionMap collisionTableMap;
 
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
@@ -285,16 +285,15 @@ public class CollisionTableScreen extends Screen{
 	 * 
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags,
-			Map<String, ObservableList<String>> spriteMap) {
+			CollisionMap collisionTableMap) {
 		
 		super(width, height);
 		
 		myController = controller;
 		
 		levelSpriteTags = new LinkedList<String>(spriteTags);
-		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap; // map obtained from Level Edit Screen
 		
-		collisionTableMap = new HashMap<String, Map<String, List<String>>>(); // map populated by Collision Table Screen
+		this.collisionTableMap = collisionTableMap;
 		createVBoxOfCollisionRows(); 
 		this.setCenter(tablesDisplay);
 	}

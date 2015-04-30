@@ -18,6 +18,9 @@ import java.util.Set;
 
 //import javax.media.jai.IntegerSequence;
 
+
+
+
 import data.DataHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -265,30 +268,48 @@ public class LevelEditModel {
 	 * pair programming - april 27 - michael, anika
 	 * @param collisionMap
 	 */
-	public void updateCollisions(Map<String, Map<String, List<String>>> collisionMap) {
-		collisionMap.keySet().forEach(sprite1 ->
-				innerLoop(sprite1, collisionMap.get(sprite1)));
-
+	public void updateCollisions(CollisionMap collisionMap) {
+		level.collisionTable().clear();
+	//	collisionMap.keySet().forEach(outerTag ->);
+		
+		
+		// essential idea
+		for (String sprite1Tag : collisionMap.keySet())
+		{
+			for (String sprite2Tag : collisionMap.get(sprite1Tag).keySet())
+			{
+				constructActionForEachSprite(sprite1Tag, sprite2Tag, collisionMap.get(sprite1Tag).get(sprite2Tag));
+			}
+		}
+		
 		
 	}
 	
-	private void innerLoop(String sprite1, Map<String, List<String>> innerMap) {
-		innerMap.keySet().forEach(sprite2 ->
-			addSpriteAction(sprite1, sprite2, innerMap.get(sprite2)));
+	private List<Sprite> getSpritesFromTag(String tag)
+	{
+		List<Sprite> sprites = new ArrayList<>();
+		stringToListMap.get(tag).stream().forEach(name -> sprites.add(stringToSpriteMap.get(name)));
+		return sprites;
 	}
 	
-	private void addSpriteAction(String sprite1, String sprite2,
-			List<String> list) {
-		stringToSpriteMap.get(stringToListMap.get(sprite1))
-		.addAction(createAction(sprite1,
-				STRING.DIRECTION_TO_INTEGER_MAP.get((list.get(INT.DIRECTION_INDEX))),
-				list.get(INT.ACTION_INDEX),
-				Double.parseDouble(list.get(INT.VALUE_INDEX)),
-				list.get(INT.SWITCH_OPTION_INDEX)));
+	 
+	
+	private void constructActionForEachSprite(String sprite1Tag,
+			String sprite2Tag, List<String> list) {
+		
+		for (Sprite sprite1: getSpritesFromTag(sprite1Tag)) {
+			level.collisionTable().addActionToBigMap(
+					sprite1Tag, sprite2Tag, 
+					STRING.DIRECTION_TO_INTEGER_MAP.get(list.get(INT.DIRECTION_INDEX)), 
+					createAction(sprite1, list));
+		}
 	}
 
-	private Action createAction(String activeSprite, int direction, String actionName, double value,
-			String switchOptionSpriteName) {
+	
+	private Action createAction(Sprite sprite1, List<String> paramList) {
+		String actionName = paramList.get(INT.ACTION_INDEX);
+		double value = parseDouble(paramList.get(INT.VALUE_INDEX));
+		Sprite switchOut = stringToSpriteMap.get(paramList.get(INT.SWITCH_OPTION_INDEX));
 		try {
 			Class<Action> actionClass = (Class<Action>) Class.forName(classPathMap.get(actionName));
 			Constructor<Action> constructor;
@@ -297,17 +318,17 @@ public class LevelEditModel {
 				// switchOptionSpriteName = sprites to switch to
 				// level.getSpritesWithTag("player") = list of sprites 
 				// null = no keycode needed (from collision table so doesn't trigger on keycode)
-				Sprite[] sprites = {stringToSpriteMap.get(switchOptionSpriteName)};
+				Sprite[] sprites = {switchOut};
 				return constructor.newInstance(sprites, level.getSpritesWithTag("player"), null);
 			}
 			else if ((constructor = actionClass.getConstructor(Sprite.class, Double.class, KeyCode[].class)) != null) {
 				// parameters: active sprite, double value
 				// example: alter health, bounce, fall
-				return constructor.newInstance(stringToSpriteMap.get(activeSprite), value, null);
+				return constructor.newInstance(stringToSpriteMap.get(sprite1), value, null);
 			}
 			else if ((constructor = actionClass.getConstructor(Sprite.class, KeyCode[].class)) != null) {
 				// parameter: sprite to kill or active sprite; example: kill action; compound action
-				return constructor.newInstance(stringToSpriteMap.get(activeSprite), value, null);
+				return constructor.newInstance(stringToSpriteMap.get(sprite1), value, null);
 			}
 		}
 		catch (Exception e) {
@@ -315,6 +336,18 @@ public class LevelEditModel {
 		}
 		return null;
 		
+	}
+
+	private double parseDouble(String string) {
+		try {
+			return Double.parseDouble(string);
+		} catch(Exception e) {
+			return 0;
+		}
+	}
+
+	public CollisionMap getCollisionMap() {
+		return level.collisionMap();
 	}
 
 }

@@ -3,6 +3,7 @@ package screen.controllers;
 import java.util.List;
 import java.util.Map;
 
+import screen.screenmodels.CollisionMap;
 import javafx.scene.control.Tab;
 import gameEngine.CollisionTable;
 
@@ -14,6 +15,6 @@ import gameEngine.CollisionTable;
 public interface CollisionTableScreenController {
 
 	// returns to current level
-	public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo);
+	public void returnToLevel(CollisionMap collisionMap, Tab switchTo);
 	
 }

@@ -1,5 +1,6 @@
 package screen.factories;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,7 @@ import screen.controllers.LevelEditScreenController;
 import screen.controllers.MainMenuScreenController;
 import screen.controllers.SplashEditScreenController;
 import screen.controllers.SpriteEditScreenController;
+import screen.screenmodels.CollisionMap;
 import screen.screens.CollisionTableScreen;
 import screen.screens.GameEditScreen;
 import screen.screens.GamePlayScreen;
@@ -79,9 +81,9 @@ public class ScreenFactory {
 	 * @return Screen
 	 */
 	public Screen createCollisionTableScreen(Set<String> spriteTags, 
-			CollisionTableScreenController collisionTableScreenController, Map<String, ObservableList<String>> spriteMap) {
+			CollisionTableScreenController collisionTableScreenController, CollisionMap collisionTableMap) {
 
-		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags, spriteMap);
+		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags, collisionTableMap);
 		
 	}
 	

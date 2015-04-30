@@ -1,6 +1,10 @@
 package screen.controllers;
 
+import java.util.List;
+import java.util.Map;
+
 import game.Game;
+import screen.screenmodels.CollisionMap;
 import screen.screens.LevelEditScreen;
 import sprite.Sprite;
 import javafx.scene.control.Tab;
@@ -35,7 +39,7 @@ public interface LevelEditScreenController {
 	 * @author Anika
 	 * @param level
 	 */
-	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen);
+	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap);
 
 	/**
 	 * Saves the level created in the levelEditScreen
