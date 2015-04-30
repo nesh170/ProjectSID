@@ -246,27 +246,35 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		return textField;	
 	}
 	
-	private Image createImageFromFile(double size) {	
-		File file = null;
-		Image image = null;
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-		file = fileChooser.showOpenDialog(null);
-		image = new Image(file.toURI().toString(), size, size, false, false);
-		
-		return image;	
-	}
+//	private Image createImageFromFile(double size) {	
+//		File file = null;
+//		Image image = null;
+//		FileChooser fileChooser = new FileChooser();
+//		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+//		FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+//		fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+//		file = fileChooser.showOpenDialog(null);
+//		image = new Image(file.toURI().toString(), size, size, false, false);
+//		
+//		return image;	
+//	}
 	
 	private void addImage() {
-		try {		
-			Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
+		try {	
+			File file = null;
+			Image image = null;
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			file = fileChooser.showOpenDialog(null);
+			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);
+			//Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
 			ImageCursor imageCursor = new ImageCursor(image);
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 			splashEditModel.createImageView(image);
-			splashEditModel.addImageView();
+			splashEditModel.addImageView(file.getPath());
 			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
 		} catch (Exception ex) {		
 			//NO CATCH		
@@ -287,10 +295,18 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 
 	private void addBackgroundImage() {
 		try {
-			Image image = createImageFromFile(0);
+			File file = null;
+			Image image = null;
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+			file = fileChooser.showOpenDialog(null);
+			image = new Image(file.toURI().toString(), width, height, false, false);
+			//Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
 			splashEditModel.createImageView(image);
-			splashEditModel.setBackgroundImage(image.toString());
+			splashEditModel.setBackgroundImage(file.getPath());
 		} catch (Exception ex) {			
 			//NO CATCH			
 		}
@@ -318,7 +334,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private void saveSplashScreen() {
 		splashEditModel.createImageView(null);
 		splashEditModel.placeImageViewOffScreen();
-		splashEditModel.addImageView();
+		splashEditModel.addImageView(null);
 		Sprite sprite = new Sprite(new Point2D(INT.SPLASH_EDIT_OFFSCREEN, INT.SPLASH_EDIT_OFFSCREEN));
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);

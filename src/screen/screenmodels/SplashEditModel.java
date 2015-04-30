@@ -68,9 +68,11 @@ public class SplashEditModel {
 	/**
 	 * add an imageview to the array of images
 	 */
-	public void addImageView() {
+	public void addImageView(String path) {
 		imageViewArray.add(imageView);
-		spriteList.add(new Sprite(new Point2D(imageView.getX(), imageView.getY())));
+		Sprite sprite = new Sprite(new Point2D(imageView.getX(), imageView.getY()));
+		sprite.setImagePath(path);
+		spriteList.add(sprite);
 	}
 	
 	public void setSprites(Sprite sprite) {
