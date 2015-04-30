@@ -226,7 +226,7 @@ public class ExampleLevelMaker extends Application{
 		Action gravityAction = new FallAction(sprite, GRAVITY);
 		gravityAction.runEveryFrame();
 		sprite.addAction(gravityAction);
-		Action normalAction = new NormalActionY(sprite);
+		Action normalAction = new NormalActionY(sprite, 0.0);
 		sprite.addAction(normalAction);
 		for(Sprite platform: myPlatforms){
 			setCollisionUp(sprite, platform, normalAction);
