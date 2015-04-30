@@ -3,13 +3,16 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
 import resources.constants.INT;
 import socCenter.Avatar;
 import util.DialogUtil;
@@ -116,7 +119,6 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void display() {
 		myGameGroup = myEngine.render();
-
 		myView.display(myGameGroup);
 		myCamera.focus();
 	}
@@ -180,13 +182,47 @@ public class PlayerViewController implements GamePlayerInterface {
 		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 	}
 
+	private boolean isGame(File dir) {
+		List<File> games = Arrays.asList(dir.listFiles())
+				.stream()
+				.filter(file -> file.toString().endsWith(".xml"))
+				.collect(Collectors.toList());
+		return games.size() > 0;
+	}
+	
 	private void chooseGame(Stage gameChooser) {
-		myGameFolder = DataHandler.chooseDir(gameChooser);
-		if (myGameFolder != null) {
-			myView.enableButtonItems();
-			initializeGameAttributes();
-			setupAnimation();
+
+		File dir = new File(System.getProperty("user.dir"));
+		List<File> children = null;
+		
+		try {
+			children = DataHandler.getDirsFromDir(dir);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			DialogUtil.displayMessage("Load Game", "Problem with reading games.");
 		}
+		
+		children.stream().filter(dir -> {
+			dir.listFiles()
+		
+		if (children.size() == 0) {
+			DialogUtil.displayMessage("Load Game", "No games available to play.");
+			return;
+		}
+		
+		DialogUtil.choiceDialog("Load Game", "Select a game to play.", children);
+		
+		File stateFile = states.stream()
+				.filter(file -> file.getName().equals(chosenState))
+				.collect(Collectors.toList()).get(0);
+		
+		
+//		myGameFolder = DataHandler.chooseDir(gameChooser);
+//		if (myGameFolder != null) {
+//			myView.enableButtonItems();
+//			initializeGameAttributes();
+//			setupAnimation();
+//		}
 	}
 
 	public void selectGame(Game game) {
@@ -195,19 +231,6 @@ public class PlayerViewController implements GamePlayerInterface {
 		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 		setupAnimation();
 		start();
-	}
-
-	public void save() {
-		String[] names = new String[] { "mario1.xml", "mario2.xml",
-		"mario3.xml" };
-		for (int i = 0; i < myGameLevels.size(); i++) {
-			try {
-				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
-						myGameFolder.toString());
-			} catch (IOException | NullPointerException e) {
-				DialogUtil.displayMessage("ERROR", "Cannot Save ):");
-			}
-		}
 	}
 
 	public void restart() {
