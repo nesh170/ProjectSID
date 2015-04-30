@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.lang.reflect.Method;
 import java.util.Set;
-
 import gameEngine.Action;
 import gameEngine.actions.FallAction;
 import gameEngine.actions.LeftMotionAction;
@@ -63,7 +62,8 @@ public class DefaultSpriteGenerator extends Tester{
 			}
 	}
 
-	private Sprite makeDefaultPlayer(){
+	@SuppressWarnings("unused")
+    private Sprite makeDefaultPlayer(){
 		Sprite player = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLAYER_SIZE, DEFAULT_PLAYER_SIZE));
 		player.setCollisionTag("player");
 		player.setImagePath("/defaults/mario.png");
@@ -75,7 +75,8 @@ public class DefaultSpriteGenerator extends Tester{
 		return player;
 	}
 
-	private Sprite makeDefaultEnemy() {
+	@SuppressWarnings("unused")
+    private Sprite makeDefaultEnemy() {
 		Sprite enemy = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_ENEMY_SIZE, DEFAULT_ENEMY_SIZE));
 		enemy.setImagePath("/defaults/Goomba.png");
 		enemy.setCollisionTag("enemy");
@@ -84,7 +85,8 @@ public class DefaultSpriteGenerator extends Tester{
 		return enemy;
 	}
 
-	private Sprite makeDefaultPlatform() {
+	@SuppressWarnings("unused")
+    private Sprite makeDefaultPlatform() {
 		Sprite platform = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_PLATFORM_SIZE, DEFAULT_PLATFORM_SIZE));
 		platform.setImagePath("/defaults/Brick_Block.png");
 		platform.setCollisionTag("platform");

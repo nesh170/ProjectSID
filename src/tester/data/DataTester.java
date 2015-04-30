@@ -7,9 +7,6 @@ import java.util.List;
 import data.DataHandler;
 import sprite.Sprite;
 import tester.Tester;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -39,7 +36,8 @@ public class DataTester extends Tester {
 		}
 
 		try {
-			List<Image> images = DataHandler.getImagesFromDir(f);
+			@SuppressWarnings("unused")
+            List<Image> images = DataHandler.getImagesFromDir(f);
 		} catch (IOException e) {}
 		
 		Image im = new Image("http://mario.nintendo.com/img/mario_logo.png");
