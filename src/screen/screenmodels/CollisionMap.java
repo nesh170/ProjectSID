@@ -1,11 +1,13 @@
 package screen.screenmodels;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import resources.constants.INT;
+import resources.constants.STRING;
 
 public class CollisionMap {
 
@@ -29,9 +31,51 @@ public class CollisionMap {
 		return null;
 		
 	}
-	public void put(String attacker, String attacked, int direc, List<String> list){
+	public void put(String spriteActing, String spriteActedUpon, int direction, List<String> actionParameters){
+
+		Map<String, List<List<String>>> activeSpriteMap = this.getOrInstantiateActiveSpriteMap(spriteActing);
+		
+		List<List<String>> actionList = this.getOrInstantiateDirectionListOfActions(activeSpriteMap, spriteActedUpon);
+		
 	
+		actionList.set(STRING.DIRECTION_TO_INTEGER_MAP.get(direction), actionParameters);
+		
+		activeSpriteMap.put(spriteActedUpon, actionList);
+		this.collisonMap.put(spriteActing, activeSpriteMap);
 	}
+	
+	
+	private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
+	{
+		Map<String, List<List<String>>> activeSpriteMap;
+		if (!(this.collisonMap.containsKey(activeSpriteTag)))
+		{
+			activeSpriteMap = new HashMap<String, List<List<String>>>();
+		}
+		else
+		{
+			activeSpriteMap = collisonMap.get(activeSpriteTag);
+		}
+		return activeSpriteMap;
+	}
+	
+	private List<List<String>> getOrInstantiateDirectionListOfActions(Map<String, List<List<String>>> activeSpMap, String inactiveSprite)
+	{
+		List<List<String>> actionList;
+		
+		if (!(activeSpMap.containsKey(inactiveSprite)))
+		{
+			actionList = new ArrayList<List<String>>();
+		}
+		else
+		{
+			actionList = activeSpMap.get(inactiveSprite);
+		}
+		
+		return actionList;
+	}
+	
+	
 	public Set<String> keySet(){
 		return collisonMap.keySet();
 	}
