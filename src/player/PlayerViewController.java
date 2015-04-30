@@ -222,6 +222,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void restart() {
+		myAudioController.stop();
 		pause();
 		initializeGameAttributes();
 		start();
