@@ -50,8 +50,9 @@ public class PreferencePane {
 	private Tab myControls;
 	private AudioController myAudioController;
 	private double myMusicVolume;
-	private Map<String, Consumer<KeyCode>> myKeyMap;
 	private double myBrightness;
+	private Map<String, Consumer<KeyCode>> myConsumerMap;
+	private Map<String, KeyCode> myCodeMap;
 	
 	public PreferencePane(AudioController ac) {
 		myAudioController = ac;
@@ -103,8 +104,9 @@ public class PreferencePane {
 		return slider;
 	}
 
-	private TextField makeKeyField(Consumer<KeyCode> item) {
+	private TextField makeKeyField(Consumer<KeyCode> item, String code) {
 		TextField container = new TextField();
+		container.setText(myCodeMap.get(code).getName());
 		container.setOnKeyTyped(e -> container.clear());
 		container.setOnKeyReleased(key -> handleKeyCode(container,
 				key.getCode(), item));
@@ -137,14 +139,15 @@ public class PreferencePane {
 	}
 
 	private void regenerateControlFields(VBox container) {
-		myKeyMap = myController.getKeySetup();
+		myCodeMap = myController.getKeyMap();
+		myConsumerMap = myController.getConsumerSetup();
 		HBox titles = new HBox(50);
 		titles.getChildren().addAll(new Label("Action"), new Label("Key/Control"));
 		titles.setAlignment(Pos.TOP_CENTER);
 		container.getChildren().add(titles);
-		for (String key : myKeyMap.keySet()) {
+		for (String key : myConsumerMap.keySet()) {
 			HBox hbox = new HBox(50);
-			TextField field = makeKeyField(myKeyMap.get(key));
+			TextField field = makeKeyField(myConsumerMap.get(key), key);
 			hbox.getChildren().addAll(new Label(key), field);
 			container.getChildren().add(hbox);
 			hbox.setAlignment(Pos.CENTER);
