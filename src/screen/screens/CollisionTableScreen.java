@@ -581,12 +581,6 @@ public class CollisionTableScreen extends Screen{
 	{
 		double valDouble = parseDouble(value);
 		
-		System.out.println(activeSp);
-		System.out.println(inactiveSp);
-		System.out.println(dir);
-		System.out.println(action);
-		System.out.println(switchOption); // TODO check is switchOption is 'null'
-		System.out.println(value);
 		
 	/*	SpritePair thisSpritePair = new SpritePair();
 		thisSpritePair.initialize(activeSp, inactiveSp);
