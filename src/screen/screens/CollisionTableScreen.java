@@ -576,6 +576,35 @@ public class CollisionTableScreen extends Screen{
 	    }
 	}
 	
+	private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
+	{
+		Map<String, List<List<String>>> activeSpriteMap;
+		if (!(this.collisionTableMap.containsKey(activeSpriteTag)))
+		{
+			activeSpriteMap = new HashMap<String, List<List<String>>>();
+		}
+		else
+		{
+			activeSpriteMap = collisionTableMap.get(activeSpriteTag);
+		}
+		return activeSpriteMap;
+	}
+	
+	private List<List<String>> getOrInstantiateDirectionListOfActions(Map<String, List<List<String>>> activeSpMap, String inactiveSprite)
+	{
+		List<List<String>> actionList;
+		
+		if (!(activeSpMap.containsKey(inactiveSprite)))
+		{
+			actionList = new ArrayList<List<String>>();
+		}
+		else
+		{
+			actionList = activeSpMap.get(inactiveSprite);
+		}
+		
+		return actionList;
+	}
 	
 	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
@@ -595,36 +624,18 @@ public class CollisionTableScreen extends Screen{
 		actionParameters.add(switchOption);
 		
 		
-		Map<String, List<List<String>>> activeSpriteMap;
+		Map<String, List<List<String>>> activeSpriteMap = this.getOrInstantiateActiveSpriteMap(activeSp);
 		
-		if (!(this.collisionTableMap.containsKey(activeSp)))
-		{
-			activeSpriteMap = new HashMap<String, List<List<String>>>();
-		}
-		else
-		{
-			activeSpriteMap = collisionTableMap.get(activeSp);
-		}
+
+		List<List<String>> actionList = this.getOrInstantiateDirectionListOfActions(activeSpriteMap, inactiveSp);
 		
-		List<List<String>> actionList;
-		
-		if (!(activeSpriteMap.containsKey(inactiveSp)))
-		{
-			actionList = new ArrayList<List<String>>();
-		}
-		else
-		{
-			actionList = activeSpriteMap.get(inactiveSp);
-		}
-		
+	
 		actionList.set(STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
 		
 		activeSpriteMap.put(inactiveSp, actionList);
 		collisionTableMap.put(activeSp, activeSpriteMap);
 	
-		
-		
+	
 	}
-	
-	
+
 }
