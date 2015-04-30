@@ -1,6 +1,5 @@
 package player;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -41,7 +40,7 @@ public class PreferencePane {
 	private static final double DEFAULT_BRIGHTNESS = 5;
 	private static final double AVTAB_CENTER = 500;
 	private static final double SLIDER_SIZE = 250;
-	
+
 	private PlayerViewController myController;
 	private Stage myContainer;
 	private Scene myScene;
@@ -53,7 +52,7 @@ public class PreferencePane {
 	private double myBrightness;
 	private Map<String, Consumer<KeyCode>> myConsumerMap;
 	private Map<String, KeyCode> myCodeMap;
-	
+
 	public PreferencePane(AudioController ac) {
 		myAudioController = ac;
 		setupDefaults();
@@ -65,14 +64,13 @@ public class PreferencePane {
 		myScene = new Scene(myView, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		myContainer.setScene(myScene);
 	}
-	
+
 	private void makeAVTab() {
 		myAV = new Tab("Audiovisual");
 		VBox container = new VBox(20);
 		container.setAlignment(Pos.CENTER);
 		HBox titles = new HBox(AVTAB_CENTER);
-		titles.getChildren().addAll(new Label("Audio"),
-				new Label("Visual"));
+		titles.getChildren().addAll(new Label("Audio"), new Label("Visual"));
 		titles.setAlignment(Pos.TOP_CENTER);
 		HBox music = new HBox(20);
 		music.getChildren().addAll(new Label("Music Volume"),
@@ -82,7 +80,7 @@ public class PreferencePane {
 		brightness.getChildren().addAll(new Label("Game Brightness"),
 				makeBrightnessControl(myBrightness));
 		brightness.setAlignment(Pos.CENTER_RIGHT);
-		HBox row = new HBox(AVTAB_CENTER-SLIDER_SIZE);
+		HBox row = new HBox(AVTAB_CENTER - SLIDER_SIZE);
 		row.setAlignment(Pos.CENTER);
 		row.getChildren().addAll(music, brightness);
 		HBox buttons = makeButtonBox();
@@ -92,7 +90,7 @@ public class PreferencePane {
 	}
 
 	private void makeControlsTab() {
-		myControls = new Tab("Controls");	
+		myControls = new Tab("Controls");
 	}
 
 	private Slider makeSettingSlider(double defaultVal) {
@@ -125,8 +123,9 @@ public class PreferencePane {
 		close.setOnAction(e -> closePreferences());
 		return close;
 	}
-	
-	private void handleKeyCode(TextField keyInput, KeyCode code, Consumer<KeyCode> consumer) {
+
+	private void handleKeyCode(TextField keyInput, KeyCode code,
+			Consumer<KeyCode> consumer) {
 		keyInput.clear();
 		keyInput.setText(code.getName());
 		consumer.accept(code);
@@ -142,7 +141,8 @@ public class PreferencePane {
 		myCodeMap = myController.getKeyMap();
 		myConsumerMap = myController.getConsumerSetup();
 		HBox titles = new HBox(50);
-		titles.getChildren().addAll(new Label("Action"), new Label("Key/Control"));
+		titles.getChildren().addAll(new Label("Action"),
+				new Label("Key/Control"));
 		titles.setAlignment(Pos.TOP_CENTER);
 		container.getChildren().add(titles);
 		for (String key : myConsumerMap.keySet()) {
@@ -157,7 +157,7 @@ public class PreferencePane {
 		container.getChildren().add(buttons);
 		myControls.setContent(container);
 	}
-	
+
 	private void savePreferences() {
 
 	}
@@ -169,7 +169,7 @@ public class PreferencePane {
 					Number oldVal, Number newVal) {
 				myController.setDim((newVal.doubleValue() - 5)
 						* SLIDERVAL_TO_DOUBLE);
-				myController.setBright((-1*newVal.doubleValue() + 5)
+				myController.setBright((-1 * newVal.doubleValue() + 5)
 						* SLIDERVAL_TO_DOUBLE);
 			}
 		});
@@ -208,5 +208,5 @@ public class PreferencePane {
 		myMusicVolume = DEFAULT_MUSIC_VOL;
 		myBrightness = DEFAULT_BRIGHTNESS;
 	}
-	
+
 }
