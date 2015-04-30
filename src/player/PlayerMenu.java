@@ -208,11 +208,17 @@ public class PlayerMenu {
 		}});
 		socialMenu.getItems().add(openSocial);
 		return socialMenu;
-}
-	
+	}
+
 	protected MenuBar getBar() {
 		return myMenu;
 	}
+
+	private void toggleMenuItems(Menu fileMenu, List<String> exceptions, boolean disable) {
+		fileMenu.getItems().stream().filter(item -> exceptions.contains(item.getText()))
+		.forEach(item -> item.setDisable(disable));
+	}
+	
 
 	private void disableFileMenuItems(Menu fileMenu) {
 		fileMenu.getItems().stream().filter(item -> !item.getText()
