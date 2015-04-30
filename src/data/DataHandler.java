@@ -165,8 +165,7 @@ public class DataHandler {
 						.map(file -> new Media(file.toURI().toString()))
 						.collect(Collectors.toList());
 
-		if (videoFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .flv or .mp4 FILE");
+		if (videoFiles.size() == 0) {
 			return null;
 		} else {
 			return videoFiles.get(0);
@@ -180,8 +179,7 @@ public class DataHandler {
 						.map(file -> new Media(file.toURI().toString()))
 						.collect(Collectors.toList());
 
-		if (videoFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .mp3 or .m4a FILE");
+		if (videoFiles.size() == 0) {
 			return null;
 		} else {
 			return videoFiles.get(0);

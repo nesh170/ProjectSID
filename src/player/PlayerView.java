@@ -169,5 +169,9 @@ public class PlayerView {
 	public void enableButtonItems() {
 		myMenuBar.enableAll();
 	}
+
+	public void disableSoundMenu() {
+		myMenuBar.disableSoundItems();
+	}
 		
 }
