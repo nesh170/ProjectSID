@@ -4,12 +4,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import sprite.Sprite;
+import util.DialogUtil;
 import util.SIDFunctions;
 import util.ScriptRunner;
 import gameEngine.Component;
 import gameEngine.actions.SetterGroovy;
+
 import javax.script.ScriptException;
+
 import data.DataHandler;
 import jdk.nashorn.internal.objects.annotations.Setter;
 
@@ -37,8 +41,7 @@ public class GroovyComponent extends Component {
             scriptEngine.evaluateScript(myPrepareCode);
         }
         catch (ScriptException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	 DialogUtil.displayMessage("Error Groovy Parsing", "Groovy Parsing");
         }
 
     }
@@ -50,7 +53,7 @@ public class GroovyComponent extends Component {
         }
         catch (ScriptException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+        	 DialogUtil.displayMessage("Error Groovy Parsing", "Groovy Parsing");
         }
     }
 

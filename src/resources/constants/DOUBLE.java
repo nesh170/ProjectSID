@@ -16,7 +16,9 @@ public class DOUBLE {
 	
 	
 	//GameEdit Screen
-	
+	public static final double EXPANSION_FACTOR = 1.2;
+	public static final double ORIGINAL_SIZE = 1.0;
+	public static final double START_SIZE = 0;
 	
 	// ScreenController
 	// Tabs

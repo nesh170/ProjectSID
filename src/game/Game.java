@@ -19,6 +19,7 @@ public class Game {
 	private SplashScreen splashScreen;
 	private String name = STRING.DEFAULT_GAME_NAME;;
 	private String description;
+	private String gameSoundPath;
 
 
 	// Getters & Setters
@@ -129,6 +130,14 @@ public class Game {
 
 	public void setDescription(String text) {
 		description = text;
+	}
+
+	public String gameSoundPath() {
+		return gameSoundPath;
+	}
+
+	public void setSoundPath(String newSoundPath) {
+		gameSoundPath = newSoundPath;
 	}
 	
 }

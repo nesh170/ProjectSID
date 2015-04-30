@@ -4,10 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import javax.script.ScriptException;
+
 import data.DataHandler;
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
+import util.DialogUtil;
 import util.ScriptRunner;
 import util.SIDFunctions;
 import gameEngine.Action;
@@ -45,7 +48,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myPrepareCode);
         }
         catch (ScriptException e) {
-            e.printStackTrace();
+            DialogUtil.displayMessage("Error in Groovy Parsing", "Groovy Parsing");
         }
 
     }
@@ -57,7 +60,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myExecuteCode);
         }
         catch (ScriptException e) {
-            e.printStackTrace();
+            
         }
 
     }
@@ -68,7 +71,7 @@ public class GroovyAction extends Action {
             scriptEngine.evaluateScript(myStopCode);
         }
         catch (ScriptException e) {
-            e.printStackTrace();
+        	DialogUtil.displayMessage("Error in Groovy Execution", "Groovy Execution");
         }
     }
 

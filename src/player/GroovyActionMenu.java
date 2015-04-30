@@ -2,6 +2,7 @@ package player;
 
 import gameEngine.actions.GroovyAction;
 import gameEngine.actions.SetterGroovy;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import util.DialogUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -121,7 +124,7 @@ public class GroovyActionMenu extends GroovyMenu {
             method.invoke(myGroovyAction, text);
         }
         catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            e.printStackTrace();
+        	 DialogUtil.displayMessage("Error Method Execution", "Dynamic Method Execution");
         }
     }
 
