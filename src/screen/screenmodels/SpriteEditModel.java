@@ -184,7 +184,9 @@ public class SpriteEditModel {
 		if(!keyCodesAreVisibleMap.get(actionType)) {
 			action.runEveryFrame();
 		}
-		action.setSound(soundPath);
+		if(!soundPath.isEmpty()) {
+			action.setSound(soundPath);
+		}
 		String parameterMapValue = selected + "-> "
 				+ languageResources.getString("Keycode") + " "
 				+ currentCode.toString() + ", "
