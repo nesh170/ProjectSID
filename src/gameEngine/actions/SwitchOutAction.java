@@ -46,8 +46,8 @@ public class SwitchOutAction extends MultiSpriteAction{
 	}
 	
 	private void transferVelocity(Sprite sprite1, Sprite sprite2){
-		VelocityComponent velComponent1 = (VelocityComponent) sprite1.getComponentOfType("VelocityComponent");
-		VelocityComponent velComponent2 = (VelocityComponent) sprite2.getComponentOfType("VelocityComponent");
+		VelocityComponent velComponent1 = (VelocityComponent) sprite1.getComponentOfType(VEL_COMP);
+		VelocityComponent velComponent2 = (VelocityComponent) sprite2.getComponentOfType(VEL_COMP);
 		if(velComponent1 != null && velComponent2 != null){
 			velComponent2.setVelocity(velComponent1.getVelocity());
 		}

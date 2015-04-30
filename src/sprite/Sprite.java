@@ -219,7 +219,7 @@ public class Sprite {
 	public Sprite (Sprite toCopy) {
 				
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
-		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		this.addComponent(toCopy.getComponentOfType(Action.VEL_COMP));
 		this.setTag(toCopy.tag());
 		this.setName(toCopy.name);
 		toCopy.actionList().forEach(action -> this.addAction(action));

@@ -22,7 +22,7 @@ public class BackAndForthAction extends Action {
     public void prepare () {
         DistanceComponent distance = (DistanceComponent) mySprite.getComponentOfType("DistanceComponent");
         myMaxDistance = distance.getValue();
-        myVelocityComponent  = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+        myVelocityComponent  = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
     }
 
     @Override

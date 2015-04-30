@@ -23,7 +23,7 @@ public class UpMotionAction extends DoubleAction {
 
 	@Override
 	public void prepare() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
 	}
 	
     @Override
@@ -44,7 +44,7 @@ public class UpMotionAction extends DoubleAction {
     @Override
     public void stop () {
     	if (climbing) {
-    		VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+    		VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
     		velocityComp.setVelocityY(0.0);
     	}
     }
