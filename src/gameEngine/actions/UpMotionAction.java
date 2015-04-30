@@ -12,7 +12,7 @@ public class UpMotionAction extends DoubleAction {
 	private VelocityComponent myVelocityComponent;
 
 	public UpMotionAction(Sprite sprite, Double value, KeyCode... keys) {
-		super(sprite,value,keys);
+		super(sprite,-value,keys);
 		climbing = false;
 	}
 	
