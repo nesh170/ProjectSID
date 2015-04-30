@@ -88,6 +88,11 @@ public class PlayerViewController implements GamePlayerInterface {
 		myNetwork = new Network();
 	}
 
+	public PlayerViewController(PlayerView view, Game game) {
+		this(view);
+		selectGame(game);
+	}
+	
 	@Override
 	public void start() {
 		resume();

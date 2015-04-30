@@ -1,12 +1,14 @@
 package player;
 
 import java.util.Map;
+
 import socCenter.Avatar;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.ImageView;
@@ -38,7 +40,7 @@ public class PlayerView {
 	private Stage myPopUp;
 	private HBox myAvatarBox;
 
-	public PlayerView() {
+	public PlayerView(BorderPane border, StackPane base) {
 
 		myGameRoot = new ScrollPane();
 		myHUD = new HUD();
@@ -47,20 +49,24 @@ public class PlayerView {
 		myGameRoot.setHbarPolicy(ScrollBarPolicy.NEVER);
 		myGameRoot.setVbarPolicy(ScrollBarPolicy.NEVER);
 
-		myBase = new StackPane();
 		myTop = new StackPane();
 		myTop.getChildren().add(makeBrightScreen());
 		myTop.getChildren().add(makeDimScreen());
 		myTop.getChildren().add(myHUD.getHUDBox());
 		myHUD.getHUDBox().setAlignment(Pos.TOP_LEFT);
-		myBorderPane = new BorderPane();
+		
+		setBaseInCenterPane(border, base);
+	}
+
+	private void setBaseInCenterPane(BorderPane border, StackPane base) {
+		myBase = base;
+		myBorderPane = border;
 		myBorderPane.setCenter(myBase);
 
 		myBase.getChildren().addAll(myGameRoot, myTop);
 
 		myScene = new Scene(myBorderPane, 1200, 600);
 		myPopUp = new Stage();
-
 	}
 
 	public void setController(PlayerViewController playerController) {
@@ -73,6 +79,16 @@ public class PlayerView {
 		myPauseScreen = makePauseScreen(playerController);
 	}
 
+	public void setController(PlayerViewController playerController, MenuBar bar) {
+		myMenuBar = new PlayerMenu(playerController, bar);
+		myController = playerController;
+		Group errorGroup = new Group();
+		myBorderPane.setLeft(errorGroup);
+		myController.setErrorHandler(new ErrorHandler(errorGroup));
+		myBorderPane.setTop(myMenuBar.getBar());
+		myPauseScreen = makePauseScreen(playerController);
+	}
+	
 	private StackPane makePauseScreen(PlayerViewController playerController) {
 		StackPane pause = new StackPane();
 		pause.setAlignment(Pos.CENTER);

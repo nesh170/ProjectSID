@@ -31,8 +31,9 @@ public class PlayerMenu {
 		createPlayerMenu(pvc);
 	}
 
-	public PlayerMenu(MenuBar bar) {
+	public PlayerMenu(PlayerViewController pvc, MenuBar bar) {
 		myMenu = bar;
+		createPlayerMenu(pvc);
 	}
 
 	/**
