@@ -77,7 +77,7 @@ public class PlayerMenu {
 		Menu fileMenu = new Menu("File");
 		MenuItem openItem = makeMenuItem("Open Game");
 		openItem.setOnAction(event -> {
-			controller.loadNewChooser();
+			controller.loadNewGame();
 			controller.resume();
 		});
 		MenuItem pauseItem = makeMenuItem("Pause Game");

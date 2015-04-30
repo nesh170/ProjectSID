@@ -26,11 +26,6 @@ public interface GamePlayerInterface {
 	void setPreferences();
 	
 	/**
-	 * Enable showing possible games to be played. 
-	 */
-	List findGames();
-	
-	/**
 	 * Saves current game being played. 
 	 */
 	void saveGame();

@@ -139,7 +139,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		vbox.setAlignment(Pos.TOP_CENTER);
 		HBox buttonBox = new HBox(25);
 		Button yes = new Button("Yes");
-		yes.setOnAction(event -> loadNewChooser());
+		yes.setOnAction(event -> loadNewGame());
 		Button no = new Button("No");
 		no.setOnAction(event -> dialogStage.close());
 		buttonBox.getChildren().addAll(yes, no);
@@ -156,7 +156,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		mySettings.bringUpPreferences();
 	}
 
-	public void loadNewChooser() {
+	public void loadNewGame() {
 		Stage chooserStage = new Stage();
 		chooserStage.initModality(Modality.APPLICATION_MODAL);
 		chooseGame(chooserStage);
@@ -250,11 +250,11 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setDim(double val) {
 		myView.setDim(val);
 	}
-	
+
 	public Map<String, KeyCode> getKeyMap() {
 		return myEngine.getActionKeyCodeMap(INT.LOCAL_PLAYER);
 	}
-	
+
 	public Map<String,Consumer<KeyCode>> getConsumerSetup() {
 		return myEngine.getActionToChangeKeyCodeConsumerMap(INT.LOCAL_PLAYER);
 	}
@@ -489,7 +489,6 @@ public class PlayerViewController implements GamePlayerInterface {
 						String levelString = (String) myNetwork.receiveObject();
 						myNetworkLevel = (Level) DataHandler.fromXMLString(levelString);
 					} catch (IOException | ClassNotFoundException e) {
-						System.out.println(e.getClass().getName());
 						DialogUtil.displayMessage(NETWORK_BROKE, "Processing levels failed.");
 					}
 				}
@@ -519,18 +518,6 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void setSocialAvatar (Avatar av) {
 		myView.addAvatarToPause(av);
-	}
-
-	@Override
-	public void loadNewGame () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Game> findGames () {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
