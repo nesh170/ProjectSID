@@ -83,7 +83,7 @@ public class ExampleLevelBullets {
 		l.setSprites(spriteList);
 		l.setGoalMap(goalMap);
 		try{
-		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
+		DataHandler.toXMLFile(l, "exampleLevel.xml", System.getProperty(DataHandler.USER_DIR) + "/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");

@@ -273,7 +273,7 @@ public class ExampleLevelMaker extends Application{
 		Game game = new Game("lolol");
 		game.addLevel(l);
 		try{
-			DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
+			DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty(DataHandler.USER_DIR)+"/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");

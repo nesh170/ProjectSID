@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import resources.constants.STRING;
+import util.DialogUtil;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -24,6 +25,8 @@ import levelPlatform.level.Level;
 
 public class DataHandler {
 
+	public static final String USER_DIR = "user.dir";
+	
 	private static final XStream XSTREAM = new XStream(new DomDriver());
 
 	public static void toXMLFile(Object obj, String filename, String filePath)
@@ -46,14 +49,14 @@ public class DataHandler {
 	}
 	public static File chooseDir(Stage stage) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		directoryChooser.setInitialDirectory(new File(System.getProperty(USER_DIR)));
 		directoryChooser.setTitle("Open Directory");
 		return directoryChooser.showDialog(stage);
 	}
 
 	public static File chooseFile(Stage stage) {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		fileChooser.setInitialDirectory(new File(System.getProperty(USER_DIR)));
 		fileChooser.setTitle("Select File");
 		return fileChooser.showOpenDialog(stage);
 	}
@@ -80,7 +83,7 @@ public class DataHandler {
 			return games.get(0);
 		}
 	}
-	
+
 	public static Game getGameFromDir(File folder) throws IOException {
 		List<Game> games = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".xml"))
@@ -105,7 +108,7 @@ public class DataHandler {
 				.filter(file -> file.toString().endsWith(".xml"))
 				.collect(Collectors.toList());
 		if (gameFiles.size() != 1) {
-			System.out.println("NOT EXACTLY ONE .XML FILE");
+			DialogUtil.displayMessage("Data Handler", "Not exactly one xml file.");
 			return null;
 		} else {
 			return gameFiles.get(0).getName();
@@ -121,8 +124,8 @@ public class DataHandler {
 						|| file.toString().endsWith(".tif")
 						|| file.toString().endsWith(".tiff")
 						|| file.toString().endsWith(".gif"))
-				.map(file -> fileToImage(file))
-				.collect(Collectors.toList());
+						.map(file -> fileToImage(file))
+						.collect(Collectors.toList());
 	}
 
 	public static List<Image> getImagesFromDir(File folder, double maxWidth,

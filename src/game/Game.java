@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import resources.constants.STRING;
-import levelPlatform.LevelPlatform;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
 
@@ -17,7 +16,9 @@ public class Game {
 	// Instance Variables
 	private List<Level> levels;
 	private SplashScreen splashScreen;
-	private String name = STRING.DEFAULT_GAME_NAME;;
+	private String name = STRING.DEFAULT_GAME_NAME;
+	
+	@SuppressWarnings("unused")
 	private String description;
 	private String gameSoundPath;
 
