@@ -17,6 +17,7 @@ public class INT {
 	public static final int INITIAL_SETUP = 4;
 	public static final int LEVEL = 1;
 	public static final int SPLASH = 0;
+	public static final int TRANSLATE_INDEX = 0;
 	
 	// SplashEdit
 	public static final int SPLASH_EDIT_SCREEN_VERTICAL_SPACING = 40;
@@ -86,9 +87,6 @@ public class INT {
 	public static final int ACTION_INDEX = 1;
 	public static final int VALUE_INDEX = 2;
 	public static final int SWITCH_OPTION_INDEX = 3;
-	
-	
-
 
 	
 	
@@ -119,6 +117,7 @@ public class INT {
     //Coordinates
     public static final int X = 1;
     public static final int Y = 1;
+
 
     
     

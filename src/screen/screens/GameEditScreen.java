@@ -174,7 +174,7 @@ public class GameEditScreen extends Screen {
 		hide.managedProperty().bind(hide.visibleProperty());
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
-		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
+		rec.setStyle(STRING.COLORS.RECTANGLE_COLOR); 
 		HBox musicBox = makeMusicBox();
 		Text text = makeText(STRING.GAME_EDIT.SPLASH_SCREEN);
 		splashSP.getChildren().addAll( rec, text, hide, musicBox);
@@ -185,7 +185,7 @@ public class GameEditScreen extends Screen {
 		HBox musicBox = new HBox(30);
 		musicBox.setTranslateY(500);
 		musicBox.setTranslateX(45);
-		Button select = new Button("SelectMusic");
+		Button select = new Button(STRING.GAME_EDIT.SELECTMUSIC);
 		musicPath = new TextField();
 		musicPath.setPrefWidth(300);
 		musicPath.setEditable(false);
@@ -222,7 +222,7 @@ public class GameEditScreen extends Screen {
 
 		if (!gameEditModel.hasSplash()) {
 			
-			b = makeAddSignWhenEmpty("Add New Splash Screen",
+			b = makeAddSignWhenEmpty(STRING.GAME_EDIT.ADD_NEW_SPLASH,
 					e -> controller.loadSplashEditScreen(gameEditModel.getGame(), this));	
 			if(splashSP.getChildren().size() == INT.INITIAL_SETUP) 
 					splashSP.getChildren().add(b);
@@ -265,8 +265,6 @@ public class GameEditScreen extends Screen {
 		
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
-		if(s.equals("Add New Splash Screen")) {
-		}
 		Button b = new Button(s, addsign);
 		b.setContentDisplay(ContentDisplay.TOP);
 		b.setOnMouseClicked(lamda);
@@ -374,7 +372,7 @@ public class GameEditScreen extends Screen {
 
 		levelHB.getChildren().clear();
 		levelHB.getChildren().addAll(
-				this.makeAddSignWhenEmpty("Add A New Level",
+				this.makeAddSignWhenEmpty(STRING.GAME_EDIT.ADD_NEW_LEVEL,
 						e -> controller.loadLevelEditScreen(gameEditModel.getGame(), this)));
 
 	}
@@ -409,8 +407,8 @@ public class GameEditScreen extends Screen {
 		b.setStyle(STRING.COLORS.FX_GAME_EDIT_BUTTON_RADIUS);
 		b.setGraphic(img);
 		b.setFocusTraversable(false);
-		b.setOnMouseEntered( e -> setNodeScale(b, 1.12));
-		b.setOnMouseExited(e -> setNodeScale(b,1.0));
+		b.setOnMouseEntered( e -> setNodeScale(b, DOUBLE.EXPANSION_FACTOR));
+		b.setOnMouseExited(e -> setNodeScale(b, DOUBLE.ORIGINAL_SIZE));
 		b.setOnMouseClicked(handleDoubleRightClick(b, splashOrLevel, this, index));
 		return b;
 	
@@ -500,10 +498,10 @@ public class GameEditScreen extends Screen {
 		ScaleTransition st =  new ScaleTransition(Duration.millis(2000), 
 				changeToTrashPaper(splashOrLevel));		
 	    st.setDuration(Duration.seconds(0.19f));
-	    st.setFromX(0);
-	    st.setFromY(0);
-	    st.setToX(1);
-	    st.setToY(1);
+	    st.setFromX(DOUBLE.START_SIZE);
+	    st.setFromY(DOUBLE.START_SIZE);
+	    st.setToX(DOUBLE.ORIGINAL_SIZE);
+	    st.setToY(DOUBLE.ORIGINAL_SIZE);
 	    st.setOnFinished(onfinished);
 	    return st;
 	}
@@ -545,7 +543,6 @@ public class GameEditScreen extends Screen {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				//splashSP.getChildren().remove(4);
 				displayApproporiateSplashButton();
 			}
 		};
@@ -565,7 +562,11 @@ public class GameEditScreen extends Screen {
 		return b;
 
 	}
-
+	/**
+	 * animates a level/splash image becomes to trash paper
+	 * @param splashOrLevel
+	 * @return
+	 */
 	private ImageView changeToTrashPaper(int splashOrLevel){
 
 		ImageView img = makeTrashGas();
@@ -575,16 +576,17 @@ public class GameEditScreen extends Screen {
 				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
 		}
 		else{
-			Node toBeRemoved = splashSP.getChildren().get(4);
+			int lastChildIndex = splashSP.getChildren().size()-1;
+			Node toBeRemoved = splashSP.getChildren().get(lastChildIndex);
 			toBeRemoved.setVisible(false);
-			splashSP.getChildren().add(4, new StackPane(toBeRemoved,img));
+			splashSP.getChildren().add(lastChildIndex, new StackPane(toBeRemoved,img));
 		}
 		return img;
 
 	}
 	
 	private ImageView makeTrashGas(){
-		ImageView img = new ImageView(new Image("images/trash_gas.png"));
+		ImageView img = new ImageView(new Image(STRING.GAME_EDIT.TRASH_GAS));
 		img.setFitHeight(80);
 		img.setFitWidth(80);	
 		img.setFocusTraversable(false);
@@ -595,20 +597,12 @@ public class GameEditScreen extends Screen {
 		splashDisplay.setVisible(false);
 		Timeline slideIn = new Timeline();				
 		KeyFrame k = new KeyFrame(Duration.millis(5), e -> updateSlidInFrame(slideIn));
-		
-		Node splashImage = splashSP.getChildren().get(4);
-		Node musicBox = splashSP.getChildren().get(3);
-		Node arrow = splashSP.getChildren().get(2);
-		Node text = splashSP.getChildren().get(1);
-		arrow.managedProperty().bind(arrow.visibleProperty());
-		text.managedProperty().bind(text.visibleProperty());
-		splashImage.managedProperty().bind(splashImage.visibleProperty());
-		musicBox.managedProperty().bind(musicBox.visibleProperty());
-		
-		splashImage.setVisible(false);
-		arrow.setVisible(false);
-		text.setVisible(false);
-		musicBox.setVisible(false);
+
+		for(int i=1; i < splashSP.getChildren().size(); i++){
+			Node splashSPContent = splashSP.getChildren().get(i);
+			splashSPContent.managedProperty().bind(splashSPContent.visibleProperty());
+			splashSPContent.setVisible(false);
+		}
 		
         slideIn.setCycleCount(Animation.INDEFINITE);
 		slideIn.getKeyFrames().add(k);
@@ -617,11 +611,12 @@ public class GameEditScreen extends Screen {
 	
 	private void updateSlidInFrame(Timeline t){
 	
-		Rectangle rec = (Rectangle) splashSP.getChildren().get(0);		
+		Rectangle rec = (Rectangle) splashSP.getChildren().get(INT.TRANSLATE_INDEX);		
 		double width = rec.getWidth();
-		if(width == 0){
+		if(width == DOUBLE.START_SIZE){
 			t.stop();
-			levelDisplay.getChildren().get(5).setVisible(true); 
+			int levelButtonIndex = levelDisplay.getChildren().size() - 1;
+			levelDisplay.getChildren().get(levelButtonIndex).setVisible(true); 
 		}
 		rec.setWidth(width-5);		
 
@@ -630,8 +625,9 @@ public class GameEditScreen extends Screen {
 	
 	private void showSplashRegion(){
 		//restore splashDisplay
-		splashSP.getChildren().get(0).setVisible(false);	
-		levelDisplay.getChildren().get(5).setVisible(false);
+		splashSP.getChildren().get(INT.TRANSLATE_INDEX).setVisible(false);
+		int levelButtonIndex = levelDisplay.getChildren().size() - 1;
+		levelDisplay.getChildren().get(levelButtonIndex).setVisible(false);
 		Timeline slideOut = new Timeline();
 		KeyFrame k = new KeyFrame(Duration.millis(5), e -> updateSlideOutFrame(slideOut));
 		slideOut.getKeyFrames().add(k);
@@ -643,17 +639,16 @@ public class GameEditScreen extends Screen {
 		
 		Rectangle rec = (Rectangle) splashSP.getChildren().get(0);		
 		double width = rec.getWidth();
-		if(width == 500){
+		if(width == INT.DEFAULT_LEVEL_DISPLAY_WIDTH){
 			t.stop();
-			splashSP.getChildren().get(4).setVisible(true);
-			splashSP.getChildren().get(3).setVisible(true);
-			splashSP.getChildren().get(2).setVisible(true);
-			splashSP.getChildren().get(1).setVisible(true);
+			for(int i=1; i < splashSP.getChildren().size(); i++){
+				splashSP.getChildren().get(i).setVisible(true);
+			}
 			splashDisplay.setVisible(true);
 		}
-		rec.setWidth(width+5);			
+		int offset = 5;
+		rec.setWidth(width+ offset);			
 	}
-	
 	
 	private void createPopUp() {   
 		
@@ -678,8 +673,8 @@ public class GameEditScreen extends Screen {
 		  Text doesSave = new Text(STRING.GAME_EDIT.POPUP_SAVE);
 		  doesSave.setStyle(STRING.GAME_EDIT.FONT_POPUP);
 		  HBox buttons= new HBox(150);
-		  Button save = new Button("save");
-		  Button back = new Button("back");
+		  Button save = new Button(STRING.COLLISION_EDIT.SAVE_BUTTON_TEXT);
+		  Button back = new Button(STRING.SPLASH_EDIT_SCREEN.BACK);
 		  buttons.setAlignment(Pos.CENTER);
 		  buttons.getChildren().addAll( back, save);	   
 		  save.setOnMouseClicked(e -> controller.saveAndExit(gameEditModel.getGame(), popup));
@@ -705,9 +700,9 @@ public class GameEditScreen extends Screen {
 	private ContextMenu makeRightClickMenu(EventHandler<ActionEvent> toEdit, EventHandler<ActionEvent> toRemove) { // pass in Level
 
 		final ContextMenu rMenu = new ContextMenu();
-		MenuItem edit = new MenuItem("Edit");
+		MenuItem edit = new MenuItem(STRING.GAME_EDIT.EDIT);
 		edit.setOnAction(toEdit);
-		MenuItem remove = new MenuItem("Remove");
+		MenuItem remove = new MenuItem(STRING.GAME_EDIT.REMOVE);
 		remove.setOnAction(toRemove);
 		rMenu.getItems().addAll(edit, remove);
 		
@@ -729,10 +724,10 @@ public class GameEditScreen extends Screen {
 
 	private Menu makeLevelMenu() {
 		
-		Menu levelMenu = new Menu("Level");
-		MenuItem addLevel = new MenuItem("Add new Level");
+		Menu levelMenu = new Menu(STRING.GAME_EDIT.LEVEL);
+		MenuItem addLevel = new MenuItem(STRING.GAME_EDIT.ADD_LEVEL);
 		addLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), this));
-		MenuItem editLevel = new MenuItem("Edit Level");
+		MenuItem editLevel = new MenuItem(STRING.GAME_EDIT.EDIT_LEVEL);
 		editLevel.setOnAction(o -> controller.loadLevelEditScreen(gameEditModel.getGame(), gameEditModel.getGame()
 				.levels().get(gameEditModel.getSelectedIndex()))); // references to the specific
 												// level within a game
@@ -742,10 +737,10 @@ public class GameEditScreen extends Screen {
 	}
 
 	private Menu makeTools(){
-		Menu tools = new Menu("Tools");
-		MenuItem levelOnly = new MenuItem("Hide splash");
+		Menu tools = new Menu(STRING.GAME_EDIT.TOOLS);
+		MenuItem levelOnly = new MenuItem(STRING.GAME_EDIT.HIDE_SPLASH);
 		levelOnly.setOnAction(e -> hideSplashRegion());
-		MenuItem seeAll = new MenuItem("Display all");
+		MenuItem seeAll = new MenuItem(STRING.GAME_EDIT.DISPLAY_ALL);
 		seeAll.setOnAction(e -> showSplashRegion());
 		tools.getItems().addAll(levelOnly, seeAll);
 		return tools;
@@ -753,8 +748,8 @@ public class GameEditScreen extends Screen {
 	
 	private Menu makeGameMenu() {
 
-		Menu gameMenu = new Menu("Game");
-		MenuItem addPlay = new MenuItem("Play Game");
+		Menu gameMenu = new Menu(STRING.GAME_EDIT.GAME);
+		MenuItem addPlay = new MenuItem(STRING.GAME_EDIT.PLAY);
 		addPlay.setOnAction( o -> controller.playGame(gameEditModel.getGame()));
 		gameMenu.getItems().addAll(addPlay);
 		return gameMenu;
@@ -768,7 +763,7 @@ public class GameEditScreen extends Screen {
 		super.sizeMenuImageView(trashImage, DOUBLE.MENU_BAR_HEIGHT, DOUBLE.MENU_BAR_HEIGHT);
 		
 		Menu trashButton = new Menu("", trashImage);
-		MenuItem delete = new MenuItem("Add new Level");
+		MenuItem delete = new MenuItem(STRING.GAME_EDIT.ADD_LEVEL);
 		delete.setOnAction(o -> controller.trashLevel(gameEditModel.getGame(), gameEditModel.getSelectedIndex(), this));
 		
 		return trashButton;
