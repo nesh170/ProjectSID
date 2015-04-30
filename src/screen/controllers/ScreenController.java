@@ -755,6 +755,11 @@ public class ScreenController {
 	private class GamePlayScreenManager implements GamePlayScreenController {
 
 		@Override
+		public void createLevelsError() {
+			errorHandler.displayError("Game you are loading has no levels.");
+		}
+		
+		@Override
 		public void returnToMainMenuScreen() {
 			
 			tabManager.changeToDefault();
