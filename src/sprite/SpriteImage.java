@@ -1,11 +1,8 @@
 package sprite;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import resources.constants.DOUBLE;
@@ -202,7 +199,8 @@ public class SpriteImage {
 	*/
 	public Image getImageToDisplay(double lengthSidePixel) {
 		
-		Callable getImageToDisplay = () -> {
+		@SuppressWarnings("rawtypes")
+        Callable getImageToDisplay = () -> {
 			
 			int[][] sourceArray = images.get(currentImageIndex);
 
@@ -224,7 +222,8 @@ public class SpriteImage {
 	public ImageView getImageViewToDisplay() {
 		
 		// Would normally need to add for checks if just read from XML, but the SpriteImage getter already called it here. Assume non-null imageViews
-		Callable getImageViewToDisplay = () -> {
+		@SuppressWarnings("rawtypes")
+        Callable getImageViewToDisplay = () -> {
 		
 			return imageViews.get().get(currentImageIndex);
 			
@@ -240,7 +239,7 @@ public class SpriteImage {
 	 * @param Callable
 	 * @return Object castable to specific Callable you pass in
 	 */
-	private Object getImageOrImageViewToDisplayWrapper(Callable callable) {
+	private Object getImageOrImageViewToDisplayWrapper(@SuppressWarnings("rawtypes") Callable callable) {
 
 		Object returnObject = null;
 		

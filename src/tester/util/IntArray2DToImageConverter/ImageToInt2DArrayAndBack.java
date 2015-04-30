@@ -1,10 +1,7 @@
 package tester.util.IntArray2DToImageConverter;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.Scanner;
-
-import data.DataHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -22,7 +19,8 @@ public class ImageToInt2DArrayAndBack extends Tester {
 
 		welcome();
 		
-		Scanner scanner = new Scanner(System.in);
+		@SuppressWarnings("resource")
+        Scanner scanner = new Scanner(System.in);
 		
 		System.out.print("Please input the width of the int[][]: ");
 		String widthString = scanner.next( );

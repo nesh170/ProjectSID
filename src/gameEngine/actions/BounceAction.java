@@ -11,7 +11,7 @@ public class BounceAction extends DoubleAction {
 	private VelocityComponent myVelocityComponent;
 
 	public BounceAction(Sprite sprite, Double val, KeyCode... keys) {
-		super(sprite, val, keys);
+		super(sprite, -val, keys);
 	}
 
 	@Override

@@ -419,7 +419,6 @@ public class LevelEditModel {
 			return constructAction(sprite1, actionName, value, switchOut);
 		} catch (Exception e) {
 			//No Action to Create
-			System.out.println("No action");
 		}
 		
 		return null;

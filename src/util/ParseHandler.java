@@ -1,16 +1,11 @@
 package util;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.parse4j.Parse;
 import org.parse4j.ParseException;
-import org.parse4j.ParseFile;
 import org.parse4j.ParseObject;
 import org.parse4j.ParseQuery;
-import org.parse4j.callback.GetCallback;
-
 import socCenter.User;
 
 public class ParseHandler {

@@ -275,37 +275,7 @@ public class CollisionTableScreen extends Screen{
 		super(width, height);
 	}
 	
-	/******* PRIVATE CLASS SPRITEPAIR *******
-	 * 
-	 * This inner private class SpritePair is used by the CollisionTableScreen 
-	 * to aid with putting the necessary parameters to Collision Table's 
-	 * addActionToMap(String s1, String s2, int dir, Action action) method
-	 * 
-	 * @author anika
-	 *
-	 */
-/*	private class SpritePair {
-		
-		private String myFirstSprite;
-		private String mySecondSprite;
-		
-		public void initialize(String sprite1, String sprite2)
-		{
-			myFirstSprite = sprite1;
-			mySecondSprite = sprite2;
-		}
-		
-		public String getFirstSprite()
-		{
-			return myFirstSprite;
-		}
-		
-		public String getSecondSprite()
-		{
-			return mySecondSprite;
-		}
 	
-	}*/
 	
 
 	/**
@@ -430,7 +400,6 @@ public class CollisionTableScreen extends Screen{
 		
 		for (String each : fourth)
 		{
-		//	String better = each.substring(0, each.length()-INT.ACTION_STRING_LENGTH);
 			nicerNamedActions.add(each);
 		}
 		
@@ -580,14 +549,11 @@ public class CollisionTableScreen extends Screen{
 			tile.getChildren().add(eachRow);
 		}
 		
-//		this.addToolTip(addCollisionRowButton, , -5, "Click to add another collision.");
 		addCollisionRowButton.setOnMouseClicked(e -> {VBox row = addTableRow(); tile.getChildren().add(row);});
 		
-//		addButton.setOnMouseClicked(e -> {VBox row = addTableRow(); tile.getChildren().add(row);});
 
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
-	//	sp.setFitToHeight(true);
 		sp.setFitToWidth(true);
 		
 		sp.setContent(tile);  
@@ -597,36 +563,7 @@ public class CollisionTableScreen extends Screen{
 		return sp;
 	}
 	
-	/*private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
-	{
-		Map<String, List<List<String>>> activeSpriteMap;
-		if (!(collisionTableMap.containsKey(activeSpriteTag)))
-		{
-			activeSpriteMap = new HashMap<String, List<List<String>>>();
-		}
-		else
-		{
-			activeSpriteMap = collisionTableMap.get(activeSpriteTag);
-		}
-		return activeSpriteMap;
-	}
-	
-	private List<List<String>> getOrInstantiateDirectionListOfActions(Map<String, List<List<String>>> activeSpMap, String inactiveSprite)
-	{
-		List<List<String>> actionList;
-		
-		if (!(activeSpMap.containsKey(inactiveSprite)))
-		{
-			actionList = new ArrayList<List<String>>();
-		}
-		else
-		{
-			actionList = activeSpMap.get(inactiveSprite);
-		}
-		
-		return actionList;
-	}*/
-	
+
 	private void saveRowAndAddToCollisionTableMap(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
 	

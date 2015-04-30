@@ -51,11 +51,20 @@ public class GamePlayScreen extends LevelPlatformCapableScreen {
 			double height) {
 		
 		super(width, height);
+		
 		this.controller = sc;
 		StackPane base = new StackPane();
-		PlayerView view = new PlayerView(this, base);
-		PlayerViewController pvc = new PlayerViewController(view, game);
-		view.setController(pvc, myMenu);
+		
+		if (!game.levels().isEmpty()) {
+		
+			PlayerView view = new PlayerView(this, base);
+			PlayerViewController pvc = new PlayerViewController(view, game);
+			view.setController(pvc, myMenu);
+			
+		} else {
+			controller.createLevelsError();
+		}
+		
 	}
 
 	@Override
