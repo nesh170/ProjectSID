@@ -440,7 +440,6 @@ public class CollisionTableScreen extends Screen{
 		action.valueProperty().addListener(new ChangeListener<String>() {
 			
 			public void changed(ObservableValue ov, String t, String t1) {     
-				System.out.println("debugging  value changed of action " + t1);
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
 				{
 					text.setDisable(true);
@@ -465,16 +464,13 @@ public class CollisionTableScreen extends Screen{
 							STRING.COLLISION_EDIT.FONT_STYLE, 
 							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_NAME);
 
-					System.out.println("here debugging");
 					collisionSet.add(spritesToChooseFrom, INT.ACTION_COLUMN, INT.SPRITELIST_ROW); 
-					System.out.println("here debugging2");
 
 					spritesToChooseFrom.valueProperty().addListener(new ChangeListener<String>() {
 
 
 						public void changed(ObservableValue ov, String t, String t1) {                
 							optionalSprites.set(0, t1);
-							System.out.println("here debugging3");
 
 						}
 					});
@@ -632,20 +628,10 @@ public class CollisionTableScreen extends Screen{
 		
 		collisionTableMap.put(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
 		
-		testingMap();
 		
-		/*Map<String, List<List<String>>> activeSpriteMap = this.getOrInstantiateActiveSpriteMap(activeSp);
 		
-
-		List<List<String>> actionList = this.getOrInstantiateDirectionListOfActions(activeSpriteMap, inactiveSp);
-		
-	
-		actionList.set(STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
-		
-		activeSpriteMap.put(inactiveSp, actionList);
-		collisionTableMap.put(activeSp, activeSpriteMap);*/
 	}
-	
+/*	
 	private void testingMap()
 	{
 		for (String s1 : collisionTableMap.keySet())
@@ -672,6 +658,6 @@ public class CollisionTableScreen extends Screen{
 			System.out.println();
 		}
 		System.out.println();
-	}
+	}*/
 	
 }

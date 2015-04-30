@@ -51,12 +51,10 @@ public class CollisionMap {
 		if (!(this.collisonMap.containsKey(activeSpriteTag)))
 		{
 			activeSpriteMap = new HashMap<String, List<List<String>>>();
-			System.out.println("debug / test : here 1");
 		}
 		else
 		{
 			activeSpriteMap = collisonMap.get(activeSpriteTag);
-			System.out.println("debug / test : here 2");
 
 		}
 		return activeSpriteMap;
@@ -73,7 +71,6 @@ public class CollisionMap {
 			{
 				actionList.add(new ArrayList<String>());
 			}
-			System.out.println("debug / test : here 3");
 
 		}
 		else
