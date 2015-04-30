@@ -3,13 +3,13 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
 import resources.constants.INT;
 import socCenter.Avatar;
 import util.DialogUtil;
@@ -34,6 +34,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
 import media.AudioController;
@@ -176,6 +177,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			mySettings = new PreferencePane(myAudioController);
 			mySettings.setController(this);
 		} catch (IOException | NullPointerException e) {
+			e.printStackTrace();
 			DialogUtil.displayMessage("ERROR", "Invalid Game Folder ):");
 			System.exit(0);
 		}
@@ -190,7 +192,6 @@ public class PlayerViewController implements GamePlayerInterface {
 			initializeGameAttributes();
 			setupAnimation();
 		}
-		// play();
 	}
 
 	public void selectGame(Game game) {
@@ -254,9 +255,9 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setDim(double val) {
 		myView.setDim(val);
 	}
-
-	public void changeKeySetup(KeyCode key, String action) {
-		myEngine.changeKeyCodeInAction(0, action, key);
+	
+	public Map<String,Consumer<KeyCode>> getKeySetup() {
+		return myEngine.getActionToChangeKeyCodeConsumerMap(INT.LOCAL_PLAYER);
 	}
 
 	public List<String> getSpriteTagList() {
@@ -465,16 +466,16 @@ public class PlayerViewController implements GamePlayerInterface {
 					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-			//			receiveLevels();
-			//			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-			//			Camera camera = new Camera(myView.getRoot());
-			//			KeyFrame displayFrame = new KeyFrame(
-			//					Duration.millis(1000 / NETWORK_RATE), e -> display(
-			//							myNetworkLevel, renderer, camera));
-			//			Timeline networkTimeline = new Timeline();
-			//			networkTimeline.setCycleCount(Animation.INDEFINITE);
-			//			networkTimeline.getKeyFrames().add(displayFrame);
-			//			networkTimeline.play();
+			receiveLevels();
+			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+			Camera camera = new Camera(myView.getRoot());
+			KeyFrame displayFrame = new KeyFrame(
+					Duration.millis(1000 / NETWORK_RATE), e -> display(
+							myNetworkLevel, renderer, camera));
+			Timeline networkTimeline = new Timeline();
+			networkTimeline.setCycleCount(Animation.INDEFINITE);
+			networkTimeline.getKeyFrames().add(displayFrame);
+			networkTimeline.play();
 		} catch (Exception e) {
 			System.err.println("Can't start Client");
 		}

@@ -12,7 +12,7 @@ import util.ScriptRunner;
 import util.SIDFunctions;
 import gameEngine.Action;
 
-
+@ActionName(displayName = "Custom Groovy")
 public class GroovyAction extends Action {
 
     private ScriptRunner scriptEngine;

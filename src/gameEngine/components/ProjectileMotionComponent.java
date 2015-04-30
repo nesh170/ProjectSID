@@ -1,6 +1,7 @@
 package gameEngine.components;
 
 import sprite.Sprite;
+import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
 public class ProjectileMotionComponent extends VelocityComponent {
@@ -9,21 +10,30 @@ public class ProjectileMotionComponent extends VelocityComponent {
 	private double myBulletSpeed;
 	private double mySelfDestructDistance;
 	
-	public ProjectileMotionComponent(Sprite sprite, Double speed, Double selfDestructDistance, Sprite shooter) {
+	public ProjectileMotionComponent(Sprite sprite, Double speed, Double selfDestructDistance) {
 		super(sprite, null);
-		myShooter = shooter;
 		myBulletSpeed = speed;
 		mySelfDestructDistance = selfDestructDistance;
+	}
+	
+	public void setShooter(Sprite shooter) {
+		myShooter = Sprite.makeCopy(shooter);
 	}
 
 	
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.
-		if((-myShooter.transform().getPosX() + mySprite.transform().getPosX()) > mySelfDestructDistance){
+		if((Math.abs(-myShooter.transform().getPosX() + mySprite.transform().getPosX())) > mySelfDestructDistance){
 			mySprite.setIsActive(false);
 		}
-		setVelocityX(myBulletSpeed);
+		if(myShooter.facesLeft()){
+	        setVelocityX(-EngineMathFunctions.velocityValueFrame(myBulletSpeed));
+	    }
+	    else{
+	        setVelocityX(EngineMathFunctions.velocityValueFrame(myBulletSpeed));
+	    }
+	        
 
 	}
 
