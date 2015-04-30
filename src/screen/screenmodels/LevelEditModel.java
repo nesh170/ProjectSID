@@ -207,6 +207,7 @@ public class LevelEditModel {
 			makeSpriteNameUnique(spriteToAdd, stringToSpriteMap.keySet());
 			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
 			addToGoalMap(spriteToAdd);
+			level.waitingSprites().add(spriteToAdd);
 			
 			clearCursors();
 			clearSpriteToAdd();
@@ -365,8 +366,9 @@ public class LevelEditModel {
 		KeyCode[] keys = {key};
 		try {
 			Action action = (Action) Class.forName(classPath).getConstructor(Sprite.class, Sprite.class, KeyCode[].class).newInstance(actor, act, keys);
-			actor.actionList().add(action);
-			act.actionList().add(action);
+			actor.addAction(action);
+			act.addAction(action);
+			System.out.println("did it");
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
