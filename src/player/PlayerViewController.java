@@ -95,14 +95,9 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void resume() {
-		try{
-			myTimeline.play();
-			myEngine.play(myView.getRoot());
-			myView.playScreen();
-		}
-		catch(NullPointerException e){
-			DialogUtil.displayMessage("ERROR", "Unable to resume ):");
-		}
+		myTimeline.play();
+		myEngine.play(myView.getRoot());
+		myView.playScreen();
 	}
 
 	public void pause() {
@@ -210,7 +205,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			DialogUtil.displayMessage("Load Game", "No games available to play.");
 			return;
 		}
-		
+
 		List<String> gameNames = children.stream().map(file -> file.getName())
 				.collect(Collectors.toList());
 		String choice = DialogUtil.choiceDialog("Load Game", "Select a game to play.", gameNames);
@@ -222,7 +217,7 @@ public class PlayerViewController implements GamePlayerInterface {
 		myGameFolder = children.stream()
 				.filter(file -> file.getName().equals(choice))
 				.collect(Collectors.toList()).get(0);
-		
+
 		try {
 			myGame = DataHandler.getGameFromDir(myGameFolder);
 		} catch (IOException e) {
@@ -230,11 +225,11 @@ public class PlayerViewController implements GamePlayerInterface {
 			myGameFolder = null;
 			return;
 		}
-		
+
 		myView.enableButtonItems();
 		initializeGameAttributes();
 		setupAnimation();
-		
+
 	}
 
 	public void selectGame(Game game) {
