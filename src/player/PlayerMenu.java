@@ -1,12 +1,15 @@
 package player;
 
 import gameEngine.actions.GroovyAction;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import sid.SIDSocial;
 import sprite.Sprite;
 import util.DialogUtil;
@@ -67,8 +70,6 @@ public class PlayerMenu {
 
 	private MenuItem makeMenuItem(String name) {
 		MenuItem item = new MenuItem(name);
-		item.setAccelerator(KeyCombination.keyCombination("Ctrl+"
-				+ name.substring(0, 1)));
 		return item;
 	}
 
@@ -113,7 +114,7 @@ public class PlayerMenu {
 		fileMenu.getItems().addAll(openItem, pauseItem, playItem, restartItem,
 				saveItem, saveAsItem, loadItem);
 
-		disableFileMenuItems(fileMenu);
+		toggleMenuItems(fileMenu, true, "Open Game");
 
 		return fileMenu;
 	}
@@ -127,20 +128,11 @@ public class PlayerMenu {
 			view.openPreference();
 		});
 		prefMenu.getItems().add(prefItem);
+		toggleMenuItems(prefMenu, true, "Join Game");
 		return prefMenu;
 	}
 
 	@AddMenuItem(order = 2)
-	private Menu buildHelpMenu(PlayerViewController view) {
-		Menu helpMenu = new Menu("Help");
-		MenuItem tutorialItem = new MenuItem("Tutorial");
-		tutorialItem.setOnAction(event -> view.showTutorial());
-
-		helpMenu.getItems().addAll(tutorialItem);
-		return helpMenu;
-	}
-
-	@AddMenuItem(order = 3)
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
@@ -153,10 +145,11 @@ public class PlayerMenu {
 		stopItem.setOnAction(event -> view.stopMusic());
 
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
+		toggleMenuItems(soundMenu, true, "Join Game");
 		return soundMenu;
 	}
 
-	@AddMenuItem(order = 4)
+	@AddMenuItem(order = 3)
 	private Menu buildGroovyMenu(PlayerViewController view) {
 		Menu groovyMenu = new Menu("Groovy");
 		MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
@@ -166,10 +159,11 @@ public class PlayerMenu {
 				.getSpriteTagList(), (spriteTag, groovyAction) -> view
 				.addRuntimeAction(spriteTag, groovyAction)));
 		groovyMenu.getItems().addAll(groovyActionItem);
+		toggleMenuItems(groovyMenu, true);
 		return groovyMenu;
 	}
 
-	@AddMenuItem(order = 5)
+	@AddMenuItem(order = 4)
 	private Menu buildNetworksMenu(PlayerViewController view) {
 		Menu networksMenu = new Menu("Multiplayer");
 		MenuItem hostItem = new MenuItem("Host Game");
@@ -185,10 +179,12 @@ public class PlayerMenu {
 		});
 
 		networksMenu.getItems().addAll(hostItem, joinItem);
+		toggleMenuItems(networksMenu, true, "Join Game");
+
 		return networksMenu;
 	}
 
-	@AddMenuItem(order = 6)
+	@AddMenuItem(order = 5)
 	private Menu buildSocialMenu(PlayerViewController view){
 		Menu socialMenu = new Menu("Social Center");
 		MenuItem openSocial = new MenuItem("Open");
@@ -207,6 +203,7 @@ public class PlayerMenu {
 			DialogUtil.displayMessage("ERROR",  "FAILED TO INITIALIZE STAGE");
 		}});
 		socialMenu.getItems().add(openSocial);
+		toggleMenuItems(socialMenu, true);
 		return socialMenu;
 	}
 
@@ -214,19 +211,13 @@ public class PlayerMenu {
 		return myMenu;
 	}
 
-	private void toggleMenuItems(Menu fileMenu, List<String> exceptions, boolean disable) {
-		fileMenu.getItems().stream().filter(item -> exceptions.contains(item.getText()))
+	public void toggleMenuItems(Menu fileMenu, boolean disable, String... exceptions) {
+		fileMenu.getItems().stream().filter(item -> !Arrays.asList(exceptions).contains(item.getText()))
 		.forEach(item -> item.setDisable(disable));
 	}
-	
 
-	private void disableFileMenuItems(Menu fileMenu) {
-		fileMenu.getItems().stream().filter(item -> !item.getText()
-				.equals("Open Game"))
-				.forEach(item -> item.setDisable(true));
-	}
-
-	public void enableFileMenu() {
-		myMenu.getMenus().get(0).getItems().stream().forEach(item -> item.setDisable(false));
+	public void enableAll() {
+		myMenu.getMenus().stream()
+		.forEach(item -> toggleMenuItems(item, false));
 	}
 }
