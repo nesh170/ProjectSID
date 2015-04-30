@@ -8,7 +8,7 @@ public class ProjectileMotionComponent extends VelocityComponent {
 
 	private Sprite myShooter;
 	private double myBulletSpeed;
-	private static final double SELF_DESTRUCT_DISTANCE=500;
+	private static final double SELF_DESTRUCT_DISTANCE=800;
 	
 	public ProjectileMotionComponent(Sprite sprite, Double speed) {
 		super(sprite, null);
