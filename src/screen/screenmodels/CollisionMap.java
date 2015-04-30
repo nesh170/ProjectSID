@@ -3,6 +3,7 @@ package screen.screenmodels;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import resources.constants.INT;
 
@@ -31,16 +32,23 @@ public class CollisionMap {
 	public void put(String attacker, String attacked, int direc, List<String> list){
 	
 	}
+	public Set<String> keySet(){
+		return collisonMap.keySet();
+	}
 	
 	public boolean containsKey(String s){		
 		return collisonMap.containsKey(s);
 	}
-	public Map get(String s){
+	public Map<String, List<List<String>>> get(String s){
 		if(containsKey(s))
 			return collisonMap.get(s);	
 		return null;
 	}
-
+	public int size(){
+		return collisonMap.size();
+	}
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
