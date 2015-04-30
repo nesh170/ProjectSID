@@ -41,34 +41,43 @@ import sprite.Sprite;
  */
 public class ScreenFactory {
 	
+	// Instance Variables
 	double width;
 	double height;
 	
+	
+	// Constructor &  Helpers
 	public ScreenFactory(double width, double height) {
+		
 		this.width = width;
 		this.height = height;
+		
 	}
 
+	
+	// Instance Methods
 	public Screen createMainMenuScreen(MainMenuScreenController mainMenuScreenController) {
 
 		return new MainMenuScreen(mainMenuScreenController, width, height);
 
 	}
 	
-	public Screen createGameEditScreen(Game game, 
-			GameEditScreenController gameEditScreenController) {
+	public Screen createGameEditScreen(Game game, GameEditScreenController gameEditScreenController) {
+		
 		if (game != null) {
 			return new GameEditScreen(game, gameEditScreenController, width, height);
 		}
+		
 		else {
+			
 			Game newGame = new Game(STRING.DEFAULT_GAME_NAME);
 			return new GameEditScreen(newGame, gameEditScreenController, width, height);
+			
 		}
 		
 	}
 	
-	public Screen createSplashEditScreen(SplashScreen splashScreen, 
-			SplashEditScreenController splashEditScreenManager, Game game) {
+	public Screen createSplashEditScreen(SplashScreen splashScreen, SplashEditScreenController splashEditScreenManager, Game game) {
 
 		return new SplashEditScreen(splashEditScreenManager, game, width, height, splashScreen);
 		
@@ -80,39 +89,40 @@ public class ScreenFactory {
 	 * @param splashEditScreenManager
 	 * @return Screen
 	 */
-	public Screen createCollisionTableScreen(Set<String> spriteTags, 
-			CollisionTableScreenController collisionTableScreenController, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
+	public Screen createCollisionTableScreen(
+			Set<String> spriteTags, 
+			CollisionTableScreenController collisionTableScreenController, 
+			CollisionMap collisionTableMap, 
+			Map<String, ObservableList<String>> spriteMap) {
 
 		return new CollisionTableScreen(collisionTableScreenController, width, height, spriteTags, collisionTableMap, spriteMap);
 		
 	}
 	
 	
-	public Screen createLevelEditScreen(Level level, 
-			LevelEditScreenController levelEditScreenController, Game game) {
+	public Screen createLevelEditScreen(Level level, LevelEditScreenController levelEditScreenController, Game game) {
 
 		return new LevelEditScreen(levelEditScreenController, game, width, height, level);
 	
 	}
 	
-	public Screen createSpriteEditScreen(Tab levelEditTab, Sprite sprite,
-			SpriteEditScreenController spriteEditScreenController) {
+	public Screen createSpriteEditScreen(Tab levelEditTab, Sprite sprite, SpriteEditScreenController spriteEditScreenController) {
 		
-		return new SpriteEditScreen(spriteEditScreenController,levelEditTab,
-				width, height, sprite);
+		return new SpriteEditScreen(spriteEditScreenController,levelEditTab, width, height, sprite);
 		
 	}
 
 	
-	public Screen createGamePlayScreen(Game game,
-			GamePlayScreenController gamePlayScreenController) {
+	public Screen createGamePlayScreen(Game game, GamePlayScreenController gamePlayScreenController) {
 		
 		return new GamePlayScreen(gamePlayScreenController, game, width, height);
 		
 	}
 
 	public Screen createGamePlayScreen(GamePlayScreenController gamePlayScreenController) {
+		
 		return new GamePlayScreen(gamePlayScreenController, width, height);
+		
 	}
 	
 

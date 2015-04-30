@@ -39,8 +39,9 @@ public interface LevelEditScreenController {
 	 * that occur during interactions between sprites
 	 * @author Anika
 	 * @param level
+	 * @return 
 	 */
-	public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String,ObservableList<String>> stringToListMap);
+	public Tab loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String,ObservableList<String>> stringToListMap);
 
 	/**
 	 * Saves the level created in the levelEditScreen
