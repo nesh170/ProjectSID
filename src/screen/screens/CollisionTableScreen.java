@@ -420,6 +420,7 @@ public class CollisionTableScreen extends Screen{
 		optionalSprites.add(null);
 		
 		action.valueProperty().addListener(new ChangeListener<String>() {
+			
 			public void changed(ObservableValue ov, String t, String t1) {                
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
 				{
