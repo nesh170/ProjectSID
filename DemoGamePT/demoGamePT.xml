@@ -1,0 +1,1201 @@
+<game.Game>
+  <levels>
+    <levelPlatform.splashScreen.SplashScreen>
+      <width>900</width>
+      <height>600</height>
+      <sprites/>
+      <playerSpriteList>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.KillAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>ENTER</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>0.0</value>
+            </gameEngine.actions.KillAction>
+          </actionList>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>180.0</x>
+              <y>100.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation>
+              <x>0.0</x>
+              <y>0.0</y>
+              <hash>0</hash>
+            </myRotation>
+            <myDimensions>
+              <width>40.0</width>
+              <height>50.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+      </playerSpriteList>
+      <collisionTable>
+        <myBigTable/>
+        <tagList/>
+        <collisionMap>
+          <collisonMap/>
+        </collisionMap>
+      </collisionTable>
+      <goalMap>
+        <entry>
+          <sprite.Sprite reference="../../../playerSpriteList/sprite.Sprite"/>
+          <int>1</int>
+        </entry>
+      </goalMap>
+      <myBackgroundPath>DemoGamePT/Splash.jpg</myBackgroundPath>
+    </levelPlatform.splashScreen.SplashScreen>
+    <levelPlatform.level.Level>
+      <width>1500</width>
+      <height>600</height>
+      <sprites>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>platform</tag>
+          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>0.0</x>
+              <y>200.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>200.0</width>
+              <height>20.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>platform</tag>
+          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>250.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>150.0</width>
+              <height>20.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>platform</tag>
+          <imagePath>engineTesting/mushroomPlatform.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>450.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>150.0</width>
+              <height>20.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>rail</tag>
+          <imagePath>DemoGamePT/charged creeper.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>700.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>150.0</width>
+              <height>5.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>rail</tag>
+          <imagePath>DemoGamePT/charged creeper.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>900.0</x>
+              <y>220.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>80.0</width>
+              <height>5.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>rail</tag>
+          <imagePath>DemoGamePT/charged creeper.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>1100.0</x>
+              <y>300.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>100.0</width>
+              <height>5.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>rail</tag>
+          <imagePath>DemoGamePT/charged creeper.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>1300.0</x>
+              <y>220.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>200.0</width>
+              <height>5.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.KillAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array"/>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>0.0</value>
+            </gameEngine.actions.KillAction>
+          </actionList>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>block</tag>
+          <imagePath>DemoGamePT/Mario Brick.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>520.0</x>
+              <y>200.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>30.0</width>
+              <height>30.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>/DemoGamePT/SonicImage.png</tag>
+          <imagePath>/DemoGamePT/SonicImage.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>600.0</x>
+              <y>200.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>30.0</width>
+              <height>30.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>/DemoGamePT/star.png</tag>
+          <imagePath>/DemoGamePT/star.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>1480.0</x>
+              <y>190.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>30.0</width>
+              <height>30.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList/>
+          <componentList/>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>erxytfuvgbhkjn/DemoGamePT/500x_creeper_640.jpg</tag>
+          <imagePath>erxytfuvgbhkjn/DemoGamePT/500x_creeper_640.jpg</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>0.0</x>
+              <y>500.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>1500.0</width>
+              <height>100.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.FallAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array"/>
+              </myKeyCode>
+              <runsEveryFrame>true</runsEveryFrame>
+              <value>50.0</value>
+            </gameEngine.actions.FallAction>
+            <gameEngine.actions.NormalActionY>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <runsEveryFrame>false</runsEveryFrame>
+            </gameEngine.actions.NormalActionY>
+            <gameEngine.actions.MotionPathAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <null/>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>true</runsEveryFrame>
+              <myPoints>
+                <javafx.geometry.Point2D>
+                  <x>250.0</x>
+                  <y>270.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+                <javafx.geometry.Point2D>
+                  <x>350.0</x>
+                  <y>270.0</y>
+                  <hash>0</hash>
+                </javafx.geometry.Point2D>
+              </myPoints>
+              <myDirection>1</myDirection>
+              <myLastVisitedIndex>0</myLastVisitedIndex>
+              <mySpeed>2.0</mySpeed>
+              <myTolerance>2.0</myTolerance>
+              <wrapsAround>false</wrapsAround>
+            </gameEngine.actions.MotionPathAction>
+            <gameEngine.actions.KillAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array"/>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>0.0</value>
+            </gameEngine.actions.KillAction>
+          </actionList>
+          <componentList>
+            <gameEngine.components.VelocityComponent>
+              <mySprite reference="../../.."/>
+              <isActive>true</isActive>
+              <myVelocity reference="../../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+              <myTerminalVelocity>5.0</myTerminalVelocity>
+              <isGrounded>true</isGrounded>
+            </gameEngine.components.VelocityComponent>
+          </componentList>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>enemy</tag>
+          <imagePath>engineTesting/Goomba.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>250.0</x>
+              <y>270.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>30.0</width>
+              <height>30.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite>
+          <actionList>
+            <gameEngine.actions.FallAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array"/>
+              </myKeyCode>
+              <runsEveryFrame>true</runsEveryFrame>
+              <value>50.0</value>
+            </gameEngine.actions.FallAction>
+            <gameEngine.actions.NormalActionY>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <runsEveryFrame>false</runsEveryFrame>
+            </gameEngine.actions.NormalActionY>
+            <gameEngine.actions.UpMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>-15.0</value>
+              <soundPath>engineTesting/sounds/jump.mp3</soundPath>
+              <climbing>false</climbing>
+            </gameEngine.actions.UpMotionAction>
+            <gameEngine.actions.LeftMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>8.0</value>
+            </gameEngine.actions.LeftMotionAction>
+            <gameEngine.actions.RightMotionAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>8.0</value>
+              <velocity>8.0</velocity>
+            </gameEngine.actions.RightMotionAction>
+            <gameEngine.actions.KillAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array"/>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <value>0.0</value>
+            </gameEngine.actions.KillAction>
+            <gameEngine.actions.SwitchOutAction>
+              <mySprite reference="../../.."/>
+              <isActive>false</isActive>
+              <myKeyCode class="java.util.Arrays$ArrayList">
+                <a class="javafx.scene.input.KeyCode-array">
+                  <javafx.scene.input.KeyCode>S</javafx.scene.input.KeyCode>
+                </a>
+              </myKeyCode>
+              <runsEveryFrame>false</runsEveryFrame>
+              <mySpriteIndex>0</mySpriteIndex>
+              <mySprites>
+                <sprite.Sprite reference="../../../.."/>
+                <sprite.Sprite>
+                  <actionList>
+                    <gameEngine.actions.FallAction>
+                      <mySprite reference="../../.."/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array"/>
+                      </myKeyCode>
+                      <runsEveryFrame>true</runsEveryFrame>
+                      <value>50.0</value>
+                    </gameEngine.actions.FallAction>
+                    <gameEngine.actions.NormalActionY>
+                      <mySprite reference="../../.."/>
+                      <isActive>false</isActive>
+                      <runsEveryFrame>false</runsEveryFrame>
+                    </gameEngine.actions.NormalActionY>
+                    <gameEngine.actions.UpMotionAction>
+                      <mySprite reference="../../.."/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array">
+                          <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+                        </a>
+                      </myKeyCode>
+                      <runsEveryFrame>false</runsEveryFrame>
+                      <value>-15.0</value>
+                      <soundPath>engineTesting/sounds/jump.mp3</soundPath>
+                      <climbing>false</climbing>
+                    </gameEngine.actions.UpMotionAction>
+                    <gameEngine.actions.LeftMotionAction>
+                      <mySprite reference="../../.."/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array">
+                          <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                        </a>
+                      </myKeyCode>
+                      <runsEveryFrame>false</runsEveryFrame>
+                      <value>8.0</value>
+                    </gameEngine.actions.LeftMotionAction>
+                    <gameEngine.actions.RightMotionAction>
+                      <mySprite reference="../../.."/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array">
+                          <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                        </a>
+                      </myKeyCode>
+                      <runsEveryFrame>false</runsEveryFrame>
+                      <value>8.0</value>
+                      <velocity>8.0</velocity>
+                    </gameEngine.actions.RightMotionAction>
+                    <gameEngine.actions.KillAction>
+                      <mySprite reference="../../.."/>
+                      <isActive>false</isActive>
+                      <myKeyCode class="java.util.Arrays$ArrayList">
+                        <a class="javafx.scene.input.KeyCode-array"/>
+                      </myKeyCode>
+                      <runsEveryFrame>false</runsEveryFrame>
+                      <value>0.0</value>
+                    </gameEngine.actions.KillAction>
+                    <gameEngine.actions.SwitchOutAction reference="../../../.."/>
+                  </actionList>
+                  <componentList>
+                    <gameEngine.components.VelocityComponent>
+                      <mySprite reference="../../.."/>
+                      <isActive>true</isActive>
+                      <myVelocity reference="../../../../../../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+                      <myTerminalVelocity>5.0</myTerminalVelocity>
+                      <isGrounded>true</isGrounded>
+                    </gameEngine.components.VelocityComponent>
+                  </componentList>
+                  <x>0.0</x>
+                  <y>0.0</y>
+                  <emissionList/>
+                  <isActive>false</isActive>
+                  <tag>player</tag>
+                  <imagePath>DemoGamePT/Sonic.png</imagePath>
+                  <facesLeft>false</facesLeft>
+                  <transform>
+                    <myPosition>
+                      <x>50.0</x>
+                      <y>100.0</y>
+                      <hash>0</hash>
+                    </myPosition>
+                    <myRotation reference="../../../../../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+                    <myDimensions>
+                      <width>40.0</width>
+                      <height>50.0</height>
+                      <hash>0</hash>
+                    </myDimensions>
+                    <startPosition reference="../myPosition"/>
+                    <startRotation reference="../../../../../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+                    <startDimensions reference="../myDimensions"/>
+                  </transform>
+                  <isGoal>false</isGoal>
+                  <toLevel>0</toLevel>
+                  <isText>false</isText>
+                </sprite.Sprite>
+              </mySprites>
+              <myPlayerList>
+                <sprite.Sprite reference="../../../.."/>
+                <sprite.Sprite reference="../../mySprites/sprite.Sprite[2]"/>
+              </myPlayerList>
+            </gameEngine.actions.SwitchOutAction>
+          </actionList>
+          <componentList>
+            <gameEngine.components.VelocityComponent>
+              <mySprite reference="../../.."/>
+              <isActive>true</isActive>
+              <myVelocity reference="../../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+              <myTerminalVelocity>5.0</myTerminalVelocity>
+              <isGrounded>true</isGrounded>
+            </gameEngine.components.VelocityComponent>
+          </componentList>
+          <x>0.0</x>
+          <y>0.0</y>
+          <emissionList/>
+          <isActive>true</isActive>
+          <tag>player</tag>
+          <imagePath>DemoGamePT/mario.png</imagePath>
+          <facesLeft>false</facesLeft>
+          <transform>
+            <myPosition>
+              <x>50.0</x>
+              <y>100.0</y>
+              <hash>0</hash>
+            </myPosition>
+            <myRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <myDimensions>
+              <width>40.0</width>
+              <height>50.0</height>
+              <hash>0</hash>
+            </myDimensions>
+            <startPosition reference="../myPosition"/>
+            <startRotation reference="../../../../../levelPlatform.splashScreen.SplashScreen/playerSpriteList/sprite.Sprite/transform/myRotation"/>
+            <startDimensions reference="../myDimensions"/>
+          </transform>
+          <isGoal>false</isGoal>
+          <toLevel>0</toLevel>
+          <isText>false</isText>
+        </sprite.Sprite>
+        <sprite.Sprite reference="../sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+      </sprites>
+      <playerSpriteList reference="../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
+      <collisionTable>
+        <myBigTable>
+          <entry>
+            <string>rail</string>
+            <map>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[4]"/>
+                      <gameEngine.actions.CompoundAction>
+                        <mySprite reference="../../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                        <isActive>false</isActive>
+                        <runsEveryFrame>false</runsEveryFrame>
+                        <mySubActions>
+                          <gameEngine.actions.NormalActionY reference="../../../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.NormalActionY"/>
+                          <gameEngine.actions.RightMotionAction reference="../../../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]/actionList/gameEngine.actions.RightMotionAction"/>
+                        </mySubActions>
+                      </gameEngine.actions.CompoundAction>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>enemy</string>
+            <map>
+              <entry>
+                <string>platform</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[12]"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[12]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[12]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[12]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[12]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>block</string>
+            <map>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[8]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>erxytfuvgbhkjn/DemoGamePT/500x_creeper_640.jpg</string>
+            <map>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[11]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[11]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[11]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[11]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>platform</string>
+            <map>
+              <entry>
+                <string>enemy</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>/DemoGamePT/SonicImage.png</string>
+            <map>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[9]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[9]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[9]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[9]"/>
+                      <gameEngine.actions.SwitchOutAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>player</string>
+            <map>
+              <entry>
+                <string>rail</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                      <gameEngine.actions.CompoundAction reference="../../../../../../../entry/map/entry/list/map[4]/entry/gameEngine.actions.CompoundAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>enemy</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[12]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>block</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[8]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>erxytfuvgbhkjn/DemoGamePT/500x_creeper_640.jpg</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>platform</string>
+                <list>
+                  <map/>
+                  <map/>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.NormalActionY reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.NormalActionY"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>/DemoGamePT/SonicImage.png</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.SwitchOutAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.SwitchOutAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.SwitchOutAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]"/>
+                      <gameEngine.actions.SwitchOutAction reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+              <entry>
+                <string>/DemoGamePT/star.png</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                      <gameEngine.actions.KillAction>
+                        <mySprite reference="../../../../../../../../../../sprites/sprite.Sprite[10]"/>
+                        <isActive>false</isActive>
+                        <myKeyCode class="java.util.Arrays$ArrayList">
+                          <a class="javafx.scene.input.KeyCode-array"/>
+                        </myKeyCode>
+                        <runsEveryFrame>false</runsEveryFrame>
+                        <value>0.0</value>
+                      </gameEngine.actions.KillAction>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                      <gameEngine.actions.KillAction reference="../../../map/entry/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                      <gameEngine.actions.KillAction reference="../../../map/entry/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/mySprites/sprite.Sprite[2]"/>
+                      <gameEngine.actions.KillAction reference="../../../map/entry/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+          <entry>
+            <string>/DemoGamePT/star.png</string>
+            <map>
+              <entry>
+                <string>player</string>
+                <list>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[10]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[10]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[10]"/>
+                      <null/>
+                    </entry>
+                  </map>
+                  <map>
+                    <entry>
+                      <sprite.Sprite reference="../../../../../../../../../sprites/sprite.Sprite[10]"/>
+                      <gameEngine.actions.KillAction reference="../../../../../../../entry[7]/map/entry[7]/list/map/entry/gameEngine.actions.KillAction"/>
+                    </entry>
+                  </map>
+                  <map/>
+                  <map/>
+                </list>
+              </entry>
+            </map>
+          </entry>
+        </myBigTable>
+        <tagList>
+          <string>enemy</string>
+          <string>platform</string>
+          <string>platform</string>
+          <string>enemy</string>
+          <string>player</string>
+          <string>platform</string>
+          <string>block</string>
+          <string>player</string>
+          <string>rail</string>
+          <string>player</string>
+          <string>/DemoGamePT/star.png</string>
+          <string>player</string>
+          <string>/DemoGamePT/SonicImage.png</string>
+          <string>player</string>
+          <string>erxytfuvgbhkjn/DemoGamePT/500x_creeper_640.jpg</string>
+          <string>player</string>
+        </tagList>
+        <collisionMap>
+          <collisonMap/>
+        </collisionMap>
+      </collisionTable>
+      <goalMap>
+        <entry>
+          <sprite.Sprite reference="../../../sprites/sprite.Sprite[10]"/>
+          <int>2</int>
+        </entry>
+      </goalMap>
+      <myBackgroundPath>DemoGamePT/background.png</myBackgroundPath>
+    </levelPlatform.level.Level>
+    <levelPlatform.level.Level>
+      <width>1500</width>
+      <height>600</height>
+      <sprites/>
+      <playerSpriteList reference="../../levelPlatform.level.Level/sprites/sprite.Sprite[13]/actionList/gameEngine.actions.SwitchOutAction/myPlayerList"/>
+      <collisionTable>
+        <myBigTable/>
+        <tagList/>
+        <collisionMap>
+          <collisonMap/>
+        </collisionMap>
+      </collisionTable>
+      <goalMap/>
+      <myBackgroundPath>DemoGamePT/youWon.jpg</myBackgroundPath>
+    </levelPlatform.level.Level>
+  </levels>
+  <name>test</name>
+</game.Game>
