@@ -376,6 +376,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		else if(option.equals(STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT)) {
 			this.getChildren().remove(splashEditModel.getText());
 			splashEditModel.removeTextFromTextArray();
+			counter--;
 			if(!splashEditModel.getTexts().isEmpty()) {
 				splashEditModel.selectText(splashEditModel.getTexts().get(0).getText());
 			}
