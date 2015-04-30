@@ -98,6 +98,7 @@ public class SpriteEditScreen extends Screen {
 
 	private Text dataText;
 	
+	private CheckBox spriteInactive;
 	private CheckBox goalCheck;
 	private TextField goToLevel;
 	private final String defaultGoToLevelValue = "-1";
@@ -208,7 +209,7 @@ public class SpriteEditScreen extends Screen {
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
 		Menu fileMenu = makeFileMenu(
-				e -> model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), false, 0), 
+				e -> model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), spriteInactive.isSelected(), goalCheck.isSelected(), Integer.parseInt(goToLevel.getText())), //TODO bug here 
 				e -> exit(),
 				e -> saveAndExit());
 
@@ -311,11 +312,11 @@ public class SpriteEditScreen extends Screen {
 		Pane actionPane = initializeActionPaneBoxes();
 		Pane componentPane = initializeComponentPaneBoxes();
 		Node dataPane = createDataPane();
-		Node goalCheckboxPane = createGoalCheckbox();
+		Node checkboxPane = createCheckboxPane();
 
 		VBox actionAndComponentPane = new VBox();
 		actionAndComponentPane.getChildren().addAll(actionPane, componentPane,
-				dataPane,goalCheckboxPane);
+				dataPane,checkboxPane);
 
 		return actionAndComponentPane;
 
@@ -333,11 +334,13 @@ public class SpriteEditScreen extends Screen {
 
 	}
 	
-	private HBox createGoalCheckbox() {
+	private HBox createCheckboxPane() {
 		HBox goalArea = new HBox();
 		goalArea.getStyleClass().add(STRING.CSS.PANE);
 		goalArea.alignmentProperty().set(Pos.CENTER);
 		goalArea.setSpacing(DOUBLE.BUTTON_SPACING);
+		
+		spriteInactive = new CheckBox(languageResources().getString("SpriteInactive?"));
 		
 		goalCheck = new CheckBox(languageResources().getString("OnGoal"));
 		goalCheck.selectedProperty().addListener((observable, oldBool, newBool) -> {
@@ -354,7 +357,7 @@ public class SpriteEditScreen extends Screen {
 		goToLevel.setText(defaultGoToLevelValue);
 		goToLevel.setVisible(false);
 		
-		goalArea.getChildren().addAll(goalCheck,goToLevel);
+		goalArea.getChildren().addAll(spriteInactive,goalCheck,goToLevel);
 		
 		return goalArea;
 	}
@@ -633,7 +636,7 @@ public class SpriteEditScreen extends Screen {
 	private void exit(Sprite sprite) {
 
 		controller.returnToSelectedLevel((LevelEditScreen) levelEditScreen.getContent(), levelEditScreen,
-				model.retrieveEditedSprite());
+				sprite);
 
 	}
 	
@@ -652,7 +655,7 @@ public class SpriteEditScreen extends Screen {
 		
 		else {
 			try {
-				model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), goalCheck.isSelected(), Integer.parseInt(goToLevel.getText()));
+				model.saveSprite(spriteNameField.getText(), tagChoicesHolder.getSelectionModel().getSelectedItem(), spriteInactive.isSelected(), goalCheck.isSelected(), Integer.parseInt(goToLevel.getText()));
 				exit(model.retrieveEditedSprite());
 			}
 			catch (NumberFormatException e) {

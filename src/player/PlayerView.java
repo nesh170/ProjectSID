@@ -172,5 +172,9 @@ public class PlayerView {
 	public void setDim(double val) {
 		myDim.setOpacity(val);
 	}
-	
+
+	public void enableButtonItems() {
+		myMenuBar.enableFileMenu();
+	}
+		
 }

@@ -13,7 +13,7 @@ import gameEngine.components.VelocityComponent;
  * used for powerups, changing character during gameplay, etc.
  *
  */
-
+@ActionName(displayName = "Switch Out")
 public class SwitchOutAction extends MultiSpriteAction{
 	
 	/*@Sprite[]

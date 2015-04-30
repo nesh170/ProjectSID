@@ -50,7 +50,11 @@ public class DefaultSpriteGenerator extends Tester{
 				 if(method.toString().endsWith(type + "()")) sprite = (Sprite) method.invoke(this);
 			 }
 			 Set<Sprite> spriteSet = new HashSet<Sprite>();
+			 sprite.setTag(type);
+			 sprite.setName("default "+type);
 			 spriteSet.add(sprite);
+			 sprite.setIsActive(true);
+			 sprite.setIsGoal(false, -1);
 			 DataHandler.toXMLFile(spriteSet, "default" + type +".xml", System.getProperty("user.dir")+"/defaults");
 			} catch (Exception e){
 				e.printStackTrace();

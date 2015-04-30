@@ -73,6 +73,10 @@ public abstract class Action {
 	    myKeyCode = keys;
 	}
 	
+	public List<KeyCode> keycode(){
+	    return myKeyCode;
+	}
+	
 	public void setValue (double newValue){
 	    value = newValue;
 	}
