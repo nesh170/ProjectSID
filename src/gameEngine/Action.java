@@ -26,6 +26,8 @@ public abstract class Action {
 	protected Double value;
 	private String soundPath;
 	
+	public static final String VEL_COMP = "VelocityComponent";
+	
 	public void setSound(String path){
 		soundPath = path;
 	}

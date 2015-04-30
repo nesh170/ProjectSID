@@ -17,7 +17,7 @@ public class FallAction extends DoubleAction {
 
 	@Override
 	public void prepare() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
 
 	}
 
