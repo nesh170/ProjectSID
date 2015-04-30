@@ -22,6 +22,7 @@ import java.util.Set;
 
 
 
+
 import data.DataHandler;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
@@ -357,6 +358,21 @@ public class LevelEditModel {
 		}
 		
 		
+	}
+	
+	public void addTwoSpriteAction(Sprite actor, String two, String classPath, KeyCode key) {
+		Sprite act = stringToSpriteMap.get(two);
+		KeyCode[] keys = {key};
+		try {
+			Action action = (Action) Class.forName(classPath).getConstructor(Sprite.class, Sprite.class, KeyCode[].class).newInstance(actor, act, keys);
+			actor.actionList().add(action);
+			act.actionList().add(action);
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+		}
 	}
 	
 	private List<Sprite> getSpritesFromTag(String tag)
