@@ -69,6 +69,20 @@ public class DataHandler {
 		fWriter.close();
 	}
 
+	public static Game getTestFromFolder(File folder) throws IOException {
+		List<Game> games = Arrays.asList(folder.listFiles()).stream()
+				.filter(file -> file.getName().startsWith("test"))
+				.map(file -> fromXMLFile(file))
+				.map(obj -> Game.class.cast(obj)).collect(Collectors.toList());
+		System.out.println(games.size());
+		if (games.size() != 1) {
+			System.out.println("PROBLEM?");
+			return null;
+		} else {
+			return games.get(0);
+		}
+	}
+	
 	public static Game getGameFromDir(File folder) throws IOException {
 		List<Game> games = Arrays.asList(folder.listFiles()).stream()
 				.filter(file -> file.toString().endsWith(".xml"))

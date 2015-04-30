@@ -80,7 +80,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
-        private String mySocialImagePath;
+	private String mySocialImagePath;
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -95,14 +95,14 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void resume() {
-	    try{
-		myTimeline.play();
-		myEngine.play(myView.getRoot());
-		myView.playScreen();
-	    }
-	    catch(NullPointerException e){
-	        DialogUtil.displayMessage("ERROR", "Unable to resume ):");
-	    }
+		try{
+			myTimeline.play();
+			myEngine.play(myView.getRoot());
+			myView.playScreen();
+		}
+		catch(NullPointerException e){
+			DialogUtil.displayMessage("ERROR", "Unable to resume ):");
+		}
 	}
 
 	public void pause() {
@@ -119,7 +119,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		
+
 		myView.display(myGameGroup);
 		myCamera.focus();
 	}
@@ -187,8 +187,11 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void chooseGame(Stage gameChooser) {
 		myGameFolder = DataHandler.chooseDir(gameChooser);
-		initializeGameAttributes();
-		setupAnimation();
+		if (myGameFolder != null) {
+			myView.enableButtonItems();
+			initializeGameAttributes();
+			setupAnimation();
+		}
 	}
 
 	public void selectGame(Game game) {
@@ -201,7 +204,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-				"mario3.xml" };
+		"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -229,7 +232,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			});
 			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
-		    DialogUtil.displayMessage("ERROR", "Cannot Open Video ):");
+			DialogUtil.displayMessage("ERROR", "Cannot Open Video ):");
 		}
 	}
 
@@ -256,7 +259,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public Map<String,Consumer<KeyCode>> getKeySetup() {
 		return myEngine.getActionToChangeKeyCodeConsumerMap(INT.LOCAL_PLAYER);
 	}
-	
+
 	public List<String> getSpriteTagList() {
 		return myEngine.getSpriteTagList();
 	}
@@ -301,12 +304,12 @@ public class PlayerViewController implements GamePlayerInterface {
 				.collect(Collectors.toList());
 		String chosenState = DialogUtil.choiceDialog("Load File",
 				"Choose a save state.", stateNames);
-		
+
 		if (chosenState == null) {
 			resumeExecution();
 			return;
 		}
-		
+
 		File stateFile = states.stream()
 				.filter(file -> file.getName().equals(chosenState))
 				.collect(Collectors.toList()).get(0);
@@ -368,6 +371,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			resumeExecution();
 			return;
 		}
+
 		resumeExecution();
 		return;
 	}
@@ -435,7 +439,7 @@ public class PlayerViewController implements GamePlayerInterface {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
 						List<String> keyString = (ArrayList<String>) DataHandler
-								.fromXMLString(keyControl);
+						.fromXMLString(keyControl);
 						handleKeyEvent(keyString.get(0), keyString.get(1),
 								INT.SECOND_PLAYER); // Add code to make another
 						// player play
@@ -525,20 +529,20 @@ public class PlayerViewController implements GamePlayerInterface {
 		mySettings.bringUpPreferences();
 	}
 
-    public void setSocialAvatar (Avatar av) {
-            myView.addAvatarToPause(av);
-    }
+	public void setSocialAvatar (Avatar av) {
+		myView.addAvatarToPause(av);
+	}
 
-    @Override
-    public void loadNewGame () {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public void loadNewGame () {
+		// TODO Auto-generated method stub
 
-    @Override
-    public List<Game> findGames () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	}
+
+	@Override
+	public List<Game> findGames () {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

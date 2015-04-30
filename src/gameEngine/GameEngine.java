@@ -41,6 +41,7 @@ public class GameEngine extends GameEngineAbstract {
             myLevelList.add(0, splashLevel);
         }
         initializeLevel(0);
+        //initializeLevel(1);
     }
 
     @Override
