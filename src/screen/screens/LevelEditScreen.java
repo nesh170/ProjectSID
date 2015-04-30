@@ -87,6 +87,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	private static final String DEFAULT_ENEMY_PATH = "defaults/defaultEnemy.xml.xml";
 	private static final String DEFAULT_PLATFORM_PATH = "defaults/defaultPlatform.xml.xml";
 	private static final String HIDDEN_SPRITE_PATH = "images/hiddenSprite.png";
+	private static final String ACTION_PATH_SWITCH = "gameEngine.actions.SwitchOutAction";
+	private static final String ACTION_PATH_SHOOT = "gameEngine.actions.ShootAction";
 
 	// Instance Variables
 	private LevelEditScreenController controller;
@@ -295,9 +297,17 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		
 		Button addTagType = 
 				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
+		
+		Button addSwitchAction = 
+				makeButtonForPane(languageResources().getString("SwitchOutAction"), e -> makeTwoSpriteActionPopup(e, ACTION_PATH_SWITCH));
+		
+		Button addShootAction = 
+				makeButtonForPane(languageResources().getString("ShootAction"), e -> makeTwoSpriteActionPopup(e, ACTION_PATH_SHOOT));
+
 				
 		rightButtonBox.getChildren().addAll(addSpriteButton, editSpriteButton, addBackgroundButton, 
-				returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType);
+				returnToGameEditButton, addWidthLeftButton, addWidthButton, addHeightUpButton, addHeightButton, addCollTableButton, addTagType,
+				addSwitchAction, addShootAction);
 
 	}
 	
@@ -356,11 +366,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		this.setOnMouseEntered(null);
 	}
 	
-	//TODO possible duplicated code here and makeAddSpritePopup
 	private void addTagType(MouseEvent e) {
-		Popup tagTypePopup = new Popup();
-		tagTypePopup.setHideOnEscape(true);
-		tagTypePopup.setAutoHide(true);
+		Popup tagTypePopup = makeHideablePopup();
 		
 		VBox display = new VBox();		
 		display.alignmentProperty().set(Pos.CENTER);
@@ -375,20 +382,11 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	}
 		
 	
-	/**
-	 * Very tentative method here:
-	 * Need some kind of popup, contextmenu, tooltip, etc. to appear when clicking on add sprite
-	 * buttons on the left.  Hard coded in a rectangle for now just to see how things are working
-	 * -Leo
-	 * 
-	 */
 	private void makeAddSpritePopup(Button button, Set<Sprite> premade) {
-		Popup newSpriteDisplay = new Popup();
-		newSpriteDisplay.setHideOnEscape(true);
-		newSpriteDisplay.setAutoHide(true);
+		Popup newSpriteDisplay = makeHideablePopup();
 		
 		VBox display = new VBox();
-		display.getStyleClass().add("pane");
+		display.getStyleClass().add(STRING.CSS.PANE);
 		display.setSpacing(DOUBLE.BUTTON_SPACING);
 		premade.forEach(sprite -> {
 			String newImagePath = System.getProperty("user.dir") + sprite.getImagePath();
@@ -401,6 +399,33 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		newSpriteDisplay.getContent().add(display);
 		
 		newSpriteDisplay.show(button, levelEditDisplay.getLayoutX(),levelEditDisplay.getLayoutY());
+	}
+	
+	private void makeTwoSpriteActionPopup(MouseEvent e, String classPath) {
+		Popup twoSpriteActionPopup = makeHideablePopup();
+		VBox display = new VBox();
+		display.getStyleClass().add(STRING.CSS.PANE);
+		display.setAlignment(Pos.CENTER);
+		TextField keycodeBox = new TextField();
+		keycodeBox.setPromptText(languageResources().getString("KeycodePrompt"));
+		keycodeBox.setEditable(false);
+		keycodeBox.setOnKeyReleased(ee -> setTextField(ee, keycodeBox));
+		Button save = new Button(languageResources().getString("AddAction"));
+		save.setOnMouseClicked(ee -> addTwoSpriteAction(twoSpriteActionPopup, classPath, KeyCode.getKeyCode(keycodeBox.getText())));
+		
+		display.getChildren().addAll(keycodeBox, save);
+		twoSpriteActionPopup.getContent().add(display);
+		
+		twoSpriteActionPopup.show((Node) e.getSource(), e.getSceneX(), e.getSceneY());
+	}
+	
+	private void addTwoSpriteAction(Popup popup, String classPath, KeyCode key) {
+		popup.hide();
+		model.addTwoSpriteAction(model.selectedSprite(), listViewOfWaitingSprites.getSelectionModel().getSelectedItem(), classPath, key);
+	}
+	
+	private void setTextField(KeyEvent e, TextField textField) {
+		textField.setText(e.getCode().getName());
 	}
 	
 	private void checkForKeyPressed(KeyEvent e) {

@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 
 /**
  * The superclass to the MainMenuScreen, GameEditScreen, LevelEditScreen, etc.
@@ -243,6 +244,14 @@ public abstract class Screen extends BorderPane {
 		
 		return button;
 
+	}
+	
+	protected Popup makeHideablePopup() {
+		Popup popup = new Popup();
+		popup.setHideOnEscape(true);
+		popup.setAutoHide(true);
+		
+		return popup;
 	}
 
 }
