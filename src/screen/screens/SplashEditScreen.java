@@ -2,11 +2,10 @@ package screen.screens;
 
 import game.Game;
 import gameEngine.actions.KillAction;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
+import data.DataHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -27,6 +26,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.COLOR;
 import resources.constants.DOUBLE;
@@ -263,11 +263,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		try {	
 			File file = null;
 			Image image = null;
-			FileChooser fileChooser = new FileChooser();
-			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-			file = fileChooser.showOpenDialog(null);
+//			FileChooser fileChooser = new FileChooser();
+//			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+//			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+//			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+//			file = fileChooser.showOpenDialog(null);
+			file = DataHandler.chooseFile(new Stage());
 			image = new Image(file.toURI().toString(), DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, DOUBLE.SPLASH_EDIT_DEFAULT_SIZE, false, false);
 			//Image image = createImageFromFile(DOUBLE.SPLASH_EDIT_DEFAULT_SIZE);
 			ImageCursor imageCursor = new ImageCursor(image);
@@ -297,11 +298,12 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		try {
 			File file = null;
 			Image image = null;
-			FileChooser fileChooser = new FileChooser();
-			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
-			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
-			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-			file = fileChooser.showOpenDialog(null);
+//			FileChooser fileChooser = new FileChooser();
+//			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.JPG_LONG, STRING.SPLASH_EDIT_SCREEN.JPG_SHORT);
+//			FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter(STRING.SPLASH_EDIT_SCREEN.PNG_LONG, STRING.SPLASH_EDIT_SCREEN.PNG_SHORT);
+//			fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+//			file = fileChooser.showOpenDialog(null);
+			file = DataHandler.chooseFile(new Stage());
 			image = new Image(file.toURI().toString(), width, height, false, false);
 			//Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
@@ -340,6 +342,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
 		goalMap.put(sprite, 1);
+		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.setPlayerSprite(sprite);
 		splashEditModel.setSprites(sprite);
 		splashEditModel.setGoalMap(goalMap);
@@ -348,8 +351,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 
 	private void trashSplashScreen() {		
-		String[] options = new String[]{STRING.SPLASH_EDIT_SCREEN.TRASH_START_BUTTON,
-	            STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE,
+		String[] options = new String[]{STRING.SPLASH_EDIT_SCREEN.TRASH_IMAGE,
 	            STRING.SPLASH_EDIT_SCREEN.TRASH_TEXT};
 
 		GridPane grid = new GridPane();

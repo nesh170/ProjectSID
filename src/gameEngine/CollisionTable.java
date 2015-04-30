@@ -12,7 +12,6 @@ public class CollisionTable {
 
 	
 	private Map<String, Map<String, List<Map<Sprite, Action>>>> myBigTable;
-	private List<Action> availableActions;
 	private List<String> tagList;
 
 	

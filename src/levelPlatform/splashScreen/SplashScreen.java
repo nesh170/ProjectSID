@@ -27,14 +27,14 @@ public class SplashScreen extends Level {
 		super(width, height, player);
 		//playerSpriteList = player;
 		
-	    goalMap = new HashMap<>();
+	    //goalMap = new HashMap<>();
 	}
 	
 	public SplashScreen(int width, int height) {
 		super(width, height);
 		//playerSpriteList = player;
 		
-	    goalMap = new HashMap<>();
+	    //goalMap = new HashMap<>();
 	}
 
 	@Override

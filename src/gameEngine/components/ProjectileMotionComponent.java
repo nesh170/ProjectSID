@@ -8,12 +8,11 @@ public class ProjectileMotionComponent extends VelocityComponent {
 
 	private Sprite myShooter;
 	private double myBulletSpeed;
-	private double mySelfDestructDistance;
+	private static final double SELF_DESTRUCT_DISTANCE=800;
 	
-	public ProjectileMotionComponent(Sprite sprite, Double speed, Double selfDestructDistance) {
+	public ProjectileMotionComponent(Sprite sprite, Double speed) {
 		super(sprite, null);
 		myBulletSpeed = speed;
-		mySelfDestructDistance = selfDestructDistance;
 	}
 	
 	public void setShooter(Sprite shooter) {
@@ -24,7 +23,7 @@ public class ProjectileMotionComponent extends VelocityComponent {
 	protected void frameCalculateVelocity(){
 		//override for any possible movement
 		//algorithm here.
-		if((Math.abs(-myShooter.transform().getPosX() + mySprite.transform().getPosX())) > mySelfDestructDistance){
+		if((Math.abs(-myShooter.transform().getPosX() + mySprite.transform().getPosX())) > SELF_DESTRUCT_DISTANCE){
 			mySprite.setIsActive(false);
 		}
 		if(myShooter.facesLeft()){

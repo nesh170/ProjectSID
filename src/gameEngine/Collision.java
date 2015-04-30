@@ -1,8 +1,6 @@
 package gameEngine;
 
 
-import java.util.List;
-
 import gameEngine.components.VelocityComponent;
 import resources.constants.INT;
 import sprite.Sprite;
