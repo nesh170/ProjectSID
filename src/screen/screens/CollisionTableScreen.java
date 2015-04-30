@@ -638,4 +638,28 @@ public class CollisionTableScreen extends Screen{
 		activeSpriteMap.put(inactiveSp, actionList);
 		collisionTableMap.put(activeSp, activeSpriteMap);*/
 	}
+	
+	private void testingMap()
+	{
+		for (String s1 : collisionTableMap.keySet())
+		{
+			Map<String, List<List<String>>> innerMap = collisionTableMap.get(s1);
+				
+			for (String s2 : innerMap.keySet())
+			{
+				List<List<String>> directionList = innerMap.get(s2);
+				
+				for (int i = 0; i < 4; i++)
+				{
+					List<String> actionList = directionList.get(i);
+					
+					System.out.println(s1 + "   " + s2 + "   " + i + " :  " + "action = " + actionList.get(0) + "   value: " + actionList.get(1));
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
 }

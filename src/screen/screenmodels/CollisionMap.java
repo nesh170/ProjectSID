@@ -37,8 +37,8 @@ public class CollisionMap {
 		
 		List<List<String>> actionList = this.getOrInstantiateDirectionListOfActions(activeSpriteMap, spriteActedUpon);
 		
-	
-		actionList.set(STRING.DIRECTION_TO_INTEGER_MAP.get(direction), actionParameters);
+
+		actionList.set(direction, actionParameters);
 		
 		activeSpriteMap.put(spriteActedUpon, actionList);
 		this.collisonMap.put(spriteActing, activeSpriteMap);
@@ -51,10 +51,13 @@ public class CollisionMap {
 		if (!(this.collisonMap.containsKey(activeSpriteTag)))
 		{
 			activeSpriteMap = new HashMap<String, List<List<String>>>();
+			System.out.println("debug / test : here 1");
 		}
 		else
 		{
 			activeSpriteMap = collisonMap.get(activeSpriteTag);
+			System.out.println("debug / test : here 2");
+
 		}
 		return activeSpriteMap;
 	}
@@ -66,10 +69,18 @@ public class CollisionMap {
 		if (!(activeSpMap.containsKey(inactiveSprite)))
 		{
 			actionList = new ArrayList<List<String>>();
+			for (int size = 0; size < INT.NUM_DIRECTIONS; size++)
+			{
+				actionList.add(new ArrayList<String>());
+			}
+			System.out.println("debug / test : here 3");
+
 		}
 		else
 		{
 			actionList = activeSpMap.get(inactiveSprite);
+			System.out.println("debug / test : here 4");
+
 		}
 		
 		return actionList;
