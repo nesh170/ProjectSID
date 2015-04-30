@@ -682,7 +682,7 @@ public class ScreenController {
 		 * @author Anika
 		 * @param levelEditScreen
 		 */
-		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
+		public Tab loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
 			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
 
