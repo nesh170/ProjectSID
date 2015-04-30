@@ -291,7 +291,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				makeButtonForPane(languageResources().getString("AddHeightDown"), e -> model.addHeightDown());
 
 		Button addCollTableButton = 
-				makeButtonForPane(languageResources().getString("EditCols"), e -> controller.loadCollisionTableScreen(this, model.getCollisionMap()));
+				makeButtonForPane(languageResources().getString("EditCols"), e -> controller.loadCollisionTableScreen(this, model.getCollisionMap(), stringToListMap));
 		
 		Button addTagType = 
 				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
