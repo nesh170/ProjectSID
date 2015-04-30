@@ -208,8 +208,8 @@ public class PlayerMenu {
 		}});
 		socialMenu.getItems().add(openSocial);
 		return socialMenu;
-	}
-
+}
+	
 	protected MenuBar getBar() {
 		return myMenu;
 	}

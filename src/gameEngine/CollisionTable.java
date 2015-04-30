@@ -12,7 +12,9 @@ public class CollisionTable {
 	//old collisions table (TODO: DEPRECATE)
 	private Map<String, Map<String, Action[]>> myTable;
 	
-	private Map<String, Map<String, List<Action>[]>> myBigTable;
+	private Map<String, Map<String, List<Action>[]>> myBigBigTable;
+	private Map<String, Map<String, Map<Sprite, Action>[]>> myBigTabe;
+	private Map<String, Map<String, List<Map<Sprite, Action>>>> myBigTable;
 	private List<Action> availableActions;
 	private List<String> tagList;
 	  
@@ -74,33 +76,40 @@ public class CollisionTable {
 		
 	}
 	
-	public void addActionToBigMap(String type1, String type2, int direction, Action toAdd) {
+	//im disgusted w myself
+	public void addActionToBigMap(String type1, String type2, int direction, Action toAdd, Sprite spr) {
 		if(myBigTable.containsKey(type1)) {
 			if(myBigTable.get(type1).containsKey(type2)) {
-				if(myBigTable.get(type1).get(type2)[direction] != null) {
-					myBigTable.get(type1).get(type2)[direction].add(toAdd);
-				}
-				else {
-					myBigTable.get(type1).get(type2)[direction] = new ArrayList<Action>();
-					myBigTable.get(type1).get(type2)[direction].add(toAdd);
-				}
+				if(myBigTable.get(type1).get(type2).get(direction).isEmpty()) {
+					
+					myBigTable.get(type1).get(type2).get(direction).put(spr, toAdd);
+				
+				} 
+				
 			} else {
-				//Using List<?> because can't make array of generic types
-				List<?>[] newActionsLists = new List<?>[4];
-				List<Action> currActionList = new ArrayList<Action>();
-				currActionList.add(toAdd);
-				newActionsLists[direction] = currActionList;
-				myBigTable.get(type1).put(type2, (List<Action>[]) newActionsLists);
-				tagList.add(type2);
+				
+				List<Map<Sprite,Action>> newList = new ArrayList<Map<Sprite,Action>>();
+				while(newList.size() < 5) newList.add(new HashMap<>());
+				myBigTable.get(type1).put(type2, newList);
+				Map<Sprite,Action> newMap = new HashMap<Sprite, Action>();
+				myBigTable.get(type1).get(type2).add(direction, newMap);
+				myBigTable.get(type1).get(type2).get(direction).put(spr, toAdd);
+
 				
 			}
 		} else {
-			HashMap<String, List<Action>[]> subMap = new HashMap<>();
-			List<?>[] newActionsLists = new List<?>[4];
-			List<Action> currActionList = new ArrayList<Action>();
-			currActionList.add(toAdd);
-			newActionsLists[direction] = currActionList;
-			subMap.put(type2, (List<Action>[]) newActionsLists);
+			
+			HashMap<String, List<Map<Sprite,Action>>> subMap = new HashMap<>();
+			
+			List<Map<Sprite,Action>> newActionLists = new ArrayList<>();
+			while(newActionLists.size() < 5) newActionLists.add(new HashMap<>());
+
+			Map<Sprite, Action> currActionMap = new HashMap<>();
+			currActionMap.put(spr, toAdd);
+			
+			newActionLists.add(direction, currActionMap);
+		
+			subMap.put(type2, newActionLists);
 			myBigTable.put(type1, subMap);
 			tagList.add(type1);
 			tagList.add(type2);
@@ -108,9 +117,16 @@ public class CollisionTable {
 		}
 	}
 	
-	public List<Action> getActionsForCollisionAndDirection(String type1, String type2, int direction){
+	/*public List<Action> getActionsForCollisionAndDirection(String type1, String type2, int direction){
 		if (tagList.contains(type1) && myBigTable.get(type1).containsKey(type2)) {
 			return (myBigTable.get(type1).get(type2)[direction]);
+		}
+		return null;
+	}*/
+	
+	public Action getActionsForCollisionAndDirectionAndSprite(String type1, String type2, int direction, Sprite spr){
+		if (tagList.contains(type1) && myBigTable.get(type1).containsKey(type2)) {
+			return (myBigTable.get(type1).get(type2).get(direction).get(spr));
 		}
 		return null;
 	}

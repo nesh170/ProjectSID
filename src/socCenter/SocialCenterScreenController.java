@@ -319,7 +319,7 @@ public class SocialCenterScreenController {
 			String urlToUse = (imageURL.getText().length() < 2) ? (defaultImageURL) : imageURL.getText();
 			User newUser = new User("", username.getText(), password.getText(), urlToUse);
 			parseHandle.saveUser(newUser);
-			createMainPageScreen(newUser);
+			loggedInScr = (MainPageScreen) createMainPageScreen(newUser).getContent();
 			popup.hide();
 			
 		}
