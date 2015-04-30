@@ -8,6 +8,7 @@ public class PlayerMain extends Application {
 	@Override
 	public void start(Stage stage) {
 		stage.setTitle("Game Player");
+		@SuppressWarnings("unused")
 		GamePlayer player = new GamePlayer(stage);
 		stage.show();
 	}

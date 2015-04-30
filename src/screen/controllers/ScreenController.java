@@ -512,7 +512,7 @@ public class ScreenController {
 		@Override
 		public void playGame(Game game) {
 			
-			createGamePlayScreen();
+			createGamePlayScreen(game);
 
 		}
 
@@ -543,17 +543,11 @@ public class ScreenController {
 			try {
 				
 				String gameFolderName = game.name();
-//				File folder = new File(gameFolderName);
-//				folder.mkdir();
-//				File soundFolder = new File(folder.getPath() + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
-//				soundFolder.mkdir();
-//				File imageFolder = new File(folder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
-//				imageFolder.mkdir();
 				File gameFolder = makeFolder(gameFolderName);
 				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
 				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				
-				saveLevelSprites(game, gameFolderName);
+				saveLevel(game, gameFolderName);
 				saveGameSound(game, gameFolderName);
 				saveLevelBackgrounds(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				saveSplashScreen(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
@@ -570,21 +564,34 @@ public class ScreenController {
 			return folder;
 		}
 		
-		private void saveLevelSprites(Game game, String gameFolderName) {
-			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
-				String imagePath = sprite.getImagePath();
-				String newImagePath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER, imagePath);
-				sprite.setImagePath(newImagePath);
+		private void saveLevel(Game game, String gameFolderName) {
+			game.levels().forEach(level -> {
+				level.sprites().forEach(sprite -> saveLevelSprites(sprite, gameFolderName));
+				level.waitingSprites().forEach(sprite -> saveLevelSprites(sprite, gameFolderName));
+			});
+		}
+		
+		private void saveLevelSprites(Sprite sprite, String gameFolderName) {
+			
+			String imagePath = sprite.getImagePath();
+			String newImagePath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER, imagePath);
+			sprite.setImagePath(newImagePath);
+			
+			sprite.actionList().forEach(action -> {
 				
-				sprite.actionList().forEach(action -> {
+				try{
 					
 					String soundPath = action.getSoundPath();
 					String newSoundPath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER, soundPath);
 					action.setSound(newSoundPath);
-				});
+
+				}
 				
-				
-			}));
+				catch (NullPointerException e) {
+					//don't add the sound
+				}
+			});
+			
 		}
 				
 		private void saveLevelBackgrounds(Game game, String imageFolderName) {
