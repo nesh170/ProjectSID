@@ -400,8 +400,8 @@ public class CollisionTableScreen extends Screen{
 		
 		for (String each : fourth)
 		{
-			String better = each.substring(0, each.length()-INT.ACTION_STRING_LENGTH);
-			nicerNamedActions.add(better);
+		//	String better = each.substring(0, each.length()-INT.ACTION_STRING_LENGTH);
+			nicerNamedActions.add(each);
 		}
 		
 		ComboBox action = this.createComboBoxFromList(nicerNamedActions, 
