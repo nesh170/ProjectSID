@@ -15,6 +15,7 @@ public class Collision {
     private CollisionTable collideTable;
     
     private static final double DEFAULT_TOLERANCE = 5.0;
+    private static final String VELOCITY_COMP_STRING = "VelocityComponent";
     
     public Collision(CollisionTable table){
             this.collideTable = table;
@@ -43,8 +44,8 @@ public class Collision {
     }
     
     private double[] calculateTolerances(Sprite sprite1, Sprite sprite2){
-       	VelocityComponent velocity1 = (VelocityComponent) sprite1.getComponentOfType("VelocityComponent");
-    	VelocityComponent velocity2 = (VelocityComponent) sprite2.getComponentOfType("VelocityComponent");
+       	VelocityComponent velocity1 = (VelocityComponent) sprite1.getComponentOfType(VELOCITY_COMP_STRING);
+    	VelocityComponent velocity2 = (VelocityComponent) sprite2.getComponentOfType(VELOCITY_COMP_STRING);
     	double edgeToleranceX1, edgeToleranceY1, edgeToleranceX2, edgeToleranceY2;
     	edgeToleranceX1 = edgeToleranceY1 = edgeToleranceX2 = edgeToleranceY2 = DEFAULT_TOLERANCE;
     	if(velocity1 != null){
