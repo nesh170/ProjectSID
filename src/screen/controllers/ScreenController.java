@@ -549,6 +549,7 @@ public class ScreenController {
 			
 			//File dir = DataHandler.chooseDir(stage);
 			try {
+				
 				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
 				File folder = new File(imageFolderName);
 				folder.mkdir();

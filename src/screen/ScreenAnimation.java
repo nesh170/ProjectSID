@@ -39,24 +39,18 @@ public class ScreenAnimation{
 	public static void shakePopUpWhenError(Window popup){
 		Timeline t = new Timeline();
 		double naturalLocation = popup.getX();
-		
-		//System.out.println("location is "+ naturalLocation);	
 		DoubleProperty x = new SimpleDoubleProperty(naturalLocation);	
 		x.addListener((obs, oldX, newX) -> popup.setX(newX.doubleValue()));
-		t.getKeyFrames().addAll(				
-				new KeyFrame(Duration.millis(0), new KeyValue(x, naturalLocation)),
-				new KeyFrame(Duration.millis(50), new KeyValue(x, naturalLocation-10)),
-				new KeyFrame(Duration.millis(100), new KeyValue(x, naturalLocation+10)),
-				new KeyFrame(Duration.millis(150), new KeyValue(x, naturalLocation-10)),
-		    	new KeyFrame(Duration.millis(200), new KeyValue(x, naturalLocation+10)),
-		    	new KeyFrame(Duration.millis(250), new KeyValue(x, naturalLocation-10)),
-		    	new KeyFrame(Duration.millis(300), new KeyValue(x, naturalLocation+ 10 )),
-		    	new KeyFrame(Duration.millis(350), new KeyValue(x, naturalLocation-10)),
-		    	new KeyFrame(Duration.millis(400), new KeyValue(x, naturalLocation))
-		);
+		for(int i = 0; i < 9; i++){
+			if(i%2 == 0) 
+				t.getKeyFrames().add(						
+					new KeyFrame(Duration.millis(50*i), new KeyValue(x, naturalLocation-10)));
+			else
+				t.getKeyFrames().add(
+						new KeyFrame(Duration.millis(50*i), new KeyValue(x, naturalLocation + 10)));
+		}
+		t.getKeyFrames().add(new KeyFrame(Duration.millis(400), new KeyValue(x, naturalLocation)));		
         t.setDelay(Duration.seconds(0.2));
 		t.play();
-	}
-
-	
+		}
 }

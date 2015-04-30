@@ -153,6 +153,7 @@ public class STRING {
 		public static final String POPUP_SAVE = "Do you want to save the game before returning to the mainmenu ? ";
 		public static final String HIDE_ARROW = "images/GameEdit_images/hide.png";	
 		public static final String IMAGE_FOLDER ="-images";
+		public static final String SHOW_ARROW = "images/GameEdit_images/show.png";
 			
 	}
 	
