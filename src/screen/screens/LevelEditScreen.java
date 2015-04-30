@@ -172,7 +172,6 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 		listViewOfWaitingSprites.setItems(model.setWaitingSpritesList());
 	}
 
-
 	@Override
 	protected void addMenuItemsToMenuBar(MenuBar menuBar) {
 
@@ -350,6 +349,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 	
 	private void save() {
 		controller.saveLevel(parentGame, model.level());
+		updateCollisions();
 	}
 	
 	private void exit() {
@@ -488,8 +488,8 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-	public void updateCollisions(CollisionMap collisionMap) {
-		model.updateCollisions(collisionMap);
+	public void updateCollisions() {
+		model.updateCollisions();
 	}
 
 

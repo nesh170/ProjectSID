@@ -23,8 +23,7 @@ public class BounceAction extends DoubleAction {
 	@Override
 	public void doAction() {
         myVelocityComponent.setVelocityY(EngineMathFunctions.velocityValueFrame(value));
-        myVelocityComponent.setGrounded(false);
-      
+        myVelocityComponent.setGrounded(false);      
 	}
 
 	@Override

@@ -740,7 +740,6 @@ public class ScreenController {
 			tabManager.removeTabAndChangeSelected(switchTo);
 			if (switchTo.getContent() instanceof LevelEditScreen) {
 				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();
-				levelEditScreen.updateCollisions(collisionMap);
 			}
 		}
 		
