@@ -332,7 +332,7 @@ public class CollisionTableScreen extends Screen{
 		ImageView addRowButton = new ImageView(addRowButtonImg);
 		addRowButton.setPreserveRatio(true);
 		
-		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), 50);
+		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), INT.ADD_ROW_BUTTON_SIZE);
 		
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
@@ -486,7 +486,7 @@ public class CollisionTableScreen extends Screen{
 		saveButton.setPreserveRatio(true);
 		
 		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), INT.SAVE_BUTTON_SIZE);
-		saveButton.setOnMouseClicked(e-> this.saveRow(activeSpriteList.getValue(), inactiveSpriteList.getValue(), 
+		saveButton.setOnMouseClicked(e-> this.saveRowAndAddToCollisionTableMap(activeSpriteList.getValue(), inactiveSpriteList.getValue(), 
 				direction.getValue(), action.getValue(), optionalSprites.get(0), text.getText()));
 		collisionSet.add(saveButton, INT.SAVE_BUTTON_COLUMN, INT.TOP_ROW); 
 		
@@ -606,7 +606,7 @@ public class CollisionTableScreen extends Screen{
 		return actionList;
 	}
 	
-	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
+	private void saveRowAndAddToCollisionTableMap(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
 		double valDouble = parseDouble(value);
 		
