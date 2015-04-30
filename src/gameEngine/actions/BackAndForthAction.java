@@ -1,7 +1,5 @@
 package gameEngine.actions;
 
-import java.util.ArrayList;
-import java.util.List;
 import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.DistanceComponent;

@@ -42,11 +42,14 @@ public class GamePlayScreen extends LevelPlatformCapableScreen {
 
 	public GamePlayScreen(GamePlayScreenController gamePlayScreenController,
 			double width, double height) {
-		super(width, height);
+		
+		this(gamePlayScreenController, null, width, height);
+		
 	}
 
 	public GamePlayScreen(GamePlayScreenController sc, Game game, double width,
 			double height) {
+		
 		super(width, height);
 		this.controller = sc;
 		StackPane base = new StackPane();
