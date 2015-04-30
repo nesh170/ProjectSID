@@ -24,7 +24,7 @@ public abstract class Action {
 	protected List<KeyCode> myKeyCode;
 	private boolean runsEveryFrame = false;
 	protected Double value;
-	private String soundPath = "";
+	private String soundPath;
 	//TODO: delete and fix sound effect bug:
 	private SoundEffectManager soundManager;
 	

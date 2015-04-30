@@ -590,9 +590,17 @@ public class ScreenController {
 			
 			sprite.actionList().forEach(action -> {
 				
-				String soundPath = action.getSoundPath();
-				String newSoundPath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER, soundPath);
-				action.setSound(newSoundPath);
+				try{
+					
+					String soundPath = action.getSoundPath();
+					String newSoundPath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER, soundPath);
+					action.setSound(newSoundPath);
+
+				}
+				
+				catch (NullPointerException e) {
+					//don't add the sound
+				}
 			});
 			
 		}

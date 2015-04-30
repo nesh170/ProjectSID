@@ -184,10 +184,9 @@
                 </a>
               </myKeyCode>
               <runsEveryFrame>false</runsEveryFrame>
-              <soundPath>shootactions/sound-effects/sound-effects</soundPath>
+              <soundPath>shootactions/sound-effects/jump.mp3</soundPath>
               <mySecondSprite>
                 <actionList>
-                  <gameEngine.actions.ShootAction reference="../../.."/>
                 </actionList>
                 <componentList>
                   <gameEngine.components.ProjectileMotionComponent>
