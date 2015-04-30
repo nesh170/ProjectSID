@@ -4,7 +4,6 @@ import game.Game;
 import gameEngine.Action;
 import gameEngine.CollisionTable;
 import gameEngine.actions.FallAction;
-import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
 import gameEngine.actions.MotionPathAction;
 import gameEngine.actions.NormalActionY;
@@ -14,20 +13,15 @@ import gameEngine.actions.SwitchOutAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.components.ProjectileMotionComponent;
 import gameEngine.components.VelocityComponent;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import data.DataHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import levelPlatform.level.Level;
-import levelPlatform.splashScreen.SplashScreen;
 import resources.constants.INT;
 import sprite.Sprite;
 import tester.Tester;
@@ -40,7 +34,6 @@ public class EngineTester extends Tester {
 	
 	private List<Sprite> mySpriteList = new ArrayList<>();
 	private List<Sprite> myPlayerList = new ArrayList<>();
-	private List<Sprite> myBlocks = new ArrayList<>();
 	private CollisionTable myCT = new CollisionTable();
 	private List<Sprite> myPlatforms = new ArrayList<>();
 	private static final double GRAVITY = 50.0;
@@ -53,28 +46,34 @@ public class EngineTester extends Tester {
 	
 	@Override
 	protected void test(Stage stage) {
-		Sprite splashPlayer = new Sprite(new Point2D(100, 100),Point2D.ZERO,new Dimension2D(100, 100));
-		List<Sprite> splashSprites = new ArrayList<>();
-		List<Sprite> newPlayerList = new ArrayList<Sprite>();
-		newPlayerList.add(splashPlayer);
-		splashSprites.add(splashPlayer);
-		SplashScreen l0 = new SplashScreen(900,500,newPlayerList);
-		l0.setSprites(splashSprites);
-		Action killAction = new KillAction(splashPlayer, 0.0, KeyCode.ENTER);
-		splashPlayer.addAction(killAction);
-		Map<Sprite, Integer> goalMap = new HashMap<>();
-		goalMap.put(splashPlayer, 1);
-		l0.setGoalMap(goalMap);
-		l0.setBackground("engineTesting/mario.png");
+		makePlatform(0, 300, 200, 30);
+		makePlatform(-20, 0, 20, 200);
+		makePlatform(250, 250, 200, 30);
+		makePlatform(500, 300, 200, 30);
+		Sprite player = makePlayer();
+		Sprite fireMario = makeSpecialPlayer();
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+		fireMario.addAction(switchOut);
+		player.addAction(switchOut);
+//		
+		addProjectile(fireMario);
+		Sprite goomba = makeGoomba();
 		
-		Level l1 = new Level(900, 500, myPlayerList);
-		l1.setBackground("engineTesting/background.png");
-		l1.setSprites(mySpriteList);
-		l1.setCollisionTable(myCT);
+
+		//Sprite fireFlower = new Sprite(new Point2D(0.0, 0.0), Point2D.ZERO, new Dimension2D(300.0, 300.0));
+		/*fireFlower.setCollisionTag("flower");*/
+//		fireFlower.setImagePath("engineTesting/fireFlower.png");
+//		mySpriteList.add(fireFlower);
+//		myPlayerList.add(fireFlower);
+		//setCollisionAll(player, fireFlower, switchOut);
+		
+		Level l = new Level(1200, 600, myPlayerList);
+		l.setBackground("engineTesting/background.png");
+		l.setSprites(mySpriteList);
+		l.setCollisionTable(myCT);
 
 		Game testGame = new Game("test");
-		testGame.addLevel(l0);
-		testGame.addLevel(l1);
+		testGame.addLevel(l);
 
 		try{
 			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty("user.dir")+"/simple");
@@ -82,16 +81,6 @@ public class EngineTester extends Tester {
 		catch (Exception e){
 			System.out.println("Oh no!!!");
 		}
-	}
-
-	private Sprite makeBlock(int x, int y, int width, int height) {
-		Sprite block = new Sprite(new Point2D(x, y),Point2D.ZERO,new Dimension2D(width, height));
-		block.setCollisionTag("block");
-		block.setImagePath("engineTesting/mushroomPlatform.png");
-		myBlocks.add(block);
-		mySpriteList.add(block);
-		return block;
-		
 	}
 
 	private Sprite makeGoomba() {
@@ -138,16 +127,16 @@ public class EngineTester extends Tester {
 	}
 
 	private void setCollisionUp(Sprite sprite, Sprite platform, Action action) {
-		myCT.addActionToBigMap(sprite.tag(), platform.tag(), INT.COLLISION_UP, action);
-		myCT.addActionToBigMap(platform.tag(), sprite.tag(), INT.COLLISION_DOWN, action);
+		myCT.addActionToBigMap(sprite.tag(), platform.tag(), INT.COLLISION_UP, action, sprite);
+		myCT.addActionToBigMap(platform.tag(), sprite.tag(), INT.COLLISION_DOWN, action, platform);
 	}
 	private void setCollisionLeftRightDown(Sprite sprite1, Sprite enemy, Action action){
-		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_DOWN, action);
-		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_UP, null);
-		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_RIGHT, action);
-		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_LEFT, null);
-		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_LEFT, action);
-		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_RIGHT, null);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_DOWN, action, sprite1);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_UP, null, enemy);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_RIGHT, action, sprite1);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_LEFT, null, enemy);
+		myCT.addActionToBigMap(sprite1.tag(), enemy.tag(), INT.COLLISION_LEFT, action, sprite1);
+		myCT.addActionToBigMap(enemy.tag(), sprite1.tag(), INT.COLLISION_RIGHT, null, enemy);
 	}
 	private void setCollisionAll(Sprite sprite1, Sprite enemy, Action action) {
 		setCollisionUp(sprite1, enemy, action);
