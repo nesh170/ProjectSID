@@ -1,25 +1,19 @@
 package player;
 
-import gameEngine.Component;
-import java.util.List;
 import java.util.Map;
 import socCenter.Avatar;
 import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -58,7 +52,7 @@ public class PlayerView {
 		myTop.getChildren().add(makeBrightScreen());
 		myTop.getChildren().add(makeDimScreen());
 		myTop.getChildren().add(myHUD.getHUDBox());
-		myTop.setAlignment(myHUD.getHUDBox(), Pos.TOP_LEFT);
+		myHUD.getHUDBox().setAlignment(Pos.TOP_LEFT);
 		myBorderPane = new BorderPane();
 		myBorderPane.setCenter(myBase);
 

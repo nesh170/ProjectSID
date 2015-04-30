@@ -1,7 +1,6 @@
 package player;
 
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class GamePlayer {
 
