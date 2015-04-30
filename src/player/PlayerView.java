@@ -3,7 +3,6 @@ package player;
 import java.util.Map;
 
 import socCenter.Avatar;
-import util.ErrorHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -31,7 +30,6 @@ public class PlayerView {
 	private ScrollPane myGameRoot;
 	private StackPane myPauseScreen;
 	private HUD myHUD;
-	private PlayerViewController myController;
 	private BorderPane myBorderPane;
 	private StackPane myBase;
 	private StackPane myTop;
@@ -71,7 +69,6 @@ public class PlayerView {
 
 	public void setController(PlayerViewController playerController) {
 		myMenuBar = new PlayerMenu(playerController);
-		myController = playerController;
 		Group errorGroup = new Group();
 		myBorderPane.setLeft(errorGroup);
 		myBorderPane.setTop(myMenuBar.getBar());
@@ -80,10 +77,8 @@ public class PlayerView {
 
 	public void setController(PlayerViewController playerController, MenuBar bar) {
 		myMenuBar = new PlayerMenu(playerController, bar);
-		myController = playerController;
 		Group errorGroup = new Group();
 		myBorderPane.setLeft(errorGroup);
-		myController.setErrorHandler(new ErrorHandler(errorGroup));
 		myBorderPane.setTop(myMenuBar.getBar());
 		myPauseScreen = makePauseScreen(playerController);
 	}
