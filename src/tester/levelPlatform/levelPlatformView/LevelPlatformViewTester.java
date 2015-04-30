@@ -15,6 +15,7 @@ import tester.Tester;
  * @author Ruslan
  *
  */
+@Deprecated
 public class LevelPlatformViewTester extends Tester {
 
 	public static void main(String[] args) {
