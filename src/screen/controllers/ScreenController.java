@@ -552,32 +552,55 @@ public class ScreenController {
 			//File dir = DataHandler.chooseDir(stage);
 			try {
 				
-				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
-				File folder = new File(imageFolderName);
-				folder.mkdir();
-				saveLevelSprites(game, imageFolderName);
-				saveLevelBackgrounds(game, imageFolderName);
-				saveSplashScreen(game, imageFolderName);
+				String gameFolderName = game.name();
+//				File folder = new File(gameFolderName);
+//				folder.mkdir();
+//				File soundFolder = new File(folder.getPath() + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
+//				soundFolder.mkdir();
+//				File imageFolder = new File(folder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
+//				imageFolder.mkdir();
+				File gameFolder = makeFolder(gameFolderName);
+				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
+				makeFolder(gameFolder.getPath() + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
+				
+				saveLevelSprites(game, gameFolderName);
+				saveLevelBackgrounds(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
+				saveSplashScreen(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 
-				DataHandler.toXMLFile(game, game.name(), folder.getPath());
+				DataHandler.toXMLFile(game, game.name(), gameFolder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
 		}
 		
-		private void saveLevelSprites(Game game, String imageFolderName) {
-			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
-				String imagePath = sprite.getImagePath();
-				String newImagePath = copyImage(imageFolderName, imagePath);
-				sprite.setImagePath(newImagePath);
-			}));
+		private File makeFolder(String path) {
+			File folder = new File(path);
+			folder.mkdir();
+			return folder;
 		}
 		
+		private void saveLevelSprites(Game game, String gameFolderName) {
+			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
+				String imagePath = sprite.getImagePath();
+				String newImagePath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER, imagePath);
+				sprite.setImagePath(newImagePath);
+				
+				sprite.actionList().forEach(action -> {
+					
+					String soundPath = action.getSoundPath();
+					String newSoundPath = copyFile(gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER, soundPath);
+					action.setSound(newSoundPath);
+				});
+				
+				
+			}));
+		}
+				
 		private void saveLevelBackgrounds(Game game, String imageFolderName) {
 			try {
 				game.levels().forEach(level -> {
 					String imagePath = level.backgroundPath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
+					String newImagePath = copyFile(imageFolderName, imagePath);
 					level.setBackground(newImagePath);
 				});
 			}
@@ -590,7 +613,7 @@ public class ScreenController {
 			try {
 				game.splashScreen().sprites().forEach(sprite -> {
 					String imagePath = sprite.getImagePath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
+					String newImagePath = copyFile(imageFolderName, imagePath);
 					sprite.setImagePath(newImagePath);
 				});
 			} catch (Exception e) {
@@ -598,7 +621,7 @@ public class ScreenController {
 			}
 		}
 
-		private String copyImage(String imageFolderName, String imagePath) {
+		private String copyFile(String imageFolderName, String imagePath) {
 			String[] imagePathSplit = imagePath.split("[\\\\/]");
 			String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
 			Path fileCopy = (new File(newImagePath).toPath());

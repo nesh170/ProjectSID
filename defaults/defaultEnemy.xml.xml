@@ -34,7 +34,7 @@
     <name>default Enemy</name>
     <tag>Enemy</tag>
     <collisionTag>enemy</collisionTag>
-    <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/Goomba.png</imagePath>
+    <imagePath>/defaults/Goomba.png</imagePath>
     <facesLeft>false</facesLeft>
     <transform>
       <myPosition reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>

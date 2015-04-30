@@ -76,7 +76,6 @@ public class CollisionMap {
 		else
 		{
 			actionList = activeSpMap.get(inactiveSprite);
-			System.out.println("debug / test : here 4");
 
 		}
 		

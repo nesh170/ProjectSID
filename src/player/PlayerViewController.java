@@ -250,8 +250,12 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setDim(double val) {
 		myView.setDim(val);
 	}
-
-	public Map<String,Consumer<KeyCode>> getKeySetup() {
+	
+	public Map<String, KeyCode> getKeyMap() {
+		return myEngine.getActionKeyCodeMap(INT.LOCAL_PLAYER);
+	}
+	
+	public Map<String,Consumer<KeyCode>> getConsumerSetup() {
 		return myEngine.getActionToChangeKeyCodeConsumerMap(INT.LOCAL_PLAYER);
 	}
 

@@ -69,7 +69,7 @@
     <name>default Player</name>
     <tag>Player</tag>
     <collisionTag>player</collisionTag>
-    <imagePath>/Users/mingluo/Desktop/COMPSCI308/voogasalad_ScrollingDeep/defaults/mario.png</imagePath>
+    <imagePath>/defaults/mario.png</imagePath>
     <facesLeft>false</facesLeft>
     <transform>
       <myPosition reference="../../componentList/gameEngine.components.VelocityComponent/myVelocity"/>

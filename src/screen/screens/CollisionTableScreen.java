@@ -14,17 +14,22 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +39,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.VLineTo;
+import javafx.util.Duration;
 import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
@@ -53,7 +66,7 @@ import sprite.Sprite;
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TextField.html
  * http://stackoverflow.com/questions/13134983/liststring-to-LinkedListstring-conversion-issue
  * https://docs.oracle.com/javafx/2/api/javafx/scene/ImageCursor.html
- * 
+ * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/shape/LineTo.html
  * 
  * 
  * 
@@ -300,7 +313,7 @@ public class CollisionTableScreen extends Screen{
 	 * 
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags,
-			CollisionMap collisionTableMap, Map<String,ObservableList<String>> spriteMap) {
+			CollisionMap collisionMap, Map<String,ObservableList<String>> spriteMap) {
 		
 		super(width, height);
 		
@@ -310,11 +323,13 @@ public class CollisionTableScreen extends Screen{
 		
 		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap;
 
-		this.collisionTableMap = collisionTableMap;
+		collisionTableMap = collisionMap;
 
 
 		createVBoxOfCollisionRows(); 
-		this.setCenter(tablesDisplay);
+		setCenter(tablesDisplay);
+		
+		
 	}
 	
 
@@ -346,6 +361,7 @@ public class CollisionTableScreen extends Screen{
 		addRowButton.setTranslateX(INT.ADD_ROW_BUTTON_OFFSET);
 		verticalBox.getChildren().add(addRowButton);
 			
+	
 		
 		tablesDisplay.getChildren().add(verticalBox);
 	}
@@ -381,14 +397,14 @@ public class CollisionTableScreen extends Screen{
 		collisionSet.setMaxHeight(INT.EACH_ROW_GRIDPANE_MAX_HEIGHT);
 
 	
-		ComboBox<String> activeSpriteList = this.createComboBoxFromList(levelSpriteTags, 
+		ComboBox<String> activeSpriteList = createComboBoxFromList(levelSpriteTags, 
 				STRING.COLLISION_EDIT.COMBO_SPRITE1_TAG, 
 				STRING.COLLISION_EDIT.FONT_STYLE, 
 				STRING.COLLISION_EDIT.COMBO_SPRITE1_NAME);
 	
 		collisionSet.add(activeSpriteList, INT.ACTIVESPRITE_COLUMN, INT.TOP_ROW); 
 		
-		ComboBox<String> inactiveSpriteList = this.createComboBoxFromList(levelSpriteTags, 
+		ComboBox<String> inactiveSpriteList = createComboBoxFromList(levelSpriteTags, 
 				STRING.COLLISION_EDIT.COMBO_SPRITE2_TAG, 
 				STRING.COLLISION_EDIT.FONT_STYLE, 
 				STRING.COLLISION_EDIT.COMBO_SPRITE2_NAME);
@@ -397,7 +413,7 @@ public class CollisionTableScreen extends Screen{
 		
 		List<String> third = new LinkedList<>(STRING.DIRECTION_TO_INTEGER_MAP.keySet());
 
-		ComboBox<String> direction = this.createComboBoxFromList(third, 
+		ComboBox<String> direction = createComboBoxFromList(third, 
 				STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG,
 				STRING.COLLISION_EDIT.FONT_STYLE, 
 				STRING.COLLISION_EDIT.COMBO_DIRECTION_NAME_AND_TAG);
@@ -418,7 +434,7 @@ public class CollisionTableScreen extends Screen{
 			nicerNamedActions.add(each);
 		}
 		
-		ComboBox<String> action = this.createComboBoxFromList(nicerNamedActions, 
+		ComboBox<String> action = createComboBoxFromList(nicerNamedActions, 
 				STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG, 
 				STRING.COLLISION_EDIT.FONT_STYLE, 
 				STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG);
@@ -490,7 +506,7 @@ public class CollisionTableScreen extends Screen{
 		saveButton.setPreserveRatio(true);
 		
 		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), INT.SAVE_BUTTON_SIZE);
-		saveButton.setOnMouseClicked(e-> this.saveRowAndAddToCollisionTableMap(activeSpriteList.getValue(), inactiveSpriteList.getValue(), 
+		saveButton.setOnMouseClicked(e-> saveRowAndAddToCollisionTableMap(activeSpriteList.getValue(), inactiveSpriteList.getValue(), 
 				direction.getValue(), action.getValue(), optionalSprites.get(0), text.getText()));
 		collisionSet.add(saveButton, INT.SAVE_BUTTON_COLUMN, INT.TOP_ROW); 
 		
@@ -516,14 +532,28 @@ public class CollisionTableScreen extends Screen{
 		button.setOnMouseReleased(e -> button.setImage(natural));
 	}
 	
+	private void setPathAnimationtoTitleImage(ImageView title)
+	{
+		Path path = new Path();
+		path.getElements().add(new MoveTo(0,100));
+		path.getElements().add(new LineTo(300, 100));
+		PathTransition pathTransition = new PathTransition();
+		pathTransition.setDuration(Duration.millis(2000));
+		pathTransition.setPath(path);
+		pathTransition.setNode(title);
+		pathTransition.play();
+	}
 	
+	private void addToolTip(Node button, double xLocation, double yLocation, String textToDisplay) {
+		Tooltip tooltip = new Tooltip(textToDisplay);
+		tooltip.show(button, xLocation, yLocation);	
+		button.setOnMouseExited(e -> tooltip.hide());
+	}
 	
 	private ScrollPane configureScrollPane(ImageView addCollisionRowButton){ // TODO: magic numbers fix
 		ScrollPane sp = new ScrollPane();
 		sp.setPannable(true);
 	
-	
-	//	TilePane tile = new TilePane(Orientation.VERTICAL);
 		VBox tile = new VBox(INT.SCROLLPANE_VBOX_SIZE);
 		
 		HBox titleBox = new HBox(INT.SCROLLPANE_TITLEBOX_SIZE);
@@ -532,14 +562,13 @@ public class CollisionTableScreen extends Screen{
 		ImageView titleImage = new ImageView(new Image(STRING.COLLISION_EDIT.COLLISION_SCREEN_TITLE));
 		titleImage.setFitWidth(600);
 		titleImage.setPreserveRatio(true);
-	//	titleImage.setTranslateX(200);
+		
+		setPathAnimationtoTitleImage(titleImage);
 		
 		titleBox.getChildren().add(titleImage);
 
 		tile.setPadding(new Insets(45, 45, 75, 45));
-	//	tile.setVgap(20);
-	//	tile.setHgap(20);
-	//	tile.setStyle("-fx-background-color: DAE6F3;");
+
 		
 		tile.setStyle(STRING.COLLISION_EDIT.BACKGROUND_STYLE);
 			
@@ -547,13 +576,14 @@ public class CollisionTableScreen extends Screen{
 
 		for (int i = 0; i < INT.SAMPLE_DISPLAY_NUMBER; i++)
 		{		
-			VBox eachRow = this.addTableRow();	
+			VBox eachRow = addTableRow();	
 			tile.getChildren().add(eachRow);
 		}
 		
-		addCollisionRowButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
+//		this.addToolTip(addCollisionRowButton, , -5, "Click to add another collision.");
+		addCollisionRowButton.setOnMouseClicked(e -> {VBox row = addTableRow(); tile.getChildren().add(row);});
 		
-//		addButton.setOnMouseClicked(e -> {VBox row = this.addTableRow(); tile.getChildren().add(row);});
+//		addButton.setOnMouseClicked(e -> {VBox row = addTableRow(); tile.getChildren().add(row);});
 
 		sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
 		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);    // Vertical scroll bar
@@ -583,7 +613,7 @@ public class CollisionTableScreen extends Screen{
 	/*private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
 	{
 		Map<String, List<List<String>>> activeSpriteMap;
-		if (!(this.collisionTableMap.containsKey(activeSpriteTag)))
+		if (!(collisionTableMap.containsKey(activeSpriteTag)))
 		{
 			activeSpriteMap = new HashMap<String, List<List<String>>>();
 		}
@@ -622,10 +652,10 @@ public class CollisionTableScreen extends Screen{
 	
 		List<String> actionParameters = new ArrayList<String>();
 	//	actionParameters.add(dir);
-		actionParameters.add(action.replaceAll("\\s", "") + STRING.COLLISION_EDIT.ACTION_NAME);
+		actionParameters.add(action.replaceAll("\\s", ""));
 		actionParameters.add(value);
-		actionParameters.add(switchOption);
 		
+	
 		collisionTableMap.put(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
 		
 		
