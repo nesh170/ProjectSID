@@ -1,8 +1,6 @@
 package util;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
@@ -15,6 +13,7 @@ public class ImageToInt2DArray {
 		int[][] returnArray = new int[height][width];
 		
 		// Obtain PixelReader
+        @SuppressWarnings("unused")
         PixelReader pixelReader = image.getPixelReader();
         
         int xSegmentLength = divideAByBThenRoundDown(image.getWidth(), width);
@@ -49,7 +48,8 @@ public class ImageToInt2DArray {
 		return (int)Math.floor(a/b);
 	}
 	
-	private static int roundDownToInt(double d) {
+	@SuppressWarnings("unused")
+    private static int roundDownToInt(double d) {
 		return (int)Math.floor(d);
 	}
 	

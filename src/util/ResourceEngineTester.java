@@ -11,7 +11,8 @@ public class ResourceEngineTester extends Application{
 	public void start(Stage stage) {
 		stage.setTitle("Image Chooser");
 		String path = DEFAULT_PATH;
-		SpriteGallery gallery = new SpriteGallery(stage, path);
+		@SuppressWarnings("unused")
+        SpriteGallery gallery = new SpriteGallery(stage, path);
 		stage.show();
 	}
 
