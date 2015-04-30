@@ -55,8 +55,6 @@ public class SplashScreen extends Level {
 	
 	public void setGoalMap(Map<Sprite,Integer> goalMap){
 		this.goalMap = goalMap;
-	}
-		
-	
+	}	
 	
 }

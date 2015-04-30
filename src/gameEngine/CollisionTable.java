@@ -15,7 +15,7 @@ public class CollisionTable {
 	private Map<String, Map<String, List<Action>[]>> myBigTable;
 	private List<Action> availableActions;
 	private List<String> tagList;
-	
+	  
 	public CollisionTable(){
 		myTable = new HashMap<>();
 		myBigTable = new HashMap<>();
