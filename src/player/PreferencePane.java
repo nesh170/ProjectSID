@@ -1,6 +1,5 @@
 package player;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -39,7 +38,9 @@ public class PreferencePane {
 	private static final double DEFAULT_SETTING = (MIN_SETTING + MAX_SETTING) / 2;
 	private static final double DEFAULT_MUSIC_VOL = 10;
 	private static final double DEFAULT_BRIGHTNESS = 5;
-	
+	private static final double AVTAB_CENTER = 500;
+	private static final double SLIDER_SIZE = 250;
+
 	private PlayerViewController myController;
 	private Stage myContainer;
 	private Scene myScene;
@@ -48,9 +49,10 @@ public class PreferencePane {
 	private Tab myControls;
 	private AudioController myAudioController;
 	private double myMusicVolume;
-	private Map<String, Consumer<KeyCode>> myKeyMap;
 	private double myBrightness;
-	
+	private Map<String, Consumer<KeyCode>> myConsumerMap;
+	private Map<String, KeyCode> myCodeMap;
+
 	public PreferencePane(AudioController ac) {
 		myAudioController = ac;
 		setupDefaults();
@@ -62,14 +64,13 @@ public class PreferencePane {
 		myScene = new Scene(myView, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		myContainer.setScene(myScene);
 	}
-	
+
 	private void makeAVTab() {
 		myAV = new Tab("Audiovisual");
 		VBox container = new VBox(20);
 		container.setAlignment(Pos.CENTER);
-		HBox titles = new HBox(300);
-		titles.getChildren().addAll(new Label("Audio"),
-				new Label("Visual"));
+		HBox titles = new HBox(AVTAB_CENTER);
+		titles.getChildren().addAll(new Label("Audio"), new Label("Visual"));
 		titles.setAlignment(Pos.TOP_CENTER);
 		HBox music = new HBox(20);
 		music.getChildren().addAll(new Label("Music Volume"),
@@ -79,12 +80,17 @@ public class PreferencePane {
 		brightness.getChildren().addAll(new Label("Game Brightness"),
 				makeBrightnessControl(myBrightness));
 		brightness.setAlignment(Pos.CENTER_RIGHT);
-		container.getChildren().addAll(titles, music, brightness, makeButtonBox());
+		HBox row = new HBox(AVTAB_CENTER - SLIDER_SIZE);
+		row.setAlignment(Pos.CENTER);
+		row.getChildren().addAll(music, brightness);
+		HBox buttons = makeButtonBox();
+		buttons.setAlignment(Pos.BOTTOM_CENTER);
+		container.getChildren().addAll(titles, row, buttons);
 		myAV.setContent(container);
 	}
 
 	private void makeControlsTab() {
-		myControls = new Tab("Controls");	
+		myControls = new Tab("Controls");
 	}
 
 	private Slider makeSettingSlider(double defaultVal) {
@@ -96,8 +102,9 @@ public class PreferencePane {
 		return slider;
 	}
 
-	private TextField makeKeyField(Consumer<KeyCode> item) {
+	private TextField makeKeyField(Consumer<KeyCode> item, String code) {
 		TextField container = new TextField();
+		container.setText(myCodeMap.get(code).getName());
 		container.setOnKeyTyped(e -> container.clear());
 		container.setOnKeyReleased(key -> handleKeyCode(container,
 				key.getCode(), item));
@@ -116,8 +123,9 @@ public class PreferencePane {
 		close.setOnAction(e -> closePreferences());
 		return close;
 	}
-	
-	private void handleKeyCode(TextField keyInput, KeyCode code, Consumer<KeyCode> consumer) {
+
+	private void handleKeyCode(TextField keyInput, KeyCode code,
+			Consumer<KeyCode> consumer) {
 		keyInput.clear();
 		keyInput.setText(code.getName());
 		consumer.accept(code);
@@ -130,23 +138,26 @@ public class PreferencePane {
 	}
 
 	private void regenerateControlFields(VBox container) {
-		myKeyMap = myController.getKeySetup();
+		myCodeMap = myController.getKeyMap();
+		myConsumerMap = myController.getConsumerSetup();
 		HBox titles = new HBox(50);
-		titles.getChildren().addAll(new Label("Action"), new Label("Key/Control"));
+		titles.getChildren().addAll(new Label("Action"),
+				new Label("Key/Control"));
 		titles.setAlignment(Pos.TOP_CENTER);
 		container.getChildren().add(titles);
-		for (String key : myKeyMap.keySet()) {
+		for (String key : myConsumerMap.keySet()) {
 			HBox hbox = new HBox(50);
-			hbox.getChildren().addAll(new Label(key), 
-					makeKeyField(myKeyMap.get(key)));
+			TextField field = makeKeyField(myConsumerMap.get(key), key);
+			hbox.getChildren().addAll(new Label(key), field);
 			container.getChildren().add(hbox);
+			hbox.setAlignment(Pos.CENTER);
 		}
 		HBox buttons = makeButtonBox();
 		buttons.setAlignment(Pos.BOTTOM_CENTER);
 		container.getChildren().add(buttons);
 		myControls.setContent(container);
 	}
-	
+
 	private void savePreferences() {
 
 	}
@@ -158,7 +169,7 @@ public class PreferencePane {
 					Number oldVal, Number newVal) {
 				myController.setDim((newVal.doubleValue() - 5)
 						* SLIDERVAL_TO_DOUBLE);
-				myController.setBright((-1*newVal.doubleValue() + 5)
+				myController.setBright((-1 * newVal.doubleValue() + 5)
 						* SLIDERVAL_TO_DOUBLE);
 			}
 		});
@@ -197,5 +208,5 @@ public class PreferencePane {
 		myMusicVolume = DEFAULT_MUSIC_VOL;
 		myBrightness = DEFAULT_BRIGHTNESS;
 	}
-	
+
 }

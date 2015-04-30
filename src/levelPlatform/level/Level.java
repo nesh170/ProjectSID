@@ -207,25 +207,25 @@ public class Level extends LevelPlatform {
                 .get(playerNumber)
                 .actionList()
                 .stream()
-                .filter(act -> act.keycode() != null)
+                .filter(act -> act.keycode() != null && act.keycode().size() > 0)
                 .forEach(action -> actionKeyCodeMethodMap
-                                 .put(action.getClass().getAnnotation(ActionName.class)
-                                         .displayName(), (Keycode) -> action
-                                         .setKeyCode(Stream.of(Keycode)
-                                                 .collect(Collectors.toList()))));
+                        .put(action.getClass().getAnnotation(ActionName.class)
+                                .displayName(), (Keycode) -> action
+                                .setKeyCode(Stream.of(Keycode)
+                                        .collect(Collectors.toList()))));
         return actionKeyCodeMethodMap;
     }
     
     public Map<String,KeyCode> getActionKeyCodeMap (int playerNumber) {
         Map<String, KeyCode> actionKeyCodeMap = new HashMap<>();
         playerSpriteList
-        .get(playerNumber)
-        .actionList()
-        .stream()
-        .filter(act -> act.keycode() != null)
-        .forEach(action -> actionKeyCodeMap
-                         .put(action.getClass().getAnnotation(ActionName.class)
-                                 .displayName(), action.keycode().get(0)));
+                .get(playerNumber)
+                .actionList()
+                .stream()
+                .filter(act -> act.keycode() != null && act.keycode().size() > 0)
+                .forEach(action -> actionKeyCodeMap
+                        .put(action.getClass().getAnnotation(ActionName.class)
+                                .displayName(), action.keycode().get(0)));
         return actionKeyCodeMap;
     }
 

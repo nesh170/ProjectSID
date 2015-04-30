@@ -32,6 +32,10 @@ public abstract class Action {
 		soundPath = path;
 	}
 	
+	public String getSoundPath() {
+		return soundPath;
+	}
+	
 	/** At construction, action knows the
 	 * sprite it is attached to
 	 * @param sprite

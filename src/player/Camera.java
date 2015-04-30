@@ -2,6 +2,13 @@ package player;
 
 import javafx.scene.control.ScrollPane;
 
+/**
+ * Camera object scrolls pane such that a given point in 2D space is centered
+ * on the screen. In this case the player center is passed to the camera so 
+ * that the ScrollPane follows the user's movements.
+ * @author James
+ *
+ */
 public class Camera {
 
 	private ScrollPane myView;
