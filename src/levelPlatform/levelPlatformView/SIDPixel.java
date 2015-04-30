@@ -16,23 +16,18 @@ import javafx.scene.paint.Color;
  * 
  * @author Ruslan
  */
+@Deprecated
 public class SIDPixel extends Region {
 
 	// Static Variables
 	private static final boolean TESTING = false;
 	
 	
-	// Instance Variables
-	private int x, y;
-	
-	
 	// Getters & Setters
 	private void setX(int x) {
-		this.x = x;
 	}
 	
 	private void setY(int y) {
-		this.y = y;
 	}
 	
 	

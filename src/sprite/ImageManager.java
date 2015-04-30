@@ -12,9 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
-
 import javax.imageio.ImageIO;
-
 import data.DataHandler;
 import javafx.scene.image.*;
 
@@ -36,7 +34,8 @@ public class ImageManager {
 		return img; 
 	}
 
-	private Image makeTextFieldImage(String path) throws IOException {
+	@SuppressWarnings("unused")
+    private Image makeTextFieldImage(String path) throws IOException {
 		String text = path.substring(1, path.length());
 		BufferedImage buffImg;
 		buffImg = ImageIO.read(new File(System.getProperty(DataHandler.USER_DIR) + "/src/whiteSquare.png"));
