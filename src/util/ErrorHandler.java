@@ -2,7 +2,6 @@ package util;
 
 
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import resources.constants.DOUBLE;
 import screen.util.ErrorMessageTextFieldFactory;

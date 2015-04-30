@@ -1,13 +1,8 @@
 package levelPlatform.levelPlatformView;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.Sprite;
-import sprite.SpriteImage;
-import util.SIDPixelsToFXpixels;
 import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -15,9 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.TilePane;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
@@ -30,10 +23,8 @@ import levelPlatform.level.Level;
  * @author AuthEnvTeam (please add yourselves) :)
  *
  */
+@Deprecated
 public class LevelPlatformView extends ScrollPane {
-
-	// Static Variables
-	private static final boolean TESTING = false;
 
 	// Instance Variables
 	// Containing TilePane of SIDPixel

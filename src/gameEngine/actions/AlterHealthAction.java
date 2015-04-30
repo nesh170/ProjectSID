@@ -2,7 +2,6 @@ package gameEngine.actions;
 
 import sprite.Sprite;
 import javafx.scene.input.KeyCode;
-import gameEngine.Action;
 import gameEngine.components.HealthComponent;
 
 @ActionName(displayName = "AlterHealth")

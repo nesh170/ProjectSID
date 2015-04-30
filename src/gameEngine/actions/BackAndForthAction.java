@@ -1,7 +1,6 @@
 package gameEngine.actions;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.DistanceComponent;
@@ -14,7 +13,7 @@ public class BackAndForthAction extends Action {
     private double myMaxDistance;
     private VelocityComponent myVelocityComponent;
 
-    public BackAndForthAction (Sprite sprite, Double val) {
+    public BackAndForthAction (Sprite sprite, Double val, KeyCode... keys) {
         super(sprite, val);
     }
 
