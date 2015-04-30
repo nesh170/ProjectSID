@@ -566,16 +566,24 @@ public class ScreenController {
 		private void saveLevelSprites(Game game, String imageFolderName) {
 			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
 				String imagePath = sprite.getImagePath();
-				String newImagePath = copyImage(imageFolderName, imagePath);
+				String newImagePath = copyFile(imageFolderName, imagePath);
 				sprite.setImagePath(newImagePath);
+				
+				sprite.actionList().forEach(action -> {
+					String soundPath = action.getSoundPath();
+					String newSoundPath = copyFile(imageFolderName, soundPath);
+					action.setSound(newSoundPath);
+				});
+				
+				
 			}));
 		}
-		
+				
 		private void saveLevelBackgrounds(Game game, String imageFolderName) {
 			try {
 				game.levels().forEach(level -> {
 					String imagePath = level.backgroundPath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
+					String newImagePath = copyFile(imageFolderName, imagePath);
 					level.setBackground(newImagePath);
 				});
 			}
@@ -588,7 +596,7 @@ public class ScreenController {
 			try {
 				game.splashScreen().sprites().forEach(sprite -> {
 					String imagePath = sprite.getImagePath();
-					String newImagePath = copyImage(imageFolderName, imagePath);
+					String newImagePath = copyFile(imageFolderName, imagePath);
 					sprite.setImagePath(newImagePath);
 				});
 			} catch (Exception e) {
@@ -596,7 +604,7 @@ public class ScreenController {
 			}
 		}
 
-		private String copyImage(String imageFolderName, String imagePath) {
+		private String copyFile(String imageFolderName, String imagePath) {
 			String[] imagePathSplit = imagePath.split("[\\\\/]");
 			String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
 			Path fileCopy = (new File(newImagePath).toPath());
