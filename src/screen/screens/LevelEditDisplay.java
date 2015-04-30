@@ -1,6 +1,7 @@
 package screen.screens;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,11 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import levelPlatform.level.Level;
 
@@ -31,13 +37,25 @@ public class LevelEditDisplay extends ScrollPane {
 	private Pane content;
 	private int increaseLevelSize;
 	private Map<Sprite,ImageView> spriteToImageMap;
+	private Background background;
 
 	
-	public LevelEditDisplay(int width, int height, List<Sprite> listOfSprites) {
+	public LevelEditDisplay(int width, int height, List<Sprite> listOfSprites, String backgroundPath) {
 		this();
 		content.setMinWidth(width);
 		content.setMinHeight(height);
-		listOfSprites.forEach(sprite -> addSpriteToDisplay(sprite,new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath())))));
+//		listOfSprites.forEach(sprite -> {
+//			ImageView image = new ImageView(DataHandler.fileToImage(new File(sprite.getImagePath())));
+//			image.setFitWidth(sprite.transform().getWidth());
+//			image.setFitHeight(sprite.transform().getHeight());
+//			addSpriteToDisplay(sprite, image);
+//		});
+		try {
+			setBackground(DataHandler.fileToImage(new File(backgroundPath)));
+		}
+		catch (Exception e) {
+			//Do Nothing
+		}
 	}
 	
 	
@@ -59,9 +77,13 @@ public class LevelEditDisplay extends ScrollPane {
 	 */
 	public void setContentMinSize(Level level) {
 		
-		content.setMinSize(this.getWidth(), this.getHeight());
-		level.configureWidthAndHeight((int) this.getWidth(), (int) this.getHeight());
-		
+		if(!level.sprites().isEmpty()) {
+			content.setMinSize(level.width(), level.height());
+		}
+		else {
+			content.setMinSize(this.getWidth(), this.getHeight());
+			level.configureWidthAndHeight((int) this.getWidth(), (int) this.getHeight());
+		}		
 	}
 		
 	/*
@@ -131,6 +153,15 @@ public class LevelEditDisplay extends ScrollPane {
 	 */
 	public void setCursor(Image image) {
 		content.setCursor(new ImageCursor(image));
+	}
+	
+	public void setBackground(Image image) {
+		if (background != null) {
+			content.getChildren().remove(background);
+		}
+		background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+				BackgroundPosition.CENTER, new BackgroundSize(0, 0, false, false, false, true)));
+		content.setBackground(background);
 	}
 	
 	private void moveRight(Node n) {

@@ -38,6 +38,7 @@ public class INT {
 	public static final int SPLASH_EDIT_TEXTFIELD_WIDTH = 150;
 	public static final int SPLASH_EDIT_TEXTFIELD_HEIGHT = 30;
 	public static final int SPLASH_EDIT_ROTATE_FACTOR = 15;
+	public static final int SPLASH_EDIT_OFFSCREEN = 2000;
 	
 	
 	// Collision table
@@ -47,8 +48,46 @@ public class INT {
 	public static final int DIRECTION = 2;
 	public static final int ACTION = 3;
 	public static final int VALUE = 4;
-	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.COMBO_ACTION_NAME_AND_TAG.length();
+	public static final int ACTION_STRING_LENGTH = STRING.COLLISION_EDIT.ACTION_NAME.length();
+	public static final int ADD_ROW_BUTTON_OFFSET = 30;
 	
+	public static final int SAMPLE_DISPLAY_NUMBER = 3;
+	
+	public static final int EACH_ROW_VBOX_SIZE = 800;
+	public static final int EACH_ROW_VBOX_OFFSET_Y = 50;
+	public static final int EACH_ROW_VBOX_OFFSET_X = 100;
+	public static final int EACH_ROW_GRIDPANE_HGAP = 30;
+	public static final int EACH_ROW_GRIDPANE_VGAP = 30;
+	public static final int EACH_ROW_GRIDPANE_MAX_HEIGHT = 50;
+	public static final int EACH_ROW_GRIDPANE_INSETS_TOPBOTTOM = 10;
+	public static final int EACH_ROW_GRIDPANE_INSETS_LEFTRIGHT = 50;
+	
+	public static final int TOP_ROW = 0;
+	public static final int SPRITELIST_ROW = 1;
+	public static final int ACTIVESPRITE_COLUMN = 1;
+	public static final int INACTIVESPRITE_COLUMN = 2;
+	public static final int DIRECTION_COLUMN = 3;
+	public static final int ACTION_COLUMN = 4;
+	public static final int TEXTVAL_COLUMN = 5;
+	public static final int SAVE_BUTTON_COLUMN = 6;
+	public static final int TRASH_BUTTON_COLUMN = 7;
+	
+	public static final int SAVE_BUTTON_SIZE = 100;
+	public static final int TRASH_BUTTON_SIZE = 70;
+	
+	public static final int SCROLLPANE_VBOX_SIZE = 50;
+	public static final int SCROLLPANE_TITLEBOX_SIZE = 800;
+	
+	// Collision Map: Map<String, Map<String, List<String>>>
+	
+	public static final int DIRECTION_INDEX = 0;
+	public static final int ACTION_INDEX = 1;
+	public static final int VALUE_INDEX = 2;
+	public static final int SWITCH_OPTION_INDEX = 3;
+	
+	
+
+
 	
 	
 	//MainMenu

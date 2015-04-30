@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 
+@ActionName(displayName = "Multiple Sprite Action")
 public class MultiSpriteAction extends Action {
 	
 	protected int mySpriteIndex;

@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import data.DataHandler;
 import resources.constants.INT;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
@@ -19,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import levelPlatform.level.EditMode;
 import levelPlatform.level.Level;
 import levelPlatform.level.LevelView;
+import levelPlatform.splashScreen.SplashScreen;
 
 public class GameEngine extends GameEngineAbstract {
     
@@ -35,13 +35,15 @@ public class GameEngine extends GameEngineAbstract {
         
     
     
-    public GameEngine(List<Level> levelList) {
-    	
+    public GameEngine(SplashScreen splashLevel, List<Level> levelList) {
         myLevelList = levelList;
+        if(splashLevel!=null){
+            myLevelList.add(0, splashLevel);
+        }
         initializeLevel(0);
-        
+        //initializeLevel(1);
     }
-    
+
     @Override
     public void initializeLevel(int index){
         myCurrentLevel = myLevelList.get(index);
@@ -96,6 +98,7 @@ public class GameEngine extends GameEngineAbstract {
         if(myControlsMapList.get(playerNumber).containsKey(key)){
             KEY_EVENT_TO_ACTION_CONSUMER_MAP.get(keyEventType).accept(myControlsMapList.get(playerNumber).get(key));
         }
+        getHUDMap();
     }
 
     @Override
@@ -120,14 +123,28 @@ public class GameEngine extends GameEngineAbstract {
         List<String> spriteTagList = spriteTagSet.stream().collect(Collectors.toList());
         return Collections.unmodifiableList(spriteTagList);
     }
+
+    @Override
+    public Map<String,Consumer<KeyCode>> getActionToChangeKeyCodeConsumerMap (int playerNumber) {
+        return Collections.unmodifiableMap(myCurrentLevel.getActionChangeKeyCodeMethod(playerNumber));
+    }
     
-    public List<String> actionWithKeyCode (int playerNum) {
-        return myCurrentLevel.getActionListInStrings(playerNum);
+    @Override
+    public Map<String,KeyCode> getActionKeyCodeMap (int playerNumber) {
+        return Collections.unmodifiableMap(myCurrentLevel.getActionKeyCodeMap(playerNumber));
     }
 
     @Override
-    public void changeKeyCodeInAction (int playerNumber, String actionName, KeyCode key) {
-        myCurrentLevel.setKeyCodeToPlayer(playerNumber, actionName, key);
+    public Map<String, Double> getHUDMap () {
+        return myCurrentLevel.getUnmodifiableHUDMap();
+    }
+    
+    public List<Component> getDefaultHUDComponents(){
+    	List<Component> components = new ArrayList<Component>();
+    	for(String type: new String[]{"Ammo","Energy","Health","Life","Time"}){
+    		components.add(myCurrentLevel.playerSpriteList().get(0).getComponentOfType(type + "Component"));
+    	}
+    	return components;
     }
 
 

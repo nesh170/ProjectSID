@@ -54,6 +54,7 @@ public class Sprite {
 	
 	private boolean isGoal;
 	private int toLevel;
+	private boolean isText = false;
 
 	
 	public static Sprite makeCopy(Sprite toCopy) {
@@ -111,6 +112,14 @@ public class Sprite {
 	
 	public List<Sprite> emissionList() {
 		return Collections.unmodifiableList(this.emissionList); 
+	}
+	
+	public boolean isText(){
+	    return isText;
+	}
+	
+	public void setIsText(boolean isText) {
+		this.isText = isText;
 	}
 	
 	
@@ -252,6 +261,7 @@ public class Sprite {
 		if(isActive) {
 			componentList.stream().forEach(com -> com.updateIfEnabled());
 			actionList.stream().forEach(action -> action.update());
+			emissionList.removeIf(removeSprite -> !removeSprite.isActive);
 			emissionList.stream().forEach(proj -> proj.updateSprite());
 		}
 	}
@@ -266,7 +276,9 @@ public class Sprite {
 	}
 	
 	public void addAction(Action actionToAdd){
-		actionList.add(actionToAdd);
+		if (actionToAdd != null) {
+			actionList.add(actionToAdd);
+		}
 	}
 	
 	public void addActionRuntime (Action action) {

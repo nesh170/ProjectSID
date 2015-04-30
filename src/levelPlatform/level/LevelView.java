@@ -2,7 +2,8 @@ package levelPlatform.level;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-
+import java.util.List;
+import java.util.stream.Collectors;
 import gameEngine.Collision;
 import resources.constants.DOUBLE;
 import sprite.ImageManager;
@@ -14,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 /**
  * 
@@ -93,12 +95,21 @@ public class LevelView extends ScrollPane {
 		Group levelGroup = new Group();
 		Node background = renderBackground(level);
 		levelGroup.getChildren().add(background);
-		level.sprites().stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
+		List<Sprite> textSpriteList = level.sprites().stream().filter(sprite -> sprite.isText()).collect(Collectors.toList());
+		textSpriteList.stream().forEach(textSprite -> levelGroup.getChildren().add(renderText(textSprite)));
+		List<Sprite> imageSpriteList = level.sprites().stream().filter((sprite -> !sprite.isText())).collect(Collectors.toList());
+		imageSpriteList.stream().filter(sprite -> sprite.isActive()).forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
 		return levelGroup;
-
 	}
 
-	private Node renderBackground(Level aLevel) {
+	private Node renderText (Sprite textSprite) {
+	    Text text = new Text(textSprite.getName());
+	    text.setTranslateX(textSprite.transform().getPosX());
+	    text.setTranslateY(textSprite.transform().getPosY());
+	    return text;
+	}
+
+    private Node renderBackground(Level aLevel) {
 		Node background = null;
 		try {
 			ImageView backgroundImageView = new ImageView(myImageManager.getImageForString(aLevel.backgroundPath()));
@@ -119,10 +130,8 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	private Group renderSprite(Sprite sprite) {
-		Group spriteGroup = new Group();
-		if (sprite.isActive()) {	
-			// ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
-			// ImageView spriteImageView = null;
+//		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
+		Group spriteGroup = new Group();	
 			try{
 				Image spriteImg = myImageManager.getImageForString(sprite.getImagePath());
 				ImageView spriteImageView = null;
@@ -150,7 +159,6 @@ public class LevelView extends ScrollPane {
 			catch (Exception e){
 				e.printStackTrace();
 			}
-		}
 		return spriteGroup;
 
 	}

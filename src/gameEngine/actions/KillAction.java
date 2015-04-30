@@ -6,6 +6,7 @@ import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.HealthComponent;
 
+@ActionName(displayName = "Kill")
 public class KillAction extends DoubleAction {
 
 	public KillAction(Sprite sprite, Double val, KeyCode... keys) {
@@ -18,8 +19,10 @@ public class KillAction extends DoubleAction {
 
 	@Override
 	public void doAction() {
-		//mySprite.setIsActive(false);
-		mySprite.transform().setPosition(Point2D.ZERO);
+		mySprite.setIsActive(false);
+		System.out.println("Die die die!");
+		//TODO:why does it reset transform
+		//mySprite.transform().setPosition(Point2D.ZERO);
 	}
 
 	@Override

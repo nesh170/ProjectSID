@@ -29,4 +29,9 @@ public class AudioController {
 		myAudioPlayer.stop();
 		myAudioPlayer.play();
 	}
+
+	public void setVol(double newVol) {
+		myAudioPlayer.setVolume(newVol);
+	}
+	
 }

@@ -39,14 +39,10 @@ public class Collision {
         if(transform1.getBottomEdge() <= transform2.getPosY() + tolerances[1]) executeActions(sprite1, sprite2, INT.COLLISION_UP);
         if(transform1.getPosY() >= transform2.getBottomEdge() - tolerances[1]) executeActions(sprite1, sprite2, INT.COLLISION_DOWN);
     }
-
-    private void executeAction(Sprite sprite1, Sprite sprite2, int direction) {
-    	Action a = collideTable.getActionForCollisionAndDirection(sprite1.collisionTag(), sprite2.collisionTag(), direction);
-    	if(a != null) a.execute();
-    }
     
     private void executeActions(Sprite sprite1, Sprite sprite2, int direction) {
-    	List<Action> actions = collideTable.getActionsForCollisionAndDirection(sprite1.collisionTag(), sprite2.collisionTag(), direction);
+        //Talked to leo and changed it from cllision tags to tag
+    	List<Action> actions = collideTable.getActionsForCollisionAndDirection(sprite1.tag(), sprite2.tag(), direction);
     	if(actions != null) actions.stream().forEach(a -> a.execute());
     }
     

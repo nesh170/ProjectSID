@@ -13,10 +13,12 @@ import gameEngine.components.VelocityComponent;
  * used for powerups, changing character during gameplay, etc.
  *
  */
-
+@ActionName(displayName = "Switch Out")
 public class SwitchOutAction extends MultiSpriteAction{
 	
-
+	/*@Sprite[]
+	@List<Sprites>
+	@KeyCode...*/
 	public SwitchOutAction(Sprite[] sprites, List<Sprite> allPlayers, KeyCode ... keys) {
 		super(sprites, allPlayers, keys);
 		
@@ -27,7 +29,7 @@ public class SwitchOutAction extends MultiSpriteAction{
 	}
 
 	@Override
-	public void doAction() {
+	public void doAction() { // TODO: need to change name to "execute()" in order for CollisionTable to run Action
 		Sprite sprite1 = mySprites[mySpriteIndex];
 		mySpriteIndex = (mySpriteIndex+1)%mySprites.length;
 		Sprite sprite2 = mySprites[mySpriteIndex];

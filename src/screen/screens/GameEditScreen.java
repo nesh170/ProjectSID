@@ -11,10 +11,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -87,19 +90,12 @@ import levelPlatform.splashScreen.SplashScreen;
  * @author Anika
  */
 //TODO list: - disable rest of screen when popup shows
-//- could add only once a draft levelImagerepresnetation when user returns from LevelEditScreen without modifying everything since level is automatically saved
 //- could also add drag and drop functionality to rearrange ordering of list of levels.
-//fix the bug with contextMenu staying in absolute positioni in screen
-public class GameEditScreen extends Screen {
+//fix the contextMenu staying in absolute position in screen
 
-	// Static Variables
-	private static boolean TESTING = false;		// change this to true to debug, but only push "false"
+public class GameEditScreen extends Screen {
 	
-	
-	// Instance variables
 	private GameEditScreenController controller;
-	
-	//private Game game;
 	private GameEditModel gameEditModel;
 	// JavaFX
 	private StackPane levelDisplay;
@@ -107,21 +103,8 @@ public class GameEditScreen extends Screen {
 	private Popup popup;
 	private HBox levelHB;
 	private StackPane splashSP;
-
-	// Getters & Setters
-	/**
-	 * add a Level to a Game
-	 * 
-	 * @return int index of where the inserted Level is
-	 */
-/*	public int addLevel(Level level) {
-		
-		levels.add(level);
-		return levels.indexOf(level);
-		
-	}
-	*/
 	
+
 	// Constructor & Helpers
 	/**
 	 * Set up GameEdit screen from previously created game to re-edit game.
@@ -132,12 +115,19 @@ public class GameEditScreen extends Screen {
 	public GameEditScreen(Game game, GameEditScreenController controller, double width, double height) {
 	
 		super(width, height);
-		this.gameEditModel = new GameEditModel(game);
-		
-		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);
-			
+		this.gameEditModel = new GameEditModel(game);	
+		this.setStyle(STRING.COLORS.FX_GAME_EDIT_BACKGROUND);			
 		initialize(controller);
 
+	}
+	
+	
+	/***
+	 * rerender the non-static region of screen.
+	 */
+	@Override
+	public void rerender() {
+		displayLevels();
 	}
 
 	/**
@@ -172,18 +162,16 @@ public class GameEditScreen extends Screen {
 		splashSP = new StackPane();
 		splashDisplay.setAlignment(Pos.CENTER);
 		splashDisplay.getChildren().add(splashSP);
-		splashSP.getChildren().addAll(makeText(STRING.GAME_EDIT.SPLASH_SCREEN));
 		
-		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW , e -> hideSplashRegion());
+		ImageView hide = makeHideShowArrow(	STRING.GAME_EDIT.HIDE_ARROW, e -> hideSplashRegion());
 		hide.setTranslateX(240);
 		hide.setTranslateY(-350);
-		
+		hide.managedProperty().bind(hide.visibleProperty());
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		splashSP.getChildren().addAll(rec, hide);  
+		splashSP.getChildren().addAll( rec, makeText(STRING.GAME_EDIT.SPLASH_SCREEN), hide);  	
 		displayApproporiateSplashButton();
-		
 	}
 	
 	/**
@@ -193,10 +181,8 @@ public class GameEditScreen extends Screen {
 	 */
 	public void displayApproporiateSplashButton(){
 		Button b = new Button();
-		// Testing
-//		if (GameEditScreen.TESTING) {
-//			System.out.println(game.hasSplash());
-//		}
+		b.managedProperty().bind(b.visibleProperty());
+
 		if (!gameEditModel.hasSplash()) {
 			
 			b = makeAddSignWhenEmpty("Add New Splash Screen",
@@ -231,7 +217,7 @@ public class GameEditScreen extends Screen {
 		text.setEffect(r);
 		text.setFont(Font.font("SERIF", FontWeight.BOLD, 30));
 		text.setTranslateY(-300); 
-		
+		text.managedProperty().bind(text.visibleProperty());
 		return text;
 		
 	}
@@ -242,6 +228,8 @@ public class GameEditScreen extends Screen {
 		
 		addsign.setFitHeight(INT.GAMEEDIT_ADD_SIGN_DIM);
 		addsign.setFitWidth(INT.GAMEEDIT_ADD_SIGN_DIM);
+		if(s.equals("Add New Splash Screen")) {
+		}
 		Button b = new Button(s, addsign);
 		b.setContentDisplay(ContentDisplay.TOP);
 		b.setOnMouseClicked(lamda);
@@ -292,10 +280,13 @@ public class GameEditScreen extends Screen {
 				e -> controller.showConfirmPopUpWithGame(gameEditModel.getGame(), popup));
 		
 		StackPane.setAlignment(back, Pos.TOP_LEFT);
-		ImageView img = makeHideShowArrow("images/GameEdit_images/show.png", e -> this.showSplashRegion());
+		
+		
+		ImageView img = makeHideShowArrow(STRING.GAME_EDIT.SHOW_ARROW, e -> this.showSplashRegion());
 		img.setTranslateX(-700);
 		img.setTranslateY(-280);
 		img.setVisible(false);
+		
 		levelDisplay.getChildren().addAll(levelSP, back, addButton, play,
 				displayNote(),img);
 		
@@ -338,8 +329,7 @@ public class GameEditScreen extends Screen {
 
 		else {
 			displayLevelsWhenEmpty();
-		}
-		
+		}		
 	}
 
 
@@ -461,30 +451,24 @@ public class GameEditScreen extends Screen {
 	 */
 	public SequentialTransition animatesTrashLevel(EventHandler<ActionEvent> onfinished){
 		Transition pt = runAnimationsInParallel(assignLevelButtonsAnimation());
-		SequentialTransition st = new SequentialTransition(animatesTrashPaper(), pt);		
+		SequentialTransition st = new SequentialTransition(
+				animatesTrashPaper(INT.LEVEL,
+						e ->levelHB.getChildren().get(gameEditModel.getSelectedIndex())
+						.setVisible(false)),pt);		
 		st.setOnFinished(onfinished);		
 		return st;		
 	}
-	
-	private Transition animatesTrashPaper(){	
+
+	public Transition animatesTrashPaper(int splashOrLevel, EventHandler<ActionEvent> onfinished){	
 		//may need to change to Timeline
 		ScaleTransition st =  new ScaleTransition(Duration.millis(2000), 
-				changeToTrashPaper());		
+				changeToTrashPaper(splashOrLevel));		
 	    st.setDuration(Duration.seconds(0.19f));
-	    //st.setInterpolator(Interpolator.DISCRETE);
 	    st.setFromX(0);
 	    st.setFromY(0);
-	  //  st.setByX(1.2);
-	   // st.setByY(1.2);
 	    st.setToX(1);
 	    st.setToY(1);
-	    st.setOnFinished(new EventHandler<ActionEvent>(){
-	    	
-			@Override
-			public void handle(ActionEvent event) {
-				levelHB.getChildren().get(gameEditModel.getSelectedIndex()).setVisible(false);
-			}
-	    });
+	    st.setOnFinished(onfinished);
 	    return st;
 	}
 	/**
@@ -520,6 +504,16 @@ public class GameEditScreen extends Screen {
 		};
 	}
 	
+	public EventHandler<ActionEvent> trashSplashAnimationFinishedEvent(){
+		return new EventHandler<ActionEvent>(){
+			
+			@Override
+			public void handle(ActionEvent event) {
+				splashSP.getChildren().remove(3);
+				displayApproporiateSplashButton();
+			}
+		};
+	}
 	
 	private ImageView makeButton(String locUp, String locDown, EventHandler<MouseEvent> lamda) {
 
@@ -536,20 +530,91 @@ public class GameEditScreen extends Screen {
 
 	}
 
-	private ImageView changeToTrashPaper(){
-		// not part of animation
+	private ImageView changeToTrashPaper(int splashOrLevel){
+
+		ImageView img = makeTrashGas();
+		if(splashOrLevel == INT.LEVEL){
+		int selectedIndex = gameEditModel.getSelectedIndex();
+			levelHB.getChildren().add(selectedIndex, 
+				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
+		}
+		else{
+			Node toBeRemoved = splashSP.getChildren().get(3);
+			toBeRemoved.setVisible(false);
+			splashSP.getChildren().add(3, new StackPane(toBeRemoved,img));
+		}
+		return img;
+
+	}
+	
+	private ImageView makeTrashGas(){
 		ImageView img = new ImageView(new Image("images/trash_gas.png"));
 		img.setFitHeight(80);
 		img.setFitWidth(80);	
 		img.setFocusTraversable(false);
-		// THE LINE BELOW REMOVES THE NODE FROM LIST!!
-		//StackPane sp = new StackPane(levelHB.getChildren().get(selectedIndex), img);
-		int selectedIndex = gameEditModel.getSelectedIndex();
-		levelHB.getChildren().add(selectedIndex, 
-				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
 		return img;
+	}
+	private void hideSplashRegion(){
+		splashDisplay.setVisible(false);
+		
+		Timeline slideIn = new Timeline();				
+		KeyFrame k = new KeyFrame(Duration.millis(5), e -> updateSlidInFrame(slideIn));
+		
+		Node splashImage = splashSP.getChildren().get(3);
+		Node arrow = splashSP.getChildren().get(2);
+		Node text = splashSP.getChildren().get(1);
+		
+		arrow.managedProperty().bind(arrow.visibleProperty());
+		text.managedProperty().bind(text.visibleProperty());
+		splashImage.managedProperty().bind(splashImage.visibleProperty());
+		
+		splashImage.setVisible(false);
+		arrow.setVisible(false);
+		text.setVisible(false);
+        slideIn.setCycleCount(Animation.INDEFINITE);
+		slideIn.getKeyFrames().add(k);
+		slideIn.play();
+	}
+	
+	private void updateSlidInFrame(Timeline t){
+	
+		Rectangle rec = (Rectangle) splashSP.getChildren().get(0);		
+		double width = rec.getWidth();
+		if(width == 0){
+			t.stop();
+			levelDisplay.getChildren().get(5).setVisible(true); 
+		}
+		rec.setWidth(width-5);		
 
 	}
+	
+	
+	private void showSplashRegion(){
+		//restore splashDisplay
+		splashSP.getChildren().get(0).setVisible(false);	
+		levelDisplay.getChildren().get(5).setVisible(false);
+		Timeline slideOut = new Timeline();
+		KeyFrame k = new KeyFrame(Duration.millis(5), e -> updateSlideOutFrame(slideOut));
+		slideOut.getKeyFrames().add(k);
+		slideOut.setCycleCount(Animation.INDEFINITE);
+		slideOut.play();		
+	}
+	
+	private void updateSlideOutFrame(Timeline t){
+		
+		Rectangle rec = (Rectangle) splashSP.getChildren().get(0);		
+		double width = rec.getWidth();
+		if(width == 500){
+			t.stop();
+			
+			splashSP.getChildren().get(3).setVisible(true);
+			splashSP.getChildren().get(2).setVisible(true);
+			splashSP.getChildren().get(1).setVisible(true);
+			splashDisplay.setVisible(true);
+		}
+		rec.setWidth(width+5);			
+	}
+	
 	
 	private void createPopUp() {   
 		
@@ -616,41 +681,13 @@ public class GameEditScreen extends Screen {
 
 		Menu fileMenu = makeFileMenu(o -> controller.saveGame(gameEditModel.getGame()), //change
 				o -> controller.returnToMainMenuScreen(popup),
-				o -> controller.returnToMainMenuScreen(popup));
+				o -> controller.saveAndExit(gameEditModel.getGame(), popup));
 
 		menuBar.getMenus().addAll(fileMenu, makeLevelMenu(), makeTools(),
 				makeGameMenu(), makeTrashMenu());
 
 	}
-	//borderpane's left and right can overlap with each other!
-	private void hideSplashRegion(){
-		splashDisplay.managedProperty().bind(splashDisplay.visibleProperty());
-		splashDisplay.setVisible(false);
-		//change to KeyFrame and timeline. That might change it 
-	     TranslateTransition tt = new TranslateTransition(Duration.millis(2000), levelDisplay);
-	     
-	     tt.setByX(-500f);
-	     tt.setCycleCount(1);
-	     tt.setOnFinished( new EventHandler<ActionEvent>(){
 
-			@Override
-			public void handle(ActionEvent event) {
-				 
-				//levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
-			}
-
-	    	 
-	     }
-	    );
-	   // tt.play();	 
-	    levelDisplay.getChildren().get(5).setVisible(true); //show the arrow at the expanded location	
-	}
-	
-	private void showSplashRegion(){
-		splashDisplay.setVisible(true);
-		levelDisplay.getChildren().get(5).setVisible(false);
-	}
-	
 	private Menu makeLevelMenu() {
 		
 		Menu levelMenu = new Menu("Level");

@@ -1,5 +1,6 @@
 package screen.controllers;
 import game.Game;
+import gameEngine.CollisionTable;
 
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileAttribute;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -61,6 +63,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenAnimation;
 import screen.factories.ScreenFactory;
 import screen.screens.GameEditScreen;
 import screen.screens.GamePlayScreen;
@@ -326,8 +329,8 @@ public class ScreenController {
 	public File getFileUsingFileChooser(FileChooser fileChooser) {
 		throw new IllegalStateException("unimplemented getFileUsingFileChooser in ScreenController");
 	}
-
-
+	
+	// private
 	private Tab createMainMenuScreen() {
 		
 		return tabManager.addTabWithScreenWithStringIdentifier(
@@ -378,9 +381,9 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, Map<String, ObservableList<String>> spriteMap) {
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, spriteMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -439,6 +442,7 @@ public class ScreenController {
 				popup.hide();
 			}
 			else {
+				ScreenAnimation.shakePopUpWhenError(popup);
 				gameName.getStyleClass().add(STRING.CSS.ERROR);
 				gameName.setPromptText(STRING.ERROR.EMPTY_GAME_NAME);
 			}
@@ -480,7 +484,7 @@ public class ScreenController {
 
 		@Override
 		public void loadLevelEditScreen(Game game, Level level) {
-
+			
 			createLevelEditScreen(game, level);
 			
 		}
@@ -534,8 +538,9 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
-			
+			Transition t = gameEditScreen.animatesTrashPaper(INT.SPLASH,
+					gameEditScreen.trashSplashAnimationFinishedEvent()); //can be replaced to not pass GameEditScreen updates splash display internally
+			t.play();
 		}
 
 
@@ -544,53 +549,76 @@ public class ScreenController {
 			
 			//File dir = DataHandler.chooseDir(stage);
 			try {
+				
 				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
 				File folder = new File(imageFolderName);
 				folder.mkdir();
-				game.levels().forEach(level -> level.sprites().forEach(sprite -> {
-					String imagePath = sprite.getImagePath();
-					String[] imagePathSplit = imagePath.split("[\\\\/]");
-					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
-					Path fileCopy = (new File(newImagePath).toPath());
-					FileInputStream in;
-					try {
-						in = new FileInputStream(imagePath);			
-						Files.copy(in, fileCopy);
-					} catch (Exception e) {
-						//do nothing, file already exists but I don't care;
-					}
-					sprite.setImagePath(newImagePath);
-				}));
-				game.splashScreen().sprites().forEach(sprite -> {
-					String imagePath = sprite.getImagePath();
-					String[] imagePathSplit = imagePath.split("[\\\\/]");
-					String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
-					Path fileCopy = (new File(newImagePath).toPath());
-					FileInputStream in;
-					try {
-						in = new FileInputStream(imagePath);			
-						Files.copy(in, fileCopy);
-					} catch (Exception e) {
-						//do nothing, file already exists but I don't care;
-					}
-					sprite.setImagePath(newImagePath);
-				});
+				saveLevelSprites(game, imageFolderName);
+				saveLevelBackgrounds(game, imageFolderName);
+				saveSplashScreen(game, imageFolderName);
+
 				DataHandler.toXMLFile(game, game.name(), folder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
 			}
 		}
 		
+		private void saveLevelSprites(Game game, String imageFolderName) {
+			game.levels().forEach(level -> level.sprites().forEach(sprite -> {
+				String imagePath = sprite.getImagePath();
+				String newImagePath = copyImage(imageFolderName, imagePath);
+				sprite.setImagePath(newImagePath);
+			}));
+		}
+		
+		private void saveLevelBackgrounds(Game game, String imageFolderName) {
+			try {
+				game.levels().forEach(level -> {
+					String imagePath = level.backgroundPath();
+					String newImagePath = copyImage(imageFolderName, imagePath);
+					level.setBackground(newImagePath);
+				});
+			}
+			catch(Exception e) {
+				
+			}
+		}
+
+		private void saveSplashScreen(Game game, String imageFolderName) {
+			try {
+				game.splashScreen().sprites().forEach(sprite -> {
+					String imagePath = sprite.getImagePath();
+					String newImagePath = copyImage(imageFolderName, imagePath);
+					sprite.setImagePath(newImagePath);
+				});
+			} catch (Exception e) {
+				
+			}
+		}
+
+		private String copyImage(String imageFolderName, String imagePath) {
+			String[] imagePathSplit = imagePath.split("[\\\\/]");
+			String newImagePath = imageFolderName+"/"+imagePathSplit[imagePathSplit.length - 1];
+			Path fileCopy = (new File(newImagePath).toPath());
+			FileInputStream in;
+			try {
+				in = new FileInputStream(imagePath);			
+				Files.copy(in, fileCopy);
+			} catch (Exception e) {
+				//do nothing, file already exists but I don't care;
+			}
+			return newImagePath;
+		}
+		
 		public void saveAndExit(Game game, Popup popup){
 			saveGame(game);
-			hidePopup(popup);
+			returnToMainMenuScreen(popup);
 		}
 		
 		private void hidePopup(Popup popup){
 			popup.hide();
 		}	
 	}
-
 
 	private class SplashEditScreenManager implements SplashEditScreenController {
 
@@ -653,8 +681,8 @@ public class ScreenController {
 		 * @param levelEditScreen
 		 */
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
-			Tab collisionTableTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(collisionTableTab, levelEditScreen.getTags());
+			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
+			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
 		}
 		
@@ -680,9 +708,12 @@ public class ScreenController {
 	private class CollisionTableScreenManager implements CollisionTableScreenController {
 
 		@Override
-		public void returnToLevel() {
-			// TODO Auto-generated method stub
-			
+		public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo) {
+			tabManager.removeTabAndChangeSelected(switchTo);
+			if (switchTo.getContent() instanceof LevelEditScreen) {
+				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();
+				levelEditScreen.updateCollisions(collisionMap);
+			}
 		}
 		
 	}

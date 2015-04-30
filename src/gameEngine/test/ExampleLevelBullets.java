@@ -6,7 +6,7 @@ import gameEngine.actions.FallAction;
 import gameEngine.actions.UpMotionAction;
 import gameEngine.actions.KillAction;
 import gameEngine.actions.LeftMotionAction;
-import gameEngine.actions.NormalAction;
+import gameEngine.actions.NormalActionY;
 import gameEngine.actions.RightMotionAction;
 import gameEngine.actions.ShootAction;
 import gameEngine.components.HealthComponent;
@@ -41,7 +41,7 @@ public class ExampleLevelBullets {
 		Action gravityAction = new FallAction(player, 10.0);
 		gravityAction.runEveryFrame();
 		player.addAction(gravityAction);
-		Action normalAction = new NormalAction(player);
+		Action normalAction = new NormalActionY(player);
 		player.addAction(normalAction);
 		//set up platform
 		Sprite platform = new Sprite(new Point2D(0, 430),Point2D.ZERO,new Dimension2D(500, 10));
@@ -58,7 +58,7 @@ public class ExampleLevelBullets {
 		
 		//set up projectile template
 		Sprite projTemp = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp,null, null, player);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(projTemp,null, null);
 		Action rma2 = new RightMotionAction(projTemp, 2.0, (KeyCode)null);
 		
 		projTemp.addComponent(projComp);
