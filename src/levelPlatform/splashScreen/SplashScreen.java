@@ -19,7 +19,6 @@ public class SplashScreen extends Level {
 	
 	// Instance Variables
 	//private List<Sprite> sprites = new ArrayList();
-	private Map<Sprite, Integer> goalMap;
 	private IntConsumer nextLevelMethod;
 	//private List<Sprite> playerSpriteList;
 	
