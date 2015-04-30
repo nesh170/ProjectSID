@@ -2,7 +2,6 @@ package gameEngine.actions;
 
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
-import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
@@ -12,12 +11,12 @@ public class BounceAction extends DoubleAction {
 	private VelocityComponent myVelocityComponent;
 
 	public BounceAction(Sprite sprite, Double val, KeyCode... keys) {
-		super(sprite, val, keys);
+		super(sprite, -val, keys);
 	}
 
 	@Override
 	public void prepare() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
 	}
 	
 	@Override

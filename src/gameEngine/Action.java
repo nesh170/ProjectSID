@@ -25,8 +25,8 @@ public abstract class Action {
 	private boolean runsEveryFrame = false;
 	protected Double value;
 	private String soundPath;
-	//TODO: delete and fix sound effect bug:
-	private SoundEffectManager soundManager;
+	
+	public static final String VEL_COMP = "VelocityComponent";
 	
 	public void setSound(String path){
 		soundPath = path;

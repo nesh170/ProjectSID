@@ -6,7 +6,8 @@ import javafx.util.Duration;
 public class AudioController {
 
 	private MediaPlayer myAudioPlayer;
-	private Duration myPauseTime;
+	@SuppressWarnings("unused")
+    private Duration myPauseTime;
 	
 	public AudioController(MediaPlayer mp) {
 		this.myAudioPlayer = mp;

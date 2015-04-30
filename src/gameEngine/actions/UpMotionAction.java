@@ -2,7 +2,6 @@ package gameEngine.actions;
 
 import javafx.scene.input.KeyCode;
 import sprite.Sprite;
-import gameEngine.Action;
 import gameEngine.EngineMathFunctions;
 import gameEngine.components.VelocityComponent;
 
@@ -13,7 +12,7 @@ public class UpMotionAction extends DoubleAction {
 	private VelocityComponent myVelocityComponent;
 
 	public UpMotionAction(Sprite sprite, Double value, KeyCode... keys) {
-		super(sprite,value,keys);
+		super(sprite,-value,keys);
 		climbing = false;
 	}
 	
@@ -23,7 +22,7 @@ public class UpMotionAction extends DoubleAction {
 
 	@Override
 	public void prepare() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
 	}
 	
     @Override
@@ -44,7 +43,7 @@ public class UpMotionAction extends DoubleAction {
     @Override
     public void stop () {
     	if (climbing) {
-    		VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+    		VelocityComponent velocityComp = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
     		velocityComp.setVelocityY(0.0);
     	}
     }

@@ -22,17 +22,11 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -88,6 +82,11 @@ public class PlayerViewController implements GamePlayerInterface {
 		myNetwork = new Network();
 	}
 
+	public PlayerViewController(PlayerView view, Game game) {
+		this(view);
+		selectGame(game);
+	}
+	
 	@Override
 	public void start() {
 		resume();
@@ -127,24 +126,6 @@ public class PlayerViewController implements GamePlayerInterface {
 				Duration.millis(1000 / FRAME_RATE), e -> display());
 		myTimeline.getKeyFrames().add(updateFrame);
 		myTimeline.getKeyFrames().add(displayFrame);
-	}
-
-	public Stage chooserConfirmationDialog(Text text) {
-		Stage dialogStage = new Stage();
-		dialogStage.initModality(Modality.APPLICATION_MODAL);
-		VBox vbox = new VBox(25);
-		vbox.setAlignment(Pos.TOP_CENTER);
-		HBox buttonBox = new HBox(25);
-		Button yes = new Button("Yes");
-		yes.setOnAction(event -> loadNewGame());
-		Button no = new Button("No");
-		no.setOnAction(event -> dialogStage.close());
-		buttonBox.getChildren().addAll(yes, no);
-		buttonBox.setAlignment(Pos.BOTTOM_CENTER);
-		vbox.getChildren().addAll(text, buttonBox);
-		Scene dialogScene = new Scene(vbox, 500, 100);
-		dialogStage.setScene(dialogScene);
-		return dialogStage;
 	}
 
 	@Override
@@ -195,7 +176,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void chooseGame(Stage gameChooser) {
 
-		File dir = new File(System.getProperty("user.dir"));
+		File dir = new File(System.getProperty(DataHandler.USER_DIR));
 		List<File> children = null;
 
 		try {
@@ -241,6 +222,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void restart() {
+		myAudioController.stop();
 		pause();
 		initializeGameAttributes();
 		start();

@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * @author Ruslan
  * @param <E>
  */
+@SuppressWarnings("serial")
 public class SilentFailArrayList<E> extends ArrayList<E> {
 
 	/**

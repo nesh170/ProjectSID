@@ -3,24 +3,14 @@ package sprite;
 import gameEngine.Action;
 import gameEngine.Component;
 import gameEngine.Transform;
-import gameEngine.components.GroovyComponent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.function.*;
 import data.DataHandler;
 import resources.constants.DIMENSION2D;
 import resources.constants.POINT2D;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 /**
  * Represents single object within game
@@ -52,7 +42,8 @@ public class Sprite {
 	private Transform transform;
 	private SpriteImage spriteImage;
 	
-	private boolean isGoal;
+	@SuppressWarnings("unused")
+    private boolean isGoal;
 	private int toLevel;
 	private boolean isText = false;
 
@@ -219,7 +210,7 @@ public class Sprite {
 	public Sprite (Sprite toCopy) {
 				
 		this(toCopy.transform().getPositionPoint(), toCopy.transform().getRot(), toCopy.transform().getDimensions());
-		this.addComponent(toCopy.getComponentOfType("VelocityComponent"));
+		this.addComponent(toCopy.getComponentOfType(Action.VEL_COMP));
 		this.setTag(toCopy.tag());
 		this.setName(toCopy.name);
 		toCopy.actionList().forEach(action -> this.addAction(action));

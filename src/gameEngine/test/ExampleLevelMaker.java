@@ -226,7 +226,7 @@ public class ExampleLevelMaker extends Application{
 		Action gravityAction = new FallAction(sprite, GRAVITY);
 		gravityAction.runEveryFrame();
 		sprite.addAction(gravityAction);
-		Action normalAction = new NormalActionY(sprite);
+		Action normalAction = new NormalActionY(sprite, 0.0);
 		sprite.addAction(normalAction);
 		for(Sprite platform: myPlatforms){
 			setCollisionUp(sprite, platform, normalAction);
@@ -238,7 +238,7 @@ public class ExampleLevelMaker extends Application{
 		myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(10, 10));
 		myProjectileTemplate.setCollisionTag("bullet");
 		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				1.0, 400.0);
+				1.0);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);
@@ -273,7 +273,7 @@ public class ExampleLevelMaker extends Application{
 		Game game = new Game("lolol");
 		game.addLevel(l);
 		try{
-			DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty("user.dir")+"/mario");
+			DataHandler.toXMLFile(game, "exampleLevel.xml", System.getProperty(DataHandler.USER_DIR)+"/mario");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");

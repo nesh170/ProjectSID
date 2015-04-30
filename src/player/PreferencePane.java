@@ -2,8 +2,6 @@ package player;
 
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import media.AudioController;
 import javafx.beans.value.ChangeListener;

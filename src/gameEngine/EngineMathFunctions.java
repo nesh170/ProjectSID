@@ -6,6 +6,7 @@ public class EngineMathFunctions {
     public static final double UPDATE_RATE =  120;
     public static final double METER_TO_PIXELS = 3779.527559055*Math.pow(10, -2);
     public static final double PERCENT = 100.0;
+    public static final double SQUARE = 2;
     
     /**
      * Takes in the user defined acceleration in m/s^2 and returns the acceleration in our units
@@ -13,7 +14,7 @@ public class EngineMathFunctions {
      * @return acceleration in pixels/(frame^2)
      */
     public static double accelerationValueFrame(double accelerationms){
-        return (accelerationms/Math.pow(UPDATE_RATE, 2))*METER_TO_PIXELS;
+        return (accelerationms/Math.pow(UPDATE_RATE, SQUARE))*METER_TO_PIXELS;
     }
     
     /**

@@ -1,5 +1,6 @@
 package gameEngine.actions;
 
+import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.VelocityComponent;
@@ -9,13 +10,13 @@ public class NormalActionY extends Action {
 
 	private VelocityComponent myVelocityComponent;
 	
-	public NormalActionY(Sprite sprite) {
+	public NormalActionY(Sprite sprite, Double value, KeyCode... keyCodes) {
 		super(sprite);
 	}
 
 	@Override
 	public void prepare() {
-		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType("VelocityComponent");
+		myVelocityComponent = (VelocityComponent) mySprite.getComponentOfType(VEL_COMP);
 	}
 
 	@Override

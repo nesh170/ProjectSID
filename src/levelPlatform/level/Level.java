@@ -48,7 +48,7 @@ public class Level extends LevelPlatform {
 	// Static Variables
 	public static final int X = 0;
 	public static final int Y = 1;
-
+	private static final int NUM_COORDS = 2;
 	
 	// Instance Variables
 	private List<Sprite> playerSpriteList;
@@ -168,9 +168,9 @@ public class Level extends LevelPlatform {
     }
         
     public double[] getNewCameraLocations () {
-        double[] xyLocations = new double[2];
-        xyLocations[X] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosX()+playerSpriteList.get(INT.LOCAL_PLAYER).transform().getWidth()/2;
-        xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight()/2;
+        double[] xyLocations = new double[NUM_COORDS];
+        xyLocations[X] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosX()+playerSpriteList.get(INT.LOCAL_PLAYER).transform().getWidth() / NUM_COORDS;
+        xyLocations[Y] = playerSpriteList.get(INT.LOCAL_PLAYER).transform().getPosY()-playerSpriteList.get(INT.LOCAL_PLAYER).transform().getHeight() / NUM_COORDS;
         return xyLocations;
     }
 

@@ -1,8 +1,5 @@
 package player;
 
-import java.util.List;
-
-import javafx.stage.Stage;
 
 public interface GamePlayerInterface {
 	/**

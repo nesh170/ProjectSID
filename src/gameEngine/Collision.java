@@ -1,8 +1,5 @@
 package gameEngine;
 
-
-import java.util.List;
-
 import gameEngine.components.VelocityComponent;
 import resources.constants.INT;
 import sprite.Sprite;
@@ -46,8 +43,8 @@ public class Collision {
     }
     
     private double[] calculateTolerances(Sprite sprite1, Sprite sprite2){
-       	VelocityComponent velocity1 = (VelocityComponent) sprite1.getComponentOfType("VelocityComponent");
-    	VelocityComponent velocity2 = (VelocityComponent) sprite2.getComponentOfType("VelocityComponent");
+       	VelocityComponent velocity1 = (VelocityComponent) sprite1.getComponentOfType(Action.VEL_COMP);
+    	VelocityComponent velocity2 = (VelocityComponent) sprite2.getComponentOfType(Action.VEL_COMP);
     	double edgeToleranceX1, edgeToleranceY1, edgeToleranceX2, edgeToleranceY2;
     	edgeToleranceX1 = edgeToleranceY1 = edgeToleranceX2 = edgeToleranceY2 = DEFAULT_TOLERANCE;
     	if(velocity1 != null){

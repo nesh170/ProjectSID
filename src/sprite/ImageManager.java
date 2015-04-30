@@ -12,9 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
-
 import javax.imageio.ImageIO;
-
 import data.DataHandler;
 import javafx.scene.image.*;
 
@@ -23,7 +21,7 @@ public class ImageManager {
 	private Map<String, Image> imageMap = new HashMap<>();
 
 	public Image getImageForString(String path) throws MalformedURLException, IOException{
-		path = System.getProperty("user.dir") + "/" + path;
+		path = System.getProperty(DataHandler.USER_DIR) + "/" + path;
 		if(imageMap.containsKey(path)){
 			return imageMap.get(path);
 		}
@@ -36,10 +34,11 @@ public class ImageManager {
 		return img; 
 	}
 
-	private Image makeTextFieldImage(String path) throws IOException {
+	@SuppressWarnings("unused")
+    private Image makeTextFieldImage(String path) throws IOException {
 		String text = path.substring(1, path.length());
 		BufferedImage buffImg;
-		buffImg = ImageIO.read(new File(System.getProperty("user.dir") + "/src/whiteSquare.png"));
+		buffImg = ImageIO.read(new File(System.getProperty(DataHandler.USER_DIR) + "/src/whiteSquare.png"));
 		Graphics2D g2d = buffImg.createGraphics();
 		g2d.setPaint(Color.BLACK);
 		g2d.setFont(new Font("Arial", Font.PLAIN, 20));

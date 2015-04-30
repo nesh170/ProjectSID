@@ -206,6 +206,7 @@ public class LevelEditModel {
 			makeSpriteNameUnique(spriteToAdd, stringToSpriteMap.keySet());
 			stringToSpriteMap.put(spriteToAdd.getName(), spriteToAdd);
 			addToGoalMap(spriteToAdd);
+			level.waitingSprites().add(spriteToAdd);
 			
 			clearCursors();
 			clearSpriteToAdd();
@@ -302,10 +303,15 @@ public class LevelEditModel {
 	}
 	
 	private void selectSprite(Sprite sprite) {
-		selectedSprite = sprite;
-		levelEditDisplay.getImage(selectedSprite).setOpacity(SELECT);
-		levelEditDisplay.setVvalue(selectedSprite.getPosition().getY()-levelEditDisplay.getHeight()/2);
-		levelEditDisplay.setHvalue(selectedSprite.getPosition().getX()-levelEditDisplay.getWidth()/2);
+		try {
+			selectedSprite = sprite;
+			levelEditDisplay.getImage(selectedSprite).setOpacity(SELECT);
+			levelEditDisplay.setVvalue(selectedSprite.getPosition().getY()-levelEditDisplay.getHeight()/2);
+			levelEditDisplay.setHvalue(selectedSprite.getPosition().getX()-levelEditDisplay.getWidth()/2);
+		}
+		catch (NullPointerException e) {
+			//nothing is there to select
+		}
 	}
 	
 	public void delete() {
@@ -365,8 +371,9 @@ public class LevelEditModel {
 		KeyCode[] keys = {key};
 		try {
 			Action action = (Action) Class.forName(classPath).getConstructor(Sprite.class, Sprite.class, KeyCode[].class).newInstance(actor, act, keys);
-			actor.actionList().add(action);
-			act.actionList().add(action);
+			actor.addAction(action);
+			act.addAction(action);
+			System.out.println("did it");
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
@@ -412,7 +419,6 @@ public class LevelEditModel {
 			return constructAction(sprite1, actionName, value, switchOut);
 		} catch (Exception e) {
 			//No Action to Create
-			System.out.println("No action");
 		}
 		
 		return null;

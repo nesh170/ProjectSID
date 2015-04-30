@@ -24,6 +24,10 @@ public class GroovyComponent extends Component {
     private String myPrepareCode;
     private String myUpdateCode;
 
+    private static final String GROOVY_ERRTITLE = "Error Groovy Parsing";
+    private static final String GROOVY_ERRMSG = "Groovy Parsing Error.";
+    
+    
     public GroovyComponent (Sprite sprite, Double value) {
         super(sprite, value);
     }
@@ -41,7 +45,7 @@ public class GroovyComponent extends Component {
             scriptEngine.evaluateScript(myPrepareCode);
         }
         catch (ScriptException e) {
-        	 DialogUtil.displayMessage("Error Groovy Parsing", "Groovy Parsing");
+        	 DialogUtil.displayMessage(GROOVY_ERRTITLE, GROOVY_ERRMSG);
         }
 
     }
@@ -53,7 +57,7 @@ public class GroovyComponent extends Component {
         }
         catch (ScriptException e) {
             // TODO Auto-generated catch block
-        	 DialogUtil.displayMessage("Error Groovy Parsing", "Groovy Parsing");
+        	 DialogUtil.displayMessage(GROOVY_ERRTITLE, GROOVY_ERRMSG);
         }
     }
 
