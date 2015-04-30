@@ -439,7 +439,8 @@ public class CollisionTableScreen extends Screen{
 		
 		action.valueProperty().addListener(new ChangeListener<String>() {
 			
-			public void changed(ObservableValue ov, String t, String t1) {                
+			public void changed(ObservableValue ov, String t, String t1) {     
+				System.out.println("debugging  value changed of action " + t1);
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
 				{
 					text.setDisable(true);
@@ -464,13 +465,17 @@ public class CollisionTableScreen extends Screen{
 							STRING.COLLISION_EDIT.FONT_STYLE, 
 							STRING.COLLISION_EDIT.COMBO_SPRITE_SELECT_NAME);
 
+					System.out.println("here debugging");
 					collisionSet.add(spritesToChooseFrom, INT.ACTION_COLUMN, INT.SPRITELIST_ROW); 
+					System.out.println("here debugging2");
 
 					spritesToChooseFrom.valueProperty().addListener(new ChangeListener<String>() {
 
 
 						public void changed(ObservableValue ov, String t, String t1) {                
 							optionalSprites.set(0, t1);
+							System.out.println("here debugging3");
+
 						}
 					});
 
@@ -627,6 +632,8 @@ public class CollisionTableScreen extends Screen{
 		
 		collisionTableMap.put(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
 		
+		testingMap();
+		
 		/*Map<String, List<List<String>>> activeSpriteMap = this.getOrInstantiateActiveSpriteMap(activeSp);
 		
 
@@ -653,7 +660,12 @@ public class CollisionTableScreen extends Screen{
 				{
 					List<String> actionList = directionList.get(i);
 					
-					System.out.println(s1 + "   " + s2 + "   " + i + " :  " + "action = " + actionList.get(0) + "   value: " + actionList.get(1));
+					System.out.print(s1 + "   " + s2 + "   " + i + " :  " + "action List = size = " + actionList.size() + " ");
+					for (String each : actionList)
+					{
+						System.out.print(each + "  ");
+					}
+					System.out.println();
 				}
 				System.out.println();
 			}
