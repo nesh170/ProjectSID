@@ -2,6 +2,7 @@ package screen.screens;
 
 import game.Game;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import data.DataHandler;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -42,6 +44,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -78,6 +81,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import levelPlatform.level.Level;
 import levelPlatform.splashScreen.SplashScreen;
@@ -103,6 +107,7 @@ public class GameEditScreen extends Screen {
 	private Popup popup;
 	private HBox levelHB;
 	private StackPane splashSP;
+	private TextField musicPath;
 	
 
 	// Constructor & Helpers
@@ -170,10 +175,42 @@ public class GameEditScreen extends Screen {
 		Rectangle rec = new Rectangle(INT.DEFAULT_LEVEL_DISPLAY_WIDTH + 5 ,INT.DEFAULT_LEVEL_DISPLAY_HEIGHT + 5);	 
 	    rec.setFill(Color.TRANSPARENT);
 		rec.setStyle("-fx-stroke-dash-array: 12 12 12 12; -fx-stroke-width: 3;-fx-stroke: gray;"); 
-		splashSP.getChildren().addAll( rec, makeText(STRING.GAME_EDIT.SPLASH_SCREEN), hide);  	
+		HBox musicBox = makeMusicBox();
+		Text text = makeText(STRING.GAME_EDIT.SPLASH_SCREEN);
+		splashSP.getChildren().addAll( rec, text, hide, musicBox);
 		displayApproporiateSplashButton();
 	}
 	
+	private HBox makeMusicBox(){
+		HBox musicBox = new HBox(30);
+		musicBox.setTranslateY(500);
+		musicBox.setTranslateX(45);
+		Button select = new Button("SelectMusic");
+		musicPath = new TextField();
+		musicPath.setPrefWidth(300);
+		musicPath.setEditable(false);
+		select.setOnMouseClicked(e -> setSoundPathTextAndSave());		
+		musicBox.getChildren().addAll(select, musicPath);
+		return musicBox;
+	}	
+	
+	
+	private void setSoundPathTextAndSave() {
+		musicPath.getStyleClass().remove(STRING.CSS.ERROR);
+		try {
+			File file = DataHandler.chooseFile(new Stage());
+			if(file.getName().endsWith(".mp3") || file.getName().endsWith(".m4a")) {
+				musicPath.setText(file.getPath());
+				gameEditModel.getGame().setSoundPath(file.getPath());
+			}
+			else {
+				musicPath.getStyleClass().add(STRING.CSS.ERROR);
+			}
+		} catch (NullPointerException e) {
+			//IDC, do nothing
+		}
+		
+	}
 	/**
 	 * updates the node for splash screen display area depending
 	 * on weather current game has splash screen
@@ -189,8 +226,8 @@ public class GameEditScreen extends Screen {
 					e -> controller.loadSplashEditScreen(gameEditModel.getGame(), this));	
 			if(splashSP.getChildren().size() == INT.INITIAL_SETUP) 
 					splashSP.getChildren().add(b);
-			else splashSP.getChildren().set(splashSP.getChildren().size() - 1, b);
-		}
+			else
+			splashSP.getChildren().set(splashSP.getChildren().size() - 1, b);}
 			
 		else {
 			b = displayMySplash();
@@ -460,7 +497,6 @@ public class GameEditScreen extends Screen {
 	}
 
 	public Transition animatesTrashPaper(int splashOrLevel, EventHandler<ActionEvent> onfinished){	
-		//may need to change to Timeline
 		ScaleTransition st =  new ScaleTransition(Duration.millis(2000), 
 				changeToTrashPaper(splashOrLevel));		
 	    st.setDuration(Duration.seconds(0.19f));
@@ -509,7 +545,7 @@ public class GameEditScreen extends Screen {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				splashSP.getChildren().remove(3);
+				//splashSP.getChildren().remove(4);
 				displayApproporiateSplashButton();
 			}
 		};
@@ -539,9 +575,9 @@ public class GameEditScreen extends Screen {
 				new StackPane(levelHB.getChildren().get(selectedIndex), img));	
 		}
 		else{
-			Node toBeRemoved = splashSP.getChildren().get(3);
+			Node toBeRemoved = splashSP.getChildren().get(4);
 			toBeRemoved.setVisible(false);
-			splashSP.getChildren().add(3, new StackPane(toBeRemoved,img));
+			splashSP.getChildren().add(4, new StackPane(toBeRemoved,img));
 		}
 		return img;
 
@@ -554,23 +590,26 @@ public class GameEditScreen extends Screen {
 		img.setFocusTraversable(false);
 		return img;
 	}
+	
 	private void hideSplashRegion(){
 		splashDisplay.setVisible(false);
-		
 		Timeline slideIn = new Timeline();				
 		KeyFrame k = new KeyFrame(Duration.millis(5), e -> updateSlidInFrame(slideIn));
 		
-		Node splashImage = splashSP.getChildren().get(3);
+		Node splashImage = splashSP.getChildren().get(4);
+		Node musicBox = splashSP.getChildren().get(3);
 		Node arrow = splashSP.getChildren().get(2);
 		Node text = splashSP.getChildren().get(1);
-		
 		arrow.managedProperty().bind(arrow.visibleProperty());
 		text.managedProperty().bind(text.visibleProperty());
 		splashImage.managedProperty().bind(splashImage.visibleProperty());
+		musicBox.managedProperty().bind(musicBox.visibleProperty());
 		
 		splashImage.setVisible(false);
 		arrow.setVisible(false);
 		text.setVisible(false);
+		musicBox.setVisible(false);
+		
         slideIn.setCycleCount(Animation.INDEFINITE);
 		slideIn.getKeyFrames().add(k);
 		slideIn.play();
@@ -606,7 +645,7 @@ public class GameEditScreen extends Screen {
 		double width = rec.getWidth();
 		if(width == 500){
 			t.stop();
-			
+			splashSP.getChildren().get(4).setVisible(true);
 			splashSP.getChildren().get(3).setVisible(true);
 			splashSP.getChildren().get(2).setVisible(true);
 			splashSP.getChildren().get(1).setVisible(true);

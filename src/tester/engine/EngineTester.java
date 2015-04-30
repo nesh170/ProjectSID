@@ -52,9 +52,9 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-		fireMario.addAction(switchOut);
-		player.addAction(switchOut);
+//		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+//		fireMario.addAction(switchOut);
+//		player.addAction(switchOut);
 //		
 		addProjectile(fireMario);
 		Sprite goomba = makeGoomba();

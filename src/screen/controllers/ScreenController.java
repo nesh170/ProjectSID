@@ -471,6 +471,7 @@ public class ScreenController {
 		}
 	}
 	
+
 	private class GameEditScreenManager implements GameEditScreenController {
 		/**TODO: BUG Here: returning is not working when new levels are added.
 		 */
@@ -566,7 +567,8 @@ public class ScreenController {
 				saveLevelSprites(game, gameFolderName);
 				saveLevelBackgrounds(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
 				saveSplashScreen(game, gameFolderName + "/" + STRING.GAME_EDIT.IMAGE_FOLDER);
-
+				saveGameSound(game, gameFolderName + "/" + STRING.GAME_EDIT.SOUND_FOLDER);
+				
 				DataHandler.toXMLFile(game, game.name(), gameFolder.getPath());
 			} catch (IOException e) {
 				errorHandler.displayError(STRING.ERROR.ILLEGAL_FILE_PATH);
@@ -616,6 +618,16 @@ public class ScreenController {
 					String newImagePath = copyFile(imageFolderName, imagePath);
 					sprite.setImagePath(newImagePath);
 				});
+			} catch (Exception e) {
+				
+			}
+		}
+		private void saveGameSound(Game game, String soundFolderName){
+			try {
+				String soundPath = game.gameSoundPath();
+				String newSoundPath = copyFile(soundFolderName, soundPath);
+				game.setSoundPath(newSoundPath);
+
 			} catch (Exception e) {
 				
 			}
