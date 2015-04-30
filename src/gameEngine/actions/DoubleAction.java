@@ -4,6 +4,7 @@ import javafx.scene.input.KeyCode;
 import sprite.Sprite;
 import gameEngine.Action;
 
+@ActionName(displayName = "Double")
 public class DoubleAction extends Action {
 
 	public DoubleAction(Sprite sprite, java.lang.Double val, KeyCode[] keys) {

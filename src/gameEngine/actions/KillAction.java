@@ -6,6 +6,7 @@ import sprite.Sprite;
 import gameEngine.Action;
 import gameEngine.components.HealthComponent;
 
+@ActionName(displayName = "Kill")
 public class KillAction extends DoubleAction {
 
 	public KillAction(Sprite sprite, Double val, KeyCode... keys) {
