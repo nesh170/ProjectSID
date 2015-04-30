@@ -130,20 +130,11 @@ public class PlayerMenu {
 			view.openPreference();
 		});
 		prefMenu.getItems().add(prefItem);
+		toggleMenuItems(prefMenu, true, "Join Game");
 		return prefMenu;
 	}
 
 	@AddMenuItem(order = 2)
-	private Menu buildHelpMenu(PlayerViewController view) {
-		Menu helpMenu = new Menu("Help");
-		MenuItem tutorialItem = new MenuItem("Tutorial");
-		tutorialItem.setOnAction(event -> view.showTutorial());
-
-		helpMenu.getItems().addAll(tutorialItem);
-		return helpMenu;
-	}
-
-	@AddMenuItem(order = 3)
 	private Menu buildSoundMenu(PlayerViewController view) {
 		Menu soundMenu = new Menu("Sound");
 		MenuItem playItem = makeMenuItem("Play");
@@ -156,10 +147,11 @@ public class PlayerMenu {
 		stopItem.setOnAction(event -> view.stopMusic());
 
 		soundMenu.getItems().addAll(playItem, pauseItem, stopItem);
+		toggleMenuItems(soundMenu, true, "Join Game");
 		return soundMenu;
 	}
 
-	@AddMenuItem(order = 4)
+	@AddMenuItem(order = 3)
 	private Menu buildGroovyMenu(PlayerViewController view) {
 		Menu groovyMenu = new Menu("Groovy");
 		MenuItem groovyActionItem = new MenuItem("Add GroovyAction");
@@ -169,10 +161,11 @@ public class PlayerMenu {
 				.getSpriteTagList(), (spriteTag, groovyAction) -> view
 				.addRuntimeAction(spriteTag, groovyAction)));
 		groovyMenu.getItems().addAll(groovyActionItem);
+		toggleMenuItems(groovyMenu, true);
 		return groovyMenu;
 	}
 
-	@AddMenuItem(order = 5)
+	@AddMenuItem(order = 4)
 	private Menu buildNetworksMenu(PlayerViewController view) {
 		Menu networksMenu = new Menu("Multiplayer");
 		MenuItem hostItem = new MenuItem("Host Game");
@@ -188,10 +181,12 @@ public class PlayerMenu {
 		});
 
 		networksMenu.getItems().addAll(hostItem, joinItem);
+		toggleMenuItems(networksMenu, true, "Join Game");
+
 		return networksMenu;
 	}
 
-	@AddMenuItem(order = 6)
+	@AddMenuItem(order = 5)
 	private Menu buildSocialMenu(PlayerViewController view){
 		Menu socialMenu = new Menu("Social Center");
 		MenuItem openSocial = new MenuItem("Open");
