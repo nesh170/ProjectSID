@@ -36,7 +36,7 @@ public class EngineTester extends Tester {
 	private CollisionTable myCT = new CollisionTable();
 	private List<Sprite> myPlatforms = new ArrayList<>();
 	private static final double GRAVITY = 50.0;
-	private static final double JUMP_SPEED = -20.0;
+	private static final double JUMP_SPEED = 20.0;
 	private static final double SPEED = 8.0;
 
 	public static void main(String[] args) {
@@ -51,9 +51,9 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-		fireMario.addAction(switchOut);
-		player.addAction(switchOut);
+//		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+//		fireMario.addAction(switchOut);
+//		player.addAction(switchOut);
 //		
 		addProjectile(fireMario);
 		@SuppressWarnings("unused")
