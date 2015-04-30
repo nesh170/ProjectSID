@@ -159,6 +159,7 @@ public class Level extends LevelPlatform {
      */
     private void handleGoals (Sprite sprite) {
         if(!sprite.isActive()){
+        	System.out.println("running handleGoals");
             nextLevelMethod.accept(goalMap.get(sprite));
         }
     }
