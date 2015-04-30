@@ -78,6 +78,7 @@ public class DefaultSpriteGenerator extends Tester{
 		Sprite enemy = new Sprite(Point2D.ZERO, Point2D.ZERO, new Dimension2D(DEFAULT_ENEMY_SIZE, DEFAULT_ENEMY_SIZE));
 		enemy.setImagePath(System.getProperty("user.dir")+"/defaults/Goomba.png");
 		enemy.setCollisionTag("enemy");
+		enemy.addComponent(new VelocityComponent(enemy, 50.0));
 		makeFalling(enemy);
 		return enemy;
 	}
