@@ -11,6 +11,7 @@
         </myKeyCode>
         <runsEveryFrame>true</runsEveryFrame>
         <value>50.0</value>
+        <soundPath></soundPath>
       </gameEngine.actions.FallAction>
       <gameEngine.actions.RightMotionAction>
         <mySprite reference="../../.."/>
@@ -22,6 +23,7 @@
         </myKeyCode>
         <runsEveryFrame>false</runsEveryFrame>
         <value>8.0</value>
+        <soundPath></soundPath>
         <velocity>8.0</velocity>
       </gameEngine.actions.RightMotionAction>
       <gameEngine.actions.LeftMotionAction>
@@ -34,6 +36,7 @@
         </myKeyCode>
         <runsEveryFrame>false</runsEveryFrame>
         <value>8.0</value>
+        <soundPath></soundPath>
       </gameEngine.actions.LeftMotionAction>
       <gameEngine.actions.UpMotionAction>
         <mySprite reference="../../.."/>
@@ -45,6 +48,7 @@
         </myKeyCode>
         <runsEveryFrame>false</runsEveryFrame>
         <value>-20.0</value>
+        <soundPath></soundPath>
         <climbing>false</climbing>
       </gameEngine.actions.UpMotionAction>
     </actionList>

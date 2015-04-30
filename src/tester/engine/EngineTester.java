@@ -52,9 +52,9 @@ public class EngineTester extends Tester {
 		makePlatform(500, 300, 200, 30);
 		Sprite player = makePlayer();
 		Sprite fireMario = makeSpecialPlayer();
-//		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
-//		fireMario.addAction(switchOut);
-//		player.addAction(switchOut);
+		SwitchOutAction switchOut = new SwitchOutAction(new Sprite[] {player, fireMario}, myPlayerList, KeyCode.S);
+		fireMario.addAction(switchOut);
+		player.addAction(switchOut);
 //		
 		addProjectile(fireMario);
 		Sprite goomba = makeGoomba();
@@ -76,7 +76,7 @@ public class EngineTester extends Tester {
 		testGame.addLevel(l);
 
 		try{
-			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty("user.dir")+"/simple");
+			DataHandler.toXMLFile(testGame, "simpleGame.xml", System.getProperty(DataHandler.USER_DIR)+"/simple");
 		}
 		catch (Exception e){
 			System.out.println("Oh no!!!");
@@ -168,8 +168,7 @@ public class EngineTester extends Tester {
 		Sprite myProjectileTemplate = new Sprite(new Point2D(0,0), Point2D.ZERO, new Dimension2D(20, 20));
 		myProjectileTemplate.setTag("bullet");
 		myProjectileTemplate.setImagePath("engineTesting/mario.png");
-		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,
-				0.5, 400.0);
+		ProjectileMotionComponent projComp = new ProjectileMotionComponent(myProjectileTemplate,0.5);
 		myProjectileTemplate.addComponent(projComp);
 		Action shootAction = new ShootAction(myPlayer, myProjectileTemplate, KeyCode.SPACE);
 		myPlayer.addAction(shootAction);

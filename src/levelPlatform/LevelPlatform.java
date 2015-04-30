@@ -29,6 +29,7 @@ public class LevelPlatform {
 	private int height;
 	
 	protected List<Sprite> sprites;
+	protected List<Sprite> waitingSprites;
 	
 	
 	// Getters & Setters
@@ -45,6 +46,10 @@ public class LevelPlatform {
 	 */
 	public List<Sprite> sprites() {
 		return this.sprites;
+	}
+	
+	public List<Sprite> waitingSprites() {
+		return this.waitingSprites;
 	}
 	
 	/**
@@ -72,6 +77,7 @@ public class LevelPlatform {
 	
 	private void instantiateLists() {
 		this.sprites = new ArrayList<Sprite>();
+		this.waitingSprites = new ArrayList<Sprite>();
 	}
  	/**
 	 * get an ImageView representation for each level/splash to display on GameEditScreen.
