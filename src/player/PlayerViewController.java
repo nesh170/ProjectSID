@@ -6,7 +6,6 @@ import gameEngine.GameEngine;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -80,7 +79,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
-        private String mySocialImagePath;
+	private String mySocialImagePath;
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -95,14 +94,14 @@ public class PlayerViewController implements GamePlayerInterface {
 	}
 
 	public void resume() {
-	    try{
-		myTimeline.play();
-		myEngine.play(myView.getRoot());
-		myView.playScreen();
-	    }
-	    catch(NullPointerException e){
-	        DialogUtil.displayMessage("ERROR", "Unable to resume ):");
-	    }
+		try{
+			myTimeline.play();
+			myEngine.play(myView.getRoot());
+			myView.playScreen();
+		}
+		catch(NullPointerException e){
+			DialogUtil.displayMessage("ERROR", "Unable to resume ):");
+		}
 	}
 
 	public void pause() {
@@ -119,7 +118,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	private void display() {
 		myGameGroup = myEngine.render();
-		
+
 		myView.display(myGameGroup);
 		myCamera.focus();
 	}
@@ -204,7 +203,7 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void save() {
 		String[] names = new String[] { "mario1.xml", "mario2.xml",
-				"mario3.xml" };
+		"mario3.xml" };
 		for (int i = 0; i < myGameLevels.size(); i++) {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
@@ -232,7 +231,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			});
 			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
-		    DialogUtil.displayMessage("ERROR", "Cannot Open Video ):");
+			DialogUtil.displayMessage("ERROR", "Cannot Open Video ):");
 		}
 	}
 
@@ -255,11 +254,11 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void setDim(double val) {
 		myView.setDim(val);
 	}
-	
+
 	public void changeKeySetup(KeyCode key, String action) {
 		myEngine.changeKeyCodeInAction(0, action, key);
 	}
-	
+
 	public List<String> getSpriteTagList() {
 		return myEngine.getSpriteTagList();
 	}
@@ -282,50 +281,43 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void loadState() {
 		pauseExecution();
-//		List<File> states;
-//
-//		try {
-//			states = DataHandler.getDirsFromDir(myGameFolder);
-//		} catch (IOException e) {
-//			DialogUtil.displayMessage("Load File",
-//					"Error in loading save file.");
-//			resumeExecution();
-//			return;
-//		}
-//
-//		if (states == null || states.size() == 0) {
-//			DialogUtil.displayMessage("Load File",
-//					"No save states available to load.");
-//			resumeExecution();
-//			return;
-//		}
-//
-//		List<String> stateNames = states.stream().map(file -> file.getName())
-//				.collect(Collectors.toList());
-//		String chosenState = DialogUtil.choiceDialog("Load File",
-//				"Choose a save state.", stateNames);
-//		
-//		if (chosenState == null) {
-//			resumeExecution();
-//			return;
-//		}
-//		
-//		File stateFile = states.stream()
-//				.filter(file -> file.getName().equals(chosenState))
-//				.collect(Collectors.toList()).get(0);
-//		try {
-//			myGame = DataHandler.getGameFromDir(stateFile);
-//		} catch (IOException e) {
-//			DialogUtil.displayMessage("Load File", "Cannot load state.");
-//			resumeExecution();
-//			return;
-//		}
-		
+		List<File> states;
+
 		try {
-			myGame = DataHandler.getTestFromFolder(myGameFolder);
+			states = DataHandler.getDirsFromDir(myGameFolder);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			DialogUtil.displayMessage("Load File",
+					"Error in loading save file.");
+			resumeExecution();
+			return;
+		}
+
+		if (states == null || states.size() == 0) {
+			DialogUtil.displayMessage("Load File",
+					"No save states available to load.");
+			resumeExecution();
+			return;
+		}
+
+		List<String> stateNames = states.stream().map(file -> file.getName())
+				.collect(Collectors.toList());
+		String chosenState = DialogUtil.choiceDialog("Load File",
+				"Choose a save state.", stateNames);
+
+		if (chosenState == null) {
+			resumeExecution();
+			return;
+		}
+
+		File stateFile = states.stream()
+				.filter(file -> file.getName().equals(chosenState))
+				.collect(Collectors.toList()).get(0);
+		try {
+			myGame = DataHandler.getGameFromDir(stateFile);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File", "Cannot load state.");
+			resumeExecution();
+			return;
 		}
 
 		myGameLevels = myGame.levels();
@@ -355,37 +347,30 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void saveAs() {
 		pauseExecution();
-//		String saveName = DialogUtil.inputDialog("Save File",
-//				"Please enter the name of the log to save");
-//		if (saveName == null) {
-//			DialogUtil.displayMessage("Save File", "File not saved.");
-//			resumeExecution();
-//			return;
-//		}
-//		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
-//		if (!mySaveFolder.mkdir()) {
-//			DialogUtil.displayMessage("Save File",
-//					"Error in creating save folder.");
-//			resumeExecution();
-//			return;
-//		}
-//		try {
-//			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
-//					mySaveFolder.toString());
-//		} catch (IOException e) {
-//			DialogUtil.displayMessage("Save File",
-//					"Error in creating save file.");
-//			resumeExecution();
-//			return;
-//		}
-		
-		try {
-			DataHandler.toXMLFile(myGame, "testGame", myGameFolder.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String saveName = DialogUtil.inputDialog("Save File",
+				"Please enter the name of the log to save");
+		if (saveName == null) {
+			DialogUtil.displayMessage("Save File", "File not saved.");
+			resumeExecution();
+			return;
 		}
-		
+		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
+		if (!mySaveFolder.mkdir()) {
+			DialogUtil.displayMessage("Save File",
+					"Error in creating save folder.");
+			resumeExecution();
+			return;
+		}
+		try {
+			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
+					mySaveFolder.toString());
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Save File",
+					"Error in creating save file.");
+			resumeExecution();
+			return;
+		}
+
 		resumeExecution();
 		return;
 	}
@@ -453,7 +438,7 @@ public class PlayerViewController implements GamePlayerInterface {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
 						List<String> keyString = (ArrayList<String>) DataHandler
-								.fromXMLString(keyControl);
+						.fromXMLString(keyControl);
 						handleKeyEvent(keyString.get(0), keyString.get(1),
 								INT.SECOND_PLAYER); // Add code to make another
 						// player play
@@ -480,16 +465,16 @@ public class PlayerViewController implements GamePlayerInterface {
 					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
-//			receiveLevels();
-//			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
-//			Camera camera = new Camera(myView.getRoot());
-//			KeyFrame displayFrame = new KeyFrame(
-//					Duration.millis(1000 / NETWORK_RATE), e -> display(
-//							myNetworkLevel, renderer, camera));
-//			Timeline networkTimeline = new Timeline();
-//			networkTimeline.setCycleCount(Animation.INDEFINITE);
-//			networkTimeline.getKeyFrames().add(displayFrame);
-//			networkTimeline.play();
+			//			receiveLevels();
+			//			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
+			//			Camera camera = new Camera(myView.getRoot());
+			//			KeyFrame displayFrame = new KeyFrame(
+			//					Duration.millis(1000 / NETWORK_RATE), e -> display(
+			//							myNetworkLevel, renderer, camera));
+			//			Timeline networkTimeline = new Timeline();
+			//			networkTimeline.setCycleCount(Animation.INDEFINITE);
+			//			networkTimeline.getKeyFrames().add(displayFrame);
+			//			networkTimeline.play();
 		} catch (Exception e) {
 			System.err.println("Can't start Client");
 		}
@@ -543,20 +528,20 @@ public class PlayerViewController implements GamePlayerInterface {
 		mySettings.bringUpPreferences();
 	}
 
-    public void setSocialAvatar (Avatar av) {
-            myView.addAvatarToPause(av);
-    }
+	public void setSocialAvatar (Avatar av) {
+		myView.addAvatarToPause(av);
+	}
 
-    @Override
-    public void loadNewGame () {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public void loadNewGame () {
+		// TODO Auto-generated method stub
 
-    @Override
-    public List<Game> findGames () {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	}
+
+	@Override
+	public List<Game> findGames () {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
