@@ -63,6 +63,7 @@ import resources.constants.DOUBLE;
 import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
+import screen.ScreenAnimation;
 import screen.factories.ScreenFactory;
 import screen.screens.GameEditScreen;
 import screen.screens.GamePlayScreen;
@@ -441,6 +442,7 @@ public class ScreenController {
 				popup.hide();
 			}
 			else {
+				ScreenAnimation.shakePopUpWhenError(popup);
 				gameName.getStyleClass().add(STRING.CSS.ERROR);
 				gameName.setPromptText(STRING.ERROR.EMPTY_GAME_NAME);
 			}
@@ -482,7 +484,7 @@ public class ScreenController {
 
 		@Override
 		public void loadLevelEditScreen(Game game, Level level) {
-
+			
 			createLevelEditScreen(game, level);
 			
 		}
@@ -536,8 +538,9 @@ public class ScreenController {
 		public void trashSplash(Game game, GameEditScreen gameEditScreen) {
 			
 			game.removeSplash();
-			gameEditScreen.displayApproporiateSplashButton(); //can be replaced to not pass GameEditScreen updates splash display internally
-			
+			Transition t = gameEditScreen.animatesTrashPaper(INT.SPLASH,
+					gameEditScreen.trashSplashAnimationFinishedEvent()); //can be replaced to not pass GameEditScreen updates splash display internally
+			t.play();
 		}
 
 
@@ -546,6 +549,7 @@ public class ScreenController {
 			
 			//File dir = DataHandler.chooseDir(stage);
 			try {
+				
 				String imageFolderName = game.name() + STRING.GAME_EDIT.IMAGE_FOLDER;
 				File folder = new File(imageFolderName);
 				folder.mkdir();

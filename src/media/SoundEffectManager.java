@@ -27,7 +27,7 @@ public class SoundEffectManager {
 		}
 		else{
 			try{
-			System.out.println("The path is: " + path);
+//			System.out.println("The path is: " + path);
 			MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(path).toURI().toString()));
 			mySoundMap.put(path, mediaPlayer);
 			mediaPlayer.play();

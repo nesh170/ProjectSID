@@ -92,16 +92,13 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	public Group renderLevel() {
-		System.out.println("renderLevel");
-		System.out.println(level.sprites().size());
 		Group levelGroup = new Group();
 		Node background = renderBackground(level);
 		levelGroup.getChildren().add(background);
-		System.out.println(level.playerSpriteList().get(0).getImagePath());
 		List<Sprite> textSpriteList = level.sprites().stream().filter(sprite -> sprite.isText()).collect(Collectors.toList());
 		textSpriteList.stream().forEach(textSprite -> levelGroup.getChildren().add(renderText(textSprite)));
 		List<Sprite> imageSpriteList = level.sprites().stream().filter((sprite -> !sprite.isText())).collect(Collectors.toList());
-		imageSpriteList.stream().forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
+		imageSpriteList.stream().filter(sprite -> sprite.isActive()).forEach(sprite -> levelGroup.getChildren().add(renderSprite(sprite)));
 		return levelGroup;
 	}
 
@@ -133,11 +130,8 @@ public class LevelView extends ScrollPane {
 	 * @return
 	 */
 	private Group renderSprite(Sprite sprite) {
-		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
-		Group spriteGroup = new Group();
-		if (sprite.isActive()) {	
-			// ImageView spriteImageView = sprite.spriteImage().getImageViewToDisplay(); //This method crashes the program
-			// ImageView spriteImageView = null;
+//		System.out.println("Rendering a sprite at" + sprite.transform().getPosX() + ", height " + sprite.transform().getHeight());
+		Group spriteGroup = new Group();	
 			try{
 				Image spriteImg = myImageManager.getImageForString(sprite.getImagePath());
 				ImageView spriteImageView = null;
@@ -165,7 +159,6 @@ public class LevelView extends ScrollPane {
 			catch (Exception e){
 				e.printStackTrace();
 			}
-		}
 		return spriteGroup;
 
 	}

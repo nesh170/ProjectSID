@@ -3,10 +3,12 @@ package player;
 import gameEngine.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javafx.geometry.Bounds;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -25,11 +27,10 @@ public class HUD {
 	 * Constructor for a HUD that moves with a Scrollpane
 	 */
 	public HUD(ScrollPane pane, HashMap<String, Double> map) {
+	        this();
 		myHUDMap = map;
-		myHUDBox = new HBox();
-		mySize = 20;
-		myFont = "Arial Black";
-		myColor = Color.BLACK;
+		Label random = new Label("HELLO ALL lul");
+		myHUDBox.getChildren().add(random);
 	}
 	
 	public HUD(ScrollPane pane) {
@@ -37,21 +38,23 @@ public class HUD {
 	}
 	
 	public HUD() {
-		myHUDMap = new HashMap<String, Double>();
-		myHUDBox = new HBox();
-		mySize = 20;
-		myFont = "Arial Black";
-		myColor = Color.BLACK;
+                myHUDMap = new HashMap<String, Double>();
+                myHUDBox = new HBox();
+                mySize = 20;
+                myFont = "Arial Black";
+                myColor = Color.BLACK;
 	}
 	
-	public void addItem(String item, Component component) {
-		double val = component.getValue();
-		Text text = new Text(item + ": " + val);
+	private void addItem(String item, Double value) {
+		Text text = new Text(item + ": " + value);
 		text.setFont(Font.font(myFont, mySize));
 		text.setFill(myColor);
 		myHUDBox.getChildren().add(text);
-		myComponentMap.put(item, component);
-		myHUDMap.put(item, val);
+	}
+	
+	public void renderHUD(){
+	    myHUDBox.getChildren().clear();
+	    myHUDMap.forEach((name,value) -> addItem(name, value));
 	}
 	
 	public HBox getHUDBox() {
@@ -65,16 +68,9 @@ public class HUD {
 	public void changeSize(double size) {
 		mySize = size;
 	}
-	
-	public void changeMap(HashMap<String, Double> map) {
+
+	public void updateHUDValues(Map<String, Double> map) {
 		myHUDMap = map;
-	}
-	
-	public void updateHUDDisplay() {
-		myHUDBox = new HBox();
-		for (Entry<String, Component> entry : myComponentMap.entrySet()) {
-			addItem(entry.getKey(), entry.getValue());
-		}
 	}
 	
 }

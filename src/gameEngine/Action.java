@@ -1,6 +1,5 @@
 package gameEngine;
 
-import gameEngine.actions.GroovyAction;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +71,10 @@ public abstract class Action {
 	
 	public void setKeyCode (List<KeyCode> keys) {
 	    myKeyCode = keys;
+	}
+	
+	public List<KeyCode> keycode(){
+	    return myKeyCode;
 	}
 	
 	public void setValue (double newValue){

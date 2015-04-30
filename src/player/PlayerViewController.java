@@ -3,14 +3,15 @@ package player;
 import game.Game;
 import gameEngine.Action;
 import gameEngine.GameEngine;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
-
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import resources.constants.INT;
+import socCenter.Avatar;
 import util.DialogUtil;
 import util.ErrorHandler;
 import voogasalad.util.network.Network;
@@ -23,8 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,6 +40,11 @@ import levelPlatform.level.LevelView;
 import media.AudioController;
 import media.VideoPlayer;
 
+/**
+ * Controls the classes that affect the view of the player
+ * 
+ * @author James, Le
+ */
 public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
@@ -47,26 +52,20 @@ public class PlayerViewController implements GamePlayerInterface {
 	public final static double UPDATE_RATE = 120;
 	public final static int PORT_NUMBER = 60910;
 	public static final String NETWORK_BROKE = "NETWORK BROKE";
-	
-    private static final String NETWORK = "Network";
-    private static final String IPQUERY = "What is your IP address";
-    
-	private static final int POPUP_WINDOW_SIZE = 250;
-	private static final String CONNECT_SERVER_STRING = "Connecting to server...";
-	private static final String SERVER_CONNECTED_STRING = "Connected.";
+
+	private static final String NETWORK = "Network";
+	private static final String IPQUERY = "What is the IP address you would like to connect to?";
 
 	private Timeline myTimeline;
 	private VideoPlayer myVideoPlayer;
 	private AudioController myAudioController;
+	private PreferencePane mySettings;
 
 	private Media myVideo;
 	private Media myAudio;
-	private double myWidth;
-	private double myHeight;
-	private int myLives;
-	private int myHealth;
-	private int myScore;
+
 	private Game myGame;
+	private String myGameName;
 
 	private File myGameFolder;
 	private List<Level> myGameLevels;
@@ -74,25 +73,14 @@ public class PlayerViewController implements GamePlayerInterface {
 	private GameEngine myEngine;
 	private Camera myCamera;
 
+	private File mySaveFolder;
+
 	private PlayerView myView;
 	private Network myNetwork;
 
 	private Level myNetworkLevel;
 	private ErrorHandler myErrorHandler;
-
-	//      public PlayerViewController(ScrollPane pane, HUD gameHUD) {
-	//              myGameRoot = pane;
-	//              myCamera = new Camera(pane);
-	//              myHUD = gameHUD;
-	//              loadNewChooser();
-	//      }
-	//
-	//      public PlayerViewController(Game game, ScrollPane pane, HUD gameHUD) {
-	//              myGameRoot = pane;
-	//              myCamera = new Camera(pane);
-	//              myHUD = gameHUD;
-	//              selectGame(game);
-	//      }
+	private String mySocialImagePath;
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -100,39 +88,43 @@ public class PlayerViewController implements GamePlayerInterface {
 		myNetwork = new Network();
 	}
 
-	public void play() {
-		myTimeline.play();
-		myEngine.play(myView.getRoot());
-		myView.playScreen();
+	@Override
+	public void start() {
+		resume();
 		myAudioController.play();
+	}
+
+	public void resume() {
+		try{
+			myTimeline.play();
+			myEngine.play(myView.getRoot());
+			myView.playScreen();
+		}
+		catch(NullPointerException e){
+			DialogUtil.displayMessage("ERROR", "Unable to resume ):");
+		}
 	}
 
 	public void pause() {
 		myTimeline.stop();
 		myEngine.pause(myView.getRoot());
 		myView.pauseScreen();
-		myAudioController.pause();
 	}
 
 	private void update() {
 		double[] cameraVals = myEngine.update();
 		myCamera.updateCamera(cameraVals[0], cameraVals[1]);
+		myView.updateHUD(myEngine.getHUDMap());
 	}
 
 	private void display() {
-		System.out.println("playerViewController.display");
 		myGameGroup = myEngine.render();
+
 		myView.display(myGameGroup);
-		myCamera.focus();               
-	}
-
-	public void removePause() {
-		//top pane's only child will be pause menu
-
+		myCamera.focus();
 	}
 
 	private void setupAnimation() {
-		System.out.println("pvc.setUpAnimation");
 		myTimeline = new Timeline();
 		myTimeline.setCycleCount(Animation.INDEFINITE);
 		KeyFrame updateFrame = new KeyFrame(
@@ -161,6 +153,12 @@ public class PlayerViewController implements GamePlayerInterface {
 		return dialogStage;
 	}
 
+	@Override
+	public void setPreferences() {
+		pause();
+		mySettings.bringUpPreferences();
+	}
+
 	public void loadNewChooser() {
 		Stage chooserStage = new Stage();
 		chooserStage.initModality(Modality.APPLICATION_MODAL);
@@ -170,33 +168,38 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void initializeGameAttributes() {
 		try {
 			myGame = DataHandler.getGameFromDir(myGameFolder);
+			myGameName = DataHandler.getGameName(myGameFolder);
 			myGameLevels = myGame.levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
 			myVideoPlayer = new VideoPlayer();
 			myAudioController = new AudioController(new MediaPlayer(myAudio));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			mySettings = new PreferencePane(myAudioController);
+			mySettings.setController(this);
+		} catch (IOException | NullPointerException e) {
 			e.printStackTrace();
+			DialogUtil.displayMessage("ERROR", "Invalid Game Folder ):");
+			System.exit(0);
 		}
-		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+
+		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 	}
 
 	private void chooseGame(Stage gameChooser) {
-		// find a way to set up a map so we can just have file paths
-		// for games already established so no directory needs to be opened here
 		myGameFolder = DataHandler.chooseDir(gameChooser);
-		initializeGameAttributes();
-		setupAnimation();
-		//play();
+		if (myGameFolder != null) {
+			myView.enableButtonItems();
+			initializeGameAttributes();
+			setupAnimation();
+		}
 	}
 
 	public void selectGame(Game game) {
 		myGame = game;
 		myGameLevels = game.levels();
-		myEngine = new GameEngine(myGame.splashScreen(),myGameLevels);
+		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
 		setupAnimation();
-		play();
+		start();
 	}
 
 	public void save() {
@@ -206,9 +209,8 @@ public class PlayerViewController implements GamePlayerInterface {
 			try {
 				DataHandler.toXMLFile(myGameLevels.get(i), names[i],
 						myGameFolder.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IOException | NullPointerException e) {
+				DialogUtil.displayMessage("ERROR", "Cannot Save ):");
 			}
 		}
 	}
@@ -216,7 +218,7 @@ public class PlayerViewController implements GamePlayerInterface {
 	public void restart() {
 		pause();
 		initializeGameAttributes();
-		play();
+		start();
 	}
 
 	public void showTutorial() {
@@ -230,8 +232,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			});
 			myVideoPlayer.init(videoStage, myVideo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			DialogUtil.displayMessage("ERROR", "Cannot Open Video ):");
 		}
 	}
 
@@ -247,126 +248,176 @@ public class PlayerViewController implements GamePlayerInterface {
 		myAudioController.stop();
 	}
 
-	public List<String> getSpriteTagList(){
+	public void setBright(double val) {
+		myView.setBright(val);
+	}
+
+	public void setDim(double val) {
+		myView.setDim(val);
+	}
+	
+	public Map<String,Consumer<KeyCode>> getKeySetup() {
+		return myEngine.getActionToChangeKeyCodeConsumerMap(INT.LOCAL_PLAYER);
+	}
+
+	public List<String> getSpriteTagList() {
 		return myEngine.getSpriteTagList();
 	}
 
-	public void addRuntimeAction (String spriteTag, Object groovyAction) {
+	public void addRuntimeAction(String spriteTag, Object groovyAction) {
 		myEngine.addGroovyAction(spriteTag, (Action) groovyAction);
 	}
 
-
-	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getLives() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getHighScore() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void loadNewGame() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setPreferences() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List findGames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void saveGame() {
-		try {
-			DataHandler.toXMLFile(myGame, myGame.name(), myGameFolder.toURI().toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void saveAs() {
-		pauseExecution();
-		String saveName = DialogUtil.setUpDialog("Save File", "Please enter the name of the log to save");
-		resumeExecution();
-//		if (result.isPresent()) {
-//			entered = result.get();
-//			File dir = new File(myGameFolder.getParent() + "/" + result);
-//			dir.mkdir();
-//		}
-	}
-
-	public String getCurrentLevelinXML() {
-		return myEngine.getCurrentLevelinXML();
-	}
-
-	public void handleKeyEvent(String keyEventType, String keyCode, int playerNumber) {
-		myEngine.handleKeyEvent(keyEventType, keyCode, playerNumber);
-	}
-
-	public void startServer () {
-		try {
-			myTimeline.pause();
-			myNetwork.setUpServer(PORT_NUMBER);
-			myTimeline.play();
-			sendClientLevels();
-			receiveFromClient();
-		}
-		catch (IOException e) {
-			myErrorHandler.displayError(NETWORK_BROKE);
-		}
-	}
-
-	public void setErrorHandler (ErrorHandler errorHandler) {
-		myErrorHandler = errorHandler;
-	}
-	
 	private void pauseExecution() {
 		myTimeline.stop();
 		myEngine.pause(myView.getRoot());
 		myAudioController.pause();
 	}
-	
+
 	private void resumeExecution() {
 		myTimeline.play();
 		myEngine.play(myView.getRoot());
 		myAudioController.play();
 	}
 
-	private void sendClientLevels(){
+	public void loadState() {
+		pauseExecution();
+		List<File> states;
+
+		try {
+			states = DataHandler.getDirsFromDir(myGameFolder);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File",
+					"Error in loading save file.");
+			resumeExecution();
+			return;
+		}
+
+		if (states == null || states.size() == 0) {
+			DialogUtil.displayMessage("Load File",
+					"No save states available to load.");
+			resumeExecution();
+			return;
+		}
+
+		List<String> stateNames = states.stream().map(file -> file.getName())
+				.collect(Collectors.toList());
+		String chosenState = DialogUtil.choiceDialog("Load File",
+				"Choose a save state.", stateNames);
+
+		if (chosenState == null) {
+			resumeExecution();
+			return;
+		}
+
+		File stateFile = states.stream()
+				.filter(file -> file.getName().equals(chosenState))
+				.collect(Collectors.toList()).get(0);
+		try {
+			myGame = DataHandler.getGameFromDir(stateFile);
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Load File", "Cannot load state.");
+			resumeExecution();
+			return;
+		}
+
+		myGameLevels = myGame.levels();
+		myEngine = new GameEngine(myGame.splashScreen(), myGameLevels);
+		setupAnimation();
+		resumeExecution();
+	}
+
+	@Override
+	public void saveGame() {
+
+		if (mySaveFolder == null) {
+			saveAs();
+		} else {
+			pauseExecution();
+			try {
+				DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
+						mySaveFolder.toString());
+			} catch (IOException e) {
+				DialogUtil.displayMessage("Save File",
+						"Error in creating save file.");
+			}
+			resumeExecution();
+			return;
+		}
+	}
+
+	public void saveAs() {
+		pauseExecution();
+		String saveName = DialogUtil.inputDialog("Save File",
+				"Please enter the name of the log to save");
+		if (saveName == null) {
+			DialogUtil.displayMessage("Save File", "File not saved.");
+			resumeExecution();
+			return;
+		}
+		mySaveFolder = new File(myGameFolder.getAbsolutePath() + "/" + saveName);
+		if (!mySaveFolder.mkdir()) {
+			DialogUtil.displayMessage("Save File",
+					"Error in creating save folder.");
+			resumeExecution();
+			return;
+		}
+		try {
+			DataHandler.toXMLFile(myGame, removeXMLExt(myGameName),
+					mySaveFolder.toString());
+		} catch (IOException e) {
+			DialogUtil.displayMessage("Save File",
+					"Error in creating save file.");
+			resumeExecution();
+			return;
+		}
+
+		resumeExecution();
+		return;
+	}
+
+	private String removeXMLExt(String str) {
+		if (str.endsWith(".xml")) {
+			int index = str.indexOf(".xml");
+			return str.substring(0, index);
+		}
+		return str;
+	}
+
+	public String getCurrentLevelinXML() {
+		return myEngine.getCurrentLevelinXML();
+	}
+
+	public void handleKeyEvent(String keyEventType, String keyCode,
+			int playerNumber) {
+		myEngine.handleKeyEvent(keyEventType, keyCode, playerNumber);
+	}
+
+	public void startServer() {
+		try {
+			myTimeline.pause();
+			myNetwork.setUpServer(PORT_NUMBER);
+			myTimeline.play();
+			sendClientLevels();
+			receiveFromClient();
+		} catch (IOException e) {
+			myErrorHandler.displayError(NETWORK_BROKE);
+		}
+	}
+
+	public void setErrorHandler(ErrorHandler errorHandler) {
+		myErrorHandler = errorHandler;
+	}
+
+	private void sendClientLevels() {
 		Task<Void> sendTask = new Task<Void>() {
 			@Override
-			protected Void call () {
-
+			protected Void call() {
 				while (true) {
 					try {
 						myNetwork.sendStringToClient(getCurrentLevelinXML());
 						Thread.sleep(500);
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
@@ -378,19 +429,21 @@ public class PlayerViewController implements GamePlayerInterface {
 		th.start();
 	}
 
-	private void receiveFromClient(){
+	private void receiveFromClient() {
 		Task<Void> taskToReceive = new Task<Void>() {
 
 			@Override
-			protected Void call () throws Exception {
-				while(true){
-					try{
+			protected Void call() throws Exception {
+				while (true) {
+					try {
 						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
-						List<String> keyString = (ArrayList<String>) DataHandler.fromXMLString(keyControl);
-						handleKeyEvent(keyString.get(0),keyString.get(1), INT.SECOND_PLAYER); //Add code to make another player play
-					}
-					catch(Exception e){
+						List<String> keyString = (ArrayList<String>) DataHandler
+						.fromXMLString(keyControl);
+						handleKeyEvent(keyString.get(0), keyString.get(1),
+								INT.SECOND_PLAYER); // Add code to make another
+						// player play
+					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
@@ -402,53 +455,53 @@ public class PlayerViewController implements GamePlayerInterface {
 		serverReceiveThread.start();
 	}
 
-	public void startClient () {
+	public void startClient() {
 		try {
-			myTimeline.stop();
-//			myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
-//			myView.changePopUpText(SERVER_CONNECTED_STRING);
-//			Thread.sleep(2000);
-//			myView.closePopUp();
-			myNetwork.setUpClient(DialogUtil.setUpDialog(NETWORK, IPQUERY),PORT_NUMBER);
+			// myTimeline.stop();
+			// myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
+			// myView.changePopUpText(SERVER_CONNECTED_STRING);
+			// Thread.sleep(2000);
+			// myView.closePopUp();
+			myNetwork.setUpClient(DialogUtil.inputDialog(NETWORK, IPQUERY),
+					PORT_NUMBER);
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
 			receiveLevels();
 			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
 			Camera camera = new Camera(myView.getRoot());
 			KeyFrame displayFrame = new KeyFrame(
-					Duration.millis(1000 / NETWORK_RATE), e -> display(myNetworkLevel, renderer, camera));
+					Duration.millis(1000 / NETWORK_RATE), e -> display(
+							myNetworkLevel, renderer, camera));
 			Timeline networkTimeline = new Timeline();
 			networkTimeline.setCycleCount(Animation.INDEFINITE);
 			networkTimeline.getKeyFrames().add(displayFrame);
 			networkTimeline.play();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Can't start Client");
 		}
 	}
 
-	private void sendEvent (KeyEvent key) {
+	private void sendEvent(KeyEvent key) {
 		List<String> keyData = new ArrayList<>();
 		keyData.add(key.getEventType().getName());
 		keyData.add(key.getCode().getName());
 		try {
 			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			myErrorHandler.displayError(NETWORK_BROKE);
 		}
 	}
 
-	private void receiveLevels(){
+	private void receiveLevels() {
 		Task<Void> recvTask = new Task<Void>() {
 			@Override
-			protected Void call () {
+			protected Void call() {
 				while (true) {
 					try {
 						String levelString = myNetwork.getStringFromServer();
-						myNetworkLevel =(Level) DataHandler.fromXMLString(levelString);
-					}
-					catch (Exception e) {
+						myNetworkLevel = (Level) DataHandler
+								.fromXMLString(levelString);
+					} catch (Exception e) {
 						myErrorHandler.displayError(NETWORK_BROKE);
 					}
 				}
@@ -462,14 +515,34 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	}
 
-	private void display(Level level, LevelView renderer, Camera camera){
-		if(level==null){
+	private void display(Level level, LevelView renderer, Camera camera) {
+		if (level == null) {
 			return;
 		}
 		renderer.setLevel(level);
 		myView.getRoot().setContent(renderer.renderLevel());
 		double[] coordinates = level.getNewCameraLocations();
 		camera.focusOn(coordinates[INT.X], coordinates[INT.Y]);
+	}
+
+	public void openPreference() {
+		mySettings.bringUpPreferences();
+	}
+
+	public void setSocialAvatar (Avatar av) {
+		myView.addAvatarToPause(av);
+	}
+
+	@Override
+	public void loadNewGame () {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Game> findGames () {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
