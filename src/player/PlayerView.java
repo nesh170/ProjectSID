@@ -74,7 +74,6 @@ public class PlayerView {
 		myController = playerController;
 		Group errorGroup = new Group();
 		myBorderPane.setLeft(errorGroup);
-		myController.setErrorHandler(new ErrorHandler(errorGroup));
 		myBorderPane.setTop(myMenuBar.getBar());
 		myPauseScreen = makePauseScreen(playerController);
 	}

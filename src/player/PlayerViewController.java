@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import resources.constants.INT;
 import socCenter.Avatar;
 import util.DialogUtil;
-import util.ErrorHandler;
 import voogasalad.util.network.Network;
 import data.DataHandler;
 import javafx.animation.Animation;
@@ -48,10 +47,10 @@ import media.VideoPlayer;
 public class PlayerViewController implements GamePlayerInterface {
 
 	public final static double FRAME_RATE = 60;
-	public final static double NETWORK_RATE = 15;
+	public final static double NETWORK_RATE = 30;
 	public final static double UPDATE_RATE = 120;
 	public final static int PORT_NUMBER = 60910;
-	public static final String NETWORK_BROKE = "NETWORK BROKE";
+	public final static String NETWORK_BROKE = "NETWORK BROKE";
 
 	private static final String NETWORK = "Network";
 	private static final String IPQUERY = "What is the IP address you would like to connect to?";
@@ -79,8 +78,6 @@ public class PlayerViewController implements GamePlayerInterface {
 	private Network myNetwork;
 
 	private Level myNetworkLevel;
-	private ErrorHandler myErrorHandler;
-	private String mySocialImagePath;
 
 	public PlayerViewController(PlayerView view) {
 		myView = view;
@@ -177,12 +174,10 @@ public class PlayerViewController implements GamePlayerInterface {
 			myGameLevels = myGame.levels();
 			myAudio = DataHandler.getAudioFromDir(myGameFolder);
 			myVideo = DataHandler.getVideoFromDir(myGameFolder);
-			myVideoPlayer = new VideoPlayer();
 			myAudioController = new AudioController(new MediaPlayer(myAudio));
 			mySettings = new PreferencePane(myAudioController);
 			mySettings.setController(this);
 		} catch (IOException | NullPointerException e) {
-			e.printStackTrace();
 			DialogUtil.displayMessage("ERROR", "Invalid Game Folder ):");
 			System.exit(0);
 		}
@@ -338,7 +333,6 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	@Override
 	public void saveGame() {
-
 		if (mySaveFolder == null) {
 			saveAs();
 		} else {
@@ -409,13 +403,9 @@ public class PlayerViewController implements GamePlayerInterface {
 			myTimeline.play();
 			sendClientLevels();
 			receiveFromClient();
-		} catch (IOException e) {
-			myErrorHandler.displayError(NETWORK_BROKE);
+		} catch (Exception e) {
+			DialogUtil.displayMessage(NETWORK_BROKE, "Could not set up server.");
 		}
-	}
-
-	public void setErrorHandler(ErrorHandler errorHandler) {
-		myErrorHandler = errorHandler;
 	}
 
 	private void sendClientLevels() {
@@ -424,10 +414,10 @@ public class PlayerViewController implements GamePlayerInterface {
 			protected Void call() {
 				while (true) {
 					try {
-						myNetwork.sendStringToClient(getCurrentLevelinXML());
-						Thread.sleep(500);
+						myNetwork.sendObject(getCurrentLevelinXML());
+						Thread.sleep(200);
 					} catch (Exception e) {
-						myErrorHandler.displayError(NETWORK_BROKE);
+						DialogUtil.displayMessage(NETWORK_BROKE, "Client disconnected.");
 					}
 				}
 			}
@@ -445,15 +435,12 @@ public class PlayerViewController implements GamePlayerInterface {
 			protected Void call() throws Exception {
 				while (true) {
 					try {
-						String keyControl = myNetwork.getStringFromClient();
 						@SuppressWarnings("unchecked")
-						List<String> keyString = (ArrayList<String>) DataHandler
-						.fromXMLString(keyControl);
+						List<String> keyString = (ArrayList<String>) myNetwork.receiveObject();
 						handleKeyEvent(keyString.get(0), keyString.get(1),
-								INT.SECOND_PLAYER); // Add code to make another
-						// player play
+								INT.SECOND_PLAYER); 
 					} catch (Exception e) {
-						myErrorHandler.displayError(NETWORK_BROKE);
+						DialogUtil.displayMessage(NETWORK_BROKE, "Server disconnected.");
 					}
 				}
 			}
@@ -466,15 +453,12 @@ public class PlayerViewController implements GamePlayerInterface {
 
 	public void startClient() {
 		try {
-			// myTimeline.stop();
-			// myView.displayPopUp(CONNECT_SERVER_STRING, POPUP_WINDOW_SIZE);
-			// myView.changePopUpText(SERVER_CONNECTED_STRING);
-			// Thread.sleep(2000);
-			// myView.closePopUp();
-			myNetwork.setUpClient(DialogUtil.inputDialog(NETWORK, IPQUERY),
-					PORT_NUMBER);
+			String ipAddress = DialogUtil.inputDialog(NETWORK, IPQUERY);
+			myNetwork.setUpClient(ipAddress, PORT_NUMBER);
+			myView.closePopUp();
 			myView.getRoot().setOnKeyPressed(key -> sendEvent(key));
 			myView.getRoot().setOnKeyReleased(key -> sendEvent(key));
+			myView.getRoot().requestFocus();
 			receiveLevels();
 			LevelView renderer = new LevelView(null, EditMode.EDIT_MODE_OFF);
 			Camera camera = new Camera(myView.getRoot());
@@ -486,7 +470,7 @@ public class PlayerViewController implements GamePlayerInterface {
 			networkTimeline.getKeyFrames().add(displayFrame);
 			networkTimeline.play();
 		} catch (Exception e) {
-			System.err.println("Can't start Client");
+			DialogUtil.displayMessage(NETWORK_BROKE, "Could not start client.");
 		}
 	}
 
@@ -495,9 +479,9 @@ public class PlayerViewController implements GamePlayerInterface {
 		keyData.add(key.getEventType().getName());
 		keyData.add(key.getCode().getName());
 		try {
-			myNetwork.sendStringToServer(DataHandler.toXMLString(keyData));
+			myNetwork.sendObject(keyData);
 		} catch (Exception e) {
-			myErrorHandler.displayError(NETWORK_BROKE);
+			DialogUtil.displayMessage(NETWORK_BROKE, "Could not send key events.");
 		}
 	}
 
@@ -507,11 +491,11 @@ public class PlayerViewController implements GamePlayerInterface {
 			protected Void call() {
 				while (true) {
 					try {
-						String levelString = myNetwork.getStringFromServer();
-						myNetworkLevel = (Level) DataHandler
-								.fromXMLString(levelString);
-					} catch (Exception e) {
-						myErrorHandler.displayError(NETWORK_BROKE);
+						String levelString = (String) myNetwork.receiveObject();
+						myNetworkLevel = (Level) DataHandler.fromXMLString(levelString);
+					} catch (IOException | ClassNotFoundException e) {
+						System.out.println(e.getClass().getName());
+						DialogUtil.displayMessage(NETWORK_BROKE, "Processing levels failed.");
 					}
 				}
 
