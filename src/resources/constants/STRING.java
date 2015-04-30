@@ -195,6 +195,8 @@ public class STRING {
 		public static final String TEXT_BOX_STYLE = " -fx-background-color: transparent; -fx-border-color: #000;";
 		public static final String BACKGROUND_STYLE = "-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #e6c9ff, #fffac9);";
 		
+		public static final String ACTION_NAME = "Action";
+		
 		public static final String COMBO_SPRITE1_NAME = "Sprite Active";
 		public static final String COMBO_SPRITE1_TAG = "SpriteActive";
 		public static final String COMBO_SPRITE2_NAME = "Sprite Inactive";
@@ -205,9 +207,9 @@ public class STRING {
 		public static final String COMBO_SPRITE_SELECT_TAG = "ChooseSprite";
 		public static final String TEXT_PROMPT = "Value";
 		public static final String SAVE_BUTTON_TEXT = "Save";
-		public static final String SWITCH_ACTION = "Switch Out ";
+		public static final String SWITCH_ACTION = "Switch Out " + ACTION_NAME;
 	
-		public static final String ACTION_NAME = "Action";
+	
 		
 		
 		
@@ -259,9 +261,9 @@ public class STRING {
     static
     {
     	NO_VALUE_NEEDED_ACTIONS = new ArrayList<String>();
-    	NO_VALUE_NEEDED_ACTIONS.add("Kill ");
-    	NO_VALUE_NEEDED_ACTIONS.add("Fall ");
-    	NO_VALUE_NEEDED_ACTIONS.add("Climb ");
-    	NO_VALUE_NEEDED_ACTIONS.add("Switch Out ");
+    	NO_VALUE_NEEDED_ACTIONS.add("Kill Action");
+    	NO_VALUE_NEEDED_ACTIONS.add("Fall Action");
+    	NO_VALUE_NEEDED_ACTIONS.add("Climb Action");
+    	NO_VALUE_NEEDED_ACTIONS.add("Switch Out Action");
     }
 }

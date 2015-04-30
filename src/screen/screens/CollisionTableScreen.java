@@ -39,6 +39,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.Screen;
 import screen.controllers.CollisionTableScreenController;
+import screen.screenmodels.CollisionMap;
 import sprite.Sprite;
 
 
@@ -252,12 +253,11 @@ public class CollisionTableScreen extends Screen{
 	 */
 	private CollisionTableScreenController myController;
 	private List<String> levelSpriteTags;
-	private CollisionTable collTable; // TODO: how to get
 	private StackPane tablesDisplay;	
 	private Map<String, ObservableList<String>> mapOfSpriteTypesToExistingSpriteStringNames;
-	//private Map<String, Map<String, List<String>>> collisionTableMap;
-	private Map<String, Map<String, List<List<String>>>> collisionTableMap;
-	
+
+	private CollisionMap collisionTableMap;
+
 	public CollisionTableScreen(double width, double height) {
 		super(width, height);
 	}
@@ -300,16 +300,19 @@ public class CollisionTableScreen extends Screen{
 	 * 
 	 */
 	public CollisionTableScreen(CollisionTableScreenController controller, double width, double height, Set<String> spriteTags,
-			Map<String, ObservableList<String>> spriteMap) {
+			CollisionMap collisionTableMap, Map<String,ObservableList<String>> spriteMap) {
 		
 		super(width, height);
 		
 		myController = controller;
 		
 		levelSpriteTags = new LinkedList<String>(spriteTags);
-		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap; // map obtained from Level Edit Screen
 		
-		collisionTableMap = new HashMap<String, Map<String, List<List<String>>>>(); // map populated by Collision Table Screen
+		mapOfSpriteTypesToExistingSpriteStringNames = spriteMap;
+
+		this.collisionTableMap = collisionTableMap;
+
+
 		createVBoxOfCollisionRows(); 
 		this.setCenter(tablesDisplay);
 	}
@@ -332,7 +335,7 @@ public class CollisionTableScreen extends Screen{
 		ImageView addRowButton = new ImageView(addRowButtonImg);
 		addRowButton.setPreserveRatio(true);
 		
-		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), 50);
+		setButtonStyle(addRowButton, addRowButtonImg, new Image(STRING.COLLISION_EDIT.ADD_BUTTON_PRESSED_IMG), INT.ADD_ROW_BUTTON_SIZE);
 		
 		ScrollPane levelSP = configureScrollPane(addRowButton);
 		levelSP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);    // Horizontal scroll bar
@@ -436,7 +439,7 @@ public class CollisionTableScreen extends Screen{
 		
 		action.valueProperty().addListener(new ChangeListener<String>() {
 			
-			public void changed(ObservableValue ov, String t, String t1) {                
+			public void changed(ObservableValue ov, String t, String t1) {     
 				if (STRING.NO_VALUE_NEEDED_ACTIONS.contains(t1))
 				{
 					text.setDisable(true);
@@ -468,6 +471,7 @@ public class CollisionTableScreen extends Screen{
 
 						public void changed(ObservableValue ov, String t, String t1) {                
 							optionalSprites.set(0, t1);
+
 						}
 					});
 
@@ -486,7 +490,7 @@ public class CollisionTableScreen extends Screen{
 		saveButton.setPreserveRatio(true);
 		
 		setButtonStyle(saveButton, saveButtonImg, new Image(STRING.COLLISION_EDIT.SAVE_BUTTON_PRESSED_IMG), INT.SAVE_BUTTON_SIZE);
-		saveButton.setOnMouseClicked(e-> this.saveRow(activeSpriteList.getValue(), inactiveSpriteList.getValue(), 
+		saveButton.setOnMouseClicked(e-> this.saveRowAndAddToCollisionTableMap(activeSpriteList.getValue(), inactiveSpriteList.getValue(), 
 				direction.getValue(), action.getValue(), optionalSprites.get(0), text.getText()));
 		collisionSet.add(saveButton, INT.SAVE_BUTTON_COLUMN, INT.TOP_ROW); 
 		
@@ -576,7 +580,7 @@ public class CollisionTableScreen extends Screen{
 	    }
 	}
 	
-	private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
+	/*private Map<String, List<List<String>>> getOrInstantiateActiveSpriteMap(String activeSpriteTag)
 	{
 		Map<String, List<List<String>>> activeSpriteMap;
 		if (!(this.collisionTableMap.containsKey(activeSpriteTag)))
@@ -604,9 +608,9 @@ public class CollisionTableScreen extends Screen{
 		}
 		
 		return actionList;
-	}
+	}*/
 	
-	private void saveRow(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
+	private void saveRowAndAddToCollisionTableMap(String activeSp, String inactiveSp, String dir, String action, String switchOption, String value)
 	{
 		double valDouble = parseDouble(value);
 		
@@ -615,27 +619,45 @@ public class CollisionTableScreen extends Screen{
 		thisSpritePair.initialize(activeSp, inactiveSp);
 		*/
 		
-		
 	
-		List<String> actionParameters = new LinkedList<String>();
+		List<String> actionParameters = new ArrayList<String>();
 	//	actionParameters.add(dir);
 		actionParameters.add(action.replaceAll("\\s", "") + STRING.COLLISION_EDIT.ACTION_NAME);
 		actionParameters.add(value);
 		actionParameters.add(switchOption);
 		
+		collisionTableMap.put(activeSp, inactiveSp, STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
 		
-		Map<String, List<List<String>>> activeSpriteMap = this.getOrInstantiateActiveSpriteMap(activeSp);
 		
-
-		List<List<String>> actionList = this.getOrInstantiateDirectionListOfActions(activeSpriteMap, inactiveSp);
 		
-	
-		actionList.set(STRING.DIRECTION_TO_INTEGER_MAP.get(dir), actionParameters);
-		
-		activeSpriteMap.put(inactiveSp, actionList);
-		collisionTableMap.put(activeSp, activeSpriteMap);
-	
-	
 	}
-
+/*	
+	private void testingMap()
+	{
+		for (String s1 : collisionTableMap.keySet())
+		{
+			Map<String, List<List<String>>> innerMap = collisionTableMap.get(s1);
+				
+			for (String s2 : innerMap.keySet())
+			{
+				List<List<String>> directionList = innerMap.get(s2);
+				
+				for (int i = 0; i < 4; i++)
+				{
+					List<String> actionList = directionList.get(i);
+					
+					System.out.print(s1 + "   " + s2 + "   " + i + " :  " + "action List = size = " + actionList.size() + " ");
+					for (String each : actionList)
+					{
+						System.out.print(each + "  ");
+					}
+					System.out.println();
+				}
+				System.out.println();
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}*/
+	
 }

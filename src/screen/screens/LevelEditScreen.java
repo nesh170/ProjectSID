@@ -67,6 +67,7 @@ import resources.constants.INT;
 import resources.constants.STRING;
 import screen.controllers.LevelEditScreenController;
 import screen.controllers.ScreenController;
+import screen.screenmodels.CollisionMap;
 import screen.screenmodels.LevelEditModel;
 import screen.util.VerticalButtonBox;
 import sprite.Sprite;
@@ -290,7 +291,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 				makeButtonForPane(languageResources().getString("AddHeightDown"), e -> model.addHeightDown());
 
 		Button addCollTableButton = 
-				makeButtonForPane(languageResources().getString("EditCols"), e -> controller.loadCollisionTableScreen(this));
+				makeButtonForPane(languageResources().getString("EditCols"), e -> controller.loadCollisionTableScreen(this, model.getCollisionMap(), stringToListMap));
 		
 		Button addTagType = 
 				makeButtonForPane(languageResources().getString("AddTagType"), e -> addTagType(e));
@@ -460,7 +461,7 @@ public class LevelEditScreen extends LevelPlatformCapableScreen {
 
 	}
 
-	public void updateCollisions(Map<String, Map<String, List<String>>> collisionMap) {
+	public void updateCollisions(CollisionMap collisionMap) {
 		model.updateCollisions(collisionMap);
 	}
 

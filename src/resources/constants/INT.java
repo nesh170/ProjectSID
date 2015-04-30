@@ -72,6 +72,8 @@ public class INT {
 	public static final int SAVE_BUTTON_COLUMN = 6;
 	public static final int TRASH_BUTTON_COLUMN = 7;
 	
+	public static final int ADD_ROW_BUTTON_SIZE = 50;
+	
 	public static final int SAVE_BUTTON_SIZE = 100;
 	public static final int TRASH_BUTTON_SIZE = 70;
 	
@@ -112,6 +114,7 @@ public class INT {
     public static final int COLLISION_RIGHT=1;
     public static final int COLLISION_UP=2;
     public static final int COLLISION_DOWN=3;
+    public static final int NUM_DIRECTIONS = 4;
 
     //Coordinates
     public static final int X = 1;

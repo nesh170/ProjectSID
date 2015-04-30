@@ -65,6 +65,7 @@ import resources.constants.STRING;
 import screen.Screen;
 import screen.ScreenAnimation;
 import screen.factories.ScreenFactory;
+import screen.screenmodels.CollisionMap;
 import screen.screens.GameEditScreen;
 import screen.screens.GamePlayScreen;
 import screen.screens.LevelEditScreen;
@@ -381,9 +382,10 @@ public class ScreenController {
 	 * @param sprites
 	 * @return Tab
 	 */
-	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, Map<String, ObservableList<String>> spriteMap) {
+	private Tab createCollisionTableScreen(Tab tab, Set<String> spriteTags, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
+
 		return tabManager.addTabWithScreenWithStringIdentifier(
-					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, spriteMap),
+					screenFactory.createCollisionTableScreen(spriteTags, collisionTableScreenManager, collisionTableMap, spriteMap),
 					STRING.COLLISION_EDIT.COLLISION_TABLE_EDIT
 					);
 		
@@ -703,10 +705,12 @@ public class ScreenController {
 		 * @author Anika
 		 * @param levelEditScreen
 		 */
-		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen) {
+		public Tab loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
+			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), levelEditScreen.getSpriteMap());
 
+			return createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), collisionTableMap, spriteMap);
+			
 		}
 		
 	}
@@ -731,7 +735,7 @@ public class ScreenController {
 	private class CollisionTableScreenManager implements CollisionTableScreenController {
 
 		@Override
-		public void returnToLevel(Map<String, Map<String, List<String>>> collisionMap, Tab switchTo) {
+		public void returnToLevel(CollisionMap collisionMap, Tab switchTo) {
 			tabManager.removeTabAndChangeSelected(switchTo);
 			if (switchTo.getContent() instanceof LevelEditScreen) {
 				LevelEditScreen levelEditScreen = (LevelEditScreen) switchTo.getContent();

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import screen.screenmodels.CollisionMap;
 import sprite.Sprite;
 
 public class CollisionTable {
@@ -13,10 +14,16 @@ public class CollisionTable {
 	private Map<String, Map<String, List<Map<Sprite, Action>>>> myBigTable;
 	private List<Action> availableActions;
 	private List<String> tagList;
-	  
+
+	
+	private CollisionMap collisionMap;
+	
+
+
 	public CollisionTable(){
 		myBigTable = new HashMap<>();
 		tagList = new ArrayList<>();
+		collisionMap = new CollisionMap();
 	}
 	
 	
@@ -71,5 +78,9 @@ public class CollisionTable {
 			return (myBigTable.get(type1).get(type2).get(direction).get(spr));
 		}
 		return null;
+	}
+
+	public CollisionMap getMap() {
+		return collisionMap;
 	}
 }
