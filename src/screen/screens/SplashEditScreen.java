@@ -4,6 +4,7 @@ import game.Game;
 import gameEngine.actions.KillAction;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import javafx.geometry.Point2D;
@@ -71,6 +72,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		configureButtons();
 		configureDisplayArea();
 		this.getStyleClass().add(STRING.CSS.PANE);
+		goalMap = new HashMap<Sprite, Integer>();
 	}
 	
 	@Override
@@ -288,6 +290,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			Image image = createImageFromFile(0);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE;
 			splashEditModel.createImageView(image);
+			splashEditModel.setBackgroundImage(image.toString());
 		} catch (Exception ex) {			
 			//NO CATCH			
 		}
@@ -320,7 +323,10 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
 		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
-		goalMap.put(sprite, 0);
+		goalMap.put(sprite, 1);
+		splashEditModel.setPlayerSprite(sprite);
+		splashEditModel.setSprites(sprite);
+		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.saveSplashScreen();
 	}
 
@@ -372,7 +378,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			this.getChildren().add(splashEditModel.getImageView());	
 		}
 		else if(tag == STRING.SPLASH_EDIT_SCREEN.TAG_BACKGROUND_IMAGE) {	
-			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));		
+			rectangle.setFill(new ImagePattern(splashEditModel.getImageView().getImage()));	
+			//splashEditModel.setBackgroundImage(splash);
 		}		 
 		else if (tag == STRING.SPLASH_EDIT_SCREEN.TAG_TEXT) {
 			splashEditModel.placeTextAtXY(counter-1, e);
