@@ -167,7 +167,7 @@ public class PlayerView {
 	}
 
 	public void enableButtonItems() {
-		myMenuBar.enableFileMenu();
+		myMenuBar.enableAll();
 	}
 		
 }

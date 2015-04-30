@@ -1,12 +1,15 @@
 package player;
 
 import gameEngine.actions.GroovyAction;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import sid.SIDSocial;
 import sprite.Sprite;
 import util.DialogUtil;
@@ -113,7 +116,7 @@ public class PlayerMenu {
 		fileMenu.getItems().addAll(openItem, pauseItem, playItem, restartItem,
 				saveItem, saveAsItem, loadItem);
 
-		disableFileMenuItems(fileMenu);
+		toggleMenuItems(fileMenu, true, "Open Game");
 
 		return fileMenu;
 	}
@@ -214,19 +217,13 @@ public class PlayerMenu {
 		return myMenu;
 	}
 
-	private void toggleMenuItems(Menu fileMenu, List<String> exceptions, boolean disable) {
-		fileMenu.getItems().stream().filter(item -> exceptions.contains(item.getText()))
+	public void toggleMenuItems(Menu fileMenu, boolean disable, String... exceptions) {
+		fileMenu.getItems().stream().filter(item -> !Arrays.asList(exceptions).contains(item.getText()))
 		.forEach(item -> item.setDisable(disable));
 	}
-	
 
-	private void disableFileMenuItems(Menu fileMenu) {
-		fileMenu.getItems().stream().filter(item -> !item.getText()
-				.equals("Open Game"))
-				.forEach(item -> item.setDisable(true));
-	}
-
-	public void enableFileMenu() {
-		myMenu.getMenus().get(0).getItems().stream().forEach(item -> item.setDisable(false));
+	public void enableAll() {
+		myMenu.getMenus().stream()
+		.forEach(item -> toggleMenuItems(item, false));
 	}
 }
