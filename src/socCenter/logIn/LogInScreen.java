@@ -214,12 +214,19 @@ public class LogInScreen extends Screen {
 	
 	     ok.setOnAction(e -> controller.createProfile(createProfilePopup, 
 	    		 newUserName, newPassWord, reNewPassWord, imageURL, 
-	    		 avPack.getAvatar(defaultAvChoices.getSelectionModel()
-	    				 .getSelectedItem()).getURL()));
+	    		 revURL(imageURL)));
 	     cancel.setOnAction(e -> createProfilePopup.hide());
 	     
 	     return grid;
 		
+	}
+	
+	public String revURL(TextField imgField){
+		if(defaultAvChoices.getSelectionModel().getSelectedItem() != null) {
+			return avPack.getAvatar(defaultAvChoices.getSelectionModel().getSelectedItem()).getURL();
+		} else {
+			return imgField.getText();
+		}
 	}
 	
 	private GridPane makeLogInGridPane() {
