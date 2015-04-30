@@ -685,7 +685,8 @@ public class ScreenController {
 		public void loadCollisionTableScreen(LevelEditScreen levelEditScreen, CollisionMap collisionTableMap, Map<String, ObservableList<String>> spriteMap) {
 			
 			Tab levelEditTab = tabManager.getTabSelectionModel().getSelectedItem();
-			createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), collisionTableMap, spriteMap);
+
+			return createCollisionTableScreen(levelEditTab, levelEditScreen.getTags(), collisionTableMap, spriteMap);
 			
 		}
 		
