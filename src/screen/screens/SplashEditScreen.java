@@ -161,7 +161,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	private Button makeAddImageButton() {
 		Button addImage = new Button(STRING.SPLASH_EDIT_SCREEN.ADD_IMAGE);
 		setLargeButtonSize(addImage);
-		addImage.setOnMouseClicked(e -> addImage());
+		addImage.setOnMouseClicked(e -> addImage(e));
 		
 		return addImage;
 	}
@@ -259,7 +259,7 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 //		return image;	
 //	}
 	
-	private void addImage() {
+	private void addImage(MouseEvent e) {
 		try {	
 			File file = null;
 			Image image = null;
@@ -274,8 +274,8 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 			getParent().setCursor(imageCursor);
 			tag = STRING.SPLASH_EDIT_SCREEN.TAG_IMAGE;
 			splashEditModel.createImageView(image);
-			splashEditModel.addImageView(file.getPath());
-			this.setOnKeyPressed(e -> splashEditModel.resizeAndRotateImage(e));
+			splashEditModel.addImageView(e, file.getPath());
+			this.setOnKeyPressed(ee -> splashEditModel.resizeAndRotateImage(ee));
 		} catch (Exception ex) {		
 			//NO CATCH		
 		}
@@ -332,18 +332,19 @@ public class SplashEditScreen extends LevelPlatformCapableScreen {
 	}
 	
 	private void saveSplashScreen() {
-		splashEditModel.createImageView(null);
-		splashEditModel.placeImageViewOffScreen();
-		splashEditModel.addImageView(null);
+		//splashEditModel.createImageView(null);
+		//splashEditModel.placeImageViewOffScreen();
+		//splashEditModel.addImageView(null);
+
 		Sprite sprite = new Sprite(new Point2D(INT.SPLASH_EDIT_OFFSCREEN, INT.SPLASH_EDIT_OFFSCREEN));
 		sprite.addAction(new KillAction(sprite, 0.0, KeyCode.ENTER));
 		splashEditModel.addSpriteImageToSpriteList(sprite);
-		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 		goalMap.put(sprite, 1);
 		splashEditModel.setPlayerSprite(sprite);
 		splashEditModel.setSprites(sprite);
 		splashEditModel.setGoalMap(goalMap);
 		splashEditModel.saveSplashScreen();
+		controller.saveSplashScreen(game, splashEditModel.getSplashScreen());
 	}
 
 	private void trashSplashScreen() {		

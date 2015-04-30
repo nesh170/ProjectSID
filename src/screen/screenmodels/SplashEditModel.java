@@ -32,7 +32,7 @@ import levelPlatform.splashScreen.SplashScreen;
 public class SplashEditModel {
 
 	private SplashScreen splashScreen;
-	private List<Sprite> images = new ArrayList();
+	//private List<Sprite> images = new ArrayList();
 	private List<ImageView> imageViewArray = new ArrayList();
 	private List<Sprite> spriteList = new ArrayList();
 	private ImageView imageView;
@@ -68,9 +68,9 @@ public class SplashEditModel {
 	/**
 	 * add an imageview to the array of images
 	 */
-	public void addImageView(String path) {
+	public void addImageView(MouseEvent e, String path) {
 		imageViewArray.add(imageView);
-		Sprite sprite = new Sprite(new Point2D(imageView.getX(), imageView.getY()));
+		Sprite sprite = new Sprite(new Point2D(e.getX(), e.getY()));
 		sprite.setImagePath(path);
 		spriteList.add(sprite);
 	}
@@ -225,7 +225,7 @@ public class SplashEditModel {
 	 * @param sprite
 	 */
 	public void addSpriteImageToSpriteList(Sprite sprite) {
-		images.add(sprite);
+		spriteList.add(sprite);
 	}
 	
 	/**
