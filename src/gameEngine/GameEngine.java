@@ -139,6 +139,7 @@ public class GameEngine extends GameEngineAbstract {
         return myCurrentLevel.getUnmodifiableHUDMap();
     }
     
+    @Deprecated
     public List<Component> getDefaultHUDComponents(){
     	List<Component> components = new ArrayList<Component>();
     	for(String type: new String[]{"Ammo","Energy","Health","Life","Time"}){
